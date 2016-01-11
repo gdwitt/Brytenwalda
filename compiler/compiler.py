@@ -279,6 +279,9 @@ class Compiler(object):
             if object_type == objects.Sound:
                 result += object_type.export_samples()
 
+            # "Party" needs 2 len's.
+            if object_type == objects.Party:
+                result += "%d " % len(object_type.objects)
             result += "%d\n" % len(object_type.objects)
             for id in object_type.objects:
                 try:
