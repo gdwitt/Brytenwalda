@@ -7,7 +7,7 @@
 ####################################################################################################################
 import source.module_presentations as m_presentations
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Presentation(GenericEntity):

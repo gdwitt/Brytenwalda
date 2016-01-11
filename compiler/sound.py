@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 import source.module_sounds as m_sounds
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Sound(GenericEntity):

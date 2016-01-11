@@ -8,7 +8,7 @@
 ####################################################################################################################
 import source.module_simple_triggers as m_s_triggers
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class SimpleTrigger(GenericEntity):

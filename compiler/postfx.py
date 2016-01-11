@@ -9,7 +9,7 @@
 ####################################################################################################################
 import source.module_postfx as m_postfx
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class PostFX(GenericEntity):

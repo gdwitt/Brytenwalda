@@ -7,7 +7,7 @@
 ####################################################################################################################
 import source.module_music as m_music
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Track(GenericEntity):

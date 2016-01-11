@@ -1,7 +1,7 @@
 import source.module_scripts as m_scripts
 import source.process_common as p_common
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Script(GenericEntity):

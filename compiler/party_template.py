@@ -19,7 +19,7 @@ import logging
 import source.process_common as p_common
 import source.module_party_templates as m_party_templates
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class PartyTemplate(GenericEntity):

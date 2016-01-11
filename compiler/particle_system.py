@@ -1,6 +1,6 @@
 import source.module_particle_systems as m_particle_systems
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class ParticleSystem(GenericEntity):

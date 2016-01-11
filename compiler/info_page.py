@@ -7,7 +7,7 @@
 import source.process_common as p_common
 import source.module_info_pages as m_info_pages
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class InfoPage(GenericEntity):

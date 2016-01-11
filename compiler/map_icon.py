@@ -10,13 +10,9 @@
 #  7) Offset y position for the flag icon.
 #  8) Offset z position for the flag icon.
 ####################################################################################################################
-import logging
-
-from collections import OrderedDict
-
 import source.module_map_icons as m_map_icons
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class MapIcon(GenericEntity):

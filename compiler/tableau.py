@@ -1,6 +1,6 @@
 import source.module_tableau_materials as m_tableau
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Tableau(GenericEntity):

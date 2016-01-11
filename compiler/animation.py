@@ -13,7 +13,7 @@
 ####################################################################################################################
 import source.module_animations as m_animations
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Animation(GenericEntity):

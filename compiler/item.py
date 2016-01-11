@@ -22,7 +22,7 @@ from source.process_common import convert_to_identifier, replace_spaces
 import source.module_items as m_items
 import source.header_items as hi
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Item(GenericEntity):

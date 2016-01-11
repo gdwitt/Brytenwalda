@@ -22,7 +22,7 @@ from source.process_common import convert_to_identifier, replace_spaces
 
 import source.module_scenes as m_scenes
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Scene(GenericEntity):

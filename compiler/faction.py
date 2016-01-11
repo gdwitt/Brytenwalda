@@ -20,7 +20,7 @@ from collections import OrderedDict
 import source.process_common as p_common
 import source.module_factions as m_factions
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Faction(GenericEntity):

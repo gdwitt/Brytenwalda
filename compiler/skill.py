@@ -10,7 +10,7 @@
 import source.process_common as p_common
 import source.module_skills as m_skills
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Skill(GenericEntity):

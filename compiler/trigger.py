@@ -13,7 +13,7 @@
 ####################################################################################################################
 import source.module_triggers as m_triggers
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Trigger(GenericEntity):

@@ -34,7 +34,7 @@ from collections import OrderedDict
 import source.module_dialogs as m_dialogs
 import source.process_common as p_common
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 speaker_pos = 0

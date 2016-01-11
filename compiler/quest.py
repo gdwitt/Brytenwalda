@@ -9,7 +9,7 @@
 ####################################################################################################################
 import source.module_quests as m_quests
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Quest(GenericEntity):

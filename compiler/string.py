@@ -1,8 +1,7 @@
 import source.process_common as p_common
-
-from . import GenericEntity
-
 import source.module_strings as m_strings
+
+from .generic_entity import GenericEntity
 
 
 class String(GenericEntity):

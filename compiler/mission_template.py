@@ -26,7 +26,7 @@ import source.process_common as p_common
 import source.header_triggers as h_triggers
 import source.module_mission_templates as m_mission_templates
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class MissionTemplate(GenericEntity):

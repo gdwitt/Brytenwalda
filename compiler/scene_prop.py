@@ -9,7 +9,7 @@
 import source.header_scene_props as h_scene_props
 import source.module_scene_props as m_scene_props
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class SceneProp(GenericEntity):

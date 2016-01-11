@@ -20,7 +20,7 @@
 import source.process_common as p_common
 import source.module_parties as m_parties
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Party(GenericEntity):

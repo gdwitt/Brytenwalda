@@ -22,7 +22,7 @@
 import source.process_common as p_common
 import source.module_skins as m_skins
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Skin(GenericEntity):

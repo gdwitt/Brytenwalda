@@ -29,7 +29,7 @@ import logging
 
 import source.module_game_menus as m_menus
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 class Menu(GenericEntity):

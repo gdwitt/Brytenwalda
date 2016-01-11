@@ -23,7 +23,7 @@
 ####################################################################################################################
 import logging
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 import source.header_troops as h_trp
 import source.header_skills as h_skills

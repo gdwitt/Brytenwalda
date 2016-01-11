@@ -16,7 +16,7 @@
 import source.process_common as p_common
 import source.module_meshes as m_meshes
 
-from . import GenericEntity
+from .generic_entity import GenericEntity
 
 
 def export_tuple_f(iterable):
