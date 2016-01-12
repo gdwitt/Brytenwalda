@@ -3,8 +3,120 @@ from ..header_parties import *
 from ..header_mission_templates import *
 from ..header_map_icons import *
 
+from . import caravans, towns
 
 scripts = [
+
+  #script_do_party_center_trade
+  # INPUT: arg1 = party_no, arg2 = center_no, arg3 = percentage_change_in_center
+  # OUTPUT: reg0 = total_change
+  # todo: clean this code.
+  ("do_party_center_trade",
+    [
+      (store_script_param, ":party_no", 1),
+      (store_script_param, ":center_no", 2),
+
+      (try_begin),
+        (gt, "$cheat_mode", 0),
+        (str_store_party_name, s1, ":center_no"),
+        (display_message, "@{!}DEBUG : {s1} is trading with villagers"),
+      (try_end),
+
+      (store_script_param, ":percentage_change", 3), #this should probably always be a constant. Currently it is 25.
+      (assign, ":percentage_change", 30),
+      ##diplomacy start+ chief
+      (party_get_slot, ":origin", ":party_no", slot_party_last_traded_center),
+      #If optional economic changes are enabled, reduce the percentage change in order
+      #to make prices feel less static.
+      (try_begin),
+        (ge, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
+        #Only apply lessened price movements to towns.
+        (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_town),
+            (is_between, ":center_no", towns_begin, towns_end),
+        #This halves the average impact as well as making it more variable.
+        (val_add, ":percentage_change", 1),
+        (store_random_in_range, ":percentage_change", 0, ":percentage_change"),
+        #Display economics diagnostic
+        (ge, "$cheat_mode", 3),
+        (str_store_party_name, s3, ":origin"),
+        (str_store_party_name, s4, ":center_no"),
+        (assign, reg4, ":percentage_change"),
+        (display_message, "@{!}DEBUG -- Trade from {s3} to {s4}: rolled random impact of {reg4}"),
+      (try_end),
+      ##diplomacy end+
+
+      (party_get_slot, ":origin", ":party_no", slot_party_last_traded_center),
+      (party_set_slot, ":party_no", slot_party_last_traded_center, ":center_no"),
+      ##diplomacy start+
+      #Update the record of trade route arrival times
+      (try_begin),
+         (ge, ":origin", centers_begin),
+      (this_or_next|party_slot_eq, ":origin", villages_begin, villages_end),
+         (is_between, ":origin", villages_begin, villages_end),
+         (store_current_hours, ":cur_hours"),
+         (party_set_slot, ":origin", dplmc_slot_village_trade_last_arrived_to_market, ":cur_hours"),
+      (try_end),
+      (try_begin),
+         (ge, ":origin", centers_begin),
+         (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_town),
+            (is_between, ":center_no", towns_begin, towns_end),
+         (store_current_hours, ":cur_hours"),
+         (try_for_range, ":trade_route_slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
+            (party_slot_eq,  ":center_no", ":trade_route_slot", ":origin"),
+            (store_sub, ":trade_route_arrival_slot", ":trade_route_slot", slot_town_trade_routes_begin),
+            (val_add, ":trade_route_arrival_slot", dplmc_slot_town_trade_route_last_arrivals_begin),
+            (is_between, ":trade_route_arrival_slot", dplmc_slot_town_trade_route_last_arrivals_begin, dplmc_slot_town_trade_route_last_arrivals_end),#this will always be true unless a modder increased the number of trade route slots without increasing the number of last arrival slots
+            (party_set_slot, ":center_no", ":trade_route_arrival_slot", ":cur_hours"),
+         (try_end),
+         (else_try),
+            (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_village),
+               (is_between, ":center_no", villages_begin, villages_end),
+         (store_current_hours, ":cur_hours"),
+         (party_set_slot, ":center_no", dplmc_slot_village_trade_last_returned_from_market, ":cur_hours"),
+      (try_end),
+      ##diplomacy end+
+
+      (assign, ":total_change", 0),
+      (store_sub, ":item_to_price_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
+      (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),
+        (store_add, ":cur_good_price_slot", ":cur_good", ":item_to_price_slot"),
+        (party_get_slot, ":cur_merchant_price", ":party_no", ":cur_good_price_slot"),
+        (party_get_slot, ":cur_center_price", ":center_no", ":cur_good_price_slot"),
+        (store_sub, ":price_dif", ":cur_merchant_price", ":cur_center_price"),
+        (assign, ":cur_change", ":price_dif"),
+        (val_abs, ":cur_change"),
+        (val_add, ":total_change", ":cur_change"),
+        (val_mul, ":cur_change", ":percentage_change"),
+        (val_div, ":cur_change", 100),
+
+        #This is to reconvert from absolute value
+        (try_begin),
+          (lt, ":price_dif", 0),
+          (val_mul, ":cur_change", -1),
+        (try_end),
+
+        (assign, ":initial_price", ":cur_center_price"),
+
+        #The new price for the caravan or peasant is set before the change,
+        # so the prices in the trading town have full effect on the next center
+        (party_set_slot, ":party_no", ":cur_good_price_slot", ":cur_center_price"),
+
+        (val_add, ":cur_center_price", ":cur_change"),
+        (party_set_slot, ":center_no", ":cur_good_price_slot", ":cur_center_price"),
+
+        (try_begin),
+            (gt, "$cheat_mode", 0),
+            (str_store_party_name, s3, ":origin"),
+            (str_store_party_name, s4, ":center_no"),
+            (str_store_item_name, s5, ":cur_good"),
+            (assign, reg4, ":initial_price"),
+            (assign, reg5, ":cur_center_price"),
+            (display_log_message, "@{!}DEBUG -- Trade of {s5} from {s3} to {s4} brings price from {reg4} to {reg5}"),
+        (try_end),
+      (try_end),
+      (assign, reg0, ":total_change"),
+  ]),
+
   # script_create_village_farmer_party
   # Input: arg1 = village_no
   # Output: reg0 = party_no
@@ -171,3 +283,6 @@ simple_triggers = [
        (try_end),
     ]),
 ]
+
+scripts += caravans.scripts
+simple_triggers += caravans.simple_triggers + towns.simple_triggers

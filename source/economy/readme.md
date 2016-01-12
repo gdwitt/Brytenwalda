@@ -1,4 +1,6 @@
-### Villages economy
+## Economy
+
+### Villages
 
 Farmers transport goods from villages to towns. They trade resources in the
 village in the town.
@@ -19,3 +21,12 @@ and one script:
 - `script_create_village_farmer_party`
 
 that are inside this package.
+
+
+### Merchants
+
+Merchants transport goods between towns.
+
+Each time they arrive to a town, town's prices change, the town has
+a probability to have its prosperity increased, and the town food stocks increase
+(not the food goods, a hidden variable used for sieges).
