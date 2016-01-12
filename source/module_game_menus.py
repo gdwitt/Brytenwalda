@@ -20280,7 +20280,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
   ),
 
  (
-	"Send_ship_to_town",0,
+	"send_ship_to_town",0,
     "Send the ship to",
     "none",
 	[	
@@ -25836,7 +25836,7 @@ If what we've told you excites eagerness, and curiosity has not deserted you, go
 
 #siguiente parte de seafare duh
   (
-	"Ship_notes",0,
+	"ship_notes",0,
     "The royal trade guild keeps track of all ships in harbor towns. Viewing their registry will tell you where your ships are.^{s3}",
 	"none",
 	[	(str_clear, s3),

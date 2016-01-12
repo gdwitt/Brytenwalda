@@ -460,7 +460,7 @@ items = [
 
 
 # #Clase alta militar
-["Greaves1", "Greaves", [("carbatinae_1_greaves",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature,0, 860 , weight(2)|abundance(60)|head_armor(0)|body_armor(0)|leg_armor(23)|difficulty(0) ,imodbits_armor ],
+["greaves1", "Greaves", [("carbatinae_1_greaves",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature,0, 860 , weight(2)|abundance(60)|head_armor(0)|body_armor(0)|leg_armor(23)|difficulty(0) ,imodbits_armor ],
 #["dGreaves2", "dGreaves", [("carbatinae_2_greaves",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature,0, 860 , weight(2)|abundance(60)|head_armor(0)|body_armor(0)|leg_armor(24)|difficulty(0) ,imodbits_armor ],
 ["light_leather_boots", "Leather Boots", [("decorated_leather_shoes_greaves",0)], itp_type_foot_armor |itp_civilian | itp_attach_armature,0, 890 , weight(2)|abundance(60)|head_armor(0)|body_armor(0)|leg_armor(23)|difficulty(0) ,imodbits_armor ],
 ["greaves_green", "Green Greaves", [("carbatinae_1_greaves_green",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature,0, 890 , weight(2)|abundance(60)|head_armor(0)|body_armor(0)|leg_armor(23)|difficulty(0) ,imodbits_armor ],
@@ -2404,7 +2404,7 @@ items = [
 ["minershammer_alt", "rHammer Pick", [("maul_b",0)],itp_2haxb,itc_2hax, 960, weight(1.3)|difficulty(8)|spd_rtng(82)|weapon_length(99)|swing_damage(36,blunt)|thrust_damage(12,blunt), imodbits_axe, [], ['fac_kingdom_20','fac_kingdom_17','fac_kingdom_19','fac_kingdom_27','fac_kingdom_28','fac_kingdom_29','fac_kingdom_30','fac_kingdom_31'] ],
 ["fightingpickhammer", "Fighting Pick", [("rusty_pick",0)], itp_type_two_handed_wpn|itp_primary|itp_secondary |itp_next_item_as_melee, itc_morningstar|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 960, weight(1.3)|difficulty(8)|spd_rtng(82)|weapon_length(99)|swing_damage(36,blunt)|thrust_damage(12,blunt), imodbits_axe, [], ['fac_kingdom_20','fac_kingdom_17','fac_kingdom_19','fac_kingdom_27','fac_kingdom_28','fac_kingdom_29','fac_kingdom_30','fac_kingdom_31'] ],
 ["fightingpickhammer_alt", "rFighting hammer", [("maul_b",0)], itp_type_two_handed_wpn|itp_primary|itp_secondary, itc_nodachi|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 960, weight(1.3)|difficulty(8)|spd_rtng(82)|weapon_length(99)|swing_damage(36,blunt)|thrust_damage(12,blunt), imodbits_axe, [], ['fac_kingdom_20','fac_kingdom_17','fac_kingdom_19','fac_kingdom_27','fac_kingdom_28','fac_kingdom_29','fac_kingdom_30','fac_kingdom_31'] ],
-["Sledgehammer", "Sledge_Hammer", [("maul_c",0)], itp_sleg,itc_sleg,310, weight(4.6)|difficulty(9)|spd_rtng(65)|weapon_length(93)|swing_damage(37,blunt)|thrust_damage(0,blunt), imodbits_sword, [], ['fac_kingdom_20','fac_kingdom_17','fac_kingdom_19','fac_kingdom_27','fac_kingdom_28','fac_kingdom_29','fac_kingdom_30','fac_kingdom_31'] ],
+["sledgehammer", "Sledge Hammer", [("maul_c",0)], itp_sleg,itc_sleg,310, weight(4.6)|difficulty(9)|spd_rtng(65)|weapon_length(93)|swing_damage(37,blunt)|thrust_damage(0,blunt), imodbits_sword, [], ['fac_kingdom_20','fac_kingdom_17','fac_kingdom_19','fac_kingdom_27','fac_kingdom_28','fac_kingdom_29','fac_kingdom_30','fac_kingdom_31'] ],
 ["blunt_slot1",   "rnative", [("maul_c",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_next_item_as_melee, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 960 , weight(1.3)|difficulty(8)|spd_rtng(82) | weapon_length(99)|swing_damage(36 , blunt) | thrust_damage(12 , blunt),imodbits_sword,[], ['fac_kingdom_20', 'fac_kingdom_17', 'fac_kingdom_19', 'fac_kingdom_27', 'fac_kingdom_28', 'fac_kingdom_29', 'fac_kingdom_30', 'fac_kingdom_31']],
 ["blunt_slot2",   "rnative", [("maul_c",0)], itp_type_one_handed_wpn|itp_primary|itp_secondary|itp_next_item_as_melee, itc_longsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn, 960 , weight(1.3)|difficulty(8)|spd_rtng(82) | weapon_length(99)|swing_damage(36 , blunt) | thrust_damage(12 , blunt),imodbits_sword,[], ['fac_kingdom_20', 'fac_kingdom_17', 'fac_kingdom_19', 'fac_kingdom_27', 'fac_kingdom_28', 'fac_kingdom_29', 'fac_kingdom_30', 'fac_kingdom_31']],
 #############hachas acaba#########################################
@@ -3225,15 +3225,15 @@ items = [
 #chief unique acaba
 ["plate_covered_round_shield", "Plate Covered Shield", [("BL_Roundshields_12",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield, 500 , weight(4.5)|hit_points(310)|body_armor(10)|spd_rtng(55)|shield_width(70)|difficulty(3),imodbits_shield,
  [], ['fac_kingdom_1', 'fac_kingdom_2', 'fac_kingdom_3', 'fac_kingdom_4', 'fac_kingdom_5', 'fac_kingdom_9', 'fac_kingdom_13', 'fac_kingdom_14']],
-["Banner_Round_Shield_Ironrim", "Banner Round Shield", [("tableau_shield_round_2",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield, 
+["banner_round_shield_ironrim", "Banner Round Shield", [("tableau_shield_round_2",0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,
 400 , weight(5.5)|hit_points(350)|body_armor(8)|spd_rtng(55)|shield_width(65)|difficulty(4),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner","tableau_round_shield_2", ":agent_no", ":troop_no")])]], #cambiado chief
 
 #chief unique empieza
-["Banner_Round_Shieldtinrim", "Banner_Round_Shield Tin", [("tableau_shield_round_1",0)], itp_merchandise|itp_no_pick_up_from_ground|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield, 
+["banner_round_shieldtinrim", "Banner Round Shield Tin", [("tableau_shield_round_1",0)], itp_merchandise|itp_no_pick_up_from_ground|itp_type_shield|itp_wooden_parry, itcf_carry_round_shield,
 210 , weight(4)|hit_points(350)|body_armor(15)|spd_rtng(84)|shield_width(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_round_shield_1", ":agent_no", ":troop_no")])]],
-["Banner_Reinforced_Shield", "Banner_Reinforced_Shield", [("tableau_shield_round_4",0)], itp_merchandise|itp_no_pick_up_from_ground|itp_type_shield, itcf_carry_round_shield, 
+["banner_reinforced_shield", "Banner Reinforced Shield", [("tableau_shield_round_4",0)], itp_merchandise|itp_no_pick_up_from_ground|itp_type_shield, itcf_carry_round_shield,
 430 , weight(4.5)|hit_points(410)|body_armor(19)|spd_rtng(81)|shield_width(50)|difficulty(4),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_round_shield_4", ":agent_no", ":troop_no")])]],
 ["tab_shield_heater_cav_ares", "resCavalry Shield Kite",  [("tableau_shield_heater_2" ,0)], itp_merchandise|itp_no_pick_up_from_ground|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield, 
