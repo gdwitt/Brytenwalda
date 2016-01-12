@@ -200,13 +200,6 @@ simple_triggers = [
       # (rest_for_hours, 0, 0, 0), #stop resting
     ]),
 
-
-(24.0,
-  [(store_current_hours,":cur_hour"),
-  (assign, reg1,":cur_hour"),
-  (display_log_message, "@24 !", 0xFF0000),
-  (display_message, "@Time at 24h trigger is {reg1}"),
-   ]), 
 #Duh chief bank system and land 
 (12,##1 only why? 																				
 [	
@@ -2336,7 +2329,7 @@ simple_triggers = [
     (le, ":cur_hour", 4),
 	   (call_script, "script_cf_random_political_event"),
     (assign, reg1, ":cur_hour",),
-    (display_message, "@{!}DEBUG calling random political triggers script at {reg1}",0xFF0000),
+
 	#Added Nov 2010 begins - do this twice
 	# #(call_script, "script_cf_random_political_event"),	MOTO nah, just double trigger
 	#Added Nov 2010 ends	
