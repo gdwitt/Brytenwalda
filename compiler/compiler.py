@@ -315,6 +315,7 @@ class Compiler(object):
             result += "%d\n" % len(object_type.objects)
 
             for id in object_type.objects:
+                logging.debug('Compiling "%s.%s"' % (object_type.__name__, id))
                 # add to _all_entities keeps a track of all cases.
                 if object_type in objects.TAG_TO_OBJECT_TYPE.values():
                     self._all_entities.add("%s_%s" % (object_type.tag, id))
