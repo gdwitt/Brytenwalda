@@ -1,6 +1,6 @@
 import logging
 
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 import source.header_common as h_common
 import source.process_common as p_common
@@ -11,27 +11,34 @@ import objects
 
 class Compiler(object):
 
-    def __init__(self, export_dir='.'):
+    def __init__(self, export_dir='.', log_dir='.'):
         self._export_dir = export_dir
+        self._log_dir = log_dir
 
         self._custom_tags = []
 
-        # global variables are defined everywhere.
-        # They start with "$"
+        # global variables are defined everywhere and start with a "$".
+        # The index of this ordered dict contains the index of the
+        # global variable, retrieved by `_get_global`.
         self._global_variables = OrderedDict()
 
-        # local variables are only defined within a block.
+        # local variables are defined within a block and start with a ":".
         # Therefore, these are reset on self.process_statement_block.
-        # They start with ":"
+        # The index of this ordered dict contains the index of the
+        # local variable, retrieved by `_get_local`.
         self._local_variables = OrderedDict()
 
-        # quick strings are defined everywhere. They are added as
-        # code is compiled.
+        # Quick strings are defined everywhere and start with a "@".
+        # The index of this ordered dict contains the index of the quick string.
+        # Quick strings are added by `_get_quick_string_index`.
         self._quick_strings = OrderedDict()
 
-        self._all_entities_used = OrderedDict()
+        # a set of all entities defined. Populated during `compile`.
+        self._all_entities = set()
+        # frequency of entity variables used. Populated during `compile`.
+        self._all_used_entities = defaultdict(int)
 
-    def _insert_quick_string_with_auto_id(self, sentence):
+    def _get_quick_string_index(self, sentence):
         text = p_common.convert_to_identifier_with_no_lowercase(sentence)
         sentence = p_common.replace_spaces(sentence)
 
@@ -62,8 +69,7 @@ class Compiler(object):
 
         return self._quick_strings.keys().index(auto_id)
 
-    @staticmethod
-    def index(id, tag=None):
+    def index(self, id, tag=None):
         if not isinstance(id, str):
             return id
 
@@ -75,13 +81,13 @@ class Compiler(object):
         try:
             object_list = objects.TAG_TO_OBJECT_TYPE[tag].objects
         except KeyError:
-            raise NotImplementedError('Tag "%s" in object "%s" does not exist' %
-                                      (tag, id))
+            raise KeyError('Tag "%s" in object "%s" does not exist' % (tag, id))
 
+        self._all_used_entities["%s_%s" % (tag, no_tag_id)] += 1
         try:
             return object_list[no_tag_id].index
         except KeyError:
-            logging.error('Object "%s" of tag "%s" does not exist' % (id, tag))
+            logging.error('Object "%s" of tag "%s" does not exist' % (no_tag_id, tag))
             return 0
 
     def _get_identifier_value(self, variable):
@@ -117,6 +123,8 @@ class Compiler(object):
         if param in self._local_variables:
             self._local_variables[param] += 1
         else:
+            logging.error('Local variable "%s" used but not assigned may lead to '
+                          'unexpected behaviour.' % param)
             self._local_variables[param] = 1
         return self._local_variables.keys().index(param)
 
@@ -150,7 +158,7 @@ class Compiler(object):
             result |= h_common.opmask_local_variable
         elif param[0] == '@':
             # it is a quick string, store it.
-            result = self._insert_quick_string_with_auto_id(param[1:])
+            result = self._get_quick_string_index(param[1:])
             result |= h_common.opmask_quick_string
         else:
             # it is a variable identifier
@@ -163,7 +171,8 @@ class Compiler(object):
         if isinstance(statement, (tuple, list)):
             # count assignments of local variables
             if op_code in h_operations.lhs_operations:
-                assert(len(statement) > 1) # lhs operations requires one side.
+                if len(statement) <= 1:
+                    raise Exception('lhs operations require at least one parameter.')
                 param = statement[1]
                 if isinstance(param, str) and param[0] == ':':
                     self._add_local(param[1:])
@@ -171,7 +180,8 @@ class Compiler(object):
             # count assignments to global variables
             if op_code in (h_operations.lhs_operations +
                                h_operations.global_lhs_operations):
-                assert(len(statement) > 1) # lhs operations requires one side.
+                if len(statement) <= 1:
+                    raise Exception('lhs operations require at least one parameter.')
                 param = statement[1]
                 if isinstance(param, str) and param[0] == '$':
                     self._add_global(param[1:])
@@ -263,6 +273,26 @@ class Compiler(object):
         result += "\n"
         return result
 
+    def save_logs(self):
+        result = ''
+        # sort by least used
+        for variable in sorted(self._global_variables.keys(),
+                               key=lambda x: self._global_variables[x]):
+            result += '%s %d\n' % (variable, self._global_variables[variable])
+
+        with open(self._log_dir + '/' + 'g_variables_usage.txt', 'wb') as f:
+            f.write(result.replace('\n', '\r\n'))
+
+        # print unused entities
+        unused_entities = self._all_entities - set(self._all_used_entities.keys())
+
+        result = ''
+        for variable in unused_entities:
+            result += '%s\n' % variable
+
+        with open(self._log_dir + '/' + 'unused_entities.txt', 'wb') as f:
+            f.write(result.replace('\n', '\r\n'))
+
     def compile(self, types=()):
         if not types:
             types = objects.ALL_TYPES
@@ -283,7 +313,12 @@ class Compiler(object):
             if object_type == objects.Party:
                 result += "%d " % len(object_type.objects)
             result += "%d\n" % len(object_type.objects)
+
             for id in object_type.objects:
+                # add to _all_entities keeps a track of all cases.
+                if object_type in objects.TAG_TO_OBJECT_TYPE.values():
+                    self._all_entities.add("%s_%s" % (object_type.tag, id))
+
                 try:
                     result += object_type.objects[id].export(self)
                 except Exception as e:
@@ -313,3 +348,5 @@ class Compiler(object):
 
         with open(self._export_dir + '/' + 'dialog_states.txt', 'wb') as f:
             f.write(result.replace('\n', '\r\n'))
+
+        self.save_logs()
