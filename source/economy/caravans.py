@@ -429,4 +429,74 @@ scripts = [
         (try_end),
       (try_end),
   ]),
+
+  ("cf_select_most_profitable_coastal_town_at_peace_with_faction_in_trade_route",
+  [
+        (store_script_param, ":town_no", 1),
+        (store_script_param, ":faction_no", 2),
+
+        (assign, ":result", -1),
+        (assign, ":best_town_score", 0),
+        (store_sub, ":item_to_price_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
+
+        (try_for_range, ":cur_slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
+          (party_get_slot, ":cur_town", ":town_no", ":cur_slot"),
+          (gt, ":cur_town", 0),
+          (party_slot_ge, ":cur_town", slot_town_is_coastal, 1), #Seatrade
+
+          (store_faction_of_party, ":cur_faction", ":cur_town"),
+          (store_relation, ":reln", ":cur_faction", ":faction_no"),
+          (ge, ":reln", 0),
+
+          (assign, ":cur_town_score", 0),
+          (try_for_range, ":cur_goods", trade_goods_begin, trade_goods_end),
+            (neq, ":cur_goods", "itm_butter"), #Don't count perishables
+            (neq, ":cur_goods", "itm_cattle_meat"),
+            (neq, ":cur_goods", "itm_chicken"),
+            (neq, ":cur_goods", "itm_pork"),
+
+            (store_add, ":cur_goods_price_slot", ":cur_goods", ":item_to_price_slot"),
+            (party_get_slot, ":origin_price", ":town_no", ":cur_goods_price_slot"),
+            (party_get_slot, ":destination_price", ":cur_town", ":cur_goods_price_slot"),
+
+            (gt, ":destination_price", ":origin_price"),
+            (store_sub, ":price_dif", ":destination_price", ":origin_price"),
+
+            (try_begin), #weight luxury goods double
+              (this_or_next|eq, ":cur_goods", "itm_spice"),
+              (eq, ":cur_goods", "itm_velvet"),
+              (val_mul, ":price_dif", 2),
+            (try_end),
+            (val_add, ":cur_town_score", ":price_dif"),
+          (try_end),
+
+          ##        (try_begin),
+          ##            (eq, "$cheat_mode", 1),
+          ##            (str_store_party_name, s10, ":town_no"),
+          ##            (str_store_party_name, s11, ":cur_town"),
+          ##            (assign, reg3, ":cur_town_score"),
+          ##            (display_message, "str_caravan_in_s10_considers_s11_total_price_dif_=_reg3"),
+          ##        (try_end),
+
+          (gt, ":cur_town_score", ":best_town_score"),
+          (assign, ":best_town_score", ":cur_town_score"),
+          (assign, ":result", ":cur_town"),
+
+        (try_end),
+
+        (gt, ":result", -1), #Fail if there are no towns
+
+        (assign, reg0, ":result"),
+
+        #      (store_current_hours, ":hour"),
+        #      (party_set_slot, ":result", slot_town_caravan_last_visit, ":hour"),
+
+        # (try_begin),
+        ###(eq, "$cheat_mode", 1),
+        # (assign, reg3, ":best_town_score"),
+        # (str_store_party_name, s3, ":town_no"),
+        # (str_store_party_name, s4, ":result"),
+        # (display_message, "str_test__caravan_in_s3_selects_for_s4_trade_score_reg3"),
+        # (try_end),
+  ]),
 ]
