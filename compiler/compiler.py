@@ -296,14 +296,6 @@ class Compiler(object):
             with open(self._export_dir + '/' + objects.FILE_NAMES[object_type], 'wb') as f:
                 f.write(result.replace('\n', '\r\n'))
 
-        # export global variables
-        result = ''
-        for global_var in self._global_variables:
-            result += "%s\n" % global_var
-
-        with open(self._export_dir + '/' + 'variables.txt', 'wb') as f:
-            f.write(result.replace('\n', '\r\n'))
-
         # save quick strings
         result = "%d\n" % len(self._quick_strings)
         for q_string in self._quick_strings:
