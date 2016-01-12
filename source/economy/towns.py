@@ -6,9 +6,7 @@ simple_triggers = [
 
    (72,
    [
-       # Updating trade good prices according to the productions
-       (call_script, "script_update_trade_good_prices"),
-       # Updating player odds
+       # Updating player odds at tournaments.
        (try_for_range, ":cur_center", centers_begin, centers_end),
          (party_get_slot, ":player_odds", ":cur_center", slot_town_player_odds),
          (try_begin),
@@ -24,5 +22,5 @@ simple_triggers = [
          (try_end),
          (party_set_slot, ":cur_center", slot_town_player_odds, ":player_odds"),
        (try_end),
-    ]),
+   ]),
 ]

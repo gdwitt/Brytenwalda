@@ -2846,14 +2846,6 @@ simple_triggers = [
      (try_end),
     ]),
 
-  # Refresh merchant inventories
-   (168,
-   [
-      (try_for_range, ":village_no", villages_begin, villages_end),
-        (call_script, "script_refresh_village_merchant_inventory", ":village_no"),
-      (try_end),
-    ]),
-
   #Refreshing village defenders
   #Clearing slot_village_player_can_not_steal_cattle flags
    (48,
