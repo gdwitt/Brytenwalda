@@ -87,7 +87,7 @@ def compile_sentence_tokens(sentences):
 
     for state in dialog_states:
         if dialog_states[state] == 0:
-            print "ERROR: Output token not found: " + state
+            logging.error('Dialog state "%s" not used' % state)
     return input_tokens, output_tokens, dialog_states
 
 
