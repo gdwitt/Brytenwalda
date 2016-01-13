@@ -300,3 +300,57 @@ def upgrade2(troops,troop1_id,troop2_id,troop3_id):
       cur_troop[13:13] = [0, troop2_no, troop3_no]
     else:
       cur_troop[14:14] = [troop2_no, troop3_no]
+
+
+####################################################################################################################
+# Some constant and function declarations
+# wp_one_handed () | wp_two_handed () | wp_polearm () | wp_archery () | wp_crossbow () | wp_throwing ()
+def wp(x):
+   n = 0
+   r = 10 + int(x / 10)
+#  n |= wp_one_handed(x + random.randrange(r))
+#  n |= wp_two_handed(x + random.randrange(r))
+#  n |= wp_polearm(x + random.randrange(r))
+#  n |= wp_archery(x + random.randrange(r))
+#  n |= wp_crossbow(x + random.randrange(r))
+#  n |= wp_throwing(x + random.randrange(r))
+   n |= wp_one_handed(x)
+   n |= wp_two_handed(x)
+   n |= wp_polearm(x)
+   n |= wp_archery(x) #chief quita para hacerlo especifico
+   n |= wp_crossbow(x) #chief quita para hacerlo especifico
+   n |= wp_throwing(x)
+   n |= wp_firearm(x) #chief anade para hondas//slingshots
+   return n
+
+def wpe(m,a,c,t):
+   n = 0
+   n |= wp_one_handed(m)
+   n |= wp_two_handed(m)
+   n |= wp_polearm(m)
+   n |= wp_archery(a)
+   n |= wp_crossbow(c)
+   n |= wp_throwing(t)
+   return n
+
+def wpex(o,w,p,a,c,t):
+   n = 0
+   n |= wp_one_handed(o)
+   n |= wp_two_handed(w)
+   n |= wp_polearm(p)
+   n |= wp_archery(a)
+   n |= wp_crossbow(c)
+   n |= wp_throwing(t)
+   return n
+
+def wp_archer(x):
+   n = 0
+   r = 10 + int(x / 10)
+   n |= wp_one_handed(x-12)
+   n |= wp_two_handed(x-30)
+   n |= wp_polearm(x-5)
+   n |= wp_archery(x+20) #chief quita para hacerlo especifico
+   n |= wp_crossbow(x+20) #chief quita para hacerlo especifico
+   n |= wp_throwing(x)
+   n |= wp_firearm(x+20)
+   return n

@@ -682,3 +682,5 @@ knows_reserved_18_12          = 0x0C << (skl_reserved_18 << 2)
 knows_reserved_18_13          = 0x0D << (skl_reserved_18 << 2)
 knows_reserved_18_14          = 0x0E << (skl_reserved_18 << 2)
 knows_reserved_18_15          = 0x0F << (skl_reserved_18 << 2)
+
+knows_common = knows_weapon_master_3|knows_ironflesh_1|knows_athletics_3|knows_riding_1|knows_power_strike_2|knows_shield_2|knows_inventory_management_1|knows_power_throw_2
