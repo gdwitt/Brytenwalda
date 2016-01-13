@@ -4144,39 +4144,8 @@ simple_triggers = [
     (try_end),
     ]),
 
-  # Adding tournaments to towns
   # Adding bandits to towns and villages
-  (24,
-   [(assign, ":num_active_tournaments", 0),
-    (try_for_range, ":center_no", towns_begin, towns_end),
-      (party_get_slot, ":has_tournament", ":center_no", slot_town_has_tournament),
-      (try_begin),
-        (eq, ":has_tournament", 1),#tournament ended, simulate
-        (call_script, "script_fill_tournament_participants_troop", ":center_no", 0),
-        (call_script, "script_sort_tournament_participant_troops"),#may not be needed
-        (call_script, "script_get_num_tournament_participants"),
-        (store_sub, ":needed_to_remove_randomly", reg0, 1),
-        (call_script, "script_remove_tournament_participants_randomly", ":needed_to_remove_randomly"),
-        (call_script, "script_sort_tournament_participant_troops"),
-        (troop_get_slot, ":winner_troop", "trp_tournament_participants", 0),
-        (try_begin),
-          (is_between, ":winner_troop", active_npcs_begin, active_npcs_end),
-          (str_store_troop_name_link, s1, ":winner_troop"),
-          (str_store_party_name_link, s2, ":center_no"),
-          (display_message, "@{s1} has won the tournament at {s2}.", color_hero_news),
-          (call_script, "script_change_troop_renown", ":winner_troop", 20),
-        (try_end),
-
-      (try_end),
-      (val_sub, ":has_tournament", 1),
-      (val_max, ":has_tournament", 0),
-      (party_set_slot, ":center_no", slot_town_has_tournament, ":has_tournament"),
-      (try_begin),
-        (gt, ":has_tournament", 0),
-        (val_add, ":num_active_tournaments", 1),
-      (try_end),
-    (try_end),
-    
+  (24, [
     (try_for_range, ":center_no", centers_begin, centers_end),
       (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_town),
       (party_slot_eq, ":center_no", slot_party_type, spt_village),
@@ -4231,39 +4200,7 @@ simple_triggers = [
         (try_end),
       (try_end),
     (try_end),
-	
-    (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-	  (faction_slot_eq, ":faction_no", slot_faction_ai_state, sfai_feast),
-		
-	  (faction_get_slot, ":faction_object", ":faction_no", slot_faction_ai_object),
-	  (is_between, ":faction_object", towns_begin, towns_end),
-	  
-	  (party_slot_ge, ":faction_object", slot_town_has_tournament, 1),
-	  #continue holding tournaments during the feast
-      (party_set_slot, ":faction_object", slot_town_has_tournament, 2),
-    (try_end),
-	
-	(try_begin),
-      (lt, ":num_active_tournaments", 3),
-      (store_random_in_range, ":random_no", 0, 100),
-      #Add new tournaments with a 30% chance if there are less than 3 tournaments going on
-      (lt, ":random_no", 30),
-      (store_random_in_range, ":random_town", towns_begin, towns_end),
-      (store_random_in_range, ":random_days", 12, 15),
-      (party_set_slot, ":random_town", slot_town_has_tournament, ":random_days"),
-      (try_begin),
-        (eq, "$cheat_mode", 1),
-        (str_store_party_name, s1, ":random_town"),
-        (display_message, "@{!}{s1} is holding a tournament."),
-      (try_end),
-    (try_end),
     ]),
-
-  (3,
-[
-	(assign, "$g_player_tournament_placement", 0),
-]),  
-
 
 #(0.1,
 

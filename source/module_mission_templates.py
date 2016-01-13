@@ -6993,37 +6993,6 @@ torneo_aumenta_dano = (
     ])
   #dunde torneo acaba
 
-# Dunde's Tournament dunde torneo chief
-tournament_draw  = (60, 1, ti_once, [(store_mission_timer_a,reg1), (ge,reg1,5*60),(eq, "$g_mt_mode", abm_tournament), (eq, "$g_tournament_down", 0),],
- [(eq, "$g_tournament_down", 0),
-  (assign, ":found", 0),
-  (try_for_agents, ":agent_id"),
-     (lt, ":found", 2),
-     (agent_get_troop_id,":troop_id", ":agent_id"),
-     (try_begin),
-        (eq, ":troop_id", "$g_tournament_troop1"),
-        (val_add, ":found", 1),   
-        (store_agent_hit_points, ":hp1", ":agent_id", 0),  
-     (else_try),
-        (eq, ":troop_id", "$g_tournament_troop2"),
-        (val_add, ":found", 1),   
-        (store_agent_hit_points, ":hp2", ":agent_id", 0),                           
-     (try_end),
-  (try_end),
-  (assign, ":pointer", "str_timer_up_0"),
-  (try_begin),
-     (gt, ":hp2", ":hp1"),
-     (assign, ":looser", 1),
-  (else_try),
-     (gt, ":hp1", ":hp2"),
-     (assign, ":looser", 2),                         
-  (else_try),
-     (assign, ":looser", 0),                         
-  (try_end),
-  (val_add, ":pointer", ":looser"),
-  (display_message, ":pointer"),
-  (call_script, "script_debrief_tournament_game", ":looser", 0),])
-
 ###############################################    
 
 tournament_triggers = [
@@ -7047,7 +7016,6 @@ sp_shield_bash_3,
   #  common_rigale_legshot,
     common_andar_cae,
 torneo_aumenta_dano, #dunde torneo chief
-#tournament_draw,  #dunde torneo chief
 sistema_fatiga,
 suma_fatigue,
 resta_fatigue_porcorrer,

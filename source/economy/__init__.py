@@ -287,6 +287,6 @@ simple_triggers = [
 scripts += caravans.scripts + traders.scripts + production.scripts + \
            population.scripts
 
-simple_triggers += caravans.simple_triggers + towns.simple_triggers + \
+simple_triggers += caravans.simple_triggers + \
                    traders.simple_triggers + production.simple_triggers + \
                    population.simple_triggers \

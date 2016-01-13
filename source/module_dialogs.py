@@ -6,7 +6,7 @@ from module_constants import *
 
 from .lazy_flag import LazyFlag
 
-from . import enterprise
+from . import enterprise, tournaments
 
 ####################################################################################################################
 # During a dialog, the dialog lines are scanned from top to bottom.
@@ -28414,16 +28414,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
 
   #first time greetings
-	[anyone ,"start", [(troop_slot_eq,"$g_talk_troop",slot_troop_occupation, slto_kingdom_lady),
-                     (eq, "$g_talk_troop_met", 0),
-                     (gt, "$g_player_tournament_placement", 4),
-					 (str_clear, s8),
-					 
-                     ],
-   "You must be {playername}. We have just had the honor of watching you distinguish yourself in the recent tournament{s8}.",
-   "lady_meet_end", []],
-  
-  
+
   [anyone ,"start", [(troop_slot_eq,"$g_talk_troop",slot_troop_occupation, slto_kingdom_lady),
                      (eq, "$g_talk_troop_met", 0),
                      (le,"$talk_context",tc_siege_commander),
@@ -28467,16 +28458,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    [(troop_slot_eq, "$g_talk_troop", slot_troop_met, 4),
     ],
    "{playername} -- how good it is to see you. (Whispers:) I still remember your visits fondly.", "lady_start",[]],
-  
-	[anyone ,"start", [(troop_slot_eq,"$g_talk_troop",slot_troop_occupation, slto_kingdom_lady),
-                     (eq, "$g_talk_troop_met", 0),
-                     (gt, "$g_player_tournament_placement", 4),
-					 (ge, "$g_talk_troop_relation", 0),
-                     ],
-   "Ah, {playername}. How spendid it was to see you distinguish yourself in the recent tournament.",
-   "lady_meet_end", []],
 
-  
   [anyone,"start", [
 					(troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_lady),
 					(str_store_string, s12, "str_hello_playername"),
@@ -29255,52 +29237,6 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 	
 	]],
 
-  [anyone|plyr,"lady_talk",
-   [
-    (troop_get_type, ":is_female", "trp_player"),
-    (val_mod, ":is_female", 2),	#gender fix chief moto
-	(eq, ":is_female", 0),
-	(gt, "$g_player_tournament_placement", 3),
-	(neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin),
-	],
-   "My lady, I would like to dedicate my successes in this recent tournament to you", "lady_tournament_dedication_reaction",  
-	[
-	
-	(try_begin),
-		(gt, "$g_player_tournament_placement", 3),
-		(val_sub, "$g_player_tournament_placement", 3),
-		(val_mul, "$g_player_tournament_placement", 2),
-	(else_try),	
-		(assign, "$g_player_tournament_placement", 0),
-	(try_end),
-	
-	(try_begin),
-		(troop_slot_eq, "$g_talk_troop", slot_lady_used_tournament, 1),
-		(val_div, "$g_player_tournament_placement", 3),
-		(str_store_string, s9, "str_another_tournament_dedication_oh_i_suppose_it_is_always_flattering"),
-	(else_try),
-		(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_conventional),
-		(val_mul, "$g_player_tournament_placement", 2),
-		(str_store_string, s9, "str_do_you_why_what_a_most_gallant_thing_to_say"),
-	(else_try),	
-		(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_moralist),
-		(val_div, "$g_player_tournament_placement", 2),
-		(str_store_string, s9, "str_hmm_i_cannot_say_that_i_altogether_approve_of_such_frivolity_but_i_must_confess_myself_a_bit_flattered"),
-	(else_try),
-		(str_store_string, s9, "str_why_thank_you_you_are_most_kind_to_do_so"),
-	(try_end),	
-	
-	(call_script, "script_troop_change_relation_with_troop", "$g_talk_troop", "trp_player", "$g_player_tournament_placement"),
-	(assign, "$g_player_tournament_placement", 0),
-	(troop_set_slot, "$g_talk_troop", slot_lady_used_tournament, 1),
-	]],
-	
-  [anyone,"lady_tournament_dedication_reaction", [],
-   "{s9}", "lady_pretalk",
-   []],
-	
-	
-	
   [anyone,"lady_profess_admiration", [
 	(call_script, "script_troop_get_relation_with_troop", "$g_talk_troop", "trp_player"),
     (gt, reg0, 0),
@@ -39226,7 +39162,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 #torneos personalizados chief
     [anyone|plyr,"arena_master_talk", [(party_get_num_companions,":troops","p_main_party"),(gt,":troops",1)], "I would like to spar with some of my men.", "arena_master_spar_teams",[]], # Jinnai
 #chief acaba
-  [anyone|plyr,"arena_master_talk", [(eq, "$arena_tournaments_asked", 0)], "Will there be a tournament in nearby towns soon?", "arena_master_ask_tournaments",[(assign, "$arena_tournaments_asked", 1)]],
+  tournaments.arena_master_option,
   [anyone|plyr,"arena_master_talk", [], "I need to leave now. Farewell.", "close_window",[]],
 
 #torneos personalizados
@@ -39413,31 +39349,6 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
 ## Arena sparring end
   #torneos personalizados chief acaba
-  [anyone,"arena_master_ask_tournaments", [], "{reg2?There won't be any tournaments any time soon.:{reg1?Tournaments are:A tournament is} going to be held at {s15}.}", "arena_master_talk",
-   [
-       (assign, ":num_tournaments", 0),
-       (try_for_range_backwards, ":town_no", towns_begin, towns_end),
-         (party_slot_ge, ":town_no", slot_town_has_tournament, 1),
-         (val_add, ":num_tournaments", 1),
-         (try_begin),
-           (eq, ":num_tournaments", 1),
-           (str_store_party_name, s15, ":town_no"),
-         (else_try),
-           (str_store_party_name, s16, ":town_no"),
-           (eq, ":num_tournaments", 2),
-           (str_store_string, s15, "@{s16} and {s15}"),
-         (else_try),
-           (str_store_string, s15, "@{!}{s16}, {s15}"),
-         (try_end),
-       (try_end),
-       (try_begin),
-         (eq, ":num_tournaments", 0),
-         (assign, reg2, 1),
-       (else_try),
-         (assign, reg2, 0),
-         (store_sub, reg1, ":num_tournaments", 1),
-       (try_end),
-   ]],
 
   [anyone,"arena_master_melee_pretalk", [], "There will be a fight here soon. You can go and jump in if you like.", "arena_master_melee_talk",[]],
   [anyone|plyr,"arena_master_melee_talk", [], "Good. That's what I am going to do.", "close_window",
@@ -42040,3 +41951,5 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##  [anyone|plyr, "reinforcements_attack", [], "All right, continue your travels! But do not tell anyone that you have seen me!", "close_window",[]],
 ####chief acaba####
 ]
+
+dialogs += tournaments.dialogs
