@@ -73,6 +73,8 @@ def create_objects(types=ALL_TYPES):
             else:
                 id = data[0]
 
+            logging.debug('Creating "%s.%s"' % (object_type.__name__, id))
+
             if object_type in data_is_spliced:
                 data = data[:data_is_spliced[object_type]]
 

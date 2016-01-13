@@ -6,9 +6,10 @@ from compiler import Compiler, create_objects
 # setup the logging output
 root = logging.getLogger()
 root.handlers = []
+root.setLevel(logging.DEBUG)
 
 # file handler logs all messages
-fh = logging.FileHandler('./logs/compilation.log')
+fh = logging.FileHandler('./logs/compilation.log', 'w')
 fh.setLevel(logging.DEBUG)
 # console handler logs WARNING or worse
 ch = logging.StreamHandler(sys.stdout)
