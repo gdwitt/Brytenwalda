@@ -8,7 +8,7 @@ from header_terrain_types import *
 
 from module_constants import *
 
-from . import economy
+from . import economy, loans
 ####################################################################################################################
 # Simple triggers are the alternative to old style triggers. They do not preserve state, and thus simpler to maintain.
 #
@@ -149,7 +149,7 @@ simple_triggers = [
   #     (party_set_name, "p_sea_raider_spawn_point_2", s0),
   #     (party_set_name, "p_sea_raider_spawn_point_3", s0),
   #   (try_end),
-	##gdw see game menus build_ladders_cont  
+	##gdw see game menus build_ladders_cont
 #      (gt,"$auto_siege_town",0), #siege warfare chief
 #      (gt,"$auto_siege_port",0), #siege warfare chief
 
@@ -199,43 +199,6 @@ simple_triggers = [
       # (neg|is_currently_night),
       # (rest_for_hours, 0, 0, 0), #stop resting
     ]),
-
-#Duh chief bank system and land 
-(12,##1 only why? 																				
-[	
-		(try_for_range, ":town_no", towns_begin, towns_end),							#	Floris Moneylenders // Not paying debts has consequences
-			(party_get_slot, ":debt", ":town_no", slot_town_bank_debt),
-			(gt, ":debt", 0),															#	If a debt exists, a deadline exists
-			(party_get_slot, ":deadline", ":town_no", slot_town_bank_deadline),
-			(store_current_hours, ":date"),
-			(ge, ":date", ":deadline"),
-			(call_script, "script_change_player_relation_with_center", ":town_no", -5, 0xff3333),
-			(try_begin),
-				(lt, ":debt", 100000),
-				(val_mul, ":debt", 14),
-				(val_div, ":debt", 10),
-				(try_begin),
-					(gt, ":debt", 100000),												#Debt doesnt get higher than 100000 denars
-					(assign, ":debt", 100000),
-				(try_end),
-				(val_add, ":deadline", 24*14),
-				(party_set_slot, ":town_no", slot_town_bank_debt, ":debt"),
-				(party_set_slot, ":town_no", slot_town_bank_deadline, ":deadline"),
-				(str_store_party_name, s1, ":town_no"),
-				(display_message, "@You missed the deadline to pay back your debts in {s1}. They now grow at an interest of 50%."),
-			(else_try),
-				(assign, ":debt", 100000),												#If debt = 100000 denars, then additionally to -5 relation with town, you get -1 relation with Faction.
-				(val_add, ":deadline", 24*14),
-				(party_set_slot, ":town_no", slot_town_bank_debt, ":debt"),
-				(party_set_slot, ":town_no", slot_town_bank_deadline, ":deadline"),
-				(store_faction_of_party, ":faction_no", ":town_no"),
-			(call_script, "script_change_player_relation_with_faction_ex", ":faction_no", -2), #chief hace mas dramatico
-			(str_store_party_name, s1, ":town_no"),
-			(display_message, "@Your debt in {s1} is now so high that the King himself has taken notice. He has frozen your debt, but is displeased with the situation.", 0xff3333),
-			(try_end),
-		(try_end),		
- 
-]),
 
 	(24*14,
 	[
@@ -9233,93 +9196,7 @@ simple_triggers = [
                (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", "p_fort", 990),
             ]),
 
-  #LAZERAS MODIFIED  {BANK OF CALRADIA}	Duh bank system chief	#	Floris Overhaul
 
-  (24 * 14,###gdw tml addition?
-   [
-	(neq, "$g_infinite_camping", 1),
-	(assign, ":end", towns_end),
-	(try_for_range, ":center_no", towns_begin, ":end"),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_player_acres, 1),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_bank_assets, 1),
-		(party_slot_ge, ":center_no",slot_town_bank_debt, 1),
-		(assign, ":end", towns_begin), #break
-	(try_end),
-	(eq, ":end", towns_begin), #ONLY DISPLAY BANK PRESENTATION IF THE PLAYER IS USING BANK
-	(start_presentation, "prsnt_bank_quickview"),
-    ]),
-#slot
-(9999999 * 14,
-   [
-	(neq, "$g_infinite_camping", 1),
-	(assign, ":end", towns_end),
-	(try_for_range, ":center_no", towns_begin, ":end"),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_player_acres, 1),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_bank_assets, 1),
-		(party_slot_ge, ":center_no",slot_town_bank_debt, 1),
-		(assign, ":end", towns_begin), #break
-	(try_end),
-	(eq, ":end", towns_begin), #ONLY DISPLAY BANK PRESENTATION IF THE PLAYER IS USING BANK
-	(start_presentation, "prsnt_bank_quickview"),
-    ]),
-#LAZERAS MODIFIED  {BANK OF CALRADIA}
-(9999999 * 14,
-   [
-	(neq, "$g_infinite_camping", 1),
-	(assign, ":end", towns_end),
-	(try_for_range, ":center_no", towns_begin, ":end"),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_player_acres, 1),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_bank_assets, 1),
-		(party_slot_ge, ":center_no",slot_town_bank_debt, 1),
-		(assign, ":end", towns_begin), #break
-	(try_end),
-	(eq, ":end", towns_begin), #ONLY DISPLAY BANK PRESENTATION IF THE PLAYER IS USING BANK
-	(start_presentation, "prsnt_bank_quickview"),
-    ]),
-#LAZERAS MODIFIED  {BANK OF CALRADIA}
-(999999999 * 14,
-   [
-	(neq, "$g_infinite_camping", 1),
-	(assign, ":end", towns_end),
-	(try_for_range, ":center_no", towns_begin, ":end"),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_player_acres, 1),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_bank_assets, 1),
-		(party_slot_ge, ":center_no",slot_town_bank_debt, 1),
-		(assign, ":end", towns_begin), #break
-	(try_end),
-	(eq, ":end", towns_begin), #ONLY DISPLAY BANK PRESENTATION IF THE PLAYER IS USING BANK
-	(start_presentation, "prsnt_bank_quickview"),
-    ]),
-#LAZERAS MODIFIED  {BANK OF CALRADIA}
-(999999999 * 14,
-   [
-	(neq, "$g_infinite_camping", 1),
-	(assign, ":end", towns_end),
-	(try_for_range, ":center_no", towns_begin, ":end"),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_player_acres, 1),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_bank_assets, 1),
-		(party_slot_ge, ":center_no",slot_town_bank_debt, 1),
-		(assign, ":end", towns_begin), #break
-	(try_end),
-	(eq, ":end", towns_begin), #ONLY DISPLAY BANK PRESENTATION IF THE PLAYER IS USING BANK
-	(start_presentation, "prsnt_bank_quickview"),
-    ]),
-#LAZERAS MODIFIED  {BANK OF CALRADIA}
-(999999999 * 14,
-   [
-	(neq, "$g_infinite_camping", 1),
-	(assign, ":end", towns_end),
-	(try_for_range, ":center_no", towns_begin, ":end"),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_player_acres, 1),
-		(this_or_next|party_slot_ge, ":center_no", slot_town_bank_assets, 1),
-		(party_slot_ge, ":center_no",slot_town_bank_debt, 1),
-		(assign, ":end", towns_begin), #break
-	(try_end),
-	(eq, ":end", towns_begin), #ONLY DISPLAY BANK PRESENTATION IF THE PLAYER IS USING BANK
-	(start_presentation, "prsnt_bank_quickview"),
-    ]),
-#LAZERAS MODIFIED  {BANK OF CALRADIA}
-
-  
 ] \
-+ economy.simple_triggers
++ economy.simple_triggers \
++ loans.simple_triggers \

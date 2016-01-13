@@ -6,8 +6,8 @@ from header_music import *
 from header_terrain_types import *
 
 from module_constants import *
-# >>>>> code snippet for WRECK <<<<< #
-#from compiler import *
+
+from . import loans
 
 ####################################################################################################################
 #  (menu-id, menu-flags, menu_text, mesh-name, [<operations>], [<options>]),
@@ -36,6 +36,1720 @@ from module_constants import *
 #
 # Note: The first Menu is the initial character creation menu.
 ####################################################################################################################
+
+REPORTS = [
+      ("cheat_faction_orders",[(ge,"$cheat_mode",1)],"{!}Cheat: Faction orders.",
+       [(jump_to_menu, "mnu_faction_orders"),
+        ]
+       ),
+
+      ("view_character_report",[],"View character report.",
+       [(jump_to_menu, "mnu_character_report"),
+        ]
+       ),
+      ("view_party_size_report",[],"View party size report.",
+       [(jump_to_menu, "mnu_party_size_report"),
+        ]
+       ),
+
+      ## CC chief arbol tropas
+##      ("action_view_upgrade_trees",[],"View upgrade trees.",
+##       [(start_presentation, "prsnt_upgrade_tree_1"),
+##        ]
+##       ),
+#chief arbol de tropas acaba
+      ("view_npc_mission_report",[],"View companion mission report.",
+       [(jump_to_menu, "mnu_companion_report"),
+        ]
+       ),
+
+      ("view_weekly_budget_report",[
+          ],"View weekly budget report.",
+       [
+#				(display_message, "@Next pay day: {s1}"),
+
+         (assign, "$g_apply_budget_report_to_gold", 0),
+         (start_presentation, "prsnt_budget_report"),
+        ]
+       ),
+      ("view_morale_report",[],"View party morale report.",
+       [(jump_to_menu, "mnu_morale_report"),
+        ]
+       ),
+
+
+		# chief para submenus de economia
+		("economia_rp",[],"Troops Tree, Prosperity and Spy Reports",
+			[(jump_to_menu, "mnu_economia_report"),]),
+
+] + loans.reports + [
+
+#NPC companion changes begin
+      ("lord_relations",[],"View list of known lords by relation.",
+       [
+         # Jrider chief +
+     #(jump_to_menu, "mnu_lord_relations"),
+         (assign, "$g_jrider_pres_called_from_menu", 1),
+         (assign, "$g_character_presentation_type", 1),
+         (start_presentation, "prsnt_jrider_character_relation_report"),
+         # Jrider chief -
+        ]
+       ),
+
+      ("courtship_relations",[],"View courtship relations.",
+       [
+         # Jrider chief +
+      #(jump_to_menu, "mnu_courtship_relations"),
+         (assign, "$g_jrider_pres_called_from_menu", 1),
+         (assign, "$g_character_presentation_type", 0),
+         (start_presentation, "prsnt_jrider_character_relation_report"),
+         # Jrider chief -
+        ]
+       ),
+
+      ("status_check",[(eq,"$cheat_mode",1)],"{!}NPC status check.",
+       [
+        (try_for_range, ":npc", companions_begin, companions_end),
+            (main_party_has_troop, ":npc"),
+            (str_store_troop_name, 4, ":npc"),
+            (troop_get_slot, reg3, ":npc", slot_troop_morality_state),
+            (troop_get_slot, reg4, ":npc", slot_troop_2ary_morality_state),
+            (troop_get_slot, reg5, ":npc", slot_troop_personalityclash_state),
+            (troop_get_slot, reg6, ":npc", slot_troop_personalityclash2_state),
+            (troop_get_slot, reg7, ":npc", slot_troop_personalitymatch_state),
+            (display_message, "@{!}{s4}: M{reg3}, 2M{reg4}, PC{reg5}, 2PC{reg6}, PM{reg7}"),
+        (try_end),
+        ]
+       ),
+
+#NPC companion changes end
+#########JEDEDIAH Q chief START ######################################################
+     ("Companions_overview",[],"Companions overview.",
+      [
+	(assign, "$jq_in_market_menu", 0), # player is not in market menu
+	#Exit if no companions
+	(assign, ":heroes_in_party", 0),
+	(try_for_range, reg3, companions_begin, companions_end),
+   	(main_party_has_troop, reg3),
+	(val_add, ":heroes_in_party", 1),
+	 (try_end),
+	    (try_begin),
+	 	(eq, ":heroes_in_party", 0),
+		(display_message,"@No companions in party!",0xFFFF0000),
+	(else_try),
+	(gt, "$jq_startpage", 1),
+	(start_presentation, "prsnt_jq_extended_info"),
+	(else_try),
+	(start_presentation, "prsnt_jq_companions_quickview"),
+     	(try_end),
+       ]
+     ),
+#########JEDEDIAH chief Q END #######################################################
+
+      ("view_faction_relations_report",[],"View faction relations report.",
+       [
+           # Jrider + REPORTS PRESENTATIONS 1.0, comment to hook faction report presentation
+           ##(jump_to_menu, "mnu_faction_relations_report"),
+           (start_presentation, "prsnt_jrider_faction_relations_report"),
+           # Jrider -
+        ]
+       ),
+#diplomacy chief
+##           ("dplmc_show_economic_report",[],"View prosperity report.",
+##       [
+##           (jump_to_menu, "mnu_dplmc_economic_report"),
+##        ]
+##       ),
+
+#chief presetation companeros relation
+      # Jrider +
+      ("view_player_companion_report",[],"View player and companions report.",
+       [
+         # init variables before starting
+         (assign, "$g_jrider_pres_called_from_menu", 1),
+         (assign, "$g_character_presentation_type", 2),
+         (start_presentation, "prsnt_jrider_character_relation_report"),
+        ]
+       ),
+      # Jrider -
+#chief acaba
+#TEMPERED  chief ######################   SPY REPORT ######################################
+
+##      ("spy_report",[],"View Spy reports.",
+##		[
+##			(start_presentation, "prsnt_spy_reports"),
+##        ]),
+
+
+      ("resume_travelling",[],"Resume travelling.",
+       [	(str_clear,s1),
+			(str_clear,s2),
+			(str_clear,s3),
+			(str_clear,s4),
+			(str_clear,s5),
+			(str_clear,s6),
+			(str_clear,s7),
+			(str_clear,s8),
+			(str_clear,s9),
+			(str_clear,s18),
+			(change_screen_return),
+#tempered chief acaba spy report
+##      ("resume_travelling",[],"Resume travelling.", #off comment tempered chief
+##       [(change_screen_return), #off comment tempered chief
+        ]
+       ),
+      ]
+
+
+town_menu_options = [
+
+      ("castle_castle",
+      [
+        (party_slot_eq,"$current_town",slot_party_type, spt_castle),
+
+       (neq, "$current_town", "p_fort"), #para lair chief player
+        (eq, "$sneaked_into_town", 0),
+
+      (str_clear, s1),
+        (try_begin),
+          (store_faction_of_party, ":center_faction", "$current_town"),
+          (faction_slot_eq, ":center_faction", slot_faction_ai_state, sfai_feast),
+          (faction_slot_eq, ":center_faction", slot_faction_ai_object, "$current_town"),
+          (str_store_string, s1, "str__join_the_feast"),
+        (try_end),
+        ],"Go to the Great Hall{s1}.", #chief sot cambia
+       [
+           (try_begin),
+             (this_or_next|eq, "$all_doors_locked", 1),
+             (eq, "$sneaked_into_town", 1),
+             (display_message,"str_door_locked",0xFFFFAAAA),
+           (else_try),
+		     (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
+		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 50),
+			 (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
+			 (neq, "$g_player_eligible_feast_center_no", "$current_town"),
+
+			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
+			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
+
+			 (neg|check_quest_active, "qst_wed_betrothed"),
+			 (neg|check_quest_active, "qst_wed_betrothed_female"),
+
+			 (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin), #Married players always make the cut
+
+			 (jump_to_menu, "mnu_cannot_enter_court"),
+		   (else_try),
+             (assign, "$town_entered", 1),
+             (call_script, "script_enter_court", "$current_town"),
+           (try_end),
+        ], "Door to the castle."),
+
+      ("join_tournament", [(neg|is_currently_night),(party_slot_ge, "$current_town", slot_town_has_tournament, 1),]
+       ,"Join the Competition.", #chief cambia sot
+       [
+           (call_script, "script_fill_tournament_participants_troop", "$current_town", 1),
+           (assign, "$g_tournament_cur_tier", 0),
+           (assign, "$g_tournament_player_team_won", -1),
+           (assign, "$g_tournament_bet_placed", 0),
+           (assign, "$g_tournament_bet_win_amount", 0),
+           (assign, "$g_tournament_last_bet_tier", -1),
+           (assign, "$g_tournament_next_num_teams", 0),
+           (assign, "$g_tournament_next_team_size", 0),
+           (jump_to_menu, "mnu_town_tournament"),
+        ]),
+
+
+      ("town_castle",[
+          (party_slot_eq,"$current_town",slot_party_type, spt_town),
+          (eq,"$entry_to_town_forbidden",0),
+          (str_clear, s1),
+          (try_begin),
+            (store_faction_of_party, ":center_faction", "$current_town"),
+            (faction_slot_eq, ":center_faction", slot_faction_ai_state, sfai_feast),
+            (faction_slot_eq, ":center_faction", slot_faction_ai_object, "$current_town"),
+            (str_store_string, s1, "str__join_the_feast"),
+          (try_end),
+
+          ],"Go to the Great hall{s1}.",
+       [
+            (try_begin), #chief anadido
+        (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"), #chief anadido player es lord de la ciudad
+     (troop_slot_ge, "trp_player", slot_troop_renown, 30), #chief anadido
+          (try_begin),
+             (this_or_next|eq, "$all_doors_locked", 1),
+             (eq, "$sneaked_into_town", 1),
+             (display_message,"str_door_locked",0xFFFFAAAA),
+           (else_try),
+		     (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
+		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 60),#Gdw50
+		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
+			 (neq, "$g_player_eligible_feast_center_no", "$current_town"),
+
+			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
+			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
+
+			 (neg|check_quest_active, "qst_wed_betrothed"),
+			 (neg|check_quest_active, "qst_wed_betrothed_female"),
+
+			 (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin), #Married players always make the cut
+
+             (jump_to_menu, "mnu_cannot_enter_court"),
+			(else_try),
+			  (assign, "$town_entered", 1),
+              (call_script, "script_enter_court", "$current_town"),
+             (try_begin),#gdw moved here to be near bishop of alt clut
+             (party_get_slot, ":cur_scene", "$current_town", slot_town_castle),
+             (jump_to_scene, ":cur_scene"),
+             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
+              (eq, ":cur_scene", "scn_town_6_castle"),#gdw
+              (assign, ":cur_entry", 10),
+              (set_visitor, 10, "trp_antler"),
+             (try_end),
+       (try_end),#gdw is this correct? it seems it will cut off the message below
+		   (else_try), #chief anadido
+             (display_message,"@You need more renown or to ask the guard.",0xFFFFAAAA), #chief anadido
+           (try_end), #chief anadido
+        ], "Door to the castle."),
+
+      ("town_center",
+      [
+        (party_slot_eq, "$current_town", slot_party_type, spt_town),
+        (this_or_next|eq,"$entry_to_town_forbidden",0),
+        (eq, "$sneaked_into_town",1)
+      ],
+      "Take a walk around the streets.",
+       [
+         #If the player is fighting his or her way out
+         (try_begin),
+           (eq, "$talk_context", tc_prison_break),
+           (assign, "$talk_context", tc_escape),
+           (assign, "$g_mt_mode", tcm_escape),
+           (store_faction_of_party, ":town_faction", "$current_town"),
+           (faction_get_slot, ":tier_2_troop", ":town_faction", slot_faction_tier_3_troop),
+           (faction_get_slot, ":tier_3_troop", ":town_faction", slot_faction_tier_3_troop),
+           (faction_get_slot, ":tier_4_troop", ":town_faction", slot_faction_tier_4_troop),
+           (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+           (modify_visitors_at_site, ":town_scene"),
+           (reset_visitors),
+           #ideally we could alarm troops at locations
+           (try_begin),
+	         #if guards have not gone to some other important happening at nearby villages, then spawn 4 guards. (example : fire)
+             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
+             (store_current_hours, ":cur_time"),
+             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
+
+             (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
+             (store_time_of_day, ":cur_day_hour"),
+             (try_begin), #there are 6 guards at day time (no fire ext)
+               (ge, ":cur_day_hour", 6),
+               (lt, ":cur_day_hour", 22),
+               (set_visitors, 25, ":tier_2_troop", 3),#gdw larger bodyguards mean easier quest
+               (set_visitors, 26, ":tier_2_troop", 2),#gdw
+               (set_visitors, 27, ":tier_3_troop", 2),#gdw
+               (set_visitors, 28, ":tier_4_troop", 2),#gdw
+             (else_try),  #only 4 guards because of night
+               (set_visitors, 25, ":tier_2_troop", 3),#gdw
+               (set_visitors, 26, ":tier_2_troop", 2),#gdw
+               (set_visitors, 27, ":tier_3_troop", 1),
+               (set_visitors, 28, ":tier_4_troop", 1),
+             (try_end),
+           (else_try),
+	         #if guards have gone to some other important happening at nearby villages, then spawn only 1 guard. (example : fire)
+             (store_time_of_day, ":cur_day_hour"),
+             (try_begin), #only 2 guard because there is a fire at one owned village
+               (ge, ":cur_day_hour", 6),
+               (lt, ":cur_day_hour", 22),
+               (set_visitors, 25, ":tier_2_troop", 3),#gdw
+               (set_visitors, 26, ":tier_2_troop", 1),
+               (set_visitors, 27, ":tier_3_troop", 1),#gdw
+               (set_visitors, 28, ":tier_4_troop", 1),
+             (else_try), #only 1 guard because both night and there is a fire at one owned village
+               (set_visitors, 25, ":tier_2_troop", 1),
+               (set_visitors, 26, ":tier_2_troop", 1),#gdw
+               (set_visitors, 27, ":tier_3_troop", 1),#gdw
+               (set_visitors, 28, ":tier_4_troop", 0),
+             (try_end),
+           (try_end),
+           (set_jump_mission,"mt_town_center"),
+           (jump_to_scene, ":town_scene"),
+           (change_screen_mission),
+            #If you're already at escape, then talk context will reset
+         (else_try),
+           (assign, "$talk_context", 0),
+           (call_script, "script_cf_enter_center_location_bandit_check"),
+           #All other circumstances...
+         (else_try),
+           (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+           (modify_visitors_at_site, ":town_scene"),
+           (reset_visitors),
+           (assign, "$g_mt_mode", tcm_default),
+           (store_faction_of_party, ":town_faction","$current_town"),
+
+           (try_begin),
+             (neq, ":town_faction", "fac_player_supporters_faction"),
+             (faction_get_slot, ":troop_prison_guard", "$g_encountered_party_faction", slot_faction_prison_guard_troop),
+             (faction_get_slot, ":troop_castle_guard", "$g_encountered_party_faction", slot_faction_castle_guard_troop),
+             (faction_get_slot, ":tier_2_troop", ":town_faction", slot_faction_tier_2_troop),
+             (faction_get_slot, ":tier_3_troop", ":town_faction", slot_faction_tier_3_troop),
+           (else_try),
+             (party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
+             (faction_get_slot, ":troop_prison_guard", ":town_original_faction", slot_faction_prison_guard_troop),
+             (faction_get_slot, ":troop_castle_guard", ":town_original_faction", slot_faction_castle_guard_troop),
+             (faction_get_slot, ":tier_2_troop", ":town_original_faction", slot_faction_tier_2_troop),
+             (faction_get_slot, ":tier_3_troop", ":town_original_faction", slot_faction_tier_3_troop),
+           (try_end),
+           (try_begin), #think about this, should castle guard have to go nearby fire too? If he do not go, killing 2 armored guard is too hard for player. For now he goes too.
+             #if guards have not gone to some other important happening at nearby villages, then spawn 4 guards. (example : fire)
+             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
+             (store_current_hours, ":cur_time"),
+             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
+
+             (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
+             (set_visitor, 23, ":troop_castle_guard"),
+           (try_end),
+           (set_visitor, 24, ":troop_prison_guard"),
+
+           (try_begin),
+             (gt,":tier_2_troop", 0),
+             (assign,reg0,":tier_3_troop"),
+             (assign,reg1,":tier_3_troop"),
+             (assign,reg2,":tier_2_troop"),
+             (assign,reg3,":tier_2_troop"),
+           (else_try),
+             (assign,reg0,"trp_saxon_infantryt3"),
+             (assign,reg1,"trp_saxon_infantryt3"),
+             (assign,reg2,"trp_saxon_infantryt4"),
+             (assign,reg3,"trp_saxon_footmant2"),
+           (try_end),
+           (shuffle_range,0,4),
+
+           (try_begin),
+             #if guards have not gone to some other important happening at nearby villages, then spawn 4 guards. (example : fire)
+             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
+             (store_current_hours, ":cur_time"),
+             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
+
+             (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
+             (set_visitor,25,reg0),
+             (set_visitor,26,reg1),
+             (set_visitor,27,reg2),
+             (set_visitor,28,reg3),
+           (try_end),
+
+           (party_get_slot, ":spawned_troop", "$current_town", slot_town_armorer),
+           (set_visitor, 9, ":spawned_troop"),
+           (party_get_slot, ":spawned_troop", "$current_town", slot_town_weaponsmith),
+           (set_visitor, 10, ":spawned_troop"),
+           (party_get_slot, ":spawned_troop", "$current_town", slot_town_elder),
+           (set_visitor, 11, ":spawned_troop"),
+           (party_get_slot, ":spawned_troop", "$current_town", slot_town_horse_merchant),
+           (set_visitor, 12, ":spawned_troop"),
+           (call_script, "script_init_town_walkers"),
+           (set_jump_mission,"mt_town_center"),
+           (assign, ":override_state", af_override_horse),
+           (try_begin),
+             (eq, "$sneaked_into_town", 1), #setup disguise
+             (assign, ":override_state", af_override_all),
+           (try_end),
+           (mission_tpl_entry_set_override_flags, "mt_town_center", 0, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_town_center", 2, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_town_center", 3, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_town_center", 4, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_town_center", 5, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_town_center", 6, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_town_center", 7, ":override_state"),
+           (try_begin),
+             (eq, "$town_entered", 0),
+             (assign, "$town_entered", 1),
+             (eq, "$town_nighttime", 0),
+             (set_jump_entry, 1),
+           (try_end),
+           (jump_to_scene, ":town_scene"),
+           (change_screen_mission),
+         (try_end),
+      ],"Door to the town center."),
+
+      ("town_tavern",[
+          (party_slot_eq,"$current_town",slot_party_type, spt_town),
+          (this_or_next|eq,"$entry_to_town_forbidden",0),
+          (eq, "$sneaked_into_town",1),
+#          (party_get_slot, ":scene", "$current_town", slot_town_tavern),
+#          (scene_slot_eq, ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
+          ],
+       "Visit the mead hall", #chief sot cambia
+       [
+           (try_begin),
+             (eq,"$all_doors_locked",1),
+             (display_message,"str_door_locked",0xFFFFAAAA),
+           (else_try),
+             (call_script, "script_cf_enter_center_location_bandit_check"),
+           (else_try),
+             (assign, "$town_entered", 1),
+             (set_jump_mission, "mt_town_default"),
+             (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_horse),
+             (try_begin),
+               (eq, "$sneaked_into_town",1),
+               (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_all),
+             (try_end),
+
+             (party_get_slot, ":cur_scene", "$current_town", slot_town_tavern),
+             (jump_to_scene, ":cur_scene"),
+             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
+
+             (assign, "$talk_context", tc_tavern_talk),
+             (call_script, "script_initialize_tavern_variables"),
+
+			       (store_random_in_range, ":randomize_attacker_placement", 0, 4),
+
+             (modify_visitors_at_site, ":cur_scene"),
+             (reset_visitors),
+
+             (assign, ":cur_entry", 17),
+
+			 #this is just a cheat right now
+             #(troop_set_slot, "trp_belligerent_drunk", slot_troop_cur_center, "$g_encountered_party"),
+			 #(try_begin),gdw moved to be near bishop of alt clut
+       #      (eq, ":cur_scene", "scn_town_7_tavern"),
+        #     (assign, ":cur_entry", 24),
+       #      (set_visitor, 24, "trp_antler"),
+        #(try_end),
+
+			 (try_begin),
+				(eq, "$cheat_mode", 1),
+				(troop_get_slot, ":drunk_location", "trp_belligerent_drunk", slot_troop_cur_center),
+				(try_begin),
+					(eq, "$cheat_mode", 0),
+				(else_try),
+					(is_between, ":drunk_location", centers_begin, centers_end),
+					(str_store_party_name, s4, ":drunk_location"),
+					(display_message, "str_belligerent_drunk_in_s4"),
+			    (else_try),
+					(display_message, "str_belligerent_drunk_not_found"),
+				(try_end),
+
+				(try_begin),
+             (eq, ":cur_scene", "scn_town_3_castle"),
+             (assign, ":cur_entry", 18),
+             (set_visitor, 18, "trp_antler"),
+        (try_end),
+
+			 (troop_get_slot, ":promoter_location", "trp_fight_promoter", slot_troop_cur_center),
+				(try_begin),
+					(eq, "$cheat_mode", 0),
+				(else_try),
+					(is_between, ":promoter_location", centers_begin, centers_end),
+					(str_store_party_name, s4, ":promoter_location"),
+					(display_message, "str_roughlooking_character_in_s4"),
+			    (else_try),
+					(display_message, "str_roughlooking_character_not_found"),
+				(try_end),
+			 (try_end),
+
+			 #this determines whether or not a lord who dislikes you will commission an assassin
+			 (try_begin),
+				(store_current_hours, ":hours"),
+				(store_sub, ":hours_since_last_attempt", ":hours", "$g_last_assassination_attempt_time"),
+				(gt, ":hours_since_last_attempt", 168),
+				(try_for_range, ":lord", active_npcs_begin, active_npcs_end),
+					(troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_debauched),
+					(troop_get_slot, ":led_party", ":lord", slot_troop_leaded_party),
+					(party_is_active, ":led_party"),
+					(party_get_attached_to, ":led_party_attached", ":led_party"),
+					(eq, ":led_party_attached", "$g_encountered_party"),
+					(call_script, "script_troop_get_relation_with_troop", "trp_player", ":lord"),
+					(lt, reg0, -20),
+					(assign, "$g_last_assassination_attempt_time", ":hours"),
+#					(assign, "$g_last_assassination_attempt_location", "$g_encountered_party"),
+#					(assign, "$g_last_assassination_attempt_perpetrator", ":lord"),
+
+					(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),
+				(try_end),
+			 (try_end),
+
+			 (try_begin),
+				 (eq, ":randomize_attacker_placement", 0),
+				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
+
+				 (val_add, ":cur_entry", 1),
+			 (try_end),
+
+			 (try_begin),
+				(eq, 1, 0),
+				(troop_slot_eq, "trp_fight_promoter", slot_troop_cur_center, "$current_town"),
+                (set_visitor, ":cur_entry", "trp_fight_promoter"),
+
+                (val_add, ":cur_entry", 1),
+			 (try_end),
+
+             (party_get_slot, ":mercenary_troop", "$current_town", slot_center_mercenary_troop_type),
+             (party_get_slot, ":mercenary_amount", "$current_town", slot_center_mercenary_troop_amount),
+             (try_begin),
+               (gt, ":mercenary_troop", 0),
+               (gt, ":mercenary_amount", 0),
+               (set_visitor, ":cur_entry", ":mercenary_troop"),
+               (val_add, ":cur_entry", 1),
+             (try_end),
+
+##Floris
+             (party_get_slot, ":mercenary_troop2", "$current_town", slot_center_mercenary_troop_type_2),  #Adds a menu for the second group of mercenaries in the tavern
+             (party_get_slot, ":mercenary_amount2", "$current_town", slot_center_mercenary_troop_amount_2),
+             (try_begin),
+               (gt, ":mercenary_amount2", 0),
+               (gt, ":mercenary_troop2", 0),
+               (set_visitor, ":cur_entry", ":mercenary_troop2"),
+               (val_add, ":cur_entry", 1),
+             (try_end),
+
+
+			 (try_begin),
+				 (eq, ":randomize_attacker_placement", 1),
+				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
+
+				 (val_add, ":cur_entry", 1),
+			 (try_end),
+
+             (try_for_range, ":companion_candidate", companions_begin, companions_end),
+               (troop_slot_eq, ":companion_candidate", slot_troop_occupation, 0),
+               (troop_slot_eq, ":companion_candidate", slot_troop_cur_center, "$current_town"),
+			   (neg|troop_slot_ge, ":companion_candidate", slot_troop_prisoner_of_party, centers_begin),
+
+               (set_visitor, ":cur_entry", ":companion_candidate"),
+
+               (val_add, ":cur_entry", 1),
+             (try_end),
+
+			 (try_begin),
+				 (eq, ":randomize_attacker_placement", 2),
+				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
+
+				 (val_add, ":cur_entry", 1),
+			 (try_end),
+
+        (try_begin), #this doubles the incidence of ransom brokers and (below) minstrels
+           (party_get_slot, ":ransom_broker", "$current_town", slot_center_ransom_broker),
+            (gt, ":ransom_broker", 0),
+
+            (assign, reg0, ":ransom_broker"),
+            (assign, reg1, "$current_town"),
+
+            (set_visitor, ":cur_entry", ":ransom_broker"),
+            (val_add, ":cur_entry", 1),
+			  (else_try),
+			   (is_between, "$g_talk_troop", ransom_brokers_begin, ransom_brokers_end),
+			   (store_add, ":alternative_town", "$current_town", 3),#gdw more brokers?9
+			   		(try_begin),
+				     	(ge, ":alternative_town", towns_end),
+				     	(val_sub, ":alternative_town", 44),#gdw there are 44 towns was at22
+			       (try_end),
+			   		(try_begin),
+							(eq, "$cheat_mode", 1),
+			    		(str_store_party_name, s3, "$current_town"),
+			    		(str_store_party_name, s4, ":alternative_town"),
+			    		(display_message, "@{!}DEBUG - Current town is {s3}, but also checking {s4}"),
+			   		(try_end),
+					(try_begin),
+            (party_get_slot, ":ransom_broker", ":alternative_town", slot_center_ransom_broker),
+              (gt, ":ransom_broker", 0),
+
+             (set_visitor, ":cur_entry", ":ransom_broker"),
+             (val_add, ":cur_entry", 1),
+            (try_end),
+        (try_end),
+
+             (try_begin),
+               (party_get_slot, ":tavern_traveler", "$current_town", slot_center_tavern_traveler),
+               (gt, ":tavern_traveler", 0),
+               (set_visitor, ":cur_entry", ":tavern_traveler"),
+               (val_add, ":cur_entry", 1),
+             (try_end),
+			 # (try_begin),
+    #            (party_get_slot, ":special_merchant", "$current_town", slot_center_special_merchant),
+    #            #(gt, ":special_merchant", 0),
+    #            (set_visitor, ":cur_entry", "special_merchant"),
+    #            (val_add, ":cur_entry", 1),
+    #          (try_end),
+             (try_begin),
+               (party_get_slot, ":tavern_minstrel", "$current_town", slot_center_tavern_minstrel),
+               (gt, ":tavern_minstrel", 0),
+
+               (set_visitor, ":cur_entry", ":tavern_minstrel"),
+               (val_add, ":cur_entry", 1),
+			 (else_try),
+			   (store_add, ":alternative_town", "$current_town", 9),
+			   (try_begin),
+				(ge, ":alternative_town", towns_end),
+				(val_sub, ":alternative_town", 22),
+			   (try_end),
+ 			   ##diplomacy start+ chief
+			   #The above code makes assumptions about the number of towns that might not be true on other maps.
+			   #Changing it to support variable sizes would not be hard, but I'm not convinced that it is so
+			   #desirable in the first place.
+			   (is_between, ":alternative_town", centers_begin, centers_end),
+			   (party_slot_eq, ":alternative_town", slot_party_type, spt_town),
+			   ##diplomacy end+
+              (party_get_slot, ":tavern_minstrel", ":alternative_town", slot_center_tavern_minstrel),
+               (gt, ":tavern_minstrel", 0),
+
+               (set_visitor, ":cur_entry", ":tavern_minstrel"),
+               (val_add, ":cur_entry", 1),
+             (try_end),
+
+## CC gambling begin chief
+             (try_begin),
+               (party_get_slot, ":prosperity", "$current_town", slot_town_prosperity),
+               (val_mod, ":prosperity", 24),
+               (store_time_of_day, ":cur_hour"),
+               (store_sub, ":difference", ":prosperity", ":cur_hour"),
+               (is_between, ":difference", -1, 2), # -1 0 1, 1/8 probability
+               (set_visitor, ":cur_entry", "trp_especial_merchant"),
+               (troop_set_name, "trp_especial_merchant", "@Mystic Merchant"),
+               (call_script, "script_refresh_mystic_merchant_items", "trp_especial_merchant"),
+               (val_add, ":cur_entry", 1),
+             (try_end),
+## CC gambling end
+
+             (try_begin),
+               (party_get_slot, ":tavern_bookseller", "$current_town", slot_center_tavern_bookseller),
+               (gt, ":tavern_bookseller", 0),
+               (set_visitor, ":cur_entry", ":tavern_bookseller"),
+               (val_add, ":cur_entry", 1),
+             (try_end),
+
+			 (try_begin),
+				 (eq, ":randomize_attacker_placement", 3),
+				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
+				 (val_add, ":cur_entry", 1),
+			 (try_end),
+
+             (try_begin),
+               (neg|check_quest_active, "qst_eliminate_bandits_infesting_village"),
+               (neg|check_quest_active, "qst_deal_with_bandits_at_lords_village"),
+               (assign, ":end_cond", villages_end),
+               (try_for_range, ":cur_village", villages_begin, ":end_cond"),
+                 (party_slot_eq, ":cur_village", slot_village_bound_center, "$current_town"),
+                 (party_slot_ge, ":cur_village", slot_village_infested_by_bandits, 1),
+                 (neg|party_slot_eq, ":cur_village", slot_town_lord, "trp_player"),
+                 (set_visitor, ":cur_entry", "trp_farmer_from_bandit_village"),
+                 (val_add, ":cur_entry", 1),
+                 (assign, ":end_cond", 0),
+               (try_end),
+             (try_end),
+
+             #(try_begin), #TML commented this out to prevent the merchant perpetually taking space in the starting tavern. He never says anything anyway. F123 - Submod -> 1.41
+               #(eq, "$g_starting_town", "$current_town"),
+
+               #(this_or_next|neg|check_quest_finished, "qst_collect_men"),
+               #(this_or_next|neg|check_quest_finished, "qst_learn_where_merchant_brother_is"),
+               #(this_or_next|neg|check_quest_finished, "qst_save_relative_of_merchant"),
+               #(this_or_next|neg|check_quest_finished, "qst_save_town_from_bandits"),
+               #(eq,  "$g_do_one_more_meeting_with_merchant", 1),
+
+			   #(assign, ":troop_of_merchant", 0),
+#chief mercaderes
+               #(try_begin),
+               #  (eq, "$g_encountered_party_faction", "fac_kingdom_18"),
+               #  (assign, ":troop_of_merchant", "trp_briton_merchant"),
+               #(else_try),
+               #  (eq, "$g_encountered_party_faction", "fac_kingdom_4"),
+               #  (assign, ":troop_of_merchant", "trp_saxon_merchant"),
+               #(else_try),
+               #  (eq, "$g_encountered_party_faction", "fac_kingdom_1"),
+               #  (assign, ":troop_of_merchant", "trp_pict_merchant"),
+               #(else_try),
+               #  (eq, "$g_encountered_party_faction", "fac_kingdom_23"),
+               #  (assign, ":troop_of_merchant", "trp_engle_merchant"),
+               #(else_try),
+               #  (eq, "$g_encountered_party_faction", "fac_kingdom_31"),
+               #  (assign, ":troop_of_merchant", "trp_irish_merchant"),
+               #(else_try),
+               #  (eq, "$g_encountered_party_faction", "fac_kingdom_28"),
+               #  (assign, ":troop_of_merchant", "trp_centware_merchant"),
+               #(try_end),
+			   #(gt, ":troop_of_merchant", 0),
+#chief mercaderes acaba
+          #     (set_visitor, ":cur_entry", ":troop_of_merchant"),
+         #      (val_add, ":cur_entry", 1),
+         #    (try_end),
+
+             (change_screen_mission),
+           (try_end),
+        ],"Door to the tavern."),
+
+#      ("town_smithy",[
+#          (eq,"$entry_to_town_forbidden",0),
+#          (eq,"$town_nighttime",0),
+#          ],
+#       "Visit the smithy.",
+#       [
+#           (set_jump_mission,"mt_town_default"),
+#           (jump_to_scene,"$pout_scn_smithy"),
+#           (change_screen_mission,0),
+#        ]),
+
+
+      ("town_merchant",
+       [(party_slot_eq,"$current_town",slot_party_type, spt_town),
+           (eq, 1, 0),
+           (eq,"$town_nighttime",0),
+           (this_or_next|eq,"$entry_to_town_forbidden",0),
+           (eq, "$sneaked_into_town",1),
+#           (party_get_slot, ":scene", "$current_town", slot_town_store),
+#           (scene_slot_eq, ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
+           ],
+       "Speak with the merchant.",
+       [
+           (try_begin),
+             (this_or_next|eq,"$all_doors_locked",1),
+             (eq,"$town_nighttime",1),
+             (display_message,"str_door_locked",0xFFFFAAAA),
+           (else_try),
+             (assign, "$town_entered", 1),
+             (set_jump_mission, "mt_town_default"),
+             (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_horse),
+             (try_begin),
+               (eq, "$sneaked_into_town",1),
+               (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_all),
+             (try_end),
+             (party_get_slot, ":cur_scene", "$current_town", slot_town_store),
+             (jump_to_scene, ":cur_scene"),
+             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
+             (change_screen_mission),
+           (try_end),
+        ],"Door to the shop."),
+
+      ("town_arena",
+       [(party_slot_eq,"$current_town",slot_party_type, spt_town),
+        (eq, "$sneaked_into_town", 0),
+#           (party_get_slot, ":scene", "$current_town", slot_town_arena),
+#           (scene_slot_eq,  ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
+           ],
+       "Enter the arena.",
+       [
+           (try_begin),
+             (this_or_next|eq,"$all_doors_locked",1),
+             (eq,"$town_nighttime",1),
+             (display_message,"str_door_locked",0xFFFFAAAA),
+           (else_try),
+             (assign, "$g_mt_mode", abm_visit),
+             (assign, "$town_entered", 1),
+             (set_jump_mission, "mt_arena_melee_fight"),
+             (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+             (modify_visitors_at_site, ":arena_scene"),
+             (reset_visitors),
+             (set_visitor, 43, "trp_veteran_fighter"),
+             (set_visitor, 44, "trp_merc_infantryt5"),
+             (set_jump_entry, 50),
+             (jump_to_scene, ":arena_scene"),
+             (scene_set_slot, ":arena_scene", slot_scene_visited, 1),
+             (change_screen_mission),
+           (try_end),
+        ],"Door to the arena."),
+      ("town_dungeon",
+       [(eq, 1, 0)],
+       "Never: Enter the prison.",
+       [
+           (try_begin),
+		    (eq, "$talk_context", tc_prison_break),
+			(gt, "$g_main_attacker_agent", 0),
+
+		   	(neg|agent_is_alive, "$g_main_attacker_agent"),
+
+			(agent_get_troop_id, ":agent_type", "$g_main_attacker_agent"),
+			(try_begin),
+			  (eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
+			  (party_get_slot, ":prison_guard_faction", "$current_town", slot_center_original_faction),
+			(else_try),
+			  (assign, ":prison_guard_faction", "$g_encountered_party_faction"),
+			(try_end),
+			(faction_slot_eq, ":prison_guard_faction", slot_faction_prison_guard_troop, ":agent_type"),
+
+			(call_script, "script_deduct_casualties_from_garrison"),
+            (call_script, "script_enter_dungeon", "$current_town", "mt_visit_town_castle"),
+
+		   (else_try),
+             (eq,"$all_doors_locked",1),
+             (display_message,"str_door_locked",0xFFFFAAAA),
+           (else_try),
+             (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+             (eq, "$g_encountered_party_faction", "$players_kingdom"),
+             (assign, "$town_entered", 1),
+             (call_script, "script_enter_dungeon", "$current_town", "mt_visit_town_castle"),
+           (else_try),
+             (display_message,"str_door_locked",0xFFFFAAAA),
+           (try_end),
+        ],"Door to the dungeon."),
+
+      ("castle_inspect",
+      [
+         (party_slot_eq,"$current_town",slot_party_type, spt_castle),
+       (neq, "$current_town", "p_fort"), #para player lair chief player
+      ],
+       "Take a walk around the courtyard.",
+       [
+         (try_begin),
+           (eq, "$talk_context", tc_prison_break),
+           (assign, "$talk_context", tc_escape),
+
+           (party_get_slot, ":cur_castle_exterior", "$current_town", slot_castle_exterior),
+           (modify_visitors_at_site, ":cur_castle_exterior"),
+           (reset_visitors),
+
+           (assign, ":guard_no", 40),
+
+           (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
+           (try_for_range, ":troop_iterator", 0, ":num_stacks"),
+             #nearby fire condition start
+             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
+             (store_current_hours, ":cur_time"),
+             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
+             (this_or_next|eq, ":guard_no", 40),
+             (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
+             #nearby fire condition end
+
+             (lt, ":guard_no", 47),
+             (party_stack_get_troop_id, ":cur_troop_id", "$g_encountered_party", ":troop_iterator"),
+             (neg|troop_is_hero, ":cur_troop_id"),
+             (party_stack_get_size, ":stack_size","$g_encountered_party",":troop_iterator"),
+             (party_stack_get_num_wounded, ":num_wounded","$g_encountered_party",":troop_iterator"),
+             (val_sub, ":stack_size", ":num_wounded"),
+             (gt, ":stack_size", 0),
+             (party_stack_get_troop_dna,":troop_dna", "$g_encountered_party", ":troop_iterator"),
+             (set_visitor, ":guard_no", ":cur_troop_id", ":troop_dna"),
+             (val_add, ":guard_no", 1),
+           (try_end),
+           #(set_jump_entry, 1),
+           (set_visitor, 7, "$g_player_troop"),
+
+           (set_jump_mission,"mt_castle_visit"),
+           (jump_to_scene, ":cur_castle_exterior"),
+           (change_screen_mission),
+            #If you're already at escape, then talk context will reset
+         (else_try),
+           (assign, "$talk_context", tc_town_talk),
+
+           (assign, "$g_mt_mode", tcm_default),
+
+           (party_get_slot, ":cur_castle_exterior", "$current_town", slot_castle_exterior),
+           (modify_visitors_at_site,":cur_castle_exterior"),
+           (reset_visitors),
+
+           (try_begin),
+             (neq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
+             (faction_get_slot, ":troop_prison_guard", "$g_encountered_party_faction", slot_faction_prison_guard_troop),
+           (else_try),
+             (party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
+             (faction_get_slot, ":troop_prison_guard", ":town_original_faction", slot_faction_prison_guard_troop),
+           (try_end),
+           (set_visitor, 24, ":troop_prison_guard"),
+         (call_script, "script_init_town_walkers"), #chief anadido walkers a castillos
+
+           (assign, ":guard_no", 40),
+
+           (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
+           (try_for_range, ":troop_iterator", 0, ":num_stacks"),
+             #nearby fire condition start
+             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
+             (store_current_hours, ":cur_time"),
+             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
+             (neg|is_between, ":cur_time", ":fire_finish_time", ":last_nearby_fire_time"),
+
+             (lt, ":guard_no", 47),
+             (party_stack_get_troop_id, ":cur_troop_id", "$g_encountered_party", ":troop_iterator"),
+             (neg|troop_is_hero, ":cur_troop_id"),
+             (party_stack_get_size, ":stack_size","$g_encountered_party",":troop_iterator"),
+             (party_stack_get_num_wounded, ":num_wounded","$g_encountered_party",":troop_iterator"),
+             (val_sub, ":stack_size", ":num_wounded"),
+             (gt, ":stack_size", 0),
+             (party_stack_get_troop_dna,":troop_dna","$g_encountered_party",":troop_iterator"),
+             (set_visitor, ":guard_no", ":cur_troop_id", ":troop_dna"),
+
+             (val_add, ":guard_no", 1),
+           (try_end),
+
+           (try_begin),
+             (eq, "$town_entered", 0),
+             (assign, "$town_entered", 1),
+           (try_end),
+           (set_jump_entry, 1),
+
+           (assign, ":override_state", af_override_horse),
+           (try_begin),
+             (eq, "$sneaked_into_town", 1), #setup disguise
+             (assign, ":override_state", af_override_all),
+           (try_end),
+           (set_jump_mission, "mt_castle_visit"),
+
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 0, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 1, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 2, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 3, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 4, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 5, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 6, ":override_state"),
+           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 7, ":override_state"),
+
+           (jump_to_scene, ":cur_castle_exterior"),
+           (change_screen_mission),
+         (try_end),
+        ], "To the castle courtyard."),
+
+     ("town_enterprise",
+      [
+        (party_slot_eq,"$current_town",slot_party_type, spt_town),
+        (party_get_slot, ":item_produced", "$current_town", slot_center_player_enterprise),
+		(gt, ":item_produced", 1),
+        (eq,"$entry_to_town_forbidden",0),
+		(call_script, "script_get_enterprise_name", ":item_produced"),
+		(str_store_string, s3, reg0),
+                             (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
+
+      ],
+      "Visit your {s3}.",
+      [
+        (store_sub, ":town_order", "$current_town", towns_begin),
+		(store_add, ":master_craftsman", "trp_town_1_master_craftsman", ":town_order"),
+        (party_get_slot, ":item_produced", "$current_town", slot_center_player_enterprise),
+		(assign, ":enterprise_scene", "scn_enterprise_mill"),
+		(try_begin),
+			(eq, ":item_produced", "itm_bread"),
+			(assign, ":enterprise_scene", "scn_enterprise_mill"),
+		(else_try),
+			(eq, ":item_produced", "itm_ale"),
+			(assign, ":enterprise_scene", "scn_enterprise_brewery"),
+		(else_try),
+			(eq, ":item_produced", "itm_oil"),
+			(assign, ":enterprise_scene", "scn_enterprise_oil_press"),
+		(else_try),
+			(eq, ":item_produced", "itm_wine"),
+			(assign, ":enterprise_scene", "scn_enterprise_winery"),
+		(else_try),
+			(eq, ":item_produced", "itm_leatherwork"),
+			(assign, ":enterprise_scene", "scn_enterprise_tannery"),
+		(else_try),
+			(eq, ":item_produced", "itm_wool_cloth"),
+			(assign, ":enterprise_scene", "scn_enterprise_wool_weavery"),
+		(else_try),
+			(eq, ":item_produced", "itm_linen"),
+			(assign, ":enterprise_scene", "scn_enterprise_linen_weavery"),
+		(else_try),
+			(eq, ":item_produced", "itm_velvet"),
+			(assign, ":enterprise_scene", "scn_enterprise_dyeworks"),
+		(else_try),
+			(eq, ":item_produced", "itm_tools"),
+			(assign, ":enterprise_scene", "scn_enterprise_smithy"),
+		(try_end),
+        (modify_visitors_at_site,":enterprise_scene"),
+		(reset_visitors),
+        (set_visitor,0,"trp_player"),
+        (set_visitor,17,":master_craftsman"),
+        (set_jump_mission,"mt_town_default"),
+        (jump_to_scene,":enterprise_scene"),
+        (change_screen_mission),
+      ],"Door to your enterprise."),
+
+    ("visit_lady",
+	[
+
+	(neg|troop_slot_ge, "trp_player", slot_troop_spouse, kingdom_ladies_begin),
+
+	(assign, "$love_interest_in_town", 0),
+	(assign, "$love_interest_in_town_2", 0),
+	(assign, "$love_interest_in_town_3", 0),
+	(assign, "$love_interest_in_town_4", 0),
+	(assign, "$love_interest_in_town_5", 0),
+	(assign, "$love_interest_in_town_6", 0),
+	(assign, "$love_interest_in_town_7", 0),
+	(assign, "$love_interest_in_town_8", 0),
+
+	(try_for_range, ":lady_no", kingdom_ladies_begin, kingdom_ladies_end),
+		(troop_slot_eq, ":lady_no", slot_troop_cur_center, "$current_town"),
+		(call_script, "script_get_kingdom_lady_social_determinants", ":lady_no"),
+		(assign, ":lady_guardian", reg0),
+
+		(troop_slot_eq, ":lady_no", slot_troop_spouse, -1),
+		(ge, ":lady_guardian", 0), #not sure when this would not be the case
+
+
+		#must have spoken to either father or lady
+		(this_or_next|troop_slot_ge, ":lady_no", slot_troop_met, 2),
+			(troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
+
+		(neg|troop_slot_eq, ":lady_no", slot_troop_met, 4),
+
+		#must have approached father
+#		(this_or_next|troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
+#			(troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, -1),
+
+
+		(try_begin),
+			(eq, "$love_interest_in_town", 0),
+			(assign, "$love_interest_in_town", ":lady_no"),
+		(else_try),
+			(eq, "$love_interest_in_town_2", 0),
+			(assign, "$love_interest_in_town_2", ":lady_no"),
+		(else_try),
+			(eq, "$love_interest_in_town_3", 0),
+			(assign, "$love_interest_in_town_3", ":lady_no"),
+		(else_try),
+			(eq, "$love_interest_in_town_4", 0),
+			(assign, "$love_interest_in_town_4", ":lady_no"),
+		(else_try),
+			(eq, "$love_interest_in_town_5", 0),
+			(assign, "$love_interest_in_town_5", ":lady_no"),
+		(else_try),
+			(eq, "$love_interest_in_town_6", 0),
+			(assign, "$love_interest_in_town_6", ":lady_no"),
+		(else_try),
+			(eq, "$love_interest_in_town_7", 0),
+			(assign, "$love_interest_in_town_7", ":lady_no"),
+		(else_try),
+			(eq, "$love_interest_in_town_8", 0),
+			(assign, "$love_interest_in_town_8", ":lady_no"),
+		(try_end),
+	(try_end),
+
+	(gt, "$love_interest_in_town", 0),
+	],
+	  "Attempt to visit a lady",
+       [
+        (jump_to_menu, "mnu_lady_visit"),
+        ], "Door to the garden."),
+
+###player lair acaba chief
+#player lair empieza chief
+#player lair chief
+            ("lair_interior",
+      [
+       (eq, "$current_town", "p_fort"), #para lair chief player
+        ],"Go to Hall.", #chief sot cambia
+       [
+##           (try_begin),
+##             (this_or_next|eq,"$all_doors_locked",1),
+##             (eq,"$town_nighttime",1),
+##             (display_message,"str_door_locked",0xFFFFAAAA),
+##           (else_try),
+             (set_jump_mission, "mt_fort_interior"),
+      (modify_visitors_at_site,"scn_fort_interior"),
+             (reset_visitors),
+           (try_begin),
+             (eq, "$contratar_hoar", 1),
+           (set_visitor, 43, "trp_quastuosa_6"),
+           (try_end),
+           (try_begin),
+             (eq, "$contratar_pagano", 1),
+           (set_visitor, 42, "trp_pagan_priest"),
+           (else_try),
+             (eq, "$contratar_sacerdote", 1),
+           (set_visitor, 42, "trp_picto_sacerdote"),
+           (try_end),
+             (set_jump_entry, 0),
+	  (scene_set_slot, "scn_fort_exterior", slot_scene_visited, 1),
+                 (jump_to_scene,"scn_fort_interior"),
+             (change_screen_mission),
+#           (try_end),
+        ], "Door to the castle."),
+
+	("hirefort_staff",
+		[	       (eq, "$current_town", "p_fort"), #para player lair chief player
+		],
+		"Hire Staff.",
+		[
+			(jump_to_menu, "mnu_contratar_personal")
+		]
+	),
+
+
+    ("lair_inspect", [
+       (eq, "$current_town", "p_fort"), #para player lair chief player
+          ],
+       "Take a walk around your lair.",
+       [
+           (assign, "$talk_context", 0),
+           (try_begin),
+             (call_script, "script_cf_enter_center_location_bandit_check"),
+           (else_try),
+			(assign, ":fort_scene", "scn_fort_exterior"),
+
+             (modify_visitors_at_site, ":fort_scene"),
+             (reset_visitors),
+             (assign, "$g_mt_mode", tcm_default),
+			 (set_visitor, 11, "trp_fort_captain"),
+
+             # Setup peasant walkers
+             (try_for_range, ":visiterator", 32, 40),
+               (store_random_in_range, ":sex", 0, 100),
+               (try_begin),
+	(lt,":sex",30), #10% risk of tripping
+                 (set_visitor, ":visiterator", "trp_hunter_woman",),
+               (else_try),
+       (gt, ":sex", 30),
+       (lt, ":sex", 60),
+                 (set_visitor, ":visiterator", "trp_fighter_woman",),
+               (else_try),
+       (gt, ":sex", 60),
+       (lt, ":sex", 90),
+                 (set_visitor, ":visiterator", "trp_village_walker_2",),
+               (else_try),
+                 (set_visitor, ":visiterator", "trp_fort_walker",),
+               (try_end),
+             (try_end),
+
+##                 (set_visitor, ":visiterator", "trp_village_walker_1",),
+##               (else_try),
+##                 (set_visitor, ":visiterator", "trp_village_walker_2",),
+             # Setup guards based on best type of archer/melee troops currently in garrison
+	         (assign, ":highest_archer_lvl", 0),
+	         (assign, ":archer_id", 0),
+	         (assign, ":highest_infantry_lvl", 0),
+	         (assign, ":infantry_id", 0),
+	         (assign, ":highest_cavalry_lvl", 0),
+	         (assign, ":cavalry_id", 0),
+
+			 #(party_get_num_companions, ":castle_garrison_size", "p_collective_enemy"),
+	         (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
+	         (try_for_range, ":troop_iterator", 0, ":num_stacks"),
+	           (party_stack_get_troop_id, ":cur_troop_id", "$g_encountered_party", ":troop_iterator"),
+	           (neg|troop_is_hero, ":cur_troop_id"),
+	           (party_stack_get_size, ":stack_size","$g_encountered_party",":troop_iterator"),
+	           (party_stack_get_num_wounded, ":num_wounded","$g_encountered_party",":troop_iterator"),
+	           (val_sub, ":stack_size", ":num_wounded"),
+	           (gt, ":stack_size", 0),
+		       (store_character_level, ":cur_level", ":cur_troop_id"),
+	           (try_begin),
+		         (troop_is_guarantee_ranged, ":cur_troop_id"),
+		         (gt, ":cur_level", ":highest_archer_lvl"),
+		         (assign, ":highest_archer_lvl", ":cur_level"),
+		         (assign, ":archer_id", ":cur_troop_id"),
+		         (party_stack_get_troop_dna,":archer_dna","$g_encountered_party",":troop_iterator"),
+		       (else_try),
+		         (gt, ":cur_level", ":highest_infantry_lvl"),
+		         (assign, ":highest_infantry_lvl", ":cur_level"),
+		         (assign, ":infantry_id", ":cur_troop_id"),
+		         (party_stack_get_troop_dna,":infantry_dna","$g_encountered_party",":troop_iterator"),
+		       (try_end),
+		       (try_begin),
+		         (troop_is_guarantee_horse, ":cur_troop_id"),
+		         (gt, ":cur_level", ":highest_cavalry_lvl"),
+		         (assign, ":highest_cavalry_lvl", ":cur_level"),
+		         (assign, ":cavalry_id", ":cur_troop_id"),
+		         (party_stack_get_troop_dna,":cavalry_dna","$g_encountered_party",":troop_iterator"),
+		       (try_end),
+	         (try_end),
+
+	         # Slots 40-49 are the slots I used for archers and guards inside the fort intented for use in sieges as well
+	         (try_begin),
+	           (gt, ":archer_id", 0),
+	           (try_for_range, ":visiterator", 40, 42),
+	             (store_random_in_range, ":walker_dna", 0, 1000000),
+	             (set_visitor, ":visiterator", ":archer_id", ":walker_dna"),
+	           (try_end),
+	           (try_for_range, ":visiterator", 48, 50),
+	             (store_random_in_range, ":walker_dna", 0, 1000000),
+	             (set_visitor, ":visiterator", ":archer_id", ":walker_dna"),
+	           (try_end),
+	         (try_end),
+	         (try_begin),
+	           (gt, ":infantry_id", 0),
+	           (try_for_range, ":visiterator", 24, 30),	#I used slots 24-29 for stationary guard posts during visits
+	             (store_random_in_range, ":walker_dna", 0, 1000000),
+	             (set_visitor, ":visiterator", ":infantry_id", ":walker_dna"),
+	           (try_end),
+
+	           # these are 'patrols' that will path through specific points in the scene
+	           (call_script, "script_set_walker_to_type", "trp_fort_rider", ":cavalry_id"),
+	           (try_begin),
+	             (gt, ":cavalry_id", 0),
+	             (set_visitor, 20, ":cavalry_id", ":cavalry_dna"),	    # guard that patrols the perimeter
+	             #(set_visitor, 20, "trp_fort_rider", ":cavalry_dna"),	    # TODO: Go back to using this type now that the patrol is working properly
+	           (try_end),
+	           (call_script, "script_set_walker_to_type", "trp_fort_walker", ":infantry_id"),
+	           (set_visitor, 30, "trp_fort_walker", ":archer_dna"),		# guard that patrols the middle walkway
+	           (set_visitor, 42, "trp_fort_walker", ":infantry_dna"),	# guards patrolling the front walls
+	           (set_visitor, 44, "trp_fort_walker", ":walker_dna"),
+	         (try_end),
+
+             (call_script, "script_init_town_walkers"),
+             (set_jump_mission,"mt_fort_visit"),
+             (try_begin),
+               (eq, "$town_entered", 0),
+               (assign, "$town_entered", 1),
+               (eq, "$town_nighttime", 0),
+             (try_end),
+               (set_jump_entry, 1),
+             (jump_to_scene, ":fort_scene"),
+             (change_screen_mission),
+           (try_end),
+        ], "To the fort square."),
+
+      ("mylair_station_troops",
+      [	         (eq, "$current_town", "p_fort"), #para player lair chief player
+
+      ],
+      "Manage the garrison.",
+      [
+        (change_screen_exchange_members,1),
+		(display_message,"@The prison of your lair has low levels of security. Your captain will suggest not enclosing lords here!",0xFFFF0000),
+      ]),
+###player lair acaba chief
+      ("trade_with_merchants",
+       [
+           (party_slot_eq,"$current_town",slot_party_type, spt_town)
+        ],
+         "Go to the marketplace.",
+         [
+           (try_begin),
+             (call_script, "script_cf_enter_center_location_bandit_check"),
+           (else_try),
+             (jump_to_menu,"mnu_town_trade"),
+           (try_end),
+          ]),
+
+      ("walled_center_manage",
+      [
+        (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
+       (neq, "$current_town", "p_fort"), #para player lair chief player
+        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        (assign, reg0, 1),
+        (try_begin),
+          (party_slot_eq, "$current_town", slot_party_type, spt_castle),
+          (assign, reg0, 0),
+        (try_end),
+       ],
+       "Manage this {reg0?town:castle}.",
+       [
+           (assign, "$g_next_menu", "mnu_town"),
+           (jump_to_menu, "mnu_center_manage"),
+       ]),
+
+      ("walled_center_move_court",
+      [
+        (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
+       (neq, "$current_town", "p_fort"), #para player lair chief player
+        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        (eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
+        (neq, "$g_player_court", "$current_town"),
+      ],
+      "Move your court here.",
+      [
+        (jump_to_menu, "mnu_establish_court"),
+      ]),
+
+#festin de mead chief
+	("banquete_mead",
+		[
+        (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
+       (neq, "$current_town", "p_fort"), #para player lair chief player
+        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        (assign, reg0, 1),
+        (try_begin),
+          (party_slot_eq, "$current_town", slot_party_type, spt_castle),
+          (assign, reg0, 0),
+        (try_end),
+		],
+		"My men deserve a banquet in {reg0?town:castle}. Buy mead and food.",
+		[
+      (store_troop_gold,":money","trp_player"),
+      (try_begin),
+        (gt,":money",999),
+       (troop_remove_gold, "trp_player", 1000),
+           (jump_to_menu, "mnu_banquete_moral"),
+      (else_try),
+        (display_message,"str_money"),
+      (try_end),
+		]
+	),
+#festin acaba chief
+
+      ("castle_station_troops",
+      [
+       (neq, "$current_town", "p_fort"), #para player lair chief player
+		(party_get_slot, ":town_lord", "$current_town", slot_town_lord),
+	    (str_clear, s10),
+
+	    (assign, ":player_can_draw_from_garrison", 0),
+		(try_begin), #option 1 - player is town lord
+		  (eq, ":town_lord", "trp_player"),
+		  (assign, ":player_can_draw_from_garrison", 1),
+		(else_try), #option 2 - town is unassigned and part of the player faction
+		  (store_faction_of_party, ":faction", "$g_encountered_party"),
+		  (eq, ":faction", "fac_player_supporters_faction"),
+		  (neg|party_slot_ge, "$g_encountered_party", slot_town_lord, active_npcs_begin), #ie, zero or -1
+
+		  (assign, ":player_can_draw_from_garrison", 1),
+		(else_try), #option 3 - town was captured by player
+		  (lt, ":town_lord", 0), #ie, unassigned
+		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
+		  (eq, "$players_kingdom", ":castle_faction"),
+
+		  (eq, "$g_encountered_party", "$g_castle_requested_by_player"),
+
+		  (str_store_string, s10, "str_retrieve_garrison_warning"),
+		  (assign, ":player_can_draw_from_garrison", 1),
+		(else_try),
+		  (lt, ":town_lord", 0), #ie, unassigned
+		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
+		  (eq, "$players_kingdom", ":castle_faction"),
+
+		  (store_party_size_wo_prisoners, ":party_size", "$g_encountered_party"),
+		  (eq, ":party_size", 0),
+
+		  (str_store_string, s10, "str_retrieve_garrison_warning"),
+		  (assign, ":player_can_draw_from_garrison", 1),
+		(else_try),
+		  (party_slot_ge, "$g_encountered_party", slot_town_lord, active_npcs_begin),
+		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
+		  (eq, "$players_kingdom", ":castle_faction"),
+
+		  (troop_slot_eq, "trp_player", slot_troop_spouse, ":town_lord"),
+
+		  (assign, ":player_can_draw_from_garrison", 1),
+		(try_end),
+
+        (eq, ":player_can_draw_from_garrison", 1),
+      ],
+      "Manage the garrison {s10}",
+      [
+        (change_screen_exchange_members,1),
+      ]),
+
+      ("castle_wait",
+      [
+        #(party_slot_eq,"$current_town",slot_party_type, spt_castle),
+        (this_or_next|ge, "$g_encountered_party_relation", 0),
+        (eq,"$castle_undefended",1),
+        (assign, ":can_rest", 1),
+        (str_clear, s1),
+        (try_begin),
+          (neg|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+		  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+          (neg|party_slot_eq, "$current_town", slot_town_lord, ":player_spouse"),
+
+          (party_slot_ge, "$current_town", slot_town_lord, "trp_player"), #can rest for free in castles and towns with unassigned lords
+          (store_faction_of_party, ":current_town_faction", "$current_town"),
+          (neq, ":current_town_faction", "fac_player_supporters_faction"),
+          (party_get_num_companions, ":num_men", "p_main_party"),
+          (store_div, reg1, ":num_men", 4),
+          (val_add, reg1, 1),
+          (str_store_string, s1, "@ ({reg1} scillingas per night)"),
+          (store_troop_gold, ":gold", "trp_player"),
+          (lt, ":gold", reg1),
+          (assign, ":can_rest", 0),
+        (try_end),
+        (eq, ":can_rest", 1),
+      ],
+      "Wait here for some time{s1}.",
+      [
+        (assign, "$auto_enter_town", "$current_town"),
+        (assign, "$g_town_visit_after_rest", 1),
+        (assign, "$g_last_rest_center", "$current_town"),
+        (assign, "$g_last_rest_payment_until", -1),
+	  (val_max, "$entertainement_on", 1), #chief entretenimiento bardo MOTO avoid overwriting higher value
+        (try_begin),
+          (party_is_active, "p_main_party"),
+          (party_get_current_terrain, ":cur_terrain", "p_main_party"),
+          (try_begin),
+            (eq, ":cur_terrain", rt_desert),
+            (unlock_achievement, ACHIEVEMENT_SARRANIDIAN_NIGHTS),
+          (try_end),
+        (try_end),
+
+        (rest_for_hours_interactive, 24 * 7, 5, 0), #rest while not attackable
+        (change_screen_return),
+      ]),
+
+##      ("rest_until_morning",
+
+##       [
+##           (this_or_next|ge, "$g_encountered_party_relation", 0),
+##           (eq,"$castle_undefended",1),
+##           (store_time_of_day,reg(1)),(neg|is_between,reg(1), 5, 18),
+##           (eq, "$g_defending_against_siege", 0),
+##        ],
+##         "Rest until morning.",
+##         [
+##           (store_time_of_day,reg(1)),
+##           (assign, reg(2), 30),
+##           (val_sub,reg(2),reg(1)),
+##           (val_mod,reg(2),24),
+##           (assign,"$auto_enter_town","$current_town"),
+##           (assign, "$g_town_visit_after_rest", 1),
+##           (rest_for_hours_interactive, reg(2)),
+##           (change_screen_return),
+##          ]),
+##
+##      ("rest_until_evening",
+##       [
+##           (this_or_next|ge, "$g_encountered_party_relation", 0),
+##           (eq,"$castle_undefended",1),
+##           (store_time_of_day,reg(1)), (is_between,reg(1), 5, 18),
+##           (eq, "$g_defending_against_siege", 0),
+##        ],
+##         "Rest until evening.",
+##         [
+##           (store_time_of_day,reg(1)),
+##           (assign, reg(2), 20),
+##           (val_sub,reg(2),reg(1)),
+##           (assign,"$auto_enter_town","$current_town"),
+##           (assign, "$g_town_visit_after_rest", 1),
+##           (rest_for_hours_interactive, reg(2)),
+##           (change_screen_return),
+##          ]),
+      ("town_alley",
+      [
+        (party_slot_eq,"$current_town",slot_party_type, spt_town),
+        (eq, "$cheat_mode", 1),
+      ],
+      "{!}CHEAT: Go to the alley.",
+      [
+        (party_get_slot, reg11, "$current_town", slot_town_alley),
+        (set_jump_mission, "mt_ai_training"),
+        (jump_to_scene, reg11),
+        (change_screen_mission),
+      ]),
+
+#####rigale chief beggar pedir
+##             ("start_begging",
+##       [
+##	      (party_slot_eq,"$current_town",slot_party_type, spt_town),
+##			(try_begin),
+##           (eq,"$begging_action_started",0),
+##		   (str_store_string,s7,"@You start begging (gain a few coins, lose renown or honor)"),
+##		   (else_try),
+##           (eq,"$begging_action_started",1),
+##		   (str_store_string,s7,"@You stop begging"),
+##
+##        ],
+##         "{s7}",
+##         [
+##       (store_troop_gold,":money","trp_player"),
+##      (try_begin),
+##        (gt,":money",299),
+##        (display_message, "@People know you're not a beggar."),
+##      (else_try),
+##		(assign, "$auto_enter_town", "$current_town"),
+##           (try_begin),
+##		     (eq,"$begging_action_started",0),
+##			 (assign,"$begging_action_started",1),
+##			 (change_screen_return),
+##			(rest_for_hours_interactive, 24 * 7, 3, 0),
+##
+##           (else_try),
+##		     (eq,"$begging_action_started",1),
+##			 (assign,"$begging_action_started",0),
+##           (try_end),
+##      (try_end),
+##          ]),
+      ("masopciones",
+       [(party_slot_eq,"$current_town",slot_party_type, spt_town),
+        (this_or_next|eq,"$entry_to_town_forbidden",0),
+        (eq, "$sneaked_into_town",1),],
+       "Visit the sights of the town.",
+       [(jump_to_menu, "mnu_town_masopciones"),]),
+
+] + loans.town_menu_options + \
+[
+
+#puerto y opciones de seafare de duh chief
+            ("town_ports",
+       [#(party_slot_eq,"$current_town",slot_party_type, spt_town),
+	    (party_slot_eq,"$current_town",slot_town_port, 1),
+        (this_or_next|eq,"$entry_to_town_forbidden",0),
+        (eq, "$sneaked_into_town",1),
+                             (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
+
+            ],
+       "Visit town port.",
+       [(jump_to_menu, "mnu_port"),]),
+
+      ("collect_taxes_qst",
+      [
+        (check_quest_active, "qst_collect_taxes"),
+        (quest_slot_eq, "qst_collect_taxes", slot_quest_target_center, "$current_town"),
+        (neg|quest_slot_eq, "qst_collect_taxes", slot_quest_current_state, 4),
+        (quest_get_slot, ":quest_giver_troop", "qst_collect_taxes", slot_quest_giver_troop),
+        (str_store_troop_name, s1, ":quest_giver_troop"),
+        (quest_get_slot, reg5, "qst_collect_taxes", slot_quest_current_state),
+      ],
+      "{reg5?Continue collecting taxes:Collect taxes} due to {s1}.",
+      [
+        (jump_to_menu, "mnu_collect_taxes"),
+      ]),
+
+      ("dplmc_guild_master_meeting",#gdw
+       [(party_slot_eq,"$current_town",slot_party_type, spt_town),
+      ##nested diplomacy start+
+    #rubik had a good idea: only enable this after meeting the guild master
+    (assign, ":can_meet_guild_master", 0),
+    (try_begin),
+      #Always can jump to guild master in cheat mode.
+      (eq, "$cheat_mode", 1),
+      (assign, ":can_meet_guild_master", 1),
+    (else_try),
+      #Can jump to guild master after meeting him once.
+      (party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
+      (ge, ":guild_master_troop", 1),
+      (neg|troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+      (assign, ":can_meet_guild_master", 1),
+    (else_try),
+      #Always enable this in Praven for the sake of playability, since
+      #the guild master there is weirdly hard to find.
+      (this_or_next|eq, "$current_town", "p_town_6"),
+      #Also enable in the starting town, to avoid confusing players into
+      #thinking the menu item doesn't exist.
+      (eq, "$g_starting_town", "$current_town"),
+      (assign, ":can_meet_guild_master", 1),
+    (try_end),
+    (neq, ":can_meet_guild_master", 0),
+    ##nested diplomacy end+
+        (this_or_next|eq,"$entry_to_town_forbidden",0),
+        (eq, "$sneaked_into_town",1),
+    ],
+       "Meet the Guild Master.",
+       [
+         (try_begin),
+           (call_script, "script_cf_enter_center_location_bandit_check"),
+         (else_try),
+           (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+           (modify_visitors_at_site, ":town_scene"),
+           (reset_visitors),
+
+           (party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
+           (set_visitor,11,":guild_master_troop"),
+
+           (set_jump_mission,"mt_town_center"),
+           (jump_to_scene, ":town_scene"),
+           (change_screen_map_conversation, ":guild_master_troop"),
+         (try_end),
+     ]),
+  ##nested diplomacy start+
+  #If you can't jump to the guild master, explain why
+    ("dplmc_guild_master_meeting_denied",
+  [
+    #Only show this when the player would get the rest of the town menu
+    (party_slot_eq,"$current_town",slot_party_type, spt_town),
+    (this_or_next|eq,"$entry_to_town_forbidden",0),
+        (eq, "$sneaked_into_town",1),
+      #There is a valid guild master, and you haven't met him,
+    #and there isn't another condition that enables the jump.
+    (party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
+    (gt, ":guild_master_troop", 0),
+    (eq, "$cheat_mode", 0),
+    (neq, "$g_starting_town", "$current_town"),
+    (neq, "$current_town", "p_town_6"),
+    (troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+    (disable_menu_option),
+    ],
+       "You have not met the Guild Master yet.",
+       [
+     ]),
+     ("town_leave",[],"Leave...",
+      [
+        (assign, "$g_permitted_to_center",0),
+        (change_screen_return,0),
+      ],"Leave Area."),
+
+      ("castle_cheat_interior",
+      [
+        (eq, "$cheat_mode", 1),
+      ],
+      "{!}CHEAT! Interior.",
+      [
+        (set_jump_mission,"mt_ai_training"),
+        (party_get_slot, ":castle_scene", "$current_town", slot_town_castle),
+        (jump_to_scene,":castle_scene"),
+        (change_screen_mission),
+      ]),
+
+      ("castle_cheat_town_exterior",
+      [
+        (eq, "$cheat_mode", 1),
+      ],
+      "{!}CHEAT! Exterior.",
+      [
+        (try_begin),
+          (party_slot_eq, "$current_town",slot_party_type, spt_castle),
+          (party_get_slot, ":scene", "$current_town", slot_castle_exterior),
+        (else_try),
+          (party_get_slot, ":scene", "$current_town", slot_town_center),
+        (try_end),
+        (set_jump_mission,"mt_ai_training"),
+        (jump_to_scene,":scene"),
+        (change_screen_mission),
+      ]),
+
+      ("castle_cheat_dungeon",
+      [
+        (eq, "$cheat_mode", 1),
+      ],
+      "{!}CHEAT! Prison.",
+      [
+        (set_jump_mission,"mt_ai_training"),
+        (party_get_slot, ":castle_scene", "$current_town", slot_town_prison),
+        (jump_to_scene,":castle_scene"),
+        (change_screen_mission),
+      ]),
+
+      ("castle_cheat_town_walls",
+      [
+        (eq, "$cheat_mode", 1),
+        (party_slot_eq,"$current_town",slot_party_type, spt_town),
+      ],
+      "{!}CHEAT! Town Walls.",
+      [
+        (party_get_slot, ":scene", "$current_town", slot_town_walls),
+        (set_jump_mission,"mt_ai_training"),
+        (jump_to_scene,":scene"),
+        (change_screen_mission),
+      ]),
+
+      ("cheat_town_start_siege",
+      [
+        (eq, "$cheat_mode", 1),
+        (party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, -1),
+        (lt, "$g_encountered_party_2", 1),
+        (call_script, "script_party_count_fit_for_battle","p_main_party"),
+        (gt, reg(0), 1),
+        (try_begin),
+          (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+          (assign, reg6, 1),
+        (else_try),
+          (assign, reg6, 0),
+        (try_end),
+      ],
+      "{!}CHEAT: Besiege the {reg6?town:castle}...",
+      [
+        (assign,"$g_player_besiege_town","$g_encountered_party"),
+        (jump_to_menu, "mnu_castle_besiege"),
+      ]),
+
+      ("center_reports",
+      [
+        (eq, "$cheat_mode", 1),
+      ],
+      "{!}CHEAT! Show reports.",
+      [
+        (jump_to_menu,"mnu_center_reports"),
+      ]),
+
+      ("sail_from_port",
+      [
+        (party_slot_eq,"$current_town",slot_party_type, spt_town),
+        (eq, "$cheat_mode", 1),
+        #(party_slot_eq,"$current_town",slot_town_near_shore, 1),
+      ],
+      "{!}CHEAT: Sail from port.",
+      [
+        (assign, "$g_player_icon_state", pis_ship),
+        (party_set_flags, "p_main_party", pf_is_ship, 1),
+        (party_get_position, pos1, "p_main_party"),
+        (map_get_water_position_around_position, pos2, pos1, 6),
+        (party_set_position, "p_main_party", pos2),
+        (assign, "$g_main_ship_party", -1),
+        (change_screen_return),
+      ]),
+]
+
 
 game_menus = [
 #chief cambiados textos de creacion de pj empieza dunde
@@ -673,171 +2387,7 @@ game_menus = [
     (try_end),
     ##diplomacy end
    ],
-    [
-      ("cheat_faction_orders",[(ge,"$cheat_mode",1)],"{!}Cheat: Faction orders.",
-       [(jump_to_menu, "mnu_faction_orders"),
-        ]
-       ),
-
-      ("view_character_report",[],"View character report.",
-       [(jump_to_menu, "mnu_character_report"),
-        ]
-       ),
-      ("view_party_size_report",[],"View party size report.",
-       [(jump_to_menu, "mnu_party_size_report"),
-        ]
-       ),
-	   
-      ## CC chief arbol tropas
-##      ("action_view_upgrade_trees",[],"View upgrade trees.",
-##       [(start_presentation, "prsnt_upgrade_tree_1"),
-##        ]
-##       ),
-#chief arbol de tropas acaba	
-      ("view_npc_mission_report",[],"View companion mission report.",
-       [(jump_to_menu, "mnu_companion_report"),
-        ]
-       ),
-
-      ("view_weekly_budget_report",[	 
-          ],"View weekly budget report.",
-       [
-#				(display_message, "@Next pay day: {s1}"),
-
-         (assign, "$g_apply_budget_report_to_gold", 0),
-         (start_presentation, "prsnt_budget_report"),
-        ]
-       ),       
-      ("view_morale_report",[],"View party morale report.",
-       [(jump_to_menu, "mnu_morale_report"),
-        ]
-       ),
-
-
-		# chief para submenus de economia
-		("economia_rp",[],"Troops Tree, Prosperity and Spy Reports",
-			[(jump_to_menu, "mnu_economia_report"),]),
-
-		# Moneylending duh chief
-		("view_bank_report",[],"View Financial Report",
-			[(start_presentation, "prsnt_bank_quickview"),]),
- 
-
-#NPC companion changes begin
-      ("lord_relations",[],"View list of known lords by relation.",
-       [
-         # Jrider chief +
-     #(jump_to_menu, "mnu_lord_relations"),
-         (assign, "$g_jrider_pres_called_from_menu", 1),
-         (assign, "$g_character_presentation_type", 1),
-         (start_presentation, "prsnt_jrider_character_relation_report"),
-         # Jrider chief -
-        ]
-       ),
-      
-      ("courtship_relations",[],"View courtship relations.",
-       [
-         # Jrider chief +
-      #(jump_to_menu, "mnu_courtship_relations"),
-         (assign, "$g_jrider_pres_called_from_menu", 1),
-         (assign, "$g_character_presentation_type", 0),
-         (start_presentation, "prsnt_jrider_character_relation_report"),
-         # Jrider chief -
-        ]
-       ),
-      
-      ("status_check",[(eq,"$cheat_mode",1)],"{!}NPC status check.",
-       [
-        (try_for_range, ":npc", companions_begin, companions_end),
-            (main_party_has_troop, ":npc"),
-            (str_store_troop_name, 4, ":npc"),
-            (troop_get_slot, reg3, ":npc", slot_troop_morality_state),
-            (troop_get_slot, reg4, ":npc", slot_troop_2ary_morality_state),
-            (troop_get_slot, reg5, ":npc", slot_troop_personalityclash_state),    
-            (troop_get_slot, reg6, ":npc", slot_troop_personalityclash2_state),    
-            (troop_get_slot, reg7, ":npc", slot_troop_personalitymatch_state),    
-            (display_message, "@{!}{s4}: M{reg3}, 2M{reg4}, PC{reg5}, 2PC{reg6}, PM{reg7}"),
-        (try_end),
-        ]
-       ),
-
-#NPC companion changes end
-#########JEDEDIAH Q chief START ######################################################
-     ("Companions_overview",[],"Companions overview.",
-      [
-	(assign, "$jq_in_market_menu", 0), # player is not in market menu
-	#Exit if no companions 
-	(assign, ":heroes_in_party", 0),
-	(try_for_range, reg3, companions_begin, companions_end),
-   	(main_party_has_troop, reg3),
-	(val_add, ":heroes_in_party", 1),
-	 (try_end),
-	    (try_begin),
-	 	(eq, ":heroes_in_party", 0),
-		(display_message,"@No companions in party!",0xFFFF0000),
-	(else_try),
-	(gt, "$jq_startpage", 1),
-	(start_presentation, "prsnt_jq_extended_info"),
-	(else_try),
-	(start_presentation, "prsnt_jq_companions_quickview"),
-     	(try_end),
-       ]
-     ),
-#########JEDEDIAH chief Q END #######################################################
-
-      ("view_faction_relations_report",[],"View faction relations report.",
-       [
-           # Jrider + REPORTS PRESENTATIONS 1.0, comment to hook faction report presentation
-           ##(jump_to_menu, "mnu_faction_relations_report"),
-           (start_presentation, "prsnt_jrider_faction_relations_report"),
-           # Jrider -
-        ]
-       ),
-#diplomacy chief
-##           ("dplmc_show_economic_report",[],"View prosperity report.",
-##       [
-##           (jump_to_menu, "mnu_dplmc_economic_report"),
-##        ]
-##       ),
-
-#chief presetation companeros relation
-      # Jrider +
-      ("view_player_companion_report",[],"View player and companions report.",
-       [
-         # init variables before starting
-         (assign, "$g_jrider_pres_called_from_menu", 1),
-         (assign, "$g_character_presentation_type", 2),
-         (start_presentation, "prsnt_jrider_character_relation_report"),
-        ]
-       ),
-      # Jrider -
-#chief acaba      
-#TEMPERED  chief ######################   SPY REPORT ######################################
-	   
-##      ("spy_report",[],"View Spy reports.",
-##		[	
-##			(start_presentation, "prsnt_spy_reports"),
-##        ]),
-
-
-      ("resume_travelling",[],"Resume travelling.",
-       [	(str_clear,s1),
-			(str_clear,s2),
-			(str_clear,s3),
-			(str_clear,s4),
-			(str_clear,s5),
-			(str_clear,s6),
-			(str_clear,s7),
-			(str_clear,s8),
-			(str_clear,s9),
-			(str_clear,s18),
-			(change_screen_return),
-#tempered chief acaba spy report
-##      ("resume_travelling",[],"Resume travelling.", #off comment tempered chief
-##       [(change_screen_return), #off comment tempered chief
-        ]
-       ),
-      ]
+    REPORTS
   ),
 
   (
@@ -17382,1566 +18932,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 #		(try_end),
 		(try_end), #chief saqueo
         ],
-    [
-      ("castle_castle",
-      [        
-        (party_slot_eq,"$current_town",slot_party_type, spt_castle),        
-        
-       (neq, "$current_town", "p_fort"), #para lair chief player
-        (eq, "$sneaked_into_town", 0),         
-
-      (str_clear, s1),
-        (try_begin),
-          (store_faction_of_party, ":center_faction", "$current_town"),
-          (faction_slot_eq, ":center_faction", slot_faction_ai_state, sfai_feast),
-          (faction_slot_eq, ":center_faction", slot_faction_ai_object, "$current_town"),
-          (str_store_string, s1, "str__join_the_feast"),
-        (try_end),
-        ],"Go to the Great Hall{s1}.", #chief sot cambia
-       [          
-           (try_begin),
-             (this_or_next|eq, "$all_doors_locked", 1),
-             (eq, "$sneaked_into_town", 1),           
-             (display_message,"str_door_locked",0xFFFFAAAA),
-           (else_try),
-		     (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
-		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 50),
-			 (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
-			 (neq, "$g_player_eligible_feast_center_no", "$current_town"),
-
-			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
-			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
-			 
-			 (neg|check_quest_active, "qst_wed_betrothed"),
-			 (neg|check_quest_active, "qst_wed_betrothed_female"),
-			 
-			 (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin), #Married players always make the cut
-			 
-			 (jump_to_menu, "mnu_cannot_enter_court"),
-		   (else_try),
-             (assign, "$town_entered", 1),
-             (call_script, "script_enter_court", "$current_town"),
-           (try_end),
-        ], "Door to the castle."), 
-		
-      ("join_tournament", [(neg|is_currently_night),(party_slot_ge, "$current_town", slot_town_has_tournament, 1),]
-       ,"Join the Competition.", #chief cambia sot
-       [
-           (call_script, "script_fill_tournament_participants_troop", "$current_town", 1),
-           (assign, "$g_tournament_cur_tier", 0),
-           (assign, "$g_tournament_player_team_won", -1),
-           (assign, "$g_tournament_bet_placed", 0),
-           (assign, "$g_tournament_bet_win_amount", 0),
-           (assign, "$g_tournament_last_bet_tier", -1),
-           (assign, "$g_tournament_next_num_teams", 0),
-           (assign, "$g_tournament_next_team_size", 0),
-           (jump_to_menu, "mnu_town_tournament"),
-        ]),
-
-      
-      ("town_castle",[        
-          (party_slot_eq,"$current_town",slot_party_type, spt_town),        
-          (eq,"$entry_to_town_forbidden",0),        
-          (str_clear, s1),
-          (try_begin),
-            (store_faction_of_party, ":center_faction", "$current_town"),
-            (faction_slot_eq, ":center_faction", slot_faction_ai_state, sfai_feast),
-            (faction_slot_eq, ":center_faction", slot_faction_ai_object, "$current_town"),
-            (str_store_string, s1, "str__join_the_feast"),
-          (try_end),
-
-          ],"Go to the Great hall{s1}.",
-       [           
-            (try_begin), #chief anadido
-        (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"), #chief anadido player es lord de la ciudad
-    (troop_slot_ge, "trp_player", slot_troop_renown, 30), #chief anadido
-          (try_begin),
-             (this_or_next|eq, "$all_doors_locked", 1),
-             (eq, "$sneaked_into_town", 1),           
-             (display_message,"str_door_locked",0xFFFFAAAA),
-           (else_try),
-		     (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
-		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 60),#Gdw50
-		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
-			 (neq, "$g_player_eligible_feast_center_no", "$current_town"),			 
-			 
-			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
-			 (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
-
-			 (neg|check_quest_active, "qst_wed_betrothed"),
-			 (neg|check_quest_active, "qst_wed_betrothed_female"),
-			 
-			 (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin), #Married players always make the cut
-			 
-             (jump_to_menu, "mnu_cannot_enter_court"),
-			(else_try),
-			  (assign, "$town_entered", 1),              
-              (call_script, "script_enter_court", "$current_town"),
-             (try_begin),#gdw moved here to be near bishop of alt clut
-             (party_get_slot, ":cur_scene", "$current_town", slot_town_castle),
-             (jump_to_scene, ":cur_scene"),
-             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
-              (eq, ":cur_scene", "scn_town_6_castle"),#gdw
-              (assign, ":cur_entry", 10),
-              (set_visitor, 10, "trp_antler"), 
-             (try_end),
-       (try_end),#gdw is this correct? it seems it will cut off the message below
-		   (else_try), #chief anadido
-             (display_message,"@You need more renown or to ask the guard.",0xFFFFAAAA), #chief anadido
-           (try_end), #chief anadido
-        ], "Door to the castle."),
-      
-      ("town_center",
-      [                        
-        (party_slot_eq, "$current_town", slot_party_type, spt_town),
-        (this_or_next|eq,"$entry_to_town_forbidden",0),
-        (eq, "$sneaked_into_town",1)
-      ],
-      "Take a walk around the streets.",
-       [
-         #If the player is fighting his or her way out
-         (try_begin),
-           (eq, "$talk_context", tc_prison_break),
-           (assign, "$talk_context", tc_escape),
-           (assign, "$g_mt_mode", tcm_escape),
-           (store_faction_of_party, ":town_faction", "$current_town"),
-           (faction_get_slot, ":tier_2_troop", ":town_faction", slot_faction_tier_3_troop),
-           (faction_get_slot, ":tier_3_troop", ":town_faction", slot_faction_tier_3_troop),
-           (faction_get_slot, ":tier_4_troop", ":town_faction", slot_faction_tier_4_troop),
-           (party_get_slot, ":town_scene", "$current_town", slot_town_center),
-           (modify_visitors_at_site, ":town_scene"),
-           (reset_visitors),
-           #ideally we could alarm troops at locations
-           (try_begin), 
-	         #if guards have not gone to some other important happening at nearby villages, then spawn 4 guards. (example : fire)
-             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),                          
-             (store_current_hours, ":cur_time"),
-             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
-                                                    
-             (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
-             (store_time_of_day, ":cur_day_hour"),
-             (try_begin), #there are 6 guards at day time (no fire ext)
-               (ge, ":cur_day_hour", 6),
-               (lt, ":cur_day_hour", 22),
-               (set_visitors, 25, ":tier_2_troop", 3),#gdw larger bodyguards mean easier quest
-               (set_visitors, 26, ":tier_2_troop", 2),#gdw
-               (set_visitors, 27, ":tier_3_troop", 2),#gdw
-               (set_visitors, 28, ":tier_4_troop", 2),#gdw
-             (else_try),  #only 4 guards because of night
-               (set_visitors, 25, ":tier_2_troop", 3),#gdw
-               (set_visitors, 26, ":tier_2_troop", 2),#gdw
-               (set_visitors, 27, ":tier_3_troop", 1),
-               (set_visitors, 28, ":tier_4_troop", 1),
-             (try_end),
-           (else_try),
-	         #if guards have gone to some other important happening at nearby villages, then spawn only 1 guard. (example : fire)
-             (store_time_of_day, ":cur_day_hour"),
-             (try_begin), #only 2 guard because there is a fire at one owned village
-               (ge, ":cur_day_hour", 6),
-               (lt, ":cur_day_hour", 22),
-               (set_visitors, 25, ":tier_2_troop", 3),#gdw
-               (set_visitors, 26, ":tier_2_troop", 1),
-               (set_visitors, 27, ":tier_3_troop", 1),#gdw
-               (set_visitors, 28, ":tier_4_troop", 1),
-             (else_try), #only 1 guard because both night and there is a fire at one owned village
-               (set_visitors, 25, ":tier_2_troop", 1),
-               (set_visitors, 26, ":tier_2_troop", 1),#gdw
-               (set_visitors, 27, ":tier_3_troop", 1),#gdw
-               (set_visitors, 28, ":tier_4_troop", 0),
-             (try_end),                   
-           (try_end),
-           (set_jump_mission,"mt_town_center"),
-           (jump_to_scene, ":town_scene"),
-           (change_screen_mission),
-            #If you're already at escape, then talk context will reset
-         (else_try),
-           (assign, "$talk_context", 0),
-           (call_script, "script_cf_enter_center_location_bandit_check"),
-           #All other circumstances...
-         (else_try),
-           (party_get_slot, ":town_scene", "$current_town", slot_town_center),
-           (modify_visitors_at_site, ":town_scene"),
-           (reset_visitors),
-           (assign, "$g_mt_mode", tcm_default),
-           (store_faction_of_party, ":town_faction","$current_town"),
-                      
-           (try_begin),
-             (neq, ":town_faction", "fac_player_supporters_faction"),
-             (faction_get_slot, ":troop_prison_guard", "$g_encountered_party_faction", slot_faction_prison_guard_troop),
-             (faction_get_slot, ":troop_castle_guard", "$g_encountered_party_faction", slot_faction_castle_guard_troop),
-             (faction_get_slot, ":tier_2_troop", ":town_faction", slot_faction_tier_2_troop),
-             (faction_get_slot, ":tier_3_troop", ":town_faction", slot_faction_tier_3_troop),
-           (else_try),
-             (party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
-             (faction_get_slot, ":troop_prison_guard", ":town_original_faction", slot_faction_prison_guard_troop),
-             (faction_get_slot, ":troop_castle_guard", ":town_original_faction", slot_faction_castle_guard_troop),
-             (faction_get_slot, ":tier_2_troop", ":town_original_faction", slot_faction_tier_2_troop),
-             (faction_get_slot, ":tier_3_troop", ":town_original_faction", slot_faction_tier_3_troop),
-           (try_end),
-           (try_begin), #think about this, should castle guard have to go nearby fire too? If he do not go, killing 2 armored guard is too hard for player. For now he goes too.
-             #if guards have not gone to some other important happening at nearby villages, then spawn 4 guards. (example : fire)
-             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
-             (store_current_hours, ":cur_time"),
-             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
-
-             (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
-             (set_visitor, 23, ":troop_castle_guard"),
-           (try_end),
-           (set_visitor, 24, ":troop_prison_guard"),
-           
-           (try_begin),
-             (gt,":tier_2_troop", 0),
-             (assign,reg0,":tier_3_troop"),
-             (assign,reg1,":tier_3_troop"),
-             (assign,reg2,":tier_2_troop"),
-             (assign,reg3,":tier_2_troop"),
-           (else_try),
-             (assign,reg0,"trp_saxon_infantryt3"),
-             (assign,reg1,"trp_saxon_infantryt3"),
-             (assign,reg2,"trp_saxon_infantryt4"),
-             (assign,reg3,"trp_saxon_footmant2"),
-           (try_end),
-           (shuffle_range,0,4),
-         
-           (try_begin),
-             #if guards have not gone to some other important happening at nearby villages, then spawn 4 guards. (example : fire)
-             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
-             (store_current_hours, ":cur_time"),
-             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),
-
-             (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
-             (set_visitor,25,reg0),
-             (set_visitor,26,reg1),
-             (set_visitor,27,reg2),
-             (set_visitor,28,reg3),
-           (try_end),
-         
-           (party_get_slot, ":spawned_troop", "$current_town", slot_town_armorer),
-           (set_visitor, 9, ":spawned_troop"),
-           (party_get_slot, ":spawned_troop", "$current_town", slot_town_weaponsmith),
-           (set_visitor, 10, ":spawned_troop"),
-           (party_get_slot, ":spawned_troop", "$current_town", slot_town_elder),
-           (set_visitor, 11, ":spawned_troop"),
-           (party_get_slot, ":spawned_troop", "$current_town", slot_town_horse_merchant),
-           (set_visitor, 12, ":spawned_troop"),
-           (call_script, "script_init_town_walkers"),
-           (set_jump_mission,"mt_town_center"),
-           (assign, ":override_state", af_override_horse),
-           (try_begin),
-             (eq, "$sneaked_into_town", 1), #setup disguise
-             (assign, ":override_state", af_override_all),
-           (try_end),
-           (mission_tpl_entry_set_override_flags, "mt_town_center", 0, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_town_center", 2, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_town_center", 3, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_town_center", 4, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_town_center", 5, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_town_center", 6, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_town_center", 7, ":override_state"),
-           (try_begin),
-             (eq, "$town_entered", 0),
-             (assign, "$town_entered", 1),
-             (eq, "$town_nighttime", 0),
-             (set_jump_entry, 1),
-           (try_end),
-           (jump_to_scene, ":town_scene"),
-           (change_screen_mission),
-         (try_end),	   
-      ],"Door to the town center."),
-      
-      ("town_tavern",[
-          (party_slot_eq,"$current_town",slot_party_type, spt_town),
-          (this_or_next|eq,"$entry_to_town_forbidden",0),
-          (eq, "$sneaked_into_town",1),
-#          (party_get_slot, ":scene", "$current_town", slot_town_tavern),
-#          (scene_slot_eq, ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
-          ],
-       "Visit the mead hall", #chief sot cambia
-       [
-           (try_begin),
-             (eq,"$all_doors_locked",1),
-             (display_message,"str_door_locked",0xFFFFAAAA),
-           (else_try),
-             (call_script, "script_cf_enter_center_location_bandit_check"),
-           (else_try),
-             (assign, "$town_entered", 1),
-             (set_jump_mission, "mt_town_default"),
-             (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_horse),
-             (try_begin),
-               (eq, "$sneaked_into_town",1),
-               (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_all),
-             (try_end),
-
-             (party_get_slot, ":cur_scene", "$current_town", slot_town_tavern),
-             (jump_to_scene, ":cur_scene"),
-             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
-
-             (assign, "$talk_context", tc_tavern_talk),
-             (call_script, "script_initialize_tavern_variables"),
-
-			       (store_random_in_range, ":randomize_attacker_placement", 0, 4),
-
-             (modify_visitors_at_site, ":cur_scene"),
-             (reset_visitors),
-            
-             (assign, ":cur_entry", 17),
-             
-			 #this is just a cheat right now
-             #(troop_set_slot, "trp_belligerent_drunk", slot_troop_cur_center, "$g_encountered_party"),
-			 #(try_begin),gdw moved to be near bishop of alt clut
-       #      (eq, ":cur_scene", "scn_town_7_tavern"),
-        #     (assign, ":cur_entry", 24),
-       #      (set_visitor, 24, "trp_antler"), 
-        #(try_end), 
-
-			 (try_begin),
-				(eq, "$cheat_mode", 1),
-				(troop_get_slot, ":drunk_location", "trp_belligerent_drunk", slot_troop_cur_center),
-				(try_begin),
-					(eq, "$cheat_mode", 0),
-				(else_try),
-					(is_between, ":drunk_location", centers_begin, centers_end),
-					(str_store_party_name, s4, ":drunk_location"),
-					(display_message, "str_belligerent_drunk_in_s4"),
-			    (else_try),
-					(display_message, "str_belligerent_drunk_not_found"),
-				(try_end),
-				
-				(try_begin),
-             (eq, ":cur_scene", "scn_town_3_castle"),
-             (assign, ":cur_entry", 18),
-             (set_visitor, 18, "trp_antler"), 
-        (try_end), 
-
-			 (troop_get_slot, ":promoter_location", "trp_fight_promoter", slot_troop_cur_center),
-				(try_begin),
-					(eq, "$cheat_mode", 0),
-				(else_try),
-					(is_between, ":promoter_location", centers_begin, centers_end),
-					(str_store_party_name, s4, ":promoter_location"),
-					(display_message, "str_roughlooking_character_in_s4"),
-			    (else_try),
-					(display_message, "str_roughlooking_character_not_found"),
-				(try_end),				
-			 (try_end),
-			 
-			 #this determines whether or not a lord who dislikes you will commission an assassin
-			 (try_begin),
-				(store_current_hours, ":hours"),
-				(store_sub, ":hours_since_last_attempt", ":hours", "$g_last_assassination_attempt_time"),
-				(gt, ":hours_since_last_attempt", 168),
-				(try_for_range, ":lord", active_npcs_begin, active_npcs_end),
-					(troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_debauched),
-					(troop_get_slot, ":led_party", ":lord", slot_troop_leaded_party),
-					(party_is_active, ":led_party"),
-					(party_get_attached_to, ":led_party_attached", ":led_party"), 
-					(eq, ":led_party_attached", "$g_encountered_party"),
-					(call_script, "script_troop_get_relation_with_troop", "trp_player", ":lord"),
-					(lt, reg0, -20),
-					(assign, "$g_last_assassination_attempt_time", ":hours"),
-#					(assign, "$g_last_assassination_attempt_location", "$g_encountered_party"),
-#					(assign, "$g_last_assassination_attempt_perpetrator", ":lord"),
-					
-					(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),					
-				(try_end),
-			 (try_end),	
-						
-			 (try_begin),
-				 (eq, ":randomize_attacker_placement", 0),
-				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
-
-				 (val_add, ":cur_entry", 1),
-			 (try_end),
-			 
-			 (try_begin),
-				(eq, 1, 0),
-				(troop_slot_eq, "trp_fight_promoter", slot_troop_cur_center, "$current_town"),
-                (set_visitor, ":cur_entry", "trp_fight_promoter"),
-
-                (val_add, ":cur_entry", 1),
-			 (try_end),
-
-             (party_get_slot, ":mercenary_troop", "$current_town", slot_center_mercenary_troop_type),
-             (party_get_slot, ":mercenary_amount", "$current_town", slot_center_mercenary_troop_amount),
-             (try_begin),
-               (gt, ":mercenary_troop", 0),
-               (gt, ":mercenary_amount", 0),
-               (set_visitor, ":cur_entry", ":mercenary_troop"),
-               (val_add, ":cur_entry", 1),
-             (try_end),
-
-##Floris
-             (party_get_slot, ":mercenary_troop2", "$current_town", slot_center_mercenary_troop_type_2),  #Adds a menu for the second group of mercenaries in the tavern
-             (party_get_slot, ":mercenary_amount2", "$current_town", slot_center_mercenary_troop_amount_2),
-             (try_begin),
-               (gt, ":mercenary_amount2", 0),
-               (gt, ":mercenary_troop2", 0),
-               (set_visitor, ":cur_entry", ":mercenary_troop2"),
-               (val_add, ":cur_entry", 1),
-             (try_end),
-			    
-
-			 (try_begin),
-				 (eq, ":randomize_attacker_placement", 1),
-				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
-
-				 (val_add, ":cur_entry", 1),
-			 (try_end),
-             
-             (try_for_range, ":companion_candidate", companions_begin, companions_end),
-               (troop_slot_eq, ":companion_candidate", slot_troop_occupation, 0),
-               (troop_slot_eq, ":companion_candidate", slot_troop_cur_center, "$current_town"),
-			   (neg|troop_slot_ge, ":companion_candidate", slot_troop_prisoner_of_party, centers_begin),
-			   
-               (set_visitor, ":cur_entry", ":companion_candidate"),
-
-               (val_add, ":cur_entry", 1),
-             (try_end),
-			 
-			 (try_begin),
-				 (eq, ":randomize_attacker_placement", 2),
-				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
-
-				 (val_add, ":cur_entry", 1),
-			 (try_end),
-			 			 
-        (try_begin), #this doubles the incidence of ransom brokers and (below) minstrels
-           (party_get_slot, ":ransom_broker", "$current_town", slot_center_ransom_broker),
-            (gt, ":ransom_broker", 0),
-               
-            (assign, reg0, ":ransom_broker"),
-            (assign, reg1, "$current_town"),
-			   
-            (set_visitor, ":cur_entry", ":ransom_broker"),
-            (val_add, ":cur_entry", 1),
-			  (else_try),
-			   (is_between, "$g_talk_troop", ransom_brokers_begin, ransom_brokers_end),
-			   (store_add, ":alternative_town", "$current_town", 3),#gdw more brokers?9
-			   		(try_begin),
-				     	(ge, ":alternative_town", towns_end),
-				     	(val_sub, ":alternative_town", 44),#gdw there are 44 towns was at22
-			       (try_end),
-			   		(try_begin),
-							(eq, "$cheat_mode", 1),
-			    		(str_store_party_name, s3, "$current_town"),
-			    		(str_store_party_name, s4, ":alternative_town"),
-			    		(display_message, "@{!}DEBUG - Current town is {s3}, but also checking {s4}"),
-			   		(try_end),	
-					(try_begin),
-            (party_get_slot, ":ransom_broker", ":alternative_town", slot_center_ransom_broker),
-              (gt, ":ransom_broker", 0),
-			   
-             (set_visitor, ":cur_entry", ":ransom_broker"),
-             (val_add, ":cur_entry", 1),
-            (try_end),
-        (try_end),
-			 
-             (try_begin),
-               (party_get_slot, ":tavern_traveler", "$current_town", slot_center_tavern_traveler),
-               (gt, ":tavern_traveler", 0),
-               (set_visitor, ":cur_entry", ":tavern_traveler"),
-               (val_add, ":cur_entry", 1),
-             (try_end),
-			 # (try_begin),
-    #            (party_get_slot, ":special_merchant", "$current_town", slot_center_special_merchant),
-    #            #(gt, ":special_merchant", 0),
-    #            (set_visitor, ":cur_entry", "special_merchant"),
-    #            (val_add, ":cur_entry", 1),
-    #          (try_end),
-             (try_begin),
-               (party_get_slot, ":tavern_minstrel", "$current_town", slot_center_tavern_minstrel),
-               (gt, ":tavern_minstrel", 0),
-			   
-               (set_visitor, ":cur_entry", ":tavern_minstrel"),
-               (val_add, ":cur_entry", 1),
-			 (else_try),  
-			   (store_add, ":alternative_town", "$current_town", 9),
-			   (try_begin),
-				(ge, ":alternative_town", towns_end),
-				(val_sub, ":alternative_town", 22),
-			   (try_end),
- 			   ##diplomacy start+ chief
-			   #The above code makes assumptions about the number of towns that might not be true on other maps.
-			   #Changing it to support variable sizes would not be hard, but I'm not convinced that it is so
-			   #desirable in the first place.
-			   (is_between, ":alternative_town", centers_begin, centers_end),
-			   (party_slot_eq, ":alternative_town", slot_party_type, spt_town),
-			   ##diplomacy end+
-              (party_get_slot, ":tavern_minstrel", ":alternative_town", slot_center_tavern_minstrel),			   
-               (gt, ":tavern_minstrel", 0),
-			   
-               (set_visitor, ":cur_entry", ":tavern_minstrel"),
-               (val_add, ":cur_entry", 1),
-             (try_end),
-
-## CC gambling begin chief
-             (try_begin),
-               (party_get_slot, ":prosperity", "$current_town", slot_town_prosperity),
-               (val_mod, ":prosperity", 24),
-               (store_time_of_day, ":cur_hour"),
-               (store_sub, ":difference", ":prosperity", ":cur_hour"),
-               (is_between, ":difference", -1, 2), # -1 0 1, 1/8 probability
-               (set_visitor, ":cur_entry", "trp_especial_merchant"),
-               (troop_set_name, "trp_especial_merchant", "@Mystic Merchant"),
-               (call_script, "script_refresh_mystic_merchant_items", "trp_especial_merchant"),
-               (val_add, ":cur_entry", 1),
-             (try_end),
-## CC gambling end
-			 
-             (try_begin),
-               (party_get_slot, ":tavern_bookseller", "$current_town", slot_center_tavern_bookseller),
-               (gt, ":tavern_bookseller", 0),
-               (set_visitor, ":cur_entry", ":tavern_bookseller"),
-               (val_add, ":cur_entry", 1),
-             (try_end),
-			 
-			 (try_begin),
-				 (eq, ":randomize_attacker_placement", 3),
-				 (call_script, "script_setup_tavern_attacker", ":cur_entry"),
-				 (val_add, ":cur_entry", 1),
-			 (try_end),
-			 			 
-             (try_begin),
-               (neg|check_quest_active, "qst_eliminate_bandits_infesting_village"),
-               (neg|check_quest_active, "qst_deal_with_bandits_at_lords_village"),
-               (assign, ":end_cond", villages_end),
-               (try_for_range, ":cur_village", villages_begin, ":end_cond"),
-                 (party_slot_eq, ":cur_village", slot_village_bound_center, "$current_town"),
-                 (party_slot_ge, ":cur_village", slot_village_infested_by_bandits, 1),
-                 (neg|party_slot_eq, ":cur_village", slot_town_lord, "trp_player"),
-                 (set_visitor, ":cur_entry", "trp_farmer_from_bandit_village"),
-                 (val_add, ":cur_entry", 1),
-                 (assign, ":end_cond", 0),
-               (try_end),
-             (try_end),
-             
-             #(try_begin), #TML commented this out to prevent the merchant perpetually taking space in the starting tavern. He never says anything anyway. F123 - Submod -> 1.41
-               #(eq, "$g_starting_town", "$current_town"),
-                              
-               #(this_or_next|neg|check_quest_finished, "qst_collect_men"),
-               #(this_or_next|neg|check_quest_finished, "qst_learn_where_merchant_brother_is"),
-               #(this_or_next|neg|check_quest_finished, "qst_save_relative_of_merchant"),
-               #(this_or_next|neg|check_quest_finished, "qst_save_town_from_bandits"),
-               #(eq,  "$g_do_one_more_meeting_with_merchant", 1),
-               
-			   #(assign, ":troop_of_merchant", 0),	
-#chief mercaderes
-               #(try_begin),
-               #  (eq, "$g_encountered_party_faction", "fac_kingdom_18"),
-               #  (assign, ":troop_of_merchant", "trp_briton_merchant"),
-               #(else_try),  
-               #  (eq, "$g_encountered_party_faction", "fac_kingdom_4"),
-               #  (assign, ":troop_of_merchant", "trp_saxon_merchant"),
-               #(else_try),                   
-               #  (eq, "$g_encountered_party_faction", "fac_kingdom_1"),
-               #  (assign, ":troop_of_merchant", "trp_pict_merchant"),
-               #(else_try),  
-               #  (eq, "$g_encountered_party_faction", "fac_kingdom_23"),
-               #  (assign, ":troop_of_merchant", "trp_engle_merchant"),
-               #(else_try),  
-               #  (eq, "$g_encountered_party_faction", "fac_kingdom_31"),
-               #  (assign, ":troop_of_merchant", "trp_irish_merchant"),
-               #(else_try),  
-               #  (eq, "$g_encountered_party_faction", "fac_kingdom_28"),
-               #  (assign, ":troop_of_merchant", "trp_centware_merchant"),
-               #(try_end),
-			   #(gt, ":troop_of_merchant", 0),	
-#chief mercaderes acaba               
-          #     (set_visitor, ":cur_entry", ":troop_of_merchant"),
-         #      (val_add, ":cur_entry", 1),
-         #    (try_end),                         
-             
-             (change_screen_mission),
-           (try_end),
-        ],"Door to the tavern."),
-                               
-#      ("town_smithy",[
-#          (eq,"$entry_to_town_forbidden",0),
-#          (eq,"$town_nighttime",0),
-#          ],
-#       "Visit the smithy.",
-#       [
-#           (set_jump_mission,"mt_town_default"),
-#           (jump_to_scene,"$pout_scn_smithy"),
-#           (change_screen_mission,0),
-#        ]),
-
-      
-      ("town_merchant",
-       [(party_slot_eq,"$current_town",slot_party_type, spt_town),
-           (eq, 1, 0),
-           (eq,"$town_nighttime",0),
-           (this_or_next|eq,"$entry_to_town_forbidden",0),
-           (eq, "$sneaked_into_town",1),
-#           (party_get_slot, ":scene", "$current_town", slot_town_store),
-#           (scene_slot_eq, ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
-           ],
-       "Speak with the merchant.",
-       [           
-           (try_begin),
-             (this_or_next|eq,"$all_doors_locked",1),
-             (eq,"$town_nighttime",1),
-             (display_message,"str_door_locked",0xFFFFAAAA),
-           (else_try),
-             (assign, "$town_entered", 1),
-             (set_jump_mission, "mt_town_default"),
-             (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_horse),
-             (try_begin),
-               (eq, "$sneaked_into_town",1),
-               (mission_tpl_entry_set_override_flags, "mt_town_default", 0, af_override_all),
-             (try_end),
-             (party_get_slot, ":cur_scene", "$current_town", slot_town_store),
-             (jump_to_scene, ":cur_scene"),
-             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
-             (change_screen_mission),
-           (try_end),
-        ],"Door to the shop."),       
-                
-      ("town_arena",
-       [(party_slot_eq,"$current_town",slot_party_type, spt_town),
-        (eq, "$sneaked_into_town", 0),
-#           (party_get_slot, ":scene", "$current_town", slot_town_arena),
-#           (scene_slot_eq,  ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
-           ],
-       "Enter the arena.",
-       [
-           (try_begin),
-             (this_or_next|eq,"$all_doors_locked",1),
-             (eq,"$town_nighttime",1),
-             (display_message,"str_door_locked",0xFFFFAAAA),
-           (else_try),
-             (assign, "$g_mt_mode", abm_visit),
-             (assign, "$town_entered", 1),
-             (set_jump_mission, "mt_arena_melee_fight"),
-             (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
-             (modify_visitors_at_site, ":arena_scene"),
-             (reset_visitors),
-             (set_visitor, 43, "trp_veteran_fighter"),
-             (set_visitor, 44, "trp_merc_infantryt5"),
-             (set_jump_entry, 50),
-             (jump_to_scene, ":arena_scene"),
-             (scene_set_slot, ":arena_scene", slot_scene_visited, 1),
-             (change_screen_mission),
-           (try_end),
-        ],"Door to the arena."),
-      ("town_dungeon",
-       [(eq, 1, 0)],
-       "Never: Enter the prison.",
-       [	   
-           (try_begin),
-		    (eq, "$talk_context", tc_prison_break),
-			(gt, "$g_main_attacker_agent", 0),
-			
-		   	(neg|agent_is_alive, "$g_main_attacker_agent"),
-
-			(agent_get_troop_id, ":agent_type", "$g_main_attacker_agent"),
-			(try_begin),
-			  (eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
-			  (party_get_slot, ":prison_guard_faction", "$current_town", slot_center_original_faction),
-			(else_try),
-			  (assign, ":prison_guard_faction", "$g_encountered_party_faction"),
-			(try_end),
-			(faction_slot_eq, ":prison_guard_faction", slot_faction_prison_guard_troop, ":agent_type"),
-
-			(call_script, "script_deduct_casualties_from_garrison"),
-            (call_script, "script_enter_dungeon", "$current_town", "mt_visit_town_castle"),
-
-		   (else_try),
-             (eq,"$all_doors_locked",1),
-             (display_message,"str_door_locked",0xFFFFAAAA),
-           (else_try),
-             (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
-             (eq, "$g_encountered_party_faction", "$players_kingdom"),
-             (assign, "$town_entered", 1),
-             (call_script, "script_enter_dungeon", "$current_town", "mt_visit_town_castle"),
-           (else_try),
-             (display_message,"str_door_locked",0xFFFFAAAA),
-           (try_end),
-        ],"Door to the dungeon."),
-		
-      ("castle_inspect", 
-      [
-         (party_slot_eq,"$current_town",slot_party_type, spt_castle),
-       (neq, "$current_town", "p_fort"), #para player lair chief player
-      ],
-       "Take a walk around the courtyard.",
-       [
-         (try_begin),
-           (eq, "$talk_context", tc_prison_break),
-           (assign, "$talk_context", tc_escape),
-           
-           (party_get_slot, ":cur_castle_exterior", "$current_town", slot_castle_exterior),
-           (modify_visitors_at_site, ":cur_castle_exterior"),
-           (reset_visitors),
-           
-           (assign, ":guard_no", 40),
-           
-           (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
-           (try_for_range, ":troop_iterator", 0, ":num_stacks"),
-             #nearby fire condition start
-             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
-             (store_current_hours, ":cur_time"),
-             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),  
-             (this_or_next|eq, ":guard_no", 40),
-             (neg|is_between, ":cur_time", ":last_nearby_fire_time", ":fire_finish_time"),
-             #nearby fire condition end
-
-             (lt, ":guard_no", 47),
-             (party_stack_get_troop_id, ":cur_troop_id", "$g_encountered_party", ":troop_iterator"),
-             (neg|troop_is_hero, ":cur_troop_id"),
-             (party_stack_get_size, ":stack_size","$g_encountered_party",":troop_iterator"),
-             (party_stack_get_num_wounded, ":num_wounded","$g_encountered_party",":troop_iterator"),
-             (val_sub, ":stack_size", ":num_wounded"),
-             (gt, ":stack_size", 0),
-             (party_stack_get_troop_dna,":troop_dna", "$g_encountered_party", ":troop_iterator"),
-             (set_visitor, ":guard_no", ":cur_troop_id", ":troop_dna"),
-             (val_add, ":guard_no", 1),
-           (try_end),                      
-           #(set_jump_entry, 1),           
-           (set_visitor, 7, "$g_player_troop"),
-
-           (set_jump_mission,"mt_castle_visit"),
-           (jump_to_scene, ":cur_castle_exterior"),
-           (change_screen_mission),
-            #If you're already at escape, then talk context will reset            
-         (else_try),                   
-           (assign, "$talk_context", tc_town_talk),
-           
-           (assign, "$g_mt_mode", tcm_default),
-           
-           (party_get_slot, ":cur_castle_exterior", "$current_town", slot_castle_exterior),
-           (modify_visitors_at_site,":cur_castle_exterior"),
-           (reset_visitors),
-
-           (try_begin),
-             (neq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
-             (faction_get_slot, ":troop_prison_guard", "$g_encountered_party_faction", slot_faction_prison_guard_troop),
-           (else_try),
-             (party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
-             (faction_get_slot, ":troop_prison_guard", ":town_original_faction", slot_faction_prison_guard_troop),
-           (try_end),
-           (set_visitor, 24, ":troop_prison_guard"),
-         (call_script, "script_init_town_walkers"), #chief anadido walkers a castillos
-           
-           (assign, ":guard_no", 40),
-           
-           (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
-           (try_for_range, ":troop_iterator", 0, ":num_stacks"),
-             #nearby fire condition start
-             (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),
-             (store_current_hours, ":cur_time"),
-             (store_add, ":fire_finish_time", ":last_nearby_fire_time", fire_duration),  
-             (neg|is_between, ":cur_time", ":fire_finish_time", ":last_nearby_fire_time"),
-
-             (lt, ":guard_no", 47),
-             (party_stack_get_troop_id, ":cur_troop_id", "$g_encountered_party", ":troop_iterator"),
-             (neg|troop_is_hero, ":cur_troop_id"),
-             (party_stack_get_size, ":stack_size","$g_encountered_party",":troop_iterator"),
-             (party_stack_get_num_wounded, ":num_wounded","$g_encountered_party",":troop_iterator"),
-             (val_sub, ":stack_size", ":num_wounded"),
-             (gt, ":stack_size", 0),
-             (party_stack_get_troop_dna,":troop_dna","$g_encountered_party",":troop_iterator"),
-             (set_visitor, ":guard_no", ":cur_troop_id", ":troop_dna"),
-                          
-             (val_add, ":guard_no", 1),
-           (try_end),
-           
-           (try_begin),
-             (eq, "$town_entered", 0),
-             (assign, "$town_entered", 1),
-           (try_end),
-           (set_jump_entry, 1),
-
-           (assign, ":override_state", af_override_horse),             
-           (try_begin),
-             (eq, "$sneaked_into_town", 1), #setup disguise
-             (assign, ":override_state", af_override_all),
-           (try_end),
-           (set_jump_mission, "mt_castle_visit"),
-
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 0, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 1, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 2, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 3, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 4, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 5, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 6, ":override_state"),
-           (mission_tpl_entry_set_override_flags, "mt_castle_visit", 7, ":override_state"),           
-           
-           (jump_to_scene, ":cur_castle_exterior"),
-           (change_screen_mission),
-         (try_end),
-        ], "To the castle courtyard."),
-
-     ("town_enterprise",
-      [
-        (party_slot_eq,"$current_town",slot_party_type, spt_town),
-        (party_get_slot, ":item_produced", "$current_town", slot_center_player_enterprise),
-		(gt, ":item_produced", 1),
-        (eq,"$entry_to_town_forbidden",0),
-		(call_script, "script_get_enterprise_name", ":item_produced"),
-		(str_store_string, s3, reg0),
-                             (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
-
-      ],	
-      "Visit your {s3}.",
-      [
-        (store_sub, ":town_order", "$current_town", towns_begin),
-		(store_add, ":master_craftsman", "trp_town_1_master_craftsman", ":town_order"),
-        (party_get_slot, ":item_produced", "$current_town", slot_center_player_enterprise),
-		(assign, ":enterprise_scene", "scn_enterprise_mill"),
-		(try_begin),
-			(eq, ":item_produced", "itm_bread"),
-			(assign, ":enterprise_scene", "scn_enterprise_mill"),
-		(else_try),
-			(eq, ":item_produced", "itm_ale"),
-			(assign, ":enterprise_scene", "scn_enterprise_brewery"),
-		(else_try),
-			(eq, ":item_produced", "itm_oil"),
-			(assign, ":enterprise_scene", "scn_enterprise_oil_press"),
-		(else_try),
-			(eq, ":item_produced", "itm_wine"),
-			(assign, ":enterprise_scene", "scn_enterprise_winery"),
-		(else_try),
-			(eq, ":item_produced", "itm_leatherwork"),
-			(assign, ":enterprise_scene", "scn_enterprise_tannery"),
-		(else_try),
-			(eq, ":item_produced", "itm_wool_cloth"),
-			(assign, ":enterprise_scene", "scn_enterprise_wool_weavery"),
-		(else_try),
-			(eq, ":item_produced", "itm_linen"),
-			(assign, ":enterprise_scene", "scn_enterprise_linen_weavery"),
-		(else_try),
-			(eq, ":item_produced", "itm_velvet"),
-			(assign, ":enterprise_scene", "scn_enterprise_dyeworks"),
-		(else_try),
-			(eq, ":item_produced", "itm_tools"),
-			(assign, ":enterprise_scene", "scn_enterprise_smithy"),
-		(try_end),
-        (modify_visitors_at_site,":enterprise_scene"),
-		(reset_visitors),
-        (set_visitor,0,"trp_player"),
-        (set_visitor,17,":master_craftsman"),
-        (set_jump_mission,"mt_town_default"),
-        (jump_to_scene,":enterprise_scene"),
-        (change_screen_mission),
-      ],"Door to your enterprise."), 
-
-    ("visit_lady",
-	[
-	
-	(neg|troop_slot_ge, "trp_player", slot_troop_spouse, kingdom_ladies_begin),
-	
-	(assign, "$love_interest_in_town", 0),
-	(assign, "$love_interest_in_town_2", 0),
-	(assign, "$love_interest_in_town_3", 0),
-	(assign, "$love_interest_in_town_4", 0),
-	(assign, "$love_interest_in_town_5", 0),
-	(assign, "$love_interest_in_town_6", 0),
-	(assign, "$love_interest_in_town_7", 0),
-	(assign, "$love_interest_in_town_8", 0),
-	
-	(try_for_range, ":lady_no", kingdom_ladies_begin, kingdom_ladies_end),
-		(troop_slot_eq, ":lady_no", slot_troop_cur_center, "$current_town"),
-		(call_script, "script_get_kingdom_lady_social_determinants", ":lady_no"),
-		(assign, ":lady_guardian", reg0),
-		
-		(troop_slot_eq, ":lady_no", slot_troop_spouse, -1),
-		(ge, ":lady_guardian", 0), #not sure when this would not be the case
-
-		
-		#must have spoken to either father or lady
-		(this_or_next|troop_slot_ge, ":lady_no", slot_troop_met, 2),
-			(troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
-		
-		(neg|troop_slot_eq, ":lady_no", slot_troop_met, 4),
-        
-		#must have approached father
-#		(this_or_next|troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
-#			(troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, -1),
-			
-		
-		(try_begin),
-			(eq, "$love_interest_in_town", 0),
-			(assign, "$love_interest_in_town", ":lady_no"),	
-		(else_try),
-			(eq, "$love_interest_in_town_2", 0),
-			(assign, "$love_interest_in_town_2", ":lady_no"),	
-		(else_try),
-			(eq, "$love_interest_in_town_3", 0),
-			(assign, "$love_interest_in_town_3", ":lady_no"),	
-		(else_try),
-			(eq, "$love_interest_in_town_4", 0),
-			(assign, "$love_interest_in_town_4", ":lady_no"),	
-		(else_try),
-			(eq, "$love_interest_in_town_5", 0),
-			(assign, "$love_interest_in_town_5", ":lady_no"),	
-		(else_try),
-			(eq, "$love_interest_in_town_6", 0),
-			(assign, "$love_interest_in_town_6", ":lady_no"),		
-		(else_try),
-			(eq, "$love_interest_in_town_7", 0),
-			(assign, "$love_interest_in_town_7", ":lady_no"),		
-		(else_try),
-			(eq, "$love_interest_in_town_8", 0),
-			(assign, "$love_interest_in_town_8", ":lady_no"),		
-		(try_end),	
-	(try_end),
-	
-	(gt, "$love_interest_in_town", 0),
-	],
-	  "Attempt to visit a lady",
-       [
-        (jump_to_menu, "mnu_lady_visit"),
-        ], "Door to the garden."),										
-		
-###player lair acaba chief
-#player lair empieza chief        
-#player lair chief
-            ("lair_interior",
-      [        
-       (eq, "$current_town", "p_fort"), #para lair chief player
-        ],"Go to Hall.", #chief sot cambia
-       [          
-##           (try_begin),
-##             (this_or_next|eq,"$all_doors_locked",1),
-##             (eq,"$town_nighttime",1),
-##             (display_message,"str_door_locked",0xFFFFAAAA),
-##           (else_try),
-             (set_jump_mission, "mt_fort_interior"),
-      (modify_visitors_at_site,"scn_fort_interior"),
-             (reset_visitors),
-           (try_begin),
-             (eq, "$contratar_hoar", 1),
-           (set_visitor, 43, "trp_quastuosa_6"),
-           (try_end),
-           (try_begin),
-             (eq, "$contratar_pagano", 1),
-           (set_visitor, 42, "trp_pagan_priest"),
-           (else_try),
-             (eq, "$contratar_sacerdote", 1),
-           (set_visitor, 42, "trp_picto_sacerdote"),
-           (try_end),
-             (set_jump_entry, 0),
-	  (scene_set_slot, "scn_fort_exterior", slot_scene_visited, 1),
-                 (jump_to_scene,"scn_fort_interior"),
-             (change_screen_mission),
-#           (try_end),
-        ], "Door to the castle."),
-      
-	("hirefort_staff",
-		[	       (eq, "$current_town", "p_fort"), #para player lair chief player	  
-		],
-		"Hire Staff.",
-		[
-			(jump_to_menu, "mnu_contratar_personal")
-		]
-	),
-
-
-    ("lair_inspect", [
-       (eq, "$current_town", "p_fort"), #para player lair chief player
-          ],
-       "Take a walk around your lair.",
-       [
-           (assign, "$talk_context", 0),
-           (try_begin),
-             (call_script, "script_cf_enter_center_location_bandit_check"),
-           (else_try),
-			(assign, ":fort_scene", "scn_fort_exterior"),
-			 
-             (modify_visitors_at_site, ":fort_scene"),
-             (reset_visitors),
-             (assign, "$g_mt_mode", tcm_default),
-			 (set_visitor, 11, "trp_fort_captain"),
-                          
-             # Setup peasant walkers
-             (try_for_range, ":visiterator", 32, 40),
-               (store_random_in_range, ":sex", 0, 100),
-               (try_begin),
-	(lt,":sex",30), #10% risk of tripping
-                 (set_visitor, ":visiterator", "trp_hunter_woman",),
-               (else_try),
-       (gt, ":sex", 30),
-       (lt, ":sex", 60),
-                 (set_visitor, ":visiterator", "trp_fighter_woman",),
-               (else_try),
-       (gt, ":sex", 60),
-       (lt, ":sex", 90),
-                 (set_visitor, ":visiterator", "trp_village_walker_2",),
-               (else_try),
-                 (set_visitor, ":visiterator", "trp_fort_walker",),
-               (try_end),
-             (try_end),
-             
-##                 (set_visitor, ":visiterator", "trp_village_walker_1",),
-##               (else_try),
-##                 (set_visitor, ":visiterator", "trp_village_walker_2",),
-             # Setup guards based on best type of archer/melee troops currently in garrison
-	         (assign, ":highest_archer_lvl", 0),
-	         (assign, ":archer_id", 0),
-	         (assign, ":highest_infantry_lvl", 0),
-	         (assign, ":infantry_id", 0),
-	         (assign, ":highest_cavalry_lvl", 0),
-	         (assign, ":cavalry_id", 0),
-	
-			 #(party_get_num_companions, ":castle_garrison_size", "p_collective_enemy"),
-	         (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
-	         (try_for_range, ":troop_iterator", 0, ":num_stacks"),
-	           (party_stack_get_troop_id, ":cur_troop_id", "$g_encountered_party", ":troop_iterator"),
-	           (neg|troop_is_hero, ":cur_troop_id"),
-	           (party_stack_get_size, ":stack_size","$g_encountered_party",":troop_iterator"),
-	           (party_stack_get_num_wounded, ":num_wounded","$g_encountered_party",":troop_iterator"),
-	           (val_sub, ":stack_size", ":num_wounded"),
-	           (gt, ":stack_size", 0),
-		       (store_character_level, ":cur_level", ":cur_troop_id"),
-	           (try_begin),
-		         (troop_is_guarantee_ranged, ":cur_troop_id"),
-		         (gt, ":cur_level", ":highest_archer_lvl"),
-		         (assign, ":highest_archer_lvl", ":cur_level"),
-		         (assign, ":archer_id", ":cur_troop_id"),
-		         (party_stack_get_troop_dna,":archer_dna","$g_encountered_party",":troop_iterator"),
-		       (else_try),
-		         (gt, ":cur_level", ":highest_infantry_lvl"),
-		         (assign, ":highest_infantry_lvl", ":cur_level"),
-		         (assign, ":infantry_id", ":cur_troop_id"),
-		         (party_stack_get_troop_dna,":infantry_dna","$g_encountered_party",":troop_iterator"),
-		       (try_end),
-		       (try_begin),
-		         (troop_is_guarantee_horse, ":cur_troop_id"),
-		         (gt, ":cur_level", ":highest_cavalry_lvl"),
-		         (assign, ":highest_cavalry_lvl", ":cur_level"),
-		         (assign, ":cavalry_id", ":cur_troop_id"),
-		         (party_stack_get_troop_dna,":cavalry_dna","$g_encountered_party",":troop_iterator"),
-		       (try_end),
-	         (try_end),
-	         
-	         # Slots 40-49 are the slots I used for archers and guards inside the fort intented for use in sieges as well
-	         (try_begin),
-	           (gt, ":archer_id", 0),
-	           (try_for_range, ":visiterator", 40, 42),
-	             (store_random_in_range, ":walker_dna", 0, 1000000),
-	             (set_visitor, ":visiterator", ":archer_id", ":walker_dna"),
-	           (try_end),
-	           (try_for_range, ":visiterator", 48, 50),
-	             (store_random_in_range, ":walker_dna", 0, 1000000),
-	             (set_visitor, ":visiterator", ":archer_id", ":walker_dna"),
-	           (try_end),
-	         (try_end),
-	         (try_begin),
-	           (gt, ":infantry_id", 0),
-	           (try_for_range, ":visiterator", 24, 30),	#I used slots 24-29 for stationary guard posts during visits
-	             (store_random_in_range, ":walker_dna", 0, 1000000),
-	             (set_visitor, ":visiterator", ":infantry_id", ":walker_dna"),
-	           (try_end),
-	           
-	           # these are 'patrols' that will path through specific points in the scene
-	           (call_script, "script_set_walker_to_type", "trp_fort_rider", ":cavalry_id"),
-	           (try_begin),
-	             (gt, ":cavalry_id", 0),
-	             (set_visitor, 20, ":cavalry_id", ":cavalry_dna"),	    # guard that patrols the perimeter
-	             #(set_visitor, 20, "trp_fort_rider", ":cavalry_dna"),	    # TODO: Go back to using this type now that the patrol is working properly
-	           (try_end),
-	           (call_script, "script_set_walker_to_type", "trp_fort_walker", ":infantry_id"),
-	           (set_visitor, 30, "trp_fort_walker", ":archer_dna"),		# guard that patrols the middle walkway
-	           (set_visitor, 42, "trp_fort_walker", ":infantry_dna"),	# guards patrolling the front walls
-	           (set_visitor, 44, "trp_fort_walker", ":walker_dna"),
-	         (try_end),
-
-             (call_script, "script_init_town_walkers"),
-             (set_jump_mission,"mt_fort_visit"),
-             (try_begin),
-               (eq, "$town_entered", 0),
-               (assign, "$town_entered", 1),
-               (eq, "$town_nighttime", 0),
-             (try_end),
-               (set_jump_entry, 1),
-             (jump_to_scene, ":fort_scene"),
-             (change_screen_mission),
-           (try_end),
-        ], "To the fort square."),
-
-      ("mylair_station_troops",
-      [	         (eq, "$current_town", "p_fort"), #para player lair chief player
-
-      ],
-      "Manage the garrison.",
-      [
-        (change_screen_exchange_members,1),
-		(display_message,"@The prison of your lair has low levels of security. Your captain will suggest not enclosing lords here!",0xFFFF0000),
-      ]),
-###player lair acaba chief
-      ("trade_with_merchants",
-       [
-           (party_slot_eq,"$current_town",slot_party_type, spt_town)
-        ],
-         "Go to the marketplace.",
-         [
-           (try_begin),
-             (call_script, "script_cf_enter_center_location_bandit_check"),
-           (else_try),
-             (jump_to_menu,"mnu_town_trade"),
-           (try_end),
-          ]),
-
-      ("walled_center_manage",
-      [
-        (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
-       (neq, "$current_town", "p_fort"), #para player lair chief player
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
-        (assign, reg0, 1),
-        (try_begin),
-          (party_slot_eq, "$current_town", slot_party_type, spt_castle),
-          (assign, reg0, 0),
-        (try_end),
-       ],
-       "Manage this {reg0?town:castle}.",
-       [
-           (assign, "$g_next_menu", "mnu_town"),
-           (jump_to_menu, "mnu_center_manage"),
-       ]),
-		
-      ("walled_center_move_court",
-      [
-        (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
-       (neq, "$current_town", "p_fort"), #para player lair chief player
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
-        (eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
-        (neq, "$g_player_court", "$current_town"),
-      ],
-      "Move your court here.",
-      [
-        (jump_to_menu, "mnu_establish_court"),
-      ]),
-								
-#festin de mead chief
-	("banquete_mead",
-		[		  
-        (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
-       (neq, "$current_town", "p_fort"), #para player lair chief player
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
-        (assign, reg0, 1),
-        (try_begin),
-          (party_slot_eq, "$current_town", slot_party_type, spt_castle),
-          (assign, reg0, 0),
-        (try_end),
-		],
-		"My men deserve a banquet in {reg0?town:castle}. Buy mead and food.",
-		[
-      (store_troop_gold,":money","trp_player"),
-      (try_begin),
-        (gt,":money",999),
-       (troop_remove_gold, "trp_player", 1000),
-           (jump_to_menu, "mnu_banquete_moral"),
-      (else_try),
-        (display_message,"str_money"),
-      (try_end),
-		]
-	),
-#festin acaba chief
-
-      ("castle_station_troops",
-      [	  
-       (neq, "$current_town", "p_fort"), #para player lair chief player
-		(party_get_slot, ":town_lord", "$current_town", slot_town_lord),
-	    (str_clear, s10),
-		  
-	    (assign, ":player_can_draw_from_garrison", 0), 
-		(try_begin), #option 1 - player is town lord
-		  (eq, ":town_lord", "trp_player"),
-		  (assign, ":player_can_draw_from_garrison", 1),
-		(else_try), #option 2 - town is unassigned and part of the player faction
-		  (store_faction_of_party, ":faction", "$g_encountered_party"),
-		  (eq, ":faction", "fac_player_supporters_faction"),			
-		  (neg|party_slot_ge, "$g_encountered_party", slot_town_lord, active_npcs_begin), #ie, zero or -1
-
-		  (assign, ":player_can_draw_from_garrison", 1),
-		(else_try), #option 3 - town was captured by player
-		  (lt, ":town_lord", 0), #ie, unassigned
-		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
-		  (eq, "$players_kingdom", ":castle_faction"),
-		  
-		  (eq, "$g_encountered_party", "$g_castle_requested_by_player"),
-
-		  (str_store_string, s10, "str_retrieve_garrison_warning"),
-		  (assign, ":player_can_draw_from_garrison", 1),
-		(else_try),
-		  (lt, ":town_lord", 0), #ie, unassigned
-		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
-		  (eq, "$players_kingdom", ":castle_faction"),
-		  
-		  (store_party_size_wo_prisoners, ":party_size", "$g_encountered_party"),
-		  (eq, ":party_size", 0),
-			
-		  (str_store_string, s10, "str_retrieve_garrison_warning"),
-		  (assign, ":player_can_draw_from_garrison", 1),
-		(else_try),
-		  (party_slot_ge, "$g_encountered_party", slot_town_lord, active_npcs_begin),
-		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
-		  (eq, "$players_kingdom", ":castle_faction"),
-		  
-		  (troop_slot_eq, "trp_player", slot_troop_spouse, ":town_lord"),		    
-
-		  (assign, ":player_can_draw_from_garrison", 1),
-		(try_end),
-
-        (eq, ":player_can_draw_from_garrison", 1),
-      ],
-      "Manage the garrison {s10}",
-      [
-        (change_screen_exchange_members,1),
-      ]),
-
-      ("castle_wait",
-      [
-        #(party_slot_eq,"$current_town",slot_party_type, spt_castle),
-        (this_or_next|ge, "$g_encountered_party_relation", 0),
-        (eq,"$castle_undefended",1),
-        (assign, ":can_rest", 1),
-        (str_clear, s1),
-        (try_begin),
-          (neg|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
-		  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
-          (neg|party_slot_eq, "$current_town", slot_town_lord, ":player_spouse"),
-
-          (party_slot_ge, "$current_town", slot_town_lord, "trp_player"), #can rest for free in castles and towns with unassigned lords
-          (store_faction_of_party, ":current_town_faction", "$current_town"),
-          (neq, ":current_town_faction", "fac_player_supporters_faction"),
-          (party_get_num_companions, ":num_men", "p_main_party"),
-          (store_div, reg1, ":num_men", 4),
-          (val_add, reg1, 1),
-          (str_store_string, s1, "@ ({reg1} scillingas per night)"),
-          (store_troop_gold, ":gold", "trp_player"),
-          (lt, ":gold", reg1),
-          (assign, ":can_rest", 0),
-        (try_end),
-        (eq, ":can_rest", 1),
-      ],
-      "Wait here for some time{s1}.",
-      [
-        (assign, "$auto_enter_town", "$current_town"),
-        (assign, "$g_town_visit_after_rest", 1),
-        (assign, "$g_last_rest_center", "$current_town"),
-        (assign, "$g_last_rest_payment_until", -1),
-	  (val_max, "$entertainement_on", 1), #chief entretenimiento bardo MOTO avoid overwriting higher value
-        (try_begin),
-          (party_is_active, "p_main_party"),
-          (party_get_current_terrain, ":cur_terrain", "p_main_party"),
-          (try_begin),
-            (eq, ":cur_terrain", rt_desert),
-            (unlock_achievement, ACHIEVEMENT_SARRANIDIAN_NIGHTS),
-          (try_end),  
-        (try_end), 
-
-        (rest_for_hours_interactive, 24 * 7, 5, 0), #rest while not attackable
-        (change_screen_return),
-      ]),
-
-##      ("rest_until_morning",
-
-##       [
-##           (this_or_next|ge, "$g_encountered_party_relation", 0),
-##           (eq,"$castle_undefended",1),
-##           (store_time_of_day,reg(1)),(neg|is_between,reg(1), 5, 18),
-##           (eq, "$g_defending_against_siege", 0),
-##        ],
-##         "Rest until morning.",
-##         [
-##           (store_time_of_day,reg(1)),
-##           (assign, reg(2), 30),
-##           (val_sub,reg(2),reg(1)),
-##           (val_mod,reg(2),24),
-##           (assign,"$auto_enter_town","$current_town"),
-##           (assign, "$g_town_visit_after_rest", 1),
-##           (rest_for_hours_interactive, reg(2)),
-##           (change_screen_return),
-##          ]),
-##      
-##      ("rest_until_evening",
-##       [
-##           (this_or_next|ge, "$g_encountered_party_relation", 0),
-##           (eq,"$castle_undefended",1),
-##           (store_time_of_day,reg(1)), (is_between,reg(1), 5, 18),
-##           (eq, "$g_defending_against_siege", 0),
-##        ],
-##         "Rest until evening.",
-##         [
-##           (store_time_of_day,reg(1)),
-##           (assign, reg(2), 20),
-##           (val_sub,reg(2),reg(1)),
-##           (assign,"$auto_enter_town","$current_town"),
-##           (assign, "$g_town_visit_after_rest", 1),
-##           (rest_for_hours_interactive, reg(2)),
-##           (change_screen_return),
-##          ]),
-      ("town_alley",
-      [
-        (party_slot_eq,"$current_town",slot_party_type, spt_town),
-        (eq, "$cheat_mode", 1),
-      ],
-      "{!}CHEAT: Go to the alley.",
-      [
-        (party_get_slot, reg11, "$current_town", slot_town_alley),
-        (set_jump_mission, "mt_ai_training"),
-        (jump_to_scene, reg11),
-        (change_screen_mission),
-      ]),
-      
-#####rigale chief beggar pedir
-##             ("start_begging",
-##       [
-##	      (party_slot_eq,"$current_town",slot_party_type, spt_town),
-##			(try_begin),
-##           (eq,"$begging_action_started",0),
-##		   (str_store_string,s7,"@You start begging (gain a few coins, lose renown or honor)"),
-##		   (else_try),
-##           (eq,"$begging_action_started",1),
-##		   (str_store_string,s7,"@You stop begging"),		   
-##		   
-##        ],
-##         "{s7}",
-##         [
-##       (store_troop_gold,":money","trp_player"),
-##      (try_begin),
-##        (gt,":money",299),
-##        (display_message, "@People know you're not a beggar."),
-##      (else_try),
-##		(assign, "$auto_enter_town", "$current_town"),
-##           (try_begin),
-##		     (eq,"$begging_action_started",0),
-##			 (assign,"$begging_action_started",1),
-##			 (change_screen_return),
-##			(rest_for_hours_interactive, 24 * 7, 3, 0),
-##			
-##           (else_try),
-##		     (eq,"$begging_action_started",1),
-##			 (assign,"$begging_action_started",0),
-##           (try_end),
-##      (try_end),
-##          ]),	
-#####rigale chief acaba
-#Menu que lleva a otros para ahorrar espacio en el menu principal
-      ("masopciones",
-       [(party_slot_eq,"$current_town",slot_party_type, spt_town),
-        (this_or_next|eq,"$entry_to_town_forbidden",0),
-        (eq, "$sneaked_into_town",1),],
-       "Visit the sights of the town.",
-       [(jump_to_menu, "mnu_town_masopciones"),]),
-#mas opciones acaba chief
-	#	Floris Bank Overhaul chief duh	//	Original Idea by Lazeras
-	("town_bank",
-       [(party_slot_eq, "$current_town", slot_party_type, spt_town),
-                             (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
-
-        ],
-       "Visit the landlords and moneylenders.",
-       [	
-			(assign, reg10, 0),
-			(start_presentation, "prsnt_bank"),
-        ]),
-
-
-#puerto y opciones de seafare de duh chief
-            ("town_ports",
-       [#(party_slot_eq,"$current_town",slot_party_type, spt_town),
-	    (party_slot_eq,"$current_town",slot_town_port, 1),
-        (this_or_next|eq,"$entry_to_town_forbidden",0),
-        (eq, "$sneaked_into_town",1),
-                             (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
-
-            ],
-       "Visit town port.",
-       [(jump_to_menu, "mnu_port"),]),
-     
-      ("collect_taxes_qst",
-      [
-        (check_quest_active, "qst_collect_taxes"),
-        (quest_slot_eq, "qst_collect_taxes", slot_quest_target_center, "$current_town"),
-        (neg|quest_slot_eq, "qst_collect_taxes", slot_quest_current_state, 4),
-        (quest_get_slot, ":quest_giver_troop", "qst_collect_taxes", slot_quest_giver_troop),
-        (str_store_troop_name, s1, ":quest_giver_troop"),
-        (quest_get_slot, reg5, "qst_collect_taxes", slot_quest_current_state),
-      ],
-      "{reg5?Continue collecting taxes:Collect taxes} due to {s1}.",
-      [
-        (jump_to_menu, "mnu_collect_taxes"),
-      ]),
-
-      ("dplmc_guild_master_meeting",#gdw
-       [(party_slot_eq,"$current_town",slot_party_type, spt_town),
-      ##nested diplomacy start+
-    #rubik had a good idea: only enable this after meeting the guild master
-    (assign, ":can_meet_guild_master", 0),
-    (try_begin),
-      #Always can jump to guild master in cheat mode.
-      (eq, "$cheat_mode", 1),
-      (assign, ":can_meet_guild_master", 1),
-    (else_try),
-      #Can jump to guild master after meeting him once.
-      (party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
-      (ge, ":guild_master_troop", 1),
-      (neg|troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
-      (assign, ":can_meet_guild_master", 1),
-    (else_try),
-      #Always enable this in Praven for the sake of playability, since
-      #the guild master there is weirdly hard to find.
-      (this_or_next|eq, "$current_town", "p_town_6"),
-      #Also enable in the starting town, to avoid confusing players into
-      #thinking the menu item doesn't exist.
-      (eq, "$g_starting_town", "$current_town"),
-      (assign, ":can_meet_guild_master", 1),
-    (try_end),
-    (neq, ":can_meet_guild_master", 0),
-    ##nested diplomacy end+
-        (this_or_next|eq,"$entry_to_town_forbidden",0),
-        (eq, "$sneaked_into_town",1),
-    ],
-       "Meet the Guild Master.",
-       [
-         (try_begin),
-           (call_script, "script_cf_enter_center_location_bandit_check"),
-         (else_try),
-           (party_get_slot, ":town_scene", "$current_town", slot_town_center),
-           (modify_visitors_at_site, ":town_scene"),
-           (reset_visitors),
-
-           (party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
-           (set_visitor,11,":guild_master_troop"),
-
-           (set_jump_mission,"mt_town_center"),
-           (jump_to_scene, ":town_scene"),
-           (change_screen_map_conversation, ":guild_master_troop"),
-         (try_end),
-     ]),
-  ##nested diplomacy start+
-  #If you can't jump to the guild master, explain why
-    ("dplmc_guild_master_meeting_denied",
-  [
-    #Only show this when the player would get the rest of the town menu
-    (party_slot_eq,"$current_town",slot_party_type, spt_town),
-    (this_or_next|eq,"$entry_to_town_forbidden",0),
-        (eq, "$sneaked_into_town",1),
-      #There is a valid guild master, and you haven't met him,
-    #and there isn't another condition that enables the jump.
-    (party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
-    (gt, ":guild_master_troop", 0),
-    (eq, "$cheat_mode", 0),
-    (neq, "$g_starting_town", "$current_town"),
-    (neq, "$current_town", "p_town_6"),
-    (troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
-    (disable_menu_option),
-    ],
-       "You have not met the Guild Master yet.",
-       [
-     ]),
-     ("town_leave",[],"Leave...",
-      [
-        (assign, "$g_permitted_to_center",0),
-        (change_screen_return,0),
-      ],"Leave Area."),
-
-      ("castle_cheat_interior",
-      [
-        (eq, "$cheat_mode", 1),
-      ], 
-      "{!}CHEAT! Interior.",
-      [
-        (set_jump_mission,"mt_ai_training"),
-        (party_get_slot, ":castle_scene", "$current_town", slot_town_castle),
-        (jump_to_scene,":castle_scene"),
-        (change_screen_mission),
-      ]),
-                                                       
-      ("castle_cheat_town_exterior",
-      [
-        (eq, "$cheat_mode", 1),
-      ], 
-      "{!}CHEAT! Exterior.",
-      [
-        (try_begin),
-          (party_slot_eq, "$current_town",slot_party_type, spt_castle),
-          (party_get_slot, ":scene", "$current_town", slot_castle_exterior),
-        (else_try),
-          (party_get_slot, ":scene", "$current_town", slot_town_center),
-        (try_end),
-        (set_jump_mission,"mt_ai_training"),
-        (jump_to_scene,":scene"),
-        (change_screen_mission),
-      ]),
-                                                       
-      ("castle_cheat_dungeon",
-      [
-        (eq, "$cheat_mode", 1),
-      ], 
-      "{!}CHEAT! Prison.",
-      [
-        (set_jump_mission,"mt_ai_training"),
-        (party_get_slot, ":castle_scene", "$current_town", slot_town_prison),
-        (jump_to_scene,":castle_scene"),
-        (change_screen_mission),
-      ]),
-      
-      ("castle_cheat_town_walls",
-      [
-        (eq, "$cheat_mode", 1),
-        (party_slot_eq,"$current_town",slot_party_type, spt_town),
-      ], 
-      "{!}CHEAT! Town Walls.",
-      [
-        (party_get_slot, ":scene", "$current_town", slot_town_walls),
-        (set_jump_mission,"mt_ai_training"),
-        (jump_to_scene,":scene"),
-        (change_screen_mission),
-      ]),
-
-      ("cheat_town_start_siege",
-      [
-        (eq, "$cheat_mode", 1),
-        (party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, -1),
-        (lt, "$g_encountered_party_2", 1),
-        (call_script, "script_party_count_fit_for_battle","p_main_party"),
-        (gt, reg(0), 1),
-        (try_begin),
-          (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
-          (assign, reg6, 1),
-        (else_try),
-          (assign, reg6, 0),
-        (try_end),
-      ],
-      "{!}CHEAT: Besiege the {reg6?town:castle}...",
-      [
-        (assign,"$g_player_besiege_town","$g_encountered_party"),
-        (jump_to_menu, "mnu_castle_besiege"),
-      ]),
-
-      ("center_reports",
-      [
-        (eq, "$cheat_mode", 1),
-      ], 
-      "{!}CHEAT! Show reports.",
-      [
-        (jump_to_menu,"mnu_center_reports"),
-      ]),
-
-      ("sail_from_port",
-      [
-        (party_slot_eq,"$current_town",slot_party_type, spt_town),
-        (eq, "$cheat_mode", 1),
-        #(party_slot_eq,"$current_town",slot_town_near_shore, 1),
-      ],
-      "{!}CHEAT: Sail from port.",
-      [
-        (assign, "$g_player_icon_state", pis_ship),
-        (party_set_flags, "p_main_party", pf_is_ship, 1),
-        (party_get_position, pos1, "p_main_party"),
-        (map_get_water_position_around_position, pos2, pos1, 6),
-        (party_set_position, "p_main_party", pos2),
-        (assign, "$g_main_ship_party", -1),
-        (change_screen_return),
-      ]),
-
-    ]
+      town_menu_options,
    ),
 
   (
