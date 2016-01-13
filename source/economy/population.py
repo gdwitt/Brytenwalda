@@ -108,7 +108,7 @@ simple_triggers = [
 ]
 
 scripts = [
-    ("initialise_acres",
+    ("initialize_acres",
     [
       (try_for_range, ":town_no", towns_begin, towns_end),
         (this_or_next|eq, ":town_no","p_town_1"),
