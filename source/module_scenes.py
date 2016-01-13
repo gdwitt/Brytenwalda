@@ -1,10 +1,7 @@
-from header_common import *
-from header_operations import *
-from header_triggers import *
 from header_scenes import *
-from module_constants import *
-# >>>>> code snippet for WRECK <<<<< #
-#from compiler import *
+
+from . import enterprise
+
 ####################################################################################################################
 #  Each scene record contains the following fields:
 #  1) Scene id {string}: used for referencing scenes in other files. The prefix scn_ is automatically added before each scene-id.
@@ -2023,25 +2020,6 @@ scenes = [
     [],[]),
   ("meeting_scene_desert_forest",0,"ch_meet_desert_a", "bo_encounter_spot", (-40,-40),(40,40),-100,"0",
     [],[]),
-
-  ("enterprise_tannery",sf_generate,"ch_meet_steppe_a", "bo_encounter_spot", (-40,-40),(40,40),-100,"0x000000012004480500040902000041cb00005ae800000ff5",
-    [],[]),
-  ("enterprise_winery",sf_indoors,"winery_interior", "bo_winery_interior", (-40,-40),(40,40),-100,"0",
-    [],[]),
-  ("enterprise_mill",sf_indoors,"mill_interior", "bo_mill_interior", (-40,-40),(40,40),-100,"0",
-    [],[]),
-  ("enterprise_smithy",sf_indoors,"smithy_interior", "bo_smithy_interior", (-40,-40),(40,40),-100,"0",
-    [],[]),
-  ("enterprise_dyeworks",sf_indoors,"weavery_interior", "bo_weavery_interior", (-40,-40),(40,40),-100,"0",
-    [],[]),
-  ("enterprise_linen_weavery",sf_indoors,"weavery_interior", "bo_weavery_interior", (-40,-40),(40,40),-100,"0",
-    [],[]),
-  ("enterprise_wool_weavery",sf_indoors,"weavery_interior", "bo_weavery_interior", (-40,-40),(40,40),-100,"0",
-    [],[]),
-  ("enterprise_brewery",sf_indoors,"brewery_interior", "bo_brewery_interior", (-40,-40),(40,40),-100,"0",
-    [],[]),
-  ("enterprise_oil_press",sf_indoors,"oil_press_interior", "bo_oil_press_interior", (-40,-40),(40,40),-100,"0",
-    [],[]),
 #chief sea battles Phaiak
 ### scenes for KLABAUTERMANN
  ("sea",sf_generate|sf_auto_entry_points,"none", "none", (0,0),(600,600), 0,"0x0000000330000500000ab6b000003dc30000229e00007392",
@@ -2684,4 +2662,5 @@ scenes = [
 
 
 
-]
+] \
++ enterprise.scenes

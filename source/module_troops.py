@@ -4,8 +4,9 @@ from header_common import *
 from header_items import *
 from header_troops import *
 from header_skills import *
-# >>>>> code snippet WRECK<<<<< #
-#from compiler import *
+
+from . import enterprise
+
 #######################################################################################  Each troop contains the following fields:
 #  1) Troop id (string): used for referencing troops in other files. The prefix trp_ is automatically added before each troop-id .
 #  2) Toop name (string)..
@@ -42,61 +43,7 @@ from header_skills import *
 #  town_12  Wercheg
 #  town_13  Rivacheg
 #  town_14  Halmar
-####################################################################################################################
-# Some constant and function declarations to be used below...
-# wp_one_handed () | wp_two_handed () | wp_polearm () | wp_archery () | wp_crossbow () | wp_throwing ()
-def wp(x):
-   n = 0
-   r = 10 + int(x / 10)
-#  n |= wp_one_handed(x + random.randrange(r))
-#  n |= wp_two_handed(x + random.randrange(r))
-#  n |= wp_polearm(x + random.randrange(r))
-#  n |= wp_archery(x + random.randrange(r))
-#  n |= wp_crossbow(x + random.randrange(r))
-#  n |= wp_throwing(x + random.randrange(r))
-   n |= wp_one_handed(x)
-   n |= wp_two_handed(x)
-   n |= wp_polearm(x)
-   n |= wp_archery(x) #chief quita para hacerlo especifico
-   n |= wp_crossbow(x) #chief quita para hacerlo especifico
-   n |= wp_throwing(x)
-   n |= wp_firearm(x) #chief anade para hondas//slingshots
-   return n
 
-def wpe(m,a,c,t):
-   n = 0
-   n |= wp_one_handed(m)
-   n |= wp_two_handed(m)
-   n |= wp_polearm(m)
-   n |= wp_archery(a)
-   n |= wp_crossbow(c)
-   n |= wp_throwing(t)
-   return n
-
-def wpex(o,w,p,a,c,t):
-   n = 0
-   n |= wp_one_handed(o)
-   n |= wp_two_handed(w)
-   n |= wp_polearm(p)
-   n |= wp_archery(a)
-   n |= wp_crossbow(c)
-   n |= wp_throwing(t)
-   return n
-   
-def wp_archer(x):
-   n = 0
-   r = 10 + int(x / 10)
-   n |= wp_one_handed(x-12)
-   n |= wp_two_handed(x-30)
-   n |= wp_polearm(x-5)
-   n |= wp_archery(x+20) #chief quita para hacerlo especifico
-   n |= wp_crossbow(x+20) #chief quita para hacerlo especifico
-   n |= wp_throwing(x)
-   n |= wp_firearm(x+20)
-   return n
-
-#Skills cambios chief
-knows_common = knows_weapon_master_3|knows_ironflesh_1|knows_athletics_3|knows_riding_1|knows_power_strike_2|knows_shield_2|knows_inventory_management_1|knows_power_throw_2 #cambiado chief# TML Reduced power strike to 2 here, since the warriors only have 2 (peasant ladies were stronger than warriors, hah). #F123 - (Quicktags again, signed comment = Submod -> 1.41)
 #Warrior
 def_attrib = str_16 | agi_9 | int_6 | cha_8
 def_attrib2 = str_22 | agi_14 | int_8 | cha_10
@@ -2125,50 +2072,7 @@ troops = [
 # Place extra merchants before this point
 ["merchants_end","merchants_end","merchants_end",tf_hero, 0,0, 'fac_commoners',[],def_attrib|level(2),wp(20),knows_inventory_management_10,0],
 
-#Used for player enterprises
-["town_1_master_craftsman", "{!}Town 1 Craftsman", "{!}Town 1 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_aprontunic',       'itm_ankleboots'], def_attrib|level(2),wp(20),knows_common, 0x000000003a0c629346edb2335a82b6e300000000000d634a0000000000000000],
-["town_2_master_craftsman", "{!}Town 2 Craftsman", "{!}Town 2 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_linen_coatbrown',     'itm_cheap_shoes'],   def_attrib|level(2),wp(20),knows_common, 0x0000000f010811c92d3295e46a96c72300000000001f5a980000000000000000],
-["town_3_master_craftsman", "{!}Town 3 Craftsman", "{!}Town 3 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_merch_tunicwt',       'itm_ankleboots'], def_attrib|level(2),wp(20),knows_common, 0x000000001b083203151d2ad5648e52b400000000001b172e0000000000000000],
-["town_4_master_craftsman", "{!}Town 4 Craftsman", "{!}Town 4 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x000000001a10114f091b2c259cd4c92300000000000228dd0000000000000000],
-["town_5_master_craftsman", "{!}Town 5 Craftsman", "{!}Town 5 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_tunic1',     'itm_cheap_shoes'],   def_attrib|level(2),wp(20),knows_common, 0x000000000d1044c578598cd92b5256db00000000001f23340000000000000000],
-["town_6_master_craftsman", "{!}Town 6 Craftsman", "{!}Town 6 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_aprontunic',       'itm_ankleboots'],   def_attrib|level(2),wp(20),knows_common, 0x000000001f046285493eaf1b048abcdb00000000001a8aad0000000000000000],
-["town_7_master_craftsman", "{!}Town 7 Craftsman", "{!}Town 7 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_tunic1',     'itm_cheap_shoes'],   def_attrib|level(2),wp(20),knows_common, 0x000000002b0052c34c549225619356d400000000001cc6e60000000000000000],
-["town_8_master_craftsman", "{!}Town 8 Craftsman", "{!}Town 8 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_aprontunic',       'itm_ankleboots'],   def_attrib|level(2),wp(20),knows_common, 0x0000000fdb0c20465b6e51e8a12c82d400000000001e148c0000000000000000],
-["town_9_master_craftsman", "{!}Town 9 Craftsman", "{!}Town 9 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_merch_tunicwt',       'itm_ankleboots'], def_attrib|level(2),wp(20),knows_common, 0x00000009f7005246071db236e296a45300000000001a8b0a0000000000000000],
-["town_10_master_craftsman", "{!}Town 10 Craftsman", "{!}Town 10 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_tunic1',     'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000009f71012c2456a921aa379321a000000000012c6d90000000000000000],
-["town_11_master_craftsman", "{!}Town 11 Craftsman", "{!}Town 11 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',     'itm_ankleboots'],   def_attrib|level(2),wp(20),knows_common, 0x00000009f308514428db71b9ad70b72400000000001dc9140000000000000000],
-["town_12_master_craftsman", "{!}Town 12 Seneschal", "{!}Town 12 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_merch_tunicwt',       'itm_ankleboots'], def_attrib|level(2),wp(20),knows_common, 0x00000009e90825863853a5b91cd71a5b00000000000598db0000000000000000],
-["town_13_master_craftsman", "{!}Town 13 Seneschal", "{!}Town 13 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_tunic1',     'itm_cheap_shoes'],   def_attrib|level(2),wp(20),knows_common, 0x00000009fa0c708f274c8eb4c64e271300000000001eb69a0000000000000000],
-["town_14_master_craftsman", "{!}Town 14 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000007590c3206155c8b475a4e439a00000000001f489a0000000000000000],
-["town_15_master_craftsman", "{!}Town 15 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000007440022d04b2c6cb7d3723d5a00000000001dc90a0000000000000000],
-["town_16_master_craftsman", "{!}Town 16 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000007680c3586054b8e372e4db65c00000000001db7230000000000000000],
-["town_17_master_craftsman", "{!}Town 17 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x0000000766046186591b564cec85d2e200000000001e4cea0000000000000000],
-["town_18_master_craftsman", "{!}Town 18 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x0000000e7e0075523a6aa9b6da61e8dd00000000001d96d30000000000000000],
-["town_19_master_craftsman", "{!}Town 19 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_robe_beige',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x000000002408314852a432e88aaa42e100000000001e284e0000000000000000],
-["town_20_master_craftsman", "{!}Town 20 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_arena_tunic_white',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x000000001104449136e44cbd1c9352bc000000000005e8d10000000000000000],
-["town_21_master_craftsman", "{!}Town 21 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_robe_beige',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000000131032d3351c6e43226ec96c000000000005b5240000000000000000],
-["town_22_master_craftsman", "{!}Town 22 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_arena_tunic_white',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000000200c658a5723b1a3148dc455000000000015ab920000000000000000],
-["town_23_master_craftsman", "{!}Town 23 Craftsman", "{!}Town 1 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_aprontunic',       'itm_ankleboots'], def_attrib|level(2),wp(20),knows_common, 0x000000003a0c629346edb2335a82b6e300000000000d634a0000000000000000],
-["town_24_master_craftsman", "{!}Town 24 Craftsman", "{!}Town 2 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_linen_coatbrown',     'itm_cheap_shoes'],   def_attrib|level(2),wp(20),knows_common, 0x0000000f010811c92d3295e46a96c72300000000001f5a980000000000000000],
-["town_25_master_craftsman", "{!}Town 25 Craftsman", "{!}Town 5 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_tunic1',     'itm_cheap_shoes'],   def_attrib|level(2),wp(20),knows_common, 0x000000001b083203151d2ad5648e52b400000000001b172e0000000000000000],
-["town_26_master_craftsman", "{!}Town 26 Craftsman", "{!}Town 6 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_aprontunic',       'itm_ankleboots'],   def_attrib|level(2),wp(20),knows_common, 0x000000001a10114f091b2c259cd4c92300000000000228dd0000000000000000],
-["town_27_master_craftsman", "{!}Town 27 Craftsman", "{!}Town 7 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_nobleman_outfit',     'itm_cheap_shoes'],   def_attrib|level(2),wp(20),knows_common, 0x000000002b0052c34c549225619356d400000000001cc6e60000000000000000],
-["town_28_master_craftsman", "{!}Town 28 Craftsman", "{!}Town 8 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_leather_aprontunic',       'itm_ankleboots'],   def_attrib|level(2),wp(20),knows_common, 0x0000000fdb0c20465b6e51e8a12c82d400000000001e148c0000000000000000],
-["town_29_master_craftsman", "{!}Town 29 Craftsman", "{!}Town 9 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[     'itm_merch_tunicwt',       'itm_ankleboots'], def_attrib|level(2),wp(20),knows_common, 0x00000009f7005246071db236e296a45300000000001a8b0a0000000000000000],
-["town_30_master_craftsman", "{!}Town 30 Craftsman", "{!}Town 10 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_tunic1',     'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000009f71012c2456a921aa379321a000000000012c6d90000000000000000],
-["town_31_master_craftsman", "{!}Town 31 Craftsman", "{!}Town 11 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',     'itm_ankleboots'],   def_attrib|level(2),wp(20),knows_common, 0x00000009f308514428db71b9ad70b72400000000001dc9140000000000000000],
-["town_32_master_craftsman", "{!}Town 32 Seneschal", "{!}Town 12 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_merch_tunicwt',       'itm_ankleboots'], def_attrib|level(2),wp(20),knows_common, 0x00000009e90825863853a5b91cd71a5b00000000000598db0000000000000000],
-["town_33_master_craftsman", "{!}Town 33 Seneschal", "{!}Town 13 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_tunic1',     'itm_cheap_shoes'],   def_attrib|level(2),wp(20),knows_common, 0x00000009fa0c708f274c8eb4c64e271300000000001eb69a0000000000000000],
-["town_34_master_craftsman", "{!}Town 34 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_blue_linendress',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000007590c3206155c8b475a4e439a00000000001f489a0000000000000000],
-["town_35_master_craftsman", "{!}Town 35 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000007440022d04b2c6cb7d3723d5a00000000001dc90a0000000000000000],
-["town_36_master_craftsman", "{!}Town 36 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x0000000766046186591b564cec85d2e200000000001e4cea0000000000000000],
-["town_37_master_craftsman", "{!}Town 37 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_blue_linendress',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x0000000e7e0075523a6aa9b6da61e8dd00000000001d96d30000000000000000],
-["town_38_master_craftsman", "{!}Town 38 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_leather_aprontunic',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x0000000e7e0075523a6aa9b6da61e8dd00000000001d96d30000000000000000],
-["town_39_master_craftsman", "{!}Town 39 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_robe_beige',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x000000002408314852a432e88aaa42e100000000001e284e0000000000000000],
-["town_40_master_craftsman", "{!}Town 40 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_arena_tunic_white',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x000000001104449136e44cbd1c9352bc000000000005e8d10000000000000000],
-["town_41_master_craftsman", "{!}Town 41 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_robe_beige',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x000000001104449136e44cbd1c9352bc000000000005e8d10000000000000000],
-["town_42_master_craftsman", "{!}Town 42 Seneschal", "{!}Town 14 Seneschal", tf_hero|tf_is_merchant, 0,reserved,  'fac_neutral',[ 'itm_arena_tunic_white',      'itm_shoes1blue'],     def_attrib|level(2),wp(20),knows_common, 0x00000000200c658a5723b1a3148dc455000000000015ab920000000000000000],
-
+] + enterprise.troops + [
 
 # Chests
 ["zendar_chest","{!}Zendar Chest","{!}Zendar Chest",tf_hero|tf_inactive, 0,reserved,  'fac_neutral',[],def_attrib|level(18),wp(60),knows_common,0],

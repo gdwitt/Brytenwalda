@@ -4444,7 +4444,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("mulberry_groves", "acres of mulberry groves"),
   ("olive_groves", "acres of olive groves"),
   ("acres_flax", "acres of flax fields"),
-  ("enterprise_enemy_realm", "{Sir/Madame}, you are an enemy of this realm. We cannot allow you to buy land here."),
   ("intrigue_success_chance", "{!}Your modified relation: {reg5}, {s4}'s relation: {reg4}"),  
 
   ("you_intend_to_denounce_s14_to_s13_on_behalf_of_s12", "You intend to privately denounce {s14} to {s13} on behalf of {s12}"),
@@ -4787,8 +4786,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s21_the_s8_declared_war_as_part_of_a_bid_to_conquer_all_calradia", "{s21}. The {s8} declared war with very little pretext, as part of a bid to conquer all Britannia and Hibernia."),
   ("master_vinter", "Master vinter"),
   ("s54_has_left_the_realm", "{s54} has left the realm."),
-  ("enterprise_s5_at_s0", "Net revenue from {s5} at {s0}"),  
-  
+
   ("bread_site", "mill"),
   ("ale_site", "brewery"),
   ("oil_site", "oil press"),

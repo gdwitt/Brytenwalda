@@ -579,7 +579,7 @@ walled_center_improvements_begin = slot_center_has_messenger_post
 walled_center_improvements_end               = 147 #chief cambia
 #chief cambia slots
 slot_center_player_enterprise     				  = 148 #noted with the item produced
-slot_center_player_enterprise_production_order    = 149
+slot_center_player_enterprise_production_order    = 149 # 0 = sell; 1 = store
 slot_center_player_enterprise_consumption_order   = 150 #not used
 slot_center_player_enterprise_days_until_complete = 150 #Used instead
 

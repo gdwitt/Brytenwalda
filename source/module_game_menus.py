@@ -7,7 +7,7 @@ from header_terrain_types import *
 
 from module_constants import *
 
-from . import loans
+from . import loans, enterprise
 
 ####################################################################################################################
 #  (menu-id, menu-flags, menu_text, mesh-name, [<operations>], [<options>]),
@@ -993,59 +993,7 @@ town_menu_options = [
          (try_end),
         ], "To the castle courtyard."),
 
-     ("town_enterprise",
-      [
-        (party_slot_eq,"$current_town",slot_party_type, spt_town),
-        (party_get_slot, ":item_produced", "$current_town", slot_center_player_enterprise),
-		(gt, ":item_produced", 1),
-        (eq,"$entry_to_town_forbidden",0),
-		(call_script, "script_get_enterprise_name", ":item_produced"),
-		(str_store_string, s3, reg0),
-                             (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
-
-      ],
-      "Visit your {s3}.",
-      [
-        (store_sub, ":town_order", "$current_town", towns_begin),
-		(store_add, ":master_craftsman", "trp_town_1_master_craftsman", ":town_order"),
-        (party_get_slot, ":item_produced", "$current_town", slot_center_player_enterprise),
-		(assign, ":enterprise_scene", "scn_enterprise_mill"),
-		(try_begin),
-			(eq, ":item_produced", "itm_bread"),
-			(assign, ":enterprise_scene", "scn_enterprise_mill"),
-		(else_try),
-			(eq, ":item_produced", "itm_ale"),
-			(assign, ":enterprise_scene", "scn_enterprise_brewery"),
-		(else_try),
-			(eq, ":item_produced", "itm_oil"),
-			(assign, ":enterprise_scene", "scn_enterprise_oil_press"),
-		(else_try),
-			(eq, ":item_produced", "itm_wine"),
-			(assign, ":enterprise_scene", "scn_enterprise_winery"),
-		(else_try),
-			(eq, ":item_produced", "itm_leatherwork"),
-			(assign, ":enterprise_scene", "scn_enterprise_tannery"),
-		(else_try),
-			(eq, ":item_produced", "itm_wool_cloth"),
-			(assign, ":enterprise_scene", "scn_enterprise_wool_weavery"),
-		(else_try),
-			(eq, ":item_produced", "itm_linen"),
-			(assign, ":enterprise_scene", "scn_enterprise_linen_weavery"),
-		(else_try),
-			(eq, ":item_produced", "itm_velvet"),
-			(assign, ":enterprise_scene", "scn_enterprise_dyeworks"),
-		(else_try),
-			(eq, ":item_produced", "itm_tools"),
-			(assign, ":enterprise_scene", "scn_enterprise_smithy"),
-		(try_end),
-        (modify_visitors_at_site,":enterprise_scene"),
-		(reset_visitors),
-        (set_visitor,0,"trp_player"),
-        (set_visitor,17,":master_craftsman"),
-        (set_jump_mission,"mt_town_default"),
-        (jump_to_scene,":enterprise_scene"),
-        (change_screen_mission),
-      ],"Door to your enterprise."),
+] + enterprise.town_menu_options + [
 
     ("visit_lady",
 	[

@@ -5715,13 +5715,6 @@ simple_triggers = [
    (else_try),
     (assign, "$g_player_days_as_marshal", 0),
    (try_end),
-   
-   (try_for_range, ":town", towns_begin, towns_end),
-	(party_get_slot, ":days_to_completion", ":town", slot_center_player_enterprise_days_until_complete),
-    (ge, ":days_to_completion", 1),
-	(val_sub, ":days_to_completion", 1),
-	(party_set_slot, ":town", slot_center_player_enterprise_days_until_complete, ":days_to_completion"), 
-   (try_end),
     ]),
 ###chief esposas de soldados en numero de 30 dan moral cada 48 horas
   (48,
