@@ -7,6 +7,7 @@ import source.process_common as p_common
 import source.header_operations as h_operations
 
 import objects
+from source.statement import StatementBlock
 
 
 class Compiler(object):
@@ -196,9 +197,42 @@ class Compiler(object):
 
         return result
 
+    def _process_statement_piece(self, statement_block):
+        result = ''
+
+        current_depth = 0
+
+        for index, statement in enumerate(statement_block):
+            if isinstance(statement, (tuple, list)):
+                opcode = statement[0]
+            else:
+                opcode = statement
+
+            if opcode in [h_operations.try_begin,
+                          h_operations.try_for_range,
+                          h_operations.try_for_range_backwards,
+                          h_operations.try_for_parties,
+                          h_operations.try_for_agents,
+                          h_operations.try_for_attached_parties,
+                          h_operations.try_for_active_players,
+                          h_operations.try_for_prop_instances]:
+                current_depth += 1
+            elif opcode == h_operations.try_end:
+                current_depth -= 1
+
+            result += self._process_statement(opcode, statement)
+
+        if current_depth != 0:
+            raise Exception('Statement does not close all "try_*" statements or '
+                            'closes them too many.')
+
+        return result
+
     def process_statement_block(self, statement_name, is_can_fail_statement,
                                 statement_block):
         self._local_variables = OrderedDict()
+
+        statement_block = StatementBlock(*statement_block)
 
         result = " %d " % len(statement_block)
 
@@ -207,6 +241,10 @@ class Compiler(object):
         current_depth = 0
 
         for index, statement in enumerate(statement_block):
+            if isinstance(statement, StatementBlock):
+                result += self._process_statement_piece(statement)
+                continue
+
             if isinstance(statement, (tuple, list)):
                 opcode = statement[0]
             else:
