@@ -36201,7 +36201,7 @@ They are extremely valuable items and you will probably face many hardships to f
 #"close_window",[(quest_set_slot,"qst_espada_beowulf",slot_quest_current_state,4)]],
 [LazyFlag('trp_especiales_3')|plyr,"pj_talk7", [], "There is another option, I think: You die if you don't tell me where they are.",
 "pj_talk7",[]],
-[LazyFlag('trp_especiales_3')|plyr,"pj_talk3", [], "Sorry, I'm not interested in this now.", "close_window.",[]],
+[LazyFlag('trp_especiales_3')|plyr,"pj_talk3", [], "Sorry, I'm not interested in this now.", "close_window",[]],
 ['trp_especiales_3', "pj_talk7", [],
  "Hahaha, you think you can kill me? I have 60 savage Engle dogs that will track you down and kill you all.", "order1", []],#
 [LazyFlag('trp_especiales_3')|plyr,"order1", [],"I didn't realize this would turn into a bloody fight. My deepest apologies. Maybe we will might in a happier situation", "close_window",[]],
