@@ -770,7 +770,7 @@ animations = [
    [0.8, "throwing_stone", 25, 60, arf_blend_in_1],
  ],
  ##gdw reload_pistol and man_reload overwrritten due to rgl errors
- ["release_pistol", 0, amf_priority_reload|amf_use_weapon_speed|amf_play,
+ ["reload_pistol", 0, amf_priority_reload|amf_use_weapon_speed|amf_play,
    [2.0, "anim_human", combat+2650, combat+2860, arf_blend_in_8],
  ],
  ["ready_musket", acf_rot_vertical_bow|acf_anim_length(100), amf_priority_attack|amf_use_weapon_speed|amf_keep|amf_client_owner_prediction|amf_rider_rot_crossbow,
