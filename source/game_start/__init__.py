@@ -1,6 +1,6 @@
 from ..header_game_menus import *
 from ..module_constants import *
-import introduction, character_creation, tutorial
+import introduction, character_creation
 
 
 start_menu_0 = \
