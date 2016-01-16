@@ -1,14 +1,11 @@
-from header_common import *
 from header_operations import *
 from header_parties import *
-from header_items import *
-from header_skills import *
-from header_triggers import *
 from header_troops import *
 
 from module_constants import *
-# >>>>> code snippet WRECK<<<<< #
-#from compiler import *
+
+import companions
+
 ####################################################################################################################
 #  Each trigger contains the following fields:
 # 1) Check interval: How frequently this trigger will be checked
@@ -1782,213 +1779,6 @@ triggers = [
 ),
 #Rebellion changes end
 
-#NPC system changes begin
-#Move unemployed NPCs around taverns
-   (24 * 15 , 0, 0, 
-   [
-    (call_script, "script_update_companion_candidates_in_taverns"),
-    ],
-   []
-   ),
-
-#Process morale and determine personality clashes
-  (0, 0, 24,
-   [],
-[
-
-#Count NPCs in party and get the "grievance divisor", which determines how fast grievances go away
-#Set their relation to the player
-        (assign, ":npcs_in_party", 0),
-        (assign, ":grievance_divisor", 100),
-        (try_for_range, ":npc1", companions_begin, companions_end),
-            (main_party_has_troop, ":npc1"),
-            (val_add, ":npcs_in_party", 1),
-        (try_end),
-        (val_sub, ":grievance_divisor", ":npcs_in_party"),
-        (store_skill_level, ":persuasion_level", "skl_persuasion", "trp_player"),
-        (val_add, ":grievance_divisor", ":persuasion_level"),
-        (assign, reg7, ":grievance_divisor"),
-
-#        (display_message, "@{!}Process NPC changes. GD: {reg7}"),
-
-
-
-##Activate personality clash from 24 hours ago
-        (try_begin), #scheduled personality clashes require at least 24hrs together
-             (gt, "$personality_clash_after_24_hrs", 0),
-             (eq, "$disable_npc_complaints", 0),
-             (try_begin),
-                  (troop_get_slot, ":other_npc", "$personality_clash_after_24_hrs", slot_troop_personalityclash_object),
-                  (main_party_has_troop, "$personality_clash_after_24_hrs"),
-                  (main_party_has_troop, ":other_npc"),
-                  (assign, "$npc_with_personality_clash", "$personality_clash_after_24_hrs"),
-             (try_end),
-             (assign, "$personality_clash_after_24_hrs", 0),
-        (try_end),
-#
-
-         
-        (try_for_range, ":npc", companions_begin, companions_end),
-###Reset meeting variables
-            (troop_set_slot, ":npc", slot_troop_turned_down_twice, 0),
-            (try_begin),
-                (troop_slot_eq, ":npc", slot_troop_met, 1),
-                (troop_set_slot, ":npc", slot_troop_met_previously, 1),
-            (try_end),
-
-###Check for coming out of retirement
-            (troop_get_slot, ":occupation", ":npc", slot_troop_occupation),
-            (try_begin),
-                (eq, ":occupation", slto_retirement),
-                (troop_get_slot, ":renown_min", ":npc", slot_troop_return_renown),
-
-                (str_store_troop_name, s31, ":npc"),
-                (troop_get_slot, ":player_renown", "trp_player", slot_troop_renown),
-                (assign, reg4, ":player_renown"),
-                (assign, reg5, ":renown_min"),
-#                (display_message, "@{!}Test {s31}  for retirement return {reg4}, {reg5}."),
-
-                (gt, ":player_renown", ":renown_min"),
-                (troop_set_slot, ":npc", slot_troop_personalityclash_penalties, 0),
-                (troop_set_slot, ":npc", slot_troop_morality_penalties, 0),
-                (troop_set_slot, ":npc", slot_troop_occupation, 0),
-            (try_end),
-
-
-#Check for political issues
-			(try_begin), #does npc's opponent pipe up?
-				(troop_slot_ge, ":npc", slot_troop_days_on_mission, 5),
-				(troop_slot_eq, ":npc", slot_troop_current_mission, npc_mission_kingsupport),
-
-				(troop_get_slot, ":other_npc", ":npc", slot_troop_kingsupport_opponent),
-				(troop_slot_eq, ":other_npc", slot_troop_kingsupport_objection_state, 0),
-				
-				(troop_set_slot, ":other_npc", slot_troop_kingsupport_objection_state, 1),
-				
-				(str_store_troop_name, s3, ":npc"),
-				(str_store_troop_name, s4, ":other_npc"),
-
-				(try_begin),
-					(eq, "$cheat_mode", 1),
-					(display_message, "str_s4_ready_to_voice_objection_to_s3s_mission_if_in_party"),
-				(try_end),
-			(try_end),
-
-			#Check for quitting
-            (try_begin),
-                (main_party_has_troop, ":npc"),
-				
-                (call_script, "script_npc_morale", ":npc"),
-                (assign, ":npc_morale", reg0),
-
-                (try_begin),
-                    (lt, ":npc_morale", 20),
-                    (store_random_in_range, ":random", 0, 100),
-                    (val_add, ":npc_morale", ":random"),
-                    (lt, ":npc_morale", 20),
-                    (assign, "$npc_is_quitting", ":npc"),
-                (try_end),
-
-				#Reduce grievance over time (or augment, if party is overcrowded
-                (troop_get_slot, ":grievance", ":npc", slot_troop_personalityclash_penalties),
-                (val_mul, ":grievance", 90),
-                (val_div, ":grievance", ":grievance_divisor"),
-                (troop_set_slot, ":npc", slot_troop_personalityclash_penalties, ":grievance"),
-
-                (troop_get_slot, ":grievance", ":npc", slot_troop_morality_penalties),
-                (val_mul, ":grievance", 90),
-                (val_div, ":grievance", ":grievance_divisor"),
-                (troop_set_slot, ":npc", slot_troop_morality_penalties, ":grievance"),
-
-
-				#Change personality grievance levels
-                (try_begin),
-                    (this_or_next|troop_slot_ge, ":npc", slot_troop_personalityclash_state, 1),
-                        (eq, "$disable_npc_complaints", 1),
-                    (troop_get_slot, ":object", ":npc", slot_troop_personalityclash_object),
-                    (main_party_has_troop, ":object"),
-                    (call_script, "script_reduce_companion_morale_for_clash", ":npc", ":object", slot_troop_personalityclash_state),
-                (try_end),
-                (try_begin),
-                    (this_or_next|troop_slot_ge, ":npc", slot_troop_personalityclash2_state, 1),
-                        (eq, "$disable_npc_complaints", 1),
-                    (troop_get_slot, ":object", ":npc", slot_troop_personalityclash2_object),
-                    (main_party_has_troop, ":object"),
-                    (call_script, "script_reduce_companion_morale_for_clash", ":npc", ":object", slot_troop_personalityclash2_state),
-                (try_end),
-                (try_begin),
-                    (this_or_next|troop_slot_ge, ":npc", slot_troop_personalitymatch_state, 1),
-                        (eq, "$disable_npc_complaints", 1),
-                    (troop_get_slot, ":object", ":npc", slot_troop_personalitymatch_object),
-                    (main_party_has_troop, ":object"),
-                    (troop_get_slot, ":grievance", ":npc", slot_troop_personalityclash_penalties),
-                    (val_mul, ":grievance", 9),
-                    (val_div, ":grievance", 10),
-                    (troop_set_slot, ":npc", slot_troop_personalityclash_penalties, ":grievance"),
-                (try_end),
-
-
-				
-#Check for new personality clashes
-
-				#Active personality clash 1 if at least 24 hours have passed
-                (try_begin),
-                    (eq, "$disable_npc_complaints", 0),
-                    (eq, "$npc_with_personality_clash", 0),
-                    (eq, "$npc_with_personality_clash_2", 0),
-                    (eq, "$personality_clash_after_24_hrs", 0),
-                    (troop_slot_eq, ":npc", slot_troop_personalityclash_state, 0),
-                    (troop_get_slot, ":other_npc", ":npc", slot_troop_personalityclash_object),
-                    (main_party_has_troop, ":other_npc"),
-                    (assign, "$personality_clash_after_24_hrs", ":npc"),
-                (try_end),
-
-				#Personality clash 2 and personality match is triggered by battles
-				(try_begin),
-					(eq, "$npc_with_political_grievance", 0),
-				
-					(troop_slot_eq, ":npc", slot_troop_kingsupport_objection_state, 1),
-					(assign, "$npc_with_political_grievance", ":npc"),
-				(try_end),
-
-			#main party does not have troop, and the troop is a companion
-			(else_try), 
-				(neg|main_party_has_troop, ":npc"),
-				(eq, ":occupation", slto_player_companion),
-
-				
-				(troop_get_slot, ":days_on_mission", ":npc", slot_troop_days_on_mission),
-				(try_begin),
-					(gt, ":days_on_mission", 0),
-					(val_sub, ":days_on_mission", 1),
-					(troop_set_slot, ":npc", slot_troop_days_on_mission, ":days_on_mission"),
-				##diplomacy chief begin
-        (else_try),
-          (troop_slot_eq, ":npc", slot_troop_current_mission, dplmc_npc_mission_spy_request), #spy mission
-          (troop_slot_ge, ":npc", dplmc_slot_troop_mission_diplomacy, 1), #caught
-
-          (troop_set_slot, "trp_merc_infantryt5", slot_troop_mission_object, ":npc"),
-          (assign, "$npc_to_rejoin_party", "trp_merc_infantryt5"),
-        ##diplomacy chief end
-				(else_try), 
-					(troop_slot_ge, ":npc", slot_troop_current_mission, 1),
-					
-					#If the hero can join
-					(this_or_next|neg|troop_slot_eq, ":npc", slot_troop_current_mission, npc_mission_rejoin_when_possible),
-                        # (hero_can_join, ":npc"),    MOTO error! This explains why companions sometimes never come back from mission...
-                        (hero_can_join, "p_main_party"),
-						
-					(assign, "$npc_to_rejoin_party", ":npc"),
-				(try_end),
-            (try_end),
-        (try_end),
-    ]),
-
-
-
-
-#NPC system changes end
-
 # Lady of the lake achievement
 # Lady of the lake achievement
    (1, 0, 0,
@@ -2657,6 +2447,5 @@ triggers = [
 # [
 #   (call_script, "script_refresh_special_merchants10"),
 # ]),
-]
-
- 
+] \
++ companions.triggers \
