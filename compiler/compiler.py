@@ -203,6 +203,9 @@ class Compiler(object):
         current_depth = 0
 
         for index, statement in enumerate(statement_block):
+            if isinstance(statement, StatementBlock):
+                result += self._process_statement_piece(statement)
+                continue
             if isinstance(statement, (tuple, list)):
                 opcode = statement[0]
             else:
