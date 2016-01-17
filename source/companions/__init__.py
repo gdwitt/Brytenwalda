@@ -4,9 +4,10 @@ from ..header_operations import *
 from ..module_constants import *
 
 import dialog_quit
+import dialog_separate
 
 
-dialogs = dialog_quit.dialogs
+dialogs = dialog_quit.dialogs + dialog_separate.dialogs
 
 
 triggers = [
