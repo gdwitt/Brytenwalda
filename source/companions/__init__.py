@@ -5,9 +5,12 @@ from ..module_constants import *
 
 import dialog_quit
 import dialog_separate
+import dialog_member_question
 
 
-dialogs = dialog_quit.dialogs + dialog_separate.dialogs
+dialogs = dialog_quit.dialogs \
+          + dialog_separate.dialogs \
+          + dialog_member_question.dialogs
 
 
 triggers = [
