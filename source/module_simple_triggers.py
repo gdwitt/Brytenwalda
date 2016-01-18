@@ -8,7 +8,7 @@ from header_terrain_types import *
 
 from module_constants import *
 
-from . import economy, loans, companions
+from . import economy, loans, companions, caravans
 ####################################################################################################################
 # Simple triggers are the alternative to old style triggers. They do not preserve state, and thus simpler to maintain.
 #
@@ -389,25 +389,7 @@ simple_triggers = [
 
   (0,
 	[
-	  #escort caravan quest auto dialog trigger
-	  (try_begin),
-        (eq, "$caravan_escort_state", 1),
-        (party_is_active, "$caravan_escort_party_id"),
-		
-        (store_distance_to_party_from_party, ":caravan_distance_to_destination","$caravan_escort_destination_town","$caravan_escort_party_id"),
-        (lt, ":caravan_distance_to_destination", 2),
-        
-        (store_distance_to_party_from_party, ":caravan_distance_to_player","p_main_party","$caravan_escort_party_id"),
-        (lt, ":caravan_distance_to_player", 5),
-
-        (assign, "$talk_context", tc_party_encounter),
-        (assign, "$g_encountered_party", "$caravan_escort_party_id"),
-        (party_stack_get_troop_id, ":caravan_leader", "$caravan_escort_party_id", 0),     
-        (party_stack_get_troop_dna, ":caravan_leader_dna", "$caravan_escort_party_id", 0),    
-        
-        (start_map_conversation, ":caravan_leader", ":caravan_leader_dna"),
-      (try_end),
-      
+      # reset mission participation
       (try_begin),
         (gt, "$g_reset_mission_participation", 1),
         
@@ -417,7 +399,7 @@ simple_triggers = [
       (try_end),
 	]),
 	
-(24, 
+(24,
 [
     (try_for_range, ":kingdom_no", npc_kingdoms_begin, npc_kingdoms_end),
       (faction_get_slot, ":faction_morale", ":kingdom_no",  slot_faction_morale_of_player_troops),
@@ -5686,8 +5668,6 @@ simple_triggers = [
    [
         (assign, "$g_escaramuza_accion", 0),
         (assign, "$g_reclutar_p_puede", 0),
-        (assign, "$g_caravana_comprar_puede", 0),
-
     ]),
 
 #chequeos bounty chief
@@ -8926,3 +8906,4 @@ simple_triggers = [
 + economy.simple_triggers \
 + loans.simple_triggers \
 + companions.simple_triggers \
++ caravans.simple_triggers \

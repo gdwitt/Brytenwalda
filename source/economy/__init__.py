@@ -3,7 +3,7 @@ from ..header_parties import *
 from ..header_mission_templates import *
 from ..header_map_icons import *
 
-from . import caravans, towns, traders, production, population
+from . import towns, traders, production, population
 
 scripts = [
 
@@ -284,9 +284,7 @@ simple_triggers = [
     ]),
 ]
 
-scripts += caravans.scripts + traders.scripts + production.scripts + \
-           population.scripts
+scripts += traders.scripts + production.scripts + population.scripts
 
-simple_triggers += caravans.simple_triggers + \
-                   traders.simple_triggers + production.simple_triggers + \
+simple_triggers += traders.simple_triggers + production.simple_triggers + \
                    population.simple_triggers \
