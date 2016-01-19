@@ -14,7 +14,6 @@ dialogs = [
      ]],
 
     [anyone, "villageelder_agree", [],
-     "Sure (his eyes shine).", "village_elder_pretalk", [
-         (change_screen_trade, "$g_talk_troop")
-     ]],
+     "Sure (his eyes shine).", "village_elder_pretalk", []
+     ],
 ]
