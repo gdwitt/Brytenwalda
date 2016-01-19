@@ -41,6 +41,206 @@ from . import enterprise, tournaments, companions, caravans, village_elder
 #buscar Calradia (sustituir por Britannia, or Britannia and Hibernia), God (sustituir por Woden, Gods o lo que corresponda), denars (scillingas), denar (scillinga)
 ####################################################################################################################
 
+
+# these are dialogs that are used to define useful variables on every dialog
+_start_dialogs = [
+  [anyone ,"start", [(store_conversation_troop, "$g_talk_troop"),
+                     (store_conversation_agent, "$g_talk_agent"),
+                     (store_troop_faction, "$g_talk_troop_faction", "$g_talk_troop"),
+#                     (troop_get_slot, "$g_talk_troop_relation", "$g_talk_troop", slot_troop_player_relation),
+                     (call_script, "script_troop_get_player_relation", "$g_talk_troop"),
+                     (assign, "$g_talk_troop_relation", reg0),
+
+					 #This may be different way to handle persuasion, which might be a little more transparent to the player in its effects
+					 #Persuasion will affect the player's relation with the other character -- but only for 1 on 1 conversations
+					 (store_skill_level, ":persuasion", "skl_persuasion", "trp_player"),
+					 (assign, "$g_talk_troop_effective_relation", "$g_talk_troop_relation"),
+					 (val_add, "$g_talk_troop_effective_relation", ":persuasion"),
+					 (try_begin),
+						(gt, "$g_talk_troop_effective_relation", 0),
+						(store_add, ":persuasion_modifier", 10, ":persuasion"),
+						(val_mul, "$g_talk_troop_effective_relation", ":persuasion_modifier"),
+						(val_div, "$g_talk_troop_effective_relation", 10),
+					 (else_try),
+						(lt, "$g_talk_troop_effective_relation", 0),
+						(store_sub, ":persuasion_modifier", 20, ":persuasion"),
+						(val_mul, "$g_talk_troop_effective_relation", ":persuasion_modifier"),
+						(val_div, "$g_talk_troop_effective_relation", 20),
+					 (try_end),
+					 (val_clamp, "$g_talk_troop_effective_relation", -100, 101),
+					 (try_begin),
+						(eq, "$cheat_mode", 1),
+						(assign, reg3, "$g_talk_troop_effective_relation"),
+						(display_message, "str_test_effective_relation_=_reg3"),
+					 (try_end),
+
+                     (try_begin),
+                       (this_or_next|is_between, "$g_talk_troop", village_elders_begin, village_elders_end),
+                       (is_between, "$g_talk_troop", mayors_begin, mayors_end),
+                       (party_get_slot, "$g_talk_troop_relation", "$current_town", slot_center_player_relation),
+                     (try_end),
+                     (store_relation, "$g_talk_troop_faction_relation", "$g_talk_troop_faction", "fac_player_faction"),
+
+                     (assign, "$g_talk_troop_party", "$g_encountered_party"),
+                     (try_begin),
+                       (troop_slot_ge, "$g_talk_troop", slot_troop_leaded_party, 1),
+                       (troop_get_slot, "$g_talk_troop_party", "$g_talk_troop", slot_troop_leaded_party),
+                     (try_end),
+#TEMPERED chief ADDED VARIABLE FOR PARTIES JOINING   ################################################################################################################
+						(assign,"$can_join",0),
+						(try_begin),
+							(party_can_join_party,"$g_encountered_party","p_main_party"),
+							(assign,"$can_join",1),
+						(try_end),
+#TEMPERED CHANGES END                          #################################################################################################################
+
+#                     (assign, "$g_talk_troop_kingdom_relation", 0),
+#                     (try_begin),
+#                       (gt, "$players_kingdom", 0),
+#                       (store_relation, "$g_talk_troop_kingdom_relation", "$g_talk_troop_faction", "$players_kingdom"),
+#                     (try_end),
+
+
+
+                     (store_current_hours, "$g_current_hours"),
+                     (troop_get_slot, "$g_talk_troop_last_talk_time", "$g_talk_troop", slot_troop_last_talk_time),
+                     (troop_set_slot, "$g_talk_troop", slot_troop_last_talk_time, "$g_current_hours"),
+                     (store_sub, "$g_time_since_last_talk","$g_current_hours","$g_talk_troop_last_talk_time"),
+                     (troop_get_slot, "$g_talk_troop_met", "$g_talk_troop", slot_troop_met),
+					 (val_min, "$g_talk_troop_met", 1), #the global variable goes no higher than one
+					 (try_begin),
+					    (troop_slot_eq, "$g_talk_troop", slot_troop_met, 0),
+						(troop_set_slot, "$g_talk_troop", slot_troop_met, 1),
+
+						#Possible later activations of notes
+						(try_begin),
+							(is_between, "$g_talk_troop", kingdom_ladies_begin, kingdom_ladies_end),
+						(try_end),
+
+					 (try_end),
+
+                     (try_begin),
+#                       (this_or_next|eq, "$talk_context", tc_party_encounter),
+#                       (this_or_next|eq, "$talk_context", tc_castle_commander),
+                 ##diplomacy start+ chief
+				 (try_begin),
+					#Use terrain advantage if appropriate
+			        (ge, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
+					(assign, ":terrain_code", -1),
+				    (try_begin),
+						(encountered_party_is_attacker),
+						(call_script, "script_dplmc_get_terrain_code_for_battle", "$g_encountered_party", "p_main_party"),
+						(assign, ":terrain_code", reg0),
+				    (else_try),
+						(call_script, "script_dplmc_get_terrain_code_for_battle", "p_main_party", "$g_encountered_party"),
+						(assign, ":terrain_code", reg0),
+				    (try_end),
+					#Call adjusting for terrain
+					(call_script, "script_dplmc_party_calculate_strength_in_terrain", "p_collective_enemy",":terrain_code",0,1),
+					(assign, "$g_enemy_strength", reg0),
+					(call_script, "script_dplmc_party_calculate_strength_in_terrain", "p_main_party",":terrain_code",0,1),
+					(assign, "$g_ally_strength", reg0),
+				 (else_try),
+				     #Old method: no terrain advantage
+                       (call_script, "script_party_calculate_strength", "p_collective_enemy",0),
+                       (assign, "$g_enemy_strength", reg0),
+                       (call_script, "script_party_calculate_strength", "p_main_party",0),
+                       (assign, "$g_ally_strength", reg0),
+		         (try_end),
+				 ##diplomacy end+
+                        (store_mul, "$g_strength_ratio", "$g_ally_strength", 100),
+					   (assign, ":enemy_strength", "$g_enemy_strength"), #these two lines added to avoid div by zero error
+					   (val_max, ":enemy_strength", 1),
+                       (val_div, "$g_strength_ratio", ":enemy_strength"),
+                     (try_end),
+
+                     (assign, "$g_comment_found", 0),
+
+					 (assign, "$g_comment_has_rejoinder", 0),
+					 (assign, "$g_romantic_comment_made", 0),
+					 (assign, "$skip_lord_assumes_argument", 0), #a lord pre-empts a player's issue, ie, when the player is conducting a rebellion
+					 (assign, "$bypass_female_vassal_explanation", 0),
+					 (assign, "$g_done_wedding_comment", 0),
+
+#					 (assign, "$g_time_to_spare", 0),
+
+
+                     (try_begin),
+                       (troop_is_hero, "$g_talk_troop"),
+                       (talk_info_show, 1),
+                       (call_script, "script_setup_talk_info"),
+                     (try_end),
+
+					 (assign, "$g_last_comment_copied_to_s42", 0),
+                     (try_begin),
+                       (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+                       (call_script, "script_get_relevant_comment_to_s42"),
+                       (assign, "$g_comment_found", reg0),
+                     (try_end),
+#gender fix chief altura
+                     (troop_get_type, reg65, "$g_talk_troop"),
+                     (val_mod, reg65, 2),
+                     #gender fix chief acaba
+                     (try_begin),
+                       (faction_slot_eq,"$g_talk_troop_faction",slot_faction_leader,"$g_talk_troop"),
+                       (str_store_string,s64,"@{reg65?my Lady:my Lord}"), #bug fix
+                       (str_store_string,s65,"@{reg65?my Lady:my Lord}"),
+                       (str_store_string,s66,"@{reg65?My Lady:My Lord}"),
+                       (str_store_string,s67,"@{reg65?My Lady:My Lord}"), #bug fix
+                     (else_try),
+                       (str_store_string,s64,"@{reg65?madame:sir}"), #bug fix
+                       (str_store_string,s65,"@{reg65?madame:sir}"),
+                       (str_store_string,s66,"@{reg65?Madame:Sir}"),
+                       (str_store_string,s67,"@{reg65?Madame:Sir}"), #bug fix
+                     (try_end),
+
+					 (try_begin),
+						(gt, "$cheat_mode", 0),
+						(assign, reg4, "$talk_context"),
+						(display_message, "@{!}DEBUG -- Talk context: {reg4}"),
+					 (try_end),
+
+					 (try_begin),
+						(gt, "$cheat_mode", 0),
+						(assign, reg4, "$g_time_since_last_talk"),
+						(display_message, "@{!}DEBUG -- Time since last talk: {reg4}"),
+					 (try_end),
+
+
+					 (try_begin),
+						(eq, "$cheat_mode", 0),
+						(store_partner_quest, ":quest"),
+						(ge, ":quest", 0),
+						(str_store_quest_name, s4, ":quest"),
+
+					 (try_end),
+
+                     (eq, 1, 0)],
+   "{!}Warning: This line is never displayed. It is just for storing conversation variables.", "close_window", []],
+
+]
+
+# dialogs that are used as "catch all" dialogs: they are used when no other dialog
+# was found.
+_end_dialogs = [
+
+  [anyone,"start", [], "Surrender or die. Make your choice", "battle_reason_stated",[]],
+  [anyone|plyr,"battle_reason_stated", [], "I am not afraid of you. I will fight.", "close_window",[[encounter_attack]]],
+
+  [anyone,"start", [], "Hello. What can I do for you?", "free",[]],
+  [anyone|plyr,"free", [[neg|in_meta_mission]], "Tell me about yourself", "view_char_requested",[]],
+  [anyone,"view_char_requested", [], "Very well, listen to this...", "view_char",[[change_screen_view_character]]],
+  [anyone,"view_char", [], "Anything else?", "free",[]],
+
+  [anyone|plyr,"end", [], "[Done]", "close_window",[]],
+
+  [anyone|plyr,"start", [], "Drop your weapons and surrender if you want to live", "threaten_1",[]],
+  [anyone,"threaten_1", [], "We will fight you first", "end",[[encounter_attack]]],
+
+]
+
+
+
 dialogs = [
 #LAZERAS MODIFIED  {Top Tier Troops Recruit} chief
 ###########################################################################
@@ -263,180 +463,6 @@ dialogs = [
 ##   "Anything else?", "port_r_2",
 ##   []],
 #Exa's OSP Ends chief
-   
-  [anyone ,"start", [(store_conversation_troop, "$g_talk_troop"),
-                     (store_conversation_agent, "$g_talk_agent"),
-                     (store_troop_faction, "$g_talk_troop_faction", "$g_talk_troop"),
-#                     (troop_get_slot, "$g_talk_troop_relation", "$g_talk_troop", slot_troop_player_relation),
-                     (call_script, "script_troop_get_player_relation", "$g_talk_troop"),
-                     (assign, "$g_talk_troop_relation", reg0),
-					 
-					 #This may be different way to handle persuasion, which might be a little more transparent to the player in its effects
-					 #Persuasion will affect the player's relation with the other character -- but only for 1 on 1 conversations
-					 (store_skill_level, ":persuasion", "skl_persuasion", "trp_player"),
-					 (assign, "$g_talk_troop_effective_relation", "$g_talk_troop_relation"),
-					 (val_add, "$g_talk_troop_effective_relation", ":persuasion"),
-					 (try_begin),
-						(gt, "$g_talk_troop_effective_relation", 0),
-						(store_add, ":persuasion_modifier", 10, ":persuasion"),
-						(val_mul, "$g_talk_troop_effective_relation", ":persuasion_modifier"),
-						(val_div, "$g_talk_troop_effective_relation", 10),
-					 (else_try),
-						(lt, "$g_talk_troop_effective_relation", 0),
-						(store_sub, ":persuasion_modifier", 20, ":persuasion"),
-						(val_mul, "$g_talk_troop_effective_relation", ":persuasion_modifier"),
-						(val_div, "$g_talk_troop_effective_relation", 20),
-					 (try_end),
-					 (val_clamp, "$g_talk_troop_effective_relation", -100, 101), 
-					 (try_begin),
-						(eq, "$cheat_mode", 1),
-						(assign, reg3, "$g_talk_troop_effective_relation"),
-						(display_message, "str_test_effective_relation_=_reg3"),
-					 (try_end),
-					 
-                     (try_begin),
-                       (this_or_next|is_between, "$g_talk_troop", village_elders_begin, village_elders_end),
-                       (is_between, "$g_talk_troop", mayors_begin, mayors_end),
-                       (party_get_slot, "$g_talk_troop_relation", "$current_town", slot_center_player_relation),
-                     (try_end),
-                     (store_relation, "$g_talk_troop_faction_relation", "$g_talk_troop_faction", "fac_player_faction"),
-                     
-                     (assign, "$g_talk_troop_party", "$g_encountered_party"),
-                     (try_begin),
-                       (troop_slot_ge, "$g_talk_troop", slot_troop_leaded_party, 1),
-                       (troop_get_slot, "$g_talk_troop_party", "$g_talk_troop", slot_troop_leaded_party),
-                     (try_end),
-#TEMPERED chief ADDED VARIABLE FOR PARTIES JOINING   ################################################################################################################
-						(assign,"$can_join",0),
-						(try_begin),
-							(party_can_join_party,"$g_encountered_party","p_main_party"),
-							(assign,"$can_join",1),
-						(try_end),
-#TEMPERED CHANGES END                          #################################################################################################################
-                     
-#                     (assign, "$g_talk_troop_kingdom_relation", 0),
-#                     (try_begin),
-#                       (gt, "$players_kingdom", 0),
-#                       (store_relation, "$g_talk_troop_kingdom_relation", "$g_talk_troop_faction", "$players_kingdom"),
-#                     (try_end),
-
-
-                     
-                     (store_current_hours, "$g_current_hours"),
-                     (troop_get_slot, "$g_talk_troop_last_talk_time", "$g_talk_troop", slot_troop_last_talk_time),
-                     (troop_set_slot, "$g_talk_troop", slot_troop_last_talk_time, "$g_current_hours"),
-                     (store_sub, "$g_time_since_last_talk","$g_current_hours","$g_talk_troop_last_talk_time"),
-                     (troop_get_slot, "$g_talk_troop_met", "$g_talk_troop", slot_troop_met),
-					 (val_min, "$g_talk_troop_met", 1), #the global variable goes no higher than one
-					 (try_begin),
-					    (troop_slot_eq, "$g_talk_troop", slot_troop_met, 0),
-						(troop_set_slot, "$g_talk_troop", slot_troop_met, 1),
-						
-						#Possible later activations of notes
-						(try_begin),
-							(is_between, "$g_talk_troop", kingdom_ladies_begin, kingdom_ladies_end),
-						(try_end),
-						
-					 (try_end),
-					 
-                     (try_begin),
-#                       (this_or_next|eq, "$talk_context", tc_party_encounter),
-#                       (this_or_next|eq, "$talk_context", tc_castle_commander),
-                 ##diplomacy start+ chief
-				 (try_begin),
-					#Use terrain advantage if appropriate
-			        (ge, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
-					(assign, ":terrain_code", -1),
-				    (try_begin),
-						(encountered_party_is_attacker),
-						(call_script, "script_dplmc_get_terrain_code_for_battle", "$g_encountered_party", "p_main_party"),
-						(assign, ":terrain_code", reg0),
-				    (else_try),
-						(call_script, "script_dplmc_get_terrain_code_for_battle", "p_main_party", "$g_encountered_party"),
-						(assign, ":terrain_code", reg0),
-				    (try_end),
-					#Call adjusting for terrain
-					(call_script, "script_dplmc_party_calculate_strength_in_terrain", "p_collective_enemy",":terrain_code",0,1),
-					(assign, "$g_enemy_strength", reg0),
-					(call_script, "script_dplmc_party_calculate_strength_in_terrain", "p_main_party",":terrain_code",0,1),
-					(assign, "$g_ally_strength", reg0),
-				 (else_try),
-				     #Old method: no terrain advantage
-                       (call_script, "script_party_calculate_strength", "p_collective_enemy",0),
-                       (assign, "$g_enemy_strength", reg0),
-                       (call_script, "script_party_calculate_strength", "p_main_party",0),
-                       (assign, "$g_ally_strength", reg0),
-		         (try_end),
-				 ##diplomacy end+
-                        (store_mul, "$g_strength_ratio", "$g_ally_strength", 100),
-					   (assign, ":enemy_strength", "$g_enemy_strength"), #these two lines added to avoid div by zero error
-					   (val_max, ":enemy_strength", 1),
-                       (val_div, "$g_strength_ratio", ":enemy_strength"),
-                     (try_end),
-
-                     (assign, "$g_comment_found", 0),
-
-					 (assign, "$g_comment_has_rejoinder", 0),
-					 (assign, "$g_romantic_comment_made", 0),
-					 (assign, "$skip_lord_assumes_argument", 0), #a lord pre-empts a player's issue, ie, when the player is conducting a rebellion
-					 (assign, "$bypass_female_vassal_explanation", 0),
-					 (assign, "$g_done_wedding_comment", 0),
-					 
-#					 (assign, "$g_time_to_spare", 0),
-					 
-					 
-                     (try_begin),
-                       (troop_is_hero, "$g_talk_troop"),
-                       (talk_info_show, 1),
-                       (call_script, "script_setup_talk_info"),
-                     (try_end),
-
-					 (assign, "$g_last_comment_copied_to_s42", 0),
-                     (try_begin),
-                       (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
-                       (call_script, "script_get_relevant_comment_to_s42"),
-                       (assign, "$g_comment_found", reg0),
-                     (try_end),
-#gender fix chief altura
-                     (troop_get_type, reg65, "$g_talk_troop"),
-                     (val_mod, reg65, 2),
-                     #gender fix chief acaba
-                     (try_begin),
-                       (faction_slot_eq,"$g_talk_troop_faction",slot_faction_leader,"$g_talk_troop"),
-                       (str_store_string,s64,"@{reg65?my Lady:my Lord}"), #bug fix
-                       (str_store_string,s65,"@{reg65?my Lady:my Lord}"),
-                       (str_store_string,s66,"@{reg65?My Lady:My Lord}"),
-                       (str_store_string,s67,"@{reg65?My Lady:My Lord}"), #bug fix
-                     (else_try),
-                       (str_store_string,s64,"@{reg65?madame:sir}"), #bug fix
-                       (str_store_string,s65,"@{reg65?madame:sir}"),
-                       (str_store_string,s66,"@{reg65?Madame:Sir}"),
-                       (str_store_string,s67,"@{reg65?Madame:Sir}"), #bug fix
-                     (try_end),
-
-					 (try_begin),
-						(gt, "$cheat_mode", 0),
-						(assign, reg4, "$talk_context"),
-						(display_message, "@{!}DEBUG -- Talk context: {reg4}"),
-					 (try_end),
-
-					 (try_begin),
-						(gt, "$cheat_mode", 0),
-						(assign, reg4, "$g_time_since_last_talk"),
-						(display_message, "@{!}DEBUG -- Time since last talk: {reg4}"),
-					 (try_end),
-
-					 
-					 (try_begin),
-						(eq, "$cheat_mode", 0),
-						(store_partner_quest, ":quest"),
-						(ge, ":quest", 0),
-						(str_store_quest_name, s4, ":quest"),
-						
-					 (try_end),
-					 
-                     (eq, 1, 0)],
-   "{!}Warning: This line is never displayed. It is just for storing conversation variables.", "close_window", []],
 
   [anyone ,"member_chat", [
 					(store_conversation_troop, "$g_talk_troop"),
@@ -38985,19 +39011,6 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   #[  
   #]],
 
-  [anyone,"start", [], "Surrender or die. Make your choice", "battle_reason_stated",[]],
-  [anyone|plyr,"battle_reason_stated", [], "I am not afraid of you. I will fight.", "close_window",[[encounter_attack]]],
-
-  [anyone,"start", [], "Hello. What can I do for you?", "free",[]],
-  [anyone|plyr,"free", [[neg|in_meta_mission]], "Tell me about yourself", "view_char_requested",[]],
-  [anyone,"view_char_requested", [], "Very well, listen to this...", "view_char",[[change_screen_view_character]]],
-  [anyone,"view_char", [], "Anything else?", "free",[]],
-
-  [anyone|plyr,"end", [], "[Done]", "close_window",[]],
-  
-  [anyone|plyr,"start", [], "Drop your weapons and surrender if you want to live", "threaten_1",[]],
-  [anyone,"threaten_1", [], "We will fight you first", "end",[[encounter_attack]]],
-
 #  [anyone|plyr,"free", [[partner_is_mercmaster]], "I need to hire some mercenaries.", "mercenaries_requested",[]],
 #  [anyone,"mercenaries_requested", [], "I have the toughest fighters in all Calradia.", "buy_mercenaries",[[change_screen_buy_mercenaries]]],
 #  [anyone,"buy_mercenaries", [], "Anything else?", "free",[]],
@@ -39466,7 +39479,9 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ####chief acaba####
 ]
 
+dialogs = _start_dialogs + dialogs
 dialogs += tournaments.dialogs
 dialogs += companions.dialogs
 dialogs += caravans.dialogs
 dialogs += village_elder.dialogs
+dialogs += _end_dialogs
