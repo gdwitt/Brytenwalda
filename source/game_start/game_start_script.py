@@ -141,10 +141,12 @@ scripts = [
         (faction_set_slot, "fac_player_supporters_faction", slot_faction_culture, ":player_faction_culture"),
         (faction_set_slot, "fac_player_faction", slot_faction_culture, ":player_faction_culture"),
 
+        # initialize marshall
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
             (faction_set_slot, ":faction_no", slot_faction_marshall, -1),
         (try_end),
         (faction_set_slot, "fac_player_supporters_faction", slot_faction_marshall, "trp_player"),
+
         (call_script, "script_initialize_faction_troop_types"),
 
         (call_script, "script_dplmc_init_domestic_policy"),
@@ -162,10 +164,6 @@ scripts = [
         (call_script, "script_initialize_sea_trade_routes"),
         (call_script, "script_initialize_town_arena_info"),
         (call_script, "script_initialize_tournaments"),
-
-        #village products -- at some point we might make it so that the villages supply raw materials to towns, and the towns produce manufactured goods
-        #village products designate the raw materials produced in the vicinity
-        #right now, just doing a test for grain produced in the swadian heartland
 
         # fill_village_bound_centers
         # pass 1: Give one village to each castle
@@ -515,18 +513,13 @@ scripts = [
         (try_for_range, ":unused", 0, 5000),
             (call_script, "script_cf_random_political_event"),
         (try_end),
+
         (assign, "$total_random_quarrel_changes", 0),
         (assign, "$total_relation_adds", 0),
         (assign, "$total_relation_subs", 0),
 
         (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
             (call_script, "script_evaluate_realm_stability", ":kingdom"),
-        (try_end),
-
-        (try_begin),
-            (eq, "$cheat_mode", 1),
-            (assign, reg3, "$cheat_mode"),
-            (display_message, "@{!}DEBUG : Completed political events, cheat mode: {reg3}"),
         (try_end),
 
         # assign love interests to unmarried male lords
@@ -539,12 +532,6 @@ scripts = [
         (try_end),
 
         (store_random_in_range, "$romantic_attraction_seed", 0, 5),
-
-        (try_begin),
-            (eq, "$cheat_mode", 1),
-            (assign, reg3, "$romantic_attraction_seed"),
-            (display_message, "@{!}DEBUG : Assigned love interests. Attraction seed: {reg3}"),
-        (try_end),
 
         (try_for_range, ":unused", 0, 10),
             (call_script, "script_spawn_bandits"),
@@ -590,12 +577,6 @@ scripts = [
             (troop_set_slot, ":troop_id", slot_troop_cur_center, reg1),
         (try_end),
 
-        (try_begin),
-            (eq, "$cheat_mode", 1),
-            (assign, reg3, "$cheat_mode"),
-            (display_message, "@{!}DEBUG : Located kingdom ladies, cheat mode: {reg3}"),
-        (try_end),
-
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
             (call_script, "script_faction_recalculate_strength", ":faction_no"),
         (try_end),
@@ -632,44 +613,11 @@ scripts = [
         (faction_set_slot, "fac_kingdom_30", slot_faction_adjective, "str_kingdom_30_adjective"),
         (faction_set_slot, "fac_kingdom_31", slot_faction_adjective, "str_kingdom_31_adjective"),
 
-        (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, 0),    #motomataru chief morale addition
+        (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, 0),
         (call_script, "script_get_player_party_morale_values"),
         (party_set_morale, "p_main_party", reg0),
 
-        (troop_set_note_available, "trp_player", 1),
-        (troop_set_note_available, "trp_especiales_3", 1),
-        (troop_set_note_available, "trp_npcneko", 1),
-        (troop_set_note_available, "trp_iniau", 1),
-        (troop_set_note_available, "trp_thyr", 1),
-        (troop_set_note_available, "trp_npc_tradecompanion", 1),
-
-        (try_for_range, ":troop_no", kings_begin, kings_end),
-            (troop_set_note_available, ":troop_no", 1),
-        (try_end),
-
-        (try_for_range, ":troop_no", lords_begin, lords_end),
-            (troop_set_note_available, ":troop_no", 1),
-        (try_end),
-
-        (try_for_range, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
-            (troop_set_note_available, ":troop_no", 1),
-        (try_end),
-        (troop_set_note_available, "trp_knight_1_1_wife", 0),
-
-        (try_for_range, ":troop_no", pretenders_begin, pretenders_end),
-            (troop_set_note_available, ":troop_no", 1),
-        (try_end),
-
-        #Lady and companion notes become available as you meet/recruit them
-
-        (try_for_range, ":faction_no", npc_kingdoms_begin, npc_kingdoms_end),
-            (faction_set_note_available, ":faction_no", 1),
-        (try_end),
-        (faction_set_note_available, "fac_neutral", 0),
-
-        (try_for_range, ":party_no", centers_begin, centers_end),
-            (party_set_note_available, ":party_no", 1),
-        (try_end),
+        (call_script, "script_initialize_notes"),
 
         (call_script, "script_initialize_acres"),
 
@@ -1769,5 +1717,44 @@ scripts = [
         (party_set_slot, "p_castle_74",   slot_center_ex_faction, "fac_kingdom_30"), #Ui Neill quiere Magh rath de Ulaid
         (party_set_slot, "p_castle_17",   slot_center_ex_faction, "fac_kingdom_11"), #Pengwern quiere Caer Legionis de Crafu
         (party_set_slot, "p_castle_33",   slot_center_ex_faction, "fac_kingdom_4"), #Anglia quiere Ligor Ceaster de Mercia
-    ])
+    ]),
+
+    # sets the default availability of notes
+    ("initialize_notes", [
+
+        (troop_set_note_available, "trp_player", 1),
+        (troop_set_note_available, "trp_especiales_3", 1),
+        (troop_set_note_available, "trp_npcneko", 1),
+        (troop_set_note_available, "trp_iniau", 1),
+        (troop_set_note_available, "trp_thyr", 1),
+        (troop_set_note_available, "trp_npc_tradecompanion", 1),
+
+        (try_for_range, ":troop_no", kings_begin, kings_end),
+            (troop_set_note_available, ":troop_no", 1),
+        (try_end),
+
+        (try_for_range, ":troop_no", lords_begin, lords_end),
+            (troop_set_note_available, ":troop_no", 1),
+        (try_end),
+
+        (try_for_range, ":troop_no", kingdom_ladies_begin, kingdom_ladies_end),
+            (troop_set_note_available, ":troop_no", 1),
+        (try_end),
+        (troop_set_note_available, "trp_knight_1_1_wife", 0),
+
+        (try_for_range, ":troop_no", pretenders_begin, pretenders_end),
+            (troop_set_note_available, ":troop_no", 1),
+        (try_end),
+
+        #Lady and companion notes become available as you meet/recruit them
+
+        (try_for_range, ":faction_no", npc_kingdoms_begin, npc_kingdoms_end),
+            (faction_set_note_available, ":faction_no", 1),
+        (try_end),
+        (faction_set_note_available, "fac_neutral", 0),
+
+        (try_for_range, ":party_no", centers_begin, centers_end),
+            (party_set_note_available, ":party_no", 1),
+        (try_end),
+    ]),
 ]
