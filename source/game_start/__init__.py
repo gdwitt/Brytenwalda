@@ -2,6 +2,8 @@ from ..header_game_menus import *
 from ..module_constants import *
 
 import introduction, tutorial, character_creation, quest_merchant
+import game_start_script
+import game_quick_start_script
 
 
 start_menu_0 = \
@@ -73,6 +75,8 @@ menus = quest_merchant.menus[1:] + character_creation.menus + introduction.menus
 
 scripts = character_creation.scripts \
           + quest_merchant.scripts \
+          + game_start_script.scripts \
+          + game_quick_start_script.scripts \
 
 dialogs = tutorial.dialogs \
           + quest_merchant.dialogs
