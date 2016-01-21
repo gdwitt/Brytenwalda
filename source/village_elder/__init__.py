@@ -56,7 +56,7 @@ _talk_dialogs = [
 
     # -> `recruit.py`
     [anyone | plyr, "village_elder_talk", [
-        (call_script, "script_cf_village_recruit_volunteers_cond"),
+        (call_script, "script_cf_village_recruit_volunteers_condition", 0, 0),
         (store_troop_gold, ":money", "trp_player"),
         (ge, ":money", 40),
     ], "I need help finding men who want to join me. Of course, here's a reward "

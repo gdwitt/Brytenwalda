@@ -8,7 +8,7 @@ from header_terrain_types import *
 
 from module_constants import *
 
-from . import economy, loans, companions, caravans
+from . import economy, loans, companions, caravans, villages
 ####################################################################################################################
 # Simple triggers are the alternative to old style triggers. They do not preserve state, and thus simpler to maintain.
 #
@@ -4063,11 +4063,6 @@ simple_triggers = [
      (call_script, "script_update_tavern_travellers"),
      (call_script, "script_update_tavern_minstrels"),
      (call_script, "script_update_booksellers"),
-     (call_script, "script_update_villages_infested_by_bandits"),
-     (try_for_range, ":village_no", villages_begin, villages_end),
-       (call_script, "script_update_volunteer_troops_in_village", ":village_no"),
-       (call_script, "script_update_npc_volunteer_troops_in_village", ":village_no"),
-     (try_end),
     ]),
 
 #reclutar en ciudades chief
@@ -8907,3 +8902,4 @@ simple_triggers = [
 + loans.simple_triggers \
 + companions.simple_triggers \
 + caravans.simple_triggers \
++ villages.simple_triggers \
