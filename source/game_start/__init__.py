@@ -1,6 +1,7 @@
 from ..header_game_menus import *
 from ..module_constants import *
-import introduction, character_creation
+
+import introduction, tutorial, character_creation, quest_merchant
 
 
 start_menu_0 = \
@@ -62,77 +63,16 @@ custom_game_menu = (
     [("go_back", [], "Go back", [(change_screen_quit),])]
 )
 
-tutorial_menu = (
-    "tutorial", mnf_disable_all_keys,
-    "You approach a field where the locals are training with weapons. You can "
-    "practice here to improve your combat skills.",
-    "none", [
-        (try_begin),
-        (eq, "$g_tutorial_entered", 1),
-        (change_screen_quit),
-        (else_try),
-        (set_passage_menu, "mnu_tutorial"),
-        (assign, "$g_tutorial_entered", 1),
-        (try_end),
-    ],
-    [
-        ("continue", [], "Continue...",
-         [
-             (modify_visitors_at_site, "scn_tutorial_training_ground"),
-             (reset_visitors, 0),
-             (set_player_troop, "trp_player"),
-             (assign, "$g_player_troop", "trp_player"),
-             (troop_raise_attribute, "$g_player_troop", ca_strength, 12),
-             (troop_raise_attribute, "$g_player_troop", ca_agility, 9),
-             (troop_raise_attribute, "$g_player_troop", ca_charisma, 5),
-             (troop_raise_skill, "$g_player_troop", skl_shield, 3),
-             (troop_raise_skill, "$g_player_troop", skl_athletics, 2),
-             (troop_raise_skill, "$g_player_troop", skl_riding, 3),
-             (troop_raise_skill, "$g_player_troop", skl_power_strike, 1),
-             (troop_raise_skill, "$g_player_troop", skl_power_draw, 5),
-             (troop_raise_skill, "$g_player_troop", skl_weapon_master, 4),
-             (troop_raise_skill, "$g_player_troop", skl_ironflesh, 1),
-             (troop_raise_skill, "$g_player_troop", skl_horse_archery, 6),
-             (troop_raise_proficiency_linear, "$g_player_troop", wpt_one_handed_weapon, 70),
-             (troop_raise_proficiency_linear, "$g_player_troop", wpt_two_handed_weapon, 70),
-             (troop_raise_proficiency_linear, "$g_player_troop", wpt_polearm, 70),
-             (troop_raise_proficiency_linear, "$g_player_troop", wpt_crossbow, 70),
-             (troop_raise_proficiency_linear, "$g_player_troop", wpt_throwing, 70),
+# the first menu of `first_missions` is the one that the game hard-hiredly goes
+# after the menu of skill choice.
+# the other menus must also be in this specific order
+first_menus = [start_menu_0, quest_merchant.menus[0], custom_game_menu,
+               tutorial.menu]
 
-             (troop_clear_inventory, "$g_player_troop"),
-             (troop_add_item, "$g_player_troop", "itm_leather_tunic1", 0),
-             (troop_add_item, "$g_player_troop", "itm_leather_boots1", 0),
-             (troop_add_item, "$g_player_troop", "itm_practice_sword", 0),
-             (troop_add_item, "$g_player_troop", "itm_quarter_staff", 0),
-             (troop_equip_items, "$g_player_troop"),
-             (set_visitor, 0, "trp_player"),
-             (set_visitor, 32, "trp_tutorial_fighter_1"),
-             (set_visitor, 33, "trp_tutorial_fighter_2"),
-             (set_visitor, 34, "trp_tutorial_fighter_3"),
-             (set_visitor, 35, "trp_tutorial_fighter_4"),
-             (set_visitor, 40, "trp_tutorial_master_archer"),
-             (set_visitor, 41, "trp_tutorial_archer_1"),
-             (set_visitor, 42, "trp_tutorial_archer_1"),
-             (set_visitor, 60, "trp_tutorial_master_horseman"),
-             (set_visitor, 61, "trp_tutorial_rider_1"),
-             (set_visitor, 62, "trp_tutorial_rider_1"),
-             (set_visitor, 63, "trp_tutorial_rider_2"),
-             (set_visitor, 64, "trp_tutorial_rider_2"),
-             (set_jump_mission, "mt_tutorial_training_ground"),
-             (jump_to_scene, "scn_tutorial_training_ground"),
-             (change_screen_mission),
-         ]),
+menus = quest_merchant.menus[1:] + character_creation.menus + introduction.menus
 
-        ("go_back_dot", [], "Go back.", [(change_screen_quit),]),
-    ]
-)
+scripts = character_creation.scripts \
+          + quest_merchant.scripts \
 
-# the final menu of character creation is the one that the game hard-hiredly goes
-# after the hard-wired menu of skill choice.
-# the other menus must also be in this order
-first_menus = [start_menu_0, character_creation.menus[-1], custom_game_menu,
-               tutorial_menu]
-
-menus = character_creation.menus[:-1] + introduction.menus
-
-scripts = character_creation.scripts
+dialogs = tutorial.dialogs \
+          + quest_merchant.dialogs
