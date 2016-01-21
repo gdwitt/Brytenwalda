@@ -16,8 +16,8 @@ start_menu_0 = \
          ("continue", [], "Character Creation",
           [(jump_to_menu, "mnu_start_game_1")]),
 
-         ("start_mod", [], "Quick Character (for mod testing)",
-          [
+         ("start_mod", [], "Quick Character (for mod testing)", [
+              (assign, "$debug_game_mode", 1),
               (troop_set_type, "trp_player", 0),
               (assign, "$character_gender", tf_male),
               (set_show_messages, 0),

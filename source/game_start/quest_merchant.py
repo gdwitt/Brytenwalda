@@ -19,9 +19,16 @@ menus = [
  ^Across the sea, in Ireland, Domnaill mac Aedo of Ui Neill clan has emerged as High King in Temair after defeating his enemies, but it is nothing more than a prestigious title. Although he is called the most powerful of the island, around him clans are fighting for land, women and cattle in fratricidal wars. War in Ireland is endemic.\
  ^Who can bring light to this world of war and misery? The world was chaos, and chaos was war.\
  ^This is... BRYTENWALDA.",
-     "none",
-     [(set_background_mesh, "mesh_pic_extra_barco"), ],
-     [
+     "none", [
+         (set_background_mesh, "mesh_pic_extra_barco")
+        ], [
+
+        ("debug_option", [
+            (eq, "$debug_game_mode", 1)
+            ], "[Debug mode] Start game without merchant quest.", [
+            (change_screen_return, 0),
+        ]),
+
          ("town_1", [(eq, "$current_startup_quest_phase", 0),
                      (is_between, "$character_nationality", 13, 19),
                      # Pict      or Briton
