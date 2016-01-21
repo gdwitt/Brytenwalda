@@ -76,3 +76,5 @@ menus += force_recruit.menus + loot.menus + make_prisoners.menus \
          + take_food.menus
 
 scripts = loot.scripts + steal_cattle.scripts
+
+simple_triggers = loot.simple_triggers

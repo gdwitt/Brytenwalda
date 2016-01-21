@@ -195,7 +195,7 @@ menus = [
         ]),
 
         ("yono_no", [], "No.", [
-            (call_script, "script_village_set_state", "$current_town", 0),
+            (call_script, "script_village_set_state", "$current_town", svs_normal),
             (party_set_slot, "$current_town", slot_village_raided_by, -1),
             (assign, "$g_player_raiding_village", 0),
             (change_screen_return),
@@ -264,5 +264,245 @@ scripts = [
         # todo: above uses 40 (num_merchandise_goods), but this uses 30.
         (troop_add_merchandise, ":troop_for_merchandise", itp_type_goods, 30),
         (troop_sort_inventory, ":troop_for_merchandise"),
-    ])
+    ]),
+]
+
+
+simple_triggers = [
+    # This trigger will check if player's raid has been completed and will
+    # lead control to village menu.
+    (1, [
+        (ge, "$g_player_raiding_village", 1),
+        (try_begin),
+            (neq, "$g_player_is_captive", 0),
+            (assign, "$g_player_raiding_village", 0),
+        (else_try),
+            (map_free),  # we have been attacked during raid
+            (assign, "$g_player_raiding_village", 0),
+        (else_try),
+            # continue raiding
+            (this_or_next | party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_looted),
+            (party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_deserted),
+            (start_encounter, "$g_player_raiding_village"),
+            (rest_for_hours, 0),
+            (assign, "$g_player_raiding_village", 0),
+            (assign, "$g_player_raid_complete", 1),
+        (else_try),
+            # continue raiding
+            (party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_being_raided),
+            (rest_for_hours, 3, 5, 1),  # rest while attackable
+        (else_try),
+            (rest_for_hours, 0, 0, 0),  # stop resting - abort
+            (assign, "$g_player_raiding_village", 0),
+            (assign, "$g_player_raid_complete", 0),
+        (try_end),
+    ]),
+
+    # Tests if player is too far from the village that the raid stops
+    # at more than half a distance, a game menu opens asking if the player wants to continue it.
+    # ref: http://forums.taleworlds.com/index.php/topic,148290.msg3568597.html#msg3568597
+    (0.25, [
+        (ge, "$g_player_raiding_village", 1),
+        (store_distance_to_party_from_party, ":distance", "$g_player_raiding_village", "p_main_party"),
+        (try_begin),
+            (gt, ":distance", raid_distance),
+            (str_store_party_name_link, s1, "$g_player_raiding_village"),
+            (display_message, "@You have broken off your raid of {s1}."),
+            (call_script, "script_village_set_state", "$current_town", svs_normal),
+            (party_set_slot, "$current_town", slot_village_raided_by, -1),
+            (assign, "$g_player_raiding_village", 0),
+            (rest_for_hours, 0, 0, 0),  # stop resting - abort
+        (else_try),
+            (ge, ":distance", raid_distance / 2),
+            (map_free),
+            (jump_to_menu, "mnu_village_loot_continue"),
+        (try_end),
+    ]),
+
+    # Process village raids
+    (2, [
+        (try_for_range, ":village_no", villages_begin, villages_end),
+
+            # get icons for
+            # :normal_village_icon
+            # :burnt_village_icon
+            # :deserted_village
+            (try_begin),
+                (this_or_next|is_between, ":village_no", "p_village_61", "p_village_62"), #Shapeshte through Shulus (up to Ilvia)
+                (this_or_next|is_between, ":village_no", "p_village_69", "p_village_72"), #Tismirr and Karindi
+                (this_or_next|eq, ":village_no", "p_village_82"), #Bhulaban
+                (this_or_next|eq, ":village_no", "p_village_138"),
+                (this_or_next|eq, ":village_no", "p_village_92"),
+                (this_or_next|eq, ":village_no", "p_village_96"),
+                (this_or_next|is_between, ":village_no", "p_village_104", "p_village_108"), #Tismirr and Karindi
+                (is_between, ":village_no", "p_village_166", "p_village_212"),
+                (assign, ":normal_village_icon", "icon_kolba_village"),
+                (assign, ":burnt_village_icon", "icon_village_burnt_a"),
+                (assign, ":deserted_village_icon", "icon_village_deserted_b"),
+            (else_try),
+                (assign, ":normal_village_icon", "icon_village_a"),
+                (assign, ":burnt_village_icon", "icon_village_burnt_a"),
+                (assign, ":deserted_village_icon", "icon_village_deserted_b"),
+            (try_end),
+
+            (party_get_slot, ":village_raid_progress", ":village_no", slot_village_raid_progress),
+
+            (try_begin),
+                # village is normal
+                (party_slot_eq, ":village_no", slot_village_state, svs_normal),
+                (val_sub, ":village_raid_progress", 5),
+                (val_max, ":village_raid_progress", 0),
+                (party_set_slot, ":village_no", slot_village_raid_progress, ":village_raid_progress"),
+                (try_begin),
+                    (lt, ":village_raid_progress", 50),
+
+                    (try_begin),
+                        (party_get_icon, ":village_icon", ":village_no"),
+                        (neq, ":village_icon", ":normal_village_icon"),
+                        (party_set_icon, ":village_no", ":normal_village_icon"),
+                    (try_end),
+
+                    (party_slot_ge, ":village_no", slot_village_smoke_added, 1),
+                    (party_set_slot, ":village_no", slot_village_smoke_added, 0),
+                    (party_clear_particle_systems, ":village_no"),
+                (try_end),
+            (else_try),
+                # village is being raided
+                (party_slot_eq, ":village_no", slot_village_state, svs_being_raided),
+                # end raid unless there is an enemy party nearby
+                (assign, ":raid_ended", 1),
+                (party_get_slot, ":raider_party", ":village_no", slot_village_raided_by),
+
+                (try_begin),
+                    (ge, ":raider_party", 0),
+                    (party_is_active, ":raider_party"),
+                    (this_or_next|neq, ":raider_party", "p_main_party"),
+                    (eq, "$g_player_is_captive", 0),
+                    (store_distance_to_party_from_party, ":distance", ":village_no", ":raider_party"),
+                    (lt, ":distance", raid_distance),
+                    (assign, ":raid_ended", 0),
+                (try_end),
+
+                (try_begin),
+                    (eq, ":raid_ended", 1),
+                    (call_script, "script_village_set_state", ":village_no", svs_normal), #clear raid flag
+                    (party_set_slot, ":village_no", slot_village_smoke_added, 0),
+                    (party_clear_particle_systems, ":village_no"),
+                (else_try),
+                    (assign, ":raid_progress_increase", 11),
+                    (party_get_slot, ":looter_party", ":village_no", slot_village_raided_by),
+
+                    # increase progress by looting skill
+                    (try_begin),
+                        (party_get_skill_level, ":looting_skill", ":looter_party", "skl_looting"),
+                        (val_add, ":raid_progress_increase", ":looting_skill"),
+                    (try_end),
+
+                    # reduce progress by watch tower
+                    (try_begin),
+                        (party_slot_eq, ":village_no", slot_center_has_watch_tower, 1),
+                        (val_mul, ":raid_progress_increase", 4),
+                        (val_div, ":raid_progress_increase", 7),
+                    (try_end),
+
+                    (val_add, ":village_raid_progress", ":raid_progress_increase"),
+                    (party_set_slot, ":village_no", slot_village_raid_progress, ":village_raid_progress"),
+
+                    (try_begin),
+                        # half progress: add smoke
+                        (ge, ":village_raid_progress", 50),
+                        (party_slot_eq, ":village_no", slot_village_smoke_added, 0),
+                        (party_add_particle_system, ":village_no", "psys_map_village_fire"),
+                        (party_add_particle_system, ":village_no", "psys_map_village_fire_smoke"),
+                        (party_set_icon, ":village_no", ":burnt_village_icon"),
+                        (party_set_slot, ":village_no", slot_village_smoke_added, 1),
+                    (try_end),
+
+                    (try_begin),
+                        # full progress: loot it
+                        (gt, ":village_raid_progress", 100),
+                        (str_store_party_name_link, s1, ":village_no"),
+                        (party_stack_get_troop_id, ":raid_leader", ":looter_party", 0),
+                        (ge, ":raid_leader", 0),
+                        (str_store_party_name, s2, ":looter_party"),
+                        (store_faction_of_party, ":village_faction", ":village_no"),
+                        (faction_get_color, ":faction_color", ":village_faction"),
+                        (display_log_message, "@The village of {s1} has been looted by {s2}.", ":faction_color"),
+
+                        (try_begin),
+                            (party_get_slot, ":village_lord", ":village_no", slot_town_lord),
+                            (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
+                            (call_script, "script_troop_change_relation_with_troop", ":raid_leader", ":village_lord", -1),
+                            (val_add, "$total_battle_enemy_changes", -1),
+                        (try_end),
+
+                        # give loot gold to raid leader
+                        (troop_get_slot, ":raid_leader_gold", ":raid_leader", slot_troop_wealth),
+                        (party_get_slot, ":village_prosperity", ":village_no"),
+                        (store_mul, ":value_of_loot", ":village_prosperity", 60), #average is 3000
+                        (val_add, ":raid_leader_gold", ":value_of_loot"),
+                        (troop_set_slot, ":raid_leader", slot_troop_wealth, ":raid_leader_gold"),
+
+                        # take loot gold from village lord
+                        (try_begin),
+                            (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
+                            (troop_get_slot, ":village_lord_gold", ":village_lord", slot_troop_wealth),
+                            (val_sub, ":village_lord_gold", ":value_of_loot"),
+                            (val_max, ":village_lord_gold", 0),
+                            (troop_set_slot, ":village_lord", slot_troop_wealth, ":village_lord_gold"),
+                        (try_end),
+
+                        # set it looted, init recover progress
+                        (call_script, "script_village_set_state",  ":village_no", svs_looted),
+                        (party_set_slot, ":village_no", slot_center_accumulated_rents, 0),
+                        (party_set_slot, ":village_no", slot_center_accumulated_tariffs, 0),
+
+                        (party_set_slot, ":village_no", slot_village_raid_progress, 0),
+                        (party_set_slot, ":village_no", slot_village_recover_progress, 0),
+                        (try_begin),
+                            (store_faction_of_party, ":village_faction", ":village_no"),
+                            (this_or_next|party_slot_eq, ":village_no", slot_town_lord, "trp_player"),
+                            (eq, ":village_faction", "fac_player_supporters_faction"),
+                            (call_script, "script_add_notification_menu", "mnu_notification_village_raided", ":village_no", ":raid_leader"),
+                        (try_end),
+                        (call_script, "script_add_log_entry", logent_village_raided, ":raid_leader",  ":village_no", -1, -1),
+                        (store_faction_of_party, ":looter_faction", ":looter_party"),
+                        (call_script, "script_faction_inflict_war_damage_on_faction", ":looter_faction", ":village_faction", 5),
+                    (try_end),  # loot
+                (try_end),
+            (else_try),  # recover
+                (party_slot_eq, ":village_no", slot_village_state, svs_looted),
+                (party_get_slot, ":recover_progress", ":village_no", slot_village_recover_progress),
+                (val_add, ":recover_progress", 1),
+                (party_set_slot, ":village_no", slot_village_recover_progress, ":recover_progress"),
+
+                (try_begin),
+                    (ge, ":recover_progress", 10),
+                    (party_slot_eq, ":village_no", slot_village_smoke_added, 1),
+                    (party_clear_particle_systems, ":village_no"),
+                    (party_add_particle_system, ":village_no", "psys_map_village_looted_smoke"),
+                    (party_set_slot, ":village_no", slot_village_smoke_added, 2),
+                (try_end),
+
+                (try_begin),
+                    (gt, ":recover_progress", 50),
+                    (party_slot_eq, ":village_no", slot_village_smoke_added, 2),
+                    (party_clear_particle_systems, ":village_no"),
+                    (party_set_slot, ":village_no", slot_village_smoke_added, 3),
+                    (party_set_icon, ":village_no", ":deserted_village_icon"),
+                (try_end),
+
+                (try_begin),
+                    # village back to normal
+                    (gt, ":recover_progress", 100),
+                    (call_script, "script_village_set_state", ":village_no", svs_normal),
+                    (party_set_slot, ":village_no", slot_village_recover_progress, 0),
+
+                    (party_clear_particle_systems, ":village_no"),
+                    (party_set_slot, ":village_no", slot_village_smoke_added, 0),
+                    (party_set_icon, ":village_no", ":normal_village_icon"),
+                (try_end),
+            (try_end),
+        (try_end),
+    ]),
 ]

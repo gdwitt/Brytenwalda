@@ -872,3 +872,5 @@ simple_triggers = [
 menus += hostile_actions.menus + buy_cattle.menus + recruit.menus \
          + bandits_infestation.menus
 scripts += recruit.scripts + hostile_actions.scripts
+
+simple_triggers += hostile_actions.simple_triggers
