@@ -8005,23 +8005,16 @@ scripts = [
       (party_set_slot,"p_town_42", slot_town_arena_melee_3_team_size,   6),
 	]),	#chief arenas ampliadas
 
-	("initialize_banner_info",	
-	[	
+	("initialize_banner_info", [
 	  #Banners
-      (try_for_range, ":cur_troop", active_npcs_begin, kingdom_ladies_end),
-        (troop_set_slot, ":cur_troop", slot_troop_custom_banner_flag_type, -1),
-        (troop_set_slot, ":cur_troop", slot_troop_custom_banner_map_flag_type, -1),
+        (try_for_range, ":cur_troop", active_npcs_begin, kingdom_ladies_end),
+            (troop_set_slot, ":cur_troop", slot_troop_custom_banner_flag_type, -1),
+            (troop_set_slot, ":cur_troop", slot_troop_custom_banner_map_flag_type, -1),
 #TEMPERED chief ADDED KINGDOM HERO TROOP SLOTS
-		(troop_set_slot, ":cur_troop", slot_troop_duel_challenger, -1),
-		(troop_set_slot, ":cur_troop", slot_troop_duel_challenged, -1),
-		(troop_set_slot, ":cur_troop", slot_troop_poisoned,-1),
 #TEMPERED chief CHANGES END
-      (try_end),
+        (try_end),
       (troop_set_slot, "trp_player", slot_troop_custom_banner_flag_type, -1),
       (troop_set_slot, "trp_player", slot_troop_custom_banner_map_flag_type, -1),
-      (store_random_in_range, "$g_election_date", 0, 45), #setting a random election date
-      #Assigning global constant
-      #(call_script, "script_store_average_center_value_per_faction"),
 
       (troop_set_slot, "trp_player", slot_troop_custom_banner_bg_color_1, 0xFFFFFFFF),
       (troop_set_slot, "trp_player", slot_troop_custom_banner_bg_color_2, 0xFFFFFFFF),
@@ -38219,51 +38212,6 @@ scripts = [
       (try_end),
      ]),     
 
-#NPC companion changes begin
-  ("initialize_npcs",
-    [
-
-#Post 0907 changes begin
-        (call_script, "script_add_log_entry", logent_game_start, "trp_player", -1, -1, -1),
-#Post 0907 changes end
-
-#Rebellion changes begin chief cambia facciones
-#chief empieza usado para los strings de rebelion no salgan descolocados, sino con conversaciones adecuadas
-        (troop_set_slot, "trp_kingdom_1_pretender",  slot_troop_original_faction2, "fac_kingdom_1"),
-        (troop_set_slot, "trp_kingdom_2_pretender",  slot_troop_original_faction2, "fac_kingdom_2"),
-        (troop_set_slot, "trp_kingdom_3_pretender",  slot_troop_original_faction2, "fac_kingdom_3"),
-        (troop_set_slot, "trp_kingdom_4_pretender",  slot_troop_original_faction2, "fac_kingdom_4"),
-        (troop_set_slot, "trp_kingdom_5_pretender",  slot_troop_original_faction2, "fac_kingdom_5"),
-        (troop_set_slot, "trp_kingdom_6_pretender",  slot_troop_original_faction2, "fac_kingdom_6"),
-        (troop_set_slot, "trp_kingdom_7_pretender",  slot_troop_original_faction2, "fac_kingdom_7"),
-        (troop_set_slot, "trp_kingdom_8_pretender",  slot_troop_original_faction2, "fac_kingdom_8"),
-        (troop_set_slot, "trp_kingdom_9_pretender",  slot_troop_original_faction2, "fac_kingdom_9"),
-        (troop_set_slot, "trp_kingdom_10_pretender",  slot_troop_original_faction2, "fac_kingdom_10"),
-        (troop_set_slot, "trp_kingdom_11_pretender",  slot_troop_original_faction2, "fac_kingdom_11"),
-#chief acaba
-        (troop_set_slot, "trp_kingdom_1_pretender",  slot_troop_original_faction, "fac_kingdom_26"),
-        (troop_set_slot, "trp_kingdom_2_pretender",  slot_troop_original_faction, "fac_kingdom_19"),
-        (troop_set_slot, "trp_kingdom_3_pretender",  slot_troop_original_faction, "fac_kingdom_22"),
-        (troop_set_slot, "trp_kingdom_4_pretender",  slot_troop_original_faction, "fac_kingdom_13"),
-        (troop_set_slot, "trp_kingdom_5_pretender",  slot_troop_original_faction, "fac_kingdom_9"),
-        (troop_set_slot, "trp_kingdom_6_pretender",  slot_troop_original_faction, "fac_kingdom_6"),
-        (troop_set_slot, "trp_kingdom_7_pretender",  slot_troop_original_faction, "fac_kingdom_12"),
-        (troop_set_slot, "trp_kingdom_8_pretender",  slot_troop_original_faction, "fac_kingdom_16"),
-        (troop_set_slot, "trp_kingdom_9_pretender",  slot_troop_original_faction, "fac_kingdom_18"),
-        (troop_set_slot, "trp_kingdom_10_pretender",  slot_troop_original_faction, "fac_kingdom_20"),
-        (troop_set_slot, "trp_kingdom_11_pretender",  slot_troop_original_faction, "fac_kingdom_23"),
-
-#        (troop_set_slot, "trp_kingdom_1_pretender", slot_troop_support_base,     "p_town_4"), #suno
-#        (troop_set_slot, "trp_kingdom_2_pretender", slot_troop_support_base,     "p_town_11"), #curaw
-#        (troop_set_slot, "trp_kingdom_3_pretender", slot_troop_support_base,     "p_town_18"), #town_18
-#        (troop_set_slot, "trp_kingdom_4_pretender", slot_troop_support_base,     "p_town_12"), #wercheg
-#        (troop_set_slot, "trp_kingdom_5_pretender", slot_troop_support_base,     "p_town_3"), #veluca
-        (try_for_range, ":pretender", pretenders_begin, pretenders_end),
-            (troop_set_slot, ":pretender", slot_lord_reputation_type, lrep_none),
-        (try_end),
-#Rebellion changes end
-     ]),
-
   #script_event_player_defeated_enemy_party
   # INPUT: none
   # OUTPUT: none
@@ -61918,67 +61866,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	  (str_store_string,s4,"@ {reg3}"),
 	  (dialog_box,"str_camp_loss","str_camp_overrun"),
       ]),
-  
-  #chief acaba
- # Tempered     chief       ############################# SET GLOBAL VARIABLES AND SLOTS AT GAME START  ###################################
-  ("set_town_spycount",
-	[(party_set_slot,"p_main_party",slot_spies_deployed,0),
-	 (party_set_slot,"p_main_party",slot_party_entrenched,0),
-	 (troop_set_slot,"trp_player",slot_troop_poisoner,0),
-	 (try_for_range,":cur_center",centers_begin,centers_end),
-		(party_set_slot,":cur_center",slot_spy_in_town,0),
-		(party_set_slot,":cur_center",slot_spy_sabotage,0),
-#		(party_set_flags,":cur_center",pf_hide_defenders,1), #puesto off chief para que se vean tropas en castillos y ciudades cuando estes cerca
-		(party_set_slot,":cur_center",slot_well_poisoned,0),		
-	 (try_end),
-	 (assign,"$g_presentation_center_faction","fac_kingdom_1"),
-	 (assign,"$g_presentations_next_presentation",-1),
-	 (assign,"$g_spy_rescue_active",0),
-	 (assign,"$cur_choice",0),
-	 (assign,"$g_battle_result",0),
-	 (assign,"$drowning",1), #used to toggle drowning in mission templates off and on
-	 (assign,"$entrench_time",0),
-	 (assign,"$camp_supply",1), #used for camp over run supply loss
-         (assign,"$current_camp_party",-1), #used for camp entrenchment, value is -1 or entrenchment party id
-	 (assign,"$last_position",0),
-	 (assign,"$target",-1),
-	 (assign,"$target_2",-1),
-	 (assign,"$message_party_target",-1),
-	 (assign,"$message_target",-1),
-	 (assign,"$duel_encounter",-1), #used for wilderness duels, 1 for normal duel, 2 for treachery battle
-	 (assign,"$unable_to_duel",-1), #used in messaging system to notify player that party is unable to duel at this time
-	 (assign,"$unable_to_pay",-1), #used in messaging system to check if player has enough gold to hire party
-	 (assign,"$trust_in_player",0), #used in messaging system to check for kingdom hero trust before excepting gift of wine
-	 (assign,"$attack_party_question",-1), #used in messaging system to let player agree or not before hiring
-	 (assign,"$skirmish_party_no",-1), #party number of active skirmish party
-	 (assign,"$spy_target",-1), #used for sending spy to a town
-	 (assign,"$outclassed",0), #used for wilderness duel renown check
-	 (assign,"$pick_party",0), #used to tell simple trigger to load the world map party picker
-	 (assign,"$party_picker_active",0), #used to tell context menu to only show party pick options
-	 (assign,"$attack_party_answer",-1), #used to tell script_build_reply what answer was given by player regarding paying for attack
-	 (assign, "$bury_dead",0), #used for after battle loot choice
-	 (assign,"$loot_dead",0), #used for after battle loot choice
-	 (assign,"$next_screen",0), #used for choosing game screens
-	 (assign,"$wagon_attached",0), #used for checking if party has loot wagon attached or on trade run 
-	 (assign,"$owns_wagon",0), # 1 if player owns a wagon, 0 if not.
-	 (assign,"$building_wagon",0), #used to check if player is building a new supply wagon during camp time, holds time started building
-	 (assign,"$loot_wagon_trade_state",0),# 0 if wagon on trade run or with player, 1 if finished trade and returning
-	 (troop_set_auto_equip,"trp_loot_wagon_storage_1",0), #don't allow storage troop to equip items
-	 (party_set_slot,"p_main_party",slot_party_loot_wagon,-1), #stores party id of loot wagon
-	 (party_set_slot,"p_main_party",slot_party_wagon_leader,-1), #stores the troop id of the wagon leader
-	 (party_set_slot,"p_main_party",slot_loot_wagon_target,1), #corregido bug poniendo 20 en lugar de 1
-	 (assign,"$can_join",0),  #used in dialogs to see if encountered party can join main party
-	 (assign,"$commoner_trust",-30), #how well farmer parties like the player
-	 (party_set_slot,"p_main_party",slot_party_siege_camp,0), #used for sieges. 0 for not entrenched,-1 for entrenching, 1 for entrenched	 
-	 (assign,"$temp_presentation_shown",0), #used for presentations and menus
-	 (assign,"$temp_scene_type",0), #used for cheat menu scene selection
-#tempered begin code for town/castle siege camp scenes, not needed if not using a special scene for each castle/town siege	 
-	 # (assign,":camp_no","scn_town_1_siege_camp"),# start setting siege camp slots
-	 # (try_for_range,":center",towns_begin,castles_end),
-		# (party_set_slot,":center",slot_center_siege_camp,":camp_no"),
-		# (val_add,":camp_no",1),		
-	 # (try_end), #end setting seige camp slots
-	]),	  
 
 #Tempered                                       ########################  Remove siege camp props  ########################################################
 	("siege_camp_init",
