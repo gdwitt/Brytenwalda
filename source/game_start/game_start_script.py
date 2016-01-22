@@ -1830,5 +1830,10 @@ scripts = [
         (party_set_morale, "p_main_party", reg0),
 
         (call_script, "script_initialize_acres"),
+
+        # todo: this should not be needed, but issue #6 makes it required.
+        (try_for_range, ":cur_center", centers_begin, centers_end),
+            (party_set_slot, ":cur_center", slot_spy_in_town, 0),
+        (try_end),
     ]),
 ]
