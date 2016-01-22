@@ -1,6 +1,29 @@
+from source.statement import StatementBlock
 from ..header_game_menus import *
 from ..module_constants import *
 
+
+def add_truce(kingdom_a, kingdom_b):
+    """
+    Sets a truce between two kingdoms
+    """
+    return StatementBlock(
+        (store_add, ":truce_slot", kingdom_a, slot_faction_truce_days_with_factions_begin),
+        (val_sub, ":truce_slot", kingdoms_begin),
+        (faction_set_slot, kingdom_b, ":truce_slot", dplmc_treaty_truce_days_initial),
+
+        (store_add, ":truce_slot", kingdom_b, slot_faction_truce_days_with_factions_begin),
+        (val_sub, ":truce_slot", kingdoms_begin),
+        (faction_set_slot, kingdom_a, ":truce_slot", dplmc_treaty_truce_days_initial),
+
+        (store_add, ":slot_war_damage_inflicted_on_b", kingdom_b, slot_faction_war_damage_inflicted_on_factions_begin),
+        (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
+        (faction_set_slot, kingdom_a, ":slot_war_damage_inflicted_on_b", 0),
+
+        (store_add, ":slot_war_damage_inflicted_on_a", kingdom_a, slot_faction_war_damage_inflicted_on_factions_begin),
+        (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
+        (faction_set_slot, kingdom_b, ":slot_war_damage_inflicted_on_a", 0),
+    )
 
 scripts = [
 
@@ -324,9 +347,9 @@ scripts = [
     # arg1: kingdom_a (attacking)
     # arg2: kingdom_b (defending)
     # arg3: war reason:
-    # arg3 = 0 means no reason (get it from a script) and the script is being run during initialization.
-    # arg3 = 1 means no reason (get it from a script)
-    # arg3 = logent to set the reason for the war declaration
+    #   = 0 means no reason (get it from a script) and the script is being run during initialization.
+    #   = 1 means no reason (get it from a script)
+    #   = logent to set the reason for the war declaration
     ("diplomacy_start_war_between_kingdoms", [
         (store_script_param, ":kingdom_a", 1),
         (store_script_param, ":kingdom_b", 2),
@@ -573,25 +596,9 @@ scripts = [
             (assign, "$g_recalculate_ais", 1),
         (try_end),
 
-        # add truce
-        (try_begin),
-            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_truce_days_initial),
-
-            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_truce_days_initial),
-            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
-            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
-            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
-            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
-        (try_end),
+        add_truce(":kingdom_a", ":kingdom_b"),
     ]),
 
-    # 20 days alliance, 40 days truce after that
     # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
     # Output: none
     ("dplmc_start_alliance_between_kingdoms", [
@@ -632,30 +639,7 @@ scripts = [
             (assign, "$g_recalculate_ais", 1),
         (try_end),
 
-        #add truce
-        (try_begin),
-            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-
-            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_alliance_days_initial),
-
-            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-
-            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_alliance_days_initial),
-
-            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
-            (faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
-
-            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
-
-            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
-            (faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
-
-            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
-        (try_end),
+        add_truce(":kingdom_a", ":kingdom_b"),
 
         # share wars
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
@@ -700,7 +684,6 @@ scripts = [
         (try_end),
     ]),
 
-    #script_dplmc_start_defensive_between_kingdoms, 20 days defensive: 20 days trade aggreement, 20 days non-aggression after that
     # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
     # Output: none
     ("dplmc_start_defensive_between_kingdoms", [
@@ -742,38 +725,9 @@ scripts = [
             (assign, "$g_recalculate_ais", 1),
         (try_end),
 
-        # todo: this block is a copy of another block somewhere up. MAke both a result of a Python function
-        # add truce
-        (try_begin),
-            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_defense_days_initial),
-
-            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_defense_days_initial),
-
-            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
-            (faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
-            (try_begin),
-                (lt, ":damage_inflicted_by_a", 100),
-                #controversial policy
-            (try_end),
-            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
-
-            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
-            (faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
-            (try_begin),
-                (lt, ":damage_inflicted_by_b", 100),
-                #controversial policy
-            (try_end),
-            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
-        (try_end),
+        add_truce(":kingdom_a", ":kingdom_b"),
     ]),
 
-    # 20 days trade aggreement, 20 days non-aggression after that
     # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
     # Output: none
     ("dplmc_start_trade_between_kingdoms", [
@@ -814,38 +768,9 @@ scripts = [
             (assign, "$g_recalculate_ais", 1),
         (try_end),
 
-        # todo: this is a copy of code above. Make a it a common function
-        #add truce
-        (try_begin),
-            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_trade_days_initial),
-
-            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_trade_days_initial),
-
-            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
-            (faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
-            (try_begin),
-                (lt, ":damage_inflicted_by_a", 100),
-                #controversial policy
-            (try_end),
-            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
-
-            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
-            (faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
-            (try_begin),
-                (lt, ":damage_inflicted_by_b", 100),
-                #controversial policy
-            (try_end),
-            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
-        (try_end),
+        add_truce(":kingdom_a", ":kingdom_b"),
     ]),
 
-    # 20 days non-aggression
     # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
     # Output: none
     ("dplmc_start_nonaggression_between_kingdoms", [
@@ -885,33 +810,6 @@ scripts = [
             (assign, "$g_recalculate_ais", 1),
         (try_end),
 
-        #add truce
-        (try_begin),
-            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_truce_days_initial),
-
-            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
-            (val_sub, ":truce_slot", kingdoms_begin),
-            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_truce_days_initial),
-
-            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
-            (faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
-            (try_begin),
-                (lt, ":damage_inflicted_by_a", 100),
-                #controversial policy
-            (try_end),
-            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
-
-            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
-            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
-            (faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
-            (try_begin),
-                (lt, ":damage_inflicted_by_b", 100),
-                #controversial policy
-            (try_end),
-            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
-        (try_end),
+        add_truce(":kingdom_a", ":kingdom_b"),
     ]),
 ]
