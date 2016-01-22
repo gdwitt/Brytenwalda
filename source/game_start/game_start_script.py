@@ -1591,6 +1591,7 @@ scripts = [
 
     # initializes quantities that are dynamic in the game
     ("game_start_dynamic", [
+        (assign, "$is_game_start", 1),
 
         # npcs renown
         (try_for_range, ":kingdom_hero", active_npcs_begin, active_npcs_end),
@@ -1622,7 +1623,7 @@ scripts = [
 
         # start random wars
         (try_for_range, ":unused", 0, 18),
-            (call_script, "script_randomly_start_war_peace_new", 0),
+            (call_script, "script_randomly_start_war_peace_new"),
         (try_end),
 
         # initialize random truces
@@ -1835,5 +1836,6 @@ scripts = [
         (try_for_range, ":cur_center", centers_begin, centers_end),
             (party_set_slot, ":cur_center", slot_spy_in_town, 0),
         (try_end),
+        (assign, "$is_game_start", 0),
     ]),
 ]

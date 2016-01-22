@@ -28,8 +28,6 @@ def add_truce(kingdom_a, kingdom_b):
 scripts = [
 
     ("randomly_start_war_peace_new", [
-        (store_script_param_1, ":initializing_war_peace_cond"),
-
         # choose kingdom 1
         (store_random_in_range, ":random_offset_1", "fac_kingdom_1", kingdoms_end),
         (val_sub, ":random_offset_1", "fac_kingdom_1"),
@@ -74,7 +72,7 @@ scripts = [
                     # at war, try to make peace
                     (lt, ":cur_relation", 0),
 
-                    (this_or_next|eq, ":initializing_war_peace_cond", 0),
+                    (this_or_next|eq, "$is_game_start", 1),
                     # and trying to improve
                     (ge, ":kingdom_1_to_kingdom_2", 1),
 
@@ -83,7 +81,7 @@ scripts = [
                         (faction_get_slot, ":faction_ai_last_decisive_event", ":cur_kingdom", slot_faction_ai_last_decisive_event),
                         (store_sub, ":hours_since_last_decisive_event", ":cur_hours", ":faction_ai_last_decisive_event"),
 
-                        (this_or_next|eq, ":initializing_war_peace_cond", 0),
+                        (this_or_next|eq, "$is_game_start", 1),
                         # todo: why is this comment saying 4 days? 400/24 ~ 16 days
                         # wait 4 days until conclude peace after war
                         (ge, ":hours_since_last_decisive_event", 400),
@@ -109,7 +107,7 @@ scripts = [
                             (store_mul, ":goodwill_level", ":kingdom_1_to_kingdom_2", ":kingdom_2_to_kingdom_1"),
 
                             (try_begin),
-                                (eq, ":initializing_war_peace_cond", 0),
+                                (eq, "$is_game_start", 1),
                                 (store_add, reg1, ":kingdom_1_to_kingdom_2", 3),
                                 (store_add, reg2, ":kingdom_2_to_kingdom_1", 3),
                                 (store_mul, ":goodwill_level", reg1, reg2),
@@ -128,7 +126,7 @@ scripts = [
                             (assign, "$g_last_target_faction", ":cur_kingdom_2"),
                             (str_store_string_reg, s64, s57),  #  save diplomatic explanation string
 
-                            (call_script, "script_diplomacy_start_peace_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", ":initializing_war_peace_cond"),
+                            (call_script, "script_diplomacy_start_peace_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", 1),
                         (try_end),
                     (try_end),
                 (else_try),
@@ -140,7 +138,7 @@ scripts = [
 
                     (assign, ":hostility", ":kingdom_1_to_kingdom_2"),
                     (try_begin),
-                        (eq, ":initializing_war_peace_cond", 0),  # start of game
+                        (eq, "$is_game_start", 1),
                         # amplify effect if neighbors
                         (val_sub, ":hostility", ":neighbors"),
                     (try_end),
@@ -181,11 +179,11 @@ scripts = [
                     (assign, "$g_last_acting_faction", ":cur_kingdom"),
                     (assign, "$g_last_target_faction", ":cur_kingdom_2"),
                     (str_store_string_reg, s64, s57),
-                    (call_script, "script_diplomacy_start_war_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", ":initializing_war_peace_cond"),
+                    (call_script, "script_diplomacy_start_war_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", 0),
 
                     (try_begin),
                         # do initial war damage
-                        (eq, ":initializing_war_peace_cond", 0),
+                        (eq, "$is_game_start", 1),
                         (store_random_in_range, ":war_damage_inflicted", 10, 120),
                         (store_add, ":slot_war_damage_inflicted", ":cur_kingdom", slot_faction_war_damage_inflicted_on_factions_begin),
                         (val_sub, ":slot_war_damage_inflicted", kingdoms_begin),
@@ -317,7 +315,7 @@ scripts = [
                             (this_or_next|eq, reg1, 0),  # no countervailing pacts OR
                             (eq, ":troop_caution", -1),  # aggressive
 
-                            (call_script, "script_dplmc_start_alliance_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", ":initializing_war_peace_cond"),
+                            (call_script, "script_dplmc_start_alliance_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", 1),
                         (else_try),
                             (is_between, ":truce_days", 0, dplmc_treaty_trade_days_half_done),
                             (ge, ":shared_history", 2),
@@ -325,7 +323,7 @@ scripts = [
                             (ge, reg0, 0),
                             (this_or_next|eq, reg1, 0),    #no countervailing pacts OR
                             (eq, ":troop_caution", -1),    #aggressive
-                            (call_script, "script_dplmc_start_defensive_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", ":initializing_war_peace_cond"),
+                            (call_script, "script_dplmc_start_defensive_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", 1),
                         (else_try),
                             (is_between, ":truce_days", 0, dplmc_treaty_truce_days_half_done),
 
@@ -333,10 +331,10 @@ scripts = [
                             (call_script, "script_count_wars_and_pacts", ":cur_kingdom", ":cur_kingdom_2"),
                             (ge, reg0, 0),
 
-                            (call_script, "script_dplmc_start_trade_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", ":initializing_war_peace_cond"),
+                            (call_script, "script_dplmc_start_trade_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", 1),
                         (else_try),
                             (eq, ":truce_days", 0),
-                            (call_script, "script_dplmc_start_nonaggression_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", ":initializing_war_peace_cond"),
+                            (call_script, "script_dplmc_start_nonaggression_between_kingdoms", ":cur_kingdom", ":cur_kingdom_2", 1),
                         (try_end),
                     (try_end),
                 (try_end),
@@ -347,20 +345,16 @@ scripts = [
     # arg1: kingdom_a (attacking)
     # arg2: kingdom_b (defending)
     # arg3: war reason:
-    #   = 0 means no reason (get it from a script) and the script is being run during initialization.
-    #   = 1 means no reason (get it from a script)
+    #   = 0 means no reason (get it from a script)
     #   = logent to set the reason for the war declaration
     ("diplomacy_start_war_between_kingdoms", [
         (store_script_param, ":kingdom_a", 1),
         (store_script_param, ":kingdom_b", 2),
-        (store_script_param, ":initializing_war_peace_cond", 3),
+        (store_script_param, ":reason", 3),
 
         (try_begin),
-            (gt, ":initializing_war_peace_cond", 1),
-            (assign, ":reason", ":initializing_war_peace_cond"),
-            (assign, ":initializing_war_peace_cond", 1),
-        (else_try),
             # if no reason given, get it from script
+            (eq, ":reason", 0),
             (call_script, "script_npc_decision_checklist_peace_or_war", ":kingdom_a", ":kingdom_b", -1),
             (assign, ":explainer_string", reg1),
 
@@ -396,22 +390,23 @@ scripts = [
         (call_script, "script_add_log_entry", ":reason", ":kingdom_a", 0, 0, ":kingdom_b"),
 
         # effects of policy only after the start of the game
-        (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":kingdom_a", ":kingdom_b"),
-        (assign, ":current_diplomatic_status", reg0),
         (try_begin),
-            (eq, ":reason", logent_faction_declares_war_to_fulfil_pact),
-            (call_script, "script_faction_follows_controversial_policy", ":kingdom_a", logent_policy_ruler_declares_war_with_justification),
-        (else_try),
-            (eq, ":initializing_war_peace_cond", 1),
-            (eq, ":current_diplomatic_status", -1),
-            (call_script, "script_faction_follows_controversial_policy", ":kingdom_a", logent_policy_ruler_declares_war_with_justification),
-        (else_try),
-            (eq, ":initializing_war_peace_cond", 1),
-            (eq, ":current_diplomatic_status", 0),
-            (call_script, "script_faction_follows_controversial_policy", ":kingdom_a", logent_policy_ruler_attacks_without_provocation),
-        (else_try),
-            (eq, ":current_diplomatic_status", 1),
-            (call_script, "script_faction_follows_controversial_policy", ":kingdom_a", logent_policy_ruler_breaks_truce),
+            (eq, "$is_game_start", 0),
+            (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", ":kingdom_a", ":kingdom_b"),
+            (assign, ":current_diplomatic_status", reg0),
+            (try_begin),
+                (eq, ":reason", logent_faction_declares_war_to_fulfil_pact),
+                (call_script, "script_faction_follows_controversial_policy", ":kingdom_a", logent_policy_ruler_declares_war_with_justification),
+            (else_try),
+                (eq, ":current_diplomatic_status", -1),
+                (call_script, "script_faction_follows_controversial_policy", ":kingdom_a", logent_policy_ruler_declares_war_with_justification),
+            (else_try),
+                (eq, ":current_diplomatic_status", 0),
+                (call_script, "script_faction_follows_controversial_policy", ":kingdom_a", logent_policy_ruler_attacks_without_provocation),
+            (else_try),
+                (eq, ":current_diplomatic_status", 1),
+                (call_script, "script_faction_follows_controversial_policy", ":kingdom_a", logent_policy_ruler_breaks_truce),
+            (try_end),
         (try_end),
 
         (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
@@ -432,7 +427,7 @@ scripts = [
         (try_end),
 
         (try_begin),
-            (eq, ":initializing_war_peace_cond", 1),
+            (eq, "$is_game_start", 0),
 
             (str_store_faction_name_link, s1, ":kingdom_a"),
             (str_store_faction_name_link, s2, ":kingdom_b"),
@@ -530,12 +525,12 @@ scripts = [
         (try_end),
     ]),
 
-    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
-    # Output: none
+    # Input: arg1 = kingdom_a, arg2 = kingdom_b,
+    # arg3 = 1 -> affects relations
     ("diplomacy_start_peace_between_kingdoms", [
         (store_script_param, ":kingdom_a", 1),
         (store_script_param, ":kingdom_b", 2),
-        (store_script_param, ":initializing_war_peace_cond", 3), #set to 1 if not the start of the game
+        (store_script_param, ":is_loud", 3),
 
         (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
         (val_max, ":relation", 0),
@@ -586,7 +581,8 @@ scripts = [
         (try_end),
 
         (try_begin),
-            (eq, ":initializing_war_peace_cond", 1),
+            (eq, "$is_game_start", 0),
+            (eq, ":is_loud", 1),
             (str_store_faction_name_link, s1, ":kingdom_a"),
             (str_store_faction_name_link, s2, ":kingdom_b"),
             (display_log_message, "@{s1} and {s2} have made peace with each other.", color_quest_and_faction_news),
@@ -599,12 +595,12 @@ scripts = [
         add_truce(":kingdom_a", ":kingdom_b"),
     ]),
 
-    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
-    # Output: none
+    # Input: arg1 = kingdom_a, arg2 = kingdom_b,
+    # arg3 = 1 -> affects relations
     ("dplmc_start_alliance_between_kingdoms", [
         (store_script_param, ":kingdom_a", 1),
         (store_script_param, ":kingdom_b", 2),
-        (store_script_param, ":initializing_war_peace_cond", 3),
+        (store_script_param, ":is_loud", 3),
 
         (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
         (val_add, ":relation", 15),
@@ -627,7 +623,8 @@ scripts = [
         (try_end),
 
         (try_begin),
-            (eq, ":initializing_war_peace_cond", 1),
+            (eq, "$is_game_start", 0),
+            (eq, ":is_loud", 1),
             (str_store_faction_name_link, s1, ":kingdom_a"),
             (str_store_faction_name_link, s2, ":kingdom_b"),
             (display_log_message, "@{s1} and {s2} have entered into an alliance with each other."),
@@ -684,12 +681,12 @@ scripts = [
         (try_end),
     ]),
 
-    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
-    # Output: none
+    # Input: arg1 = kingdom_a, arg2 = kingdom_b,
+    # arg3 = 1 -> affects relations
     ("dplmc_start_defensive_between_kingdoms", [
         (store_script_param, ":kingdom_a", 1),
         (store_script_param, ":kingdom_b", 2),
-        (store_script_param, ":initializing_war_peace_cond", 3),
+        (store_script_param, ":is_loud", 3),
 
         (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
         (val_add, ":relation", 10),
@@ -712,7 +709,8 @@ scripts = [
         (try_end),
 
         (try_begin),
-            (eq, ":initializing_war_peace_cond", 1),
+            (eq, "$is_game_start", 0),
+            (eq, ":is_loud", 1),
             (str_store_faction_name_link, s1, ":kingdom_a"),
             (str_store_faction_name_link, s2, ":kingdom_b"),
             (display_log_message, "@{s1} and {s2} have concluded a defensive pact with each other."),
@@ -728,12 +726,12 @@ scripts = [
         add_truce(":kingdom_a", ":kingdom_b"),
     ]),
 
-    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
-    # Output: none
+    # Input: arg1 = kingdom_a, arg2 = kingdom_b,
+    # arg3 = 1 -> affects relations
     ("dplmc_start_trade_between_kingdoms", [
         (store_script_param, ":kingdom_a", 1),
         (store_script_param, ":kingdom_b", 2),
-        (store_script_param, ":initializing_war_peace_cond", 3),
+        (store_script_param, ":is_loud", 3),
 
         (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
         (val_add, ":relation", 5),
@@ -756,7 +754,8 @@ scripts = [
         (try_end),
 
         (try_begin),
-            (eq, ":initializing_war_peace_cond", 1),
+            (eq, "$is_game_start", 0),
+            (eq, ":is_loud", 1),
             (str_store_faction_name_link, s1, ":kingdom_a"),
             (str_store_faction_name_link, s2, ":kingdom_b"),
             (display_log_message, "@{s1} and {s2} have concluded a trade agreement with each other."),
@@ -771,12 +770,12 @@ scripts = [
         add_truce(":kingdom_a", ":kingdom_b"),
     ]),
 
-    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
-    # Output: none
+    # Input: arg1 = kingdom_a, arg2 = kingdom_b,
+    # arg3 = 1 -> affects relations
     ("dplmc_start_nonaggression_between_kingdoms", [
         (store_script_param, ":kingdom_a", 1),
         (store_script_param, ":kingdom_b", 2),
-        (store_script_param, ":initializing_war_peace_cond", 3),
+        (store_script_param, ":is_loud", 3),
 
         (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
         (val_add, ":relation", 3),
@@ -799,7 +798,8 @@ scripts = [
         (try_end),
 
         (try_begin),
-            (eq, ":initializing_war_peace_cond", 1),
+            (eq, "$is_game_start", 0),
+            (eq, ":is_loud", 1),
             (str_store_faction_name_link, s1, ":kingdom_a"),
             (str_store_faction_name_link, s2, ":kingdom_b"),
             (display_log_message, "@{s1} and {s2} have agreed to a non-aggression pact."),

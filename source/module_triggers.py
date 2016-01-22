@@ -37,7 +37,7 @@ triggers = [
   ],
   [
     (call_script, "script_find_neighbors"),
-    (call_script, "script_randomly_start_war_peace_new", 1),
+    (call_script, "script_randomly_start_war_peace_new"),
 
     (try_for_range, ":faction_1", kingdoms_begin, kingdoms_end),
       (faction_slot_eq, ":faction_1", slot_faction_state, sfs_active),
