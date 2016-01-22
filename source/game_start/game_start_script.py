@@ -363,250 +363,7 @@ scripts = [
 
         (call_script, "script_initialize_notes"),
 
-        # npcs renown (NOT slot-initialization)
-        (try_for_range, ":kingdom_hero", active_npcs_begin, active_npcs_end),
-            (this_or_next|troop_slot_eq, ":kingdom_hero", slot_troop_occupation, slto_kingdom_hero),
-            (troop_slot_eq, ":kingdom_hero", slot_troop_occupation, slto_inactive_pretender),
-
-            (store_troop_faction, ":kingdom_hero_faction", ":kingdom_hero"),
-            (neg|faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
-
-            (store_character_level, ":level", ":kingdom_hero"),
-            (store_mul, ":renown", ":level", ":level"),
-            (val_div, ":renown", 4), #for top lord, it is about 400
-
-            (troop_get_slot, ":age", ":kingdom_hero", slot_troop_age),
-            (store_mul, ":age_addition", ":age", ":age"),
-            (val_div, ":age_addition", 8),
-            (val_add, ":renown", ":age_addition"),
-
-            (try_begin),
-                (faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
-                (store_random_in_range, ":random_renown", 350, 500),
-            (else_try),
-                (store_random_in_range, ":random_renown", 100, 300),
-            (try_end),
-
-            (val_add, ":renown", ":random_renown"),
-            (troop_set_slot, ":kingdom_hero", slot_troop_renown, ":renown"),
-        (try_end),
-
-        # (NOT slot-initialization)
-        (try_for_range, ":unused", 0, 18),
-            (call_script, "script_randomly_start_war_peace_new", 0),
-        (try_end),
-
-        # (NOT slot-initialization)
-        (try_for_range, ":kingdom_a", kingdoms_begin, kingdoms_end),
-            (store_add, ":already_done", ":kingdom_a", 1),    #hit every relationship just ONCE
-            (try_for_range, ":kingdom_b", ":already_done", kingdoms_end),
-                (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
-                (val_sub, ":truce_slot", kingdoms_begin),
-                (faction_get_slot, ":truce_days", ":kingdom_b", ":truce_slot"),
-                (ge, ":truce_days", dplmc_treaty_truce_days_initial),
-
-                (store_random_in_range, reg0, 1, dplmc_treaty_truce_days_initial),
-                (val_sub, ":truce_days", reg0),
-                (val_add, ":truce_days", 1),    #leave a minimum of 2 days
-                (faction_set_slot, ":kingdom_b", ":truce_slot", ":truce_days"),
-                (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
-                (val_sub, ":truce_slot", kingdoms_begin),
-                (faction_set_slot, ":kingdom_a", ":truce_slot", ":truce_days"),
-            (try_end),
-        (try_end),
-
-        # (NOT slot-initialization)
-        (try_for_range, ":village_no", villages_begin, villages_end),
-            (call_script, "script_refresh_village_merchant_inventory", ":village_no"),
-        (try_end),
-
-        # (NOT slot-initialization)
-        (call_script, "script_refresh_center_inventories"),
-        (call_script, "script_refresh_center_armories"),
-        (call_script, "script_refresh_center_weaponsmiths"),
-        (call_script, "script_refresh_center_stables"),
-        (call_script, "script_refresh_special_merchants"),
-
-        # (NOT slot-initialization)
-        (try_for_range, ":troop_id", original_kingdom_heroes_begin, active_npcs_end),
-            (try_begin),
-                (store_troop_faction, ":faction_id", ":troop_id"),
-                (is_between, ":faction_id", kingdoms_begin, kingdoms_end),
-                (troop_set_slot, ":troop_id", slot_troop_original_faction, ":faction_id"),
-                (try_begin),
-                    (is_between, ":troop_id", pretenders_begin, pretenders_end),
-                    (faction_set_slot, ":faction_id", slot_faction_has_rebellion_chance, 1),
-                (try_end),
-            (try_end),
-
-            (store_random_in_range, ":random_gold", 8000, 20000),
-            (assign, ":initial_wealth", ":random_gold"),
-            (store_div, ":travel_money", ":initial_wealth", 10),
-            (troop_add_gold, ":troop_id", ":travel_money"),
-            (val_sub, ":initial_wealth", ":travel_money"),
-            (val_abs, ":initial_wealth"),
-
-            (try_begin),
-                (store_troop_faction, ":faction", ":troop_id"),
-                (faction_slot_eq, ":faction", slot_faction_leader, ":troop_id"),
-                (assign, ":initial_wealth", 30000),
-            (try_end),
-            (troop_set_slot, ":troop_id", slot_troop_wealth, ":initial_wealth"),
-        (try_end),
-
-        # (NOT slot-initialization)
-        # Add initial center wealth ad garrisons and garrison upgrades
-        (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-            (assign, ":initial_wealth", 2500),
-            (try_begin),
-                (is_between, ":center_no", towns_begin, towns_end),
-                (val_mul, ":initial_wealth", 2),
-            (try_end),
-            (party_set_slot, ":center_no", slot_town_wealth, ":initial_wealth"),
-
-            (assign, ":garrison_strength", 15),
-            (try_begin),
-                (party_slot_eq, ":center_no", slot_party_type, spt_town),
-                (assign, ":garrison_strength", 40),
-            (try_end),
-
-            (try_for_range, ":unused", 0, ":garrison_strength"),
-                (call_script, "script_cf_reinforce_party", ":center_no"),
-            (try_end),
-            (store_div, ":xp_rounds", ":garrison_strength", 5),
-            (val_add, ":xp_rounds", 2),
-
-            (options_get_campaign_ai, ":reduce_campaign_ai"),
-
-            (try_begin), #hard
-                (eq, ":reduce_campaign_ai", 0),
-                (assign, ":xp_addition_for_centers", 9500),
-            (else_try), #moderate
-                (eq, ":reduce_campaign_ai", 1),
-                (assign, ":xp_addition_for_centers", 7000),
-            (else_try), #easy
-                (eq, ":reduce_campaign_ai", 2),
-                (assign, ":xp_addition_for_centers", 4500),
-            (try_end),
-
-            (try_for_range, ":unused", 0, ":xp_rounds"),
-                (party_upgrade_with_xp, ":center_no", ":xp_addition_for_centers", 0),
-            (try_end),
-
-            # Fill town food stores up to half the limit
-            (call_script, "script_center_get_food_store_limit", ":center_no"),
-            (assign, ":food_store_limit", reg0),
-            (val_div, ":food_store_limit", 2),
-            (party_set_slot, ":center_no", slot_party_food_store, ":food_store_limit"),
-
-            # create lord parties
-            (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
-            (ge, ":center_lord", 1),
-            (troop_slot_eq, ":center_lord", slot_troop_leaded_party, 0),
-            (assign, "$g_there_is_no_avaliable_centers", 0),
-            (call_script, "script_create_kingdom_hero_party", ":center_lord", ":center_no"),
-            (assign, ":lords_party", "$pout_party"),
-            (party_attach_to_party, ":lords_party", ":center_no"),
-            (party_set_slot, ":center_no", slot_town_player_odds, 1000),
-        (try_end),
-
-        # todo: make this an N(N-1)/2 script instead of N^2
-        # initial relations
-        (try_for_range, ":lord", original_kingdom_heroes_begin, active_npcs_end),
-            (troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
-            (troop_get_slot, ":lord_faction", ":lord", slot_troop_original_faction),
-
-            (try_for_range, ":other_hero", original_kingdom_heroes_begin, active_npcs_end),
-                (this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_hero),
-                (troop_slot_eq, ":other_hero", slot_troop_occupation, slto_inactive_pretender),
-                (troop_get_slot, ":other_hero_faction", ":other_hero", slot_troop_original_faction),
-                (eq, ":other_hero_faction", ":lord_faction"),
-
-                (call_script, "script_troop_get_family_relation_to_troop", ":lord", ":other_hero"),
-                (call_script, "script_troop_change_relation_with_troop", ":lord", ":other_hero", reg0),
-
-                (store_random_in_range, ":random", 0, 11), #this will be scored twice between two kingdom heroes, so starting relation will average 10. Between lords and pretenders it will average 7.5
-                (call_script, "script_troop_change_relation_with_troop", ":lord", ":other_hero", ":random"),
-            (try_end),
-        (try_end),
-
-        # do about 5 years' worth of political history (assuming 3 random checks a day)
-        (try_for_range, ":unused", 0, 5000),
-            (call_script, "script_cf_random_political_event"),
-        (try_end),
-
-        (assign, "$total_random_quarrel_changes", 0),
-        (assign, "$total_relation_adds", 0),
-        (assign, "$total_relation_subs", 0),
-
-        (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
-            (call_script, "script_evaluate_realm_stability", ":kingdom"),
-        (try_end),
-
-        # assign love interests to unmarried male lords
-        (try_for_range, ":cur_troop", lords_begin, lords_end),
-            (troop_slot_eq, ":cur_troop", slot_troop_spouse, -1),
-            (neg|is_between, ":cur_troop", kings_begin, kings_end),
-            (neg|is_between, ":cur_troop", pretenders_begin, pretenders_end),
-
-            (call_script, "script_assign_troop_love_interests", ":cur_troop"),
-        (try_end),
-
-        (store_random_in_range, "$romantic_attraction_seed", 0, 5),
-
-        (try_for_range, ":unused", 0, 10),
-            (call_script, "script_spawn_bandits"),
-        (try_end),
-
-        # add looters around each village with 1/5 probability.
-        (set_spawn_radius, 5),
-        (try_for_range, ":cur_village", villages_begin, villages_end),
-            (store_random_in_range, ":random_value", 0, 5),
-            (eq, ":random_value", 0),
-            (spawn_around_party, ":cur_village", "pt_looters"),
-        (try_end),
-
-        (call_script, "script_update_mercenary_units_of_towns"),
-        (call_script, "script_update_ransom_brokers"),
-        (call_script, "script_update_tavern_travellers"),
-        (call_script, "script_update_tavern_minstrels"),
-        (call_script, "script_update_booksellers"),
-
-        (try_for_range, ":village_no", villages_begin, villages_end),
-            (call_script, "script_update_volunteer_troops_in_village", ":village_no"),
-        (try_end),
-
-        (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
-            (call_script, "script_update_faction_notes", ":cur_kingdom"),
-            (store_random_in_range, ":random_no", -60, 0),
-            (faction_set_slot, ":faction_no", slot_faction_last_offensive_concluded, ":random_no"),
-        (try_end),
-
-        (try_for_range, ":cur_troop", original_kingdom_heroes_begin, active_npcs_end),
-            (call_script, "script_update_troop_notes", ":cur_troop"),
-        (try_end),
-
-        (try_for_range, ":cur_center", centers_begin, centers_end),
-            (call_script, "script_update_center_notes", ":cur_center"),
-        (try_end),
-
-        (call_script, "script_update_troop_notes", "trp_player"),
-
-        # Place kingdom ladies
-        (try_for_range, ":troop_id", kingdom_ladies_begin, kingdom_ladies_end),
-            (call_script, "script_get_kingdom_lady_social_determinants", ":troop_id"),
-            (troop_set_slot, ":troop_id", slot_troop_cur_center, reg1),
-        (try_end),
-
-        (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-            (call_script, "script_faction_recalculate_strength", ":faction_no"),
-        (try_end),
-
-        (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, 0),
-        (call_script, "script_get_player_party_morale_values"),
-        (party_set_morale, "p_main_party", reg0),
-
-        (call_script, "script_initialize_acres"),
+        (call_script, "script_game_start_dynamic"),
     ]),
 
     ("initialize_religion", [
@@ -1830,5 +1587,248 @@ scripts = [
         (try_for_range, ":pretender", pretenders_begin, pretenders_end),
             (troop_set_slot, ":pretender", slot_lord_reputation_type, lrep_none),
         (try_end),
+    ]),
+
+    # initializes quantities that are dynamic in the game
+    ("game_start_dynamic", [
+
+        # npcs renown
+        (try_for_range, ":kingdom_hero", active_npcs_begin, active_npcs_end),
+            (this_or_next|troop_slot_eq, ":kingdom_hero", slot_troop_occupation, slto_kingdom_hero),
+            (troop_slot_eq, ":kingdom_hero", slot_troop_occupation, slto_inactive_pretender),
+
+            (store_troop_faction, ":kingdom_hero_faction", ":kingdom_hero"),
+            (neg|faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
+
+            (store_character_level, ":level", ":kingdom_hero"),
+            (store_mul, ":renown", ":level", ":level"),
+            (val_div, ":renown", 4), #for top lord, it is about 400
+
+            (troop_get_slot, ":age", ":kingdom_hero", slot_troop_age),
+            (store_mul, ":age_addition", ":age", ":age"),
+            (val_div, ":age_addition", 8),
+            (val_add, ":renown", ":age_addition"),
+
+            (try_begin),
+                (faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
+                (store_random_in_range, ":random_renown", 350, 500),
+            (else_try),
+                (store_random_in_range, ":random_renown", 100, 300),
+            (try_end),
+
+            (val_add, ":renown", ":random_renown"),
+            (troop_set_slot, ":kingdom_hero", slot_troop_renown, ":renown"),
+        (try_end),
+
+        # start random wars
+        (try_for_range, ":unused", 0, 18),
+            (call_script, "script_randomly_start_war_peace_new", 0),
+        (try_end),
+
+        # initialize random truces
+        (try_for_range, ":kingdom_a", kingdoms_begin, kingdoms_end),
+            (store_add, ":already_done", ":kingdom_a", 1),    #hit every relationship just ONCE
+            (try_for_range, ":kingdom_b", ":already_done", kingdoms_end),
+                (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+                (val_sub, ":truce_slot", kingdoms_begin),
+                (faction_get_slot, ":truce_days", ":kingdom_b", ":truce_slot"),
+                (ge, ":truce_days", dplmc_treaty_truce_days_initial),
+
+                (store_random_in_range, reg0, 1, dplmc_treaty_truce_days_initial),
+                (val_sub, ":truce_days", reg0),
+                (val_add, ":truce_days", 1),    #leave a minimum of 2 days
+                (faction_set_slot, ":kingdom_b", ":truce_slot", ":truce_days"),
+                (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+                (val_sub, ":truce_slot", kingdoms_begin),
+                (faction_set_slot, ":kingdom_a", ":truce_slot", ":truce_days"),
+            (try_end),
+        (try_end),
+
+        (try_for_range, ":village_no", villages_begin, villages_end),
+            (call_script, "script_refresh_village_merchant_inventory", ":village_no"),
+        (try_end),
+
+        (call_script, "script_refresh_center_inventories"),
+        (call_script, "script_refresh_center_armories"),
+        (call_script, "script_refresh_center_weaponsmiths"),
+        (call_script, "script_refresh_center_stables"),
+        (call_script, "script_refresh_special_merchants"),
+
+        # Set original faction
+        (try_for_range, ":troop_id", original_kingdom_heroes_begin, active_npcs_end),
+            (try_begin),
+                (store_troop_faction, ":faction_id", ":troop_id"),
+                (is_between, ":faction_id", kingdoms_begin, kingdoms_end),
+                (troop_set_slot, ":troop_id", slot_troop_original_faction, ":faction_id"),
+                (try_begin),
+                    (is_between, ":troop_id", pretenders_begin, pretenders_end),
+                    (faction_set_slot, ":faction_id", slot_faction_has_rebellion_chance, 1),
+                (try_end),
+            (try_end),
+
+            (store_random_in_range, ":random_gold", 8000, 20000),
+            (assign, ":initial_wealth", ":random_gold"),
+            (store_div, ":travel_money", ":initial_wealth", 10),
+            (troop_add_gold, ":troop_id", ":travel_money"),
+            (val_sub, ":initial_wealth", ":travel_money"),
+            (val_abs, ":initial_wealth"),
+
+            (try_begin),
+                (store_troop_faction, ":faction", ":troop_id"),
+                (faction_slot_eq, ":faction", slot_faction_leader, ":troop_id"),
+                (assign, ":initial_wealth", 30000),
+            (try_end),
+            (troop_set_slot, ":troop_id", slot_troop_wealth, ":initial_wealth"),
+        (try_end),
+
+        # Add initial wealth, garrisons and garrison upgrades
+        (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
+            (assign, ":initial_wealth", 2500),
+            (try_begin),
+                (is_between, ":center_no", towns_begin, towns_end),
+                (val_mul, ":initial_wealth", 2),
+            (try_end),
+            (party_set_slot, ":center_no", slot_town_wealth, ":initial_wealth"),
+
+            (assign, ":garrison_strength", 15),
+            (try_begin),
+                (party_slot_eq, ":center_no", slot_party_type, spt_town),
+                (assign, ":garrison_strength", 40),
+            (try_end),
+
+            (try_for_range, ":unused", 0, ":garrison_strength"),
+                (call_script, "script_cf_reinforce_party", ":center_no"),
+            (try_end),
+            (store_div, ":xp_rounds", ":garrison_strength", 5),
+            (val_add, ":xp_rounds", 2),
+
+            (options_get_campaign_ai, ":reduce_campaign_ai"),
+
+            (try_begin), #hard
+                (eq, ":reduce_campaign_ai", 0),
+                (assign, ":xp_addition_for_centers", 9500),
+            (else_try), #moderate
+                (eq, ":reduce_campaign_ai", 1),
+                (assign, ":xp_addition_for_centers", 7000),
+            (else_try), #easy
+                (eq, ":reduce_campaign_ai", 2),
+                (assign, ":xp_addition_for_centers", 4500),
+            (try_end),
+
+            (try_for_range, ":unused", 0, ":xp_rounds"),
+                (party_upgrade_with_xp, ":center_no", ":xp_addition_for_centers", 0),
+            (try_end),
+
+            # Fill town food stores up to half the limit
+            (call_script, "script_center_get_food_store_limit", ":center_no"),
+            (assign, ":food_store_limit", reg0),
+            (val_div, ":food_store_limit", 2),
+            (party_set_slot, ":center_no", slot_party_food_store, ":food_store_limit"),
+
+            # create lord parties
+            (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
+            (ge, ":center_lord", 1),
+            (troop_slot_eq, ":center_lord", slot_troop_leaded_party, 0),
+            (assign, "$g_there_is_no_avaliable_centers", 0),
+            (call_script, "script_create_kingdom_hero_party", ":center_lord", ":center_no"),
+            (assign, ":lords_party", "$pout_party"),
+            (party_attach_to_party, ":lords_party", ":center_no"),
+            (party_set_slot, ":center_no", slot_town_player_odds, 1000),
+        (try_end),
+
+        # initial relations
+        # todo: make this an N(N-1)/2 script instead of N^2
+        (try_for_range, ":lord", original_kingdom_heroes_begin, active_npcs_end),
+            (troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+            (troop_get_slot, ":lord_faction", ":lord", slot_troop_original_faction),
+
+            (try_for_range, ":other_hero", original_kingdom_heroes_begin, active_npcs_end),
+                (this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_hero),
+                (troop_slot_eq, ":other_hero", slot_troop_occupation, slto_inactive_pretender),
+                (troop_get_slot, ":other_hero_faction", ":other_hero", slot_troop_original_faction),
+                (eq, ":other_hero_faction", ":lord_faction"),
+
+                (call_script, "script_troop_get_family_relation_to_troop", ":lord", ":other_hero"),
+                (call_script, "script_troop_change_relation_with_troop", ":lord", ":other_hero", reg0),
+
+                (store_random_in_range, ":random", 0, 11), #this will be scored twice between two kingdom heroes, so starting relation will average 10. Between lords and pretenders it will average 7.5
+                (call_script, "script_troop_change_relation_with_troop", ":lord", ":other_hero", ":random"),
+            (try_end),
+        (try_end),
+
+        # do about 5 years' worth of political history (assuming 3 random checks a day)
+        (try_for_range, ":unused", 0, 5000),
+            (call_script, "script_cf_random_political_event"),
+        (try_end),
+
+        # measure stability of the realm
+        (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
+            (call_script, "script_evaluate_realm_stability", ":kingdom"),
+        (try_end),
+
+        # assign love interests to unmarried male lords
+        (try_for_range, ":cur_troop", lords_begin, lords_end),
+            (troop_slot_eq, ":cur_troop", slot_troop_spouse, -1),
+            (neg|is_between, ":cur_troop", kings_begin, kings_end),
+            (neg|is_between, ":cur_troop", pretenders_begin, pretenders_end),
+
+            (call_script, "script_assign_troop_love_interests", ":cur_troop"),
+        (try_end),
+
+        (store_random_in_range, "$romantic_attraction_seed", 0, 5),
+
+        (try_for_range, ":unused", 0, 10),
+            (call_script, "script_spawn_bandits"),
+        (try_end),
+
+        # add looters around each village with 1/5 probability.
+        (set_spawn_radius, 5),
+        (try_for_range, ":cur_village", villages_begin, villages_end),
+            (store_random_in_range, ":random_value", 0, 5),
+            (eq, ":random_value", 0),
+            (spawn_around_party, ":cur_village", "pt_looters"),
+        (try_end),
+
+        (call_script, "script_update_mercenary_units_of_towns"),
+        (call_script, "script_update_ransom_brokers"),
+        (call_script, "script_update_tavern_travellers"),
+        (call_script, "script_update_tavern_minstrels"),
+        (call_script, "script_update_booksellers"),
+
+        (try_for_range, ":village_no", villages_begin, villages_end),
+            (call_script, "script_update_volunteer_troops_in_village", ":village_no"),
+        (try_end),
+
+        (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
+            (call_script, "script_update_faction_notes", ":cur_kingdom"),
+            (store_random_in_range, ":random_no", -60, 0),
+            (faction_set_slot, ":cur_kingdom", slot_faction_last_offensive_concluded, ":random_no"),
+        (try_end),
+
+        (try_for_range, ":cur_troop", original_kingdom_heroes_begin, active_npcs_end),
+            (call_script, "script_update_troop_notes", ":cur_troop"),
+        (try_end),
+
+        (try_for_range, ":cur_center", centers_begin, centers_end),
+            (call_script, "script_update_center_notes", ":cur_center"),
+        (try_end),
+
+        (call_script, "script_update_troop_notes", "trp_player"),
+
+        # Place kingdom ladies
+        (try_for_range, ":troop_id", kingdom_ladies_begin, kingdom_ladies_end),
+            (call_script, "script_get_kingdom_lady_social_determinants", ":troop_id"),
+            (troop_set_slot, ":troop_id", slot_troop_cur_center, reg1),
+        (try_end),
+
+        (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
+            (call_script, "script_faction_recalculate_strength", ":faction_no"),
+        (try_end),
+
+        (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, 0),
+        (call_script, "script_get_player_party_morale_values"),
+        (party_set_morale, "p_main_party", reg0),
+
+        (call_script, "script_initialize_acres"),
     ]),
 ]
