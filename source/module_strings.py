@@ -327,16 +327,6 @@ strings = [
   ("other_party_lost_morale",   "{s1} loses {reg1} morale."),
 
   ("qst_follow_spy_noticed_you", "The spy has spotted you! He's making a run for it!"),
-  ("father", "father"),
-  ("husband", "husband"),
-  ("wife", "wife"),
-  ("daughter", "daughter"),
-  ("mother", "mother"),
-  ("son", "son"),
-  ("brother", "brother"),
-  ("sister", "sister"),
-  ("he", "He"),
-  ("she", "She"),
   ("s3s_s2", "{s3}'s {s2}"),
   ("s5_is_s51", "{s5} is {s51}."),
   ("s5_is_the_ruler_of_s51", "{s5} is the ruler of {s51}. "),
@@ -786,7 +776,6 @@ strings = [
   ("npc14_intro", "Hail, traveler. I am Brian, a Gael warrior. No doubt you've heard of me."), #Brian
   ("npcengineer_intro", "Oh! Yeia sou. Say, friend, are you by chance heading out of town anytime soon?"), #Agasicles
   ("npc16cleric_intro", "From the look of you, I'd say you're expecting to get into some fights in the near future. I am certain you need some help. Spiritual help, that only a man of God can provide you with."), #Aedh
-  ("npc_pict1_intro", "Hi , traveler (The stranger greets you and asks to share a few words... and drinks.)"),
   ("npc_pict1_intro", "Hi (The stranger greets you and asks to share a few words... and drinks.)"),
   ("npc_paintrain_intro", "What?"),
   ("npc_hammertime_intro", "Dydd da, I am Mihael."),
@@ -821,7 +810,6 @@ strings = [
   ("npcengineer_intro_response_1", "I am. What concern is it of yours, may I ask?"),#Agasicles
   ("npc16cleric_intro_response_1", "I could be. What's your story?"), #Aedh
   ("npc_pict1_intro_response_1", "Very well, I'll follow you, and we shall share some tales."),
-  ("npc_pict1_intro_response_1", "Very well, I'll follow you, and we shall share some tales."),
   ("npc_paintrain_intro_response_1", "Tell me about yourself."),
   ("npc_hammertime_intro_response_1", "Tell me about yourself, Mihael."),
   ("npc_surgeon_intro_response_1", "Tell me about yourself."),
@@ -853,7 +841,6 @@ strings = [
   ("npcengineer_intro_response_2", "I'd be obliged if you minded your own business, {sir/madame}."), #Agasicles
   ("npc16cleric_intro_response_2", "Mind your own business, priest."), #Aedh
   ("npc_pict1_intro_response_2", "Not right now, Pict."),
-  ("npc_pict1_intro_response_2", "Not right now, Pict."),
   ("npc_paintrain_intro_response_2", "Nothing at all. My apologies."),
   ("npc_hammertime_intro_response_2", "Nothing at all. My apologies."),
   ("npc_surgeon_intro_response_2", "Nothing at all. My apologies."),
@@ -884,7 +871,6 @@ strings = [
   ("npc14_backstory_a", "You have not? Then perhaps you have heard of my steed, which cuts across the plains like a beam of moonlight? Or of my sword, a connoisseur of the blood of the highest-born princes of Hibernia and Britannia?"), #Brian
   ("npcengineer_backstory_a", "I'm an engineer, specialized in the art of fortification. If you need a wall knocked down, I can do that, given enough time. If you need a wall built back up, I can do that too, although it will take longer and cost you more. And you can't cut costs, either, unless you want your new edifice coming down underneath you, as someone around here has just found out."), #Agasicles
   ("npc16cleric_backstory_a", "Well, {sir/madame}, as long as I can remember I have been a man of God, correctly following the teachings of Christ. One day, an angel came to me in my dreams, and revealed that it was God's will that I roam Britannia and Hibernia preaching the true Christian faith to every man and woman, be they Brythonic, Saxon, Pictish or Irish."), #Aedh
-  ("npc_pict1_backstory_a", "(You follow the stranger to an open table in a quiet corner of the room. You exchange a brief introduction, and the stranger begins to tell about his life.)"),
   ("npc_pict1_backstory_a", "(You follow the stranger to an open table in a quiet corner of the room. You exchange a brief introduction, and the stranger begins to tell about his life.)"),
   ("npc_paintrain_backstory_a", "Looking for men to join your company, you say? You think I look able? Able to what? Never mind. It's wrong of me to take my troubles out on a stranger. My apologies, sir."),
   ("npc_hammertime_backstory_a", "I was born in 615, the son of a Cymry Nobleman exiled after the catastrophic Battle of Caester in 613 and a Roman merchant's daughter. Born and raised in Rome, I grew up amidst the fallen ruins of empire, working with my mother's merchant family."),
@@ -1874,7 +1860,7 @@ strings = [
   #
   
   ("npc1_kingsupport_3", "If I could go about this land for a few weeks, telling the common folk that you will give amnesty to their kinfolk like the Roman -- ... hmn, consuls, I think -- of old -- well, they would start talking of you as a rightful King, and that would pave your way to the throne. Shall I do that, chief?"), #Osmund
-  ("npc_tradecompanion_kingsupport_2", "If you like, warlord, I can take a few weeks to visit the guildhalls and harbors where I have contacts, and explain to them that, in you, they will have a {king/ruler} who will check the rapacious nobles, who, with their tariffs and taxes, would strangle commerce for the sake of a few extra scillingas to spend on their wars and their feasts. What do you say to that, warlord?"), #Aleifr
+  ("npc_tradecompanion_kingsupport_3", "If you like, warlord, I can take a few weeks to visit the guildhalls and harbors where I have contacts, and explain to them that, in you, they will have a {king/ruler} who will check the rapacious nobles, who, with their tariffs and taxes, would strangle commerce for the sake of a few extra scillingas to spend on their wars and their feasts. What do you say to that, warlord?"), #Aleifr
   ("npclady1_kingsupport_3", "If you were to protect the poor slaves, even slave girls, I am sure most of the common people would see you as a kind and just {king/queen}. So, if you can give me a few weeks, I will travel the countryside, telling every poor man and woman that fear enslavement due to debt or war, that under your rule they would still have some protection and rights."), #Eithne
   ("npc_noblebriton_kingsupport_3", "Yes -- I think I have heard of that line. In fact, I can envision {his/her} entire genealogy. If you give me leave, 'Majesty', I shall travel about the villages and castles of Britannia and Hibernia over the next several weeks, spreading word of your royal birth. Of course, I would hope that you would remember your faithful subject, when it comes to distributing lands; and I also expect you to help me find my father, after you are a crowned and powerful {king/queen}."), #Athrwys
   ("npc5_kingsupport_3", "Anyway, {lord/lady}, if I could take a few weeks to let the men of Britannia and Hibernia know that when you are {king/queen} you will institute a common law, based on tradition and customs, to resolve the disputes within the realm, be they about nobles or commoners. I am pretty sure they will all be more than happy to support your claim, since you will bring unified justice to all the lands under your rule."), #Frioc
@@ -2288,9 +2274,6 @@ strings = [
   ("comment_you_helped_my_ally_spiteful",                     "I heard that you saved {s54} from a whipping. You should have let him learn his lesson, in my opinion."), 
   ("comment_you_helped_my_ally_chivalrous",                   "I heard that you got {s54} out of a tight spot. That was a noble dead."), 
   ("comment_you_helped_my_ally_default",                   "I heard that you got {s54} out of a tight spot. Good work!"), 
- 
-  ("comment_you_were_defeated_allied_unfriendly",             "I heard that {s54} defeated you. Look, try not to get too many of our men killed, will you?"), 
-  ("comment_you_were_defeated_allied",                        "I heard that {s54} defeated you. But take heart -- the tables will soon be turned!"), 
 
   ("comment_you_abandoned_us_unfriendly_spiteful",     "You worm! You left us alone to face {s54}, didn't you? I spit at you."), 
   ("comment_you_abandoned_us_unfriendly_pitiless",     "Well... You abandoned me in the middle of a battle with {s54}, didn't you? I'll see you buried in a traitor's grave."), 
@@ -2643,16 +2626,6 @@ strings = [
 
   ("and_comma_2", ". Moreover, "),
   ("but_comma_2", ". Nonetheless, "),
-
-
-  ("rebellion_agree_default",               "{!}[liege]"),
-  ("rebellion_agree_martial",               "I have decided. I will back {s45} as the rightful heir."),
-  ("rebellion_agree_quarrelsome",           "Ahh, I've thought long enough. I never did like {s46} much anyway. Let's go take his throne away from him."),
-  ("rebellion_agree_pitiless",              "You are fortunate. I have decided to join you. Pray do not give me cause to regret this decision."),
-  ("rebellion_agree_cunning",               "This is a most dangerous decision, but after careful consideration, I have decided that I will join you. Let's hope it is for the best."),
-  ("rebellion_agree_sadistic",              "I have decided. I will back your {reg3?woman:man} {s45}. But you'd best make sure that {reg3?she:he} rewards me well!"),
-  ("rebellion_agree_goodnatured",           "All right. I think your {reg3?woman:man} will be a good ruler. I'll join you."),
-  ("rebellion_agree_upstanding",            "So be it. My first duty is to this realm, and to save it from lawlessness I will back {s45} and renounce my homage to {s46}. May the Heavens forgive me if I do wrong."),
 
 
   ("rebellion_refuse_default",              "{!}[liege]"),
@@ -3282,8 +3255,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("reg0_dead", "{reg0} Dead"),
   ("bots_reg0_agents", "Bots ({reg0} agents)"),
   ("bot_1_agent", "Bot (1 agent)"),
-  ("score", "Score"),
-  ("score_reg0", "Score: {reg0}"),
   ("flags_reg0", "(Flags: {reg0})"),
   ("reg0_players", "({reg0} players)"),
   ("reg0_player", "({reg0} player)"),
@@ -3295,7 +3266,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("raise_ladder", "Raise Ladder"),
   ("drop_ladder", "Drop Ladder"),
 
-  ("back", "Back"),
   ("start_map", "Start Map"),
 
   ("choose_an_option", "Choose an option:"),
@@ -3325,7 +3295,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("choose_number_of_bots_for_team_reg0", "Choose number of bots for team {reg0}:"),
   ("spectator", "Spectator"),
   ("spectators", "Spectators"),
-  ("score", "Score"),
   ("command", "Command:"),
   ("profile_banner_selection_text", "Choose a banner for your profile:"),
   ("use_default_banner", "Use Faction's Banner"),
@@ -3340,7 +3309,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("us_", "Us "),
   ("allies_", "Allies "),
   ("enemies_", "Enemies "),
-  ("routed", "Routed"),
   ("weekly_budget", "Weekly Budget"),
   ("income_from_s0", "Income from {s0}:"),
   ("mercenary_payment_from_s0", "Mercenary payment from {s0}:"),
@@ -3422,7 +3390,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("reg4_killed_reg5_wounded", "{reg4} killed or seriously wounded, {reg5} minor wounded"),
   ("reg4_wounded_reg5_routed", "{reg4} minor wounded, {reg5} routed"),
 #cambia chief bajas realistas acaba
-  ("routed", "routed"),
   ("caravan_in_s10_considers_s11_total_price_dif_=_reg3", "{!}Caravan in {s10} considers {s11}, total price dif = {reg3}"),
   ("test__caravan_in_s3_selects_for_s4_trade_score_reg3", "{!}TEST - Caravan in {s3} selects for {s4}, trade score: {reg3}"),
   ("prisoner_relative_is_reg0", "{!}prisoner relative is {reg0}"),
@@ -3520,7 +3487,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("trade_explanation_leatherwork", "I work in the tanneries outside the walls, turning cured hides from the countryside into good, supple leather. It's foul work, and I come home stinking of urine, dung, and lime -- but that's where your boots, saddles, and bridles come from, {sir/my lady}."),
   ("trade_explanation_flax", "I sew and harvest linseed, and rot the stems to make flax fibers. That's the source of your fine linens, {sir/my lady} -- a rotting pit on the edge of a field."),
   ("trade_explanation_dates", "I tend to a grove of date palms. I hope you don't mind me saying so, but it takes great skill to tend them, as we must climb to the tops of the palms to ensure that the trees will flower. We export the fruit far and wide, as they keep for many months when properly dried. As sweet as honey, and they grant the eater health and strength."),
-  ("trade_explanation_dates", "I tend to a grove of date palms. We grow them using well-water, and export the fruit far and wide, as they keep for many months when properly dried. As sweet as honey, and they grant the eater health and vigor."),
   ("trade_explanation_olives", "I tend to a grove of olive trees. You can eat the fruit or preserve it in brine, but we end up sending most of it to be pressed, to be made into oil."),
   
   
@@ -3697,7 +3663,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("i_am_not_swayed_by_promises_of_reward", "I am not swayed by promises of reward"),
   ("you_speak_of_unifying_calradia_it_would_be_good_to_bring_peace_to_the_realm_and_i_believe_that_you_are_strong_enough_to_do_so", "You speak of unifying Britannia. It would be good to bring peace to the realm, and I believe that you are strong enough to do so."),
   ("you_speak_of_unifying_calradia_it_would_be_good_to_bring_peace_the_realm_but_with_your_kingdom_in_its_current_state_i_worry_that_you_are_just_bringing_more_discord", "You speak of unifying Britannia. It would be good to bring peace the realm, but with your Kingdom in its current state, I worry that you are just bringing more discord."),
-  ("s15", "{!}{s15"),
   ("my_s11_s15", "my {s11} {s15}"),
   ("stop_gap__s15_is_the_rival_of_s16", "{!}[STOP GAP - {s15} is the rival of {s16}"),
   ("my_s11_s18", "My {s11} {s18}"),
@@ -4204,9 +4169,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   #("bring_peace_reg3", "Bring peace: {reg3}"),
   #("only_best_counsel_reg3", "Only best counsel: {reg3}"),
   #("reward_lords_reg3", "Reward lords: {reg3}"),
-  ("he", "he"),
   ("king", "king"),
-  ("she", "she"),
   ("queen", "queen"),
   ("khan", "King"), #cambiado chief
   ("i", "I"),
@@ -4328,7 +4291,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("good_i_am_glad_that_you_have_abandoned_the_notion_of_pushing_me_into_marriage_before_i_was_ready", "Good! I am glad that you have abandoned the notion of pushing me into marriage before I was ready."),
   ("rival_found_s4_reg0_relation", "{!}DEBUG : Rival found: {s4} ({reg0} relation)"),
   ("i_am", "I am"),
-  ("s12", "{!}{s12},"),
   ("s12_s11_to_s14", "{s12} {s11} to {s14}"),
   ("s12", "{!}{s12}."),
   ("s12_i_am_here_for_the_feast", "{s12}. I am here for the feast."),
@@ -4356,7 +4318,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s14and_other_goods", "{s14}and other goods."),
   ("_have_you_not_signed_a_truce_with_our_lord", " Have you not signed a truce with our lord?"),
   ("parole", "parole"),
-  ("normal", "normal"),
   ("s51", "{!}{s51}"),
   ("_meanwhile_s51_reg2areis_being_held_in_the_castle_but_reg2havehas_made_pledges_not_to_escape_and_reg2areis_being_held_in_more_comfortable_quarters", " Meanwhile, {s51} {reg2?are:is} being held in the castle, but {reg2?have:has} made pledges not to escape, and {reg2?are:is} being held in more comfortable quarters."),
   ("you_may_be_aware_my_lord_of_the_quarrel_between_s4_and_s5_which_is_damaging_the_unity_of_this_realm_and_sapping_your_authority_if_you_could_persuade_the_lords_to_reconcile_it_would_boost_your_own_standing_however_in_taking_this_on_you_run_the_risk_of_one_the_lords_deciding_that_you_have_taken_the_rivals_side", "You may be aware, {sire/my lady}, of the quarrel between {s4} and {s5} which is damaging the unity of this realm and sapping your authority. If you could persuade the lords to reconcile, it would boost your own standing. However, in taking this on, you run the risk of one the lords deciding that you have taken the rival's side."),
@@ -4440,7 +4401,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 
 #STRINGS ADDED AFTER THE FREEZE
   ("feast_quest_expired", "You were unable to hold a feast as planned. Most likely, major faction campaigns or other events intervened. You may attempt to hold the feast again, if you wish."),
-  ("whereabouts_unknown", "Whereabouts unknown."),
   ("mulberry_groves", "acres of mulberry groves"),
   ("olive_groves", "acres of olive groves"),
   ("acres_flax", "acres of flax fields"),
@@ -4572,11 +4532,8 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("s21_the_s8_declared_war_to_curb_the_other_realms_power", "{s21} The {s8} declared war to curb the other realm's power"),
   ("s21_the_s8_declared_war_to_regain_lost_territory", "{s21} The {s8} declared war to regain lost territory"),
 
-  ("_family_", "^Family: "),
-
   ("we_are_conducting_recce", "We will first scout the area, and then decide what to do."),
-  
-  ("_family_", "^Family:"),
+
   ("s49_s12_s11_end", "{s49} {s12} ({s11})."),
   
   ("center_party_not_active", "is not our target, because we don't have a leader who has taken the field."),
@@ -4757,8 +4714,7 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("whereabouts_unknown", "whereabouts unknown"),
   
   ("none_yet_gathered", "{!}None yet gathered"),
-  
-  ("betrothed", " Betrothed "),
+
   ("leading_party", "leading a party"),
   ("court_disbanded", "As you no longer rule an independent realm, your court has been disbanded"), 
   ("i_am_not_accompanying_the_marshal_because_will_be_reappointment", " I am not accompanying the marshal, because I suspect that our ruler will shortly appoint another to that post."),

@@ -4743,7 +4743,7 @@ scripts = [
           (gt, ":num_relations", 0),
           (try_begin),
             (eq, ":troop_no", "trp_player"),
-            (str_store_string, s49, "str__family_"),
+            (str_store_string, s49, "@^Family:"),
           (else_try),
             (troop_get_slot, reg1, ":troop_no", slot_troop_age),
             (str_store_string, s49, "str__age_reg1_family_"),
@@ -18759,7 +18759,7 @@ scripts = [
            (str_store_string, s2, "str_reg1_blank_s3"),
          (else_try), #there are people who only routed.
            (assign, reg1, ":num_routed"),
-           (str_store_string, s3, "str_routed"),
+           (str_store_string, s3, "@routed"),
            (str_store_string, s2, "str_reg1_blank_s3"),
          (try_end),
          (try_begin),
@@ -18816,7 +18816,7 @@ scripts = [
          (gt, ":total_wounded", 0),
          (str_store_string, s2, "@minor wounded"), #chief cambia bajas realistas
        (else_try),
-         (str_store_string, s2, "str_routed"),
+         (str_store_string, s2, "@routed"),
        (else_try),
        (try_end),
        (str_store_string, s0, "@{s0}^TOTAL: {reg3} ({s2})"),

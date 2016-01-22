@@ -17849,7 +17849,7 @@ Wes gesund.", "Cundwalh_historia5", []],
      (troop_get_slot, ":recruitment_candidate", "$g_talk_troop", slot_lord_recruitment_candidate),
 	 (try_begin),
        (troop_get_type, ":is_female", ":recruitment_candidate"),
-       (str_store_string, s45, "str_he"),
+       (str_store_string, s45, "@he"),
        (str_store_string, s47, "str_king"),
 		
        (try_begin),
@@ -17859,7 +17859,7 @@ Wes gesund.", "Cundwalh_historia5", []],
        (this_or_next|eq, ":is_female", 5), #male
        (eq, ":is_female", 7), #male
 #gender fix chief acaba
-         (str_store_string, s45, "str_she"),
+         (str_store_string, s45, "@she"),
          (str_store_string, s47, "str_queen"),
        (try_end),
      

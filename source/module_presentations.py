@@ -6284,7 +6284,7 @@ presentations = [
         (overlay_set_size, reg0, pos1),      
 
         (team_get_score, reg0, ":i_team"),
-        (create_text_overlay, reg0, "str_score_reg0", tf_right_align),
+        (create_text_overlay, reg0, "@Score: {reg0}", tf_right_align),
         (overlay_set_color, reg0, 0xFFFFFF),
         (store_add, ":sub_cur_x", ":cur_x", 325), #325
         (store_add, ":sub_cur_y", ":cur_y", 0),
@@ -6330,7 +6330,7 @@ presentations = [
         (try_begin), #at headquarters and capture the flag write score instead before kill count
           (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_capture_the_flag),
           (eq, "$g_multiplayer_game_type", multiplayer_game_type_headquarters),      
-          (create_text_overlay, reg0, "str_score", 0),
+          (create_text_overlay, reg0, "@Score", 0),
           (overlay_set_color, reg0, 0xFFFFFF),
           (store_add, ":sub_cur_x", ":cur_x", 138),
           (position_set_x, pos1, ":sub_cur_x"),
@@ -9898,7 +9898,7 @@ presentations = [
         (create_text_overlay, "$g_presentation_obj_battle_24", "str_enemies_", 0),
         (create_text_overlay, "$g_presentation_obj_battle_25", "@Ready", tf_center_justify),
         (create_text_overlay, "$g_presentation_obj_battle_26", "@Wounded", tf_center_justify),
-        (create_text_overlay, "$g_presentation_obj_battle_28", "str_routed", tf_center_justify),
+        (create_text_overlay, "$g_presentation_obj_battle_28", "@Routed", tf_center_justify),
         (create_text_overlay, "$g_presentation_obj_battle_27", "@Dead", tf_center_justify),
 
         (create_text_overlay, "$g_battle_us_ready", s7, tf_center_justify),
