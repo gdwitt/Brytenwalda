@@ -506,4 +506,412 @@ scripts = [
             (call_script, "script_diplomacy_start_war_between_kingdoms", ":cur_kingdom", ":kingdom_b", logent_faction_declares_war_to_fulfil_pact),
         (try_end),
     ]),
+
+    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
+    # Output: none
+    ("diplomacy_start_peace_between_kingdoms", [
+        (store_script_param, ":kingdom_a", 1),
+        (store_script_param, ":kingdom_b", 2),
+        (store_script_param, ":initializing_war_peace_cond", 3), #set to 1 if not the start of the game
+
+        (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+        (val_max, ":relation", 0),
+        (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
+        (call_script, "script_exchange_prisoners_between_factions", ":kingdom_a", ":kingdom_b"),
+
+        (try_begin),
+            (eq, "$players_kingdom", ":kingdom_a"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
+            (val_max, ":relation", 0),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", "fac_player_supporters_faction"), #event cancels certain quests
+        (else_try),
+            (eq, "$players_kingdom", ":kingdom_b"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
+            (val_max, ":relation", 0),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", "fac_player_supporters_faction"), #event cancels certain quests
+        (try_end),
+
+        (try_for_range, ":cur_center", centers_begin, centers_end),
+            (store_faction_of_party, ":faction_no", ":cur_center"),
+            (this_or_next|eq, ":faction_no", ":kingdom_a"),
+            (eq, ":faction_no", ":kingdom_b"),
+            (party_get_slot, ":besieger_party", ":cur_center", slot_center_is_besieged_by),
+            (ge, ":besieger_party", 0), #town is under siege
+            (party_is_active, ":besieger_party"),
+            (store_faction_of_party, ":besieger_party_faction_no", ":besieger_party"),
+            (this_or_next|eq, ":besieger_party_faction_no", ":kingdom_a"),
+            (eq, ":besieger_party_faction_no", ":kingdom_b"),
+            (call_script, "script_lift_siege", ":cur_center", 0),
+        (try_end),
+
+        (try_begin),
+            (this_or_next|eq, "$players_kingdom", ":kingdom_a"),
+            (eq, "$players_kingdom", ":kingdom_b"),
+
+            (ge, "$g_player_besiege_town", 0),
+            (party_is_active, "$g_player_besiege_town"),
+
+            (store_faction_of_party, ":besieged_center_faction_no", "$g_player_besiege_town"),
+
+            (this_or_next|eq, ":besieged_center_faction_no", ":kingdom_a"),
+            (eq, ":besieged_center_faction_no", ":kingdom_b"),
+
+            (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
+            (assign, "$g_player_besiege_town", -1),
+        (try_end),
+
+        (try_begin),
+            (eq, ":initializing_war_peace_cond", 1),
+            (str_store_faction_name_link, s1, ":kingdom_a"),
+            (str_store_faction_name_link, s2, ":kingdom_b"),
+            (display_log_message, "@{s1} and {s2} have made peace with each other.", color_quest_and_faction_news),
+            (call_script, "script_add_notification_menu", "mnu_notification_peace_declared", ":kingdom_a", ":kingdom_b"), #stability penalty for early peace is in the menu        
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
+            (assign, "$g_recalculate_ais", 1),
+        (try_end),
+
+        # add truce
+        (try_begin),
+            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_truce_days_initial),
+
+            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_truce_days_initial),
+            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
+            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
+            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
+            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
+        (try_end),
+    ]),
+
+    # 20 days alliance, 40 days truce after that
+    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
+    # Output: none
+    ("dplmc_start_alliance_between_kingdoms", [
+        (store_script_param, ":kingdom_a", 1),
+        (store_script_param, ":kingdom_b", 2),
+        (store_script_param, ":initializing_war_peace_cond", 3),
+
+        (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+        (val_add, ":relation", 15),
+        (val_max, ":relation", 40),
+        (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
+        (call_script, "script_exchange_prisoners_between_factions", ":kingdom_a", ":kingdom_b"),
+
+        (try_begin),
+            (eq, "$players_kingdom", ":kingdom_a"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
+            (val_add, ":relation", 15),
+            (val_max, ":relation", 40),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
+        (else_try),
+            (eq, "$players_kingdom", ":kingdom_b"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
+            (val_add, ":relation", 15),
+            (val_max, ":relation", 40),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
+        (try_end),
+
+        (try_begin),
+            (eq, ":initializing_war_peace_cond", 1),
+            (str_store_faction_name_link, s1, ":kingdom_a"),
+            (str_store_faction_name_link, s2, ":kingdom_b"),
+            (display_log_message, "@{s1} and {s2} have entered into an alliance with each other."),
+
+            (call_script, "script_add_notification_menu", "mnu_dplmc_notification_alliance_declared", ":kingdom_a", ":kingdom_b"), #stability penalty for early peace is in the menu
+
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
+            (assign, "$g_recalculate_ais", 1),
+        (try_end),
+
+        #add truce
+        (try_begin),
+            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+
+            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_alliance_days_initial),
+
+            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+
+            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_alliance_days_initial),
+
+            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
+            (faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
+
+            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
+
+            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
+            (faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
+
+            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
+        (try_end),
+
+        # share wars
+        (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
+            (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+            (neq, ":kingdom_a", ":faction_no"),
+            (neq, ":kingdom_b", ":faction_no"),
+            (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction",":kingdom_a", ":faction_no"),
+            #result: -1 faction_1 has a casus belli against faction_2. 1, faction_1 has a truce with faction_2, -2, the two factions are at war
+            (eq, reg0, -2),
+            (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction",":kingdom_b", ":faction_no"),
+            (ge, reg0, -1),
+
+            # todo: is this block needed?
+            # MOTO build explanation string chief
+            (assign, "$g_last_acting_faction", ":kingdom_b"),
+            (assign, "$g_last_target_faction", ":faction_no"),
+            (str_store_faction_name, s15, ":kingdom_b"),
+            (str_store_faction_name, s16, ":faction_no"),
+            (str_store_string, s64, "@{s15} complies with the new alliance by attacking {s16}."),
+            # MOTO build explanation string end
+            (call_script, "script_diplomacy_start_war_between_kingdoms", ":kingdom_b", ":faction_no", logent_faction_declares_war_to_fulfil_pact),
+        (try_end),
+
+        # todo: this block is a code of the previous; make it a Python function
+        (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
+            (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+            (neq, ":kingdom_a", ":faction_no"),
+            (neq, ":kingdom_b", ":faction_no"),
+            (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction",":kingdom_b", ":faction_no"),
+            #result: -1 faction_1 has a casus belli against faction_2. 1, faction_1 has a truce with faction_2, -2, the two factions are at war
+            (eq, reg0, -2),
+            (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction",":kingdom_a", ":faction_no"),
+            (ge, reg0, -1),
+            # MOTO build explanation string chief
+            (assign, "$g_last_acting_faction", ":kingdom_a"),
+            (assign, "$g_last_target_faction", ":faction_no"),
+            (str_store_faction_name, s15, ":kingdom_a"),
+            (str_store_faction_name, s16, ":faction_no"),
+            (str_store_string, s64, "@{s15} complies with the new alliance by attacking {s16}."),
+            # MOTO build explanation string end
+            (call_script, "script_diplomacy_start_war_between_kingdoms", ":kingdom_a", ":faction_no", logent_faction_declares_war_to_fulfil_pact),
+        (try_end),
+    ]),
+
+    #script_dplmc_start_defensive_between_kingdoms, 20 days defensive: 20 days trade aggreement, 20 days non-aggression after that
+    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
+    # Output: none
+    ("dplmc_start_defensive_between_kingdoms", [
+        (store_script_param, ":kingdom_a", 1),
+        (store_script_param, ":kingdom_b", 2),
+        (store_script_param, ":initializing_war_peace_cond", 3),
+
+        (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+        (val_add, ":relation", 10),
+        (val_max, ":relation", 30),
+        (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
+        (call_script, "script_exchange_prisoners_between_factions", ":kingdom_a", ":kingdom_b"),
+
+        (try_begin),
+            (eq, "$players_kingdom", ":kingdom_a"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
+            (val_add, ":relation", 10),
+            (val_max, ":relation", 30),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
+        (else_try),
+            (eq, "$players_kingdom", ":kingdom_b"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
+            (val_add, ":relation", 10),
+            (val_max, ":relation", 30),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
+        (try_end),
+
+        (try_begin),
+            (eq, ":initializing_war_peace_cond", 1),
+            (str_store_faction_name_link, s1, ":kingdom_a"),
+            (str_store_faction_name_link, s2, ":kingdom_b"),
+            (display_log_message, "@{s1} and {s2} have concluded a defensive pact with each other."),
+
+            #stability penalty for early peace is in the menu
+            #(call_script, "script_add_notification_menu", "mnu_dplmc_notification_defensive_declared", ":kingdom_a", ":kingdom_b"),
+
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
+            (assign, "$g_recalculate_ais", 1),
+        (try_end),
+
+        # todo: this block is a copy of another block somewhere up. MAke both a result of a Python function
+        # add truce
+        (try_begin),
+            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_defense_days_initial),
+
+            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_defense_days_initial),
+
+            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
+            (faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
+            (try_begin),
+                (lt, ":damage_inflicted_by_a", 100),
+                #controversial policy
+            (try_end),
+            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
+
+            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
+            (faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
+            (try_begin),
+                (lt, ":damage_inflicted_by_b", 100),
+                #controversial policy
+            (try_end),
+            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
+        (try_end),
+    ]),
+
+    # 20 days trade aggreement, 20 days non-aggression after that
+    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
+    # Output: none
+    ("dplmc_start_trade_between_kingdoms", [
+        (store_script_param, ":kingdom_a", 1),
+        (store_script_param, ":kingdom_b", 2),
+        (store_script_param, ":initializing_war_peace_cond", 3),
+
+        (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+        (val_add, ":relation", 5),
+        (val_max, ":relation", 20),
+        (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
+        (call_script, "script_exchange_prisoners_between_factions", ":kingdom_a", ":kingdom_b"),
+
+        (try_begin),
+            (eq, "$players_kingdom", ":kingdom_a"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
+            (val_add, ":relation", 5),
+            (val_max, ":relation", 20),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
+        (else_try),
+            (eq, "$players_kingdom", ":kingdom_b"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
+            (val_add, ":relation", 5),
+            (val_max, ":relation", 20),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
+        (try_end),
+
+        (try_begin),
+            (eq, ":initializing_war_peace_cond", 1),
+            (str_store_faction_name_link, s1, ":kingdom_a"),
+            (str_store_faction_name_link, s2, ":kingdom_b"),
+            (display_log_message, "@{s1} and {s2} have concluded a trade agreement with each other."),
+
+            #stability penalty for early peace is in the menu
+            #(call_script, "script_add_notification_menu", "mnu_dplmc_notification_trade_declared", ":kingdom_a", ":kingdom_b"),
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
+            (assign, "$g_recalculate_ais", 1),
+        (try_end),
+
+        # todo: this is a copy of code above. Make a it a common function
+        #add truce
+        (try_begin),
+            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_trade_days_initial),
+
+            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_trade_days_initial),
+
+            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
+            (faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
+            (try_begin),
+                (lt, ":damage_inflicted_by_a", 100),
+                #controversial policy
+            (try_end),
+            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
+
+            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
+            (faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
+            (try_begin),
+                (lt, ":damage_inflicted_by_b", 100),
+                #controversial policy
+            (try_end),
+            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
+        (try_end),
+    ]),
+
+    # 20 days non-aggression
+    # Input: arg1 = kingdom_1, arg2 = kingdom_2, arg3 = initializing_war_peace_cond
+    # Output: none
+    ("dplmc_start_nonaggression_between_kingdoms", [
+        (store_script_param, ":kingdom_a", 1),
+        (store_script_param, ":kingdom_b", 2),
+        (store_script_param, ":initializing_war_peace_cond", 3),
+
+        (store_relation, ":relation", ":kingdom_a", ":kingdom_b"),
+        (val_add, ":relation", 3),
+        (val_max, ":relation", 10),
+        (set_relation, ":kingdom_a", ":kingdom_b", ":relation"),
+        (call_script, "script_exchange_prisoners_between_factions", ":kingdom_a", ":kingdom_b"),
+
+        (try_begin),
+            (eq, "$players_kingdom", ":kingdom_a"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_b"),
+            (val_add, ":relation", 3),
+            (val_max, ":relation", 10),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_b", ":relation"),
+        (else_try),
+            (eq, "$players_kingdom", ":kingdom_b"),
+            (store_relation, ":relation", "fac_player_supporters_faction", ":kingdom_a"),
+            (val_add, ":relation", 3),
+            (val_max, ":relation", 10),
+            (call_script, "script_set_player_relation_with_faction", ":kingdom_a", ":relation"),
+        (try_end),
+
+        (try_begin),
+            (eq, ":initializing_war_peace_cond", 1),
+            (str_store_faction_name_link, s1, ":kingdom_a"),
+            (str_store_faction_name_link, s2, ":kingdom_b"),
+            (display_log_message, "@{s1} and {s2} have agreed to a non-aggression pact."),
+
+            #(call_script, "script_add_notification_menu", "mnu_dplmc_notification_nonaggression_declared", ":kingdom_a", ":kingdom_b"),
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_a", ":kingdom_b"), #cancels quests
+            (call_script, "script_event_kingdom_make_peace_with_kingdom", ":kingdom_b", ":kingdom_a"), #cancels quests
+            (assign, "$g_recalculate_ais", 1),
+        (try_end),
+
+        #add truce
+        (try_begin),
+            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+            (faction_set_slot, ":kingdom_b", ":truce_slot", dplmc_treaty_truce_days_initial),
+
+            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+            (val_sub, ":truce_slot", kingdoms_begin),
+            (faction_set_slot, ":kingdom_a", ":truce_slot", dplmc_treaty_truce_days_initial),
+
+            (store_add, ":slot_war_damage_inflicted_on_b", ":kingdom_b", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
+            (faction_get_slot, ":damage_inflicted_by_a", ":kingdom_a", ":slot_war_damage_inflicted_on_b"),
+            (try_begin),
+                (lt, ":damage_inflicted_by_a", 100),
+                #controversial policy
+            (try_end),
+            (faction_set_slot, ":kingdom_a", ":slot_war_damage_inflicted_on_b", 0),
+
+            (store_add, ":slot_war_damage_inflicted_on_a", ":kingdom_a", slot_faction_war_damage_inflicted_on_factions_begin),
+            (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
+            (faction_get_slot, ":damage_inflicted_by_b", ":kingdom_b", ":slot_war_damage_inflicted_on_a"),
+            (try_begin),
+                (lt, ":damage_inflicted_by_b", 100),
+                #controversial policy
+            (try_end),
+            (faction_set_slot, ":kingdom_b", ":slot_war_damage_inflicted_on_a", 0),
+        (try_end),
+    ]),
 ]
