@@ -830,7 +830,6 @@ meshes = [
   ("quit_adv", 0, "quit_adv", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("quit_adv_b", 0, "quit_adv_b", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 
-  ("ui_kingdom_shield_7", 0, "ui_kingdom_shield_7", 0, 0, 0, 0, 0, 0, 1, 1, 1),  
   ("flag_project_rb", 0, "flag_project_rb", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("flag_project_rb_miss", 0, "flag_project_rb_miss", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mp_ui_host_maps_16", 0, "mp_ui_host_maps_d1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
@@ -854,16 +853,10 @@ meshes = [
   ("status_health_bar", 0, "status_health_bar", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("game_log_window", 0, "game_log_window", 0.005, 0.005, 0, 0, 0, 0, 1, 1, 1),
   ("restore_game_panel", 0, "restore_game_panel", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  ("message_window", 0, "message_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("party_window_b", 0, "party_window_b", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("party_member_button", 0, "party_member_button", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("party_member_button_pressed", 0, "party_member_button_pressed", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-#TEMPERED CHANGES END  
-##diplomacy chief begin
-  ("longer_button", 0, "longer_button", 0, 0, 0, 0, 0, 0, 0.4, 0.5, 0.5),
-  ("longer_button_down", 0, "longer_button_down", 0, 0, 0, 0, 0, 0, 0.4, 0.5, 0.5),
-##diplomacy end
-    #### CC Chief
+
     ("button_1", 0, "button1_up", 0, 0, 0, 0, 0, 0, 0.3, 0.3, 0.3),
   ("button_1_down", 0, "button1_down", 0, 0, 0, 0, 0, 0, 0.3, 0.3, 0.3),
 
@@ -943,10 +936,8 @@ meshes = [
   ("num_48", 0, "num_48", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 ## CC chief acaba
     # Jrider + chief presentations
-  ("message_window", 0, "message_window", 0, 0, 0, 0, 0, 0, 0.8, 0.5, 0.5), # in core_ui_meshes.brf
   ("face_gen_window", 0, "face_gen_window", 0, 0, 0, 0, 0, 0, 1, 1, 1), # in user_interface_b.brf, automatically loaded
   ("order_frame", 0, "order_frame", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  ("pic_payment1", 0, "pic_payment1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   # Jrider -
 #otros chief
   ("siegeplan", 0, "siegeplan", 0, 0, 0, 0, 0, 0, 1, 1, 1),

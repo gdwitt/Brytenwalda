@@ -4024,7 +4024,6 @@ scene_props = [
 ###  ("ram_wheel", sokf_moveable, "ram_wheel", 0, []),
 ##    ("ram_wheel", sokf_moveable, "ram_wheel", "bo_ram_wheel", []),
 ####siege warfare chief ram acaba
-  ("skeleton_head",0,"skeleton_head","0", []),
   ("skull",0,"skull","0", []), #chief barf
 
   #SoT chief scene props
@@ -4046,7 +4045,7 @@ scene_props = [
   ("palisade_c1",0,"palisade_c1","bo_palisade_c1", [
     (ti_on_init_scene_prop,[(assign, ":durability", never_broken),(store_trigger_param_1, ":instance_no"),(call_script, "script_flammable_object_initialize", ":instance_no", ":durability",0),]),
     (ti_on_scene_prop_hit,[(assign, ":flammability", 10),(store_trigger_param_1, ":instance_no"),(call_script, "script_cf_flammable_object_hit", ":instance_no", pos1,":flammability")])]),
-  ("palisade_b2",0,"palisade_c2","bo_palisade_c2", [
+  ("palisade_c2",0,"palisade_c2","bo_palisade_c2", [
     (ti_on_init_scene_prop,[(assign, ":durability", never_broken),(store_trigger_param_1, ":instance_no"),(call_script, "script_flammable_object_initialize", ":instance_no", ":durability",0),]),
     (ti_on_scene_prop_hit,[(assign, ":flammability", 10),(store_trigger_param_1, ":instance_no"),(call_script, "script_cf_flammable_object_hit", ":instance_no", pos1,":flammability")])]),
   ("palisade_door_a",0,"palisade_door_a","bo_palisade_door_a", [

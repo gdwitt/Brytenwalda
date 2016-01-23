@@ -66735,7 +66735,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   ("player_attempt_formation", [
 	(store_script_param, ":fdivision", 1),
 	(store_script_param, ":fformation", 2),
-	(store_script_param, ":form_on_spot", 3),
+	# todo: Fix "player_attempt_formation": ":form_on_spot" not being used.
+	#(store_script_param, ":form_on_spot", 3),
 	(set_fixed_point_multiplier, 100),
 	(try_begin),
 		(eq, ":fformation", formation_ranks),
@@ -68032,15 +68033,16 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 # 		(get_distance_between_positions, ":enemy_formation_speed", Speed_Pos, Temp_Pos),
 # 		(val_mul, ":enemy_formation_speed", formation_reform_interval),	#calculate distance to next call
 # (try_end),
- ##commond error:At script: battlegroup_get_attack_destination. At script: battlegroup_get_attack_destination. SCRIPT WARNING ON OPCODE 1689: Invalid Agent ID: 0; LINE NO: 64: 
-		(try_begin),
-			(position_is_behind_position, ":bgposition", Enemy_Team_Pos),	#attacking from rear?
-			(val_add, ":distance_to_move", ":enemy_formation_speed"),	#catch up to anticipated position
-		(else_try),	#attacking enemy formation from front
-			(store_add, ":slot", slot_team_d0_in_melee, ":bgdivision"),
-			(team_slot_eq, ":bgteam", ":slot", 0),
-			(val_sub, ":distance_to_move", ":enemy_formation_speed"),	#avoid overrunning enemy
-		(try_end),
+ ##commond error:At script: battlegroup_get_attack_destination. At script: battlegroup_get_attack_destination. SCRIPT WARNING ON OPCODE 1689: Invalid Agent ID: 0; LINE NO: 64:
+  # todo: fix "battlegroup_get_attack_destination": `:enemy_formation_speed` not used.
+		#(try_begin),
+		#	(position_is_behind_position, ":bgposition", Enemy_Team_Pos),	#attacking from rear?
+		#	(val_add, ":distance_to_move", ":enemy_formation_speed"),	#catch up to anticipated position
+		#(else_try),	#attacking enemy formation from front
+		#	(store_add, ":slot", slot_team_d0_in_melee, ":bgdivision"),
+		#	(team_slot_eq, ":bgteam", ":slot", 0),
+		#	(val_sub, ":distance_to_move", ":enemy_formation_speed"),	#avoid overrunning enemy
+		#(try_end),
 	#(try_end),
 
 	(store_add, ":slot", slot_team_d0_front_weapon_length, ":bgdivision"),

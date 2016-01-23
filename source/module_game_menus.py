@@ -263,6 +263,7 @@ town_menu_options = [
             (try_begin), #chief anadido
         (this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"), #chief anadido player es lord de la ciudad
      (troop_slot_ge, "trp_player", slot_troop_renown, 30), #chief anadido
+          # todo: fix this part of the code
           (try_begin),
              (this_or_next|eq, "$all_doors_locked", 1),
              (eq, "$sneaked_into_town", 1),
@@ -290,7 +291,7 @@ town_menu_options = [
              (jump_to_scene, ":cur_scene"),
              (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
               (eq, ":cur_scene", "scn_town_6_castle"),#gdw
-              (assign, ":cur_entry", 10),
+              #(assign, ":cur_entry", 10),
               (set_visitor, 10, "trp_antler"),
              (try_end),
        (try_end),#gdw is this correct? it seems it will cut off the message below
@@ -4290,58 +4291,6 @@ game_menus = game_start.first_menus + [
       ]
   ),
 
-    #### export/import NPCs begin chief ####
-      ("export_import_npcs", mnf_enable_hot_keys,
-       "Please choose an NPC, then press key C to view and export/import this character.^^You choose {reg0?{s0}:none}.",
-       "none",
-        [
-          (assign, reg0, "$g_player_troop"),
-          (str_store_troop_name, s0, "$g_player_troop"),
-        ],
-        [
-          ("export_import_back",[],"Go back",
-            [
-              (assign, "$g_player_troop", "trp_player"),
-              (set_player_troop, "$g_player_troop"),
-              (jump_to_menu, "mnu_camp_action"),
-            ]
-          ),
-        ]+[("export_import_npc"+str(x+1),
-            [
-              (store_add, ":dest_npc", "trp_npc1", x),
-              (str_store_troop_name, s0, ":dest_npc"),
-            ], "{s0}",
-            [
-              (store_add, ":dest_npc", "trp_npc1", x),
-              (assign, "$g_player_troop", ":dest_npc"),
-              (set_player_troop, "$g_player_troop"),
-            ]) for x in range(0, 13)]+[
-          ("export_import_next",[],"Next page", [(jump_to_menu, "mnu_export_import_npcs_2")]),
-        ]
-      ),
-     
-      ("export_import_npcs_2", mnf_enable_hot_keys,
-        "Please choose an NPC, then press key C to view and export/import this character.^^You choose {reg0?{s0}:none}.",
-        "none",
-         [
-           (assign, reg0, "$g_player_troop"),
-           (str_store_troop_name, s0, "$g_player_troop"),
-         ],
-        [
-          ("export_import_prev",[],"Previous page", [(jump_to_menu, "mnu_export_import_npcs")]),
-        ]+[("export_import_npc"+str(x+1),
-          [
-            (store_add, ":dest_npc", "trp_npc1", x),
-            (str_store_troop_name, s0, ":dest_npc"),
-          ], "{s0}",
-          [
-            (store_add, ":dest_npc", "trp_npc1", x),
-            (assign, "$g_player_troop", ":dest_npc"),
-            (set_player_troop, "$g_player_troop"),
-          ]) for x in range(13, 26)]
-      ),
-    #### export/import NPCs end ####
-  
   ("retirement_verify",0,
    "You are at day {reg0}. Your current luck is {reg1}. Are you sure you want to retire?",
    "none",
@@ -10715,7 +10664,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
       ),
      ]
  ),
- ("coatb_herd_kill_end",0,
+ ("coat_herd_kill_end",0,
   "You shouldn't be reading this.",
   "none",
   [(change_screen_return)],
@@ -22206,6 +22155,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            # (val_mul, ":income", ":reputation"),
            # (val_sub, ":income", ":reputation"),
            #MOTO tweak entertainment end
+           # todo: Fix "perform music" script". E.g. ":income" was not defined, now is 0
+           (assign, ":income", 0),
            (call_script, "script_entertain_income", ":income", ":entertain_income_type"),
            (call_script, "script_entertain_income", ":incomeper", ":entertain_income_type2"),
            (assign, "$entertainment_last_center", "$current_town"),

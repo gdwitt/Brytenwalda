@@ -83,7 +83,6 @@ party_templates = [
   ("patrol_party","Patrol",LazyFlag("icon_gray_knight")|carries_goods(2)|pf_show_faction,0,"fac_commoners",soldier_personality,[]),
   ("patrols_end","Patrol",LazyFlag("icon_gray_knight"),0,"fac_player_faction",aggressiveness_0|courage_15,[]),
   ##  NEW PATROLS somebody chief patrullas
-  ("player_loot_wagon","Supply Wagon",LazyFlag("icon_mule")|pf_show_faction,0,"fac_commoners",escorted_merchant_personality,[]), #Tempered chief added player loot wagon
 #  ("war_party", "War Party",LazyFlag("icon_gray_knight")|carries_goods(3),0,"fac_commoners",soldier_personality,[]),
   ("messenger_party","Messenger",LazyFlag("icon_gray_knight")|pf_show_faction,0,"fac_commoners",merchant_personality,[]),
   ("raider_party","Raiders",LazyFlag("icon_gray_knight")|carries_goods(16)|pf_quest_party,0,"fac_outlaws",bandit_personality,[]),

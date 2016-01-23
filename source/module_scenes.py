@@ -2520,8 +2520,6 @@ scenes = [
    [],[]),
   ("quarry1",sf_generate,"none", "none", (0,0),(240,240),-0.5,"0x00000002200005000005f57b00005885000046bd00006d9c",
     [],[], "outer_terrain_plain"),
-  ("hadrian_wall",sf_generate,"none", "none", (0,0),(100,100),-100,"0x0000000230084fac00057d5f00002ba900004a7a000060be",
-    [],[],"outer_terrain_plain"),
   ("odin_cave",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000000300b8b130002308c000073d30000307c0000127e",
     [],[],"outer_terrain_steppe"),
 #chief especiales acaba
