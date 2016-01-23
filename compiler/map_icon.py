@@ -35,8 +35,6 @@ class MapIcon(GenericEntity):
             self._offset = (offset_x, offset_y, offset_z)
 
     def export(self, compiler):
-        #todo: why is it `compiler.get_index(*self._sound.split('_', 1))` instead
-        # of `compiler._get_identifier_value(self._sound)`?
         if isinstance(self._sound, int):
             sound_index = self._sound
         else:

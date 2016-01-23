@@ -39,6 +39,10 @@ class Compiler(object):
         # frequency of entity variables used. Populated during `compile`.
         self._all_used_entities = defaultdict(int)
 
+        # The current statement being processed by process_statement_block.
+        # this is used to have more informative log messages
+        self._current_statement_name = 'unknown'
+
     def _get_quick_string_index(self, sentence):
         text = p_common.convert_to_identifier_with_no_lowercase(sentence)
         sentence = p_common.replace_spaces(sentence)
@@ -82,13 +86,15 @@ class Compiler(object):
         try:
             object_list = objects.TAG_TO_OBJECT_TYPE[tag].objects
         except KeyError:
-            raise KeyError('Tag "%s" in object "%s" does not exist' % (tag, id))
+            raise KeyError('Tag "%s" of "%s" in "%s" does not exist' %
+                           (tag, id, self._current_statement_name))
 
         self._all_used_entities["%s_%s" % (tag, no_tag_id)] += 1
         try:
             return object_list[no_tag_id].index
         except KeyError:
-            logging.error('Object "%s" of tag "%s" does not exist' % (no_tag_id, tag))
+            logging.error('Object "%s" of "%s" in "%s" does not exist' %
+                          (tag, id, self._current_statement_name))
             return 0
 
     def _get_identifier_value(self, variable):
@@ -96,13 +102,15 @@ class Compiler(object):
             return variable
 
         if '_' not in variable:
-            raise Exception('Object "%s" has no tag' % variable)
+            raise Exception('Object "%s" in "%s" has no tag' %
+                            (variable, self._current_statement_name))
         tag, variable_name = variable.split("_", 1) # splits on first occurrence
 
         try:
             tag_index = objects.TAG_TO_TAG_ID[tag]
         except KeyError:
-            raise KeyError('Unrecognized tag "%s" in object "%s"' % (tag, variable_name))
+            raise KeyError('Tag "%s" of "%s" in "%s" does not exist' %
+                           (tag, variable_name, self._current_statement_name))
 
         index = self.index(variable_name, tag)
 
@@ -124,8 +132,8 @@ class Compiler(object):
         if param in self._local_variables:
             self._local_variables[param] += 1
         else:
-            logging.error('Local variable "%s" used but not assigned may lead to '
-                          'unexpected behaviour.' % param)
+            logging.error('Local variable "%s" in "%s" used but not assigned' %
+                          (param, self._current_statement_name))
             self._local_variables[param] = 1
         return self._local_variables.keys().index(param)
 
@@ -141,8 +149,9 @@ class Compiler(object):
         if not isinstance(param, str):
             return param
 
-        error_message = '"%s" is already a global variable, cannot be a local ' \
-                        'variable or vice-versa' % param[1:]
+        error_message = '"%s" in "%s" is already a global variable, cannot be ' \
+                        'a local variable or vice-versa' % \
+                        (param[1:], self._current_statement_name)
 
         if param[0] == '$':
             # it is a global variable
@@ -173,7 +182,8 @@ class Compiler(object):
             # count assignments of local variables
             if op_code in h_operations.lhs_operations:
                 if len(statement) <= 1:
-                    raise Exception('lhs operations require at least one parameter.')
+                    raise Exception('lhs operation "%d" in "%s" requires at least one parameter.' %
+                                    (op_code, self._current_statement_name))
                 param = statement[1]
                 if isinstance(param, str) and param[0] == ':':
                     self._add_local(param[1:])
@@ -182,7 +192,8 @@ class Compiler(object):
             if op_code in (h_operations.lhs_operations +
                                h_operations.global_lhs_operations):
                 if len(statement) <= 1:
-                    raise Exception('lhs operations require at least one parameter.')
+                    raise Exception('lhs operation "%d" in "%s" requires at least one parameter.' %
+                                    (op_code, self._current_statement_name))
                 param = statement[1]
                 if isinstance(param, str) and param[0] == '$':
                     self._add_global(param[1:])
@@ -226,13 +237,16 @@ class Compiler(object):
             result += self._process_statement(opcode, statement)
 
         if current_depth != 0:
-            raise Exception('Statement does not close all "try_*" statements or '
-                            'closes them too many.')
+            raise Exception('Statement in "%s" does not close all "try_*" '
+                            'statements or closes them too many.' %
+                            self._current_statement_name)
 
         return result
 
     def process_statement_block(self, statement_name, is_can_fail_statement,
                                 statement_block):
+        self._current_statement_name = statement_name
+
         self._local_variables = OrderedDict()
 
         statement_block = StatementBlock(*statement_block)
@@ -303,6 +317,7 @@ class Compiler(object):
             logging.warning('Script "%s" uses %d>128 local wariables' %
                             (statement_name, len(self._local_variables)))
 
+        self._current_statement_name = 'unknown'
         return result
 
     def process_simple_triggers(self, statement_name, triggers):
