@@ -1,2 +1,9 @@
 *.pyc
 
+# Ignore everything
+output/*.txt
+logs/*.txt
+
+!output/map.txt
+!logs/empty.txt
+
