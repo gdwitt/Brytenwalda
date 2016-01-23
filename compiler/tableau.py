@@ -23,6 +23,7 @@ class Tableau(GenericEntity):
         result = "%s %d %s %d %d %d %d %d %d" % \
             (self._id, self._flags, self._material, self._width, self._height,
              self._min_x, self._min_y, self._max_x, self._max_y)
-        result += compiler.process_statement_block(0, 1, self._block)
+        statement_name = "%s.%s" % (self.__class__.__name__, self.no_tag_id)
+        result += compiler.process_statement_block(statement_name, 1, self._block)
         result += '\n'
         return result

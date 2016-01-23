@@ -127,6 +127,8 @@ class Dialog(GenericEntity):
         return auto_id
 
     def export(self, compiler):
+        statement_name = "%s.%s" % (self.__class__.__name__, self._start)
+
         result = ''
 
         dialog_id = self.create_auto_id()
@@ -139,7 +141,8 @@ class Dialog(GenericEntity):
             partner = self._partner.as_index(compiler)
 
         result += "%s %d %d " % (dialog_id, partner, self._input_states[self._index])
-        result += compiler.process_statement_block(0, 1, self._condition)
+        result += compiler.process_statement_block(
+            statement_name + "[conditions]", 1, self._condition)
 
         if self._text:
             result += "%s " % self._text.replace(" ", "_")
@@ -147,7 +150,8 @@ class Dialog(GenericEntity):
             result += "NO_TEXT "
 
         result += " %d " % self._output_states[self._index]
-        result += compiler.process_statement_block(0, 1, self._consequences)
+        result += compiler.process_statement_block(
+            statement_name + "[consequences]", 1, self._consequences)
 
         result += "%s " % self._voice_over
         result += '\n'

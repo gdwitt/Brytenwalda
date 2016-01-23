@@ -20,8 +20,12 @@ class SimpleTrigger(GenericEntity):
         self._block = block
 
     def export(self, compiler):
+        # name helps to identify it on the log.
+        name = "%s.%d(%.1f)" % (self.__class__.__name__, self.index,
+                                self._frequency)
+
         result = "%f " % self._frequency
-        result += compiler.process_statement_block(0, 1, self._block)
+        result += compiler.process_statement_block(name, 1, self._block)
         result += '\n'
         return result
 

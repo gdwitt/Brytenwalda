@@ -28,9 +28,15 @@ class Trigger(GenericEntity):
         self._consequences = consequences
 
     def export(self, compiler):
+        name = "%s.%d(%.1f, %.1f, %.1f)" % (
+            self.__class__.__name__, self.index, self._frequency, self._delay,
+            self._rearm)
+
         result = "%f %f %f " % (self._frequency, self._delay, self._rearm)
-        result += compiler.process_statement_block(0, 1, self._conditions)
-        result += compiler.process_statement_block(0, 1, self._consequences)
+        result += compiler.process_statement_block(
+            name + '[conditions]', 1, self._conditions)
+        result += compiler.process_statement_block(
+            name + '[consequences]', 1, self._consequences)
         result += '\n'
         return result
 

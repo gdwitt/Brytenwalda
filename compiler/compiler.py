@@ -305,11 +305,13 @@ class Compiler(object):
 
         return result
 
-    def process_simple_triggers(self, triggers):
+    def process_simple_triggers(self, statement_name, triggers):
         result = "%d\n" % len(triggers)
         for trigger in triggers:
+            trigger_name = statement_name + "(%.1f)" % trigger[0]
+
             result += "%f " % trigger[0]
-            result += self.process_statement_block(0, 1, trigger[1])
+            result += self.process_statement_block(trigger_name, 1, trigger[1])
             result += "\n"
         result += "\n"
         return result

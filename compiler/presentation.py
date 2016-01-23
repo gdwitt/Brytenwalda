@@ -22,7 +22,8 @@ class Presentation(GenericEntity):
 
     def export(self, compiler):
         result = "%s %d %d " % (self._id, self._flags, compiler.index(self._mesh))
-        result += compiler.process_simple_triggers(self._triggers)
+        result += compiler.process_simple_triggers(
+            "%s.%s" % (self.__class__.__name__, self.no_tag_id), self._triggers)
         result += '\n'
         return result
 

@@ -48,7 +48,8 @@ class MapIcon(GenericEntity):
             result += '%f %f %f ' % (self._offset[0], self._offset[1], self._offset[2])
         else:
             result += '0 0 0 '
-        result += compiler.process_simple_triggers(self._triggers)
+        result += compiler.process_simple_triggers(
+            "%s.%d" % (self.__class__.__name__, self.index), self._triggers)
 
         result += "\n"
         return result

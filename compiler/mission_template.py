@@ -70,15 +70,24 @@ class MissionTemplate(GenericEntity):
             result += "\n"
 
         # export triggers
+        statement_name = "%s.%s" % (self.__class__.__name__, self.no_tag_id)
         result += "%d\n" % len(self._triggers)
         for trigger in self._triggers:
+            trigger_statement_name = statement_name + ".Trigger(%.1f %.1f %.1f)" % (
+                trigger[h_triggers.trigger_check_pos],
+                 trigger[h_triggers.trigger_delay_pos],
+                 trigger[h_triggers.trigger_rearm_pos]
+            )
+
             result += "%f %f %f " % (trigger[h_triggers.trigger_check_pos],
                                      trigger[h_triggers.trigger_delay_pos],
                                      trigger[h_triggers.trigger_rearm_pos])
             result += compiler.process_statement_block(
-                0, 1, trigger[h_triggers.trigger_conditions_pos])
+                trigger_statement_name + '[conditions]', 1,
+                trigger[h_triggers.trigger_conditions_pos])
             result += compiler.process_statement_block(
-                0, 1, trigger[h_triggers.trigger_consequences_pos])
+                trigger_statement_name + '[consequences]', 1,
+                trigger[h_triggers.trigger_consequences_pos])
             result += '\n'
         result += '\n\n'
         return result

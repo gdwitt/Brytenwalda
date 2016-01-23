@@ -47,14 +47,20 @@ class Menu(GenericEntity):
         self._menu_options = menu_options
 
     def export(self, compiler):
+        statement_name = "%s.%s" % (self.__class__.__name__, self.no_tag_id)
+
         result = "%s %d %s %s" % (self._id, self._flags, self._text.replace(" ", "_"), self._mesh_name)
-        result += compiler.process_statement_block(0, 1, self._block)
+        result += compiler.process_statement_block(statement_name + '[conditions]', 1, self._block)
         result += "%d\n" % len(self._menu_options)
         for menu_item in self._menu_options:
+            option_name = statement_name + '[%s]' % menu_item[0]
+
             result += " mno_%s " % menu_item[0]
-            result += compiler.process_statement_block(0, 1, menu_item[1])
+            result += compiler.process_statement_block(
+                option_name + '[conditions]', 1, menu_item[1])
             result += " %s " % menu_item[2].replace(" ", "_")
-            result += compiler.process_statement_block(0, 1, menu_item[3])
+            result += compiler.process_statement_block(
+                option_name + '[consequences]', 1, menu_item[3])
             door_name = "."
             if len(menu_item) > 4:
                 door_name = menu_item[4]
