@@ -55960,28 +55960,7 @@ scripts = [
         (call_script, "script_party_remove_all_prisoners", ":kingdom_hero_party"),
       (try_end),
     ]),
-  
-  ("calculate_ransom_for_party", 
-    [
-      (store_script_param, ":party_no", 1),
-      
-      (assign, ":total_ransom_cost", 0),
-      (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
-      (try_begin),
-        (gt, ":num_stacks", 0),
-        (try_for_range, ":stack_no", 0, ":num_stacks"),
-          (party_stack_get_troop_id, ":troop_no", ":party_no", ":stack_no"),
-          (call_script, "script_game_get_join_cost", ":troop_no"),
-          (assign, ":ransom_cost", reg0),
-          (val_div, ":ransom_cost", 4),
-          (party_stack_get_size, ":stack_size", ":party_no", ":stack_no"),
-          (val_mul, ":ransom_cost", ":stack_size"),
-          (val_add, ":total_ransom_cost", ":ransom_cost"),
-        (try_end),
-      (try_end),
-      (assign, reg0, ":total_ransom_cost"),
-    ]),
-  
+
   ("combine_same_troops_from_prisoners", 
     [
       (store_script_param, ":party_no", 1),
@@ -56000,22 +55979,7 @@ scripts = [
         (try_end),
       (try_end),
     ]),
-  
-  ("process_outlaws_for_party", 
-    [
-      (store_script_param, ":party_no", 1),
-      
-      (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
-      (try_for_range_backwards, ":stack_no", 0, ":num_stacks"),
-        (party_stack_get_troop_id, ":troop_no", ":party_no", ":stack_no"),
-        (neg|troop_is_hero, ":troop_no"),
-        (is_between, ":troop_no", outlaws_troops_begin, outlaws_troops_end),
-        (party_stack_get_size, ":stack_size", ":party_no", ":stack_no"),
-        (party_remove_members, ":party_no", ":troop_no", ":stack_size"),
-        (party_add_prisoners, ":party_no", ":troop_no", ":stack_size"),
-      (try_end),
-    ]),
-  
+
   ("get_lord_weekly_income", 
    [
      (store_script_param, ":troop_no", 1),
