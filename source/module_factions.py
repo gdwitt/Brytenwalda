@@ -18,8 +18,8 @@ from header_factions import *
 
 default_kingdom_relations = [
     ("outlaws", -0.05), ("peasant_rebels", -0.1),
-    ("deserters", -0.05), ("mountain_bandits", -0.02),
-    ("forest_bandits", -0.02)
+    ("deserters", -0.02), ("mountain_bandits", -0.05),
+    ("forest_bandits", -0.05)
 ]
 
 factions = [
@@ -31,19 +31,6 @@ factions = [
     ("outlaws", "Outlaws", max_player_rating(-30), 0.5, [
         ("commoners", -0.6), ("player_faction", -0.15), ("christians", -0.15),
         ("pagans", -0.15),
-        ("kingdom_1", -0.05), ("kingdom_2", -0.1), ("kingdom_3", -0.02),
-        ("kingdom_4", -0.05), ("kingdom_5", -0.05),
-        ("kingdom_6", -0.05), ("kingdom_7", -0.1), ("kingdom_8", -0.02),
-        ("kingdom_9", -0.05), ("kingdom_10", -0.05),
-        ("kingdom_11", -0.05), ("kingdom_12", -0.1), ("kingdom_13", -0.02),
-        ("kingdom_14", -0.05), ("kingdom_15", -0.05),
-        ("kingdom_16", -0.05), ("kingdom_17", -0.1), ("kingdom_18", -0.02),
-        ("kingdom_19", -0.05), ("kingdom_20", -0.05),
-        ("kingdom_21", -0.05), ("kingdom_22", -0.1), ("kingdom_23", -0.02),
-        ("kingdom_24", -0.05), ("kingdom_25", -0.05),
-        ("kingdom_26", -0.05), ("kingdom_27", -0.1), ("kingdom_28", -0.02),
-        ("kingdom_29", -0.05), ("kingdom_30", -0.05),
-        ("kingdom_31", -0.05)
     ], [], 0x888888),
     # Factions before this point are hardwired into the game end their order should not be changed.
 
@@ -110,169 +97,95 @@ factions = [
         ("forest_bandits", -0.08)
     ], [], 0xDDFF00),
 
-    ("kingdom_1", "Cantware", 0, 0.9, [
-        ("outlaws", -0.05), ("pagans", -0.05), ("peasant_rebels", -0.1),
-        ("deserters", -0.02), ("mountain_bandits", -0.05),
-        ("forest_bandits", -0.05)
+    ("kingdom_1", "Cantware", 0, 0.9, default_kingdom_relations + [
+        ("pagans", -0.05)
     ], [], 0xFF0000),
-    ("kingdom_2", "Suth Seaxe", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05)
-    ], [], 0x8800FF),
-    ("kingdom_3", "East Seaxna", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05)
-    ], [], 0x88FF88),
-    ("kingdom_4", "East Engla", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
-        ("kingdom_9", -0.7),
-        ("kingdom_3", -0.03), ("kingdom_13", 0.1)
+    ("kingdom_2", "Suth Seaxe", 0, 0.9, default_kingdom_relations, [], 0x8800FF),
+    ("kingdom_3", "East Seaxna", 0, 0.9, default_kingdom_relations, [], 0x88FF88),
+    ("kingdom_4", "East Engla", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_9", -0.7), ("kingdom_3", -0.03), ("kingdom_13", 0.1)
     ], [], 0xBB99FF),
-    ("kingdom_5", "Gewissae", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
-        ("kingdom_13", 0.3),
-        ("kingdom_9", -0.1), ("kingdom_8", -0.1), ("kingdom_7", -0.1)
+    ("kingdom_5", "Gewissae", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_13", 0.3), ("kingdom_9", -0.1), ("kingdom_8", -0.1),
+        ("kingdom_7", -0.1)
     ], [], 0xFFAA88),
-    ("kingdom_6", "Hwicce", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05), ("kingdom_9", 0.7),
-        ("kingdom_26", -0.05)
+    ("kingdom_6", "Hwicce", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_9", 0.7), ("kingdom_26", -0.05)
     ], [], 0x3355FF),
-    ("kingdom_7", "Glastenic", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05), ("kingdom_8", 0.1),
-        ("kingdom_11", 0.7), ("kingdom_22", 0.1)
+    ("kingdom_7", "Glastenic", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_8", 0.1), ("kingdom_11", 0.7), ("kingdom_22", 0.1)
     ], [], 0xBBFF00),
-    ("kingdom_8", "Dumnonia", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05), ("kingdom_7", 0.1),
-        ("kingdom_11", 0.05), ("kingdom_23", 0.05), ("kingdom_5", -0.1),
-        ("kingdom_24", 0.05)
+    ("kingdom_8", "Dumnonia", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_7", 0.1), ("kingdom_11", 0.05), ("kingdom_23", 0.05),
+        ("kingdom_5", -0.1), ("kingdom_24", 0.05)
     ], [], 0xFF5533),
-    ("kingdom_9", "Mierce", 0, 0.9, [
-        ("outlaws", -0.05), ("christians", -0.05), ("peasant_rebels", -0.1),
-        ("deserters", -0.02), ("mountain_bandits", -0.05),
-        ("forest_bandits", -0.05),
+    ("kingdom_9", "Mierce", 0, 0.9, default_kingdom_relations + [
+        ("christians", -0.05),
         ("kingdom_13", -0.7), ("kingdom_5", -0.4), ("kingdom_4", -0.7),
         ("kingdom_11", 0.2), ("kingdom_23", 0.06), ("kingdom_6", 0.7),
         ("kingdom_14", 0.03)
     ], [], 0xFF0088),
-    ("kingdom_10", "Ynys Manau", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05)
-    ], [], 0x88FFBB),
-    ("kingdom_11", "Pengwern", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05), ("kingdom_7", 0.7),
-        ("kingdom_26", 0.05), ("kingdom_22", 0.7), ("kingdom_9", 0.2),
-        ("kingdom_13", -0.1)
+    ("kingdom_10", "Ynys Manau", 0, 0.9, default_kingdom_relations, [], 0x88FFBB),
+    ("kingdom_11", "Pengwern", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_7", 0.7), ("kingdom_26", 0.05), ("kingdom_22", 0.7),
+        ("kingdom_9", 0.2), ("kingdom_13", -0.1)
     ], [], 0xFFBB00),
-    ("kingdom_12", "Goutodin", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_12", "Goutodin", 0, 0.9, default_kingdom_relations + [
         ("kingdom_13", -0.1)
     ], [], 0xEE1166),
-    ("kingdom_13", "Bernaccia", 0, 0.9, [
-        ("outlaws", -0.05), ("pagans", -0.05), ("peasant_rebels", -0.1),
-        ("deserters", -0.02), ("mountain_bandits", -0.05),
-        ("forest_bandits", -0.05),
+    ("kingdom_13", "Bernaccia", 0, 0.9, default_kingdom_relations + [
+        ("pagans", -0.05),
         ("kingdom_12", -0.1), ("kingdom_9", -0.7), ("kingdom_15", -0.03),
         ("kingdom_5", 0.3), ("kingdom_19", 0.5)
     ], [], 0x88FFFF),
-    ("kingdom_14", "Lindisware", 0, 0.9, [
-        ("outlaws", -0.05), ("christians", -0.05), ("peasant_rebels", -0.1),
-        ("deserters", -0.02), ("mountain_bandits", -0.05),
-        ("forest_bandits", -0.05),
+    ("kingdom_14", "Lindisware", 0, 0.9, default_kingdom_relations + [
+        ("christians", -0.05),
         ("kingdom_13", -0.1), ("kingdom_9", 0.03)
     ], [], 0x88CC00),
-    ("kingdom_15", "Rheged", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_15", "Rheged", 0, 0.9, default_kingdom_relations + [
         ("kingdom_18", -0.1)
     ], [], 0x6644FF),
-    ("kingdom_16", "Crafu", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05)
-    ], [], 0xCC00DD),
-    ("kingdom_17", "Connaught", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_16", "Crafu", 0, 0.9, default_kingdom_relations, [], 0xCC00DD),
+    ("kingdom_17", "Connaught", 0, 0.9, default_kingdom_relations + [
         ("kingdom_30", -0.1)
     ], [], 0xAA00FF),
-    ("kingdom_18", "Alt Clut", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_18", "Alt Clut", 0, 0.9, default_kingdom_relations + [
         ("kingdom_13", -0.05), ("kingdom_15", -0.1)
     ], [], 0xFFDD00),
-    ("kingdom_19", "Dal Riata", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_19", "Dal Riata", 0, 0.9, default_kingdom_relations + [
         ("kingdom_13", 0.5),
         ("kingdom_20", -0.7), ("kingdom_29", 0.1), ("kingdom_30", -0.1)
     ], [], 0xFF00EE),
-    ("kingdom_20", "Fortriu", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_20", "Fortriu", 0, 0.9, default_kingdom_relations + [
         ("kingdom_19", -0.7)
     ], [], 0xBB99FF),
-    ("kingdom_21", "Ceredigion", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05)
+    ("kingdom_21", "Ceredigion", 0, 0.9, default_kingdom_relations + [
     ], [], 0x88FF00),
-    ("kingdom_22", "Powys", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
-        ("kingdom_11", 0.7),
-        ("kingdom_7", 0.5)
+    ("kingdom_22", "Powys", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_11", 0.7), ("kingdom_7", 0.5)
     ], [], 0xCC5511),
-    ("kingdom_23", "Gwynedd", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_23", "Gwynedd", 0, 0.9, default_kingdom_relations + [
         ("kingdom_9", 0.06),
         ("kingdom_11", 0.07)
     ], [], 0xFF8899),
-    ("kingdom_24", "Dyfed", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05)
-    ], [], 0x77DDFF),
-    ("kingdom_25", "Brycheiniog", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05)
-    ], [], 0xFFFF00),
-    ("kingdom_26", "Gwent", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
-        ("kingdom_6", -0.05),
-        ("kingdom_11", 0.05)
+    ("kingdom_24", "Dyfed", 0, 0.9, default_kingdom_relations, [], 0x77DDFF),
+    ("kingdom_25", "Brycheiniog", 0, 0.9, default_kingdom_relations, [], 0xFFFF00),
+    ("kingdom_26", "Gwent", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_6", -0.05), ("kingdom_11", 0.05)
     ], [], 0xFF88DD),
-    ("kingdom_27", "Laigin", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_27", "Laigin", 0, 0.9, default_kingdom_relations + [
         ("kingdom_28", -0.1)
     ], [], 0x0000FF),
-    ("kingdom_28", "Mumain", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
-        ("kingdom_27", -0.1),
-        ("kingdom_17", -0.1)
+    ("kingdom_28", "Mumain", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_27", -0.1), ("kingdom_17", -0.1)
     ], [], 0xDDFFCC),
-    ("kingdom_29", "Ulaid", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
-        ("kingdom_30", -0.1),
-        ("kingdom_19", 0.1)
+    ("kingdom_29", "Ulaid", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_30", -0.1), ("kingdom_19", 0.1)
     ], [], 0xFF8800),
-    ("kingdom_30", "Ui Neill", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
-        ("kingdom_29", -0.1),
-        ("kingdom_19", -0.1)
+    ("kingdom_30", "Ui Neill", 0, 0.9, default_kingdom_relations + [
+        ("kingdom_29", -0.1), ("kingdom_19", -0.1)
     ], [], 0xDD2244),
-    ("kingdom_31", "Airgialla", 0, 0.9, [
-        ("outlaws", -0.05), ("peasant_rebels", -0.1), ("deserters", -0.02),
-        ("mountain_bandits", -0.05), ("forest_bandits", -0.05),
+    ("kingdom_31", "Airgialla", 0, 0.9, default_kingdom_relations + [
         ("kingdom_29", -0.1)
     ], [], 0x66BBFF),
 
