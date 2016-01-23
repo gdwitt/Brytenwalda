@@ -36,7 +36,7 @@ class Item(GenericEntity):
         self._name = name
         self._meshes = meshes
         self._flags = flags
-        if not isinstance(flags, int):
+        if not isinstance(flags, (int, long)):
             raise TypeError('"flags" of %s is not an int' % id)
 
         if not isinstance(capabilities, (int, long)):
