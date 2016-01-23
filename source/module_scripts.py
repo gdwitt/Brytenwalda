@@ -37505,7 +37505,6 @@ scripts = [
        
         (call_script, "script_troop_get_player_relation", ":npc"),
         (assign, ":player_relation", reg0),
-        (troop_get_slot, ":effective_relation", ":npc", slot_troop_player_relation),	
 
         (party_get_morale, ":party_morale", "p_main_party"),
 
@@ -68777,8 +68776,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 # script param 1 = sender player no
 # script param 2 = event no
 ("wse_multiplayer_message_received", [
-   (store_script_param, ":player_no", 1),
-   (store_script_param, ":event_no", 2),
+   #(store_script_param, ":player_no", 1),
+   #(store_script_param, ":event_no", 2),
 ]),
 
 #script_wse_game_saved
@@ -68796,8 +68795,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 # trigger result = anything non-zero suppresses default chat behavior. Server will not even broadcast messages to clients.
 # result string = changes message text for default chat behavior (if not suppressed).
 ("wse_chat_message_received", [
-   (store_script_param, ":player_no", 1),
-   (store_script_param, ":chat_type", 2),
+   #(store_script_param, ":player_no", 1),
+   #(store_script_param, ":chat_type", 2),
 ]),
 
 #script_wse_console_command_received
@@ -68809,7 +68808,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 # trigger result = anything non-zero if the command succeeded
 # result string = message to display on success (if empty, default message will be used)
 ("wse_console_command_received", [
-   (store_script_param, ":command_type", 1),
+   #(store_script_param, ":command_type", 1),
 ]),
 
 #script_wse_get_agent_scale
@@ -68822,10 +68821,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 # OUTPUT
 # trigger result = agent scale (fixed point)
 ("wse_get_agent_scale", [
-   (store_script_param, ":troop_no", 1),
-   (store_script_param, ":horse_item_no", 2),
-   (store_script_param, ":horse_item_modifier", 3),
-   (store_script_param, ":player_no", 4),
+   #(store_script_param, ":troop_no", 1),
+   #(store_script_param, ":horse_item_no", 2),
+   #(store_script_param, ":horse_item_modifier", 3),
+   #(store_script_param, ":player_no", 4),
 ]),
 
 #script_wse_window_opened
@@ -68837,9 +68836,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 # OUTPUT
 # trigger result = presentation that replaces the window (if not set or negative, window will open normally)
 ("wse_window_opened", [
-   (store_script_param, ":window_no", 1),
-   (store_script_param, ":window_param_1", 2),
-   (store_script_param, ":window_param_2", 3),
+   #(store_script_param, ":window_no", 1),
+   #(store_script_param, ":window_param_1", 2),
+   #(store_script_param, ":window_param_2", 3),
 ]),
 
 #script_game_missile_dives_into_water

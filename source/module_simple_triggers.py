@@ -2150,7 +2150,7 @@ simple_triggers = [
 	    (try_begin),
 	      (eq, "$cheat_mode", 1),
 		  (store_time_of_day, ":cur_hour"),
-          (assign, ":cur_hour", reg9),
+          (assign, reg9, ":cur_hour"),
           (str_store_troop_name, s9, ":troop_no"),
           (display_message, "@{!}DEBUG -- Doing political calculations for {s9} at {reg9}",0xFF0000),
         (try_end),
