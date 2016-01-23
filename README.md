@@ -13,3 +13,24 @@ your Mount and Blade `modules` directory installs the mod.
 
 - Global variables are automatically assigned 0 at the beginning
 - Slots are automatically assigned 0 at the beginning
+
+
+## Authors
+
+A huge thank to the persons that contributed to this mod.
+
+- gwitt
+- Beaver - [tripping when walking backwards]
+- Baron Conrad [weapons break in combat]
+- Cruger
+- Somebody
+- chief
+- Cabadrin
+- xenoargh [shield bash]
+- Sinisterius [shield bash]
+- MadVader [death camera]
+- Beaver [walk backwards trip]
+- theoris [decapitation in battle]
+- Windyplains [Health regeneration]
+
+Finding all the authors is hard. Please help us to complete this list!
