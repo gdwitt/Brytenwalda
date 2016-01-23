@@ -16,6 +16,10 @@ from header_factions import *
 #  7) Faction color (default is gray)
 ####################################################################################################################
 
+default_religion_relations = [
+    ("outlaws", -0.05), ("mountain_bandits", -0.05), ("forest_bandits", -0.05)
+]
+
 default_kingdom_relations = [
     ("outlaws", -0.05), ("peasant_rebels", -0.1),
     ("deserters", -0.02), ("mountain_bandits", -0.05),
@@ -29,8 +33,7 @@ factions = [
     ], []),
 
     ("outlaws", "Outlaws", max_player_rating(-30), 0.5, [
-        ("commoners", -0.6), ("player_faction", -0.15), ("christians", -0.15),
-        ("pagans", -0.15),
+        ("commoners", -0.6), ("player_faction", -0.15),
     ], [], 0x888888),
     # Factions before this point are hardwired into the game end their order should not be changed.
 
@@ -113,7 +116,7 @@ factions = [
         ("kingdom_9", 0.7), ("kingdom_26", -0.05)
     ], [], 0x3355FF),
     ("kingdom_7", "Glastenic", 0, 0.9, default_kingdom_relations + [
-        ("kingdom_8", 0.1), ("kingdom_11", 0.7), ("kingdom_22", 0.1)
+        ("kingdom_8", 0.1), ("kingdom_11", 0.7), ("kingdom_22", 0.5)
     ], [], 0xBBFF00),
     ("kingdom_8", "Dumnonia", 0, 0.9, default_kingdom_relations + [
         ("kingdom_7", 0.1), ("kingdom_11", 0.05), ("kingdom_23", 0.05),
@@ -121,7 +124,7 @@ factions = [
     ], [], 0xFF5533),
     ("kingdom_9", "Mierce", 0, 0.9, default_kingdom_relations + [
         ("christians", -0.05),
-        ("kingdom_13", -0.7), ("kingdom_5", -0.4), ("kingdom_4", -0.7),
+        ("kingdom_13", -0.7), ("kingdom_5", -0.1), ("kingdom_4", -0.7),
         ("kingdom_11", 0.2), ("kingdom_23", 0.06), ("kingdom_6", 0.7),
         ("kingdom_14", 0.03)
     ], [], 0xFF0088),
@@ -210,13 +213,11 @@ factions = [
         ("player_faction", -1.0)
     ], []),
 
-    ("christians", "Christian", 0, 0.5, [
-        ("outlaws", -0.05), ("pagans", -0.05), ("mountain_bandits", -0.05),
-        ("forest_bandits", -0.05)
+    ("christians", "Christian", 0, 0.5, default_religion_relations + [
+        ("pagans", -0.05),
     ], []),
-    ("pagans", "Pagan", 0, 0.5, [
-        ("outlaws", -0.05), ("christians", -0.05), ("mountain_bandits", -0.05),
-        ("forest_bandits", -0.05)
+    ("pagans", "Pagan", 0, 0.5, default_religion_relations + [
+        ("christians", -0.05),
     ], []),
 
     ("manhunters", "Manhunters", 0, 0.5, [
@@ -226,42 +227,15 @@ factions = [
         ("outlaws", -0.5), ("manhunters", -0.6), ("merchants", -0.5),
         ("player_faction", -0.1)
     ], [], 0x888888),
+
     # Scoti, frank and Dena pirates.
     ("mountain_bandits", "Sea Warriors", 0, 0.5, [
         ("outlaws", -0.5), ("commoners", -0.2), ("merchants", -0.5),
-        ("manhunters", -0.6), ("player_faction", -0.15), ("christians", -0.15),
-        ("pagans", -0.15),
-        ("kingdom_1", -0.05), ("kingdom_2", -0.1), ("kingdom_3", -0.02),
-        ("kingdom_4", -0.05), ("kingdom_5", -0.05),
-        ("kingdom_6", -0.05), ("kingdom_7", -0.1), ("kingdom_8", -0.02),
-        ("kingdom_9", -0.05), ("kingdom_10", -0.05),
-        ("kingdom_11", -0.05), ("kingdom_12", -0.1), ("kingdom_13", -0.02),
-        ("kingdom_14", -0.05), ("kingdom_15", -0.05),
-        ("kingdom_16", -0.05), ("kingdom_17", -0.1), ("kingdom_18", -0.02),
-        ("kingdom_19", -0.05), ("kingdom_20", -0.05),
-        ("kingdom_21", -0.05), ("kingdom_22", -0.1), ("kingdom_23", -0.02),
-        ("kingdom_24", -0.05), ("kingdom_25", -0.05),
-        ("kingdom_26", -0.05), ("kingdom_27", -0.1), ("kingdom_28", -0.02),
-        ("kingdom_29", -0.05), ("kingdom_30", -0.05),
-        ("kingdom_31", -0.05)
+        ("manhunters", -0.6), ("player_faction", -0.15),
     ], [], 0x888888),
     ("forest_bandits", "Forest Bandits", 0, 0.5, [
         ("outlaws", -0.5), ("commoners", -0.2), ("merchants", -0.5),
-        ("manhunters", -0.6), ("player_faction", -0.15), ("christians", -0.15),
-        ("pagans", -0.15),
-        ("kingdom_1", -0.05), ("kingdom_2", -0.1), ("kingdom_3", -0.02),
-        ("kingdom_4", -0.05), ("kingdom_5", -0.05),
-        ("kingdom_6", -0.05), ("kingdom_7", -0.1), ("kingdom_8", -0.02),
-        ("kingdom_9", -0.05), ("kingdom_10", -0.05),
-        ("kingdom_11", -0.05), ("kingdom_12", -0.1), ("kingdom_13", -0.02),
-        ("kingdom_14", -0.05), ("kingdom_15", -0.05),
-        ("kingdom_16", -0.05), ("kingdom_17", -0.1), ("kingdom_18", -0.02),
-        ("kingdom_19", -0.05), ("kingdom_20", -0.05),
-        ("kingdom_21", -0.05), ("kingdom_22", -0.1), ("kingdom_23", -0.02),
-        ("kingdom_24", -0.05), ("kingdom_25", -0.05),
-        ("kingdom_26", -0.05), ("kingdom_27", -0.1), ("kingdom_28", -0.02),
-        ("kingdom_29", -0.05), ("kingdom_30", -0.05),
-        ("kingdom_31", -0.05)
+        ("manhunters", -0.6), ("player_faction", -0.15),
     ], [], 0x888888),
 
     ("undeads", "{!}Undeads", max_player_rating(-30), 0.5, [
