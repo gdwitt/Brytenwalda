@@ -41517,15 +41517,6 @@ scripts = [
       (try_end),
       ]),
 
-  # script_debug_variables
-  # Input: two variables which will be examined by coder, this script is only for debugging.
-  # Output: none
-  ("debug_variables",
-    [
-      (store_script_param, ":unused", 1),
-      (store_script_param, ":unused_2", 2),
-    ]),        
-        
 #lord recruitment scripts begin	  
   ("troop_describes_troop_to_s15",
   [
