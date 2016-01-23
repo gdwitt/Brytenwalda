@@ -359,7 +359,7 @@ parties = [
   ("village_130","Cill_Chleite",  LazyFlag("icon_village_1")|pf_village, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(49.76,13.14),[],60),
   ("village_131","Cill_Alaid",  LazyFlag("icon_village_1")|pf_village, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(112.41,20.02),[],260),
   ("village_132","Eifionydd",  LazyFlag("icon_village_1")|pf_village, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(28.15,70.43),[],15),
-  ("village_135","Sliab_Culinn",  LazyFlag("icon_village_1")|pf_village, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(64.98,27.93),[],90),
+  ("village_133","Sliab_Culinn",  LazyFlag("icon_village_1")|pf_village, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(64.98,27.93),[],90),
   ("village_134","Mag_Mucceda",  LazyFlag("icon_village_1")|pf_village, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(77.57,18.08),[],180),
   ("village_135","Cogwy",  LazyFlag("icon_village_1")|pf_village, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(-15.89,81.67),[],160),
   ("village_136","Pen_Rhionydd",  LazyFlag("icon_village_1")|pf_village, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(26.82,-0.95),[],180),#perKragbygdw
@@ -459,7 +459,6 @@ parties = [
   ("hidden_valley","Rare_Ruins",LazyFlag("icon_town_snow")|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(-60.598,47.851),[]),  #tmlpgdw-59.91,47.69#TML78.56^^
   ("iniau_hideout","Sacred_Grove",LazyFlag("icon_castle_snow_b")|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(93.052,90.85),[]),  #tml91.28,89.86##93.052,90.85krag
   ("quarry1","Quarry",LazyFlag("icon_town_snow")|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(86.11,67.17),[]),
-  ("hadrian_wall","Hadrian Wall",LazyFlag("icon_town_snow")|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(-29.83,1.26),[]),
   ("odin_cave","Cave",LazyFlag("icon_castle_snow_b")|pf_is_static|pf_always_visible|pf_hide_defenders, no_menu, "pt_none", "fac_neutral",0,ai_bhvr_hold,0,(15.013,-123.055),[]),
 #tmlpergdw16.50,-122.85
 ###battlefiends unicos
