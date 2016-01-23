@@ -8082,142 +8082,84 @@ simple_triggers = [
         (try_end),
       (try_end),
     ]),
-  #mejor IA chief acaba
-#restaurar faccion chief
-        # restoration begin
-      # Note: make sure there is a comma in the entry behind this one
-      (24*3,    #MOTO change 100 to 3 and randomize (see below). Idea is that over 100 days, every defeated faction will randomly consider rebellion ONCE on average. F123 - 1.41 -> Submod
-         [
-     (store_skill_level, ":skill", "skl_leadership", "trp_player"),
-     (store_attribute_level, ":charisma", "trp_player", ca_charisma),
-	   (try_begin),
-	     (this_or_next|ge, ":skill", 6),
-		 (ge, ":charisma", 18),
-        (display_message, "@ The defeated kingdoms seem calm, and your reports confirm that there are no rebellion plots.", 0xFF0000),    #MOTO correct English. F123 - 1.41 -> Submod
-       (else_try),
 
-	     (ge, ":skill", 1),
-		 (             ge, ":charisma", 1),
-#                   (call_script, "script_troop_get_relation_with_troop", ":cur_troop","trp_player", -1),
-          # (store_random_in_range, ":rand", 0, 6),    MOTO this will give the SAME random number for ALL defeated factions, so move down F123. - 1.41 -> Submod
+    # todo: This block was missing a "try_end" and therefore is probably incorrect.
+    # script to start a rebelion
+    # On average, over 100 days, every defeated faction considers rebellion once.
+    (24*3, [
+        (store_skill_level, ":skill", "skl_leadership", "trp_player"),
+        (store_attribute_level, ":charisma", "trp_player", ca_charisma),
+        (try_begin),
+            (this_or_next|ge, ":skill", 6),
+            (ge, ":charisma", 18),
+            (display_message, "@ The defeated kingdoms seem calm, and your "
+                              "reports confirm that there are no rebellion "
+                              "plots.", 0xFF0000),
+        (else_try),
+
+            (ge, ":skill", 1),
+            (ge, ":charisma", 1),
             (try_for_range, ":cur_troop", kingdom_heroes_begin2, kingdom_heroes_end2),
-            (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-            (troop_get_slot, ":original_faction", ":cur_troop", slot_troop_original_faction),
-            (neg|faction_slot_eq, ":original_faction", slot_faction_state, sfs_active),
-            (store_relation, ":rebelde_reln", ":original_faction", "fac_player_supporters_faction"),
+                (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+                (troop_get_slot, ":original_faction", ":cur_troop", slot_troop_original_faction),
+                (neg|faction_slot_eq, ":original_faction", slot_faction_state, sfs_active),
+                (store_relation, ":rebelde_reln", ":original_faction", "fac_player_supporters_faction"),
 
-            (store_troop_faction, ":faction_no", ":cur_troop"),
-            (neq, ":faction_no", ":original_faction"),
+                (store_troop_faction, ":faction_no", ":cur_troop"),
+                (neq, ":faction_no", ":original_faction"),
 
-            (assign, ":num_walled_centers", 0),
-            (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-              (party_slot_eq, ":walled_center", slot_town_lord, ":cur_troop"),
-              (val_add, ":num_walled_centers", 1),
+                # check if it has a walled center
+                (assign, ":num_walled_centers", 0),
+                (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
+                    (party_slot_eq, ":walled_center", slot_town_lord, ":cur_troop"),
+                    (val_add, ":num_walled_centers", 1),
+                (try_end),
+                (gt, ":num_walled_centers", 0),
+
+                (store_sub, ":original_king", ":original_faction", "fac_kingdom_1"),
+                (val_add, ":original_king", "trp_kingdom_1_lord"),
+                (faction_set_slot, ":original_faction", slot_faction_leader, ":original_king"),
+
+                (str_store_troop_name, s14, ":original_king"),
+                (store_random_in_range, ":rand", 0, 33*5),
+
+                (try_begin),
+                    (eq, ":rand", 0),
+                    (display_message, "@(Possible Rebellion) Rumors say that {s14} is still alive.", 0xFF0000),
+                (else_try),
+                    (eq, ":rand", 1),
+                    (display_message, "@(Possible Rebellion) Rumors say that {s14} meets in secret with his faithful.", 0xFF0000),
+                (else_try),
+                    (eq, ":rand", 2),
+                    (display_message, "@(Possible Rebellion) Rumors say that people favor the restoration of {s14}.", 0xFF0000),
+                (else_try),
+                    (eq, ":rand", 3),
+                    (display_message, "@(Possible Rebellion) Rumors say that {s14} is gathering an army to regain his throne.", 0xFF0000),
+                (else_try),
+                    (eq, ":rand", 4),
+                    (try_begin),
+                        (lt, ":rebelde_reln", 10),
+
+                        (call_script, "script_change_troop_faction", ":cur_troop", ":original_faction"),
+                        (try_for_range, ":cur_troop_2", kingdom_heroes_begin2, kingdom_heroes_end2),
+                            (troop_slot_eq, ":cur_troop_2", slot_troop_occupation, slto_kingdom_hero),
+                            (neg|is_between, ":cur_troop_2", pretenders_begin, pretenders_end),
+                            (neq, ":cur_troop_2", ":cur_troop"),
+                            (troop_get_slot, ":original_faction_2", ":cur_troop_2", slot_troop_original_faction),
+                            (store_troop_faction, ":faction_no_2", ":cur_troop_2"),
+                            (eq, ":original_faction_2", ":original_faction"),
+                            (neq, ":faction_no_2", ":original_faction"),
+                            (troop_set_slot, ":cur_troop_2", slot_troop_change_to_faction, ":original_faction"),
+                        (try_end),
+                        (call_script, "script_add_notification_menu", "mnu_notification_kingdom_restoration", ":cur_troop", ":faction_no"),
+                    (else_try),
+                        (display_message, "@(Possible Rebellion) Rumors say that {s14} is stockpiling weapons and is seeking support among the Franks.", 0xFF0000),
+                    (try_end),
+                (try_end),
             (try_end),
-            (gt, ":num_walled_centers", 0), ## has a walled center
-           
-            (store_sub, ":original_king", ":original_faction", "fac_kingdom_1"),
-            (val_add, ":original_king", "trp_kingdom_1_lord"),
-            (faction_set_slot, ":original_faction", slot_faction_leader, ":original_king"),
-
-       (str_store_troop_name, s14, ":original_king"),
-           (store_random_in_range, ":rand", 0, 165),    #MOTO randomize (triggers 33 times as often, so this is 33x5 -- see above) F123 - 1.41 -> Submod
-  
-##       (str_store_troop_name, s11, ":cur_troop"),
-##       (str_store_faction_name, s13, ":original_faction"),
-                                          (try_begin),
-                                            (eq, ":rand", 0), 
-                                            	    (display_message, "@(Possible Rebellion) Rumors say that {s14} is still alive.", 0xFF0000),
-                                          (else_try),
-                                            (eq, ":rand", 1),
-                                           	    (display_message, "@(Possible Rebellion) Rumors say that {s14} meets in secret with his faithful.", 0xFF0000),           
-                                          (else_try),
-                                            (eq, ":rand", 2),
-                                                   (display_message, "@(Possible Rebellion) Rumors say that people favor the restoration of {s14}.", 0xFF0000),    #MOTO correct spelling. F123 - Submod -> 1.41
-                                          (else_try),
-                                            (eq, ":rand", 3),
-                                           	    (display_message, "@(Possible Rebellion) Rumors say that {s14} is gathering an army to regain his throne.", 0xFF0000),           
-                                          (else_try),
-                                            (eq, ":rand", 4),
-                                                    # (display_message, "@(Possible Rebellion) Rumors say that {s14} is stockpiling weapons and is seeking support among the Franks.", 0xFF0000),    MOTO same as next random message. F123 - 1.41 -> Submod
-                                          # (else_try),
-                                            # (eq, ":rand", 5),
-     #                                            (gt, "$temp", 1),
-	   (try_begin),
-(lt, ":rebelde_reln", 10), #se supone que el sublevado solo lo hace si tiene 10 o menos relacion con el player
-
-     ##            (try_for_range, ":cur_troop", kingdom_heroes_begin2, kingdom_heroes_end2),
-##            (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-##            (troop_get_slot, ":original_faction", ":cur_troop", slot_troop_original_faction),
-##            (neg|faction_slot_eq, ":original_faction", slot_faction_state, sfs_active),
-##            (store_troop_faction, ":faction_no", ":cur_troop"),
-##            (neq, ":faction_no", ":original_faction"),
-           
-##            (assign, ":num_walled_centers", 0),
-##            (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-##              (party_slot_eq, ":walled_center", slot_town_lord, ":cur_troop"),
-##              (val_add, ":num_walled_centers", 1),
-##            (try_end),
-##            (gt, ":num_walled_centers", 0), ## has a walled center
-##           
-##            (store_sub, ":original_king", ":original_faction", "fac_kingdom_1"),
-##            (val_add, ":original_king", "trp_kingdom_1_lord"),
-##            (faction_set_slot, ":original_faction", slot_faction_leader, ":original_king"),
-           
-            (call_script, "script_change_troop_faction", ":cur_troop", ":original_faction"),
-            (try_for_range, ":cur_troop_2", kingdom_heroes_begin2, kingdom_heroes_end2),
-              (troop_slot_eq, ":cur_troop_2", slot_troop_occupation, slto_kingdom_hero),
-              (neg|is_between, ":cur_troop_2", pretenders_begin, pretenders_end),
-              (neq, ":cur_troop_2", ":cur_troop"),
-              (troop_get_slot, ":original_faction_2", ":cur_troop_2", slot_troop_original_faction),
-              (store_troop_faction, ":faction_no_2", ":cur_troop_2"),
-              (eq, ":original_faction_2", ":original_faction"),
-              (neq, ":faction_no_2", ":original_faction"),
-              (troop_set_slot, ":cur_troop_2", slot_troop_change_to_faction, ":original_faction"),
-            (try_end),
-            (call_script, "script_add_notification_menu", "mnu_notification_kingdom_restoration", ":cur_troop", ":faction_no"),
-      (else_try),
-                                           	    (display_message, "@(Possible Rebellion) Rumors say that {s14} is stockpiling weapons and is seeking support among the Franks.", 0xFF0000),           
-          (try_end),
-(try_end),
-
-	   (try_end),
-
-
-
-##(try_for_range, ":cur_troop", kingdom_heroes_begin2, kingdom_heroes_end2),
-##            (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-##            (troop_get_slot, ":original_faction", ":cur_troop", slot_troop_original_faction),
-##            (neg|faction_slot_eq, ":original_faction", slot_faction_state, sfs_active),
-##            (store_troop_faction, ":faction_no", ":cur_troop"),
-##            (neq, ":faction_no", ":original_faction"),
-##           
-##            (assign, ":num_walled_centers", 0),
-##            (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-##              (party_slot_eq, ":walled_center", slot_town_lord, ":cur_troop"),
-##              (val_add, ":num_walled_centers", 1),
-##            (try_end),
-##            (gt, ":num_walled_centers", 0), ## has a walled center
-##           
-##            (store_sub, ":original_king", ":original_faction", "fac_kingdom_1"),
-##            (val_add, ":original_king", "trp_kingdom_1_lord"),
-##            (faction_set_slot, ":original_faction", slot_faction_leader, ":original_king"),
-##           
-##            (call_script, "script_change_troop_faction", ":cur_troop", ":original_faction"),
-####            (try_for_range, ":cur_troop_2", kingdom_heroes_begin2, kingdom_heroes_end2),
-####              (troop_slot_eq, ":cur_troop_2", slot_troop_occupation, slto_kingdom_hero),
-####              (neg|is_between, ":cur_troop_2", pretenders_begin, pretenders_end),
-####              (neq, ":cur_troop_2", ":cur_troop"),
-####              (troop_get_slot, ":original_faction_2", ":cur_troop_2", slot_troop_original_faction),
-####              (store_troop_faction, ":faction_no_2", ":cur_troop_2"),
-####              (eq, ":original_faction_2", ":original_faction"),
-####              (neq, ":faction_no_2", ":original_faction"),
-####              (troop_set_slot, ":cur_troop_2", slot_troop_change_to_faction, ":original_faction"),
-####            (try_end),
-##            (call_script, "script_add_notification_menu", "mnu_notification_kingdom_restoration", ":cur_troop", ":faction_no"),
-##          (try_end),
+        (try_end),
        ]),
-      ## restoration end chief
+
   #algo del tema de vender prisioneros por ciudades chief commander CC
   ####siege warfare, player pierde dinero durante un asedio por gastos varios y diariamente. Los asedios eran muy caros.
     (24,
