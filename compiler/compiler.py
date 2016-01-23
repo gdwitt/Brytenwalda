@@ -345,7 +345,7 @@ class Compiler(object):
         unused_entities = self._all_entities - set(self._all_used_entities.keys())
 
         result = ''
-        for variable in unused_entities:
+        for variable in sorted(unused_entities):
             result += '%s\n' % variable
 
         with open(self._log_dir + '/' + 'unused_entities.txt', 'wb') as f:
