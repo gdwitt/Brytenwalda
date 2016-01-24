@@ -32190,6 +32190,8 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
   [anyone, "start", [
   (eq, "$talk_context", tc_tavern_talk),
+  (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+  (eq, "$g_talk_troop", ":mercenary_troop"),
   ],
    "Any orders, {sir/madam}?", "mercenary_after_recruited", []],
 
