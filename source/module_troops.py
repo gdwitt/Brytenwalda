@@ -2311,8 +2311,6 @@ troops = [
 ["startup_merchants_end","startup_merchants_end","startup_merchants_end",tf_hero, 0,0, 'fac_commoners',[],def_attrib|level(2),wp(20),knows_inventory_management_10,0],
 
 ["relative_of_merchant", "Merchant's Brother", "{!}Prominent",tf_hero,0,0,'fac_kingdom_2',['itm_ptunic3','itm_ankleboots'],def_attrib|level(1),wp(10),knows_athletics_1|knows_ironflesh_2|knows_shield_2,0x00000000320410022d2595495491afa400000000001d9ae30000000000000000,mercenary_face_2],
-
-["relative_of_merchants_end","relative_of_merchants_end","relative_of_merchants_end",tf_hero, 0,0, 'fac_commoners',[],def_attrib|level(2),wp(20),knows_inventory_management_10,0],
 #####grueso chief empieza#############
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 #-#-#-#Hunting chief Mod begin#-#-#-#

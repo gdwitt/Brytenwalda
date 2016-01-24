@@ -82,3 +82,5 @@ scripts = character_creation.scripts \
 
 dialogs = tutorial.dialogs \
           + quest_merchant.dialogs
+
+mission_templates = quest_merchant.mission_templates
