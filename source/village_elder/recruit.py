@@ -26,7 +26,7 @@ dialogs = [
         (ge, reg5, 1),
         (store_add, reg7, reg5, -1),
         ], "Tell {reg7?them:him} to make ready.", "village_elder_pretalk", [
-         (call_script, "script_village_recruit_volunteers", reg5)]
+         (call_script, "script_village_recruit_volunteers", reg5, -1)]
      ],
 
     [anyone | plyr, "village_elder_recruit_decision", [
