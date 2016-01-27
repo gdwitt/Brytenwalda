@@ -408,6 +408,14 @@ menus = [
                 (try_end),
             ]),
 
+        # -> buy_cattle.py
+        ("village_buy_cattle", [
+            (party_slot_eq, "$current_town", slot_village_state, 0),
+            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            ], "Buy cattle.", [
+            (jump_to_menu,"mnu_buy_cattle")
+        ]),
+
         ("village_attack_bandits", [
             (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
             (neg|party_slot_eq, "$current_town", slot_village_infested_by_bandits, "trp_peasant_woman"),
