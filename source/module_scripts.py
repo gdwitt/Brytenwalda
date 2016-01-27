@@ -50145,25 +50145,6 @@ scripts = [
 ##  ]),
 
   #seatrade acaba
-    ###Order: Volley Fire de Caba'drin chief
-  # script_cf_order_volley_check
-  # Input: Nothing
-  # Output: Nothing    
-  # Check for an active Volley Fire order
- ("cf_order_volley_check", [ 
-    (assign, ":active", 0),
-    (assign, ":end", 4),
-    (assign, ":end2", slot_team_d0_order_volley + 9),
-    (try_for_range, ":team", 0, ":end"),
-        (try_for_range, ":i", slot_team_d0_order_volley, ":end2"),
-            (team_slot_ge, ":team", ":i", 1),
-            (assign, ":active", 1),
-            (assign, ":end", 0),
-            (assign, ":end2", slot_team_d0_order_volley),
-        (try_end),
-    (try_end),
-    (eq, ":active", 1),
-    ]),  
 
 ####fire arrow scripts chief
     # script_initialize_ship
