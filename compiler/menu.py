@@ -33,7 +33,7 @@ from .generic_entity import GenericEntity
 
 
 class Menu(GenericEntity):
-    tag = 'menu'
+    tag = 'mnu'
     raw_objects = m_menus.game_menus
 
     def __init__(self, index, id, flags, text, mesh_name, block, menu_options):
