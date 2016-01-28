@@ -229,8 +229,7 @@ dialogs = [
         "merchant_quest_1b", []),
 
     (anyone|plyr, "merchant_quest_1a", [],
-        "You insult all of Brittania and Hibernia, you_scite! You would do well "
-        "to leave, because I will return and you had better not still be here.",
+        "Thank you for your help, but I have other things to do right now.",
         "close_window", [
         (assign, "$dialog_with_merchant_ended", 1),
     ]),
@@ -246,8 +245,6 @@ dialogs = [
         (str_store_string, s2, "str_start_up_quest_message_1"),
 
         (call_script, "script_start_quest", "qst_collect_men", "$g_talk_troop"),
-
-        (party_get_position, pos1, "$current_town"),
     ]),
 
     [anyone|plyr,"merchant_quest_1c", [],

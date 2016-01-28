@@ -6,6 +6,36 @@ from source.module_constants import *
 
 
 dialogs = [
+
+    # At tavern merchant asks if player wants the quest again.
+    (anyone, "start", [
+        (is_between, "$g_talk_troop", "trp_briton_merchant", "trp_startup_merchants_end"),
+        (eq, "$talk_context", tc_tavern_talk),
+        (neg|check_quest_active, "qst_collect_men"),
+        (neg|check_quest_finished, "qst_collect_men"),
+        ], "So, willing to help me out?", "merchant_quest_tavern_1a", []
+    ),
+
+    [anyone | plyr, "merchant_quest_tavern_1a", [],
+        "Yes, I'll collect some men from around the villages.",
+        "merchant_quest_tavern_1b", [
+        (str_store_troop_name, s9, "$g_talk_troop"),
+        (str_store_party_name, s1, "$g_starting_town"),
+        (str_store_string, s2, "str_start_up_quest_message_1"),
+
+        (call_script, "script_start_quest", "qst_collect_men", "$g_talk_troop"),
+        ]
+    ],
+
+    (anyone | plyr, "merchant_quest_tavern_1a", [],
+        "No, not yet.", "close_window", []),
+
+    (anyone, "merchant_quest_tavern_1b", [
+        (is_between, "$g_talk_troop", "trp_briton_merchant", "trp_startup_merchants_end"),
+        (eq, "$talk_context", tc_tavern_talk),
+        ], "Great, see you then.", "close_window", []
+    ),
+
     # At tavern, merchant tells player has not enough men
     [anyone | auto_proceed, "start", [
         (is_between, "$g_talk_troop", "trp_briton_merchant", "trp_startup_merchants_end"),
