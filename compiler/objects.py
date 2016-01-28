@@ -46,9 +46,7 @@ TAG_TO_OBJECT_TYPE = dict()
 for object_type in ALL_TYPES:
     if object_type.tag:
         tag = object_type.tag
-        if object_type == MissionTemplate:
-            tag = 'mt'
-        elif object_type == Tableau:
+        if object_type == Tableau:
             tag = 'tableau'
         TAG_TO_OBJECT_TYPE[tag] = object_type
 

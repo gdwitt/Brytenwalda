@@ -30,7 +30,7 @@ from .generic_entity import GenericEntity
 
 
 class MissionTemplate(GenericEntity):
-    tag = 'mst'
+    tag = 'mt'
     raw_objects = m_mission_templates.mission_templates
 
     def __init__(self, index, id, flags, mission_type, description, groups,
