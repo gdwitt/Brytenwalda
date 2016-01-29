@@ -109,6 +109,10 @@ class Dialog(GenericEntity):
         self._consequences = consequences
         self._voice_over = voice_over
 
+    @property
+    def name(self):
+        return "%s[%s -> %s]" % (self.__class__.__name__, self._start, self._end)
+
     def create_auto_id(self):
         token_ipt = p_common.convert_to_identifier(self._start)
         token_opt = p_common.convert_to_identifier(self._end)
@@ -127,8 +131,6 @@ class Dialog(GenericEntity):
         return auto_id
 
     def export(self, compiler):
-        statement_name = "%s.%s" % (self.__class__.__name__, self._start)
-
         result = ''
 
         dialog_id = self.create_auto_id()
@@ -142,7 +144,7 @@ class Dialog(GenericEntity):
 
         result += "%s %d %d " % (dialog_id, partner, self._input_states[self._index])
         result += compiler.process_statement_block(
-            statement_name + "[conditions]", 1, self._condition)
+            self.name + "[conditions]", 1, self._condition)
 
         if self._text:
             result += "%s " % self._text.replace(" ", "_")
@@ -151,7 +153,7 @@ class Dialog(GenericEntity):
 
         result += " %d " % self._output_states[self._index]
         result += compiler.process_statement_block(
-            statement_name + "[consequences]", 1, self._consequences)
+            self.name + "[consequences]", 1, self._consequences)
 
         result += "%s " % self._voice_over
         result += '\n'

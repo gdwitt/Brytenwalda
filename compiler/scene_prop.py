@@ -27,8 +27,7 @@ class SceneProp(GenericEntity):
         result = "%s %d %d %s %s " % (self._id, self._flags,
                                       h_scene_props.get_spr_hit_points(self._flags),
                                       self._mesh_name, self._object_name)
-        result += compiler.process_simple_triggers(
-            "%s.%s" % (self.__class__.__name__, self.no_tag_id), self._triggers)
+        result += compiler.process_simple_triggers(self.name, self._triggers)
         result += "\n"
         return result
 

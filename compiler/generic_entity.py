@@ -14,6 +14,10 @@ class GenericEntity(object):
             self._id = id
 
     @property
+    def name(self):
+        return "%s.%s" % (self.__class__.__name__, self.no_tag_id)
+
+    @property
     def id(self):
         return self._id
 

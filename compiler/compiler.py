@@ -382,9 +382,8 @@ class Compiler(object):
                     result += object_type.objects[id].export(self)
                 except Exception as e:
                     import sys
-                    raise type(e), type(e)(e.message +
-                                           ' happens at "%s", entry %d of list' %
-                                           (object_type.objects[id].id, object_type.objects[id].index)), \
+                    raise type(e), type(e)('"%s" happens at "%s".' %
+                                           (e.message, object_type.objects[id].name)), \
                         sys.exc_info()[2]
 
             with open(self._export_dir + '/' + objects.FILE_NAMES[object_type], 'wb') as f:

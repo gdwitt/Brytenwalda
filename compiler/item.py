@@ -110,8 +110,7 @@ class Item(GenericEntity):
         result += "%d\n" % len(self._triggers)
         for trigger in self._triggers:
             result += "%f " % trigger[0]
-            result += compiler.process_statement_block(
-                "%s.%s" % (self.__class__.__name__, self.no_tag_id), 1, trigger[1])
+            result += compiler.process_statement_block(self.name, 1, trigger[1])
             result += "\n"
         result += "\n"
 

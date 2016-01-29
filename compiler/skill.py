@@ -26,7 +26,7 @@ class Skill(GenericEntity):
         self._description = description
 
     def export(self, compiler):
-        result = "%s %s "% (self.id, p_common.replace_spaces(self._name))
+        result = "%s %s " % (self.id, p_common.replace_spaces(self._name))
         result += "%d %d %s\n" % (self._flags, self._max_level,
                                   self._description.replace(" ", "_"))
         return result
