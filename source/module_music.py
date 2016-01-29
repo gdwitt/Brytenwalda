@@ -1,6 +1,5 @@
 from header_music import *
-# >>>>> code snippet for WRECK <<<<< #
-#from compiler import *
+
 ####################################################################################################################
 #  Each track record contains the following fields:
 #  1) Track id: used for referencing tracks.

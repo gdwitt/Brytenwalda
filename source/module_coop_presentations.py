@@ -1,13 +1,13 @@
-from header_common import *
-from header_presentations import *
-from header_mission_templates import *
 from header_operations import *
+from header_common import *
+
+from header_presentations import *
 from header_triggers import *
 from module_constants import *
-from header_items import *
-import string
-# >>>>> code snippet for WRECK <<<<< #
-#from compiler import *
+from header_items import itp_type_one_handed_wpn, itp_type_goods, \
+    itp_type_head_armor, itp_type_body_armor, itp_type_foot_armor, \
+    itp_type_hand_armor, itp_type_pistol, itp_type_horse
+
 ####################################################################################################################
 #  Each presentation record contains the following fields:
 #  1) Presentation id: used for referencing presentations in other files. The prefix prsnt_ is automatically added before each presentation id.

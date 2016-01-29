@@ -1,6 +1,11 @@
-from source.header_game_menus import *
-from source.header_items import *
-from source.module_constants import *
+from source.header_operations import *
+
+from source.header_items import num_equipment_kinds, max_inventory_items
+
+from source.module_constants import slot_town_lord, slot_village_state, \
+    slot_village_infested_by_bandits, slot_town_elder, \
+    slot_village_player_can_not_steal_cattle, slot_village_number_of_cattle, \
+    svs_looted, svs_being_raided
 
 import force_recruit
 import loot

@@ -1,8 +1,14 @@
+from source.header_operations import *
+from source.header_common import s5, s21
 from source.header_dialogs import anyone, plyr
-import source.header_common as h_common
+
 from source.statement import StatementBlock
-from ..header_operations import *
-from ..module_constants import *
+
+from ..module_constants import tms_acknowledged, slot_troop_morality_penalties, \
+    tms_dismissed, tms_no_problem, companions_begin, companions_end, \
+    slot_troop_morality_type, slot_troop_morality_state, slot_troop_morality_value, \
+    slot_troop_2ary_morality_type, slot_troop_2ary_morality_state, slot_troop_2ary_morality_value, \
+    slot_troop_morality_speech, slot_troop_2ary_morality_speech
 
 
 def _affect_morality_by_action(slot, slot_state, slot_value):
@@ -87,8 +93,8 @@ dialogs = [
             (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_2ary_morality_speech),
         (try_end),
 
-        (str_store_string, h_common.s21, "$npc_grievance_string"),
-        (str_store_string, h_common.s5, ":speech"),
+        (str_store_string, s21, "$npc_grievance_string"),
+        (str_store_string, s5, ":speech"),
     ],
      "{s5}", "companion_objection_response", [
          (assign, "$npc_with_grievance", 0),

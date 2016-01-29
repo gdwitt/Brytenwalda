@@ -1,6 +1,5 @@
 from header_sounds import *
-# >>>>> code snippet WRECK<<<<< #
-#from compiler import *
+
 sounds = [
 #chief cambiado entero
  ("click", sf_2d|sf_vol_3,["click_01.wav"]),

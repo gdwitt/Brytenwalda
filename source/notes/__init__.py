@@ -1,6 +1,8 @@
-from ..header_game_menus import *
-from ..header_items import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.module_constants import *
+
 
 scripts = [
 

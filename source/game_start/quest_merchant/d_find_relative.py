@@ -1,8 +1,11 @@
+from source.header_operations import *
+from source.header_common import s2, s9, s10, reg0, pos0, pos1, pos4
 from source.header_dialogs import anyone, plyr
-from source.header_game_menus import *
-from source.header_items import *
+from source.module_constants import tc_tavern_talk, tc_party_encounter, tc_hero_defeated
+from source.header_triggers import ti_on_agent_spawn, ti_once
 from source.header_parties import pf_always_visible
-from source.module_constants import *
+
+from source.module_constants import villages_begin, villages_end, slot_village_bound_center, slot_party_ai_substate
 
 
 dialogs = [

@@ -1,7 +1,8 @@
-from source.header_dialogs import anyone, plyr
 from source.header_operations import *
+from source.header_common import reg6
+from source.header_dialogs import anyone, plyr
+
 from source.module_constants import *
-from source.header_parties import *
 
 dialogs = [
 

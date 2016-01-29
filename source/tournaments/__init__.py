@@ -1,5 +1,7 @@
-from ..header_dialogs import *
-from ..header_game_menus import *
+from ..header_operations import *
+from ..header_common import *
+from ..header_dialogs import anyone, plyr
+from ..header_game_menus import menu_text_color, mnf_disable_all_keys
 
 from ..module_constants import *
 

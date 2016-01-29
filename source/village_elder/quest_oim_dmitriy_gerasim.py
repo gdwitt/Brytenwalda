@@ -1,6 +1,7 @@
-from source.header_dialogs import anyone, plyr
-from source.module_constants import *
 from source.header_operations import *
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import slot_quest_current_state
 
 
 dialogs = [

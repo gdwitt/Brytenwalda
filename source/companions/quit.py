@@ -1,8 +1,10 @@
+from source.header_operations import *
 from source.header_common import s5, reg0
+
 from source.header_dialogs import anyone, plyr
 from source.header_troops import ca_intelligence
 from source.statement import StatementBlock
-from ..header_operations import *
+
 from ..module_constants import *
 
 

@@ -1,7 +1,9 @@
+from ..header_operations import *
+from ..header_common import *
+from ..header_parties import ai_bhvr_travel_to_party, ai_bhvr_travel_to_point, \
+    pf_default_behavior
+
 from ..module_constants import *
-from ..header_parties import *
-from ..header_mission_templates import *
-from ..header_map_icons import *
 
 
 simple_triggers = [

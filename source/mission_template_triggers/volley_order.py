@@ -1,11 +1,14 @@
-from source.header_mission_templates import *
-from source.header_items import *
+from source.header_operations import *
+from source.header_common import s1, s2, s3, reg0
+from source.header_items import itp_type_bow, itp_type_crossbow, ek_head, ek_item_0
+from source.header_mission_templates import mordr_hold, mordr_stand_ground
+from source.header_triggers import ti_once
 
 from source.module_constants import *
 
 
 order_volley_triggers = [
-    (0, 0, 1, [(key_clicked, key_for_volley)], [(call_script, "script_order_volley_begin_end")]),
+    (0, 0, 1, [(key_clicked, key_f9)], [(call_script, "script_order_volley_begin_end")]),
     (1, 0, 0, [(call_script, "script_cf_order_volley_check")], [
         (try_for_range, ":team", 0, 4),
             (try_for_range, ":division", 0, 9),

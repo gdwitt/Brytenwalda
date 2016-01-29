@@ -1,7 +1,10 @@
+from source.header_operations import *
+from source.header_common import s5, s11, s12, s14, s17, s18, s21, s22, reg0
+
 from source.header_dialogs import anyone, plyr, repeat_for_parties
-import source.header_common as h_common
-from ..header_operations import *
-from ..module_constants import *
+
+from source.module_constants import *
+
 
 dialogs = [
 
@@ -50,15 +53,14 @@ dialogs = [
 gather_intel = [
 
     [anyone, "member_intelgathering_1", [
-        (troop_get_slot, ":town_with_contacts", "$g_talk_troop",
-         slot_troop_town_with_contacts),
-        (str_store_party_name, h_common.s17, ":town_with_contacts"),
+        (troop_get_slot, ":town_with_contacts", "$g_talk_troop", slot_troop_town_with_contacts),
+        (str_store_party_name, s17, ":town_with_contacts"),
         (store_faction_of_party, ":contact_town_faction", ":town_with_contacts"),
-        (str_store_faction_name, h_common.s18, ":contact_town_faction"),
+        (str_store_faction_name, s18, ":contact_town_faction"),
 
         (store_sub, ":npc_no", "$g_talk_troop", "trp_npc1"),
         (store_add, ":connections_string", "str_npc1_intel_mission", ":npc_no"),
-        (str_store_string, h_common.s21, ":connections_string"),
+        (str_store_string, s21, ":connections_string"),
     ], "{s21}", "member_intelgathering_3", []],
 
     [anyone | plyr, "member_intelgathering_3", [],
@@ -75,7 +77,7 @@ gather_intel = [
         (remove_member_from_party, "$g_talk_troop", "p_main_party"),
 
         (troop_get_slot, ":string", "$g_talk_troop", slot_troop_honorific),
-        (str_store_string, h_common.s21, ":string"),
+        (str_store_string, s21, ":string"),
     ], "Good. I should be ready to report in about five days. Farewell then, "
        "{s21}, for a little while.", "close_window", []],
 ]
@@ -113,7 +115,7 @@ king_support_dialogs = [
     [anyone, "member_kingsupport_1", [
         (store_sub, ":npc_no", "$g_talk_troop", "trp_npc1"),
         (store_add, ":string", "str_npc1_kingsupport_1", ":npc_no"),
-        (str_store_string, h_common.s21, ":string"),
+        (str_store_string, s21, ":string"),
     ], "{s21}", "member_kingsupport_1a", []],
 
     [anyone | plyr, "member_kingsupport_1a", [
@@ -135,8 +137,8 @@ king_support_dialogs = [
 
         (gt, ":companion_already_on_mission", -1),
         (troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
-        (str_store_string, h_common.s21, ":honorific"),
-        (str_store_troop_name, h_common.s22, ":companion_already_on_mission"),
+        (str_store_string, s21, ":honorific"),
+        (str_store_troop_name, s22, ":companion_already_on_mission"),
     ],
      "I would, {s21}. Moreover, I have a proposal on how I might help you "
      "attain your throne. But you recently sent {s22} off on a similar mission. "
@@ -147,21 +149,21 @@ king_support_dialogs = [
     [anyone, "member_kingsupport_2", [
         (store_sub, ":npc_no", "$g_talk_troop", "trp_npc1"),
         (store_add, ":string", "str_npc1_kingsupport_2", ":npc_no"),
-        (str_store_string, h_common.s21, ":string"),
+        (str_store_string, s21, ":string"),
     ], "{s21}", "member_kingsupport_2a", []],
 
     # player answers positively
     [anyone | plyr, "member_kingsupport_2a", [
         (store_sub, ":npc_no", "$g_talk_troop", "trp_npc1"),
         (store_add, ":string", "str_npc1_kingsupport_2a", ":npc_no"),
-        (str_store_string, h_common.s21, ":string"),
+        (str_store_string, s21, ":string"),
     ], "{s21}", "member_kingsupport_3", []],
 
     # player answers negatively
     [anyone | plyr, "member_kingsupport_2a", [
         (store_sub, ":npc_no", "$g_talk_troop", "trp_npc1"),
         (store_add, ":string", "str_npc1_kingsupport_2b", ":npc_no"),
-        (str_store_string, h_common.s21, ":string"),
+        (str_store_string, s21, ":string"),
 
     ], "{s21}", "do_member_trade", []],
 
@@ -169,7 +171,7 @@ king_support_dialogs = [
     [anyone, "member_kingsupport_3", [
         (store_sub, ":npc_no", "$g_talk_troop", "trp_npc1"),
         (store_add, ":string", "str_npc1_kingsupport_3", ":npc_no"),
-        (str_store_string, h_common.s21, ":string"),
+        (str_store_string, s21, ":string"),
     ], "{s21}", "member_kingsupport_3a", []],
 
     # player confirms
@@ -188,7 +190,7 @@ king_support_dialogs = [
         (remove_member_from_party, "$g_talk_troop", "p_main_party"),
 
         (troop_get_slot, ":string", "$g_talk_troop", slot_troop_honorific),
-        (str_store_string, h_common.s21, ":string"),
+        (str_store_string, s21, ":string"),
 
     ], "Farewell then, {s21}, for a little while", "close_window", []],
 ]
@@ -207,7 +209,7 @@ grant_fief_dialogs = [
         (eq, ":center_faction", "fac_player_supporters_faction"),
         (neg | party_slot_ge, ":center", slot_town_lord, active_npcs_begin),
         # ie, owned by player or unassigned
-        (str_store_party_name, h_common.s11, ":center"),
+        (str_store_party_name, s11, ":center"),
 
         ], "{s11}", "member_fief_grant_3", [(store_repeat_object, "$temp")]
      ],
@@ -221,7 +223,7 @@ grant_fief_dialogs = [
     [anyone, "member_fief_grant_3", [],
      "{s5}", "close_window", [
          (call_script, "script_npc_morale", "$g_talk_troop"),
-         (assign, ":npc_morale", h_common.reg0),
+         (assign, ":npc_morale", reg0),
          (assign, ":fief", "$temp"),
 
          (remove_member_from_party, "$g_talk_troop", "p_main_party"),
@@ -275,24 +277,24 @@ grant_fief_dialogs = [
          (troop_set_slot, "$g_talk_troop", slot_troop_wealth, ":initial_gold"),
 
          # set troop name
-         (str_store_troop_name_plural, h_common.s12, "$g_talk_troop"),
+         (str_store_troop_name_plural, s12, "$g_talk_troop"),
          (troop_get_type, ":is_female", "$g_talk_troop"),
          (try_begin),
              # if it is a special female
              (eq, "$g_talk_troop", "trp_npclady2"),
-             (str_store_string, h_common.s14, "str_tribune_s12"),
+             (str_store_string, s14, "str_tribune_s12"),
          (else_try),
              # if it is female
              (this_or_next | eq, ":is_female", 1),
              (this_or_next | eq, ":is_female", 3),
              (this_or_next | eq, ":is_female", 5),
              (eq, ":is_female", 7),
-             (str_store_string, h_common.s14, "str_lady_s12"),
+             (str_store_string, s14, "str_lady_s12"),
          (else_try),
              # if it is male
-             (str_store_string, h_common.s14, "str_lord_s12"),
+             (str_store_string, s14, "str_lord_s12"),
          (try_end),
-         (troop_set_name, "$g_talk_troop", h_common.s14),
+         (troop_set_name, "$g_talk_troop", s14),
 
          # todo: what is this?
          (unlock_achievement, ACHIEVEMENT_I_DUB_THEE),
@@ -318,10 +320,10 @@ grant_fief_dialogs = [
          # create answer to player
          # town name -> s17  (all acceptance speeches use s17)
          # npc speech of fief acceptance -> s5
-         (str_store_party_name, h_common.s17, ":fief"),
+         (str_store_party_name, s17, ":fief"),
          (store_sub, ":npc_no", "$g_talk_troop", "trp_npc1"),
          (store_add, ":speech", "str_npc1_fief_acceptance", ":npc_no"),
-         (str_store_string, h_common.s5, ":speech"),
+         (str_store_string, s5, ":speech"),
      ]],
 ]
 

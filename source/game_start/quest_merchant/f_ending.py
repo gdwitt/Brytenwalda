@@ -1,7 +1,8 @@
-from source.header_dialogs import anyone, plyr
-from source.header_mission_templates import *
 from source.header_operations import *
-from source.module_constants import *
+from source.header_common import s1, s2, s3, s5, reg0
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import slot_faction_leader
 
 
 dialogs = [

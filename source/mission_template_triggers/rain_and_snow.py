@@ -1,6 +1,5 @@
-from source.header_mission_templates import *
-
-from source.module_constants import *
+from source.header_operations import *
+from source.header_triggers import ti_once, ti_before_mission_start
 
 
 rain = (

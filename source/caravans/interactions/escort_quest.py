@@ -1,6 +1,8 @@
-from source.header_common import reg0, s1, reg2, s3, reg3, reg4
-from source.header_dialogs import anyone, plyr
 from source.header_operations import *
+from source.header_common import reg0, s1, reg2, s3, reg3, reg4
+
+from source.header_dialogs import anyone, plyr
+
 from source.module_constants import tc_party_encounter
 
 

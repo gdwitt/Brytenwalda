@@ -1,4 +1,4 @@
-from ..header_game_menus import *
+from ..header_operations import set_background_mesh, jump_to_menu
 
 
 menus = [

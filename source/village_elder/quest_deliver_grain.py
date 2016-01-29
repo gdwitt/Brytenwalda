@@ -1,7 +1,11 @@
-from source.header_common import *
-from source.header_dialogs import anyone, plyr
-from source.module_constants import *
 from source.header_operations import *
+from source.header_common import *
+
+from source.header_dialogs import anyone, plyr
+from source.module_constants import villages_begin, villages_end, \
+    slot_town_prosperity, slot_quest_target_center, slot_quest_target_amount, \
+    slot_troop_does_not_give_quest, logent_helped_peasants
+
 from source.statement import StatementBlock
 
 

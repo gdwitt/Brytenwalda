@@ -1,7 +1,11 @@
-from source.header_dialogs import anyone, plyr, auto_proceed, party_tpl
 from source.header_operations import *
-from source.header_parties import *
+from source.header_common import *
+from source.header_dialogs import anyone, plyr, auto_proceed, party_tpl
+from source.header_parties import pf_default_behavior, ai_bhvr_travel_to_party, \
+    ai_bhvr_hold
+
 from source.module_constants import *
+
 from source.lazy_flag import LazyFlag
 
 

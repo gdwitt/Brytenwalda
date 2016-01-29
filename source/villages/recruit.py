@@ -1,6 +1,9 @@
-from ..header_game_menus import *
-from ..header_items import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.module_constants import slot_village_state, slot_village_infested_by_bandits, \
+    slot_center_volunteer_troop_amount, slot_center_volunteer_troop_type, \
+    slot_center_player_relation, svs_looted, svs_being_raided
 
 
 menus = [

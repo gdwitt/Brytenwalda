@@ -1,4 +1,4 @@
-from header_common import *
+from header_common import bignum
 
 ###################################################
 # header_troops.py

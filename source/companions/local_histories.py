@@ -1,8 +1,13 @@
-from ..header_dialogs import anyone, plyr
-import source.header_common as h_common
-from ..statement import StatementBlock
-from ..header_operations import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_common import s5
+
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import companions_begin, companions_end, \
+    slot_troop_home_speech_delivered, slot_troop_home, slot_troop_home_intro, \
+    slot_troop_home_description, slot_troop_home_description_2
+
+from source.statement import StatementBlock
 
 
 trigger_dialog_block = StatementBlock(
@@ -31,7 +36,7 @@ dialogs = [
         (is_between, "$map_talk_troop", companions_begin, companions_end),
 
         (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_home_intro),
-        (str_store_string, h_common.s5, ":speech"),
+        (str_store_string, s5, ":speech"),
      ],
      "{s5}", "companion_home_description", [
          (troop_set_slot, "$map_talk_troop", slot_troop_home_speech_delivered, 1),
@@ -53,13 +58,13 @@ dialogs = [
 
     [anyone, "companion_home_description_2", [
         (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_home_description),
-        (str_store_string, h_common.s5, ":speech"),
+        (str_store_string, s5, ":speech"),
         ], "{s5}", "companion_home_description_3", []
      ],
 
     [anyone, "companion_home_description_3", [
         (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_home_description_2),
-        (str_store_string, h_common.s5, ":speech"),
+        (str_store_string, s5, ":speech"),
         ], "{s5}", "close_window", []
      ],
 ]

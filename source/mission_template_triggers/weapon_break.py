@@ -1,5 +1,8 @@
-from source.header_mission_templates import *
-from source.header_items import *
+from source.header_operations import *
+from source.header_common import *
+from source.header_items import itp_type_one_handed_wpn, itp_type_polearm, \
+    itp_type_two_handed_wpn, ek_item_0, ek_head
+from source.header_item_modifiers import *
 
 
 #chief Brytenwalda -Baron Conrad script- armas se rompen

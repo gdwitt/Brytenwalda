@@ -1,6 +1,7 @@
-from source.header_game_menus import *
-from source.header_items import *
-from source.module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.module_constants import slot_town_lord, slot_center_volunteer_troop_amount
 
 
 menus = [

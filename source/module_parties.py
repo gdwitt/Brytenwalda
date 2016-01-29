@@ -1,8 +1,5 @@
-from header_common import *
 from header_parties import *
 from source.lazy_flag import LazyFlag
-# >>>>> code snippet for WRECK <<<<< #
-#from compiler import *
 ####################################################################################################################
 #Each party record contains the following fields:
 #1) Party id: used for referencing parties in other files.

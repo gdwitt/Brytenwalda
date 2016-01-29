@@ -1,7 +1,11 @@
-from source.header_common import s11, s12, s14, s15
-from source.header_dialogs import anyone
-from source.module_constants import *
 from source.header_operations import *
+from source.header_common import s11, s12, s14, s15
+
+from source.header_dialogs import anyone
+
+from source.module_constants import slot_party_last_traded_center, \
+    slot_party_ai_object, slot_town_trade_good_prices_begin, trade_goods_begin, \
+    trade_goods_end
 
 
 dialogs = [

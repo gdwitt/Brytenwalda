@@ -1,8 +1,10 @@
-from module_coop_mission_templates import coop_mission_templates
 from source.mission_template_triggers import *
+from header_music import *
+from header_mission_types import charge
 
 import game_start
 from game_start import quest_merchant
+from module_coop_mission_templates import coop_mission_templates
 ####################################################################################################################
 #   Each mission-template is a tuple that contains the following fields:
 #  1) Mission-template id (string): used for referencing mission-templates in other files.

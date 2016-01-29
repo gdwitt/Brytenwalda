@@ -1,8 +1,13 @@
-from source.header_common import *
-from source.header_dialogs import anyone, plyr
-from source.module_constants import *
 from source.header_operations import *
+from source.header_common import *
+
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import villages_begin, villages_end, \
+    slot_troop_does_not_give_quest, slot_quest_target_center, slot_quest_target_amount
+
 from source.statement import StatementBlock
+
 
 quest_block = StatementBlock(
     (eq, ":quest_no", "qst_train_peasants_against_bandits"),

@@ -1,8 +1,14 @@
+from ..header_operations import *
+from ..header_common import s3
+from ..header_skills import *
+from ..header_troops import *
+from ..header_game_menus import mnf_disable_all_keys
+
 from source.header_dialogs import anyone, plyr, auto_proceed
-from source.lazy_flag import LazyFlag
-from ..header_game_menus import *
-from ..header_items import *
+
 from ..module_constants import *
+
+from source.lazy_flag import LazyFlag
 
 
 menu = (

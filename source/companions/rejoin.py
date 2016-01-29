@@ -1,8 +1,11 @@
-from source.statement import StatementBlock
-from ..header_common import s5, s19, s20, s21, reg3
+from source.header_operations import *
+from source.header_common import s5, s19, s20, s21, reg3
+
 from source.header_dialogs import anyone, plyr, auto_proceed
-from ..header_operations import *
-from ..module_constants import *
+
+from source.module_constants import *
+
+from source.statement import StatementBlock
 
 
 trigger_event_block = StatementBlock(

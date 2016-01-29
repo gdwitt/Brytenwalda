@@ -1,6 +1,13 @@
-from ..module_constants import *
-from ..header_mission_templates import *
-from ..header_presentations import *
+from source.header_operations import *
+from source.header_common import *
+from source.header_presentations import tf_center_justify, tf_scrollable, tf_left_align
+from source.header_triggers import ti_on_presentation_load, ti_on_presentation_event_state_change
+
+from source.module_constants import towns_begin, towns_end, \
+    centers_begin, centers_end, spt_town, \
+    slot_center_player_relation, slot_town_player_acres, slot_town_bank_assets, \
+    slot_town_bank_debt, slot_party_type, slot_town_acres, slot_town_bank_deadline, \
+    slot_town_prosperity, slot_center_population, slot_town_lord, slot_troop_renown
 
 # relevant slots: slot_town_bank_deadline, slot_town_bank_debt,
 # slot_town_bank_assets, slot_town_player_acres

@@ -1,8 +1,10 @@
+from ..header_operations import *
+from ..header_common import *
 from ..header_scenes import *
+from ..header_presentations import tf_right_align, tf_single_line
+from ..header_dialogs import anyone, plyr, auto_proceed
+
 from ..module_constants import *
-from ..header_mission_templates import *
-from ..header_presentations import *
-from ..header_dialogs import *
 
 from ..statement import StatementBlock
 

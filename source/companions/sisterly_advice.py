@@ -1,8 +1,12 @@
-from ..header_common import s5
-from ..header_dialogs import anyone, plyr
-from ..header_operations import *
-from ..module_constants import *
-from ..statement import StatementBlock
+from source.header_operations import *
+from source.header_common import s5
+
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import slot_troop_woman_to_woman_string, \
+    companions_begin, companions_end
+
+from source.statement import StatementBlock
 
 
 trigger_dialog_block = StatementBlock(

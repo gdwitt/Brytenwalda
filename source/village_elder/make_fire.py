@@ -1,7 +1,12 @@
-from source.header_common import *
-from source.header_dialogs import anyone, plyr
-from source.module_constants import *
 from source.header_operations import *
+from source.header_common import s4, pos0, pos1, pos2
+
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import slot_village_bound_center, \
+    slot_town_last_nearby_fire_time, villages_begin, villages_end, \
+    village_elders_begin, village_elders_end, fire_duration, slot_village_smoke_added
+
 from source.statement import StatementBlock
 
 

@@ -1,5 +1,9 @@
-from source.header_game_menus import *
-from source.header_items import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.header_game_menus import mnf_disable_all_keys, mnf_scale_picture
+from source.header_items import itp_type_goods
+
 from source.module_constants import *
 
 

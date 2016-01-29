@@ -1,7 +1,9 @@
-from source.header_common import *
-from source.header_dialogs import anyone, plyr
-from source.module_constants import *
 from source.header_operations import *
+from source.header_common import *
+
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import slot_quest_target_center, slot_quest_target_dna
 
 # todo: this quest is set by a lord.
 

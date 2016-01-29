@@ -1,6 +1,10 @@
-from source.header_game_menus import *
-from source.header_items import *
-from source.module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.header_items import max_inventory_items, num_equipment_kinds
+
+from source.module_constants import slot_town_lord, slot_center_player_relation, \
+    slot_town_elder, tmt_humanitarian, logent_village_extorted
 
 
 menus = [

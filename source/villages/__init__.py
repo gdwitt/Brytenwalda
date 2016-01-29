@@ -1,8 +1,12 @@
-from ..header_terrain_types import *
-from ..statement import StatementBlock
-from ..header_game_menus import *
-from ..header_items import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.header_game_menus import mnf_enable_hot_keys
+from source.header_terrain_types import *
+
+from source.statement import StatementBlock
+
+from source.module_constants import *
 
 import hostile_actions
 import buy_cattle

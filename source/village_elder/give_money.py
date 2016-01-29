@@ -1,5 +1,6 @@
-from source.header_dialogs import anyone, plyr
 from source.header_operations import *
+from source.header_dialogs import anyone, plyr
+
 
 dialogs = [
     # todo: make this with different sums of money

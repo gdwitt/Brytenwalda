@@ -1,4 +1,8 @@
+from source.header_operations import *
+from source.header_common import *
+from source.header_triggers import *
 from source.header_mission_templates import *
+from source.header_skills import skl_leadership, skl_persuasion
 
 from source.module_constants import *
 

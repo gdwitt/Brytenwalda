@@ -1,5 +1,5 @@
-from ..header_troops import *
-from ..header_skills import *
+from source.header_troops import tf_hero, tf_is_merchant, def_attrib, wp, level
+from source.header_skills import knows_common
 
 reserved = 0
 

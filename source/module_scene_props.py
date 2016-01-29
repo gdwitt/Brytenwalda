@@ -1,13 +1,13 @@
 # -*- coding: cp1252 -*-
-from header_common import *
-from header_scene_props import *
 from header_operations import *
-from header_triggers import *
-from header_sounds import *
+from header_common import *
+
+from header_scene_props import *
+from header_triggers import ti_on_scene_prop_use, ti_on_scene_prop_is_animating, \
+    ti_on_scene_prop_animation_finished, ti_on_init_scene_prop, ti_on_scene_prop_hit, \
+    ti_on_scene_prop_destroy, ti_on_scene_prop_init
+
 from module_constants import *
-import string
-# >>>>> code snippet for WRECK <<<<< #
-#from compiler import *
 ####################################################################################################################
 #  Each scene prop record contains the following fields:
 #  1) Scene prop id: used for referencing scene props in other files. The prefix spr_ is automatically added before each scene prop id.

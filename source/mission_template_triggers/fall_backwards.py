@@ -1,6 +1,6 @@
-from source.header_mission_templates import *
-
-from source.module_constants import *
+from source.header_operations import *
+from source.header_triggers import key_left_shift, gk_move_backward
+from source.header_troops import tf_male, tf_female
 
 
 ## Beaver - Mission Template for tripping when walking backwards - SP ONLY

@@ -1,7 +1,9 @@
-from ..header_mission_templates import *
-from ..header_items import *
-from ..header_map_icons import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_common import reg0, reg6
+
+from source.header_items import *
+
+from source.module_constants import *
 
 
 simple_triggers = [

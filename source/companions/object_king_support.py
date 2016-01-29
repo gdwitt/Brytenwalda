@@ -1,8 +1,14 @@
-from source.statement import StatementBlock
-from ..header_common import s3, s4, s21
+from source.header_operations import *
+from source.header_common import s3, s4, s21
+
 from source.header_dialogs import anyone, plyr
-from ..header_operations import *
-from ..module_constants import *
+
+from source.module_constants import slot_troop_days_on_mission, \
+    slot_troop_current_mission, npc_mission_kingsupport, \
+    slot_troop_kingsupport_opponent, slot_troop_kingsupport_objection_state, \
+    companions_begin, companions_end, slot_troop_morality_penalties
+
+from source.statement import StatementBlock
 
 
 trigger_event_block = StatementBlock(

@@ -1,7 +1,8 @@
-from source.header_dialogs import anyone, plyr
 from source.header_operations import *
-from source.module_constants import *
-from source.header_parties import *
+from source.header_common import s11
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import slot_faction_truce_days_with_factions_begin
 
 
 dialogs = [

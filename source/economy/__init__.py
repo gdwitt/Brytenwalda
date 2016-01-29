@@ -1,9 +1,12 @@
-from ..module_constants import *
-from ..header_parties import *
-from ..header_mission_templates import *
-from ..header_map_icons import *
+from source.header_operations import *
+from source.header_common import *
 
-from . import towns, traders, production, population
+from source.header_parties import ai_bhvr_travel_to_party, pf_default_behavior
+
+from source.module_constants import *
+
+from . import traders, production, population
+
 
 scripts = [
 

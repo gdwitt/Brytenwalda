@@ -1,9 +1,11 @@
+from source.header_operations import *
+from source.header_common import pos0, pos1, pos2, s1, s11, s2, s9
 from source.header_dialogs import anyone, plyr
-from source.header_mission_templates import *
-
+from source.header_mission_templates import mtef_visitor_source, af_override_horse, mtef_team_0
+from source.header_triggers import ti_on_agent_spawn, ti_tab_pressed, ti_once, ti_inventory_key_pressed
 from source.header_game_menus import mnf_disable_all_keys
-from source.header_music import mtf_sit_town_infiltrate, mtf_sit_tavern, \
-    mtf_sit_town
+from source.header_music import mtf_sit_town_infiltrate, mtf_sit_tavern, mtf_sit_town
+
 from source.module_constants import slot_scene_visited, tc_tavern_talk, \
     tc_merchants_house
 

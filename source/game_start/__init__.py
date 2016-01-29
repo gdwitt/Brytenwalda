@@ -1,5 +1,9 @@
-from ..header_game_menus import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_troops import *
+from source.header_skills import *
+from source.header_game_menus import mnf_disable_all_keys, menu_text_color
+
+from source.module_constants import slot_troop_renown
 
 import introduction, tutorial, character_creation, quest_merchant
 import game_start_script

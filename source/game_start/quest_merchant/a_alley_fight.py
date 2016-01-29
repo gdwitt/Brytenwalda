@@ -1,9 +1,14 @@
+from source.header_operations import *
+from source.header_common import pos0, pos1, s1, s16
 from source.header_dialogs import anyone, auto_proceed
 from source.header_mission_templates import *
 from source.header_game_menus import *
+from source.header_mission_types import charge as mission_type_charge
 from source.header_music import mtf_sit_ambushed
 from source.mission_template_triggers import common_battle_init_banner, \
     common_inventory_not_available
+from source.header_triggers import ti_on_agent_spawn, ti_tab_pressed, ti_once
+
 from source.module_constants import *
 
 
@@ -64,7 +69,7 @@ dialogs = [
 
 
 mission_templates = [
-    ("alley_fight", mtf_battle_mode, charge, "Alley fight", [
+    ("alley_fight", mtf_battle_mode, mission_type_charge, "Alley fight", [
         (0, mtef_team_0|mtef_use_exact_number, af_override_horse, aif_start_alarmed, 7, []),
         (1, mtef_team_1|mtef_visitor_source, af_override_horse, aif_start_alarmed, 20, []),
         (2, mtef_team_1|mtef_visitor_source, af_override_horse, aif_start_alarmed, 20, []),

@@ -1,3 +1,7 @@
+from source.header_operations import *
+from source.header_common import *
+
+from source.header_triggers import *
 from source.header_presentations import *
 from source.header_mission_templates import *
 

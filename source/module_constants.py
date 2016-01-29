@@ -1,4 +1,4 @@
-from header_triggers import *
+from header_triggers import key_z, key_t, key_o, key_f7, key_f9, key_n, key_p
 
 ##############################################################
 # These constants are used in various files.
@@ -2990,14 +2990,6 @@ Speed_Pos       = 36	#pos36
 Target_Pos      = 37	#pos37
 Enemy_Team_Pos  = 38	#pos38
 Temp_Pos        = 39	#pos39
-
-#keys used for old M&B
-#from header_triggers import *
-key_for_ranks       = key_j
-key_for_shieldwall  = key_k
-key_for_wedge       = key_l
-key_for_square      = key_semicolon
-key_for_undo        = key_u
 
 #Team Slots
 slot_team_faction                       = 1

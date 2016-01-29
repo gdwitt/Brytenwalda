@@ -1,6 +1,8 @@
-from ..header_game_menus import *
-from ..header_items import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.module_constants import slot_village_state, slot_village_infested_by_bandits, \
+    slot_quest_target_center, slot_village_number_of_cattle
 
 
 menus = [

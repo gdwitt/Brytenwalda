@@ -1,5 +1,8 @@
-from ..module_constants import *
-from ..header_mission_templates import *
+from source.header_operations import *
+
+from source.module_constants import towns_begin, towns_end, slot_town_prosperity, \
+    slot_center_population, slot_town_acres, slot_town_player_acres, slot_town_bank_rent, \
+    slot_town_bank_assets, slot_town_bank_upkeep
 
 
 simple_triggers = [

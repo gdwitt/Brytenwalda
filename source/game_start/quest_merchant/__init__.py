@@ -1,5 +1,6 @@
-from source.header_game_menus import *
-from source.header_items import *
+from source.header_operations import *
+from source.header_common import s1, s16
+from source.header_game_menus import mnf_disable_all_keys
 
 import a_alley_fight, b_merchant_house, c_merchant_in_tavern, d_find_relative, \
     e_town_fight, f_ending

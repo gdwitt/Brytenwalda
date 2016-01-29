@@ -1,6 +1,9 @@
+from source.header_operations import *
+
 from source.header_dialogs import anyone, plyr
-from ..header_operations import *
-from ..module_constants import *
+
+from source.module_constants import slot_troop_occupation, \
+    slot_troop_playerparty_history, pp_history_dismissed
 
 
 dialogs = [

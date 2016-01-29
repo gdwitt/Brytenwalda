@@ -1,6 +1,8 @@
-from source.header_game_menus import *
-from source.header_items import *
-from source.module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.module_constants import slot_town_lord, slot_village_raided_by, \
+    slot_center_volunteer_troop_type, centers_begin, centers_end, logent_village_extorted
 
 
 menus = [

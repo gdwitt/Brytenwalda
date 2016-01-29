@@ -1,6 +1,10 @@
-from source.header_game_menus import *
-from source.header_items import *
-from source.module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.header_game_menus import mnf_disable_all_keys
+
+from source.module_constants import logent_player_stole_cattles_from_village, ACHIEVEMENT_GOT_MILK, \
+    slot_village_number_of_cattle, slot_town_lord, slot_village_player_can_not_steal_cattle
 
 
 menus = [

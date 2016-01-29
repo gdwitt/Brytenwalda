@@ -1,5 +1,6 @@
-from ..header_game_menus import *
-from ..header_items import *
+from source.header_operations import *
+from source.header_common import s5, reg0, reg1
+
 from ..module_constants import *
 
 

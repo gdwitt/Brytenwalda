@@ -1,7 +1,11 @@
+from source.header_operations import *
+from source.header_common import *
+from source.header_triggers import *
 from source.header_mission_templates import *
-from source.header_sounds import *
-from source.header_music import *
+from source.header_troops import *
 from source.header_items import *
+from source.header_sounds import sf_looping
+from source.header_music import mtf_sit_siege, mtf_sit_travel, mtf_sit_arena
 from source.header_skills import *
 
 from source.module_constants import *

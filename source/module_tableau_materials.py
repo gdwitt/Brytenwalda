@@ -1,10 +1,11 @@
-from header_common import *
-from header_mission_templates import *
-from header_tableau_materials import *
-from header_items import *
-from module_constants import *
-# >>>>> code snippet WRECK<<<<< #
-#from compiler import *
+from header_operations import *
+from header_common import pos1, pos5, pos8
+
+from module_constants import banner_scene_props_begin, \
+    slot_troop_custom_banner_positioning, banner_meshes_begin, kingdoms_end, slot_faction_leader, \
+    banner_scene_props_end_minus_one, kingdoms_begin, slot_troop_banner_scene_prop, \
+    slot_troop_custom_banner_bg_type, arms_meshes_begin
+
 ####################################################################################################################
 #  Each tableau material contains the following fields:
 #  1) Tableau id (string): used for referencing tableaux in other files. The prefix tab_ is automatically added before each tableau-id.

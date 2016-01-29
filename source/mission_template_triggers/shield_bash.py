@@ -1,5 +1,8 @@
-from source.header_mission_templates import *
-from source.header_items import *
+from source.header_operations import *
+from source.header_common import pos1, pos2, rpw_shield_bash_server
+from source.header_troops import tf_male
+from source.header_items import itp_type_shield
+from source.header_triggers import gk_defend, gk_attack
 
 from source.module_constants import *
 

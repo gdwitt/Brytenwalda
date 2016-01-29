@@ -1,5 +1,6 @@
-from ..header_game_menus import *
-from ..header_items import *
+from source.header_operations import *
+from source.header_common import reg0, reg3
+
 from ..module_constants import *
 
 

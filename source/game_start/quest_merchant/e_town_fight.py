@@ -1,9 +1,13 @@
-from source.header_dialogs import anyone, plyr, auto_proceed
-from source.header_mission_templates import *
 from source.header_operations import *
-from source.header_common import s4
+from source.header_common import s2, s4, s9, pos0, pos1, pos2, pos6, reg1
+from source.header_dialogs import anyone, plyr, auto_proceed
+from source.header_mission_templates import mtef_visitor_source, \
+    mtef_scene_source, mtef_team_0, af_override_horse, mtef_team_1, aif_start_alarmed
+from source.header_triggers import *
+
 from source.module_constants import *
-from source import mission_template_triggers
+
+import source.mission_template_triggers
 
 
 dialogs = [
@@ -308,7 +312,7 @@ mission_templates = [
         (46, mtef_visitor_source|mtef_team_1, af_override_horse, aif_start_alarmed, 1, []),
         (47, mtef_visitor_source|mtef_team_1, af_override_horse, aif_start_alarmed, 1, []),
         ], [
-        mission_template_triggers.common_battle_init_banner,
+        source.mission_template_triggers.common_battle_init_banner,
 
         (ti_before_mission_start, 0, 0, [], [
             (call_script, "script_change_banners_and_chest")

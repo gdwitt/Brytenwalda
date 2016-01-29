@@ -1,11 +1,11 @@
-from module_constants import *
-from header_items import *
 from header_operations import *
-from header_triggers import *
+from header_common import *
+from header_items import *
+from header_item_modifiers import *
+from header_triggers import ti_on_missile_hit, ti_on_weapon_attack, ti_on_init_item
 
-# >>>>> code snippet for WRECK <<<<< #
-#from compiler import *
-# >>>>> code snippet for WRECK <<<<< #
+from module_constants import slot_agent_flail_using
+
 ####################################################################################################################
 # Each item record contains the following fields:
 # 1) Item id: used for referencing items in other files.

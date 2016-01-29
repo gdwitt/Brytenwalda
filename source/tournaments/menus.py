@@ -1,4 +1,6 @@
-from ..header_game_menus import *
+from ..header_operations import *
+from ..header_common import *
+from ..header_game_menus import mnf_disable_all_keys
 
 from ..module_constants import *
 

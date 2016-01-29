@@ -1,6 +1,12 @@
-from ..header_game_menus import *
-from ..header_items import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_common import *
+from source.header_troops import *
+from source.header_skills import *
+from source.header_item_modifiers import *
+from source.header_game_menus import mnf_disable_all_keys, menu_text_color
+
+from source.module_constants import *
+
 
 _a1_noble = "@You came into the world a {reg3?daughter:son} of declining " \
             "nobility, owning only the house in which they lived. However, " \

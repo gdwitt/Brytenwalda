@@ -1,7 +1,9 @@
-from source.header_common import *
-from source.header_dialogs import anyone, plyr
-from source.module_constants import *
 from source.header_operations import *
+from source.header_common import reg0, reg5, reg6
+
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import slot_village_number_of_cattle
 
 
 _NUMBER = {

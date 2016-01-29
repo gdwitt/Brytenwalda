@@ -1,7 +1,10 @@
-from source.header_common import *
-from source.header_dialogs import anyone, plyr
-from source.module_constants import *
 from source.header_operations import *
+from source.header_common import *
+from source.header_dialogs import anyone
+
+from source.module_constants import slot_center_original_faction, \
+    slot_center_player_relation, active_npcs_begin, active_npcs_end, slot_troop_occupation, \
+    slto_kingdom_hero, slot_troop_leaded_party
 
 
 dialogs = [

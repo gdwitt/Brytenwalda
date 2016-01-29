@@ -1,8 +1,9 @@
+from source.header_operations import *
+from source.header_common import s1, s2, s9, s11, reg0, pos0
 from source.header_dialogs import anyone, plyr, auto_proceed
 from source.header_parties import ai_bhvr_patrol_location
-from source.header_game_menus import *
-from source.header_items import *
-from source.module_constants import *
+
+from source.module_constants import tc_tavern_talk
 
 
 dialogs = [

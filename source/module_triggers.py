@@ -1,6 +1,9 @@
 from header_operations import *
-from header_parties import *
-from header_troops import *
+from header_common import *
+
+from header_triggers import ti_once, key_left_mouse_button
+from header_parties import ai_bhvr_attack_party, ai_bhvr_travel_to_party, \
+    pf_default_behavior, ai_bhvr_escort_party, ai_bhvr_hold
 
 from module_constants import *
 

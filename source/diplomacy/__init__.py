@@ -1,6 +1,9 @@
+from source.header_operations import *
+from source.header_common import *
+
+from source.module_constants import *
+
 from source.statement import StatementBlock
-from ..header_game_menus import *
-from ..module_constants import *
 
 
 def add_truce(kingdom_a, kingdom_b):

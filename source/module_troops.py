@@ -1,7 +1,3 @@
-import random
-
-from header_common import *
-from header_items import *
 from header_troops import *
 from header_skills import *
 

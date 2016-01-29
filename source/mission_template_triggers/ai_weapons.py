@@ -1,5 +1,12 @@
-from source.header_mission_templates import *
-from source.header_items import *
+from source.header_operations import *
+from source.header_common import *
+from source.header_triggers import ti_on_order_issued, ti_on_item_wielded, \
+    gk_toggle_weapon_mode
+from source.header_items import itp_type_one_handed_wpn, itp_type_arrows, \
+    ek_item_0, ek_head
+from source.header_mission_templates import mordr_use_any_weapon, \
+    mordr_use_blunt_weapons, wordr_use_blunt_weapons
+
 from source.module_constants import *
 
 

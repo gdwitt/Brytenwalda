@@ -1,6 +1,13 @@
-from ..header_game_menus import *
-from ..header_items import *
-from ..module_constants import *
+from source.header_operations import *
+from source.header_common import *
+
+from source.header_game_menus import mnf_disable_all_keys
+
+from source.header_items import num_equipment_kinds, max_inventory_items
+
+from source.module_constants import slot_village_infested_by_bandits, \
+    slot_village_raid_progress, slot_village_recover_progress, slot_quest_target_center, \
+    slot_town_elder, svs_looted
 
 
 menus = [

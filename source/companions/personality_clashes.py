@@ -1,8 +1,18 @@
-from ..header_common import s5, s11, reg5, reg11
-from ..header_dialogs import anyone, plyr
-from ..header_operations import *
-from ..module_constants import *
-from ..statement import StatementBlock
+from source.header_operations import *
+from source.header_common import s5, s11, reg5, reg11
+
+from source.header_dialogs import anyone, plyr
+
+from source.module_constants import companions_begin, companions_end, \
+    slot_troop_personalityclash_object, slot_troop_personalityclash_penalties, slot_troop_personalityclash_state, \
+    slot_troop_personalityclash2_object, slot_troop_personalityclash2_state, \
+    slot_troop_personalitymatch_object, slot_troop_personalitymatch_state, \
+    slot_troop_morality_penalties, pclash_penalty_to_self, pclash_penalty_to_other, \
+    pclash_penalty_to_both, slot_troop_personalityclash2_speech, slot_troop_personalityclash2_speech_b, \
+    slot_troop_personalitymatch_speech, slot_troop_personalityclash_speech, slot_troop_personalityclash_speech_b, \
+    slot_troop_personalitymatch_speech_b
+
+from source.statement import StatementBlock
 
 
 simple_triggers = [
@@ -290,8 +300,7 @@ dialogs = [
         (eq, "$map_talk_troop", "$npc_with_personality_clash"),
         (eq, "$npc_map_talk_context", slot_troop_personalityclash_state),
 
-        (troop_get_slot, ":speech", "$map_talk_troop",
-         slot_troop_personalityclash_speech),
+        (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_personalityclash_speech),
         (troop_get_slot, ":object", "$map_talk_troop", slot_troop_personalityclash_object),
         (str_store_troop_name, 11, ":object"),
         (str_store_string, 5, ":speech"),
