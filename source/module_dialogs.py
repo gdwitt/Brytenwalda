@@ -11,7 +11,7 @@ from module_constants import *
 from .lazy_flag import LazyFlag
 
 from . import enterprise, tournaments, companions, caravans, village_elder, \
-    game_start
+    game_start, patrols
 
 ####################################################################################################################
 # During a dialog, the dialog lines are scanned from top to bottom.
@@ -3213,129 +3213,6 @@ but before burial, you must allow the crows to descend on their breasts and rele
   
   ['trp_dplmc_messenger', "dplmc_messenger_talk_farewell", [], "Thank you. Farewell!", "close_window", [(assign, "$g_leave_encounter", 1),]],
 
-
-  ##patrol
-  [anyone, "start",
-    [
-      (party_slot_eq, "$g_encountered_party", slot_party_type, spt_patrol),
-      (party_slot_eq, "$g_encountered_party", dplmc_slot_party_mission_diplomacy, "trp_player"),
-      (party_get_slot, ":target_party", "$g_encountered_party", slot_party_ai_object),
-      (str_store_party_name, s6, ":target_party"),
-    ], "Greetings, Sire. We are still patrolling {s6}. Do you have new orders?", "dplmc_patrol_talk", []
-  ],
-
-  [anyone, "dplmc_patrol_pretalk", [], "Greetings, Sire. Do you have new orders?", "dplmc_patrol_talk",
-  []],
-  
-  ##patrol new area
-  [anyone|plyr, "dplmc_patrol_talk", [], "Please patrol a new area.", "dplmc_patrol_orders_area_ask", 
-  []],
-  
-  [anyone, "dplmc_patrol_orders_area_ask", [], "Where should we go?", "dplmc_patrol_orders_area", 
-  []],
-  
-  [anyone|plyr|repeat_for_parties, "dplmc_patrol_orders_area",
-  [
-    (store_repeat_object, ":party_no"),
-    (is_between, ":party_no", centers_begin, centers_end),
-    (store_faction_of_party, ":party_faction", ":party_no"),
-    (eq, ":party_faction", "$players_kingdom"),
-    (str_store_party_name, s11, ":party_no"),
-  ],
-  "{s11}.", "dplmc_patrol_confirm_ask", 
-  [
-    (store_repeat_object, "$diplomacy_var"),
-  ]
-  ],
-  
-  [anyone|plyr, "dplmc_patrol_orders_area", [], "Nevermind.", "dplmc_patrol_pretalk", 
-  []],
-  
-  [anyone, "dplmc_patrol_confirm_ask", 
-   [(str_store_party_name, s5, "$diplomacy_var"),], 
-   "As you wish, we will patrol {s5}.", "dplmc_patrol_confirm", 
-   []
-  ],
-  
-  [anyone|plyr, "dplmc_patrol_confirm", [(str_store_party_name, s5, "$diplomacy_var"),], "Thank you.", "close_window", 
-  [
-    (party_set_name, "$g_encountered_party", "@{s5} patrol"),
-    (party_set_slot, "$g_encountered_party", slot_party_ai_object, "$diplomacy_var"),
-    (party_set_slot, "$g_encountered_party", slot_party_ai_state, spai_patrolling_around_center),
-    (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_travel_to_party),
-    (party_set_ai_object, "$g_encountered_party", "$diplomacy_var"),
-    (assign, "$g_leave_encounter", 1),
-   ]],
-  
-  [anyone|plyr, "dplmc_patrol_confirm", [], "Wait, I changed my mind.", "dplmc_patrol_pretalk", 
-  []],
-  
-     
-  ##reinforce garrison
-  [anyone|plyr, "dplmc_patrol_talk", [], "I need you to reinforce a garrison.", "dplmc_patrol_orders_garrison_ask", 
-  []],
-  
-  [anyone, "dplmc_patrol_orders_garrison_ask", [], "Where should we go?", "dplmc_patrol_garrison_target", 
-  []],
-  
-  [anyone|plyr|repeat_for_parties, "dplmc_patrol_garrison_target",
-  [
-    (store_repeat_object, ":party_no"),
-    (is_between, ":party_no", centers_begin, centers_end),
-    (store_faction_of_party, ":party_faction", ":party_no"),
-    (eq, ":party_faction", "$players_kingdom"),
-    (str_store_party_name, s11, ":party_no"),
-  ],
-  "{!}{s11}.", "dplmc_patrol_garrison_confirm_ask", 
-  [
-    (store_repeat_object, "$diplomacy_var"),
-  ]
-  ],
-  
-  [anyone|plyr, "dplmc_patrol_garrison_target", [], "Nevermind.", "dplmc_patrol_pretalk", 
-  []],
-  
-  [anyone, "dplmc_patrol_garrison_confirm_ask", 
-   [(str_store_party_name, s5, "$diplomacy_var"),], 
-   "As you wish, we will reinforce {s5}.", "dplmc_patrol_garrison_confirm", 
-   []
-  ],
-  
-  [anyone|plyr, "dplmc_patrol_garrison_confirm", [(str_store_party_name, s5, "$diplomacy_var"),], "Thank you.", "close_window", 
-  [
-    (party_set_name, "$g_encountered_party", "@{s5} patrol"),
-    (party_set_slot, "$g_encountered_party", slot_party_ai_object, "$diplomacy_var"),
-    (party_set_slot, "$g_encountered_party", slot_party_ai_state, spai_retreating_to_center),
-    (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_travel_to_party),
-    (party_set_ai_object, "$g_encountered_party", "$diplomacy_var"),
-    (assign, "$g_leave_encounter", 1),
-   ]],
-  
-  [anyone|plyr, "dplmc_patrol_garrison_confirm", [], "Wait, I changed my mind.", "dplmc_patrol_pretalk", 
-  []],
-
-  ##give troops
-  [anyone|plyr,"dplmc_patrol_talk", [],
-   "I want to hand over some men to the patrol.", "dplmc_patrol_give_troops",[]],
-   
-
-  [anyone,"dplmc_patrol_give_troops", [],
-   "Well, I could use some good soldiers. Thank you.", "dplmc_patrol_pretalk",
-   [
-     (change_screen_give_members, "$g_talk_troop_party"),
-     (change_screen_exchange_members,0),
-     ]],
-
-  ##disband
-  [anyone|plyr, "dplmc_patrol_talk", [], "I do not need you any longer. I command you to disband.", "close_window", 
-  [
-    (remove_party, "$g_encountered_party"),
-    (assign, "$g_leave_encounter", 1),
-  ]],
-  
-  [anyone|plyr, "dplmc_patrol_talk", [], "Please continue.", "close_window", 
-  [(assign, "$g_leave_encounter", 1),]],
-  
   ##gift caravan
   [LazyFlag("pt_dplmc_gift_caravan")|party_tpl, "start",
   [
@@ -6057,7 +5934,7 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
    [],
    "Yes.", "dplmc_constable_pretalk",
    [
- 	(call_script, "script_dplmc_send_patrol_party", "$current_town", "$diplomacy_var", "p_temp_party_2", "fac_player_faction", "trp_player"), #FLORIS BUGFIX adds "trp_player" argument
+ 	(call_script, "script_send_patrol_party", "$current_town", "$diplomacy_var", "p_temp_party_2", "fac_player_faction", "trp_player"),
     (party_clear, "p_temp_party_2"),
    ]
    ],
@@ -6175,7 +6052,7 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
    [
     (store_current_hours, ":current_hours"),
     (faction_set_slot, "fac_player_faction", dplmc_slot_faction_patrol_time, ":current_hours"),
-    (call_script, "script_dplmc_send_patrol", "$current_town", "$diplomacy_var", "$temp", "$players_kingdom", "trp_player"),
+    (call_script, "script_send_patrol", "$current_town", "$diplomacy_var", "$temp", "$players_kingdom", "trp_player"),
    ]
    ],
    
@@ -37672,4 +37549,5 @@ dialogs += companions.dialogs
 dialogs += caravans.dialogs
 dialogs += village_elder.dialogs
 dialogs += game_start.dialogs
+dialogs += patrols.dialogs
 dialogs += _end_dialogs

@@ -12,7 +12,7 @@ from header_terrain_types import rt_water, rt_river, rt_bridge, dplmc_terrain_co
 
 from module_constants import *
 
-from . import economy, loans, companions, caravans, villages
+from . import economy, loans, companions, caravans, villages, patrols
 ####################################################################################################################
 # Simple triggers are the alternative to old style triggers. They do not preserve state, and thus simpler to maintain.
 #
@@ -6481,160 +6481,7 @@ simple_triggers = [
     (try_end),   
    #(try_end), F123 - Submod -> 1.41
     ]),#gdw>onlyTML changes above
-    
-  # Patrol wages
-   (24 * 7,
-   [
 
-    (try_for_parties, ":party_no"),
-      (party_slot_eq,":party_no", slot_party_type, spt_patrol),
-
-
-
-      (party_get_slot, ":ai_state", ":party_no", slot_party_ai_state),
-      (eq, ":ai_state", spai_patrolling_around_center),
-
-      (try_begin),
-		(party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),
-        (assign, ":total_wage", 0),
-        (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
-        (try_for_range, ":i_stack", 0, ":num_stacks"),
-          (party_stack_get_troop_id, ":stack_troop", ":party_no", ":i_stack"),
-          (party_stack_get_size, ":stack_size", ":party_no", ":i_stack"),
-          (call_script, "script_game_get_troop_wage", ":stack_troop", 0),
-          (val_mul, reg0, ":stack_size"),
-          (val_add, ":total_wage", reg0),
-        (try_end),
-        (store_troop_gold, ":gold", "trp_household_possessions"),
-        (try_begin),
-          (lt, ":gold", ":total_wage"),
-          (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
-          (str_store_party_name, s6, ":target_party"),
-          (display_log_message, "@Your soldiers patrolling {s6} disbanded because you can't pay the wages!", 0xFF0000),
-          (remove_party, ":party_no"),
-        (try_end),
-      (try_end),
-    (try_end),
-    ]),
-
-  #create ai patrols
-   (24 * 7,
-   [
-    (try_for_range, ":kingdom", npc_kingdoms_begin, npc_kingdoms_end),
-
-      (assign, ":max_patrols", 0),
-      (try_for_range, ":center", towns_begin, towns_end),
-        (store_faction_of_party, ":center_faction", ":center"),
-        (eq, ":center_faction", ":kingdom"),
-        (val_add, ":max_patrols", 1),
-      (try_end),
-
-      (assign, ":count", 0),
-      (try_for_parties, ":party_no"),
-        (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
-        (store_faction_of_party, ":party_faction", ":party_no"),
-        (eq, ":party_faction", ":kingdom"),
-        (neg|party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"), #not player ordered
-        (try_begin),
-           #Remove patrols above the maximum number allowed.
-           (ge, ":count", ":max_patrols"),
-           (try_begin),
-              (ge, "$cheat_mode", 1),
-              (str_store_faction_name, s4, ":kingdom"),
-              (str_store_party_name, s5, ":party_no"),
-              (display_message, "@{!}DEBUG - Removed {s5} because {s4} cannot support that many patrols"),
-           (try_end),
-           (remove_party, ":party_no"),
-        (else_try),
-           (val_add, ":count", 1),
-        (try_end),
-      (try_end),
-
-      (try_begin),
-        (lt, ":count", ":max_patrols"),
-
-        (store_random_in_range, ":random", 0, 10),
-        (le, ":random", 3),
-
-        (assign, ":start_center", -1),
-        (assign, ":target_center", -1),
-
-        (try_for_range, ":center", towns_begin, towns_end),
-          (store_faction_of_party, ":center_faction", ":center"),
-          (eq, ":center_faction", ":kingdom"),
-
-          (eq, ":start_center", -1),
-          (eq, ":target_center", -1),
-
-          (assign, ":continue", 1),
-          (try_for_parties, ":party_no"),
-            (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
-            (store_faction_of_party, ":party_faction", ":party_no"),
-            (eq, ":party_faction", ":kingdom"),
-            (party_get_slot, ":target_patrol", ":party_no", slot_party_ai_object), #chief cambia
-            (eq, ":target_patrol", ":center"), #chief cambia
-            (assign, ":continue", 0),
-          (try_end),
-          (eq, ":continue", 1),
-
-          (call_script, "script_cf_select_random_town_with_faction", ":kingdom"),
-          (neq, reg0, -1),
-
-          (assign, ":start_center", reg0),
-          (assign, ":target_center", ":center"),
-        (try_end),
-
-        (try_begin),
-          (neq, ":start_center", -1),
-          (neq, ":target_center", -1),
-          (store_random_in_range, ":random_size", 0, 3),
-          (faction_get_slot, ":faction_leader", ":kingdom", slot_faction_leader),
-          (call_script, "script_dplmc_send_patrol", ":start_center", ":target_center", ":random_size",":kingdom", ":faction_leader"),
-        (try_end),
-      (try_end),
-    (try_end),
-    ]),
-    
-  # Patrol ai
-   (2,
-   [      
-   
-    (try_for_parties, ":party_no"),
-      (party_slot_eq,":party_no", slot_party_type, spt_patrol),
-      
-      (call_script, "script_party_remove_all_prisoners", ":party_no"),       
-      
-      (try_begin),
-        (get_party_ai_behavior, ":ai_behavior", ":party_no"),
-        (eq, ":ai_behavior", ai_bhvr_travel_to_party),      
-        (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),  
-
-        (try_begin),
-          (gt, ":target_party", 0),
-        (store_distance_to_party_from_party, ":distance_to_target", ":party_no", ":target_party"),  
-        (le, ":distance_to_target", 5),
-        (try_begin),
-          (party_get_slot, ":ai_state", ":party_no", slot_party_ai_state),
-          (eq, ":ai_state", spai_retreating_to_center),
-          (try_begin),
-            (le, ":distance_to_target", 1),
-            (call_script, "script_party_add_party", ":target_party", ":party_no"),
-            (remove_party, ":party_no"),
-          (try_end),
-        (else_try),
-            (party_get_position, pos1, ":target_party"),
-            (party_set_ai_behavior,":party_no", ai_bhvr_patrol_location),
-            (party_set_ai_patrol_radius, ":party_no", 1),
-            (party_set_ai_target_position, ":party_no", pos1),        
-          (try_end),
-        (else_try),
-          #remove party?
-        (try_end),
-        
-      (try_end),
-    (try_end),   
-    ]),
-    
   # Scout ai
    (0.2,
    [      
@@ -8795,3 +8642,4 @@ simple_triggers = [
 + companions.simple_triggers \
 + caravans.simple_triggers \
 + villages.simple_triggers \
++ patrols.simple_triggers \
