@@ -11,7 +11,7 @@ from module_constants import *
 from .lazy_flag import LazyFlag
 
 from . import enterprise, tournaments, companions, caravans, village_elder, \
-    game_start, patrols
+    game_start, patrols, scouts
 
 ####################################################################################################################
 # During a dialog, the dialog lines are scanned from top to bottom.
@@ -3236,15 +3236,6 @@ but before burial, you must allow the crows to descend on their breasts and rele
   
   [LazyFlag("pt_dplmc_gift_caravan")|party_tpl, "dplmc_gift_talk_farewell", [], "Thank you. Farewell!", "close_window", [(assign, "$g_leave_encounter", 1),]],
 
-  ['trp_dplmc_scout', "start",
-  [], "Sire, I haven't finished my mission yet.", "dplmc_scout_talk", 
-  []],
-
-  [anyone|plyr,"dplmc_scout_talk",[
-  ],
-   "Ok, please go on.", "close_window",
-   []],
-
   ##Chancellor
   [anyone,"start",
    [
@@ -4806,81 +4797,11 @@ but before burial, you must allow the crows to descend on their breasts and rele
         (try_end),
 		]],
 
-  ##send scout
-   [anyone|plyr, "dplmc_constable_talk",
-   [],
-   "I want information about a settlement.", "dplmc_constable_scout_ask",
-   []], 
-   
-  [anyone, "dplmc_constable_scout_ask", 
-   [
-   ],
-   "We can send a spy which will cost you 300 scillingas. Where do you want to send the spy?", "dplmc_constable_scout_location",[
- ]],
- 
-  [anyone|plyr|repeat_for_factions, "dplmc_constable_scout_location",
-  [
-    (store_troop_gold, ":cur_gold", "trp_household_possessions"),
-    (ge, ":cur_gold", 300),
-    (store_repeat_object, ":faction"), 
-    (is_between, ":faction", kingdoms_begin, kingdoms_end),
-    (str_store_faction_name, s11, ":faction"),
-  ],
-  "{!}{s11}.", "dplmc_constable_scout_location_confirm_ask", 
-  [
-    (store_repeat_object, "$diplomacy_var"),
-  ]
-  ],
-  
-   [anyone|plyr, "dplmc_constable_scout_location",
-   [],
-   "I changed my mind.", "dplmc_constable_pretalk",
-   []], 
-   
-  [anyone, "dplmc_constable_scout_location_confirm_ask", 
-   [
-   ],
-   "Which settlement do you want to infiltrate?", "dplmc_constable_scout_location2",[
- ]],
- 
-  [anyone|plyr|repeat_for_parties, "dplmc_constable_scout_location2",
-  [
-    (store_repeat_object, ":party_no"),
-    (is_between, ":party_no", walled_centers_begin, walled_centers_end),  
-    (store_faction_of_party, ":faction", ":party_no"),
-    (eq, ":faction", "$diplomacy_var"),
-    (str_store_party_name, s11, ":party_no"),
-  ],
-  "{!}{s11}.", "dplmc_constable_scout_location_confirm_ask2", 
-  [
-    (store_repeat_object, "$diplomacy_var"),
-  ]
-  ],
-  
-   [anyone|plyr, "dplmc_constable_scout_location2",
-   [],
-   "I changed my mind.", "dplmc_constable_pretalk",
-   []], 
-   
-  [anyone, "dplmc_constable_scout_location_confirm_ask2", 
-   [(str_store_party_name, s11, "$diplomacy_var"),
-   ],
-   "As you wish, I will send a spy to {s11} and withdraw 300 scillingas from your treasury.", "dplmc_constable_scout_location_confirm",[
- ]],
- 
-   [anyone|plyr, "dplmc_constable_scout_location_confirm",
-   [
-   ],
-   "Great.", "dplmc_constable_pretalk",
-   [  (call_script, "script_dplmc_withdraw_from_treasury", 300),
-      (call_script, "script_dplmc_send_scout_party", "$current_town", "$diplomacy_var", "$players_kingdom"),
-   ]], 
+    # -> source/scouts
+    [anyone | plyr, "dplmc_constable_talk", [],
+     "I want information about a settlement.", "dplmc_constable_scout_ask", []
+    ],
 
-   [anyone|plyr, "dplmc_constable_scout_location_confirm",
-   [],
-   "Hold on!", "dplmc_constable_pretalk",
-   []], 
-		
   ##release prisoner
   [anyone|plyr,"dplmc_constable_talk", [],
    "I want to release a prisoner.", "dplmc_constable_talk_ask_prisoner",[]],
@@ -37550,4 +37471,5 @@ dialogs += caravans.dialogs
 dialogs += village_elder.dialogs
 dialogs += game_start.dialogs
 dialogs += patrols.dialogs
+dialogs += scouts.dialogs
 dialogs += _end_dialogs

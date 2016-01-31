@@ -25,6 +25,7 @@ import village_elder.quest_deliver_cattle, \
     village_elder.quest_deliver_grain
 import battle
 import patrols
+import scouts
 import multiplayer
 
 
@@ -47039,35 +47040,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
     (call_script, "script_party_add_party", ":spawned_party", ":party_no"),  
   ]),
-  
-  ("dplmc_send_scout_party",
-  [
-    (store_script_param, ":start_party", 1),
-    (store_script_param, ":target_party", 2),
-    (store_script_param, ":faction", 3),
-    
-    (set_spawn_radius, 1),
-    (spawn_around_party, ":start_party", "pt_scout_party"),
-    (assign,":spawned_party",reg0),
-    (party_set_faction, ":spawned_party", ":faction"),
-    (party_set_slot, ":spawned_party", slot_party_type, spt_scout),
-    (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
-    (str_store_party_name, s5, ":target_party"),
-    (party_set_name, ":spawned_party", "@{s5} scout"),
-    
-    (party_add_members, ":spawned_party", "trp_dplmc_scout", 1),    
 
-    (party_get_position, pos1, ":target_party"),
-    (map_get_random_position_around_position, pos2, pos1, 1),
-    (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_point),    
-    (party_set_ai_target_position, ":spawned_party", pos2),
-    (party_set_slot, ":spawned_party", slot_party_ai_object, ":target_party"),
-    (party_set_slot, ":spawned_party", slot_party_orders_object, ":target_party"),
-    (party_set_aggressiveness, ":spawned_party", 0),
-    (party_set_courage, ":spawned_party", 3),
-    (party_set_ai_initiative, ":spawned_party", 100),      
-  ]),
-  
   ("dplmc_init_domestic_policy",
   [
     (try_for_range, ":kingdom", npc_kingdoms_begin, npc_kingdoms_end),    
@@ -56644,3 +56617,4 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 + mission_template_triggers.scripts \
 + battle.scripts \
 + patrols.scripts \
++ scouts.scripts \
