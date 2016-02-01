@@ -16,6 +16,7 @@ from module_constants import *
 from . import loans, enterprise, tournaments, game_start
 from . import villages
 import constable
+import minister
 
 ####################################################################################################################
 #  (menu-id, menu-flags, menu_text, mesh-name, [<operations>], [<options>]),
@@ -18504,304 +18505,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
      ]
   ),
-  
-  
-  
-#chief cambia texto para quitar calradia  
-  (
-    "notification_player_faction_active",0,
-    "You now possess land in your name, without being tied to any kingdom. This makes you a monarch in your own right, with your court temporarily located at {s12}. However, the other kings in Britannia and Hibernia will at first consider you a threat, for if any upstart warlord can grab a throne, then their own legitimacy is called into question.^^You may find it desirable at this time to pledge yourself to an existing kingdom. If you want to continue as a sovereign monarch, then your first priority should be to establish an independent right to rule. You can establish your right to rule through several means -- marrying into a high-born family, recruiting new lords, governing your lands, treating with other kings, or dispatching your companions on missions.^^At any rate, your first step should be to appoint a chief minister from among your companions, to handle affairs of state. Different companions have different capabilities.^You may appoint new ministers from time to time. You may also change the location of your court, by speaking to the minister.",
-    "none",
-    [
-      (set_fixed_point_multiplier, 100),
-      (position_set_x, pos0, 65),
-      (position_set_y, pos0, 30),
-      (position_set_z, pos0, 170),
-      (set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "fac_player_supporters_faction", pos0),
-	  
-      (unlock_achievement, ACHIEVEMENT_CALRADIAN_TEA_PARTY),
-      (play_track, "track_coronation"),
-	(troop_add_item, "trp_player", "itm_crown_lombardy", 0), #chief corona al nuevo rey
-      
-	  (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-	    (lt, "$g_player_court", walled_centers_begin),
-		(store_faction_of_party, ":walled_center_faction", ":walled_center"),
-	    (eq, ":walled_center_faction", "fac_player_supporters_faction"),
-		(assign, "$g_player_court", ":walled_center"),
-		
-		(try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
-		(try_end),
-		
-		(str_store_party_name, s12, "$g_player_court"),
-	  (try_end),
-	  
-      ],
-    [
-      ("appoint_spouse",[
-	  (troop_slot_ge, "trp_player", slot_troop_spouse, 1),
-	  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
-	  (neg|troop_slot_eq, ":player_spouse", slot_troop_occupation, slto_kingdom_hero),
-	  (str_store_troop_name, s10, ":player_spouse"),
-	  ],"Appoint your wife, {s10}...",
-       [
-	   (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
-	   (assign, "$g_player_minister", ":player_spouse"),
-	   (jump_to_menu, "mnu_minister_confirm"),
-	   ]),
 
-      ("appoint_npc1",[
-	  (main_party_has_troop, "trp_npc1"),
-	  (str_store_troop_name, s10, "trp_npc1"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc1"),
-	   (jump_to_menu, "mnu_minister_confirm"),
-	   ]),
-	   
-      ("appoint_npc_tradecompanion",[
-	  (main_party_has_troop, "trp_npc_tradecompanion"),
-	  (str_store_troop_name, s10, "trp_npc_tradecompanion"),],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_tradecompanion"),
-	   (jump_to_menu, "mnu_minister_confirm"),]),
-	   
-      ("appoint_npclady1",[
-	  (main_party_has_troop, "trp_npclady1"),
-	  (str_store_troop_name, s10, "trp_npclady1"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npclady1"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc_noblebriton",[
-	  (main_party_has_troop, "trp_npc_noblebriton"),
-	  (str_store_troop_name, s10, "trp_npc_noblebriton"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_noblebriton"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc5",[
-	  (main_party_has_troop, "trp_npc5"),
-	  (str_store_troop_name, s10, "trp_npc5"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc5"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc6",[
-	  (main_party_has_troop, "trp_npc6"),
-	  (str_store_troop_name, s10, "trp_npc6"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc6"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npcpictlady",[
-	  (main_party_has_troop, "trp_npcpictlady"),
-	  (str_store_troop_name, s10, "trp_npcpictlady"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npcpictlady"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc8",[
-	  (main_party_has_troop, "trp_npc8"),
-	  (str_store_troop_name, s10, "trp_npc8"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc8"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc9",[
-	  (main_party_has_troop, "trp_npc9"),
-	  (str_store_troop_name, s10, "trp_npc9"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc9"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc10",[ #was npc9
-	  (main_party_has_troop, "trp_npc10"),
-	  (str_store_troop_name, s10, "trp_npc10"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc10"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npclady2",[
-	  (main_party_has_troop, "trp_npclady2"),
-	  (str_store_troop_name, s10, "trp_npclady2"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npclady2"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc12",[
-	  (main_party_has_troop, "trp_npc12"),
-	  (str_store_troop_name, s10, "trp_npc12"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc12"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc13",[
-	  (main_party_has_troop, "trp_npc13"),
-	  (str_store_troop_name, s10, "trp_npc13"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc13"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc14",[
-	  (main_party_has_troop, "trp_npc14"),
-	  (str_store_troop_name, s10, "trp_npc14"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc14"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npcengineer",[
-	  (main_party_has_troop, "trp_npcengineer"),
-	  (str_store_troop_name, s10, "trp_npcengineer"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npcengineer"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-	   
-      ("appoint_npc16cleric",[
-	  (main_party_has_troop, "trp_npc16cleric"),
-	  (str_store_troop_name, s10, "trp_npc16cleric"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc16cleric"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npc_pict2",[
-	  (main_party_has_troop, "trp_npc_pict2"),
-	  (str_store_troop_name, s10, "trp_npc_pict2"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_pict2"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npc_pict1",[
-	  (main_party_has_troop, "trp_npc_pict1"),
-	  (str_store_troop_name, s10, "trp_npc_pict1"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_pict1"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npc_paintrain",[
-	  (main_party_has_troop, "trp_npc_paintrain"),
-	  (str_store_troop_name, s10, "trp_npc_paintrain"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_paintrain"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npc_hammertime",[
-	  (main_party_has_troop, "trp_npc_hammertime"),
-	  (str_store_troop_name, s10, "trp_npc_hammertime"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_hammertime"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npclady3",[
-	  (main_party_has_troop, "trp_npclady3"),
-	  (str_store_troop_name, s10, "trp_npclady3"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npclady3"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npc_surgeon",[
-	  (main_party_has_troop, "trp_npc_surgeon"),
-	  (str_store_troop_name, s10, "trp_npc_surgeon"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_surgeon"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npc_deadeye",[
-	  (main_party_has_troop, "trp_npc_deadeye"),
-	  (str_store_troop_name, s10, "trp_npc_deadeye"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_deadeye"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npc_probulator",[
-	  (main_party_has_troop, "trp_npc_probulator"),
-	  (str_store_troop_name, s10, "trp_npc_probulator"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_probulator"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_npc_grim",[
-	  (main_party_has_troop, "trp_npc_grim"),
-	  (str_store_troop_name, s10, "trp_npc_grim"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_grim"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_trp_npc_irish1",[
-	  (main_party_has_troop, "trp_npc_irish1"),
-	  (str_store_troop_name, s10, "trp_npc_irish1"),
-	  ],"Appoint {s10}",
-       [
-	   (assign, "$g_player_minister", "trp_npc_irish1"),
-	   (jump_to_menu, "mnu_minister_confirm"), ]),
-
-      ("appoint_default",[],"Appoint a prominent citizen from the area...",
-       [
-	   (assign, "$g_player_minister", "trp_temporary_minister"),
-	   (troop_set_faction, "trp_temporary_minister", "fac_player_supporters_faction"),
-	   (jump_to_menu, "mnu_minister_confirm"),
-        ]),				
-     ]
-  ),  
-
-  (
-    "minister_confirm",0,
-    "{s9}can be found at your court in {s12}. You should consult periodically, to avoid the accumulation of unresolved issues that may sap your authority...",
-    "none",
-    [
-    (try_begin),
-        (eq, "$players_kingdom_name_set", 1),
-        (change_screen_return),
-    (try_end),
-	  
-	(try_begin),
-		(eq, "$g_player_minister", "trp_temporary_minister"),
-		(str_store_string, s9, "str_your_new_minister_"),
-	(else_try),	
-		(str_store_troop_name, s10, "$g_player_minister"),
-		(str_store_string, s9, "str_s10_is_your_new_minister_and_"),
-	(try_end),
-	
-	(try_begin),
-		(main_party_has_troop, "$g_player_minister"),
-		(remove_member_from_party, "$g_player_minister", "p_main_party"),
-	(try_end),
-	],
-    [
-      ("continue",[],"Continue...",
-       [
-         (start_presentation, "prsnt_name_kingdom"),
-        ]),
-     ]
-  ),  
-  
-  
-  
   (
   "notification_court_lost",0,
   "{s12}",
@@ -18875,39 +18579,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  ]),
      ],
   ),
-  
-  
-  
-  (
-    "notification_player_faction_deactive",0,
-    "Your kingdom no longer holds any land.",
-    "none",
-    [
-      (set_fixed_point_multiplier, 100),
-      (position_set_x, pos0, 65),
-      (position_set_y, pos0, 30),
-      (position_set_z, pos0, 170),
-      (set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "fac_player_supporters_faction", pos0),
-      ],
-    [
-      ("continue",[],"Continue...",
-       [
-	   
-	   (try_begin),
-	   
-	   
-	   (try_end),
-	   (assign, "$g_player_minister", -1),
-	   (change_screen_return),
+
+    ("notification_player_faction_deactive", 0, "Your kingdom no longer holds any land.", "none", [
+        (set_fixed_point_multiplier, 100),
+        (position_set_x, pos0, 65),
+        (position_set_y, pos0, 30),
+        (position_set_z, pos0, 170),
+        (set_game_menu_tableau_mesh, "tableau_faction_note_mesh_banner", "fac_player_supporters_faction", pos0),
+        ], [
+        ("continue", [], "Continue...", [
+            (change_screen_return),
         ]),
-     ]
-  ),
+    ]),
 
-  
-
-  
-  
-  
   (
     "notification_player_wedding_day",0,
     "{s8} wishes to inform you that preparations for your wedding at {s10} have been complete, and that your presence is expected imminently .",
@@ -31384,3 +31068,4 @@ The other clan chief a wily old man however had a suprise for the young man. Hav
 + game_start.menus \
 + villages.menus \
 + constable.menus \
++ minister.menus \

@@ -14,6 +14,7 @@ from xgm_mod_options_header import *
 
 from . import loans, enterprise, battle, multiplayer
 import constable
+import minister
 
 ####################################################################################################################
 #  Each presentation record contains the following fields:
@@ -5659,10 +5660,7 @@ presentations = [
       (try_end),
       ##diplomacy chief begin
       (assign, ":staff_salary", 0),
-      (try_begin),
-        (gt, "$g_player_minister", 0),
-        (val_add, ":staff_salary", 15),
-      (try_end),
+      minister.consequences_staff_salary,
       (try_begin),
         (troop_slot_ge, "trp_player", slot_troop_spouse, 0),
         (val_add, ":staff_salary", 10),

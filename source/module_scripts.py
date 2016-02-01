@@ -27,6 +27,7 @@ import battle
 import patrols
 import constable
 import multiplayer
+import minister
 
 
 def get_hrd_weight(y):
@@ -18942,13 +18943,7 @@ scripts = [
         (val_add,":cur_pos", 1),
 	  (try_end),
 	  
-	  (try_begin),
-		(eq, "$g_player_court", ":center_no"),
-		(gt, "$g_player_minister", 0),
-		(neg|troop_slot_eq, "trp_player", slot_troop_spouse, "$g_player_minister"),
-        (set_visitor, ":cur_pos", "$g_player_minister"),
-        (val_add,":cur_pos", 1),
-	  (try_end),	  
+	minister.court_visitor,
     ##diplomacy chief begin
     (try_begin),
       (gt, "$g_player_chamberlain", 0),
@@ -24113,12 +24108,8 @@ scripts = [
     (assign, "$players_oath_renounced_begin_time", 0),
     #(call_script, "script_store_average_center_value_per_faction"),
     (call_script, "script_update_all_notes"),
-	
-	(try_begin),
-		(is_between, "$g_player_minister", companions_begin, companions_end),
-		(assign, "$npc_to_rejoin_party", "$g_player_minister"),
-	(try_end),
-	(assign, "$g_player_minister", -1),
+
+	minister.consequences_deactivate_faction,
 	
     (call_script, "script_add_notification_menu", "mnu_notification_player_faction_deactive", 0, 0),
     ]),
