@@ -15,7 +15,7 @@ from module_constants import *
 
 from . import loans, enterprise, tournaments, game_start
 from . import villages
-import scouts
+import constable
 
 ####################################################################################################################
 #  (menu-id, menu-flags, menu_text, mesh-name, [<operations>], [<options>]),
@@ -24322,42 +24322,6 @@ You have won the duel.",
         ]),
      ]
   ),  
-  
-  (
-    "dplmc_notification_appoint_constable",0,
-    "As a lord of a fief you can now appoint a constable who resides at you court for a weekly salary of 15 scillingas. He will recruit new troops and provide information about your army.",
-    "none",
-    [],
-    [
-
-      ("dplmc_appoint_default",[],"Appoint a prominent nobleman from the area.",
-       [
-        (call_script, "script_dplmc_appoint_constable"),
-        (jump_to_menu, "mnu_dplmc_constable_confirm"),
-        ]),	
-      ("dplmc_continue",[],"Proceed without constable.",
-       [
-         (assign, "$g_player_constable", -1), #denied
-         (assign, "$g_constable_training_center", -1),
-         (change_screen_return),
-        ]),        			
-     ]
-  ), 
-  
-  (
-    "dplmc_constable_confirm",0,
-    "Your constable can be found at your court. You should consult him if you want to recruit new troops or get detailed information about your standing  army.",
-    "none",
-    [],
-    [
-      ("dplmc_continue",[],"Continue...",
-       [
-         (change_screen_return),
-        ]),
-     ]
-  ),  
-  
-
 
   (
     "dplmc_notification_appoint_chancellor",0,
@@ -31419,4 +31383,4 @@ The other clan chief a wily old man however had a suprise for the young man. Hav
 + tournaments.menus \
 + game_start.menus \
 + villages.menus \
-+ scouts.menus \
++ constable.menus \

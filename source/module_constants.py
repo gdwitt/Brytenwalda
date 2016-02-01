@@ -2022,10 +2022,6 @@ merchants_end = village_elders_end
 tournament_champions_begin = "trp_Xerina"
 tournament_champions_end   = "trp_tutorial_trainer"
 
-
-
-dplmc_employees_begin = "trp_dplmc_chamberlain"#Individual employees (chancellor, constable, chamberlain)
-dplmc_employees_end   = "trp_dplmc_messenger"#The messenger is not included, since it's a generic figure rather than a specific person.
 ##diplomacy end+
 num_max_items = 10000 #used for multiplayer mode
 

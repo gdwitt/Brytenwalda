@@ -25,7 +25,7 @@ import village_elder.quest_deliver_cattle, \
     village_elder.quest_deliver_grain
 import battle
 import patrols
-import scouts
+import constable
 import multiplayer
 
 
@@ -12786,10 +12786,8 @@ scripts = [
         (party_slot_eq, ":center_no", slot_village_infested_by_bandits, "trp_peasant_woman"),
         (party_set_slot, ":center_no", slot_village_infested_by_bandits, 0),
       (try_end),
-      (try_begin),
-        (eq, "$g_constable_training_center", ":center_no"),
-        (assign, "$g_constable_training_center", -1),
-      (try_end),
+
+      constable.consequences_give_center,
       ##diplomacy chief end
       
       (try_begin),
@@ -18960,16 +18958,9 @@ scripts = [
       (set_visitor, ":cur_pos", "$g_player_chamberlain"),
       (val_add,":cur_pos", 1),
     (try_end),
-    
-    (try_begin),
-      (gt, "$g_player_constable", 0),
-      (call_script, "script_dplmc_appoint_constable"),  #fix for wrong troops after update
-      (party_get_slot, ":town_lord", ":center_no", slot_town_lord),
-      (eq, ":town_lord", "trp_player"),
-      (set_visitor, ":cur_pos", "$g_player_constable"),
-      (val_add,":cur_pos", 1),
-    (try_end),
-    
+
+    constable.court_visitor,
+
     (try_begin),
       (gt, "$g_player_chancellor", 0),
       (call_script, "script_dplmc_appoint_chancellor"), #fix for wrong troops after update
@@ -46164,31 +46155,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
    ]),
 ########dialogos mejorados chief acaba
 ##diplomacy chief begin
-  #recruiter chief kit begin
-  ("dplmc_send_recruiter",
-    [
-    (store_script_param, ":number_of_recruits", 1),
-#daedalus begin
-   (store_script_param, ":faction_of_recruits", 2),
-#daedalus end
-   (assign, ":expenses", ":number_of_recruits"),
-   (val_mul, ":expenses", 20),
-   (val_add, ":expenses", 10),
-   (call_script, "script_dplmc_withdraw_from_treasury", ":expenses"),
-   (set_spawn_radius, 1),
-    (spawn_around_party, "$current_town", "pt_dplmc_recruiter"),
-    (assign,":spawned_party",reg0),
-    (party_set_ai_behavior, ":spawned_party", ai_bhvr_hold),
-    (party_set_slot, ":spawned_party", slot_party_type, dplmc_spt_recruiter),
-    (party_set_slot, ":spawned_party", dplmc_slot_party_recruiter_needed_recruits, ":number_of_recruits"),
-   #daedalus begin
-   (party_set_slot, ":spawned_party", dplmc_slot_party_recruiter_needed_recruits_faction, ":faction_of_recruits"),
-   #daedalus end
-   (party_set_slot, ":spawned_party", dplmc_slot_party_recruiter_origin, "$current_town"),
-   (assign, ":faction", "$players_kingdom"),
-   (party_set_faction, ":spawned_party", ":faction"),
-    ]),
-#recruiter kit end
 #gdw this is a repeat
   # ("dplmc_get_troop_max_hp",
   #  [
@@ -47139,13 +47105,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	 (troop_set_inventory_slot, "trp_dplmc_chancellor", ek_body, "itm_mailbyrnieblue"),
 	 (troop_set_inventory_slot, "trp_dplmc_chancellor", ek_foot, "itm_leather_boots1"),    
    (assign, "$g_player_chancellor", "trp_dplmc_chancellor"),   
-  ]),
-    
-  ("dplmc_appoint_constable",
-  [
-	 (troop_set_inventory_slot, "trp_dplmc_constable", ek_body, "itm_dplmc_coat_of_plates_red_constable"),
-	 (troop_set_inventory_slot, "trp_dplmc_constable", ek_foot, "itm_leather_boots1"),	 
-   (assign, "$g_player_constable", "trp_dplmc_constable"),   
   ]),
 
   # script_script_dplmc_faction_leader_splits_gold
@@ -56617,4 +56576,4 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 + mission_template_triggers.scripts \
 + battle.scripts \
 + patrols.scripts \
-+ scouts.scripts \
++ constable.scripts \

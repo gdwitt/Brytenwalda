@@ -13,6 +13,7 @@ from module_constants import *
 from xgm_mod_options_header import *
 
 from . import loans, enterprise, battle, multiplayer
+import constable
 
 ####################################################################################################################
 #  Each presentation record contains the following fields:
@@ -5670,10 +5671,7 @@ presentations = [
         (gt, "$g_player_chamberlain", 0),
         (val_add, ":staff_salary", 15),
       (try_end),
-      (try_begin),
-        (gt, "$g_player_constable", 0),
-        (val_add, ":staff_salary", 15),
-      (try_end),
+      constable.consequences_staff_salary,
       (try_begin),
         (gt, "$g_player_chancellor", 0),
         (val_add, ":staff_salary", 20),

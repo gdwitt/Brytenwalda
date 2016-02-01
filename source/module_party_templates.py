@@ -1,5 +1,8 @@
 from header_parties import *
+
 from lazy_flag import LazyFlag
+
+import constable
 
 pmf_is_prisoner = 0x0001
 
@@ -78,7 +81,6 @@ party_templates = [
 ##  ("noble_refugees", "Noble Refugees", LazyFlag("icon_gray_knight")|carries_goods(12)|pf_quest_party,0,"fac_noble_refugees",merchant_personality,[("trp_noble_refugee",3,5),("trp_noble_refugee_woman",5,7)]),
 
   ("forager_party","Foraging Party",LazyFlag("icon_gray_knight")|carries_goods(5)|pf_show_faction,0,"fac_commoners",merchant_personality,[]),
-  ("scout_party","Scouts",LazyFlag("icon_gray_knight")|carries_goods(1)|pf_show_faction,0,"fac_commoners",bandit_personality,[]),
   ##  NEW PATROLS somebody chief patrullas
   ("patrol_party","Patrol",LazyFlag("icon_gray_knight")|carries_goods(2)|pf_show_faction,0,"fac_commoners",soldier_personality,[]),
   ("patrols_end","Patrol",LazyFlag("icon_gray_knight"),0,"fac_player_faction",aggressiveness_0|courage_15,[]),
@@ -287,9 +289,6 @@ party_templates = [
   ("dplmc_spouse","Your spouse",LazyFlag("icon_woman")|pf_civilian|pf_show_faction,0,"fac_neutral",merchant_personality,[]),
 
   ("dplmc_gift_caravan","Your Caravan",LazyFlag("icon_mule")|carries_goods(45)|pf_show_faction,0,"fac_commoners",escorted_merchant_personality,[("trp_caravan_master",1,1),("trp_merc_infantryt3",5,25)]),
-#recruiter kit begin
-   ("dplmc_recruiter","Recruiter",LazyFlag("icon_gray_knight")|pf_show_faction,0,"fac_neutral",merchant_personality,[("trp_dplmc_recruiter",1,1)]),
-#recruiter kit end
    ##diplomacy chief  end
 #tempered chief
   ("skirmish_party","Skirmishers",LazyFlag("icon_khergit")|carries_goods(1)|pf_always_visible|pf_limit_members,0,"fac_commoners",aggressiveness_0 | courage_15,[]), #Tempered chief skirmish party
@@ -347,4 +346,5 @@ party_templates = [
 ###pictos
 ##  ("pictish_foragers","Pictish Foragers",LazyFlag("icon_saxon_skirmishert5")|carries_goods(5),0,"fac_kingdom_5",merchant_personality,[("trp_pict_archer",6,12),("trp_pict_horseman",3,5),("trp_pict_woman",1,3)]),
 
-]
+] \
+    + constable.party_templates

@@ -1,7 +1,8 @@
 from header_troops import *
 from header_skills import *
 
-from . import enterprise, multiplayer, scouts
+from . import enterprise, multiplayer
+import constable
 
 #######################################################################################  Each troop contains the following fields:
 #  1) Troop id (string): used for referencing troops in other files. The prefix trp_ is automatically added before each troop-id .
@@ -2073,15 +2074,10 @@ troops = [
 ##diplomacy  chief begin
 ["dplmc_chamberlain","Chamberlain Marcus", "Chamberlains",tf_hero|tf_male,0,0,'fac_commoners',['itm_jack_armorfadedblue','itm_ankleboots'], def_attrib|level(10), wp(40),knows_inventory_management_10,0x0000000dfc0c238838e571c8d469c91b00000000001e39230000000000000000],
 
-["dplmc_constable","Constable Sextus","Constables",tf_hero|tf_male,0,0,'fac_commoners',['itm_mailbyrniegreen', 'itm_ankleboots'],knight_attrib_4,wp(200),knows_common|knows_trainer_9|knows_shield_3|knows_ironflesh_3|knows_power_strike_4|knows_athletics_4,0x0000000b4b1015054b1b4d591cba28d300000000001e472b0000000000000000],
-
 ["dplmc_chancellor","Chancellor Caio","Chancellors",tf_hero|tf_male,0,0,'fac_commoners',['itm_robe1','itm_ankleboots'],def_attrib|level(10), wp(40),knows_inventory_management_10, 0x00000009a20c21cf491bad28a28628d400000000001e371a0000000000000000],
 
 ["dplmc_messenger","Messenger","Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,'fac_neutral',['itm_leather_gloves1','itm_leather_gloves1','itm_javelins','itm_horsecourser1','itm_shoes1','itm_noble_shoesorange','itm_ptunic3','itm_ptunic3','itm_shirtylw','itm_shirtaqua','itm_shirtgrey','itm_bltunicgrn','itm_spear_briton2ht3','itm_spear_briton_longt2','itm_scianswordbone','itm_knife1','itm_shield_round_brit05','itm_shield_round_brit06','itm_shield_round_brit07','itm_shield_round_brit01'],def_attrib|agi_21|int_30|cha_21|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_leadership_7,swadian_face_young_1,swadian_face_old_2],
 
-# recruiter kit begin
-["dplmc_recruiter","Recruiter","Recruiter",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,'fac_neutral',['itm_spathaswordt2','itm_leather_tunic1','itm_leather_boots1','itm_horsecourser2','itm_leather_gloves1','itm_pict_crossbow','itm_bolts'],def_attrib|agi_21|int_30|cha_21|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_leadership_7,swadian_face_young_1,swadian_face_old_2],
-# recruiter kit end
 ##diplomacy chief end
 #Otros chief
 ["bishop","Bishop","Bishop",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse,0,0,'fac_commoners',['itm_staff1','itm_bishop_robe1','itm_cheap_shoes','itm_mulehorse'],def_attrib|level(9),wp(50),knows_common|knows_riding_2|knows_ironflesh_1,sac_face_young_1,sac_face_older_2],
@@ -2114,7 +2110,7 @@ troops = [
 
 ] \
 + multiplayer.troops \
-+ scouts.troops \
++ constable.troops \
 
 
 #Troop upgrade declarations

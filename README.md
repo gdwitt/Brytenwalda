@@ -58,5 +58,7 @@ A huge thank to the persons that contributed to this mod.
 - Beaver [walk backwards trip]
 - theoris [decapitation in battle]
 - Windyplains [Health regeneration]
+- zerilius
+- daedalus
 
 Finding all the authors is hard. Please help us to complete this list!
