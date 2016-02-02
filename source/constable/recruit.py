@@ -16,7 +16,7 @@ from source.module_constants import slot_party_type, spt_town, dplmc_spt_recruit
     slot_center_volunteer_troop_amount, slot_center_volunteer_troop_type, \
     slot_center_player_relation, slot_center_original_faction, slot_village_state, \
     svs_looted, svs_being_raided, slot_village_infested_by_bandits, slot_party_ai_object, \
-    villages_begin, villages_end
+    villages_begin, villages_end, centers_begin, centers_end
 
 
 PRICE_TO_RECRUIT = 10
@@ -55,9 +55,9 @@ recruiter_village_conditions = StatementBlock(
     (eq, ":village_faction", ":recruit_faction"),
 
     # village not under fire
-    (neg|party_slot_eq, ":village", slot_village_state, svs_looted),
-    (neg|party_slot_eq, ":village", slot_village_state, svs_being_raided),
-    (neg|party_slot_ge, ":village", slot_village_infested_by_bandits, 1),
+    (neg | party_slot_eq, ":village", slot_village_state, svs_looted),
+    (neg | party_slot_eq, ":village", slot_village_state, svs_being_raided),
+    (neg | party_slot_ge, ":village", slot_village_infested_by_bandits, 1),
 )
 
 
@@ -220,7 +220,7 @@ dialogs += [
 
     [LazyFlag('trp_recruiter') | plyr, "dplmc_recruiter_talk_3", [],
      "Recruit any troops.", "dplmc_recruiter_talk_4", [
-        (assign,"$temp", -1)
+        (assign, "$temp", -1)
     ]],
  
     ['trp_recruiter', "dplmc_recruiter_talk_4", [
@@ -254,11 +254,41 @@ scripts = [
     ]),
 ]
 
+# This block is added to the script `game_event_simulate_battle`.
+consequences_battle_lost = StatementBlock(
+    (try_begin),
+        (party_slot_eq, ":root_defeated_party", slot_party_type, dplmc_spt_recruiter),
+
+        (assign, ":minimum_distance", 1000000),
+        (try_for_range, ":center", centers_begin, centers_end),
+            (store_distance_to_party_from_party, ":dist", ":root_defeated_party", ":center"),
+            (try_begin),
+                (lt, ":dist", ":minimum_distance"),
+                (assign, ":minimum_distance", ":dist"),
+                (assign, ":nearest_center", ":center"),
+            (try_end),
+        (try_end),
+
+        (str_clear, s10),
+        (try_begin),
+            (gt, ":nearest_center", 0),
+            (str_store_party_name, s10, ":nearest_center"),
+            (str_store_string, s10, "@ near {s10}"),
+        (try_end),
+
+        (party_get_slot, reg10, ":root_defeated_party", dplmc_slot_party_recruiter_needed_recruits),
+        (party_get_slot, ":party_origin", ":root_defeated_party", dplmc_slot_party_recruiter_origin),
+        (str_store_party_name_link, s13, ":party_origin"),
+        (display_log_message, "@Your recruiter who was commissioned to recruit {reg10} recruits "
+                              "to {s13} has been defeated{s10}!", 0xFF0000),
+    (try_end),
+)
+
 
 simple_triggers = [
     (0.5, [
         (try_for_parties, ":party_no"),
-            (party_slot_eq,":party_no", slot_party_type, dplmc_spt_recruiter),
+            (party_slot_eq, ":party_no", slot_party_type, dplmc_spt_recruiter),
 
             (party_get_slot, ":needed", ":party_no", dplmc_slot_party_recruiter_needed_recruits),
 
@@ -328,7 +358,7 @@ simple_triggers = [
 
                     recruiter_village_conditions,
 
-                    (neg|party_slot_eq, ":village", dplmc_slot_village_reserved_by_recruiter, 1),
+                    (neg | party_slot_eq, ":village", dplmc_slot_village_reserved_by_recruiter, 1),
                     (assign, ":min_distance", ":distance"),
                     (assign, ":closest_village", ":village"),
                 (try_end),
@@ -390,7 +420,7 @@ simple_triggers = [
                     (party_set_ai_behavior, ":party_no", ai_bhvr_hold),
                     (party_set_slot, ":village", dplmc_slot_village_reserved_by_recruiter, 0),
                 (else_try),
-                    (display_message, "@ERROR IN THE RECRUITER KIT SIMPLE TRIGGERS!",0xFF2222),
+                    (display_message, "@ERROR IN THE RECRUITER KIT SIMPLE TRIGGERS!", 0xFF2222),
                     (party_set_slot, ":village", dplmc_slot_village_reserved_by_recruiter, 0),
                 (try_end),
             (try_end),
@@ -433,7 +463,7 @@ simple_triggers = [
                 (remove_party, ":p_recruiter"),
             (try_end),
         (try_end),
-   ]),
+    ]),
 
     # updates the dplmc_slot_village_reserved_by_recruiter
     (12, [

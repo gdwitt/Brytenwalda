@@ -2125,34 +2125,8 @@ scripts = [
 ##diplomacy chief  begin
         (try_begin),
           (gt, ":root_defeated_party", -1),
-# Recruiter kit begin
- # This little fella just shows a message when a recruiter is defeated.
 
-         (assign, ":minimum_distance", 1000000),
-         (try_for_range, ":center", centers_begin, centers_end),
-           (store_distance_to_party_from_party, ":dist", ":root_defeated_party", ":center"),
-           (try_begin),
-             (lt, ":dist", ":minimum_distance"),
-             (assign, ":minimum_distance", ":dist"),
-             (assign, ":nearest_center", ":center"),
-           (try_end),
-         (try_end),
-         
-        (str_clear, s10),
-        (try_begin),
-          (gt, ":nearest_center", 0),
-          (str_store_party_name, s10, ":nearest_center"),
-          (str_store_string, s10, "@ near {s10}"),
-        (try_end),
-
-         (try_begin),
-            (party_slot_eq, ":root_defeated_party", slot_party_type, dplmc_spt_recruiter),
-            (party_get_slot, reg10, ":root_defeated_party", dplmc_slot_party_recruiter_needed_recruits),
-            (party_get_slot, ":party_origin", ":root_defeated_party", dplmc_slot_party_recruiter_origin),
-            (str_store_party_name_link, s13, ":party_origin"),
-            (display_log_message, "@Your recruiter who was commissioned to recruit {reg10} recruits to {s13} has been defeated{s10}!", 0xFF0000),
-         (try_end),
-# Recruiter kit end
+          constable.recruit.consequences_battle_lost,
 
         (try_begin),
           (party_slot_eq,":root_defeated_party", slot_party_type, dplmc_spt_gift_caravan),
