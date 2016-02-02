@@ -40,49 +40,69 @@ def set_item_difficulty():
     item_difficulty.append((item_set_slot, i_item, slot_item_difficulty, get_difficulty(items[i_item][6])))
   return item_difficulty[:]
   # #item_score.append((item_set_slot, i_item, slot_item_needs_two_hands, items[i_item][3] & itp_two_handed))only needed if use equipbestweapon
-ibf_item_type_mask = 0x000000ff
-def set_item_score():
-  item_score = []
-  for i_item in xrange(len(items)):
-  	#item_score.append((item_set_slot, i_item, slot_item_weight, get_hrd_weight(items[i_item][6])))
-    if items[i_item][3] & ibf_item_type_mask == itp_type_two_handed_wpn and items[i_item][3] & itp_two_handed == 0:
-     item_score.append((item_set_slot, i_item, slot_two_hand_one_hand, 1))
-    type = items[i_item][3] & ibf_item_type_mask
-    if type == itp_type_shield:
-     item_score.append((item_set_slot, i_item, slot_item_length, get_weapon_length(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_body_armor, get_body_armor(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_speed, get_speed_rating(items[i_item][6])))
-    elif type == itp_type_bow or type == itp_type_crossbow:
-     item_score.append((item_set_slot, i_item, slot_item_thrust_damage, get_thrust_damage(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_swing_damage, get_swing_damage(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_speed, get_speed_rating(items[i_item][6])))
-    elif type >= itp_type_one_handed_wpn and type <= itp_type_thrown:
-     item_score.append((item_set_slot, i_item, slot_item_thrust_damage, get_thrust_damage(items[i_item][6])&0xff))	#strip out damage type
-     item_score.append((item_set_slot, i_item, slot_item_swing_damage, get_swing_damage(items[i_item][6])&0xff))	#strip out damage type
-     item_score.append((item_set_slot, i_item, slot_item_speed, get_speed_rating(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_length, get_weapon_length(items[i_item][6])))
-     if (items[i_item][3] & itp_next_item_as_melee == itp_next_item_as_melee) and type != itp_type_thrown: #toggleable weapons
-        item_score.append((item_set_slot, i_item, slot_item_alternate, i_item + 1))
-        item_score.append((item_set_slot, i_item + 1, slot_item_alternate, i_item))
-    elif type >= itp_type_head_armor and type <= itp_type_hand_armor:
-     item_score.append((item_set_slot, i_item, slot_item_head_armor, get_head_armor(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_body_armor, get_body_armor(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_leg_armor, get_leg_armor(items[i_item][6])))
-    elif type == itp_type_horse:
-     item_score.append((item_set_slot, i_item, slot_item_horse_speed, get_missile_speed(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_horse_armor, get_body_armor(items[i_item][6])))
-     item_score.append((item_set_slot, i_item, slot_item_horse_charge, get_thrust_damage(items[i_item][6])))
 
-   #construct cross refs for alternate versions of weapons
-    # noswing_name = 'noswing_' + items[i_item][0]
-    # i_noswing = find_object (items, noswing_name)
-    # if i_noswing > -1:
-    #  item_score.append((item_set_slot, i_item, slot_item_alternate, i_noswing))
-    #  item_score.append((item_set_slot, i_noswing, slot_item_alternate, i_item))
-     ## item_modifier
-  for i_modifier in xrange(len(modifiers)):
-    item_score.append((item_set_slot, i_modifier, slot_item_modifier_multiplier, modifiers[i_modifier][1]))
-  return item_score[:]
+
+def initialize_items_slots():
+    item_score = []
+    for i_item, item in enumerate(items):
+        # item_score.append((item_set_slot, i_item, slot_item_weight, get_hrd_weight(items[i_item][6])))
+
+        type = item[3] & ibf_item_type_mask
+        if type == itp_type_two_handed_wpn and item[3] & itp_two_handed == 0:
+            item_score += [
+                (item_set_slot, i_item, slot_item_two_hand_one_hand, 1),
+            ]
+        if type == itp_type_shield:
+            item_score += [
+                (item_set_slot, i_item, slot_item_length, get_weapon_length(item[6])),
+                (item_set_slot, i_item, slot_item_body_armor, get_body_armor(item[6])),
+                (item_set_slot, i_item, slot_item_speed, get_speed_rating(item[6])),
+            ]
+        elif type == itp_type_bow or type == itp_type_crossbow:
+            item_score += [
+                (item_set_slot, i_item, slot_item_thrust_damage, get_thrust_damage(item[6])),
+                (item_set_slot, i_item, slot_item_swing_damage, get_swing_damage(item[6])),
+                (item_set_slot, i_item, slot_item_speed, get_speed_rating(item[6])),
+            ]
+
+        elif itp_type_one_handed_wpn <= type <= itp_type_thrown:
+            item_score += [
+                (item_set_slot, i_item, slot_item_thrust_damage, get_thrust_damage(item[6]) & 0xff),
+                (item_set_slot, i_item, slot_item_swing_damage, get_swing_damage(item[6]) & 0xff),
+                (item_set_slot, i_item, slot_item_speed, get_speed_rating(item[6])),
+                (item_set_slot, i_item, slot_item_length, get_weapon_length(item[6])),
+            ]
+
+            # toggleable weapons
+            if (item[3] & itp_next_item_as_melee == itp_next_item_as_melee) and type != itp_type_thrown:
+                item_score += [
+                    (item_set_slot, i_item, slot_item_alternate, i_item + 1),
+                    (item_set_slot, i_item + 1, slot_item_alternate, i_item),
+                ]
+
+        elif itp_type_head_armor <= type <= itp_type_hand_armor:
+            item_score += [
+                (item_set_slot, i_item, slot_item_head_armor, get_head_armor(item[6])),
+                (item_set_slot, i_item, slot_item_body_armor, get_body_armor(item[6])),
+                (item_set_slot, i_item, slot_item_leg_armor, get_leg_armor(item[6])),
+            ]
+        elif type == itp_type_horse:
+            item_score += [
+                (item_set_slot, i_item, slot_item_horse_speed, get_missile_speed(item[6])),
+                (item_set_slot, i_item, slot_item_horse_armor, get_body_armor(item[6])),
+                (item_set_slot, i_item, slot_item_horse_charge, get_thrust_damage(item[6])),
+            ]
+            # construct cross refs for alternate versions of weapons
+            # noswing_name = 'noswing_' + items[i_item][0]
+            # i_noswing = find_object (items, noswing_name)
+            # if i_noswing > -1:
+            #  item_score.append((item_set_slot, i_item, slot_item_alternate, i_noswing))
+            #  item_score.append((item_set_slot, i_noswing, slot_item_alternate, i_item))
+            ## item_modifier
+    for i_modifier in xrange(len(modifiers)):
+        item_score.append((item_set_slot, i_modifier, slot_item_modifier_multiplier, modifiers[i_modifier][1]))
+    return item_score
+
 
 modifiers = [
  (imod_plain, 100),
@@ -41228,7 +41248,7 @@ scripts = [
      (store_script_param, ":item", 2),
      (store_script_param, ":item_modifier", 3),
 
-     (item_get_slot, ":difficulty", ":item", dplmc_slot_item_difficulty),
+     (item_get_slot, ":difficulty", ":item", slot_item_difficulty),
      (item_get_type, ":type", ":item"),
      (try_begin),
        (eq, ":difficulty", 0), # don't apply imod modifiers if item has no requirement
@@ -41466,7 +41486,7 @@ scripts = [
       (assign, reg0, ":score"),
     ]),
    #(gdw moved to match floris
-  ("init_item_score", set_item_score()),
+  ("init_item_score", initialize_items_slots()),
  
   ("get_item_score_with_imod", [
     (store_script_param, ":item", 1),

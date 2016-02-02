@@ -144,6 +144,7 @@ blunt  = 2
 ibf_armor_mask           = 0x00000000000000000000000ff
 ibf_damage_mask          = 0x00000000000000000000003ff
 ibf_10bit_mask           = 0x00000000000000000000003ff
+ibf_item_type_mask       = 0x000000ff
 
 ibf_head_armor_bits      = 0
 ibf_body_armor_bits      = 8

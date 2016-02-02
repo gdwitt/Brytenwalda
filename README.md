@@ -60,5 +60,6 @@ A huge thank to the persons that contributed to this mod.
 - Windyplains [Health regeneration]
 - zerilius
 - daedalus
+- rubik [auto loot]
 
 Finding all the authors is hard. Please help us to complete this list!

@@ -24,18 +24,16 @@ slot_item_desert_demand = 13  # consumer demand in villages, measured in abstrac
 slot_item_production_slot = 14
 slot_item_production_string = 15
 
+# these two are used to move scene items around
 slot_item_num_positions = 22
 slot_item_positions_begin = 23  # reserve around 5 slots after this
 
 slot_item_multiplayer_faction_price_multipliers_begin = 70  # reserve around 10 slots after this MOTO actually more than 30 for BW
 
-# auto-loot 41-49 (see below)
-
 slot_item_primary_raw_material = 50
 slot_item_is_raw_material_only_for = 51
 slot_item_input_number = 52  # ie, how many items of inputs consumed per run
 slot_item_base_price = 53  # taken from module_items
-# slot_item_production_site			    = 54 #a string replaced with function - Armagan
 slot_item_output_per_run = 55  # number of items produced per run
 slot_item_overhead_per_run = 56  # labor and overhead per run
 slot_item_secondary_raw_material = 57  # in this case, the amount used is only one
@@ -43,6 +41,37 @@ slot_item_enterprise_building_cost = 58  # enterprise building cost
 
 slot_item_multiplayer_item_class = 60  # temporary, can be moved to higher values
 slot_item_multiplayer_availability_linked_list_begin = 100  # temporary, can be moved to higher values
+
+slot_item_needs_two_hands = 62
+# slot_item_couchable         = 63
+# slot_item_pike              = 64
+slot_item_difficulty = 65
+slot_item_weight = 66
+# slot_armor_type                   = 67
+# slot_weapon_proficiency           = 68
+# slot_item_modifier_quality        = 69
+# slot_item_cant_on_horseback       = 70
+# slot_item_type_not_for_sell       = 71
+slot_item_modifier_multiplier = 72
+# slot_item_best_modifier           = 73
+# slot_item_flying_missile          = 74
+# slot_item_two_hand_one_hand       = 75
+slot_item_head_armor = 76
+slot_item_body_armor = 77
+slot_item_leg_armor = 78
+slot_item_length = 79
+slot_item_speed = 80
+
+slot_item_two_hand_one_hand = 81
+slot_item_alternate = 82  # toggleable weapons gdw
+slot_item_swing_damage = 83
+slot_item_thrust_damage = 84
+slot_agent_last_weapon_toggled = 85
+
+slot_item_horse_speed = 86
+slot_item_horse_armor = 87
+slot_item_horse_charge = 88
+
 
 ########################################################
 ##  AGENT SLOTS            #############################
@@ -1517,12 +1546,8 @@ logent_faction_declares_war_out_of_personal_enmity = 91
 logent_faction_declares_war_to_regain_territory = 92
 logent_faction_declares_war_to_curb_power = 93
 logent_faction_declares_war_to_respond_to_provocation = 94
-logent_war_declaration_types_end = 95
-
-##diplomacy chief begin
 logent_faction_declares_war_to_fulfil_pact = 95
 logent_war_declaration_types_end = 96
-##diplomacy chief end
 
 # logent_lady_breaks_betrothal_with_lord      = 58
 # logent_lady_betrothal_broken_by_lord        = 59
@@ -2034,46 +2059,6 @@ ctm_melee = 1
 ctm_ranged = 2
 ctm_mounted = 3
 # ctm_training = 4
-
-
-slot_item_needs_two_hands = 62
-# slot_item_couchable         = 63
-# slot_item_pike              = 64
-
-slot_item_difficulty = 65
-slot_item_weight = 66
-# slot_armor_type                   = 67
-# slot_weapon_proficiency           = 68
-# slot_item_modifier_quality        = 69
-# slot_item_cant_on_horseback       = 70
-# slot_item_type_not_for_sell       = 71
-slot_item_modifier_multiplier = 72
-# slot_item_best_modifier           = 73
-# slot_item_flying_missile          = 74
-# slot_item_two_hand_one_hand       = 75
-slot_item_head_armor = 76
-slot_item_body_armor = 77
-slot_item_leg_armor = 78
-slot_item_length = 79
-slot_item_speed = 80
-
-# slot_item_food_portion            = 81
-slot_item_alternate = 82  # toggleable weapons gdw
-slot_item_swing_damage = 83
-slot_item_thrust_damage = 84
-slot_agent_last_weapon_toggled = 85
-# slots hack
-#### Autoloot improved by rubik begin
-slot_item_thrust_damage = slot_item_head_armor
-slot_item_swing_damage = slot_item_body_armor
-
-slot_item_horse_speed = slot_item_head_armor
-slot_item_horse_armor = slot_item_body_armor
-slot_item_horse_charge = slot_item_length
-
-slot_two_hand_one_hand = slot_item_leg_armor
-#   #### Autoloot improved by rubik end
-
 
 # # agent slots  ##adjusted +20 for pbod and formations agent slots
 # slot_agent_refill_ammo_times      = 46
@@ -2604,31 +2589,6 @@ Far_Away = 1000000
 # AutoLoot: Modified Constants motomataru chief
 # Most of these are slot definitions, make sure they do not clash with your mod's other slot usage
 ###################################################################################
-# This is an item slot
-slot_item_difficulty = 41
-
-# # Autoloot improved by rubik begin
-slot_item_weight = 48  # activo chief para script de velocidades
-
-# slot_item_cant_on_horseback       = 10
-# slot_item_type_not_for_sell       = 11
-slot_item_modifier_multiplier = 42
-
-slot_item_needs_two_hands = 43
-slot_item_length = 44
-slot_item_speed = 45
-slot_item_thrust_damage = 46
-slot_item_swing_damage = 47
-slot_item_alternate = 49  # table between swing/noswing versions of same weapon
-
-slot_item_head_armor = slot_item_needs_two_hands
-slot_item_body_armor = slot_item_thrust_damage
-slot_item_leg_armor = slot_item_swing_damage
-
-slot_item_horse_speed = slot_item_needs_two_hands
-slot_item_horse_armor = slot_item_thrust_damage
-slot_item_horse_charge = slot_item_swing_damage
-# # Autoloot end
 
 # positions used through formations and AI triggers
 Current_Pos = 34  # pos34
@@ -2872,23 +2832,6 @@ slot_gloval_fire_arrow_key = 2
 slot_gloval_max_fire_arrow = 3
 slot_gloval_max_flame_slot = 4
 negation = 1
-# item slots DUPLICATES AND/OR NEVER USED (see Autoloot above) Motomataru
-# slot_item_difficulty              = 65
-# slot_item_weight                  = 66
-# slot_armor_type                   = 67
-# slot_weapon_proficiency           = 68
-# slot_item_modifier_quality        = 69
-# slot_item_cant_on_horseback       = 70
-# slot_item_type_not_for_sell       = 71
-# slot_item_modifier_multiplier     = 72
-# slot_item_best_modifier = 73
-# slot_item_flying_missile          = 74
-# slot_item_two_hand_one_hand       = 75
-# slot_item_head_armor              = 76
-# slot_item_body_armor              = 77
-# slot_item_leg_armor               = 78
-# slot_item_length                  = 79
-# slot_item_speed                   = 80
 ## CC chief commander acaba
 ###otros
 # slot_monk_monasterio = 13	MOTO not used
@@ -2924,10 +2867,6 @@ slot_troop_freelancer_start_date = slot_troop_signup_2  # 111 -only used for pla
 
 plyr_mission_vacation = 1
 # +Freelancer end
-# freelancer acaba chief
-### This is an item slot
-dplmc_slot_item_difficulty = slot_item_difficulty
-###freelancer acaba chief
 # outpost of lumos and player lair chief
 mount_patrol_max_speed = 15
 mount_patrol_min_speed = 5
