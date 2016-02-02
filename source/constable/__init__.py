@@ -149,6 +149,7 @@ scripts = [
 ] \
     + recruit.scripts \
     + scouts.scripts \
+    + move_troops.scripts \
 
 
 # entry point to appoint constable

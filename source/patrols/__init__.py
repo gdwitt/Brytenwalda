@@ -1,7 +1,10 @@
 from source.header_operations import *
 from source.header_common import *
+
 from source.header_dialogs import anyone, plyr, repeat_for_parties
 from source.header_parties import ai_bhvr_travel_to_party, ai_bhvr_patrol_location
+
+from source.statement import StatementBlock
 
 from source.module_constants import spt_patrol, slot_party_type, slot_party_ai_object, \
     centers_begin, centers_end, slot_party_ai_state, spai_patrolling_around_center, \
@@ -399,3 +402,24 @@ scripts = [
         (call_script, "script_party_add_party", ":spawned_party", ":party_no"),
     ]),
 ]
+
+consequences_battle_lost = StatementBlock(
+    (try_begin),
+        (party_slot_eq, ":root_defeated_party", slot_party_type, spt_patrol),
+        (party_slot_eq, ":root_defeated_party", dplmc_slot_party_mission_diplomacy, "trp_player"),
+        (party_get_slot, ":target_party", ":root_defeated_party", slot_party_ai_object),
+        (str_store_party_name, s13, ":target_party"),
+        (display_log_message, "@Your soldiers patrolling {s13} have been defeated {s10}!", 0xFF0000),
+    (try_end),
+)
+
+consequences_player_disbands = StatementBlock(
+    (try_for_parties, ":party_no"),
+        (party_slot_eq,":party_no", slot_party_type, spt_patrol),
+        (party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),
+        (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
+        (str_store_party_name, s6, ":target_party"),
+        (display_log_message, "@Your soldiers patrolling {s6} disbanded because you left the faction!", 0xFF0000),
+        (remove_party, ":party_no"),
+    (try_end),
+)

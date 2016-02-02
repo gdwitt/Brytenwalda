@@ -2,8 +2,12 @@ from source.header_operations import *
 from source.header_common import *
 
 from source.header_dialogs import *
+from source.header_parties import ai_bhvr_travel_to_party
 
-from source.module_constants import towns_begin, castles_end
+from source.module_constants import towns_begin, castles_end, \
+    slot_party_ai_object, slot_party_home_center, \
+    slot_party_ai_state, slot_party_type, spt_patrol, dplmc_slot_party_mission_diplomacy, \
+    spai_retreating_to_center
 
 
 dialog_option = \
@@ -119,7 +123,7 @@ dialogs = [
         ], "Yes.", "dplmc_constable_pretalk", [
 
         (call_script, "script_dplmc_withdraw_from_treasury", reg5),
-        (call_script, "script_dplmc_move_troops_party", "$current_town", "$diplomacy_var", "p_temp_party_2", "fac_player_faction", "trp_player"), #FLORIS BUGFIX adds "trp_player" argument
+        (call_script, "script_dplmc_move_troops_party", "$current_town", "$diplomacy_var", "p_temp_party_2", "fac_player_faction", "trp_player"),
         (party_clear, "p_temp_party_2"),
     ]],
 
@@ -129,4 +133,37 @@ dialogs = [
         (call_script, "script_party_add_party", "$current_town", "p_temp_party_2"),
         (party_clear, "p_temp_party_2"),
     ]],
+]
+
+
+scripts = [
+    # builds a patrol type party near `start_party` from faction `faction`,
+    # moves members of `party_no` to it and make it retreat to `target_party` to join ranks.
+    ("dplmc_move_troops_party", [
+        (store_script_param, ":start_party", 1),
+        (store_script_param, ":target_party", 2),
+        (store_script_param, ":party_no", 3),
+        (store_script_param, ":faction", 4),
+        (store_script_param, ":order_troop", 5),
+
+        (set_spawn_radius, 1),
+        (spawn_around_party, ":start_party", "pt_patrol_party"),
+        (assign, ":spawned_party", reg0),
+        (party_set_faction, ":spawned_party", ":faction"),
+        (party_set_slot, ":spawned_party", slot_party_type, spt_patrol),
+        (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
+        (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":order_troop"),
+        (str_store_party_name, s5, ":target_party"),
+        (party_set_name, ":spawned_party", "@Transfer to {s5}"),
+
+        (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),
+        (party_set_ai_object, ":spawned_party", ":target_party"),
+        (party_set_slot, ":spawned_party", slot_party_ai_object, ":target_party"),
+        (party_set_slot, ":spawned_party", slot_party_ai_state, spai_retreating_to_center),
+        (party_set_aggressiveness, ":spawned_party", 0),
+        (party_set_courage, ":spawned_party", 3),
+        (party_set_ai_initiative, ":spawned_party", 100),
+
+        (call_script, "script_party_add_party", ":spawned_party", ":party_no"),
+    ])
 ]

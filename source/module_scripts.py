@@ -2152,13 +2152,7 @@ scripts = [
           (display_log_message, "@Your messenger on the way to {s13} has been defeated {s10}!", 0xFF0000),#chief moficiado diplomacy
         (try_end),
         
-        (try_begin),
-          (party_slot_eq,":root_defeated_party", slot_party_type, spt_patrol),
-          (party_slot_eq, ":root_defeated_party", dplmc_slot_party_mission_diplomacy, "trp_player"),
-          (party_get_slot, ":target_party", ":root_defeated_party", slot_party_ai_object),
-          (str_store_party_name, s13, ":target_party"),
-          (display_log_message, "@Your soldiers patrolling {s13} have been defeated {s10}!", 0xFF0000),#chief moficiado diplomacy
-        (try_end),
+         patrols.consequences_battle_lost,
         
         (try_begin),
           (party_slot_eq,":root_defeated_party", slot_party_type, spt_scout),
@@ -24058,17 +24052,7 @@ scripts = [
 	  (call_script, "script_update_all_notes"),
 	  (assign, "$g_recalculate_ais", 1),
 
-        ##diplomacy chief begin
-        ##disband player patrols
-      (try_for_parties, ":party_no"),
-        (party_slot_eq,":party_no", slot_party_type, spt_patrol),
-		(party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),
-        (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
-        (str_store_party_name, s6, ":target_party"),
-        (display_log_message, "@Your soldiers patrolling {s6} disbanded because you left the faction!", 0xFF0000),
-        (remove_party, ":party_no"),
-      (try_end),
-        ##diplomacy end
+      patrols.consequences_player_disbands,
      ]),
 
 	  
@@ -46942,35 +46926,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (str_clear, s46), # unofficial bug fix  
   (try_end),	 
     ]),	 
-
-  ("dplmc_move_troops_party",
-  [
-    (store_script_param, ":start_party", 1),
-    (store_script_param, ":target_party", 2),
-    (store_script_param, ":party_no", 3),
-    (store_script_param, ":template_faction", 4),
-	  (store_script_param, ":order_troop", 5), #FLORIS BUGFIX
-    
-    (set_spawn_radius, 1),
-    (spawn_around_party, ":start_party", "pt_patrol_party"),
-    (assign,":spawned_party",reg0),
-    (party_set_faction, ":spawned_party", ":template_faction"),
-    (party_set_slot, ":spawned_party", slot_party_type, spt_patrol),
-    (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
-     (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":order_troop"), #FLORIS BUGFIX
-    (str_store_party_name, s5, ":target_party"),
-    (party_set_name, ":spawned_party", "@Transfer to {s5}"),
-    
-    (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),     
-    (party_set_ai_object, ":spawned_party", ":target_party"),
-    (party_set_slot, ":spawned_party", slot_party_ai_object, ":target_party"),
-    (party_set_slot, ":spawned_party", slot_party_ai_state, spai_retreating_to_center),
-    (party_set_aggressiveness, ":spawned_party", 0),
-    (party_set_courage, ":spawned_party", 3),
-    (party_set_ai_initiative, ":spawned_party", 100),  
-
-    (call_script, "script_party_add_party", ":spawned_party", ":party_no"),  
-  ]),
 
   ("dplmc_init_domestic_policy",
   [
