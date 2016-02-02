@@ -2,7 +2,7 @@ from source.header_operations import *
 from source.header_common import s1, s2, s3, reg0
 from source.header_items import itp_type_bow, itp_type_crossbow, ek_head, ek_item_0
 from source.header_mission_templates import mordr_hold, mordr_stand_ground
-from source.header_triggers import ti_once
+from source.header_triggers import ti_once, key_f9
 
 from source.module_constants import *
 

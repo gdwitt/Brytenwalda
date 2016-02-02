@@ -23,11 +23,6 @@ import constable
 #    If the conditions block is empty, it is assumed that it always evaluates to true.
 # 5) Consequences block (list). This must be a valid operation block. See header_operations.py for reference. 
 ####################################################################################################################
-##
-# Some constants for use below
-merchant_inventory_space = 30
-num_merchandise_goods = 36
-
 
 
 triggers = [
