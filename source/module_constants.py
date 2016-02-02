@@ -2851,23 +2851,6 @@ color_hero_news = 0xFFFF99
 prisoners_escape_chance_modifier = 50
 # garnier chief acaba
 
-# Dunde's Background chief creacion pj
-nationality_init = "str_story"
-parent_init = "str_rhodok3"
-childhood_init = "str_parent_priest"
-job_init = "str_childhood_acolyte"
-reason_init = "str_job_preacher"
-religion_init = "str_reason_greed"
-story_nationality_init = "str_story_all"
-story_parent_init = "str_story_rhodok3"
-story_childhood_init = "str_story_parent_priest"
-story_job_init = "str_story_childhood_acolyte"
-story_reason_init = "str_story_job_preacher"
-story_religion_init = "str_story_reason_greed"
-player = "trp_player"
-slot_item_normal_male = 62
-slot_troop_gender = 171
-
 # dungeon chief
 dungeon_prisoners_begin = "trp_refugeeromanruins"
 dungeon_prisoners_end = "trp_refugeedruid"
