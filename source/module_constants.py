@@ -66,7 +66,6 @@ slot_item_two_hand_one_hand = 81
 slot_item_alternate = 82  # toggleable weapons gdw
 slot_item_swing_damage = 83
 slot_item_thrust_damage = 84
-slot_agent_last_weapon_toggled = 85
 
 slot_item_horse_speed = 86
 slot_item_horse_armor = 87
@@ -115,8 +114,6 @@ slot_agent_coop_banner = 27
 # chief uso de la lance y spear en las unidades y caida de caballo
 # slot_agent_lance = 241 duplicate
 # slot_agent_spear = 242 duplicate
-# lances_begin = "itm_staff1"
-# lances_end = "itm_wessexbanner9"
 slot_agent_horse = 28
 slot_agent_got_damage = 29
 
@@ -197,6 +194,34 @@ slot_agent_fatiga_inicial = 53
 ### aoe
 slot_agent_has_been_healed = 54
 slot_agent_dinerotropas = 55
+
+# # agent slots  ##adjusted +20 for pbod and formations agent slots
+# slot_agent_refill_ammo_times      = 46
+# slot_agent_backup_hp              = 47 ## CC 1.322: these four lines are disabled
+# slot_agent_banner_id              = 48 # Floris: But apparently I needed to enable this line anyway.
+# slot_agent_banner_instance_no     = 49 # Floris: and this line too!
+# slot_agent_spawned                = 50 ##
+# slot_agent_hp_bar_overlay_id      = 51
+# slot_agent_hp_bar_bg_overlay_id   = 52
+
+# slot_agent_cur_weapon_1           = 53
+# slot_agent_cur_weapon_2           = 54
+# slot_agent_cur_weapon_3           = 55
+# slot_agent_cur_weapon_4           = 56
+
+# the following applied only to infantry in formation
+slot_agent_in_first_rank = 46
+slot_agent_inside_formation = 47
+slot_agent_nearest_enemy_agent = 48
+slot_agent_new_division = 49
+# horse speed
+slot_agent_horse_stamina = 50
+slot_agent_horse_is_charging = 51
+
+###caba'drin chief volley
+slot_agent_volley_fire = 36
+slot_team_d0_order_volley = 302  # plus 8 more for the other divisions
+###caba'drin acaba chief
 
 ########################################################
 ##  FACTION SLOTS          #############################
@@ -337,7 +362,48 @@ slot_faction_neighbors_begin = 295  # MOTO chief avoid center2 loop by storing r
 #slot_faction_provocation_days_with_factions_end = slot_faction_war_damage_inflicted_on_factions_begin
 # slot_faction_war_damage_inflicted_on_factions_end 	= slot_faction_sum_advice_about_factions_begin
 #slot_faction_sum_advice_about_factions_end = 296
-##diplomacy end+
+
+# slot_faction_state values
+sfs_active = 0
+sfs_defeated = 1
+sfs_inactive = 2
+# sfs_inactive_rebellion         = 3
+# sfs_beginning_rebellion        = 4
+
+
+# slot_faction_ai_state values
+sfai_default = 0  # also defending
+sfai_gathering_army = 1
+sfai_attacking_center = 2
+sfai_raiding_village = 3
+sfai_attacking_enemy_army = 4
+sfai_attacking_enemies_around_center = 5
+sfai_feast = 6  # can be feast, wedding, or major tournament
+# Social events are a generic aristocratic gathering. Tournaments take place if they are in a town, and hunts take place if they are at a castle.
+# Weddings will take place at social events between betrothed couples if they have been engaged for at least a month, if the lady's guardian is the town lord, and if both bride and groom are present
+
+dplmc_slot_faction_policy_time = 110
+dplmc_slot_faction_centralization = 111
+dplmc_slot_faction_aristocracy = 112
+dplmc_slot_faction_serfdom = 113
+dplmc_slot_faction_quality = 114
+dplmc_slot_faction_patrol_time = 115
+
+# dplmc_slot_faction_attitude                   = 116	MOTO not used
+# dplmc_slot_faction_attitude_begin             = 240	MOTO duplicates script_npc_decision_checklist_peace_or_war
+##diplomacy start+ add faction slots for additional policies
+dplmc_slot_faction_mercantilism = 117  # + mercantilism / - free trade
+
+# Other slots
+# use faction slots to remember information between battles
+slot_faction_d0_mem_formation = 300
+slot_faction_d0_mem_formation_space = 309
+slot_faction_d0_mem_relative_x_flag = 318
+slot_faction_d0_mem_relative_y = 327
+# NEXT                                   = 336
+
+# Faction Slot
+slot_faction_freelancer_troop = 101
 
 # formation faction slots 300-335 (see below)
 
@@ -394,7 +460,6 @@ slot_party_ai_state = 4
 slot_party_ai_object = 5
 slot_party_ai_rationale = 6  # Currently unused, but can be used to save a string explaining the lord's thinking
 
-# slot_town_belongs_to_kingdom   = 6
 slot_town_lord = 7
 slot_party_ai_substate = 8
 slot_town_claimed_by_player = 9
@@ -719,9 +784,9 @@ center_religion_pagana = 238
 # chief acaba
 
 slot_town_last_nearby_fire_time = 239
-slot_town_port = 240  # sea battles chief
-slot_town_is_coastal = 241  # Seatrade chief
-slot_saqueo_state = 242
+slot_town_port = 240  # town has port
+slot_town_is_coastal = 241  # town is reachable by sea trade
+slot_saqueo_state = 242  # town was sacked
 slot_town_lord_old = 243  # MOTO tested in game_menus but never set...
 
 # slot_town_trade_good_prices_begin            = slot_town_trade_good_productions_begin + num_trade_goods + 1
@@ -730,8 +795,8 @@ slot_party_orders_type = 245
 slot_party_orders_object = 246
 slot_party_orders_time = 247
 
-slot_party_temp_slot_1 = 248  # right now used only within a single script, merchant_road_info_to_s42, to denote closed roads. Now also used in comparative scripts
-slot_party_under_player_suggestion = 249  # move this up a bit
+slot_party_temp_slot_1 = 248  # todo: what is this?
+slot_party_under_player_suggestion = 249  # todo: slot `set` but never `get`
 slot_party_unrested_morale_penalty = 250  # motomataru chief morale addition
 # mejor IA chief siguiendo a marshall o player
 slot_party_blind_to_other_parties = 251
@@ -742,8 +807,29 @@ slot_town_trade_good_prices_begin = 255  # +num_trade_goods (around 40 or so)
 # tempered party slots 300-313 (see below)
 
 slot_center_last_reconnoitered_by_faction_time = 350  # +31 or so kingdoms
-# slot_center_last_reconnoitered_by_faction_cached_strength 	= 360
-# slot_center_last_reconnoitered_by_faction_friend_strength 	= 370
+
+slot_spy_in_town = 300  # number range from zero, used to check if spy is in a town and how long he has been there in hours.
+slot_spy_sabotage = 301  # sets a sabotage mission on a town equal to this number, used by spy update simple trigger
+slot_well_poisoned = 302  # tally of days a well has been poisoned
+slot_spy_target_town = 303  # the town the spy is associated with, used in simple trigger for entering town, also used by personal messenger to identify target of message
+slot_spies_deployed = 304  # tally of spy parties currently deployed
+slot_party_entrenched = 305  # 0 for not entrenched, 1 for entrenched. -1 for working on entrenchment.
+slot_party_hired = 306  # current time plus 24, party hired to aid for 24 hours
+slot_party_nearby = 307  # used to identify nearby parties. 0 for not nearby, party id for nearby
+slot_message_content = 308  # for personal messenger, holds number used for storing contents of a message, 0 for no message
+slot_message_target = 309  # for messenger scripts, stores message target party
+slot_message_target_2 = 310  # for messenger scripts, stores 2nd party in message, such as a group to attack or town to meet at.
+slot_party_loot_wagon = 311  # used to store the party id of the players loot wagon, stored on p_main_party
+slot_party_wagon_leader = 312  # used to store leader id of loot wagon, stored on p_main_party
+slot_loot_wagon_target = 313  # used to store town that loot wagon will trade with, stored on p_main_party
+slot_party_siege_camp = 601  # 0 for no siege camp, 1 for siege camp, -1 for working on siege camp. player party slot
+slot_center_siege_camp = 602  # name of scene to use for sieges or sorties with a siege camp built. town or castle slot.
+# TEMPERED TROOP SLOTS
+slot_troop_duel_challenger = 167  # indicates a lord that has challenged player to duel, stores time + 24 hours, indicating time player has to arrive at duel.
+slot_troop_duel_challenged = 168  # indicates a lord that was challenged by player to duel, stores time + 24 hours, indicating time player has to arrive at duel.
+slot_troop_poisoner = 169  # number of times the player has poisoned someone
+slot_troop_poisoned = 170  # indicates that the troop has been poisoned by the player previously, 1 for previously poisoned
+# tempered chief acaba
 
 ####Siege warfare chief
 centro_bloqueado = 400
@@ -754,6 +840,20 @@ slot_center_siege_with_ram = 402
 # Freelancer party slots 428-450 or so (see below, script_freelancer_equip_troop)
 # Duh party slots 490-493 (below)
 # tempered party slots 601,602 (see below)
+
+
+##diplomacy begin
+# recruiter kit begin
+dplmc_slot_party_recruiter_needed_recruits = 233  # Amount of recruits the employer ordered.
+dplmc_slot_party_recruiter_origin = 234  # Walled center from where the recruiter was hired.
+dplmc_slot_village_reserved_by_recruiter = 235  # This prevents recruiters from going to villages targeted by other recruiters.
+dplmc_slot_party_recruiter_needed_recruits_faction = 236  # Alkhadias Master, you forgot this one from the PM you sent me :D
+dplmc_spt_recruiter = 12
+##diplomacy start+ Re-use those slots for other party types#gdw floris origin and paramter 2
+# dplmc_slot_party_origin = dplmc_slot_party_recruiter_origin
+dplmc_slot_party_mission_parameter_1 = dplmc_slot_party_recruiter_needed_recruits
+# dplmc_slot_party_mission_parameter_2 = dplmc_slot_party_recruiter_needed_recruits_faction
+##diplomacy end+
 
 
 # slot_party_type values
@@ -784,24 +884,9 @@ spt_player_loot_wagon = 210  # TEMPERED chief  ADDED FOR PLAYER LOOT WAGON befor
 # spt_escaped_companion  = 22 #TEMPERED chief ADDED FOR DEFEATED COMPANIONS
 spt_entrenchment = 23  # TEMPERED chief ADDED FOR ENTRENCHMENT PARTIES
 
-# slot_faction_state values
-sfs_active = 0
-sfs_defeated = 1
-sfs_inactive = 2
-# sfs_inactive_rebellion         = 3
-# sfs_beginning_rebellion        = 4
-
-
-# slot_faction_ai_state values
-sfai_default = 0  # also defending
-sfai_gathering_army = 1
-sfai_attacking_center = 2
-sfai_raiding_village = 3
-sfai_attacking_enemy_army = 4
-sfai_attacking_enemies_around_center = 5
-sfai_feast = 6  # can be feast, wedding, or major tournament
-# Social events are a generic aristocratic gathering. Tournaments take place if they are in a town, and hunts take place if they are at a castle.
-# Weddings will take place at social events between betrothed couples if they have been engaged for at least a month, if the lady's guardian is the town lord, and if both bride and groom are present
+dplmc_spt_spouse = 19
+# dplmc_spt_gift_caravan                        = 21
+dplmc_spt_gift_caravan = 116  # tmlF123 - 1.41 -> Submod
 
 
 # Rebellion system changes begin
@@ -836,6 +921,56 @@ svs_under_siege = 5
 pis_normal = 0
 pis_camping = 1
 pis_ship = 2
+
+
+slot_party_cabadrin_order_d0 = slot_town_arena_melee_mission_tpl
+# slot_party_cabadrin_order_d1 = slot_town_arena_torny_mission_tpl
+# slot_party_cabadrin_order_d2 = slot_town_arena_melee_1_num_teams
+# slot_party_cabadrin_order_d3 = slot_town_arena_melee_1_team_size
+# slot_party_cabadrin_order_d4 = slot_town_arena_melee_2_num_teams
+# slot_party_cabadrin_order_d5 = slot_town_arena_melee_2_team_size
+# slot_party_cabadrin_order_d6 = slot_town_arena_melee_3_num_teams
+# slot_party_cabadrin_order_d7 = slot_town_arena_melee_3_team_size
+slot_party_cabadrin_order_d8 = slot_town_arena_melee_cur_tier
+# These hold the Caba'drin Order Index - 3 Digit Index - Skirmish_Shield_Weapon
+# Skirmish: 1xx active; 0xx inactive
+# Shield: x1x equipped; x2x unequipped; x3x not given
+# Weapon; xx0 ranged; xx1 onehand; xx2 bothhands; xx3 not given
+# At start of battle initialized at 33
+
+
+dplmc_slot_party_mission_diplomacy = 300
+
+
+slot_party_orig_morale = slot_party_ai_rationale
+slot_freelancer_equip_start = 430  # only used for freelancer_party_backup
+# slot_freelancer_version     = slot_freelancer_equip_start - 2 #only used for freelancer_party_backup
+
+# Floris Bank System chief
+slot_town_acres = 494
+# slot_town_acres_needed = 495
+slot_town_player_acres = 496
+slot_center_population = 497
+slot_town_bank_rent = 498
+slot_town_bank_upkeep = 499
+slot_town_bank_assets = 500
+slot_town_bank_debt = 501
+slot_town_bank_deadline = 502
+
+dplmc_slot_center_taxation = 400
+dplmc_slot_village_trade_last_returned_from_market = 405  # overlapped with dplmc_slot_town_trade_route_last_arrival_1
+
+dplmc_slot_village_trade_last_arrived_to_market = 408  # overlaps with dplmc_slot_town_trade_route_last_arrival_2
+
+dplmc_slot_town_trade_route_last_arrival_1 = 407
+# ... dplmc_slot_town_trade_route_last_arrival_i ...
+dplmc_slot_town_trade_route_last_arrival_15 = dplmc_slot_town_trade_route_last_arrival_1 + 14
+
+dplmc_slot_town_trade_route_last_arrivals_begin = dplmc_slot_town_trade_route_last_arrival_1
+dplmc_slot_town_trade_route_last_arrivals_end = dplmc_slot_town_trade_route_last_arrival_15 + 1
+
+# seafare of Duh chief
+slot_town_has_ship = 490
 
 ########################################################
 ##  SCENE SLOTS            #############################
@@ -2060,29 +2195,6 @@ ctm_ranged = 2
 ctm_mounted = 3
 # ctm_training = 4
 
-# # agent slots  ##adjusted +20 for pbod and formations agent slots
-# slot_agent_refill_ammo_times      = 46
-# slot_agent_backup_hp              = 47 ## CC 1.322: these four lines are disabled
-# slot_agent_banner_id              = 48 # Floris: But apparently I needed to enable this line anyway.
-# slot_agent_banner_instance_no     = 49 # Floris: and this line too!
-# slot_agent_spawned                = 50 ##
-# slot_agent_hp_bar_overlay_id      = 51
-# slot_agent_hp_bar_bg_overlay_id   = 52
-
-# slot_agent_cur_weapon_1           = 53
-# slot_agent_cur_weapon_2           = 54
-# slot_agent_cur_weapon_3           = 55
-# slot_agent_cur_weapon_4           = 56
-
-# # party slots
-# slot_town_seneschal     = 15
-# slot_town_recruit_gold  = 40
-# slot_center_tavern_mystic_merchant = 100
-# slot_center_tavern_ranger_master   = 101	#Custom Troops
-# slot_center_bandit_leader_quest    = 102
-# slot_center_bandit_leader_pt_no    = 103
-
-
 # # troop slots
 # ###################################################################################
 # # AutoLoot: Modified Constants
@@ -2142,18 +2254,6 @@ ctm_mounted = 3
 ## CC
 # gdw floris end
 
-##diplomacy begin 
-# recruiter kit begin
-dplmc_slot_party_recruiter_needed_recruits = 233  # Amount of recruits the employer ordered.
-dplmc_slot_party_recruiter_origin = 234  # Walled center from where the recruiter was hired.
-dplmc_slot_village_reserved_by_recruiter = 235  # This prevents recruiters from going to villages targeted by other recruiters.
-dplmc_slot_party_recruiter_needed_recruits_faction = 236  # Alkhadias Master, you forgot this one from the PM you sent me :D
-dplmc_spt_recruiter = 12
-##diplomacy start+ Re-use those slots for other party types#gdw floris origin and paramter 2
-# dplmc_slot_party_origin = dplmc_slot_party_recruiter_origin
-dplmc_slot_party_mission_parameter_1 = dplmc_slot_party_recruiter_needed_recruits
-# dplmc_slot_party_mission_parameter_2 = dplmc_slot_party_recruiter_needed_recruits_faction
-##diplomacy end+
 # recruiter kit end
 dplmc_npc_mission_war_request = 9
 dplmc_npc_mission_alliance_request = 10
@@ -2178,52 +2278,7 @@ dplmc_slot_troop_political_stance = 165  # dplmc+ deprecated, see note below
 # dplmc_slot_troop_temp_slot                    = 165 #replaces dplmc_slot_troop_political_stance
 ##diplomacy end+
 dplmc_slot_troop_affiliated = 166  ##notes: 0 is default, 1 is asked; on newer games 3 is affiliated and 4 is betrayed
-dplmc_slot_party_mission_diplomacy = 300
 # gdw floris begin
-dplmc_slot_center_taxation = 400
-##diplomacy start+ additional center slots
-# dplmc_slot_center_ex_lord                     = 401 #The last lord (not counting those who willingly transferred it)
-# dplmc_slot_center_original_lord               = 402 #The original lord
-# dplmc_slot_center_last_transfer_time          = 403 #The last time it was captured
-# dplmc_slot_center_last_attacked_time          = 404 #Last attempted raid or siege
-# dplmc_slot_center_last_attacker
-# gdw floris end
-dplmc_slot_village_trade_last_returned_from_market = 405  # overlapped with dplmc_slot_town_trade_route_last_arrival_1
-
-dplmc_slot_village_trade_last_arrived_to_market = 408  # overlaps with dplmc_slot_town_trade_route_last_arrival_2
-
-dplmc_slot_town_trade_route_last_arrival_1 = 407
-# dplmc_slot_town_trade_route_last_arrival_2        = 408
-# dplmc_slot_town_trade_route_last_arrival_3        = 409
-# dplmc_slot_town_trade_route_last_arrival_4        = 410
-# dplmc_slot_town_trade_route_last_arrival_5        = 411
-# dplmc_slot_town_trade_route_last_arrival_6        = 412
-# dplmc_slot_town_trade_route_last_arrival_7        = 413
-# dplmc_slot_town_trade_route_last_arrival_8        = 414
-# dplmc_slot_town_trade_route_last_arrival_9        = 415
-# dplmc_slot_town_trade_route_last_arrival_10        = 416
-# dplmc_slot_town_trade_route_last_arrival_11        = 417
-# dplmc_slot_town_trade_route_last_arrival_12        = 418
-# dplmc_slot_town_trade_route_last_arrival_13        = 419
-# dplmc_slot_town_trade_route_last_arrival_14        = 420
-dplmc_slot_town_trade_route_last_arrival_15 = 421
-dplmc_slot_town_trade_route_last_arrivals_begin = dplmc_slot_town_trade_route_last_arrival_1
-dplmc_slot_town_trade_route_last_arrivals_end = dplmc_slot_town_trade_route_last_arrival_15 + 1
-
-dplmc_spt_spouse = 19
-# dplmc_spt_gift_caravan                        = 21
-dplmc_spt_gift_caravan = 116  # tmlF123 - 1.41 -> Submod
-dplmc_slot_faction_policy_time = 110
-dplmc_slot_faction_centralization = 111
-dplmc_slot_faction_aristocracy = 112
-dplmc_slot_faction_serfdom = 113
-dplmc_slot_faction_quality = 114
-dplmc_slot_faction_patrol_time = 115
-
-# dplmc_slot_faction_attitude                   = 116	MOTO not used
-# dplmc_slot_faction_attitude_begin             = 240	MOTO duplicates script_npc_decision_checklist_peace_or_war
-##diplomacy start+ add faction slots for additional policies
-dplmc_slot_faction_mercantilism = 117  # + mercantilism / - free trade
 
 # For $g_dplmc_terrain_advantage
 # DPLMC_TERRAIN_ADVANTAGE_DISABLE     =  -1
@@ -2334,31 +2389,6 @@ DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET = -1  # e.g. father for x = (DPLMC_VIRTUAL_
 # DPLMC_VIRTUAL_RELATIVE_MOTHER_OFFSET = -2
 # DPLMC_VIRTUAL_RELATIVE_SPOUSE_OFFSET = -3
 ##diplomacy chief end 
-
-# TEMPERED chief PARTY SLOTS
-slot_spy_in_town = 300  # number range from zero, used to check if spy is in a town and how long he has been there in hours.
-slot_spy_sabotage = 301  # sets a sabotage mission on a town equal to this number, used by spy update simple trigger
-slot_well_poisoned = 302  # tally of days a well has been poisoned
-slot_spy_target_town = 303  # the town the spy is associated with, used in simple trigger for entering town, also used by personal messenger to identify target of message
-slot_spies_deployed = 304  # tally of spy parties currently deployed
-slot_party_entrenched = 305  # 0 for not entrenched, 1 for entrenched. -1 for working on entrenchment.
-slot_party_hired = 306  # current time plus 24, party hired to aid for 24 hours
-slot_party_nearby = 307  # used to identify nearby parties. 0 for not nearby, party id for nearby
-slot_message_content = 308  # for personal messenger, holds number used for storing contents of a message, 0 for no message
-slot_message_target = 309  # for messenger scripts, stores message target party
-slot_message_target_2 = 310  # for messenger scripts, stores 2nd party in message, such as a group to attack or town to meet at.
-slot_party_loot_wagon = 311  # used to store the party id of the players loot wagon, stored on p_main_party
-slot_party_wagon_leader = 312  # used to store leader id of loot wagon, stored on p_main_party
-slot_loot_wagon_target = 313  # used to store town that loot wagon will trade with, stored on p_main_party
-slot_party_siege_camp = 601  # 0 for no siege camp, 1 for siege camp, -1 for working on siege camp. player party slot
-slot_center_siege_camp = 602  # name of scene to use for sieges or sorties with a siege camp built. town or castle slot.
-# TEMPERED TROOP SLOTS
-slot_troop_duel_challenger = 167  # indicates a lord that has challenged player to duel, stores time + 24 hours, indicating time player has to arrive at duel.
-slot_troop_duel_challenged = 168  # indicates a lord that was challenged by player to duel, stores time + 24 hours, indicating time player has to arrive at duel.
-slot_troop_poisoner = 169  # number of times the player has poisoned someone
-slot_troop_poisoned = 170  # indicates that the troop has been poisoned by the player previously, 1 for previously poisoned
-# tempered chief acaba
-
 
 # Village bandits attack modes
 vba_normal = 1
@@ -2668,23 +2698,6 @@ sdt_support = 6
 sdt_bodyguard = 7
 sdt_unknown = -1
 
-# Other slots
-# use faction slots to remember information between battles
-slot_faction_d0_mem_formation = 300
-slot_faction_d0_mem_formation_space = 309
-slot_faction_d0_mem_relative_x_flag = 318
-slot_faction_d0_mem_relative_y = 327
-# NEXT                                   = 336
-
-# the following applied only to infantry in formation
-slot_agent_in_first_rank = 46
-slot_agent_inside_formation = 47
-slot_agent_nearest_enemy_agent = 48
-slot_agent_new_division = 49
-# CC para velocidad de caballos chief
-slot_agent_horse_stamina = 50
-slot_agent_horse_is_charging = 51
-
 # motomataru chief IA Improved
 # AI variables
 AI_long_range = 8000  # do not put over 130m if you want archers to always fire
@@ -2720,17 +2733,6 @@ Team1_Cavalry_Destination = 57  # pos57
 Team2_Cavalry_Destination = 58  # pos58
 Team3_Cavalry_Destination = 59  # pos59
 # Ia improved chief acaba motomataru
-
-## Prebattle Deployment Begin chief Cabadrin
-# max_battle_size = 150 #Or reset if you've modded the battlesize
-# slot_troop_prebattle_first_round = slot_lady_no_messages
-# slot_troop_prebattle_array       = slot_lady_last_suitor
-# slot_party_prebattle_customized_deployment = slot_center_accumulated_rents
-# slot_party_prebattle_battle_size           = slot_center_accumulated_tariffs
-# slot_party_prebattle_size_in_battle        = slot_town_wealth
-# slot_party_prebattle_in_battle_count       = slot_town_prosperity
-# Note: regs0-31, reg60 used in presentation
-## Prebattle Deployment End
 
 # para negativos equipamiento chief habilidades
 desnudos_begin = "itm_war_paintbody_two"
@@ -2778,21 +2780,6 @@ nobleclothes2_end = "itm_noblemanshirt3"
 skirmish_min_distance = 1500  # Min distance you wish maintained, in cm. Where agent will retreat
 skirmish_max_distance = 2500  # Max distance to maintain, in cm. Where agent will stop retreating
 
-slot_party_cabadrin_order_d0 = slot_town_arena_melee_mission_tpl
-# slot_party_cabadrin_order_d1 = slot_town_arena_torny_mission_tpl
-# slot_party_cabadrin_order_d2 = slot_town_arena_melee_1_num_teams
-# slot_party_cabadrin_order_d3 = slot_town_arena_melee_1_team_size
-# slot_party_cabadrin_order_d4 = slot_town_arena_melee_2_num_teams
-# slot_party_cabadrin_order_d5 = slot_town_arena_melee_2_team_size
-# slot_party_cabadrin_order_d6 = slot_town_arena_melee_3_num_teams
-# slot_party_cabadrin_order_d7 = slot_town_arena_melee_3_team_size
-slot_party_cabadrin_order_d8 = slot_town_arena_melee_cur_tier
-# These hold the Caba'drin Order Index - 3 Digit Index - Skirmish_Shield_Weapon
-# Skirmish: 1xx active; 0xx inactive
-# Shield: x1x equipped; x2x unequipped; x3x not given
-# Weapon; xx0 ranged; xx1 onehand; xx2 bothhands; xx3 not given
-# At start of battle initialized at 33
-
 key_for_skirmish = key_f7
 # chief skirmish order acaba
 
@@ -2816,10 +2803,6 @@ dungeon_prisoners_begin = "trp_refugeeromanruins"
 dungeon_prisoners_end = "trp_refugeedruid"
 stone_refugee_begin = "trp_refugeedruid"
 stone_refugee_end = "trp_prisonerdruid"
-###caba'drin chief volley
-slot_agent_volley_fire = 36
-slot_team_d0_order_volley = 302  # plus 8 more for the other divisions
-###caba'drin acaba chief
 
 # rumores
 rumor_found_chance = 70
@@ -2853,14 +2836,6 @@ additional_heroes_end = "trp_town_1_seneschal"
 # with Diplomacy: (also, disable dplmc in modmerger_options)
 freelancer_can_use_item = "script_dplmc_troop_can_use_item"
 
-# Party Slots
-slot_party_orig_morale = slot_party_ai_rationale
-slot_freelancer_equip_start = 430  # only used for freelancer_party_backup
-# slot_freelancer_version     = slot_freelancer_equip_start - 2 #only used for freelancer_party_backup
-
-# Faction Slot
-slot_faction_freelancer_troop = 101  # should be unused
-
 # Troop Slots
 slot_troop_freelancer_start_xp = slot_troop_signup  # 110 -only used for player
 slot_troop_freelancer_start_date = slot_troop_signup_2  # 111 -only used for player
@@ -2872,9 +2847,6 @@ mount_patrol_max_speed = 15
 mount_patrol_min_speed = 5
 mount_patrol_closing_dist = 6000
 
-# seafare of Duh chief
-slot_town_has_ship = 490
-
 slot_ship_center = 491
 
 # slot_ship_choice = 492
@@ -2885,343 +2857,6 @@ ship_wild_no_guard = 100
 ship_wild_guarded = 150
 ship_player_sailing = 200
 # seafare acaba
-# Floris Bank System chief
-slot_town_acres = 494
-# slot_town_acres_needed = 495
-slot_town_player_acres = 496
-slot_center_population = 497
-slot_town_bank_rent = 498
-slot_town_bank_upkeep = 499
-slot_town_bank_assets = 500
-slot_town_bank_debt = 501
-slot_town_bank_deadline = 502
-
-### Tournament Play Enhancements (TPE) kit reserves slot_troop numbers 340-364. - Windyplains - Floris 2.5
-
-###Floris MTT
-##Troop trees
-# troop_trees_0 						= "trp_troop_tree_0"
-# troop_trees_1 						= "trp_troop_tree_1"
-# troop_trees_2 						= "trp_troop_tree_2"
-# troop_trees_3 						= "trp_troop_tree_3"
-# troop_trees_4 						= "trp_troop_tree_4"
-# troop_trees_5 						= "trp_troop_tree_5"
-# troop_trees_6 						= "trp_troop_tree_6"
-# troop_trees_7 						= "trp_troop_tree_7"
-# troop_trees_8 						= "trp_troop_tree_8"
-# troop_trees_9 						= "trp_troop_tree_9"
-##Necessary constants
-# num_of_troop_trees					= 3
-##Troops
-# Mercenary
-# slot_mercenary_townsman = 601
-# slot_mercenary_farmer				= 602
-# slot_mercenary_miliz				= 603
-# slot_mercenary_spiessknecht			= 604
-# slot_mercenary_edelknecht			= 605
-# slot_mercenary_armbruster			= 606
-# slot_mercenary_brabanzon			= 607
-# slot_mercenary_armbrust_miliz		= 608
-# slot_mercenary_volksheer			= 609
-# slot_mercenary_halberdier			= 610
-# slot_mercenary_page					= 611
-# slot_mercenary_armbrust_soldner		= 612
-# slot_mercenary_burger				= 613
-# slot_mercenary_doppelsoldner		= 614
-# slot_mercenary_soldner				= 615
-# slot_mercenary_reichslandser		= 616
-# slot_mercenary_ritter				= 617
-# slot_mercenary_armbrust_komtur		= 618
-# slot_mercenary_kreuzritter			= 619
-# slot_mercenary_komtur				= 620
-# slot_mercenary_burgmann				= 621
-# slot_mercenary_komtur_ritter		= 622
-# slot_mercenary_ritterbroeder		= 623
-# slot_mercenary_grosskomtur			= 624
-# slot_mercenary_landsknecht			= 625
-# slot_mercenary_hochmeister			= 626
-# slot_mercenary_extra1				= 627
-# slot_mercenary_extra2				= 628
-# slot_mercenary_extra3				= 629
-# slot_mercenary_extra4				= 630
-# slot_mercenary_extra5				= 631
-# Swadian
-# slot_swadian_peasant				= 632
-# slot_swadian_militia				= 633
-# slot_swadian_peasant_archer			= 634
-# slot_swadian_vougier				= 635
-# slot_swadian_page					= 636
-# slot_swadian_sergeant_at_arms		= 637
-# slot_swadian_archer_militia			= 638
-# slot_swadian_piquier				= 639
-# slot_swadian_ecuyer					= 640
-# slot_swadian_jacobite				= 641
-# slot_swadian_guard					= 642
-# slot_swadian_longbowman				= 643
-# slot_swadian_tracker				= 644
-# slot_swadian_chevalier				= 645
-# slot_swadian_hobilar				= 646
-# slot_swadian_jock					= 647
-# slot_swadian_man_at_arms			= 648
-# slot_swadian_sheriff				= 649
-# slot_swadian_selfbow_archer			= 650
-# slot_swadian_skirmisher				= 651
-# slot_swadian_chevalier_banneret		= 652
-# slot_swadian_highlander				= 653
-# slot_swadian_lancer					= 654
-# slot_swadian_yeoman_archer			= 655
-# slot_swadian_baron_mineures			= 656
-# slot_swadian_retinue_longbowman		= 657
-# slot_swadian_extra1					= 658
-# slot_swadian_extra2					= 659
-# slot_swadian_extra3					= 660
-# slot_swadian_extra4					= 661
-# slot_swadian_extra5					= 662
-# Vaegir
-# slot_vaegir_kholop					= 663
-# slot_vaegir_otrok					= 664
-# slot_vaegir_pasynok					= 665
-# slot_vaegir_kazak					= 666
-# slot_vaegir_kmet					= 667
-# slot_vaegir_grid					= 668
-# slot_vaegir_yesaul					= 669
-# slot_vaegir_plastun					= 670
-# slot_vaegir_ratnik					= 671
-# slot_vaegir_zalstrelshik			= 672
-# slot_vaegir_mladshiy_druzhinnik		= 673
-# slot_vaegir_poztoma_druzhinaik		= 674
-# slot_vaegir_ataman					= 675
-# slot_vaegir_pansirniy_kazan			= 676
-# slot_vaegir_posadnik				= 677
-# slot_vaegir_golova					= 678
-# slot_vaegir_luchnik					= 679
-# slot_vaegir_druzhinnik				= 680
-# slot_vaegir_druzhinnik_veteran		= 681
-# slot_vaegir_legkoy_vityas			= 682
-# slot_vaegir_vityas					= 683
-# slot_vaegir_voevoda					= 684
-# slot_vaegir_metkiy_luchnik			= 685
-# slot_vaegir_elitniy_druzhinnik		= 686
-# slot_vaegir_bogatyr					= 687
-# slot_vaegir_sokoliniy_glaz			= 688
-# slot_vaegir_extra1					= 689
-# slot_vaegir_extra2					= 690
-# slot_vaegir_extra3					= 691
-# slot_vaegir_extra4					= 692
-# slot_vaegir_extra5					= 693
-# Khergit
-# slot_khergit_tariachin				= 694
-# slot_khergit_tsereg					= 695
-# slot_khergit_qarbughaci				= 696
-# slot_khergit_morici					= 697
-# slot_khergit_asud					= 698
-# slot_khergit_surcin					= 699
-# slot_khergit_abaci					= 700
-# slot_khergit_yabagharu_morici		= 701
-# slot_khergit_kipchak				= 702
-# slot_khergit_quaqli					= 703
-# slot_khergit_aqala_asud				= 704
-# slot_khergit_aqala_surcin			= 705
-# slot_khergit_teriguci				= 706
-# slot_khergit_qubuci					= 707
-# slot_khergit_torguu					= 708
-# slot_khergit_khevtuul				= 709
-# slot_khergit_numici					= 710
-# slot_khergit_aqala_teriguci			= 711
-# slot_khergit_borjigin				= 712
-# slot_khergit_numyn_ad				= 713
-# slot_khergit_khorchen				= 714
-# slot_khergit_keshig					= 715
-# slot_khergit_kharvaach				= 716
-# slot_khergit_jurtchi				= 717
-# slot_khergit_aqata_borjigin			= 718
-# slot_khergit_cherbi					= 719
-# slot_khergit_mandugai				= 720
-# slot_khergit_extra1					= 721
-# slot_khergit_extra2					= 722
-# slot_khergit_extra3					= 723
-# slot_khergit_extra4					= 724
-# slot_khergit_extra5					= 725
-# Nord
-# slot_nord_bondi						= 726
-# slot_nord_berserkr					= 727
-# slot_nord_huskarl					= 728
-# slot_nord_kertilsveinr				= 729
-# slot_nord_bogmadur					= 730
-# slot_nord_gesith					= 731
-# slot_nord_gridman					= 732
-# slot_nord_ascoman					= 733
-# slot_nord_vikingr					= 734
-# slot_nord_einhleyping				= 735
-# slot_nord_bogsveigir				= 736
-# slot_nord_hermadur					= 737
-# slot_nord_innaesmaen				= 738
-# slot_nord_vigamadr					= 739
-# slot_nord_hirdman					= 740
-# slot_nord_lausaman					= 741
-# slot_nord_heahgerefa				= 742
-# slot_nord_himthige					= 743
-# slot_nord_kappi						= 744
-# slot_nord_skjadsveinn				= 745
-# slot_nord_heimthegi					= 746
-# slot_nord_skutilsveinr				= 747
-# slot_nord_ealdorman					= 748
-# slot_nord_erfane_himthige			= 749
-# slot_nord_hetja						= 750
-# slot_nord_husbondi					= 751
-# slot_nord_aetheling					= 752
-# slot_nord_vaeringi					= 753
-# slot_nord_extra1					= 754
-# slot_nord_extra2					= 755
-# slot_nord_extra3					= 756
-# slot_nord_extra4					= 757
-# slot_nord_extra5					= 758
-# Rhodok
-# slot_rhodok_cittadino				= 759
-# slot_rhodok_novizio					= 760
-# slot_rhodok_recluta					= 761
-# slot_rhodok_milizia					= 762
-# slot_rhodok_milizia_balestriere		= 763
-# slot_rhodok_recluta_balestriere		= 764
-# slot_rhodok_lanciere				= 765
-# slot_rhodok_lanza_spezzata			= 766
-# slot_rhodok_fante					= 767
-# slot_rhodok_balestriere				= 768
-# slot_rhodok_balestriere_leggero		= 769
-# slot_rhodok_lanciere_veterano		= 770
-# slot_rhodok_lanciere_a_cavallo		= 771
-# slot_rhodok_provisionato			= 772
-# slot_rhodok_veterano				= 773
-# slot_rhodok_balestriere_veterano	= 774
-# slot_rhodok_balestriere_d_assedio	= 775
-# slot_rhodok_balestriere_a_cavallo	= 776
-# slot_rhodok_picchiere_veterano		= 777
-# slot_rhodok_guardia					= 778
-# slot_rhodok_capitano_di_ventura		= 779
-# slot_rhodok_balestriere_pesante		= 780
-# slot_rhodok_capitano_d_assedio		= 781
-# slot_rhodok_picchiere_fiammingo		= 782
-# slot_rhodok_guardia_ducale			= 783
-# slot_rhodok_condottiero				= 784
-# slot_rhodok_condottiero_d_assedio	= 785
-# slot_rhodok_extra1					= 786
-# slot_rhodok_extra2					= 787
-# slot_rhodok_extra3					= 788
-# slot_rhodok_extra4					= 789
-# slot_rhodok_extra5					= 790
-# Sarranid
-# slot_sarranid_millet				= 791
-# slot_sarranid_ajam					= 792
-# slot_sarranid_oglan					= 793
-# slot_sarranid_azab					= 794
-# slot_sarranid_cemaat				= 795
-# slot_sarranid_jebelus				= 796
-# slot_sarranid_ghulam				= 797
-# slot_sarranid_al_haqa				= 798
-# slot_sarranid_timariot				= 799
-# slot_sarranid_yerliyya				= 800
-# slot_sarranid_kapikulu_savari		= 801
-# slot_sarranid_garip					= 802
-# slot_sarranid_badw					= 803
-# slot_sarranid_serdengecti			= 804
-# slot_sarranid_tabardariyya			= 805
-# slot_sarranid_kapikula				= 806
-# slot_sarranid_yeniceri				= 807
-# slot_sarranid_beylik				= 808
-# slot_sarranid_uluteci				= 809
-# slot_sarranid_akinci				= 810
-# slot_sarranid_terkes_serdengecti	= 811
-# slot_sarranid_qilich_arslan			= 812
-# slot_sarranid_memluk				= 813
-# slot_sarranid_sekban				= 814
-# slot_sarranid_silahtar				= 815
-# slot_sarranid_sipahi				= 816
-# slot_sarranid_hasham				= 817
-# slot_sarranid_iqta_dar				= 818
-# slot_sarranid_extra1				= 819
-# slot_sarranid_extra2				= 820
-# slot_sarranid_extra3				= 821
-# slot_sarranid_extra4				= 822
-# slot_sarranid_extra5				= 823
-# Custom
-# slot_custom_recruit					= 824
-# slot_custom_militia					= 825
-# slot_custom_hunter					= 826
-# slot_custom_guard					= 827
-# slot_custom_page					= 828
-# slot_custom_woodsman				= 829
-# slot_custom_swordman				= 830
-# slot_custom_spearman				= 831
-# slot_custom_squire					= 832
-# slot_custom_archer					= 833
-# slot_custom_skirmisher				= 834
-# slot_custom_swordmaster				= 835
-# slot_custom_spearmaster				= 836
-# slot_custom_knight					= 837
-# slot_custom_horse_archer			= 838
-# slot_custom_expert_archer			= 839
-# slot_custom_frontline_skirmisher	= 840
-# slot_custom_heavy_knight			= 841
-# slot_custom_heavy_horse_archer		= 842
-# Bandits
-# slot_bandit_looter					= 843
-# slot_bandit_bandit					= 844
-# slot_bandit_brigand					= 845
-# slot_bandit_mountain				= 846
-# slot_bandit_forest					= 847
-# slot_bandit_sea_raider				= 848
-# slot_bandit_steppe					= 849
-# slot_bandit_taiga					= 850
-# slot_bandit_desert					= 851
-# slot_bandit_black_khergit_horseman	= 852
-# slot_bandit_manhunter				= 853
-# slot_bandit_slave_driver			= 854
-# slot_bandit_slave_hunter			= 855
-# slot_bandit_slave_crusher			= 856
-# slot_bandit_slaver_chief			= 857
-# Women
-# slot_woman_refugee					= 858
-# slot_woman_peasant					= 859
-# slot_woman_militia					= 860
-# slot_woman_camp_follower			= 861
-# slot_woman_dressed_up				= 862
-# slot_woman_warrior					= 863
-# slot_woman_nurse					= 864
-# slot_woman_huntress					= 865
-# slot_woman_stedinger				= 866
-# slot_woman_hospitaller				= 867
-# slot_woman_sword_sister				= 868
-# slot_woman_truus_te_paard			= 869
-# slot_woman_maiden					= 870
-# slot_woman_markswoman				= 871
-# slot_woman_mounted_markswoman		= 872
-# slot_woman_kriegerin				= 873
-# slot_woman_beritten_jungfrau		= 874
-# slot_woman_jungfrau					= 875
-# slot_woman_swob_ridder				= 876
-# slot_woman_femme_fatale				= 877
-# slot_woman_virago					= 878
-# slot_woman_amazon					= 879
-# slot_woman_schildmaid				= 880
-# slot_woman_schildjungfer			= 881
-# slot_woman_kenau					= 882
-# slot_woman_black_widow				= 883
-# slot_woman_walkure					= 884
-# slot_woman_extra1					= 885
-# slot_woman_extra2					= 886
-# slot_woman_extra3					= 887
-# slot_woman_extra4					= 888
-# slot_woman_extra5					= 889
-
-# mtt_troop_slots_begin = slot_mercenary_townsman
-# mtt_troop_slots_end   = slot_woman_extra5 + 1
-###
-
-# slot_screen_state = 900
-
-## Bug Tracking - All of these constants should be tied to a specific bug that may not be immediately recreatable.  Set the constant to 0 to disable debug messages.
-#  This way we can search for this constant to remove these debug messages once that bug is fixed.
-# floris_bug_issue_1   = 0 # Desc - This is an invalid party ID from store_distance_to_party_from_party in script_get_dynamic_quest from Diplomacy+.  I believe I have this fixed - Windyplains.
 
 ## HEALTH REGENERATION (1.0) begin - Windyplains chief
 #  Rates listed below are per kill, not based on duration.  They are also % of health, not exact values.
