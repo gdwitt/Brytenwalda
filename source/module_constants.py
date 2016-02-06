@@ -47,144 +47,8 @@ entertainment_speech = 5
 ########################################################
 ##  FACTION SLOTS          #############################
 ########################################################
-slot_faction_ai_state = 4
-slot_faction_ai_object = 5
-# slot_faction_ai_rationale               = 6
 
-
-slot_faction_marshall = 8
-slot_faction_ai_offensive_max_followers = 9
-
-slot_faction_culture = 10
-slot_faction_leader = 11
-
-slot_faction_temp_slot = 12
-
-##slot_faction_vassal_of            = 11
-slot_faction_banner = 15
-
-##diplomacy start+
-slot_faction_number_of_parties = 20  # Deprecated, use slot_faction_num_parties #instead#gdw add for floris
-# slot_faction_num_parties          = slot_faction_number_of_parties
-##diplomacy end+
-slot_faction_state = 21
-
-slot_faction_adjective = 22
-
-slot_faction_player_alarm = 30
-slot_faction_last_mercenary_offer_time = 31
-slot_faction_recognized_player = 32
-
-# overriding troop info for factions in quick start mode.
-slot_faction_quick_battle_tier_1_infantry = 41
-slot_faction_quick_battle_tier_2_infantry = 42
-slot_faction_quick_battle_tier_1_archer = 43
-slot_faction_quick_battle_tier_2_archer = 44
-slot_faction_quick_battle_tier_1_cavalry = 45
-slot_faction_quick_battle_tier_2_cavalry = 46
-
-slot_faction_tier_1_troop = 41
-slot_faction_tier_2_troop = 42
-slot_faction_tier_3_troop = 43
-slot_faction_tier_4_troop = 44
-slot_faction_tier_5_troop = 45
-# slot_faction_tier_6_troop         = 46
-# slot_faction_tier_7_troop         = 47
-
-slot_faction_deserter_troop = 48
-slot_faction_guard_troop = 49
-slot_faction_messenger_troop = 50
-slot_faction_prison_guard_troop = 51
-slot_faction_castle_guard_troop = 52
-
-slot_faction_town_walker_male_troop = 53
-slot_faction_town_walker_female_troop = 54
-slot_faction_village_walker_male_troop = 55
-slot_faction_village_walker_female_troop = 56
-slot_faction_town_spy_male_troop = 57
-slot_faction_town_spy_female_troop = 58
-
-slot_faction_has_rebellion_chance = 60
-
-slot_faction_instability = 61  # last time measured
-
-slot_faction_political_issue = 64  # Center or marshal appointment
-slot_faction_political_issue_time = 65  # Now is used
-
-# Rebellion changes
-# slot_faction_rebellion_target                     = 65
-# slot_faction_inactive_leader_location         = 66
-# slot_faction_support_base                     = 67
-# Rebellion changes
-
-
-
-# slot_faction_deserter_party_template       = 62
-
-slot_faction_reinforcements_a = 77
-slot_faction_reinforcements_b = 78
-slot_faction_reinforcements_c = 79
-# slot_faction_reinforcements_d        = 106 ##Floris: extra reinforcement slot
-# slot_faction_reinforcements_e        = 107 ##Floris: extra reinforcement slot
-# slot_faction_reinforcements_f        = 108 ##Floris: extra reinforcement slot
-
-slot_faction_num_armies = 80
-slot_faction_num_castles = 81
-slot_faction_num_towns = 82
-
-slot_faction_last_attacked_center = 85
-slot_faction_last_attacked_hours = 86
-slot_faction_last_safe_hours = 87
-
-slot_faction_num_routed_agents = 90
-
-# useful for competitive consumption
-# slot_faction_biggest_feast_score      = 91
-# slot_faction_biggest_feast_time       = 92
-# slot_faction_biggest_feast_host       = 93
-
-
-# Faction AI states
-# slot_faction_last_feast_concluded       = 94 #Set when a feast starts -- this needs to be deprecated
-slot_faction_last_feast_start_time = 94  # this is a bit confusing
-
-# slot_faction_ai_last_offensive_time 	= 95 #Set when an offensive concludes
-slot_faction_last_offensive_concluded = 95  # Set when an offensive concludes
-
-slot_faction_ai_last_rest_time = 96  # the last time that the faction has had default or feast AI -- this determines lords' dissatisfaction with the campaign. Set during faction_ai script
-slot_faction_ai_current_state_started = 97  #
-
-slot_faction_ai_last_decisive_event = 98  # capture a fortress or declaration of war
-
-slot_faction_morale_of_player_troops = 99
-
-# somebody slots chief reclutar
-##slot_faction_town_troop_1               = 100
-###slot_faction_freelancer_troop          = 101 (see below)
-##
-##slot_faction_town_troop_pool_available  = 107
-##slot_faction_town_troop_pool_max        = 108
-##slot_faction_num_troops                 = 109
-##slot_troop_recruit_price = 199
-##troops_refill_rate = 20
-# somebody chief acaba
-
-# diplomacy
-# dplmc faction slots 110-117 (see below)
-# MOTO chief following in blocks of 40 (32 factions)
-slot_faction_truce_days_with_factions_begin = 290
-slot_faction_provocation_days_with_factions_begin = 291
-slot_faction_war_damage_inflicted_on_factions_begin = 292
-#slot_faction_sum_advice_about_factions_begin = 294
-# MOTO not used160200240 gdw yes used in floris changed numbers above to match compiler
-slot_faction_neighbors_begin = 295  # MOTO chief avoid center2 loop by storing results
-##diplomacy start+ end-points for the ranges for iteration and range checks#gdw from floris
-# slot_faction_truce_days_with_factions_end 			= slot_faction_provocation_days_with_factions_begin
-#slot_faction_provocation_days_with_factions_end = slot_faction_war_damage_inflicted_on_factions_begin
-# slot_faction_war_damage_inflicted_on_factions_end 	= slot_faction_sum_advice_about_factions_begin
-#slot_faction_sum_advice_about_factions_end = 296
-
-# slot_faction_state values
+# "slot_faction_state" values
 sfs_active = 0
 sfs_defeated = 1
 sfs_inactive = 2
@@ -192,7 +56,7 @@ sfs_inactive = 2
 # sfs_beginning_rebellion        = 4
 
 
-# slot_faction_ai_state values
+# "slot_faction_ai_state" values
 sfai_default = 0  # also defending
 sfai_gathering_army = 1
 sfai_attacking_center = 2
@@ -200,33 +64,11 @@ sfai_raiding_village = 3
 sfai_attacking_enemy_army = 4
 sfai_attacking_enemies_around_center = 5
 sfai_feast = 6  # can be feast, wedding, or major tournament
-# Social events are a generic aristocratic gathering. Tournaments take place if they are in a town, and hunts take place if they are at a castle.
-# Weddings will take place at social events between betrothed couples if they have been engaged for at least a month, if the lady's guardian is the town lord, and if both bride and groom are present
 
-slot_faction_policy_time = 110
-slot_faction_centralization = 111
-slot_faction_aristocracy = 112
-slot_faction_serfdom = 113
-slot_faction_quality = 114
-slot_faction_patrol_time = 115
-
-# slot_faction_attitude                   = 116	MOTO not used
-# slot_faction_attitude_begin             = 240	MOTO duplicates script_npc_decision_checklist_peace_or_war
-##diplomacy start+ add faction slots for additional policies
-slot_faction_mercantilism = 117  # + mercantilism / - free trade
-
-# Other slots
-# use faction slots to remember information between battles
-slot_faction_d0_mem_formation = 300
-slot_faction_d0_mem_formation_space = 309
-slot_faction_d0_mem_relative_x_flag = 318
-slot_faction_d0_mem_relative_y = 327
-# NEXT                                   = 336
-
-# Faction Slot
-slot_faction_freelancer_troop = 101
-
-# formation faction slots 300-335 (see below)
+# Social events are a generic aristocratic gathering. Tournaments take place if they are in a town,
+# and hunts take place if they are at a castle.
+# Weddings will take place at social events between betrothed couples if they have been engaged
+# for at least a month, if the lady's guardian is the town lord, and if both bride and groom are present
 
 # revolts -- notes for self
 # type 1 -- minor revolt, aimed at negotiating change without changing the ruler
@@ -240,7 +82,6 @@ slot_faction_freelancer_troop = 101
 # regionalist/republican
 # messianic (ie, Canudos)
 
-##diplomacy start+ chief
 # Treaty lengths.  Use these constants instead of "magic numbers" to make it
 # obvious what code is supposed to do, and also make it easy to change the
 # lengths without having to go through the entire mod.
@@ -267,8 +108,6 @@ dplmc_treaty_truce_days_half_done = (dplmc_treaty_truce_days_initial + dplmc_tre
 dplmc_treaty_trade_days_half_done = (dplmc_treaty_trade_days_initial + dplmc_treaty_trade_days_expire) // 2
 dplmc_treaty_defense_days_half_done = (dplmc_treaty_defense_days_initial + dplmc_treaty_defense_days_expire) // 2
 # dplmc_treaty_alliance_days_half_done = (dplmc_treaty_alliance_days_initial + dplmc_treaty_alliance_days_expire) // 2
-
-##diplomacy end+
 
 ########################################################
 ##  PARTY SLOTS            #############################

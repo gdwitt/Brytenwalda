@@ -2,7 +2,7 @@ from header_operations import *
 from header_common import pos1, pos5, pos8
 
 from module_constants import banner_scene_props_begin, \
-    slot_troop_custom_banner_positioning, banner_meshes_begin, kingdoms_end, slot_faction_leader, \
+    slot_troop_custom_banner_positioning, banner_meshes_begin, kingdoms_end, \
     banner_scene_props_end_minus_one, kingdoms_begin, slot_troop_banner_scene_prop, \
     slot_troop_custom_banner_bg_type, arms_meshes_begin
 
@@ -689,7 +689,7 @@ tableaus = [
      (store_script_param, ":faction_no", 1),
      (set_fixed_point_multiplier, 100),
      (try_begin),
-       (faction_get_slot, ":leader_troop", ":faction_no", slot_faction_leader),
+       (faction_get_slot, ":leader_troop", ":faction_no", "slot_faction_leader"),
        (ge, ":leader_troop", 0),
        (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
        (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
@@ -712,7 +712,7 @@ tableaus = [
      (val_add, ":faction_no_2", kingdoms_begin),
      (set_fixed_point_multiplier, 100),
      (try_begin),
-       (faction_get_slot, ":leader_troop", ":faction_no", slot_faction_leader),
+       (faction_get_slot, ":leader_troop", ":faction_no", "slot_faction_leader"),
        (ge, ":leader_troop", 0),
        (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
        (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
@@ -725,7 +725,7 @@ tableaus = [
        (cur_tableau_add_mesh, ":banner_mesh", pos1, 0, 0),
      (try_end),
      (try_begin),
-       (faction_get_slot, ":leader_troop", ":faction_no_2", slot_faction_leader),
+       (faction_get_slot, ":leader_troop", ":faction_no_2", "slot_faction_leader"),
        (ge, ":leader_troop", 0),
        (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
        (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),

@@ -39,14 +39,14 @@ triggers = [
     (call_script, "script_randomly_start_war_peace_new"),
 
     (try_for_range, ":faction_1", kingdoms_begin, kingdoms_end),
-      (faction_slot_eq, ":faction_1", slot_faction_state, sfs_active),
+      (faction_slot_eq, ":faction_1", "slot_faction_state", sfs_active),
 
       (try_for_range, ":faction_2", ":faction_1", kingdoms_end),
-        (faction_slot_eq, ":faction_2", slot_faction_state, sfs_active),
+        (faction_slot_eq, ":faction_2", "slot_faction_state", sfs_active),
         (lt, ":faction_1", ":faction_2"),
 
         # update truce days
-        (store_add, ":slot_truce_days", ":faction_2", slot_faction_truce_days_with_factions_begin),
+        (store_add, ":slot_truce_days", ":faction_2", "slot_faction_truce_days_with_factions_begin"),
         (val_sub, ":slot_truce_days", kingdoms_begin),
         (faction_get_slot, ":truce_days", ":faction_1", ":slot_truce_days"),
         (try_begin),
@@ -56,7 +56,7 @@ triggers = [
         (try_end),
 
         # update provocations
-        (store_add, ":slot_provocation_days", ":faction_2", slot_faction_provocation_days_with_factions_begin),
+        (store_add, ":slot_provocation_days", ":faction_2", "slot_faction_provocation_days_with_factions_begin"),
         (val_sub, ":slot_provocation_days", kingdoms_begin),
         (faction_get_slot, ":provocation_days", ":faction_1", ":slot_provocation_days"),
         (try_begin),
@@ -76,7 +76,7 @@ triggers = [
         (try_begin),
           (store_relation, ":relation", ":faction_1", ":faction_2"),
           (lt, ":relation", 0),
-          (store_add, ":slot_war_damage", ":faction_2", slot_faction_war_damage_inflicted_on_factions_begin),
+          (store_add, ":slot_war_damage", ":faction_2", "slot_faction_war_damage_inflicted_on_factions_begin"),
           (val_sub, ":slot_war_damage", kingdoms_begin),
           (faction_get_slot, ":war_damage", ":faction_1", ":slot_war_damage"),
           (val_add, ":war_damage", 1),
@@ -128,7 +128,7 @@ triggers = [
 ##  (120,0,12,
 ##	[		(ge,"$commoner_trust",100),			
 ##			(eq, "$players_kingdom", "fac_player_supporters_faction"),
-##			(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+##			(faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
 ##	],
 ##	[	
 ##		(assign, ":closest_dist", 100000),
@@ -382,7 +382,7 @@ triggers = [
 #Kingdom Parties
   (1.0, 0, 0.0, [],
    [(try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
-      (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
+      (faction_slot_eq, ":cur_kingdom", "slot_faction_state", sfs_active),
 ###chief SoT activo
 ##      (try_begin),
 ##        (store_random_in_range, ":random_no", 0, 100),
@@ -913,7 +913,7 @@ triggers = [
          (quest_get_slot, ":quest_object_troop", "qst_incriminate_loyal_commander", slot_quest_object_troop),
          (assign, ":num_available_factions", 0),
          (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-           (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+           (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
            (neq, ":faction_no", "fac_player_supporters_faction"),
            (neg|quest_slot_eq, "qst_incriminate_loyal_commander", slot_quest_target_faction, ":faction_no"),
            (val_add, ":num_available_factions", 1),
@@ -924,7 +924,7 @@ triggers = [
            (assign, ":target_faction", -1),
            (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
              (eq, ":target_faction", -1),
-             (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+             (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
              (neq, ":faction_no", "fac_player_supporters_faction"),
              (neg|quest_slot_eq, "qst_incriminate_loyal_commander", slot_quest_target_faction, ":faction_no"),
              (val_sub, ":random_faction", 1),
@@ -1722,8 +1722,8 @@ triggers = [
           (troop_set_slot, ":pretender", slot_troop_cur_center, 0),
           (neq, ":pretender", "$supported_pretender"),
           (troop_get_slot, ":target_faction", ":pretender", slot_troop_original_faction),
-          (faction_slot_eq, ":target_faction", slot_faction_state, sfs_active),
-          (faction_slot_eq, ":target_faction", slot_faction_has_rebellion_chance, 1),
+          (faction_slot_eq, ":target_faction", "slot_faction_state", sfs_active),
+          (faction_slot_eq, ":target_faction", "slot_faction_has_rebellion_chance", 1),
           (neg|troop_slot_eq, ":pretender", slot_troop_occupation, slto_kingdom_hero),
 
           (try_for_range, ":unused", 0, 30),
@@ -1743,17 +1743,17 @@ triggers = [
           (try_end),
 
 #        (try_for_range, ":rebel_faction", rebel_factions_begin, rebel_factions_end),
-#            (faction_get_slot, ":rebellion_status", ":rebel_faction", slot_faction_state),
+#            (faction_get_slot, ":rebellion_status", ":rebel_faction", "slot_faction_state"),
 #            (eq, ":rebellion_status", sfs_inactive_rebellion),
-#            (faction_get_slot, ":pretender", ":rebel_faction", slot_faction_leader),
-#            (faction_get_slot, ":target_faction", ":rebel_faction", slot_faction_rebellion_target),#
+#            (faction_get_slot, ":pretender", ":rebel_faction", "slot_faction_leader"),
+#            (faction_get_slot, ":target_faction", ":rebel_faction", "slot_faction_rebellion_target"),#
 
 #            (store_random_in_range, ":town", towns_begin, towns_end),
 #            (store_faction_of_party, ":town_faction", ":town"),
 #            (store_relation, ":relation", ":town_faction", ":target_faction"),
 #            (le, ":relation", 0), #fail if nothing qualifies
 
- #           (faction_set_slot, ":rebel_faction", slot_faction_inactive_leader_location, ":town"),
+ #           (faction_set_slot, ":rebel_faction", "slot_faction_inactive_leader_location", ":town"),
         (try_end), 
        ],
 []
@@ -1816,7 +1816,7 @@ triggers = [
 		(store_troop_faction, ":commander_faction", "$enlisted_lord"),
         (try_for_range, ":cur_faction", kingdoms_begin, kingdoms_end),
             (neq, ":commander_faction", ":cur_faction"),
-			(faction_slot_eq, ":cur_faction", slot_faction_state, sfs_active),
+			(faction_slot_eq, ":cur_faction", "slot_faction_state", sfs_active),
             (call_script, "script_set_player_relation_with_faction", ":cur_faction", 0),
         (try_end),
 
@@ -1955,9 +1955,9 @@ triggers = [
 ##                         (neg|ge, ":besieged", 0), #Town/castle is under siege jump out
 ##                         (store_faction_of_party, ":faction", ":center"),
 ##                         (party_get_num_companions, ":garrison", ":center"),
-##                         (faction_get_slot, ":party_template_a", ":faction", slot_faction_reinforcements_a),
-##                         (faction_get_slot, ":party_template_b", ":faction", slot_faction_reinforcements_b),
-##                         (faction_get_slot, ":party_template_c", ":faction", slot_faction_reinforcements_c),
+##                         (faction_get_slot, ":party_template_a", ":faction", "slot_faction_reinforcements_a"),
+##                         (faction_get_slot, ":party_template_b", ":faction", "slot_faction_reinforcements_b"),
+##                         (faction_get_slot, ":party_template_c", ":faction", "slot_faction_reinforcements_c"),
 ##                         (assign, ":party_template", 0),
 ##                         (try_begin),
 ##                             (party_slot_eq, ":center", "slot_party_type", spt_town),

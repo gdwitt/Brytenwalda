@@ -133,16 +133,16 @@ formations_triggers = [
         (try_for_range, ":division", 0, 9),
             (store_add, ":slot", slot_team_d0_size, ":division"),
             (team_slot_ge, "$fplayer_team_no", ":slot", 1),
-            (store_add, ":slot", slot_faction_d0_mem_relative_x_flag, ":division"),
+            (store_add, ":slot", "slot_faction_d0_mem_relative_x_flag", ":division"),
             (faction_get_slot, ":formation_is_memorized", "fac_player_faction", ":slot"),
             (try_begin),
                 (neq, ":formation_is_memorized", 0),
-                (store_add, ":slot", slot_faction_d0_mem_formation, ":division"),
+                (store_add, ":slot", "slot_faction_d0_mem_formation", ":division"),
                 (faction_get_slot, ":mem_formation", "fac_player_faction", ":slot"),
                 (store_add, ":slot", slot_team_d0_formation, ":division"),
                 (team_set_slot, "$fplayer_team_no", ":slot", ":mem_formation"),    #do this here to prevent script_player_attempt_formation from resetting spacing
 
-                (store_add, ":slot", slot_faction_d0_mem_formation_space, ":division"),
+                (store_add, ":slot", "slot_faction_d0_mem_formation_space", ":division"),
                 (faction_get_slot, ":value", "fac_player_faction", ":slot"),
                 #bring unformed divisions into sync with formations' minimum
                 (set_show_messages, 0),
@@ -438,12 +438,12 @@ formations_triggers = [
 
                 (store_add, ":slot", slot_team_d0_formation, ":division"),
                 (team_get_slot, ":value", "$fplayer_team_no", ":slot"),
-                (store_add, ":slot", slot_faction_d0_mem_formation, ":division"),
+                (store_add, ":slot", "slot_faction_d0_mem_formation", ":division"),
                 (faction_set_slot, "fac_player_faction", ":slot", ":value"),
 
                 (store_add, ":slot", slot_team_d0_formation_space, ":division"),
                 (team_get_slot, ":value", "$fplayer_team_no", ":slot"),
-                (store_add, ":slot", slot_faction_d0_mem_formation_space, ":division"),
+                (store_add, ":slot", "slot_faction_d0_mem_formation_space", ":division"),
                 (faction_set_slot, "fac_player_faction", ":slot", ":value"),
 
                 (agent_get_position, pos1, "$fplayer_agent_no"),
@@ -457,11 +457,11 @@ formations_triggers = [
                 (position_transform_position_to_local, Temp_Pos, pos1, Current_Pos), #Temp_Pos = vector to division w.r.t. leader facing enemy
 
                 (position_get_x, ":value", Temp_Pos),
-                (store_add, ":slot", slot_faction_d0_mem_relative_x_flag, ":division"),
+                (store_add, ":slot", "slot_faction_d0_mem_relative_x_flag", ":division"),
                 (faction_set_slot, "fac_player_faction", ":slot", ":value"),
 
                 (position_get_y, ":value", Temp_Pos),
-                (store_add, ":slot", slot_faction_d0_mem_relative_y, ":division"),
+                (store_add, ":slot", "slot_faction_d0_mem_relative_y", ":division"),
                 (faction_set_slot, "fac_player_faction", ":slot", ":value"),
 
                 (store_add, ":slot", slot_team_d0_type, ":division"),
@@ -504,7 +504,7 @@ formations_triggers = [
             (eq, "$gk_order", gk_order_2),    #FORGET DIVISION PLACEMENTS (WILL USE DEFAULT)
             (try_for_range, ":division", 0, 9),
                 (class_is_listening_order, "$fplayer_team_no", ":division"),
-                (store_add, ":slot", slot_faction_d0_mem_relative_x_flag, ":division"),    #use as flag
+                (store_add, ":slot", "slot_faction_d0_mem_relative_x_flag", ":division"),    #use as flag
                 (faction_set_slot, "fac_player_faction", ":slot", 0),
 
                 (store_add, ":slot", slot_team_d0_size, ":division"),

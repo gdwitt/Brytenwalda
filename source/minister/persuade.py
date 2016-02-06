@@ -8,7 +8,7 @@ from source.module_constants import *
 dialog_option = \
     [anyone | plyr, "minister_talk", [
         (is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end),
-        (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", slot_faction_leader),
+        (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", "slot_faction_leader"),
         (eq, ":faction_leader", "trp_player"),
         ], "I want to persuade a lord of joining our kingdom.", "dplmc_minister_persuasion_fief_ask", []
     ]
@@ -52,7 +52,7 @@ dialogs = [
     [anyone | plyr | repeat_for_factions, "dplmc_minister_persuade_lord_faction", [
         (store_repeat_object, ":faction_no"),
         (is_between, ":faction_no", npc_kingdoms_begin, npc_kingdoms_end),
-        (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+        (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
         (str_store_faction_name, s11, ":faction_no"),
         ], "{s11}", "dplmc_minister_persuade_lord_ask", [
         (store_repeat_object, "$g_faction_selected"),
@@ -67,7 +67,7 @@ dialogs = [
         (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
         (store_faction_of_troop, ":faction", ":troop_no"),
         (is_between, ":faction", npc_kingdoms_begin, npc_kingdoms_end),
-        (faction_get_slot, ":faction_leader", ":faction", slot_faction_leader),
+        (faction_get_slot, ":faction_leader", ":faction", "slot_faction_leader"),
         (neq, ":faction_leader", ":troop_no"),
 
         (eq, ":faction", "$g_faction_selected"),

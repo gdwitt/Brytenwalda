@@ -15,7 +15,7 @@ simple_triggers = [
          (party_is_in_any_town, ":party_no"),
 
          (store_faction_of_party, ":merchant_faction", ":party_no"),
-         (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
+         (faction_get_slot, ":num_towns", ":merchant_faction", "slot_faction_num_towns"),
 
          (try_begin),
            # remove merchant if faction has no towns
@@ -112,7 +112,7 @@ simple_triggers = [
          (lt, ":dist", ":radius"),
          (assign, ":cur_center", ":object_town"),
          (store_faction_of_party, ":merchant_faction", ":party_no"),
-         (faction_get_slot, ":num_towns", ":merchant_faction", slot_faction_num_towns),
+         (faction_get_slot, ":num_towns", ":merchant_faction", "slot_faction_num_towns"),
          (try_begin),
            (le, ":num_towns", 0),
            (remove_party, ":party_no"),
@@ -303,7 +303,7 @@ scripts = [
         (store_faction_of_party, ":party_faction", ":party_no"),
         (store_faction_of_party, ":center_faction", ":center_no"),
 
-        (store_add, ":truce_slot", ":party_faction", slot_faction_truce_days_with_factions_begin),
+        (store_add, ":truce_slot", ":party_faction", "slot_faction_truce_days_with_factions_begin"),
         (val_sub, ":truce_slot", kingdoms_begin),
         (faction_get_slot, ":truce_days", ":center_faction", ":truce_slot"),
         (gt, ":truce_days", dplmc_treaty_trade_days_expire),
@@ -330,7 +330,7 @@ scripts = [
 
         # apply plutocracy/aristocracy modifier and trade treaty boost
         (store_faction_of_party, ":origin_faction", ":center_no"),
-        (faction_get_slot, ":aristocracy", ":origin_faction", slot_faction_aristocracy),
+        (faction_get_slot, ":aristocracy", ":origin_faction", "slot_faction_aristocracy"),
         (val_mul, ":aristocracy", -5),
         (store_add, ":origin_percent", ":percent", ":aristocracy"),
         # Otg = :origin_tariffs_generated, Op = :origin_percent
@@ -359,7 +359,7 @@ scripts = [
       (try_end),
 
       #For this town: apply the faction plutocracy/aristocracy modifier
-      (faction_get_slot, ":aristocracy", ":center_faction", slot_faction_aristocracy),
+      (faction_get_slot, ":aristocracy", ":center_faction", "slot_faction_aristocracy"),
       (val_mul, ":aristocracy", -5),
       (val_add, ":percent", ":aristocracy"),
       (val_mul, ":tariffs_generated", ":percent"),

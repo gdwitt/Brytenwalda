@@ -171,7 +171,7 @@ _start_dialogs = [
         (troop_get_type, reg65, "$g_talk_troop"),
         (val_mod, reg65, 2),
         (try_begin),
-            (faction_slot_eq,"$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+            (faction_slot_eq,"$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
             (str_store_string, s64, "@{reg65?my Lady:my Lord}"), #bug fix
             (str_store_string, s65, "@{reg65?my Lady:my Lord}"),
             (str_store_string, s66, "@{reg65?My Lady:My Lord}"),
@@ -496,7 +496,7 @@ dialogs = [
 #gender fix chief acaba
                            
                     (try_begin),
-                        (faction_slot_eq,"$g_talk_troop_faction",slot_faction_leader,"$g_talk_troop"),
+                        (faction_slot_eq,"$g_talk_troop_faction","slot_faction_leader","$g_talk_troop"),
                         (str_store_string,s64,"@{reg65?my Lady:my Lord}"), #bug fix
                         (str_store_string,s65,"@{reg65?my Lady:my Lord}"),
                         (str_store_string,s66,"@{reg65?My Lady:My Lord}"),
@@ -524,7 +524,7 @@ dialogs = [
                      (val_mod, reg65, 2),
 #gender fix chief acaba
                      (try_begin),
-                       (faction_slot_eq,"$g_talk_troop_faction",slot_faction_leader,"$g_talk_troop"),
+                       (faction_slot_eq,"$g_talk_troop_faction","slot_faction_leader","$g_talk_troop"),
                        (str_store_string,s64,"@{reg65?my Lady:my Lord}"), #bug fix
                        (str_store_string,s65,"@{reg65?my Lady:my Lord}"),
                        (str_store_string,s66,"@{reg65?My Lady:My Lord}"),
@@ -609,8 +609,8 @@ dialogs = [
    "As you wish, {sire/my lady}. You may decide this matter at a later date.", "close_window",
    [
 	 (try_begin),
-		(faction_slot_eq, "$players_kingdom", slot_faction_political_issue, -1),
-		(faction_set_slot, "$players_kingdom", slot_faction_political_issue, "$g_center_taken_by_player_faction"),
+		(faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", -1),
+		(faction_set_slot, "$players_kingdom", "slot_faction_political_issue", "$g_center_taken_by_player_faction"),
 	 (try_end),	 
 	 (call_script, "script_give_center_to_lord", "$g_center_taken_by_player_faction", -1, 0), #-1 for the faction lord in this script is used exclusively in this context
 	 #It is only used because script_give_center_to_faction does not reset the town lord if fac_player_supporters_faction is the attacker
@@ -701,8 +701,8 @@ dialogs = [
 	 
      (call_script, "script_give_center_to_lord", "$g_center_taken_by_player_faction", ":new_owner", 0),
 	 (try_begin),
-		(faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$g_center_taken_by_player_faction"),
-		(faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+		(faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$g_center_taken_by_player_faction"),
+		(faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
 	 (try_end),
    
      (assign, reg6, 0),
@@ -736,7 +736,7 @@ dialogs = [
 	 
   [anyone, "event_triggered",
    [
-     (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "$g_talk_troop"),
+     (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "$g_talk_troop"),
      (ge, "$g_center_taken_by_player_faction", 0),
      (str_store_party_name, s1, "$g_center_taken_by_player_faction"),
      ],
@@ -802,8 +802,8 @@ dialogs = [
 [
  (call_script, "script_give_center_to_lord", "$g_center_taken_by_player_faction", -1, 0),
  (try_begin),
-          (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$g_center_taken_by_player_faction"),
-(faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+          (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$g_center_taken_by_player_faction"),
+(faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
 (try_end),
  (str_store_party_name, s1, "$g_center_taken_by_player_faction"),
  (assign, "$g_center_taken_by_player_faction", -1),
@@ -818,7 +818,7 @@ dialogs = [
 
   [anyone, "center_captured_rebellion_2",
    [
-#     (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "$g_talk_troop"),
+#     (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "$g_talk_troop"),
 #     (ge, "$g_center_taken_by_player_faction", 0),
      ],
    "Hmmm. All right, {playername}. I value your counsel highly. {reg6?I:{reg7?You:{s11}}} will be the new {reg3?lady:lord} of {s1}.", "close_window",
@@ -859,8 +859,8 @@ dialogs = [
      
      (call_script, "script_give_center_to_lord", "$g_center_taken_by_player_faction", ":new_owner", 0),
 	 (try_begin),
-		(faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$g_center_taken_by_player_faction"),
-		(faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+		(faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$g_center_taken_by_player_faction"),
+		(faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
 	 (try_end),
 	 
      (assign, reg6, 0),
@@ -2497,7 +2497,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
            (val_add, reg11, 1),
          (else_try),
            (eq, ":troop_faction", "$supported_pretender_old_faction"),
-           (neg|faction_slot_eq, "$supported_pretender_old_faction", slot_faction_leader, ":troop_no"),
+           (neg|faction_slot_eq, "$supported_pretender_old_faction", "slot_faction_leader", ":troop_no"),
            (val_add, reg21, 1),
          (try_end),
        (try_end),
@@ -2555,7 +2555,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
        (else_try),
          (str_store_string, s30, "@we are on the verge of victory. The remaining enemies pose no threat, but we still need to hunt them down."),
        (try_end),
-       (faction_get_slot, ":enemy_king", "$supported_pretender_old_faction", slot_faction_leader),
+       (faction_get_slot, ":enemy_king", "$supported_pretender_old_faction", "slot_faction_leader"),
        (str_store_troop_name, s9, ":enemy_king"),
       ],
    "{reg11?We have {reg11} lords on our side:We have no lord with us yet},\
@@ -2592,7 +2592,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "So be it. Then my cause is lost. There is only one thing to do for me now. I will travel away from Britannia and Hibernia to continental Europe, never to come back. With me gone, you may try to make your peace with {s4}.", "close_window",
    [
      (troop_get_slot, ":original_faction", "$g_talk_troop", slot_troop_original_faction),
-	 (faction_get_slot, ":original_faction_leader", ":original_faction", slot_faction_leader),
+	 (faction_get_slot, ":original_faction_leader", ":original_faction", "slot_faction_leader"),
 	 (str_store_troop_name, s4, ":original_faction_leader"),
 	 
      (try_for_range, ":cur_troop", active_npcs_begin, active_npcs_end),
@@ -2603,7 +2603,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
        (call_script, "script_change_troop_faction", ":cur_troop", ":original_faction"),
      (try_end),
      (troop_set_faction, "$g_talk_troop", "fac_neutral"),
-     (faction_set_slot, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+     (faction_set_slot, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
      (assign, ":has_center", 0),
      (try_for_range, ":cur_center", centers_begin, centers_end),
        (store_faction_of_party, ":cur_faction", ":cur_center"),
@@ -2613,7 +2613,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
        (call_script, "script_give_center_to_lord", ":cur_center", "trp_player", 0),
      (try_end),
      (party_remove_members, "p_main_party", "$supported_pretender", 1),
-     (faction_set_slot, ":original_faction", slot_faction_has_rebellion_chance, 0),
+     (faction_set_slot, ":original_faction", "slot_faction_has_rebellion_chance", 0),
      (assign, "$supported_pretender", 0),
      (try_begin), #Still has center
        (eq, ":has_center", 1),
@@ -2711,7 +2711,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 						  
   [anyone|plyr,"member_talk", [
 	(is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
-	(faction_slot_eq,  "$players_kingdom", slot_faction_marshall, "trp_player"),
+	(faction_slot_eq,  "$players_kingdom", "slot_faction_marshall", "trp_player"),
   ], "As marshal, I wish you to send a message to the vassals of the realm", "member_direct_campaign",[]],
 						  
 						  
@@ -2933,20 +2933,20 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	(neq, "$players_kingdom", "fac_player_supporters_faction"),
 	(is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
 
-	(faction_get_slot, reg0, "$players_kingdom", slot_faction_serfdom),
-	(faction_set_slot, "fac_player_supporters_faction", slot_faction_serfdom,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", "slot_faction_serfdom"),
+	(faction_set_slot, "fac_player_supporters_faction", "slot_faction_serfdom",  reg0),
 
-	(faction_get_slot, reg0, "$players_kingdom", slot_faction_centralization),
-	(faction_set_slot, "fac_player_supporters_faction", slot_faction_centralization,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", "slot_faction_centralization"),
+	(faction_set_slot, "fac_player_supporters_faction", "slot_faction_centralization",  reg0),
 
-	(faction_get_slot, reg0, "$players_kingdom", slot_faction_quality),
-	(faction_set_slot, "fac_player_supporters_faction", slot_faction_quality,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", "slot_faction_quality"),
+	(faction_set_slot, "fac_player_supporters_faction", "slot_faction_quality",  reg0),
 
-	(faction_get_slot, reg0, "$players_kingdom", slot_faction_aristocracy),
-	(faction_set_slot, "fac_player_supporters_faction", slot_faction_aristocracy,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", "slot_faction_aristocracy"),
+	(faction_set_slot, "fac_player_supporters_faction", "slot_faction_aristocracy",  reg0),
 
-	(faction_get_slot, reg0, "$players_kingdom", slot_faction_mercantilism),
-	(faction_set_slot, "fac_player_supporters_faction", slot_faction_mercantilism,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", "slot_faction_mercantilism"),
+	(faction_set_slot, "fac_player_supporters_faction", "slot_faction_mercantilism",  reg0),
 (try_end),
 ##nested diplomacy end+
 ]],
@@ -3033,7 +3033,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
          []],
 
    [anyone|plyr,"dplmc_chancellor_domestic_policy_options",[
-    (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+    (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
   ],
    "I require information about the domestic policy of another sovereignty.", "dplmc_chancellor_domestic_policy_info_ask",
    []],
@@ -3059,31 +3059,31 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
     (str_store_faction_name_link, s10, "$diplomacy_var"),
     (assign, ":string", "str_dplmc_neither_centralize_nor_decentralized"),
-    (faction_get_slot, ":centralization", "$diplomacy_var", slot_faction_centralization),
+    (faction_get_slot, ":centralization", "$diplomacy_var", "slot_faction_centralization"),
     (val_add, ":string", ":centralization"),
     (str_store_string, s4, ":string"),
     (str_store_string, s4, "@The goverment of the {s10} is {s4}."),
 
     (assign, ":string", "str_dplmc_neither_aristocratic_nor_plutocratic"),
-    (faction_get_slot, ":aristocraty", "$diplomacy_var", slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "$diplomacy_var", "slot_faction_aristocracy"),
     (val_add, ":string", ":aristocraty"),
     (str_store_string, s5, ":string"),
     (str_store_string, s5, "@The upper class society is {s5}."),
     
     (assign, ":string", "str_dplmc_mixture_serfs"),
-    (faction_get_slot, ":serfdom", "$diplomacy_var", slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "$diplomacy_var", "slot_faction_serfdom"),
     (val_add, ":string", ":serfdom"),
     (str_store_string, s6, ":string"),
     (str_store_string, s6, "@The people are {s6}."),
     
     (assign, ":string", "str_dplmc_mediocre_quality"),
-    (faction_get_slot, ":quality", "$diplomacy_var", slot_faction_quality),
+    (faction_get_slot, ":quality", "$diplomacy_var", "slot_faction_quality"),
     (val_add, ":string", ":quality"),
     (str_store_string, s7, ":string"),  
     (str_store_string, s7, "@The troops have {s7}."),     
 ##nested diplomacy start+ add mercantilism
 (assign, ":string", "str_dplmc_neither_mercantilist_nor_laissez_faire"),
-(faction_get_slot, ":mercantilism", "$diplomacy_var", slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "$diplomacy_var", "slot_faction_mercantilism"),
 (val_add, ":string", ":mercantilism"),
 (str_store_string, s0, ":string"),
 (str_store_string, s0, "@The government's approach to trade is {s0}."),
@@ -3092,7 +3092,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 ]],##nested diplomacy end+
  
   [anyone|plyr,"dplmc_chancellor_domestic_policy_options",[
-    (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+    (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
   ],
    "Let's change our domestic policy.", "dplmc_chancellor_domestic_policy_ask",
    []],
@@ -3106,42 +3106,42 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone,"dplmc_chancellor_domestic_policy_ask",[
    (store_current_hours, ":current_hours"),
 ##zParsifal 2011-10-07: Change the policy change interval from always 30 days to (Centralization * 5) + 30 days. chief
-(faction_get_slot, ":policy_time", "fac_player_supporters_faction", slot_faction_centralization),
+(faction_get_slot, ":policy_time", "fac_player_supporters_faction", "slot_faction_centralization"),
 (val_mul, ":policy_time", -5),
 (val_add, ":policy_time", 30),
 (val_clamp, ":policy_time", 15, 46),#This line should be unnecessary
 (val_mul, ":policy_time", 24),
 (val_sub, ":current_hours", ":policy_time"),
-    (faction_get_slot, ":policy_time", "fac_player_supporters_faction", slot_faction_policy_time),
+    (faction_get_slot, ":policy_time", "fac_player_supporters_faction", "slot_faction_policy_time"),
     (ge, ":current_hours", ":policy_time"),      
     
     (assign, ":string", "str_dplmc_neither_centralize_nor_decentralized"),
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
     (val_add, ":string", ":centralization"),
     (str_store_string, s4, ":string"),
     (str_store_string, s4, "@Our goverment is {s4}."),
 
     (assign, ":string", "str_dplmc_neither_aristocratic_nor_plutocratic"),
-    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", "slot_faction_aristocracy"),
     (val_add, ":string", ":aristocraty"),
     (str_store_string, s5, ":string"),
     (str_store_string, s5, "@The upper class society is {s5}."),
     
     (assign, ":string", "str_dplmc_mixture_serfs"),
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
     (val_add, ":string", ":serfdom"),
     (str_store_string, s6, ":string"),
     (str_store_string, s6, "@Our people are {s6}."),
     
     (assign, ":string", "str_dplmc_mediocre_quality"),
-    (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
+    (faction_get_slot, ":quality", "fac_player_supporters_faction", "slot_faction_quality"),
     (val_add, ":string", ":quality"),
     (str_store_string, s7, ":string"),  
     (str_store_string, s7, "@Our troops have {s7}."),    
 
 ##nested diplomacy start+ add mercantilism
 (assign, ":string", "str_dplmc_neither_mercantilist_nor_laissez_faire"),
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", "slot_faction_mercantilism"),
 (val_add, ":string", ":mercantilism"),
 (str_store_string, s0, ":string"),
 (str_store_string, s0, "@Our approach to trade is {s0}."),
@@ -3152,31 +3152,31 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
   [anyone,"dplmc_chancellor_domestic_policy_ask",[ 
     (assign, ":string", "str_dplmc_neither_centralize_nor_decentralized"),
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
     (val_add, ":string", ":centralization"),
     (str_store_string, s4, ":string"),
     (str_store_string, s4, "@Our goverment is {s4}."),
 
     (assign, ":string", "str_dplmc_neither_aristocratic_nor_plutocratic"),
-    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", "slot_faction_aristocracy"),
     (val_add, ":string", ":aristocraty"),
     (str_store_string, s5, ":string"),
     (str_store_string, s5, "@The upper class society is {s5}."),
     
     (assign, ":string", "str_dplmc_mixture_serfs"),
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
     (val_add, ":string", ":serfdom"),
     (str_store_string, s6, ":string"),
     (str_store_string, s6, "@Our people are {s6}."),
     
     (assign, ":string", "str_dplmc_mediocre_quality"),
-    (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
+    (faction_get_slot, ":quality", "fac_player_supporters_faction", "slot_faction_quality"),
     (val_add, ":string", ":quality"),
     (str_store_string, s7, ":string"),  
     (str_store_string, s7, "@Our troops have {s7}."),  
 ##nested diplomacy start+ add mercantilism
 (assign, ":string", "str_dplmc_neither_mercantilist_nor_laissez_faire"),
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", "slot_faction_mercantilism"),
 (val_add, ":string", ":mercantilism"),
 (str_store_string, s0, ":string"),
 (str_store_string, s0, "@Our approach to trade is {s0}."),
@@ -3189,7 +3189,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 (val_clamp, reg1, 15, 46),#This line should be unnecessary
 (store_mul, ":policy_time", reg1, 24),
 (val_sub, ":current_hours", ":policy_time"),
-    (faction_get_slot, ":policy_time", "fac_player_supporters_faction", slot_faction_policy_time),
+    (faction_get_slot, ":policy_time", "fac_player_supporters_faction", "slot_faction_policy_time"),
     (store_sub, ":wait_hours" , ":policy_time", ":current_hours"),
     (store_div, ":wait_days", ":wait_hours", 24),
     (store_mod, ":wait_mod", ":wait_hours", 24),
@@ -3207,123 +3207,123 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
     (lt, ":serfdom", 3),
   ],
    "Bring more people into serfdom.", "dplmc_chancellor_domestic_policy_confirm",
    [
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
     (val_add, ":serfdom", 1),
-    (faction_set_slot, "fac_player_supporters_faction", slot_faction_serfdom ,":serfdom"),
+    (faction_set_slot, "fac_player_supporters_faction", "slot_faction_serfdom" ,":serfdom"),
    ]],   
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
     (gt, ":serfdom", -3),
   ],
    "I want more freedom for the people.", "dplmc_chancellor_domestic_policy_confirm",
    [
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
     (val_sub, ":serfdom", 1),
-    (faction_set_slot, "fac_player_supporters_faction", slot_faction_serfdom ,":serfdom"),
+    (faction_set_slot, "fac_player_supporters_faction", "slot_faction_serfdom" ,":serfdom"),
    ]], 
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
     (lt, ":centralization", 3),
   ],
    "Let's centralize the decisions.", "dplmc_chancellor_domestic_policy_confirm",
    [
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
     (val_add, ":centralization", 1),
-    (faction_set_slot, "fac_player_supporters_faction", slot_faction_centralization,  ":centralization"),
+    (faction_set_slot, "fac_player_supporters_faction", "slot_faction_centralization",  ":centralization"),
    ]],
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
     (gt, ":centralization", -3),
   ],
    "Grant increased autonomy to local Lords.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+     (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
      (val_sub, ":centralization", 1),
-     (faction_set_slot,  "fac_player_supporters_faction", slot_faction_centralization, ":centralization"),
+     (faction_set_slot,  "fac_player_supporters_faction", "slot_faction_centralization", ":centralization"),
    ]],   
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
+    (faction_get_slot, ":quality", "fac_player_supporters_faction", "slot_faction_quality"),
     (lt, ":quality", 3),
   ],
    "I prefer quality over quanity.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
+     (faction_get_slot, ":quality", "fac_player_supporters_faction", "slot_faction_quality"),
      (val_add, ":quality", 1),
-     (faction_set_slot, "fac_player_supporters_faction", slot_faction_quality, ":quality"),
+     (faction_set_slot, "fac_player_supporters_faction", "slot_faction_quality", ":quality"),
    ]],
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
+    (faction_get_slot, ":quality", "fac_player_supporters_faction", "slot_faction_quality"),
     (gt, ":quality", -3),
   ],
    "I prefer quanity over quality.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
+     (faction_get_slot, ":quality", "fac_player_supporters_faction", "slot_faction_quality"),
      (val_sub, ":quality", 1),
-     (faction_set_slot, "fac_player_supporters_faction", slot_faction_quality, ":quality"),
+     (faction_set_slot, "fac_player_supporters_faction", "slot_faction_quality", ":quality"),
    ]],   
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", "slot_faction_aristocracy"),
     (lt, ":aristocraty", 3),
   ],
    "Give the nobles more power.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
+     (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", "slot_faction_aristocracy"),
      (val_add, ":aristocraty", 1),
-     (faction_set_slot, "fac_player_supporters_faction", slot_faction_aristocracy,  ":aristocraty"),
+     (faction_set_slot, "fac_player_supporters_faction", "slot_faction_aristocracy",  ":aristocraty"),
    ]],
 
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", "slot_faction_aristocracy"),
     (gt, ":aristocraty", -3),
   ],
    "Give the merchants and trade guilds more power.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
+     (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", "slot_faction_aristocracy"),
      (val_sub, ":aristocraty", 1),
-     (faction_set_slot, "fac_player_supporters_faction", slot_faction_aristocracy,  ":aristocraty"),
+     (faction_set_slot, "fac_player_supporters_faction", "slot_faction_aristocracy",  ":aristocraty"),
    ]],
 
 ##diplomacy start+ add mercantilism
 [anyone|plyr,"dplmc_chancellor_domestic_policy",
 [
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", "slot_faction_mercantilism"),
 (lt, ":mercantilism", 3),
 ],
 "Manage the economy more actively to increase production and maximize exports.", "dplmc_chancellor_domestic_policy_confirm",
 [
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", "slot_faction_mercantilism"),
 (val_add, ":mercantilism", 1),
-(faction_set_slot, "fac_player_supporters_faction", slot_faction_mercantilism,  ":mercantilism"),
+(faction_set_slot, "fac_player_supporters_faction", "slot_faction_mercantilism",  ":mercantilism"),
 ]],
 
 [anyone|plyr,"dplmc_chancellor_domestic_policy",
 [
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", "slot_faction_mercantilism"),
 (gt, ":mercantilism", -3),
 ],
 "Reduce the crown's role in managing industry and commerce.", "dplmc_chancellor_domestic_policy_confirm",
 [
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", "slot_faction_mercantilism"),
 (val_sub, ":mercantilism", 1),
-(faction_set_slot, "fac_player_supporters_faction", slot_faction_mercantilism,  ":mercantilism"),
+(faction_set_slot, "fac_player_supporters_faction", "slot_faction_mercantilism",  ":mercantilism"),
 ]],
 ##diplomacy end+
 
@@ -3337,26 +3337,26 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [],
 "I will initiate all necessary steps.", "dplmc_chancellor_pretalk",[
 (store_current_hours, ":current_hours"),
-(faction_set_slot, "fac_player_supporters_faction", slot_faction_policy_time, ":current_hours"),
+(faction_set_slot, "fac_player_supporters_faction", "slot_faction_policy_time", ":current_hours"),
 ##diplomacy start+
 (try_begin),
 	(neq, "$players_kingdom", "fac_player_supporters_faction"),
 	(is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_serfdom),
-	(faction_set_slot, "$players_kingdom", slot_faction_serfdom,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", "slot_faction_serfdom"),
+	(faction_set_slot, "$players_kingdom", "slot_faction_serfdom",  reg0),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_centralization),
-	(faction_set_slot, "$players_kingdom", slot_faction_centralization,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", "slot_faction_centralization"),
+	(faction_set_slot, "$players_kingdom", "slot_faction_centralization",  reg0),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_quality),
-	(faction_set_slot, "$players_kingdom", slot_faction_quality,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", "slot_faction_quality"),
+	(faction_set_slot, "$players_kingdom", "slot_faction_quality",  reg0),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_aristocracy),
-	(faction_set_slot, "$players_kingdom", slot_faction_aristocracy,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", "slot_faction_aristocracy"),
+	(faction_set_slot, "$players_kingdom", "slot_faction_aristocracy",  reg0),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_mercantilism),
-	(faction_set_slot, "$players_kingdom", slot_faction_mercantilism,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", "slot_faction_mercantilism"),
+	(faction_set_slot, "$players_kingdom", "slot_faction_mercantilism",  reg0),
 (try_end),
 ##diplomacy end+
 ]],
@@ -3375,7 +3375,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
    (store_repeat_object, ":faction_no"),
    (is_between, ":faction_no", kingdoms_begin, kingdoms_end),
-   (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+   (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
    (str_store_faction_name, s11, ":faction_no"),
    ],
    "{s11}.", "dplmc_chancellor_info_person_ask",
@@ -3400,7 +3400,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (neq, "$g_talk_troop", ":troop_no"),
     (is_between, ":troop_no", active_npcs_begin, kingdom_ladies_end),
     (neq, ":troop_no", "trp_player"),
-    (neg|faction_slot_eq, "$g_faction_selected", slot_faction_leader, ":troop_no"),
+    (neg|faction_slot_eq, "$g_faction_selected", "slot_faction_leader", ":troop_no"),
     (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
     (store_troop_faction, ":faction_no", ":troop_no"),
     (eq, "$g_faction_selected", ":faction_no"),
@@ -3425,7 +3425,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
  ]],
  
   [anyone|plyr,"dplmc_chancellor_talk",[
-							(faction_get_slot, ":political_issue", "$players_kingdom", slot_faction_political_issue),
+							(faction_get_slot, ":political_issue", "$players_kingdom", "slot_faction_political_issue"),
 							(is_between, ":political_issue", centers_begin, centers_end),
 							(str_store_party_name, s4, ":political_issue"),
                             ],
@@ -3845,7 +3845,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
    (store_repeat_object, ":faction_no"),
    (is_between, ":faction_no", kingdoms_begin, kingdoms_end),
-   (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+   (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
    (str_store_faction_name, s11, ":faction_no"),
    ],
    "In {s11}.", "dplmc_chancellor_center_gift_lord_ask",
@@ -3867,7 +3867,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 (neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
 (store_relation, reg0, "$players_kingdom", "$g_faction_selected"),
 (lt, reg0, 0),
-(neg|faction_slot_ge, "$g_faction_selected", slot_faction_recognized_player, 1),
+(neg|faction_slot_ge, "$g_faction_selected", "slot_faction_recognized_player", 1),
 ],
 "Given that we are currently at war with the {s11} and they do not officially recognize your legitimacy, any messengers we sent would run the risk of being hanged as bandits.", "dplmc_chancellor_pretalk",[
 ]],
@@ -4013,7 +4013,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
    (store_repeat_object, ":faction_no"),
    (is_between, ":faction_no", kingdoms_begin, kingdoms_end),
-   (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+   (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
    (str_store_faction_name, s11, ":faction_no"),
    ],
    "In {s11}.", "dplmc_chancellor_gift_lord_ask",
@@ -4034,7 +4034,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 (neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
 (store_relation, reg0, "$players_kingdom", "$g_faction_selected"),
 (lt, reg0, 0),
-(neg|faction_slot_ge, "$g_faction_selected", slot_faction_recognized_player, 1),
+(neg|faction_slot_ge, "$g_faction_selected", "slot_faction_recognized_player", 1),
 ],
 "Given that we are currently at war with the {s11} but they do not officially recognize your legitimacy, any messengers we sent would run the risk of being hanged as bandits.", "dplmc_chancellor_pretalk",[
 ]],
@@ -4182,7 +4182,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
    (store_repeat_object, ":faction_no"),
    (is_between, ":faction_no", kingdoms_begin, kingdoms_end),
-   (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+   (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
    (str_store_faction_name, s11, ":faction_no"),
    ],
    "In {s11}.", "dplmc_chancellor_lady_gift_lady_ask",
@@ -4203,7 +4203,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 (neg|is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
 (store_relation, reg0, "$players_kingdom", "$g_faction_selected"),
 (lt, reg0, 0),
-(neg|faction_slot_ge, "$g_faction_selected", slot_faction_recognized_player, 1),
+(neg|faction_slot_ge, "$g_faction_selected", "slot_faction_recognized_player", 1),
 ],
 "Given that we are currently at war with the {s11} but they do not officially recognize your legitimacy, any messengers we sent would run the risk of being hanged as bandits.", "dplmc_chancellor_pretalk",[
 ]],
@@ -5726,7 +5726,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (ge, "$g_talk_troop_faction_relation", 0),
     #(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
     (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-    (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+    (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
     (eq, "$players_kingdom", "$g_talk_troop_faction"),
     (eq, "$player_has_homage", 1),
   ],
@@ -5786,7 +5786,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
                              (ge, "$g_talk_troop_faction_relation", 0),
                              #(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
                              (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-                             (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+                             (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
                              (eq, "$players_kingdom", "$g_talk_troop_faction"),
                              (eq, "$player_has_homage", 1),
                             ],
@@ -5832,8 +5832,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (neq, ":faction_no", "$players_kingdom"),
     (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", "$players_kingdom", ":faction_no"),
     (ge, reg0, -1),
-    (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
-    (faction_get_slot, ":leader_no", ":faction_no", slot_faction_leader),
+    (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
+    (faction_get_slot, ":leader_no", ":faction_no", "slot_faction_leader"),
     (str_store_troop_name, s10, ":leader_no"),
     (str_store_faction_name, s11, ":faction_no"),
      ],
@@ -6938,7 +6938,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (str_clear, s40),
       
         #player is still king
-      (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", slot_faction_leader),
+      (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", "slot_faction_leader"),
       (try_begin),
         (neq, ":faction_leader", "trp_player"),
         (str_store_string, s40, "@Your leader is not even a king and I shall join you?"),  	        
@@ -7049,7 +7049,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 			(assign, ":change_penalty", reg10),		
 			(assign, ":result_for_new_liege", reg0),		
 			(store_faction_of_troop, ":target_faction", ":target_troop"),
-			(faction_get_slot, ":cur_liege", ":target_faction", slot_faction_leader),
+			(faction_get_slot, ":cur_liege", ":target_faction", "slot_faction_leader"),
 			(call_script, "script_calculate_troop_political_factors_for_liege", ":target_troop", ":cur_liege"),
 
 			(store_sub, ":result_for_security_comparative", ":result_for_security", reg2),
@@ -7207,17 +7207,17 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (call_script, "script_change_troop_faction", ":target_troop", "$players_kingdom"),
       
       (store_faction_of_troop, ":target_faction", ":target_troop"),
-      (faction_get_slot, ":other_liege", ":target_faction", slot_faction_leader),
+      (faction_get_slot, ":other_liege", ":target_faction", "slot_faction_leader"),
       (try_begin),
         (store_relation, ":relation", "$players_kingdom", ":target_faction"), 
         (ge, ":relation", 0),
         
         (call_script, "script_add_log_entry", logent_border_incident_troop_suborns_lord, "trp_player", -1, ":target_troop",":target_faction"),
-        (store_add, ":slot_provocation_days", "$players_kingdom", slot_faction_provocation_days_with_factions_begin),
+        (store_add, ":slot_provocation_days", "$players_kingdom", "slot_faction_provocation_days_with_factions_begin"),
         (val_sub, ":slot_provocation_days", kingdoms_begin),
         (faction_set_slot, ":target_faction", ":slot_provocation_days", 30),
         
-        (faction_get_slot, ":other_liege", ":target_faction", slot_faction_leader),
+        (faction_get_slot, ":other_liege", ":target_faction", "slot_faction_leader"),
         (call_script, "script_troop_change_relation_with_troop", "trp_player", ":other_liege", -3),
       (try_end),
       
@@ -7257,8 +7257,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
      (store_repeat_object, ":faction_no"),
 	 (is_between, ":faction_no", npc_kingdoms_begin, npc_kingdoms_end),
-     (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
-     (faction_get_slot, ":leader_no", ":faction_no", slot_faction_leader),
+     (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
+     (faction_get_slot, ":leader_no", ":faction_no", "slot_faction_leader"),
      (str_store_troop_name, s10, ":leader_no"),
      (str_store_faction_name, s11, ":faction_no"),
 	 (str_clear, s14),
@@ -7312,7 +7312,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (troop_get_slot, ":emissary_caught", "$g_talk_troop", slot_troop_mission_diplomacy),
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
     (this_or_next|eq, ":emissary_caught", 0),
-    (faction_slot_eq, ":mission_object", slot_faction_state, sfs_defeated),
+    (faction_slot_eq, ":mission_object", "slot_faction_state", sfs_defeated),
     (troop_get_slot, ":string", "$map_talk_troop", slot_troop_honorific),
     (str_store_string, 21, ":string"),
     (str_store_faction_name, s31, ":mission_object"),
@@ -7346,7 +7346,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
         (call_script, "script_change_player_honor", -2),
         (call_script, "script_change_troop_renown", "trp_player", -5),
          
-        (faction_get_slot, ":faction_leader", ":mission_object", slot_faction_leader),
+        (faction_get_slot, ":faction_leader", ":mission_object", "slot_faction_leader"),
         (call_script, "script_lord_get_home_center", ":faction_leader"),
         (try_begin),
           (neq, reg0, -1),
@@ -7420,7 +7420,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
     (assign, ":proceed", 0),
     (try_begin),
-      (store_add, ":slot_truce_days", "$g_faction_selected", slot_faction_truce_days_with_factions_begin),
+      (store_add, ":slot_truce_days", "$g_faction_selected", "slot_faction_truce_days_with_factions_begin"),
       (val_sub, ":slot_truce_days", kingdoms_begin),
       (faction_get_slot, ":truce_days", "fac_player_supporters_faction", ":slot_truce_days"),
       (is_between, ":truce_days", 20, 50), #you need a trade aggreement or defensive pact for an alliance
@@ -7428,9 +7428,9 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (try_end),
     (eq, ":proceed", 1),
 
-    (faction_slot_eq, "$g_faction_selected", slot_faction_recognized_player, 1), #recognized us
-    (faction_slot_eq, "$g_faction_selected", slot_faction_state, sfs_active),
-    (faction_get_slot, ":leader_no", "$g_faction_selected", slot_faction_leader),
+    (faction_slot_eq, "$g_faction_selected", "slot_faction_recognized_player", 1), #recognized us
+    (faction_slot_eq, "$g_faction_selected", "slot_faction_state", sfs_active),
+    (faction_get_slot, ":leader_no", "$g_faction_selected", "slot_faction_leader"),
 
     (str_store_troop_name, s10, ":leader_no"),
     (str_store_faction_name, s11, "$g_faction_selected"),
@@ -7473,7 +7473,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (ge, "$player_honor", ":random"),
     (store_random_in_range,":random", 5, 50),
     (ge, "$player_right_to_rule", ":random"),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
   ],					
    "{s4} is willing to form an alliance with you.","dplmc_companion_alliance_confirm", [
@@ -7497,7 +7497,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone, "dplmc_companion_alliance_request_response", [
     (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, dplmc_npc_mission_alliance_request), 
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
     ],					
    "{s4} is not willing to form an alliance with you.","companion_rejoin_response", [
@@ -7511,7 +7511,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
     (assign, ":proceed", 0),
     (try_begin),
-      (store_add, ":slot_truce_days", "$g_faction_selected", slot_faction_truce_days_with_factions_begin),
+      (store_add, ":slot_truce_days", "$g_faction_selected", "slot_faction_truce_days_with_factions_begin"),
       (val_sub, ":slot_truce_days", kingdoms_begin),
       (faction_get_slot, ":truce_days", "fac_player_supporters_faction", ":slot_truce_days"),
       #(gt, ":truce_days", 20), #if we have more than 20 truce days left don't proceed   
@@ -7520,9 +7520,9 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (try_end),
     (eq, ":proceed", 1),
 
-    (faction_slot_eq, "$g_faction_selected", slot_faction_recognized_player, 1), #recognized us
-    (faction_slot_eq, "$g_faction_selected", slot_faction_state, sfs_active),
-    (faction_get_slot, ":leader_no", "$g_faction_selected", slot_faction_leader),
+    (faction_slot_eq, "$g_faction_selected", "slot_faction_recognized_player", 1), #recognized us
+    (faction_slot_eq, "$g_faction_selected", "slot_faction_state", sfs_active),
+    (faction_get_slot, ":leader_no", "$g_faction_selected", "slot_faction_leader"),
 
     (str_store_troop_name, s10, ":leader_no"),
     (str_store_faction_name, s11, "$g_faction_selected"),
@@ -7565,7 +7565,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (ge, "$player_honor", ":random"),
     (store_random_in_range,":random", 5, 30), #5 50 alliance
     (ge, "$player_right_to_rule", ":random"),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
   ],					
    "{s4} is willing to form a defensive pact with you.","dplmc_companion_defensive_confirm", [
@@ -7589,7 +7589,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone, "dplmc_companion_defensive_request_response", [
     (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, dplmc_npc_mission_defensive_request), 
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
     ],					
    "{s4} is not willing to conclude a defensive pact with you.","companion_rejoin_response", [
@@ -7603,7 +7603,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
     (assign, ":proceed", 0),
     (try_begin),
-      (store_add, ":slot_truce_days", "$g_faction_selected", slot_faction_truce_days_with_factions_begin),
+      (store_add, ":slot_truce_days", "$g_faction_selected", "slot_faction_truce_days_with_factions_begin"),
       (val_sub, ":slot_truce_days", kingdoms_begin),
       (faction_get_slot, ":truce_days", "fac_player_supporters_faction", ":slot_truce_days"), 
       (lt, ":truce_days", 10), #you need a non-aggression or peace for a trade pact
@@ -7611,9 +7611,9 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (try_end),
     (eq, ":proceed", 1),
 
-    (faction_slot_eq, "$g_faction_selected", slot_faction_recognized_player, 1), #recognized us
-    (faction_slot_eq, "$g_faction_selected", slot_faction_state, sfs_active),
-    (faction_get_slot, ":leader_no", "$g_faction_selected", slot_faction_leader),
+    (faction_slot_eq, "$g_faction_selected", "slot_faction_recognized_player", 1), #recognized us
+    (faction_slot_eq, "$g_faction_selected", "slot_faction_state", sfs_active),
+    (faction_get_slot, ":leader_no", "$g_faction_selected", "slot_faction_leader"),
 
     (str_store_troop_name, s10, ":leader_no"),
     (str_store_faction_name, s11, "$g_faction_selected"),
@@ -7656,7 +7656,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (ge, "$player_honor", ":random"),
     (store_random_in_range,":random", 5, 15), #5 50 alliance
     (ge, "$player_right_to_rule", ":random"),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
   ],					
    "{s4} is willing to sign a trade agreement with you.","dplmc_companion_trade_confirm", [
@@ -7680,7 +7680,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone, "dplmc_companion_trade_request_response", [
     (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, dplmc_npc_mission_trade_request), 
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
     ],					
    "{s4} is not willing to sign a trade agreement.","companion_rejoin_response", [
@@ -7692,8 +7692,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", "fac_player_supporters_faction", "$g_faction_selected"),
     (eq, reg0, 0),  #player is at peace
 
-    (faction_slot_eq, "$g_faction_selected", slot_faction_state, sfs_active),
-    (faction_get_slot, ":leader_no", "$g_faction_selected", slot_faction_leader),
+    (faction_slot_eq, "$g_faction_selected", "slot_faction_state", sfs_active),
+    (faction_get_slot, ":leader_no", "$g_faction_selected", "slot_faction_leader"),
 
     (str_store_troop_name, s10, ":leader_no"),
     (str_store_faction_name, s11, "$g_faction_selected"),
@@ -7736,7 +7736,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (ge, "$player_honor", ":random"),
     (store_random_in_range,":random", 5, 10), #5 50 alliance
     (ge, "$player_right_to_rule", ":random"),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
   ],					
    "{s4} is willing to conclude a non-aggression treaty with you.","dplmc_companion_nonaggression_confirm", [
@@ -7760,7 +7760,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone, "dplmc_companion_nonaggression_request_response", [
     (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, dplmc_npc_mission_nonaggression_request), 
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
     ],					
    "{s4} is not willing to conclude a non-aggression treaty with you.","companion_rejoin_response", [
@@ -7772,7 +7772,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (assign, ":proceed", 1),
     (try_begin),
       (eq, reg0, 2), #truce
-      (store_add, ":slot_truce_days", "$g_faction_selected", slot_faction_truce_days_with_factions_begin),
+      (store_add, ":slot_truce_days", "$g_faction_selected", "slot_faction_truce_days_with_factions_begin"),
       (val_sub, ":slot_truce_days", kingdoms_begin),
       (faction_get_slot, ":truce_days", "fac_player_supporters_faction", ":slot_truce_days"), 
       (gt, ":truce_days", 0), #you need at least a non-aggression pact
@@ -7790,9 +7790,9 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (ge, reg0, 0),  #player is at peace or truce with the mission_faction
     (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", "$g_faction_selected", ":faction_no"),
     (is_between, reg0, -1, 1),  #mission_faction provocated or peace with target_faction
-    (faction_slot_eq, "$g_faction_selected", slot_faction_recognized_player, 1), #recognized us
-    (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
-    (faction_get_slot, ":leader_no", ":faction_no", slot_faction_leader),
+    (faction_slot_eq, "$g_faction_selected", "slot_faction_recognized_player", 1), #recognized us
+    (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
+    (faction_get_slot, ":leader_no", ":faction_no", "slot_faction_leader"),
     (str_store_troop_name, s10, ":leader_no"),
     (str_store_faction_name, s11, ":faction_no"),
     (str_clear, s14),
@@ -7863,7 +7863,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    (lt, ":player_faction_relation_with_war_target", 0),
 ##diplomacy end+
     (str_store_faction_name, s31, ":war_target_faction"),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
   ],					
    "{s4} is willing to start a war with {s31}.","companion_rejoin_response", [
@@ -7887,7 +7887,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (ge, reg0, 0),  #player is at peace or truce with the mission_faction
     (troop_get_slot, ":war_target_faction", "$g_talk_troop", slot_troop_mission_diplomacy),
     (str_store_faction_name, s31, ":war_target_faction"),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),
 ##diplomacy start+
 #Set the payment amount to something less arbitrary than a flat 5000.
@@ -7990,7 +7990,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
     (troop_get_slot, ":war_target_faction", "$g_talk_troop", slot_troop_mission_diplomacy),
     (str_store_faction_name, s31, ":war_target_faction"),
-    (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+    (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
     (str_store_troop_name, s4, ":emissary_object"),                   
   ],					
    "{s4} is not willing to start a war with {s31}.","companion_rejoin_response", [
@@ -8006,7 +8006,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 (assign, "$temp", reg0),
 (assign, "$temp_2", reg1),
 ##diplomacy end+
-		(faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader), 
+		(faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 		(str_store_troop_name, s12, ":emissary_object"),		   				                     
 		(is_between, "$g_mission_result", -2, 1), #-2 or -1 or 0
 ##diplomacy start+
@@ -8021,7 +8021,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [anyone, "companion_embassy_results", [
 (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_peace_request),
 (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-(faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+(faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 (str_store_troop_name, s12, ":emissary_object"),
 (is_between, "$g_mission_result", -2, 1), #-2 or -1 or 0
 ##diplomacy start+
@@ -8043,7 +8043,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [anyone, "companion_embassy_results", [
 (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_peace_request),
 (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-(faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+(faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 (str_store_troop_name, s12, ":emissary_object"),
 (is_between, "$g_mission_result", -2, 1), #-2 or -1 or 0,
 (le, "$temp", 0),
@@ -8057,7 +8057,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [anyone, "companion_embassy_results", [
 (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_peace_request),
 (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-(faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+(faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 (str_store_troop_name, s12, ":emissary_object"),
 (is_between, "$g_mission_result", -2, 1), #-2 or -1 or 0,
 (le, "$temp", 0),
@@ -8074,7 +8074,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [anyone, "companion_embassy_results", [
 (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_peace_request),
 (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-(faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+(faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 (str_store_troop_name, s12, ":emissary_object"),
 (is_between, "$g_mission_result", -2, 1), #-2 or -1 or 0
 ##diplomacy start+
@@ -8092,7 +8092,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 #[anyone, "companion_embassy_results", [
 #  (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_peace_request),#
 #		(troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-#		(faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+#		(faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 #		(str_store_troop_name, s12, ":emissary_object"),
 #		(is_between, "$g_mission_result", -2, 1), #-2 or -1 or 0
 #  (call_script, "script_dplmc_get_truce_pay_amount", "fac_player_supporters_faction", ":mission_object", "$g_mission_result"),
@@ -8314,10 +8314,10 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [anyone, "companion_embassy_results", [
 	(troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_seek_recognition),
 	(troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-	(faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+	(faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 	#Would have recognized
 	(this_or_next|ge, "$g_mission_result", 2),
-		(faction_slot_eq, ":mission_object", slot_faction_recognized_player, 1),
+		(faction_slot_eq, ":mission_object", "slot_faction_recognized_player", 1),
 	#Except there is no court
 	(neg|is_between, "$g_player_court", centers_begin, centers_end),
 	(str_store_troop_name, s12, ":emissary_object"),
@@ -8333,11 +8333,11 @@ but before burial, you must allow the crows to descend on their breasts and rele
          (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
 
          (this_or_next|ge, "$g_mission_result", 2),
-            (faction_slot_eq, ":mission_object", slot_faction_recognized_player, 1),
+            (faction_slot_eq, ":mission_object", "slot_faction_recognized_player", 1),
 
          (is_between, "$g_player_court", centers_begin, centers_end),
 
-         (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+         (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
          (str_store_troop_name, s12, ":emissary_object"),
          (neg|party_slot_eq, "$g_player_court", "slot_center_original_faction", ":mission_object"),
          (str_store_party_name, s4, "$g_player_court"),
@@ -8345,8 +8345,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
 "In this letter, {s12} addresses you as Lord, which implies some sort of recognition that you are a sovereign and independent monarch.","companion_rejoin_response", [
             (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
          (try_begin),
-            (faction_slot_eq, ":mission_object", slot_faction_recognized_player, 0),
-            (faction_set_slot, ":mission_object", slot_faction_recognized_player, 1),
+            (faction_slot_eq, ":mission_object", "slot_faction_recognized_player", 0),
+            (faction_set_slot, ":mission_object", "slot_faction_recognized_player", 1),
             (call_script, "script_change_player_right_to_rule", 10),
          (try_end),
          ]],
@@ -8355,7 +8355,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [anyone, "companion_embassy_results", [
               (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_seek_recognition),
          (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-         (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+         (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
          (str_store_troop_name, s12, ":emissary_object"),
 ],
 "In this letter, {s12} merely refers to you as {playername}, omitting any title. This does not constitute recognition of your right to rule.","companion_rejoin_response", [
@@ -8365,8 +8365,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [anyone, "companion_embassy_results", [
               (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_peace_request),
          (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-         (faction_slot_ge, ":mission_object", slot_faction_truce_days_with_factions_begin, 1),
-         (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+         (faction_slot_ge, ":mission_object", "slot_faction_truce_days_with_factions_begin", 1),
+         (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
          (str_store_troop_name, s12, ":emissary_object"),
 
 ],
@@ -8378,7 +8378,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
                     (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_peace_request), 
 					(ge, "$g_mission_result", 1),
 				   (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-				   (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+				   (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 				   (str_store_troop_name, s12, ":emissary_object"),
 					
   ],					
@@ -8390,7 +8390,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone, "companion_embassy_results", [
                    (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_peace_request), 
 				   (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-				   (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+				   (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 				   (str_store_troop_name, s12, ":emissary_object"),
 					
   ],					
@@ -8419,7 +8419,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 					(this_or_next|check_quest_active, "qst_join_faction"),
 						(is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
 				   (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-				   (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+				   (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 				   (str_store_troop_name, s12, ":emissary_object"),
 						
   ],					
@@ -8431,7 +8431,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 #					(troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
 					(lt, "$g_mission_result", -2),
 				   (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-				   (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+				   (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 				   (str_store_troop_name, s12, ":emissary_object"),
 					
   ],					
@@ -8441,7 +8441,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone, "companion_embassy_results", [
                     (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, npc_mission_pledge_vassal),
 				   (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-				   (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
+				   (faction_get_slot, ":emissary_object", ":mission_object", "slot_faction_leader"),
 				   (str_store_troop_name, s12, ":emissary_object"),
 					
   ],					
@@ -8453,7 +8453,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "Tell him that I accept his terms...", "companion_rejoin_response", [
    
 		(troop_get_slot, "$g_invite_faction", "$g_talk_troop", slot_troop_mission_object),
-		(faction_get_slot, "$g_invite_faction_lord", "$g_invite_faction", slot_faction_leader),
+		(faction_get_slot, "$g_invite_faction_lord", "$g_invite_faction", "slot_faction_leader"),
 
 		(str_store_troop_name,s1,"$g_invite_faction_lord"),
         (setup_quest_text,"qst_join_faction"),
@@ -8496,7 +8496,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   
   (check_quest_active, "qst_wed_betrothed_female"),
   (quest_slot_eq, "qst_wed_betrothed_female", slot_quest_giver_troop, "$g_talk_troop"),
-  (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
+  (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
   
   (store_current_hours, ":hours_since_betrothal"),
   (troop_get_slot, ":betrothal_time", "$g_talk_troop", slot_troop_betrothal_time),
@@ -8504,8 +8504,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
   (lt, ":hours_since_betrothal", 720), #30 days
   (str_clear, s12),
   (try_begin),
-	(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-	(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_default),
+	(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+	(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_default),
     (str_store_string, s12, "@ We will of course need to wait until the realm is no longer on campaign."),
   (try_end),
   ],
@@ -8518,8 +8518,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
   
   (check_quest_active, "qst_wed_betrothed_female"),
   (quest_slot_eq, "qst_wed_betrothed_female", slot_quest_giver_troop, "$g_talk_troop"),
-  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-  (faction_get_slot, ":feast_venue", "$g_talk_troop_faction", slot_faction_ai_object),
+  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+  (faction_get_slot, ":feast_venue", "$g_talk_troop_faction", "slot_faction_ai_object"),
   (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_holding_center),
   (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_object", ":feast_venue"),
   
@@ -8573,8 +8573,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
   (lt, "$talk_context", tc_siege_commander),
   (check_quest_active, "qst_wed_betrothed_female"),
   (quest_slot_eq, "qst_wed_betrothed_female", slot_quest_giver_troop, "$g_talk_troop"),
-  (this_or_next|neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-  (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
+  (this_or_next|neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+  (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", "$g_encountered_party"),
   ],
    "My lady, I have grown tired of waiting. Let us proceed with the vows immediately.", "lord_groom_vows", [
    ]],
@@ -8895,7 +8895,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 		#their faction is at less than 80% strength.
 		(this_or_next|is_between, "$g_talk_troop", kings_begin, kings_end),
 		(this_or_next|is_between, "$g_talk_troop", pretenders_begin, pretenders_end),
-			(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+			(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 		(store_mul, reg0, ":forts_held", 5),
 		(val_div, reg0, 4),
 		(this_or_next|lt, reg0, ":starting_forts"),
@@ -9269,7 +9269,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    (assign, "$g_leave_encounter", 1), #Not sure why this is necessary
    ]],
 
-##  [anyone|plyr,"freed_lord_answer", [(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"), #he is not a faction leader!
+##  [anyone|plyr,"freed_lord_answer", [(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"), #he is not a faction leader!
 ##                                     (call_script, "script_get_number_of_hero_centers", "$g_talk_troop"),
 ##                                     (eq, reg0, 0), #he has no castles or towns
 ##                                     (hero_can_join)],
@@ -9512,7 +9512,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
   [anyone|plyr,"party_encounter_lord_hostile_attacker_2", [
 	(is_between, "$g_talk_troop", active_npcs_begin, active_npcs_end),
-	(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+	(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
                     ],
    "Stay your hand! There is something I must tell you in private.", "lord_recruit_1_relation", []],
 
@@ -9639,7 +9639,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	(troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_inactive),
 	(neq, "$g_talk_troop", "$g_player_minister"),
 	(troop_get_slot, ":original_faction", "$g_talk_troop", slot_troop_original_faction),
-	(faction_get_slot, ":original_faction_leader", ":original_faction", slot_faction_leader), 
+	(faction_get_slot, ":original_faction_leader", ":original_faction", "slot_faction_leader"),
 	(str_store_troop_name, s10, ":original_faction_leader"),
 	(str_store_string, s9, "str_lord_indicted_dialog_approach"),
 	], 
@@ -9719,7 +9719,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	 (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
      (assign, "$pretender_told_story", 0),
      (eq, "$g_talk_troop_met", 0),
-     (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+     (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
      ],
    "Do I know you?.", "pretender_intro_1", []],
   [anyone|plyr ,"pretender_intro_1", [], "My name is {playername}. At your service.", "pretender_intro_2", []],
@@ -9733,7 +9733,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
   [anyone|plyr ,"pretender_intro_3", [(troop_get_slot, ":original_faction", "$g_talk_troop", slot_troop_original_faction),
                                       (str_store_faction_name, s12, ":original_faction"),
-                                      (faction_get_slot, ":original_ruler", ":original_faction", slot_faction_leader),
+                                      (faction_get_slot, ":original_ruler", ":original_faction", "slot_faction_leader"),
                                       (str_store_troop_name, s11, ":original_ruler"),],
    "I thought {s12} was ruled by {s11}?", "pretender_rebellion_cause_1", [
    (troop_set_slot, "$g_talk_troop", slot_troop_discussed_rebellion, 1)
@@ -9742,7 +9742,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone ,"start",
    [
      (is_between, "$g_talk_troop", pretenders_begin, pretenders_end),
-     (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+     (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 	 (neg|troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
      ],
    "Greetings, {playername}", "pretender_start", [(assign, "$pretender_told_story", 0)]],
@@ -9798,7 +9798,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	 
 	 
   [anyone ,"pretender_discuss_rebellion_1", [(troop_get_slot, ":original_faction", "$g_talk_troop", slot_troop_original_faction),
-                                             (faction_get_slot, ":original_ruler", ":original_faction", slot_faction_leader),
+                                             (faction_get_slot, ":original_ruler", ":original_faction", "slot_faction_leader"),
                                              (str_store_troop_name, s11, ":original_ruler")],
    "Are you sure you will be up to the task, {playername}? Reclaiming my throne will be no simple matter.\
  The lords of our realm have all sworn oaths of homage to {s11}.\
@@ -9806,7 +9806,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
   [anyone ,"pretender_discuss_rebellion_2a",[
 											(troop_get_slot, ":original_faction", "$g_talk_troop", slot_troop_original_faction),
-                                            (faction_get_slot, ":original_ruler", ":original_faction", slot_faction_leader),
+                                            (faction_get_slot, ":original_ruler", ":original_faction", "slot_faction_leader"),
 											(str_store_troop_name, s12, ":original_ruler"),
                                             (call_script, "script_evaluate_realm_stability", ":original_faction"),
 											(assign, ":instability_index", reg0),
@@ -9834,11 +9834,11 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone|plyr ,"pretender_discuss_rebellion_2", [],  "You are right. Perhaps, I should think about this some more.", "pretender_end", []],
 
   
-  [anyone ,"pretender_discuss_rebellion_3", [(this_or_next|neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-											 (neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+  [anyone ,"pretender_discuss_rebellion_3", [(this_or_next|neg|faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
+											 (neg|faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
 											 (neg|troop_slot_ge, "trp_player",slot_troop_renown, 200),
                                              (troop_get_slot, ":original_faction", "$g_talk_troop", slot_troop_original_faction),
-                                             (faction_get_slot, ":original_ruler", ":original_faction", slot_faction_leader),
+                                             (faction_get_slot, ":original_ruler", ":original_faction", "slot_faction_leader"),
                                              (str_store_troop_name, s11, ":original_ruler")],
    "I have no doubt that your support for my cause is heartfelt, {playername}, and I am grateful to you for it.\
  But I don't think we have much of a chance of success.\
@@ -9846,16 +9846,16 @@ but before burial, you must allow the crows to descend on their breasts and rele
  and our enemies would be wary to take up arms against us. When that time comes, I will come with you gladly.\
  But until that time, it will be wiser not to openly challenge the usurper, {s11}.", "close_window", []],
 
-  [anyone ,"pretender_discuss_rebellion_3", [(this_or_next|neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-											 (neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+  [anyone ,"pretender_discuss_rebellion_3", [(this_or_next|neg|faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
+											 (neg|faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
 											 (gt, "$supported_pretender", 0),
                                              (str_store_troop_name, s17, "$supported_pretender")],
    "Haven't you already taken up the cause of {s17}?\
  You must have a very strong sense of justice, indeed.\
  But no, thank you. I will not be part of your game.", "close_window", []],
 
-  [anyone ,"pretender_discuss_rebellion_3", [(this_or_next|neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-											 (neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+  [anyone ,"pretender_discuss_rebellion_3", [(this_or_next|neg|faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
+											 (neg|faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
 											 (gt, "$players_kingdom", 0),
                                              (neq, "$players_kingdom", "fac_player_supporters_faction"),
                                              (neq, "$players_kingdom", "fac_player_faction"),
@@ -9864,7 +9864,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
                                              (eq, "$player_has_homage", 1),
 												
                                              (str_store_faction_name, s16, "$players_kingdom"),
-                                             (faction_get_slot, ":player_ruler", "$players_kingdom", slot_faction_leader),
+                                             (faction_get_slot, ":player_ruler", "$players_kingdom", "slot_faction_leader"),
                                              (str_store_troop_name, s15, ":player_ruler"),
                                              (str_store_faction_name, s17, ":original_faction"),
                                              ],
@@ -9873,14 +9873,14 @@ but before burial, you must allow the crows to descend on their breasts and rele
  No, if I am to have the throne of {s17}, I must do it due to the righteousness of my cause and the support of my subjects alone.\
  If you want to help me, you must first free yourself of your oath to {s15}.", "close_window", []],
  
-  [anyone ,"pretender_discuss_rebellion_3", [(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-											 (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player")],
+  [anyone ,"pretender_discuss_rebellion_3", [(faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
+											 (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player")],
    "You are a monarch in your own right, {sir/my lady}. If you were to back me, I would be merely your puppet.", "close_window", []],
  
 
   [anyone ,"pretender_discuss_rebellion_3", [(troop_get_slot, ":original_faction", "$g_talk_troop", slot_troop_original_faction),
                                              (str_store_faction_name, s12, ":original_faction"),
-                                             (faction_get_slot, ":original_ruler", ":original_faction", slot_faction_leader),
+                                             (faction_get_slot, ":original_ruler", ":original_faction", "slot_faction_leader"),
                                              (str_store_troop_name, s11, ":original_ruler")],
    "You are a capable warrior, {playername}, and I am sure with your renown as a commander, and my righteous cause, the nobles and the good people of {s12} will flock to our support.\
  The time is ripe for us to act! I will come with you, and together, we will topple the usurper {s11} and take the throne from his bloodied hands.\
@@ -9907,8 +9907,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "Forward, then! Our first task is to take hold of a fortress and persuade other lords to join us. You lead the way!", "close_window", [
 
             (call_script, "script_change_player_relation_with_troop", "$g_talk_troop", 60), #should be higher chief cambiado
-            (faction_set_slot, "$g_talk_troop_faction", slot_faction_state, sfs_active),
-##            (faction_set_slot, "$g_talk_troop_faction", slot_faction_ai_state, sfai_nascent_rebellion),
+            (faction_set_slot, "$g_talk_troop_faction", "slot_faction_state", sfs_active),
+##            (faction_set_slot, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_nascent_rebellion),
 
             (party_force_add_members, "p_main_party", "$supported_pretender", 1),
             (troop_set_slot, "$supported_pretender", slot_troop_cur_center, 0),
@@ -9916,8 +9916,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
             (str_store_troop_name_link, s6, "$supported_pretender"),
             (display_message, "@{s6} has joined your party."),
             
-#            (faction_get_slot, ":location", "$g_talk_troop_faction", slot_faction_inactive_leader_location),
-#            (faction_set_slot, "$g_talk_troop_faction", slot_faction_inactive_leader_location, 0),
+#            (faction_get_slot, ":location", "$g_talk_troop_faction", "slot_faction_inactive_leader_location"),
+#            (faction_set_slot, "$g_talk_troop_faction", "slot_faction_inactive_leader_location", 0),
 
 #            (call_script, "script_create_kingdom_hero_party", "$g_talk_troop", ":location"),
 #            (party_set_slot, "$pout_party", "slot_party_commander_party", "p_main_party"),
@@ -9936,7 +9936,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
             (store_relation, ":reln", "$supported_pretender_old_faction", "fac_player_supporters_faction"),
             (val_min, ":reln", -50),
             (call_script, "script_set_player_relation_with_faction", "$supported_pretender_old_faction", ":reln"),
-			(faction_get_slot, ":adjective_string", "$supported_pretender_old_faction", slot_faction_adjective),
+			(faction_get_slot, ":adjective_string", "$supported_pretender_old_faction", "slot_faction_adjective"),
             (str_store_string, s1, ":adjective_string"),
 			
             (faction_set_name, "fac_player_supporters_faction", "@{s1} Rebels"),
@@ -10035,7 +10035,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	##Suppress this message sometimes when your companion is your vassal
 	(assign, ":stop", 0),
 	(try_begin),
-		(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"),
+		(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "trp_player"),
 		(store_random_in_range, ":rand", 0, 100),
 		(this_or_next|ge, ":rand", "$g_talk_troop_relation"),
 			(ge, ":rand", 95),#at least 1-in-20 chance of standard message
@@ -10046,7 +10046,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 "It is good to see you, old friend.", "lord_start",
 []],
 
-  [anyone ,"start", [(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"),
+  [anyone ,"start", [(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "trp_player"),
 					 (troop_slot_eq,"$g_talk_troop",slot_troop_occupation, slto_kingdom_hero),
                      (le,"$talk_context",tc_siege_commander),
                      ],
@@ -10205,7 +10205,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone|plyr ,"lord_meet_neutral", [],  "My name is {playername}. At your service sir.", "lord_intro", []],
 
   [anyone ,"lord_intro", [],
-   "{s11}", "lord_start", [(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", slot_faction_leader),
+   "{s11}", "lord_start", [(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", "slot_faction_leader"),
                           (str_store_faction_name, s6, "$g_talk_troop_faction"),
                           (assign, reg4, 0),
                           (str_store_troop_name, s4, "$g_talk_troop"),
@@ -10413,8 +10413,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
 						  (quest_slot_eq, "qst_wed_betrothed", slot_quest_giver_troop, "$g_talk_troop"),
 						  (quest_get_slot, ":bride", "qst_wed_betrothed", slot_quest_target_troop),
 						  (troop_slot_eq, ":bride", slot_troop_cur_center, "$g_encountered_party"),
-						  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-						  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
+						  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+						  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", "$g_encountered_party"),
 						  						  
 						  (call_script, "script_troop_get_family_relation_to_troop", ":bride", "$g_talk_troop"),
 						  (str_store_troop_name, s4, ":bride"),
@@ -10432,8 +10432,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
 						  (eq, "$g_done_wedding_comment", 0),
 						  (str_clear, s12),
 						  (try_begin),
-							(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-							(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_default),
+							(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+							(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_default),
 						    (str_store_string, s12, "@ We will of course need to wait until the realm is no longer on campaign."),
 						  (try_end),
 						  
@@ -11752,7 +11752,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone, "lord_start",
    [
      (check_quest_active, "qst_follow_army"),
-     (faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "$g_talk_troop"),
+     (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "$g_talk_troop"),
      (eq, "$g_random_army_quest", "qst_deliver_cattle_to_army"),
      (quest_get_slot, ":quest_target_amount", "$g_random_army_quest", slot_quest_target_amount),
      (assign, reg3, ":quest_target_amount"),
@@ -11847,7 +11847,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone, "lord_start",
    [
      (check_quest_active, "qst_follow_army"),
-     (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "$g_talk_troop"),
+     (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "$g_talk_troop"),
      (eq, "$g_random_army_quest", "qst_scout_waypoints"),
      (str_store_party_name, s13, "$qst_scout_waypoints_wp_1"),
      (str_store_party_name, s14, "$qst_scout_waypoints_wp_2"),
@@ -11955,7 +11955,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 #Claim center begin
 ##  [anyone,"lord_start", [(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
 ##                         (eq,"$g_talk_troop_faction","$players_kingdom"),
-##                         (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+##                         (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 ##                         (call_script, "script_get_number_of_unclaimed_centers_by_player"),
 ##                         (gt, reg1, 0),
 ##                         (assign, "$center_to_be_claimed", reg1),
@@ -11973,7 +11973,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 ##                         (str_store_party_name, s4, "$center_wanted_to_be_bought"),
 ##                         (call_script, "script_get_number_of_hero_centers", "$g_talk_troop"),
 ##                         (assign, ":no_of_owned_centers", reg0),
-##                         (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+##                         (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 ##                         (lt, ":no_of_owned_centers", 2),
 ##                         (troop_get_slot, ":wealth", "$g_talk_troop", slot_troop_wealth),
 ##                         (ge, ":wealth", 6000)],
@@ -12018,8 +12018,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 ##    (call_script, "script_party_copy", ":new_party", "$center_wanted_to_be_bought"),
 ##    (party_clear, "$center_wanted_to_be_bought"),
 ##
-##    (faction_get_slot, ":reinforcement_template_archers", "$g_talk_troop_faction", slot_faction_reinforcements_archers),
-##    (faction_get_slot, ":reinforcement_template_infantry", "$g_talk_troop_faction", slot_faction_reinforcements_infantry),
+##    (faction_get_slot, ":reinforcement_template_archers", "$g_talk_troop_faction", "slot_faction_reinforcements_archers"),
+##    (faction_get_slot, ":reinforcement_template_infantry", "$g_talk_troop_faction", "slot_faction_reinforcements_infantry"),
 ##    (party_add_template, "$center_wanted_to_be_bought", ":reinforcement_template_archers"),
 ##    (party_add_template, "$center_wanted_to_be_bought", ":reinforcement_template_infantry"),
 ##    ]],
@@ -12175,8 +12175,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 
    
    [anyone,"lord_start", [
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", "$g_encountered_party"),
 	
 	(check_quest_active, "qst_organize_feast"),
 	(quest_slot_eq, "qst_organize_feast", slot_quest_target_center, "$g_encountered_party"),
@@ -12216,9 +12216,9 @@ Wes gesund.", "Cundwalh_historia5", []],
    
 
    [anyone,"lord_start", [
-   (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"),
-   (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-   (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
+   (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "trp_player"),
+   (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+   (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", "$g_encountered_party"),
    
    ],
    "To your health, {sire/your Highness}. Long may you reign. What is your bidding?", "lord_talk",[
@@ -12235,13 +12235,13 @@ Wes gesund.", "Cundwalh_historia5", []],
    
    
    [anyone,"lord_start", [
-   (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"),
+   (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "trp_player"),
    ],
    "What is your bidding?", "lord_talk",[]],
 
    [anyone,"lord_start", [
-   (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-   (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
+   (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+   (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", "$g_encountered_party"),
    (ge, "$g_encountered_party_relation", 0),   
    (party_slot_eq, "$g_encountered_party", "slot_town_lord", "$g_talk_troop"),
    (neq, "$talk_context", tc_castle_gate),
@@ -12262,8 +12262,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 
    [anyone,"lord_start", [
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", "$g_encountered_party"),
 	(ge, "$g_encountered_party_relation", 0),
 	(party_get_slot, ":town_lord", "$g_encountered_party", "slot_town_lord"),
 	(str_store_troop_name, s4, ":town_lord"),
@@ -12338,7 +12338,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	
     (quest_get_slot, ":target_troop", "qst_intrigue_against_lord", slot_quest_target_troop), #was qst_offer_gift
 	(store_faction_of_troop, ":target_troop_faction", ":target_troop"),
-	(faction_slot_eq, ":target_troop_faction", slot_faction_leader, "$g_talk_troop"), 
+	(faction_slot_eq, ":target_troop_faction", "slot_faction_leader", "$g_talk_troop"),
     ],
    "My lord -- there is something I wish to tell you in confidence, about one of your vassals.", "intrigue_quest_state_complaint",[
    ]],
@@ -12626,7 +12626,7 @@ Wes gesund.", "Cundwalh_historia5", []],
                             (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
 							(encountered_party_is_attacker),
 							(neg|is_between, "$g_talk_troop", pretenders_begin, pretenders_end),
-							(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+							(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 							
                             ],
    "Stay your hand! There is something I must say to you in private.", "lord_recruit_1_relation",
@@ -12646,14 +12646,14 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone|plyr,"lord_talk",[#(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
                             (eq, "$g_talk_troop_faction", "$players_kingdom"),
-							(faction_slot_eq, "$players_kingdom", slot_faction_political_issue, 1),
+							(faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", 1),
                             ],
    "Who do you think should be made the marshal of our realm?", "lord_internal_politics_cur_stance",
    []],
 
   [anyone|plyr,"lord_talk",[#(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
                             (eq, "$g_talk_troop_faction", "$players_kingdom"),
-							(faction_get_slot, ":political_issue", "$players_kingdom", slot_faction_political_issue),
+							(faction_get_slot, ":political_issue", "$players_kingdom", "slot_faction_political_issue"),
 							(is_between, ":political_issue", centers_begin, centers_end),
 							(str_store_party_name, s4, ":political_issue"),
                             ],
@@ -12665,9 +12665,9 @@ Wes gesund.", "Cundwalh_historia5", []],
 							(troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
 							(is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
 							(neq, "$g_talk_troop_faction", "$players_kingdom"),
-							(faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-#							(faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
-							(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", slot_faction_leader),
+							(faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
+#							(faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
+							(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", "slot_faction_leader"),
 							(str_store_troop_name, s4, ":faction_leader"),
 							(str_store_faction_name, s5, "$players_kingdom"),
                             ],
@@ -12701,16 +12701,16 @@ Wes gesund.", "Cundwalh_historia5", []],
         (try_end),  
         
         (call_script, "script_add_log_entry", logent_border_incident_troop_suborns_lord, "trp_player", -1, "$g_talk_troop","$g_talk_troop_faction"),
-        (store_add, ":slot_provocation_days", "$players_kingdom", slot_faction_provocation_days_with_factions_begin),
+        (store_add, ":slot_provocation_days", "$players_kingdom", "slot_faction_provocation_days_with_factions_begin"),
         (val_sub, ":slot_provocation_days", kingdoms_begin),
         (faction_set_slot, "$g_talk_troop_faction", ":slot_provocation_days", 60), #chief cambiado
         
-        (faction_get_slot, ":other_liege", "$g_talk_troop_faction", slot_faction_leader),
+        (faction_get_slot, ":other_liege", "$g_talk_troop_faction", "slot_faction_leader"),
         (call_script, "script_troop_change_relation_with_troop", "trp_player", ":other_liege", -13), #chief cambiado
     (try_end),
     
 	(try_begin),
-		(faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+		(faction_slot_eq, "$players_kingdom", "slot_faction_leader", "trp_player"),
 		(call_script, "script_change_player_right_to_rule", 5),
     (try_end),
    ]],
@@ -12729,7 +12729,7 @@ Wes gesund.", "Cundwalh_historia5", []],
                             (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
 							(neg|encountered_party_is_attacker),
 							(neg|is_between, "$g_talk_troop", pretenders_begin, pretenders_end),
-							(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+							(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
                             (neg|troop_slot_eq, "trp_player", slot_troop_spouse, "$g_talk_troop"),
 							(neq, "$g_talk_troop_faction", "fac_player_supporters_faction"),
 							#other requirements							
@@ -12950,7 +12950,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	(call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_other_lord", -20), 
 	(call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", 10), 
 	(try_begin),
-		(faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+		(faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
 		(call_script, "script_add_log_entry", logent_ruler_intervenes_in_quarrel, "trp_player",  "$g_other_lord", "$g_talk_troop", "fac_player_supporters_faction"), 
 	(try_end),
 	(call_script, "script_end_quest", "qst_resolve_dispute"),
@@ -12958,13 +12958,13 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]],
    
   [anyone|plyr,"lord_quarrel_intervention_2",[
-	(faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+	(faction_slot_eq, "$players_kingdom", "slot_faction_leader", "trp_player"),
   ], 
    "Whatever your differences, I want you to settle them.", "lord_quarrel_intervention_3b",
    []],
 
   [anyone|plyr,"lord_quarrel_intervention_2",[
-	(neg|faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+	(neg|faction_slot_eq, "$players_kingdom", "slot_faction_leader", "trp_player"),
   ], 
    "Could you not be convinced to settle your differences?", "lord_quarrel_intervention_3b",
    []],
@@ -13263,7 +13263,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_internal_politics_plyr_request_support", [
   (troop_slot_ge, "trp_player", slot_troop_controversy, 25),
-  (this_or_next|faction_slot_eq, "$players_kingdom", slot_faction_political_issue, 1),
+  (this_or_next|faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", 1),
 	(troop_slot_ge, "trp_player", slot_troop_controversy, 50),
    ],
    "You have engendered too much controversy to be a viable candidate right now. I would advise you to wait a little while before seeking any further honors for yourself.", "lord_pretalk",
@@ -13287,7 +13287,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]], 
 
   [anyone,"lord_internal_politics_plyr_request_support", [
-    (faction_get_slot, ":faction_issue", "$players_kingdom", slot_faction_political_issue),
+    (faction_get_slot, ":faction_issue", "$players_kingdom", "slot_faction_political_issue"),
     (is_between, ":faction_issue", centers_begin, centers_end),
     (troop_get_slot, ":player_renown", "trp_player", slot_troop_renown),
 	(assign, ":total_faction_renown", ":player_renown"),
@@ -13333,7 +13333,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]], 
    
   [anyone,"lord_internal_politics_plyr_request_support", [
-    (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, 1),
+    (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", 1),
     (troop_get_slot, ":player_renown", "trp_player", slot_troop_renown),
 	(lt, ":player_renown", 400),
    ],
@@ -13574,14 +13574,14 @@ Wes gesund.", "Cundwalh_historia5", []],
        (this_or_next|eq, ":type", 4), #male
        (eq, ":type", 6), #male
 #gender fix chief acaba
-  (faction_get_slot, ":faction_leader", "$g_encountered_party_faction", slot_faction_leader),
+  (faction_get_slot, ":faction_leader", "$g_encountered_party_faction", "slot_faction_leader"),
   (str_store_troop_name, s11, ":faction_leader"),
   ],
    "My husband, I believe that you should rethink you allegiance to {s11}", "lord_spouse_leave_faction",[
    ]],
    
   [anyone,"lord_spouse_leave_faction", [
-  (faction_get_slot, ":faction_liege", "$g_talk_troop_faction", slot_faction_leader),
+  (faction_get_slot, ":faction_liege", "$g_talk_troop_faction", "slot_faction_leader"),
   (call_script, "script_troop_get_relation_with_troop", "$g_talk_troop", ":faction_liege"),
   (gt, reg0, 25),
   (str_store_troop_name, s9, ":faction_liege"),
@@ -13589,7 +13589,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    "{s9} has always been a good liege to me, but I will hear you out. What do you suggest we do?", "lord_spouse_leave_faction_2",[]],
 
   [anyone,"lord_spouse_leave_faction", [
-  (faction_get_slot, ":faction_liege", "$g_talk_troop_faction", slot_faction_leader),
+  (faction_get_slot, ":faction_liege", "$g_talk_troop_faction", "slot_faction_leader"),
   (call_script, "script_troop_get_relation_with_troop", "$g_talk_troop", ":faction_liege"),
   (gt, reg0, -5),
   (str_store_troop_name, s9, ":faction_liege"),
@@ -13597,7 +13597,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    "I see no particular reason to abandon {s9}, but I will heed your advice. What do you suggest we do?", "lord_spouse_leave_faction_2",[]],
    
   [anyone,"lord_spouse_leave_faction", [
-  (faction_get_slot, ":faction_liege", "$g_talk_troop_faction", slot_faction_leader),
+  (faction_get_slot, ":faction_liege", "$g_talk_troop_faction", "slot_faction_leader"),
   (call_script, "script_troop_get_relation_with_troop", "$g_talk_troop", ":faction_liege"),
   (str_store_troop_name, s9, ":faction_liege"),
   ],
@@ -13690,7 +13690,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    "Perhaps, but I would need your full support to press that claim. You would want to resolve {s4}'s rebellion before pushing this any further.", "lord_pretalk",[]],
 
   [anyone,"lord_spouse_leave_faction_husband_king", [
-  (faction_get_slot, ":talk_troop_liege", "$g_talk_troop_faction", slot_faction_leader),
+  (faction_get_slot, ":talk_troop_liege", "$g_talk_troop_faction", "slot_faction_leader"),
   (str_store_troop_name, s4, ":talk_troop_liege"),
   ],
    "Most of the great families of this land have a claim to the throne... Given the recent issues with the succession, I should be as legitimate a king as {s4}. ", "lord_spouse_leave_faction_husband_king_2",[]],
@@ -13720,7 +13720,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     
   [anyone|plyr,"lord_recruit_2", [
   (troop_slot_eq, "$g_talk_troop", slot_troop_recruitment_random, 0), 
-  (faction_get_slot, ":leader", "$g_talk_troop_faction", slot_faction_leader),
+  (faction_get_slot, ":leader", "$g_talk_troop_faction", "slot_faction_leader"),
   (neq, "$g_talk_troop", ":leader"),
   (neq, "trp_player", ":leader"),
   (str_store_troop_name, s15, ":leader"),
@@ -13741,7 +13741,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	(is_between, ":troop_no", active_npcs_begin, active_npcs_end),
 	(store_faction_of_troop, ":faction", ":troop_no"),
 	(eq, ":faction", "$g_talk_troop_faction"),
-	(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, ":troop_no"), #yields wrong string
+	(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", ":troop_no"), #yields wrong string
 	(call_script, "script_troop_get_relation_with_troop", "$g_talk_troop", ":troop_no"),
 	(lt, reg0, -9),
 	(str_store_troop_name, s16, ":troop_no"),
@@ -13815,7 +13815,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    "Never mind", "lord_pretalk",[]],
    
   [anyone,"lord_recruit_2_discontent", [       
-    (faction_get_slot, ":leader", "$g_talk_troop_faction", slot_faction_leader),
+    (faction_get_slot, ":leader", "$g_talk_troop_faction", "slot_faction_leader"),
 	
     (call_script, "script_calculate_troop_political_factors_for_liege", "$g_talk_troop", ":leader"),
     (assign, ":result_for_political", reg3),    
@@ -13948,7 +13948,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    
   [anyone, "lord_recruit_hesitant_persuade", 
   [  
-    (faction_get_slot, ":leader", "$g_talk_troop_faction", slot_faction_leader),   
+    (faction_get_slot, ":leader", "$g_talk_troop_faction", "slot_faction_leader"),
     (call_script, "script_calculate_troop_political_factors_for_liege", "$g_talk_troop", ":leader"),
     (assign, ":result_for_political", reg3),
     (store_sub, ":open_up_desire", 12, ":result_for_political"),
@@ -14054,7 +14054,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    
    
    [anyone|plyr, "lord_recruit_3_b", [ 	
-    (faction_get_slot, ":players_liege", "$players_kingdom", slot_faction_leader),
+    (faction_get_slot, ":players_liege", "$players_kingdom", "slot_faction_leader"),
 	(eq, ":players_liege", "trp_player"),	
    ],
    "I ask for your support for the throne of Britannia and Hibernia", "lord_recruit_3_why",
@@ -14074,7 +14074,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 
    [anyone|plyr, "lord_recruit_3_b", [ 	
-    (faction_get_slot, ":players_liege", "$players_kingdom", slot_faction_leader),
+    (faction_get_slot, ":players_liege", "$players_kingdom", "slot_faction_leader"),
 	(neq, ":players_liege", "trp_player"),
 	(neq, "$players_kingdom", "$g_talk_troop_faction"),
 	(str_store_troop_name, s45, ":players_liege"),
@@ -14082,7 +14082,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    ],
    "I ask you to pledge allegiance to my liege, {s45}, as monarch of all Britannia and Hibernia", "lord_recruit_3_why",
    [
-     (faction_get_slot, ":players_liege", "$players_kingdom", slot_faction_leader),
+     (faction_get_slot, ":players_liege", "$players_kingdom", "slot_faction_leader"),
      (troop_set_slot, "$g_talk_troop", slot_lord_recruitment_candidate, ":players_liege"),
      (try_begin),
        (troop_slot_eq, "$g_talk_troop", slot_troop_recruitment_random, 0),
@@ -14110,7 +14110,7 @@ Wes gesund.", "Cundwalh_historia5", []],
           (val_mod, reg3, 2),
 ###gender fix chief acaba
 	
-    (faction_get_slot, ":current_liege", "$g_talk_troop_faction", slot_faction_leader),
+    (faction_get_slot, ":current_liege", "$g_talk_troop_faction", "slot_faction_leader"),
 	(str_store_troop_name, s46, ":current_liege"),
     
 	(call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_rebellion_dilemma_default"),
@@ -14439,7 +14439,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 			(assign, ":change_penalty", reg10),		
 			(assign, ":result_for_new_liege", reg0),
 			
-			(faction_get_slot, ":cur_liege", "$g_talk_troop_faction", slot_faction_leader),
+			(faction_get_slot, ":cur_liege", "$g_talk_troop_faction", "slot_faction_leader"),
 			(call_script, "script_calculate_troop_political_factors_for_liege", "$g_talk_troop", ":cur_liege"),
 			
 			(store_sub, ":result_for_security_comparative", ":result_for_security", reg2),
@@ -14620,7 +14620,7 @@ Wes gesund.", "Cundwalh_historia5", []],
         (display_message, "str_random_=_reg3"),
       (try_end),  
       
-      (faction_get_slot, ":leader", "$g_talk_troop_faction", slot_faction_leader),
+      (faction_get_slot, ":leader", "$g_talk_troop_faction", "slot_faction_leader"),
       (str_store_troop_name, s14, ":leader"),
       
       (assign, ":continue_to_pledge", 0),
@@ -14687,7 +14687,7 @@ Wes gesund.", "Cundwalh_historia5", []],
       
       (try_begin),
         (eq, ":recruitment_candidate", "trp_player"),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
+        (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_inactive),
         (call_script, "script_activate_player_faction", "trp_player"),
       (try_end),
       
@@ -14709,11 +14709,11 @@ Wes gesund.", "Cundwalh_historia5", []],
         (try_end),  
         
         (call_script, "script_add_log_entry", logent_border_incident_troop_suborns_lord, "trp_player", -1, "$g_talk_troop","$g_talk_troop_faction"),
-        (store_add, ":slot_provocation_days", "$players_kingdom", slot_faction_provocation_days_with_factions_begin),
+        (store_add, ":slot_provocation_days", "$players_kingdom", "slot_faction_provocation_days_with_factions_begin"),
         (val_sub, ":slot_provocation_days", kingdoms_begin),
         (faction_set_slot, "$g_talk_troop_faction", ":slot_provocation_days", 30),
         
-        (faction_get_slot, ":other_liege", "$g_talk_troop_faction", slot_faction_leader),
+        (faction_get_slot, ":other_liege", "$g_talk_troop_faction", "slot_faction_leader"),
         (call_script, "script_troop_change_relation_with_troop", "trp_player", ":other_liege", -3),
       (try_end),
       
@@ -14875,7 +14875,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	
   [anyone,"denounce_lord_results",[
   (check_quest_succeeded, "qst_denounce_lord"),
-  (faction_get_slot, ":faction_leader", "$g_talk_troop_faction", slot_faction_leader),
+  (faction_get_slot, ":faction_leader", "$g_talk_troop_faction", "slot_faction_leader"),
   (str_store_troop_name, s4, ":faction_leader"),	
   
   ],
@@ -14909,7 +14909,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	
   (quest_get_slot, ":target_troop", "qst_intrigue_against_lord", slot_quest_target_troop), 
   (str_store_troop_name, s4, ":target_troop"), 	
-  (faction_get_slot, ":liege", "$players_kingdom", slot_faction_leader),	
+  (faction_get_slot, ":liege", "$players_kingdom", "slot_faction_leader"),
   (str_store_troop_name, s5, ":liege"), 	
 	
 	
@@ -15325,7 +15325,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_ask_pardon_after_oath_renounced",
    [
-     (faction_get_slot, ":faction_leader", "$g_talk_troop_faction", slot_faction_leader),
+     (faction_get_slot, ":faction_leader", "$g_talk_troop_faction", "slot_faction_leader"),
      (neq, ":faction_leader", "$g_talk_troop"),
      (str_store_troop_name, s4, ":faction_leader"),
      ], "That is too great a matter for me to decide, {playername}. You should seek out {s4}. Such clemency is his alone to grant or deny.", "lord_pretalk",[]],
@@ -15496,7 +15496,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_ask_pardon",
    [
-     (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+     (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
      (assign, ":has_center", 0),
      (try_for_range, ":cur_center", centers_begin, centers_end),
        (store_faction_of_party, ":cur_center_faction", ":cur_center"),
@@ -15525,7 +15525,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     #If the player faction is active
   [anyone,"lord_ask_pardon",
    [
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
    
     (assign, ":has_center", 0),
     (try_for_range, ":cur_center", centers_begin, centers_end),
@@ -15542,7 +15542,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_ask_pardon",
    [
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
     (assign, ":has_center", 0),
     (try_for_range, ":cur_center", centers_begin, centers_end),
        (store_faction_of_party, ":cur_center_faction", ":cur_center"),
@@ -15564,8 +15564,8 @@ Wes gesund.", "Cundwalh_historia5", []],
    [], "On second thought, such an accord would not be in my interests.", "lord_pretalk",[]], 
  
   [anyone,"lord_ask_pardon", [	
-	(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
-	(faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+	(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
+	(faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
 	(assign, ":has_center", 0),
 	(try_for_range, ":cur_center", centers_begin, centers_end),
 		(store_faction_of_party, ":cur_center_faction", ":cur_center"),
@@ -15584,15 +15584,15 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_ask_pardon",
    [
-	(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", slot_faction_leader),
+	(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", "slot_faction_leader"),
 	(neq, "$g_talk_troop", ":faction_leader"),
 	(str_store_troop_name, s7, ":faction_leader"),
     ], "I am in no position to offer you anything. You must speak to {s7}.", "lord_pretalk",[]],  
  
   [anyone,"lord_ask_pardon",
    [
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
-	(neg|faction_slot_ge, "fac_player_supporters_faction", slot_faction_leader, 1),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
+	(neg|faction_slot_ge, "fac_player_supporters_faction", "slot_faction_leader", 1),
 	
 	(store_sub, ":hostility", 4, "$g_talk_troop_faction_relation"),
     (val_mul, ":hostility", ":hostility"), #square it
@@ -15615,12 +15615,12 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone|plyr,"lord_ask_pardon_2", [], "I fear I cannot pay that much.", "lord_ask_pardon_tribue_deny",[]],
 
   [anyone,"lord_ask_pardon_tribue_accept", [
-  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
   ], "Excellent, {playername}.\
  I will use this to make amends to those you have wronged, and I will let it be known that you are no longer an enemy of the {s4}.", "close_window",
    [
 ##diplomacy start+ transfer removed gold to bribed lords
-(faction_get_slot, ":king", "$g_talk_troop_faction", slot_faction_leader),
+(faction_get_slot, ":king", "$g_talk_troop_faction", "slot_faction_leader"),
 (try_begin),
 	#if king, take half and split with subjects
 	(eq, ":king", "$g_talk_troop"),
@@ -15650,7 +15650,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    [
 ##diplomacy start+ transfer removed gold to bribed lords
 (try_begin),
-	(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+	(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 	(store_div, ":gold_to_lord", reg16, 20),#lord takes 5% cut
 	(troop_add_gold, "$g_talk_troop", ":gold_to_lord"),
 	(assign, ":gold_to_faction", reg16),#faction splits rest of gold
@@ -15682,7 +15682,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    "About the task you gave me...", "lord_active_mission_1",[]],
 
 # This is done automatically now.
-##  [anyone|plyr,"lord_talk", [(faction_slot_eq,"$g_talk_troop_faction",slot_faction_leader, "$g_talk_troop"),
+##  [anyone|plyr,"lord_talk", [(faction_slot_eq,"$g_talk_troop_faction","slot_faction_leader", "$g_talk_troop"),
 ##                             (eq, "$players_kingdom", "$g_talk_troop_faction"),
 ##                             (eq, "$player_has_homage", 0),
 ##                             (gt, "$mercenary_service_accumulated_pay", 0),
@@ -15739,7 +15739,7 @@ Wes gesund.", "Cundwalh_historia5", []],
                              (ge, "$g_talk_troop_faction_relation", 0), # Reduced faction relation requirement to 0 for convenience sake. TML. F123 - Submod = 1.41
                              (store_partner_quest,":lords_quest"),
                              (lt,":lords_quest",0),
-							 (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"),
+							 (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "trp_player"),
 							 (neg|troop_slot_eq, "trp_player", slot_troop_spouse, "$g_talk_troop"),
 							 #                             (eq,"$g_talk_troop_faction","$players_kingdom")
                              ],
@@ -15749,8 +15749,8 @@ Wes gesund.", "Cundwalh_historia5", []],
    [
    (eq, "$g_talk_troop_faction", "$players_kingdom"),
    (eq, "$player_has_homage", 1),
-   (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"),
-   (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+   (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "trp_player"),
+   (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
      
    ],
    "Do you think we can work together to advance our standings in this realm?", "combined_political_quests",[
@@ -15793,20 +15793,20 @@ Wes gesund.", "Cundwalh_historia5", []],
 
    
   [anyone|plyr,"lord_talk", [(le,"$talk_context", tc_party_encounter),
-                             (faction_slot_eq, "$players_kingdom", slot_faction_leader, "$g_talk_troop"),
-                             (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+                             (faction_slot_eq, "$players_kingdom", "slot_faction_leader", "$g_talk_troop"),
+                             (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
                             ],
    "I wish to resign the marshalship", "lord_ask_resign_marshalship",[]],   
    
   [anyone,"lord_ask_resign_marshalship", [],
    "So be it. I shall have to find someone else.", "lord_pretalk",[
 		(assign, ":faction_no", "$players_kingdom"),
-		(faction_set_slot, ":faction_no", slot_faction_political_issue, 1), #Appointment of marshal
+		(faction_set_slot, ":faction_no", "slot_faction_political_issue", 1), #Appointment of marshal
 		(store_current_hours, ":hours"),
 		(val_max, ":hours", 0),
-		(faction_set_slot, ":faction_no", slot_faction_political_issue_time, ":hours"), #Appointment of marshal
+		(faction_set_slot, ":faction_no", "slot_faction_political_issue_time", ":hours"), #Appointment of marshal
 		
-        (faction_get_slot, ":old_marshall", ":faction_no", slot_faction_marshall),
+        (faction_get_slot, ":old_marshall", ":faction_no", "slot_faction_marshall"),
         (try_begin),
           (ge, ":old_marshall", 0),
 		  (troop_get_slot, ":old_marshall_party", ":old_marshall", slot_troop_leaded_party),
@@ -15814,7 +15814,7 @@ Wes gesund.", "Cundwalh_historia5", []],
           (party_set_marshall, ":old_marshall_party", 0),
         (try_end),  
 
-		(faction_set_slot, ":faction_no", slot_faction_marshall, -1),
+		(faction_set_slot, ":faction_no", "slot_faction_marshall", -1),
 		
 		(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
 			(store_faction_of_troop, ":active_npc_faction", ":active_npc"),
@@ -15976,10 +15976,10 @@ Wes gesund.", "Cundwalh_historia5", []],
     [
         (ge, "$g_talk_troop_relation", 0),
 		(try_begin),
-			(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_freelancer_troop, 0),
-			(faction_get_slot, reg1, "$g_talk_troop_faction", slot_faction_freelancer_troop),
+			(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_freelancer_troop", 0),
+			(faction_get_slot, reg1, "$g_talk_troop_faction", "slot_faction_freelancer_troop"),
 		(else_try),
-			(faction_get_slot, reg1, "$g_talk_troop_faction", slot_faction_tier_1_troop),
+			(faction_get_slot, reg1, "$g_talk_troop_faction", "slot_faction_tier_1_troop"),
 		(try_end),
 		(str_store_troop_name, s1, reg1),
 		(store_character_level, reg1, reg1),
@@ -16063,7 +16063,7 @@ Wes gesund.", "Cundwalh_historia5", []],
                              (ge, "$g_talk_troop_faction_relation", 0),
                              #(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
                              (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-                             (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+                             (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
                              (neq, "$players_kingdom", "$g_talk_troop_faction"),
                              (store_partner_quest, ":lords_quest"),
                              (neq, ":lords_quest", "qst_join_faction"),
@@ -16073,7 +16073,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone|plyr,"lord_talk", [(le,"$talk_context", tc_party_encounter),
                              (eq,  "$freelancer_state", 0),	#Caba chief freelancer fixes
-                             (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+                             (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
                              (eq, "$players_kingdom", "$g_talk_troop_faction"),
                              (eq, "$player_has_homage", 0),
                              (store_partner_quest, ":lords_quest"),
@@ -16085,7 +16085,7 @@ Wes gesund.", "Cundwalh_historia5", []],
                              (ge, "$g_talk_troop_faction_relation", 0),
                              #(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
                              (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-                             (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+                             (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
                              (eq, "$players_kingdom", "$g_talk_troop_faction"),
                              (eq, "$player_has_homage", 1),
                             ],
@@ -16094,7 +16094,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 ##  [anyone|plyr,"lord_talk", [(le,"$talk_context", tc_party_encounter),
 ##                             (ge, "$g_talk_troop_faction_relation", 0),
 ##                             (troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
-##                             (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+##                             (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 ##                             (eq, "$players_kingdom", 0),
 ##                             (eq,1,0)],
 ##   "TODO2:I want to fight alongside you against your enemies.", "close_window",[]],
@@ -16151,7 +16151,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone|plyr,"lord_talk",
    [
      (eq, "$g_talk_troop_faction", "$players_kingdom"),
-     (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+     (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
      #(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
      (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
      ],
@@ -16161,7 +16161,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone|plyr,"lord_talk",
    [
      (eq, "$g_talk_troop_faction", "$players_kingdom"),
-     (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+     (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
      #(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
      (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
      ],
@@ -16172,7 +16172,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    "Yes?", "lord_give_order",[]],
 
   [anyone,"lord_give_suggestion_ask", [
-	 (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+	 (faction_slot_eq, "$players_kingdom", "slot_faction_leader", "trp_player"),
   ], 
    "I will gladly follow your direction, {sire/your Highness}. If you intend to direct an extensive campaign, however, you may also wish to declare yourself marshal, so there is no cause for confusion.", "lord_give_order",[]],
 
@@ -16188,7 +16188,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]],
    
   [anyone|plyr,"lord_give_order", [
-    (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+    (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
   ],
    "Follow me.", "lord_give_order_answer",
    [
@@ -16203,7 +16203,7 @@ Wes gesund.", "Cundwalh_historia5", []],
      ]],
 
   [anyone|plyr,"lord_give_order", [
-    (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+    (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
   ],
    "Will you follow me? I have a plan...", "lord_give_order_answer",
    [
@@ -16218,7 +16218,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]],
 	 	 
   [anyone|plyr,"lord_give_order", [
-    (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+    (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
 
   ],
    "Go to...", "lord_give_order_details_ask",
@@ -16228,7 +16228,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	 	 
 	 
   [anyone|plyr,"lord_give_order", [
-    (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+    (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
 
   ],
    "Raid around the village of...", "lord_give_order_details_ask",
@@ -16237,7 +16237,7 @@ Wes gesund.", "Cundwalh_historia5", []],
      ]],
 
   [anyone|plyr,"lord_give_order", [
-    (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+    (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
 
   ],
    "Patrol around...", "lord_give_order_details_ask",
@@ -16261,7 +16261,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	 
 #only as suggestion
   [anyone|plyr,"lord_give_order", [
-    (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"), #not an order,  only a suggestion
+    (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"), #not an order,  only a suggestion
 
   ],
    "We are under attack, but the enemy can be repulsed. You should ride towards...", "lord_give_order_details_ask",
@@ -16271,7 +16271,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 #only as suggestion
   [anyone|plyr,"lord_give_order", [
-    (faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "$g_talk_troop"),
+    (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "$g_talk_troop"),
 
   ],
    "We are under attack, but the enemy can be repulsed. You should assemble the army and march to...", "lord_give_order_details_ask",
@@ -16336,7 +16336,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	 
 #only as suggestion
 	   [anyone|plyr,"lord_give_order", [
-    (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"), #not an order,  only a suggestion
+    (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"), #not an order,  only a suggestion
 ],
    "There is a fortress which can easily be taken. Go to..", "lord_give_order_details_ask",
    [
@@ -16344,7 +16344,7 @@ Wes gesund.", "Cundwalh_historia5", []],
      ]],
 
   [anyone|plyr,"lord_give_order", [
-#    (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+#    (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
   ],
    "The enemy is coming in force. Flee in the direction of...", "lord_give_order_details_ask",
    [
@@ -16357,7 +16357,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone|plyr,"lord_give_order",
    [
-	(faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+	(faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
 #    (neg|troop_slot_eq, "$g_talk_troop", slot_troop_player_order_state, spai_undefined),
      ],
    "I won't need you for some time. You are free to do as you like.", "lord_give_order_stop",
@@ -16365,7 +16365,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone|plyr,"lord_give_order",
    [
-	(neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+	(neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
 	(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_accompanying_army),
 	(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_object", "p_main_party"),
      ],
@@ -16380,7 +16380,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
    
   [anyone,"lord_give_order_details_ask", [
-    (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+    (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
 ##diplomacy start+ Add support for companion personalities chief
 (call_script, "script_dplmc_get_troop_morality_value", "$g_talk_troop", tmt_aristocratic),
 (this_or_next|ge, reg0, 1),
@@ -16392,7 +16392,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    "It is not my way to turn tail and run, without even laying eyes on the enemy.", "lord_pretalk",[]],
    
   [anyone,"lord_give_order_details_ask", [
-    (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+    (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
 	(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_debauched),
 	(eq, "$temp", spai_besieging_center),
 
@@ -16491,8 +16491,8 @@ Wes gesund.", "Cundwalh_historia5", []],
    [
      (eq, "$temp", spai_accompanying_army),
      
-     (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
-     (neg|faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+     (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
+     (neg|faction_slot_eq, "$players_kingdom", "slot_faction_leader", "trp_player"),
      
      (call_script, "script_troop_get_player_relation", "$g_talk_troop"),
      (assign, ":player_relation", reg0),    
@@ -16534,8 +16534,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 
     (str_clear, s12),	
 	(try_begin),
-		(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "trp_player"), 
-		(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"), 
+		(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "trp_player"),
+		(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "trp_player"),
 		(str_store_string, s12, "str_but_if_this_goes_badly"),
 	(try_end),   	
 	],
@@ -16544,8 +16544,8 @@ Wes gesund.", "Cundwalh_historia5", []],
      (call_script, "script_party_set_ai_state", "$g_talk_troop_party", "$temp", "$temp_2"),
      (str_clear, s12),
      (try_begin),
-       (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "trp_player"), 
-       (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "trp_player"), 
+       (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "trp_player"),
+       (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "trp_player"),
        (str_store_string, s12, "str_but_if_this_goes_badly"),
      (try_end),
      #Set courage and aggressiveness in party_set_ai_astate
@@ -16568,11 +16568,11 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone|plyr,"lord_talk",
    [
      (eq, "$g_talk_troop_faction", "$players_kingdom"),
-     (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+     (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
      #(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
      (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-     (this_or_next|faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_default),
-     (faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_feast),
+     (this_or_next|faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_default),
+     (faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_feast),
    ],
    "I want to start a new campaign. Let us assemble the army here.", "lord_give_order_call_to_arms_verify",
    []],
@@ -16596,11 +16596,11 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone|plyr,"lord_talk",
    [
      (eq, "$g_talk_troop_faction", "$players_kingdom"),
-     (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+     (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
      #(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
      (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-     (neg|faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_default),
-     (neg|faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_feast),
+     (neg|faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_default),
+     (neg|faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_feast),
      ],
    "I want to end the campaign and let everyone return home.", "lord_give_order_disband_army_verify", []],
 
@@ -16693,8 +16693,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_talk_ask_about_strategy", [
     (eq, "$players_kingdom", "$g_talk_troop_faction"),
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "trp_player"),
-	(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "trp_player"),
+	(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
   ],
    "You should decide that, as you are the marshal.", "lord_pretalk",[]],
    
@@ -17030,11 +17030,11 @@ Wes gesund.", "Cundwalh_historia5", []],
                                                               (eq, "$g_encountered_party_faction", ":faction_no"),
                                                               (str_store_troop_name, s1, ":troop_no"),
 															  (try_begin),
-																(faction_slot_eq, "$players_kingdom", slot_faction_marshall, ":troop_no"),
+																(faction_slot_eq, "$players_kingdom", "slot_faction_marshall", ":troop_no"),
 															    (str_store_string, s1, "@Our marshal, {s1}"),
 															  															 											##diplomacy start+ Add relation descriptions
 											(else_try),
-												(faction_slot_eq, "$players_kingdom", slot_faction_leader, ":troop_no"),
+												(faction_slot_eq, "$players_kingdom", "slot_faction_leader", ":troop_no"),
 												(str_store_string, s1, "@Our liege, {s1}"),
 											##diplomacy end+
                                                                      (try_end),
@@ -17081,7 +17081,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    "{s12}", "lord_talk_ask_about_war_2",[
                                                                       (assign, ":num_enemies", 0),
                                                                       (try_for_range_backwards, ":cur_faction", kingdoms_begin, kingdoms_end),
-                                                                        (faction_slot_eq, ":cur_faction", slot_faction_state, sfs_active),
+                                                                        (faction_slot_eq, ":cur_faction", "slot_faction_state", sfs_active),
                                                                         (store_relation, ":cur_relation", ":cur_faction", "$g_talk_troop_faction"),
                                                                         (lt, ":cur_relation", 0),
                                                                         (try_begin),
@@ -17107,7 +17107,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone|plyr|repeat_for_factions, "lord_talk_ask_about_war_2", [(store_repeat_object, ":faction_no"),
                                                                   (is_between, ":faction_no", kingdoms_begin, kingdoms_end),
-                                                                  (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+                                                                  (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
                                                                      (store_relation, ":cur_relation", ":faction_no", "$g_talk_troop_faction"),
                                                                      (lt, ":cur_relation", 0),
                                                                      (str_store_faction_name, s1, ":faction_no")],
@@ -17141,11 +17141,11 @@ Wes gesund.", "Cundwalh_historia5", []],
                                 #(store_add, ":adv_str", "str_war_report_minus_4", ":advantage"),
                                 #(str_store_string, s9, ":adv_str"),
 								
-		(store_add, ":war_damage_slot", "$faction_requested_to_learn_more_details_about_the_war_against", slot_faction_war_damage_inflicted_on_factions_begin),
+		(store_add, ":war_damage_slot", "$faction_requested_to_learn_more_details_about_the_war_against", "slot_faction_war_damage_inflicted_on_factions_begin"),
 		(val_sub, ":war_damage_slot", kingdoms_begin),
 	    (faction_get_slot, ":war_damage_inflicted", "$g_talk_troop_faction", ":war_damage_slot"),
 		
-		(store_add, ":war_damage_slot", "$g_talk_troop_faction", slot_faction_war_damage_inflicted_on_factions_begin),
+		(store_add, ":war_damage_slot", "$g_talk_troop_faction", "slot_faction_war_damage_inflicted_on_factions_begin"),
 		(val_sub, ":war_damage_slot", kingdoms_begin),
 	    (faction_get_slot, ":war_damage_suffered", "$faction_requested_to_learn_more_details_about_the_war_against", ":war_damage_slot"),
 
@@ -17198,7 +17198,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 		(try_end),
 
 		(try_begin),
-			(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+			(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 			(call_script, "script_npc_decision_checklist_peace_or_war", "$g_talk_troop_faction", "$faction_requested_to_learn_more_details_about_the_war_against", -1),
 			(str_store_string, s9, "str_s9_s14"),
         (try_end),
@@ -17207,15 +17207,15 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 		
   [anyone,"lord_talk_ask_about_strategy", [
-  (faction_get_slot, ":ai_state", "$g_encountered_party_faction", slot_faction_ai_state),
-  (faction_get_slot, ":ai_object", "$g_encountered_party_faction", slot_faction_ai_object),
+  (faction_get_slot, ":ai_state", "$g_encountered_party_faction", "slot_faction_ai_state"),
+  (faction_get_slot, ":ai_object", "$g_encountered_party_faction", "slot_faction_ai_object"),
   
   
   
-  (faction_get_slot, ":ai_decider", "$g_encountered_party_faction", slot_faction_marshall),
+  (faction_get_slot, ":ai_decider", "$g_encountered_party_faction", "slot_faction_marshall"),
   (try_begin),
 	(eq, ":ai_decider", -1),
-	(faction_get_slot, ":ai_decider", "$g_encountered_party_faction", slot_faction_leader),
+	(faction_get_slot, ":ai_decider", "$g_encountered_party_faction", "slot_faction_leader"),
   (try_end),
   
   (call_script, "script_npc_decision_checklist_faction_ai_alt", ":ai_decider"),
@@ -17255,7 +17255,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   (str_clear, s9),
   (try_begin),
 	(eq, ":ai_state", sfai_gathering_army),
-	(faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),	
+	(faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
 	(gt, ":faction_marshal", -1),
 	(troop_get_slot, ":marshal_party", ":faction_marshal", slot_troop_leaded_party),
 	(party_is_active, ":marshal_party"),
@@ -17287,9 +17287,9 @@ Wes gesund.", "Cundwalh_historia5", []],
 	[]],
 
   [anyone, "lord_strategy_follow_evaluation", [
-	(this_or_next|faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "$g_talk_troop"),
-	(this_or_next|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_default),
-		(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
+	(this_or_next|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "$g_talk_troop"),
+	(this_or_next|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_default),
+		(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
   ],
    "Did you have any other questions?",
    "lord_talk_ask_something_2",[
@@ -17297,17 +17297,17 @@ Wes gesund.", "Cundwalh_historia5", []],
 	
 	
   [anyone, "lord_strategy_follow_evaluation", [
-  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_gathering_army),
+  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_gathering_army),
   (call_script, "script_npc_decision_checklist_faction_ai_alt", "$g_talk_troop"),
   (assign, ":talk_troop_preferred_strategy", reg0),  
   (neq, ":talk_troop_preferred_strategy", sfai_gathering_army),
 
   (store_current_hours, ":hours_at_current_state"),
-  (faction_get_slot, ":current_state_started", "$g_talk_troop_faction", slot_faction_ai_current_state_started),
+  (faction_get_slot, ":current_state_started", "$g_talk_troop_faction", "slot_faction_ai_current_state_started"),
   (val_sub, ":hours_at_current_state", ":current_state_started"),  
   (ge, ":hours_at_current_state", 40),
   
-  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (is_between, ":faction_marshal", active_npcs_begin, active_npcs_end),
   (neq, ":faction_marshal", "$g_talk_troop"),
   (str_store_troop_name, s4, ":faction_marshal"),
@@ -17320,14 +17320,14 @@ Wes gesund.", "Cundwalh_historia5", []],
 	
 
   [anyone, "lord_strategy_follow_evaluation", [
-  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_gathering_army),
+  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_gathering_army),
 
   (store_current_hours, ":hours_at_current_state"),
-  (faction_get_slot, ":current_state_started", "$g_talk_troop_faction", slot_faction_ai_current_state_started),
+  (faction_get_slot, ":current_state_started", "$g_talk_troop_faction", "slot_faction_ai_current_state_started"),
   (val_sub, ":hours_at_current_state", ":current_state_started"),  
   (ge, ":hours_at_current_state", 40),
   
-  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (is_between, ":faction_marshal", active_npcs_begin, active_npcs_end),
   (neq, ":faction_marshal", "$g_talk_troop"),  
   
@@ -17346,10 +17346,10 @@ Wes gesund.", "Cundwalh_historia5", []],
   #To Steve - Why we need this dialog? It already included in below lord_strategy_follow_evaluation dialogs
   #[anyone, "lord_strategy_follow_evaluation", 
   #[
-  #  (this_or_next|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_attacking_center),
-  #  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_raiding_village),        
+  #  (this_or_next|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_attacking_center),
+  #  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_raiding_village),
   #  
-  #  (faction_get_slot, ":cur_object", "$g_talk_troop_faction", slot_faction_ai_object),
+  #  (faction_get_slot, ":cur_object", "$g_talk_troop_faction", "slot_faction_ai_object"),
   #  (call_script, "script_npc_decision_checklist_evaluate_enemy_center_for_attack", "$g_talk_troop", ":cur_object", 1, 0),
   #  (lt, reg0, 0),
   #  
@@ -17367,7 +17367,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     (call_script, "script_npc_decision_checklist_faction_ai_alt", "$g_talk_troop"),
     (assign, ":talk_troop_preferred_strategy", reg0),
         
-    (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, ":talk_troop_preferred_strategy"),    
+    (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", ":talk_troop_preferred_strategy"),
     
     (assign, ":continue", 1),
     (try_begin),
@@ -17388,7 +17388,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     
 	(eq, ":continue", 1),	
 	
-	(faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),	
+	(faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (is_between, ":faction_marshal", active_npcs_begin, active_npcs_end),
   (neq, ":faction_marshal", "$g_talk_troop"),	
 	
@@ -17405,21 +17405,21 @@ Wes gesund.", "Cundwalh_historia5", []],
   #This dialog appears when lord disagrees with marshal about the city will be attacked.
   [anyone, "lord_strategy_follow_evaluation", 
   [
-    (this_or_next|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_attacking_center),
-    (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_raiding_village),  
+    (this_or_next|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_attacking_center),
+    (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_raiding_village),
     
     (call_script, "script_find_center_to_attack_alt", "$g_talk_troop", 1, 0),
     (assign, ":preferred_center", reg0),    
 	(is_between, ":preferred_center", centers_begin, centers_end),
 	
-    (faction_get_slot, ":cur_object", "$g_talk_troop_faction", slot_faction_ai_object),
+    (faction_get_slot, ":cur_object", "$g_talk_troop_faction", "slot_faction_ai_object"),
     (neq, ":cur_object", ":preferred_center"),
     
     #To Steve - if lord's preffered center is different from marshal's current one then this should be enough for lord to say I disagree with marshal isn't this better?
     #Because it is not easy for any lord to return minus score for a center, so if we do not do this, we will not be able to see lords which disagree with marshal.
     #Conclusion : I removed condition of (lt, reg0, 0),  
     
-    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),  	
+    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (is_between, ":faction_marshal", active_npcs_begin, active_npcs_end),
   (neq, ":faction_marshal", "$g_talk_troop"),
 	
@@ -17429,7 +17429,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     (str_store_string, s9, reg1),
     (str_store_party_name, s8, ":preferred_center"),
 
-    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),  	
+    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (is_between, ":faction_marshal", active_npcs_begin, active_npcs_end),
   (neq, ":faction_marshal", "$g_talk_troop"),	
 	
@@ -17445,15 +17445,15 @@ Wes gesund.", "Cundwalh_historia5", []],
   #This dialog appears when lord disagrees with marshal about the city will be defended.
   [anyone, "lord_strategy_follow_evaluation", 
   [  
-    (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_attacking_enemies_around_center),    
+    (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_attacking_enemies_around_center),
     
     (call_script, "script_find_center_to_defend", "$g_talk_troop"),
     (assign, ":preferred_center", reg0),
 	(is_between, ":preferred_center", centers_begin, centers_end),
-    (faction_get_slot, ":cur_object", "$g_talk_troop_faction", slot_faction_ai_object),
+    (faction_get_slot, ":cur_object", "$g_talk_troop_faction", "slot_faction_ai_object"),
     (neq, ":cur_object", ":preferred_center"),
 
-    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),  	
+    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (is_between, ":faction_marshal", active_npcs_begin, active_npcs_end),
   (neq, ":faction_marshal", "$g_talk_troop"),	
 	
@@ -17472,7 +17472,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    
   [anyone, "lord_strategy_follow_evaluation", 
   [
-  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),  	
+  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (this_or_next|neg|is_between, ":faction_marshal", active_npcs_begin, active_npcs_end),
 	(eq, ":faction_marshal", "$g_talk_troop"),  
   ],
@@ -17489,8 +17489,8 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]],
    
   [anyone|plyr, "lord_strategy_follow_up", [
-  (this_or_next|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_attacking_center),
-	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_raiding_village),
+  (this_or_next|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_attacking_center),
+	(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_raiding_village),
   ],
    "If you're attacking, why aren't you...",
    "lord_strategy_why_not",[
@@ -17504,8 +17504,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone|plyr, "lord_strategy_follow_up", [
   (eq, "$g_talk_troop_disagrees_with_marshal", 1),
-  (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
-  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+  (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
+  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (is_between, ":faction_marshal", active_npcs_begin, active_npcs_end),  
   (str_store_troop_name, s4, ":faction_marshal"),
   ],
@@ -17514,7 +17514,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]],
 
   [anyone, "lord_talk_replace_marshal", [
-  (faction_get_slot, ":faction_issue", "$g_talk_troop_faction", slot_faction_political_issue),
+  (faction_get_slot, ":faction_issue", "$g_talk_troop_faction", "slot_faction_political_issue"),
   (is_between, ":faction_issue", centers_begin, centers_end),
   (str_store_party_name, s4, ":faction_issue"),
   ],
@@ -17524,9 +17524,9 @@ Wes gesund.", "Cundwalh_historia5", []],
 
    
   [anyone, "lord_talk_replace_marshal", [
-  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_political_issue, 1),
+  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_political_issue", 1),
   (troop_get_slot, ":stance_on_faction_issue", "$g_talk_troop", slot_troop_stance_on_faction_issue),
-  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (neq, ":stance_on_faction_issue", ":faction_marshal"),
   (str_store_troop_name, s4,  ":stance_on_faction_issue"),
   (str_store_troop_name, s5,  ":faction_marshal"),
@@ -17537,7 +17537,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]],
    
   [anyone, "lord_talk_replace_marshal", [
-  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (call_script, "script_troop_get_relation_with_troop", "$g_talk_troop", ":faction_marshal"),
   (assign, ":relation_with_marshal", reg0),
   (gt, ":relation_with_marshal", "$g_talk_troop_effective_relation"),
@@ -17550,14 +17550,14 @@ Wes gesund.", "Cundwalh_historia5", []],
   ],
    "Hmm...",
    "lord_talk_replace_marshal_decision",[
-   (faction_set_slot, "$g_talk_troop_faction", slot_faction_political_issue, 1),
+   (faction_set_slot, "$g_talk_troop_faction", "slot_faction_political_issue", 1),
    ]],
    
    
   [anyone, "lord_talk_replace_marshal_decision", [
   (call_script, "script_npc_decision_checklist_take_stand_on_issue", "$g_talk_troop"),
   (assign, ":replacement_candidate", reg0),
-  (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, ":replacement_candidate"),
+  (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", ":replacement_candidate"),
   (call_script, "script_troop_describes_troop_to_s15", "$g_talk_troop", ":replacement_candidate"),
   ],
    "Yes, I would say that. At this point, I would be tempted to say that I support {s15} instead. I am glad that you and I had this discussion, so that I know that we are of the same mind on this matter.",
@@ -17566,7 +17566,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   (assign, ":replacement_candidate", reg0),
   (troop_set_slot, "$g_talk_troop", slot_troop_stance_on_faction_issue, ":replacement_candidate"),   
   
-  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (troop_get_slot, ":marshal_controversy",  ":faction_marshal", slot_troop_controversy),   
   (val_add, ":marshal_controversy", 5),
   (troop_set_slot, ":faction_marshal", slot_troop_controversy, ":marshal_controversy"),   
@@ -17578,7 +17578,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 
   [anyone, "lord_talk_replace_marshal_decision", [
-  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+  (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
   (str_store_troop_name, s4, ":faction_marshal"),
   ],
    "Not necessarily. It is possible for {s4} and I have to have an honest disagreement over strategy, without my seeking to replace him.",
@@ -17601,11 +17601,11 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone|plyr, "lord_strategy_why_not_select", 
   [
-    (this_or_next|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_raiding_village),
-    (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_attacking_center),
+    (this_or_next|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_raiding_village),
+    (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_attacking_center),
     
-    (faction_get_slot, ":cur_object", "$g_talk_troop_faction", slot_faction_ai_object),
-    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+    (faction_get_slot, ":cur_object", "$g_talk_troop_faction", "slot_faction_ai_object"),
+    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
     (gt, ":faction_marshal", -1), 
     (call_script, "script_find_center_to_attack_alt", ":faction_marshal", 1, 0),
     (neq, reg0, ":cur_object"),
@@ -17623,7 +17623,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     (store_faction_of_party, ":selected_center_faction", ":selected_center"),
     (eq, ":selected_center_faction", "$g_talk_troop_faction"),        
     
-    (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, ":selected_center"),
+    (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", ":selected_center"),
     (neq, "$g_target_after_gathering", ":selected_center"),
     
     (party_slot_ge, ":selected_center", "slot_center_sortie_enemy_strength", 1),
@@ -17643,7 +17643,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     (store_relation, ":relation", ":selected_center_faction", "$g_talk_troop_faction"),
     (lt, ":relation", 0),
     
-    (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, ":selected_center"),
+    (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", ":selected_center"),
     (str_store_party_name,s4, ":selected_center"),
    ],
    "..attacking {s4}?",
@@ -17666,7 +17666,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     (assign, ":selected_center", "$temp"),
     (store_faction_of_party, ":selected_center_faction", ":selected_center"),    
     (eq, ":selected_center_faction", "$g_talk_troop_faction"),
-    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
     (call_script, "script_find_center_to_defend", ":faction_marshal"),
     (assign, ":most_threatened_center", reg0),
     (assign, ":threat_danger_level", reg1),
@@ -17734,9 +17734,9 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone, "lord_strategy_why_not_reason", 
   [
     (assign, ":selected_center", "$temp"),
-    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
+    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
     
-    (faction_get_slot, ":faction_ai_object", "$g_talk_troop_faction", slot_faction_ai_object),    
+    (faction_get_slot, ":faction_ai_object", "$g_talk_troop_faction", "slot_faction_ai_object"),
 
     (call_script, "script_npc_decision_checklist_evaluate_enemy_center_for_attack", ":faction_marshal", ":faction_ai_object", 1, 0),
     (assign, "$g_faction_object_score", reg0),
@@ -17763,8 +17763,8 @@ Wes gesund.", "Cundwalh_historia5", []],
          
   [anyone, "lord_strategy_why_not_reason", 
   [
-    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", slot_faction_marshall),
-    (faction_get_slot, ":cur_object", "$g_talk_troop_faction", slot_faction_ai_object),        
+    (faction_get_slot, ":faction_marshal", "$g_talk_troop_faction", "slot_faction_marshall"),
+    (faction_get_slot, ":cur_object", "$g_talk_troop_faction", "slot_faction_ai_object"),
     
     (call_script, "script_npc_decision_checklist_evaluate_enemy_center_for_attack", ":faction_marshal", ":cur_object", 1, 0),
     (assign, ":power_ratio_for_cur_object", reg2),
@@ -17839,8 +17839,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 	  (try_end),  
 
       (this_or_next|eq, ":continue", 1),
-	  (this_or_next|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_attacking_center),
-	  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_raiding_village),
+	  (this_or_next|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_attacking_center),
+	  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_raiding_village),
 	  
 	  (str_store_string, s3, "str_has_decided_that_an_attack_on_"),
 	  (str_store_string, s6, "str_this_would_be_better_worth_the_effort"),
@@ -17862,7 +17862,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    ]],
 			   				
   [anyone,"lord_talk_ask_marriage_1", [
-  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
   ],
    "You will not take offense if I tell you that, as a king, I have other plans for my children.",
    "lord_pretalk",[
@@ -18122,13 +18122,13 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone,"lord_ultimatum_surrender", [(ge, "$g_encountered_party_relation", 0)], "{s43}", "lord_attack_verify",[#originally, speak you rascal
         (call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_unprovoked_attack_default"),
 	    (try_begin),
-			(faction_slot_ge, "$g_encountered_party_faction", slot_faction_truce_days_with_factions_begin, 1),
+			(faction_slot_ge, "$g_encountered_party_faction", "slot_faction_truce_days_with_factions_begin", 1),
 			(str_store_faction_name, s34, "$g_encountered_party_faction"),
 			(str_store_string, s43, "str_s43_just_so_you_know_if_you_attack_me_you_will_be_in_violation_of_the_truce_you_signed_with_the_s34"),
 	    (try_end),
 	    (try_begin),
 			(eq, "$players_kingdom", "fac_player_supporters_faction"),
-			(faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+			(faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
 			(str_store_string, s43, "str_s43_also_you_should_know_that_an_unprovoked_assault_is_declaration_of_war"),
 	    (try_end),
 	
@@ -18188,7 +18188,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 
   [anyone|plyr,"lord_talk", [
-                            (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+                            (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
                             (troop_slot_eq, "$g_talk_troop", slot_troop_discussed_rebellion, 0),                      
                             (assign, ":pretender", 0),
                             (try_for_range, ":possible_pretender", pretenders_begin, pretenders_end),
@@ -18234,11 +18234,11 @@ Wes gesund.", "Cundwalh_historia5", []],
 #                             (gt, "$supported_pretender", 0),
 #                             (eq, "$supported_pretender_old_faction", "$g_talk_troop_faction"),
 #                             (troop_slot_eq, "$g_talk_troop", slot_troop_discussed_rebellion, 0),
-#                             (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+#                             (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 #                             (troop_slot_ge, "$g_talk_troop", slot_troop_leaded_party, 1),
 #                             (str_store_troop_name, s12, "$supported_pretender"),
 #                             (str_store_faction_name, s14, "$supported_pretender_old_faction"),
-#                             (faction_get_slot, ":old_faction_lord", "$supported_pretender_old_faction", slot_faction_leader),
+#                             (faction_get_slot, ":old_faction_lord", "$supported_pretender_old_faction", "slot_faction_leader"),
 #                             (str_store_troop_name, s15, ":old_faction_lord"),
 #                             ],
 #   "{s12} is the rightful ruler of {s14}. Join our cause against the usurper, {s15}!", "lord_join_rebellion_suggest",[]],
@@ -18248,7 +18248,7 @@ Wes gesund.", "Cundwalh_historia5", []],
      (eq, "$cheat_mode", 2),
      (gt, "$supported_pretender", 0),
      (eq, "$supported_pretender_old_faction", "$g_talk_troop_faction"),
-     (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+     (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
      (troop_slot_ge, "$g_talk_troop", slot_troop_leaded_party, 1),
      ],
    "{!}CHEAT - Join our cause by force.", "lord_join_rebellion_suggest_cheat",[]],
@@ -18258,7 +18258,7 @@ Wes gesund.", "Cundwalh_historia5", []],
      (eq, "$cheat_mode", 2),
      (gt, "$supported_pretender", 0),
      (eq, "$supported_pretender_old_faction", "$g_talk_troop_faction"),
-     (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+     (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
      (troop_slot_ge, "$g_talk_troop", slot_troop_leaded_party, 1),
      ],
    "{!}CHEAT - Join our cause by force.", "lord_join_rebellion_suggest_cheat",[]],
@@ -18276,11 +18276,11 @@ Wes gesund.", "Cundwalh_historia5", []],
 #                             (gt, "$supported_pretender", 0),
 #                             (eq, "$supported_pretender_old_faction", "$g_talk_troop_faction"),
 #                             (neg|troop_slot_ge, "$g_talk_troop", slot_troop_intrigue_impatience, 100),
-#                             (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+#                             (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 #                             (troop_slot_ge, "$g_talk_troop", slot_troop_leaded_party, 1),
 #                             (str_store_troop_name, s12, "$supported_pretender"),
 #                             (str_store_faction_name, s14, "$supported_pretender_old_faction"),
-#                             (faction_get_slot, ":old_faction_lord", "$supported_pretender_old_faction", slot_faction_leader),
+#                             (faction_get_slot, ":old_faction_lord", "$supported_pretender_old_faction", "slot_faction_leader"),
 #                             (str_store_troop_name, s15, ":old_faction_lord"),
 #                             ],
 #   "{s12} is your rightful ruler. Join our cause against the usurper, {s15}!", "lord_join_rebellion_suggest",[]],
@@ -18369,7 +18369,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	]],
 
   [anyone|auto_proceed,"lord_tell_objective", [
-  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "$g_talk_troop"),
+  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "$g_talk_troop"),
   (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_visiting_village)],
    "{!}Warning: This line should never display.", "lord_tell_objective_2",
    []],
@@ -18445,9 +18445,9 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_tell_objective",
    [
-    (faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "$g_talk_troop"),
-	(neg|faction_slot_eq,  "$g_talk_troop_faction", slot_faction_ai_state, sfai_default),
-	(neg|faction_slot_eq,  "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
+    (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "$g_talk_troop"),
+	(neg|faction_slot_eq,  "$g_talk_troop_faction", "slot_faction_ai_state", sfai_default),
+	(neg|faction_slot_eq,  "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
      ],
    "I am leading the army of the realm.", "lord_talk_ask_about_strategy",[]],
 													  
@@ -18479,7 +18479,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	 (eq, 1, 0),
      (eq, "$g_talk_troop_faction", "$players_kingdom"),
      (party_slot_eq, "$g_encountered_party", "slot_party_following_player", 0),
-     (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "trp_player"),
+     (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_marshall", "trp_player"),
      ],
    "Will you follow me? I have a plan.", "lord_ask_follow",[]],
 
@@ -18524,7 +18524,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   
 ##  [anyone|plyr,"lord_talk_offer", [(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
-##                             (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"), #he is not a faction leader!
+##                             (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"), #he is not a faction leader!
 ##                             (call_script, "script_get_number_of_hero_centers", "$g_talk_troop"),
 ##                             (eq, reg0, 0), #he has no castles or towns
 ##                             (hero_can_join),
@@ -18658,7 +18658,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_ask_enter_service", [(gt, "$players_kingdom", 0),
                                      (neq, "$players_kingdom", "$g_talk_troop_faction"),
-                                     (faction_get_slot, ":players_lord", "$players_kingdom", slot_faction_leader),
+                                     (faction_get_slot, ":players_lord", "$players_kingdom", "slot_faction_leader"),
                                      (neq, ":players_lord", "trp_player"),
                                      (str_store_troop_name, s5, ":players_lord"),
                                      ], "You are already oath-bound to serve {s5}, are you not?", "lord_give_oath_under_oath_already",[]],
@@ -18908,13 +18908,13 @@ Wes gesund.", "Cundwalh_historia5", []],
     (try_begin),
       (this_or_next|is_between, "$g_talk_troop", pretenders_begin, pretenders_end),
       (troop_slot_eq, "$g_talk_troop", slot_troop_spouse, "trp_player"),
-      (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+      (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
       (assign, ":is_pretender", 1),
       	  
       (assign, "$supported_pretender", "$g_talk_troop"),
       (troop_get_slot, "$supported_pretender_old_faction", "$g_talk_troop", slot_troop_original_faction),
       (troop_set_faction, "$g_talk_troop", "fac_player_supporters_faction"),
-      (faction_set_slot, "fac_player_supporters_faction", slot_faction_leader, "$g_talk_troop"),
+      (faction_set_slot, "fac_player_supporters_faction", "slot_faction_leader", "$g_talk_troop"),
       (assign, "$g_talk_troop_faction", "fac_player_supporters_faction"),
 
       (quest_set_slot, "qst_rebel_against_kingdom", slot_quest_giver_troop, "$g_talk_troop"),
@@ -18953,7 +18953,7 @@ Wes gesund.", "Cundwalh_historia5", []],
       (neq, "$players_kingdom", "fac_player_supporters_faction"),
 	  (neq, "$players_kingdom", "$g_talk_troop_faction"), #ie, don't leave faction if the player is already part of the same kingdom
 	  
-      (faction_get_slot, ":old_leader", "$players_kingdom", slot_faction_leader),
+      (faction_get_slot, ":old_leader", "$players_kingdom", "slot_faction_leader"),
       (call_script, "script_add_log_entry", logent_renounced_allegiance,   "trp_player",  -1, ":old_leader", "$players_kingdom"),
       (try_begin),
         (eq, ":is_pretender", 1),
@@ -18968,8 +18968,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 		(gt, "$g_invite_offered_center", 0),
 		(call_script, "script_give_center_to_lord", "$g_invite_offered_center", "trp_player", 0),
 		(try_begin),
-			(faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$g_invite_offered_center"),
-			(faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+			(faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$g_invite_offered_center"),
+			(faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
 		(try_end),
 	      (try_end),
     (call_script, "script_add_log_entry", logent_pledged_allegiance,   "trp_player",  -1, "$g_talk_troop", "$g_talk_troop_faction"),
@@ -19390,7 +19390,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
 ##   "Yes sir. I have brought {reg1} deserters as you asked me to.", "lord_generic_mission_thank",[(quest_get_slot, ":quest_target_troop", "qst_bring_back_deserters", slot_quest_target_troop),
 ##                                                                                     (quest_get_slot, ":quest_target_amount", "qst_bring_back_deserters", slot_quest_target_amount),
 ##                                                                                     (party_remove_prisoners, "p_main_party", ":quest_target_troop", ":quest_target_amount"),
-##                                                                                     (faction_get_slot, ":faction_tier_2_troop", "$g_talk_troop_faction", slot_faction_tier_2_troop),
+##                                                                                     (faction_get_slot, ":faction_tier_2_troop", "$g_talk_troop_faction", "slot_faction_tier_2_troop"),
 ##                                                                                     (try_begin),
 ##                                                                                       (gt, ":faction_tier_2_troop", 0),
 ##                                                                                       (troop_get_slot, ":cur_lords_party", "$g_talk_troop", slot_troop_leaded_party),
@@ -19460,7 +19460,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
 ##      (eq, ":hero_faction", "$players_kingdom"),
 ##      (call_script, "script_get_number_of_hero_centers", "$g_talk_troop"),
 ##      (assign, ":no_of_owned_centers", reg0),
-##      (neg|faction_slot_eq, "$players_kingdom", slot_faction_leader, ":hero_no"),
+##      (neg|faction_slot_eq, "$players_kingdom", "slot_faction_leader", ":hero_no"),
 ##      (lt, ":no_of_owned_centers", 2),
 ##      (troop_get_slot, ":wealth", "$g_talk_troop", slot_troop_wealth),
 ##      (ge, ":wealth", ":max_wealth"),
@@ -19478,8 +19478,8 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
 ##    (call_script, "script_party_copy", ":new_party", "$center_to_be_claimed"),
 ##    (party_clear, "$center_to_be_claimed"),
 ##
-##    (faction_get_slot, ":reinforcement_template_a", "$g_talk_troop_faction", slot_faction_reinforcements_a),
-##    (faction_get_slot, ":reinforcement_template_b", "$g_talk_troop_faction", slot_faction_reinforcements_b),
+##    (faction_get_slot, ":reinforcement_template_a", "$g_talk_troop_faction", "slot_faction_reinforcements_a"),
+##    (faction_get_slot, ":reinforcement_template_b", "$g_talk_troop_faction", "slot_faction_reinforcements_b"),
 ##    (party_add_template, "$center_to_be_claimed", ":reinforcement_template_a"),
 ##    (party_add_template, "$center_to_be_claimed", ":reinforcement_template_b"),
 ##    ]],
@@ -19553,7 +19553,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
   [anyone,"lord_suggest_become_marshall", [],
    "{!}Alright then.", "lord_pretalk",
    [
-     (faction_get_slot, ":old_marshall", "$g_talk_troop_faction", slot_faction_marshall),
+     (faction_get_slot, ":old_marshall", "$g_talk_troop_faction", "slot_faction_marshall"),
         (try_begin),
           (ge, ":old_marshall", 0),
 		  (troop_get_slot, ":old_marshall_party", ":old_marshall", slot_troop_leaded_party),
@@ -19561,8 +19561,8 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
           (party_set_marshall, ":old_marshall_party", 0),
         (try_end),  
      
-     (faction_set_slot, "$g_talk_troop_faction", slot_faction_marshall, "trp_player"),
-     (faction_set_slot, "$g_talk_troop_faction", slot_faction_ai_state, sfai_default),
+     (faction_set_slot, "$g_talk_troop_faction", "slot_faction_marshall", "trp_player"),
+     (faction_set_slot, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_default),
      (assign, "$g_recalculate_ais", 1),
    ]],
 
@@ -19727,12 +19727,12 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
     (ge, "$g_talk_troop_faction_relation", 0),
     (ge, "$g_talk_troop_relation", 0),
     (troop_slot_ge, "trp_player", slot_troop_renown, 30),
-    (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
-    (faction_get_slot, ":last_offer_time", "$g_talk_troop_faction", slot_faction_last_mercenary_offer_time),
+    (neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
+    (faction_get_slot, ":last_offer_time", "$g_talk_troop_faction", "slot_faction_last_mercenary_offer_time"),
 
     (assign, ":num_enemies", 0),
     (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-      (faction_slot_eq, "$g_talk_troop_faction", slot_faction_state, sfs_active),
+      (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_state", sfs_active),
       (store_relation, ":reln", "$g_talk_troop_faction", ":faction_no"),
       (lt, ":reln", 0),
       (val_add, ":num_enemies", 1),
@@ -19754,7 +19754,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
 		(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_goodnatured),
     ],
    "{!}Warning: This line should never display.", "lord_propose_mercenary",[(store_current_hours, ":cur_hours"),
-                                  (faction_set_slot, "$g_talk_troop_faction", slot_faction_last_mercenary_offer_time,  ":cur_hours")]],
+                                  (faction_set_slot, "$g_talk_troop_faction", "slot_faction_last_mercenary_offer_time",  ":cur_hours")]],
 
 								  
 								  
@@ -19766,7 +19766,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
                                      (call_script, "script_round_value", ":offer_value"),
                                      (assign, ":offer_value", reg0),
                                      (assign, "$temp", ":offer_value"),
-                                     (faction_get_slot, ":faction_leader", "$g_talk_troop_faction", slot_faction_leader),
+                                     (faction_get_slot, ":faction_leader", "$g_talk_troop_faction", "slot_faction_leader"),
                                      (neq, ":faction_leader", "$g_talk_troop"),
                                      (str_store_faction_name, s9, "$g_talk_troop_faction"),
                                      (str_store_troop_name, s10, ":faction_leader"),
@@ -19816,7 +19816,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
  After that, you'll receive wages from {s10} each week, according to the number and quality of the soldiers in your company.\
  You still have your rights to battlefield loot and salvage, as well as any prisoners you capture.\
  War can be very profitable at times...", "lord_mercenary_elaborate_1",
-   [(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", slot_faction_leader),
+   [(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", "slot_faction_leader"),
     (str_store_troop_name, s10, ":faction_leader")]],
 
   
@@ -19825,7 +19825,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
  An oath of loyalty to our cause. Once that's done, you shall be required to fulfill certain responsibilities.\
  You'll participate in military campaigns, fulfill any duties given to you by your commanders,\
  and most of all you shall attack the enemies of our kingdom wherever you might find them.", "lord_mercenary_elaborate_1",
-   [(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", slot_faction_leader),
+   [(faction_get_slot, ":faction_leader", "$g_talk_troop_faction", "slot_faction_leader"),
     (str_store_troop_name, s10, ":faction_leader")]],
   
   [anyone|plyr,"lord_mercenary_elaborate_1", [], "And what about my duties as a mercenary?", "lord_mercenary_service_elaborate_duty", []],
@@ -19845,7 +19845,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
   [anyone,"lord_mercenary_elaborate_castle", [(troop_get_type, ":type", "trp_player"),
   (val_mod, ":type", 2),	#gender fix chief moto
   (eq, ":type", 1),
-  (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop")
+  (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop")
   ],
    "Only my loyal vassals can own lands and castles in my realm -- and all my vassals are men.\I am not inclined to depart from this tradition without a very good reason. If you prove yourself in battle, you can swear an oath of homage to me and become my vassal.\We may then discuss how you may obtain a castle.",
    "lord_mercenary_elaborate_1", []],
@@ -19858,7 +19858,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
    "lord_mercenary_elaborate_1", []],
 
    
-  [anyone,"lord_mercenary_elaborate_castle", [(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop")],
+  [anyone,"lord_mercenary_elaborate_castle", [(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop")],
    "Only my loyal vassals can own lands and castles in my realm.\
  A mercenary can not be trusted with such a responsibility.\
  However, after serving for some time, you can swear homage to me and become my vassal.\
@@ -19869,7 +19869,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
  However, after serving for some time, you may earn the right to swear homage to {s10} and become his vassal.\
  Then you would be rewarded with a fief.", "lord_mercenary_elaborate_1", []],
 
-  [anyone,"lord_mercenary_elaborate_banner", [(faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop")],
+  [anyone,"lord_mercenary_elaborate_banner", [(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop")],
    "Only my noble vassals have the honour of carrying their own banners.\
  However, after some time in mercenary service, you may earn the opportunity to swear homage to me and become my vassal,\
  gaining the right to choose a banner of your own and fight under it in battle.", "lord_mercenary_elaborate_1", []],
@@ -21189,7 +21189,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 	(neg|troop_slot_ge, "trp_player", slot_troop_betrothed, active_npcs_begin),
 	(neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin),
 	
-	(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+	(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 	
  ],
    "Farewell, my lady. I shall remain your most ardent admirer.", "close_window",
@@ -21197,7 +21197,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    (assign, "$g_leave_encounter", 1)]],
     
    
-  [anyone|auto_proceed,"lord_leave", [(faction_slot_eq,"$g_talk_troop_faction",slot_faction_leader,"$g_talk_troop")],
+  [anyone|auto_proceed,"lord_leave", [(faction_slot_eq,"$g_talk_troop_faction","slot_faction_leader","$g_talk_troop")],
    "Of course, {playername}. Farewell.", "close_window",[(eq,"$talk_context",tc_party_encounter),(assign, "$g_leave_encounter", 1)]],
   [anyone|auto_proceed,"lord_leave", [(ge,"$g_talk_troop_relation",10)],
    "Good journeys to you, {playername}.", "close_window",[(eq,"$talk_context",tc_party_encounter),(assign, "$g_leave_encounter", 1)]],
@@ -21701,8 +21701,8 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 #take inventory
  [anyone,"spouse_organize_feast",
    [
-   (faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_feast),
-   (faction_slot_eq, "$players_kingdom", slot_faction_ai_object, "$g_encountered_party"),
+   (faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_feast),
+   (faction_slot_eq, "$players_kingdom", "slot_faction_ai_object", "$g_encountered_party"),
    ],
    "A splendid idea, my {husband/wife}. However, let us wait for the current feast here to conclude, before organizing another.", "spouse_pretalk",[
  ]],
@@ -21719,7 +21719,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    [
    (eq, "$players_kingdom", "fac_player_supporters_faction"),
    (store_current_hours, ":hours_since_last_feast"),
-   (faction_get_slot, ":last_feast_time", "$players_kingdom", slot_faction_last_feast_start_time),
+   (faction_get_slot, ":last_feast_time", "$players_kingdom", "slot_faction_last_feast_start_time"),
    (val_sub, ":hours_since_last_feast", ":last_feast_time"),
    (try_begin),
 	(ge, "$cheat_mode", 1),
@@ -21827,8 +21827,8 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    (quest_set_slot, "qst_organize_feast", slot_quest_expiration_days, 30),
    (call_script, "script_start_quest", "qst_organize_feast", "$g_talk_troop"),
    
-   (faction_set_slot, "$players_kingdom", slot_faction_ai_state, sfai_feast),
-   (faction_set_slot, "$players_kingdom", slot_faction_ai_object, "$g_player_court"),
+   (faction_set_slot, "$players_kingdom", "slot_faction_ai_state", sfai_feast),
+   (faction_set_slot, "$players_kingdom", "slot_faction_ai_object", "$g_player_court"),
    
    (assign, "$player_marshal_ai_state", sfai_feast),
    (assign, "$player_marshal_ai_object", "$g_player_court"),
@@ -23166,16 +23166,16 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   (str_clear, s12),
   (assign, ":feast_found", 0),
   (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
-	(faction_slot_eq, ":kingdom", slot_faction_ai_state, sfai_feast),
+	(faction_slot_eq, ":kingdom", "slot_faction_ai_state", sfai_feast),
     (assign, ":feast_found", 1),
 
-	(faction_get_slot, ":feast_venue", ":kingdom", slot_faction_ai_object),
+	(faction_get_slot, ":feast_venue", ":kingdom", "slot_faction_ai_object"),
 	(str_store_party_name, s4, ":feast_venue"),
 	(str_store_faction_name, s3, ":kingdom"),
 
 	(store_current_hours, ":hour"),
 	(store_sub, ":hours_since_start", ":hour", 72),
-	(faction_get_slot, ":feast_time", ":kingdom", slot_faction_last_feast_start_time),
+	(faction_get_slot, ":feast_time", ":kingdom", "slot_faction_last_feast_start_time"),
 	(val_add, ":hours_since_start", ":feast_time"),
 
 	(try_begin),
@@ -23236,8 +23236,8 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 		(str_store_string, s12, "str_s12"),
 	(else_try),
 		(eq, ":in_castle_of_relative", 0),
-		(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
-		(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
+		(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_state", sfai_feast),
+		(faction_slot_eq, "$g_talk_troop_faction", "slot_faction_ai_object", "$g_encountered_party"),
 		(str_store_string, s12, "str_s12_i_am_here_for_the_feast"),
 	(else_try),
 		(str_store_string, s12, "str_s12"),
@@ -24357,7 +24357,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    "{s1}", "seneschal_pretalk",[]],
 
 # Prison Guards
-  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", slot_faction_prison_guard_troop, "$g_talk_troop"),
+  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", "slot_faction_prison_guard_troop", "$g_talk_troop"),
                     (this_or_next|eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
                     (             party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player")
                     ],
@@ -24367,7 +24367,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   [anyone|plyr,"prison_guard_players", [],
    "No, not now.", "close_window",[]],
 
-  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", slot_faction_prison_guard_troop, "$g_talk_troop")],
+  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", "slot_faction_prison_guard_troop", "$g_talk_troop")],
    "Yes? What do you want?", "prison_guard_talk",[]],
 
   [anyone|plyr,"prison_guard_talk", [],
@@ -24479,7 +24479,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   
   [anyone,"prison_guard_visit_prison", 
   [
-    (this_or_next|faction_slot_eq, "$g_encountered_party_faction", slot_faction_marshall, "trp_player"),
+    (this_or_next|faction_slot_eq, "$g_encountered_party_faction", "slot_faction_marshall", "trp_player"),
     (this_or_next|party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player"),
     (eq, "$g_encountered_party_faction", "$players_kingdom"),
   ],
@@ -24558,7 +24558,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
 
 # Castle Guards
-  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", slot_faction_castle_guard_troop, "$g_talk_troop"),
+  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", "slot_faction_castle_guard_troop", "$g_talk_troop"),
                     (this_or_next|eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
                     (             party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player")
                     ],
@@ -24569,10 +24569,10 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    "Never mind.", "close_window",[]],
 
 
-  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", slot_faction_castle_guard_troop, "$g_talk_troop"),(eq, "$sneaked_into_town",1),
+  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", "slot_faction_castle_guard_troop", "$g_talk_troop"),(eq, "$sneaked_into_town",1),
                     (gt,"$g_time_since_last_talk",0)],
    "Get out of my sight, beggar! You stink!", "castle_guard_sneaked_intro_1",[]],
-  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", slot_faction_castle_guard_troop, "$g_talk_troop"),(eq, "$sneaked_into_town",1)],
+  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", "slot_faction_castle_guard_troop", "$g_talk_troop"),(eq, "$sneaked_into_town",1)],
    "Get lost before I lose my temper you vile beggar!", "close_window",[]],
   [anyone|plyr,"castle_guard_sneaked_intro_1", [], "I want to enter the hall and speak to the lord.", "castle_guard_sneaked_intro_2",[]],
   [anyone|plyr,"castle_guard_sneaked_intro_1", [], "[Leave]", "close_window",[]],
@@ -24580,7 +24580,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
  Beggars are not allowed into the hall. Now get lost or I'll beat you bloody.", "close_window",[]],
   
   
-  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", slot_faction_castle_guard_troop, "$g_talk_troop")],
+  [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", "slot_faction_castle_guard_troop", "$g_talk_troop")],
    "What do you want?", "castle_guard_intro_1",[]],
   [anyone|plyr,"castle_guard_intro_1", [],
    "I want to enter the hall and speak to the lord.", "castle_guard_intro_2",[]],
@@ -24588,8 +24588,8 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    "Never mind.", "close_window",[]],
 
    [anyone,"castle_guard_intro_2", [
-	(faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
-	(faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$current_town"),
+	(faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_state", sfai_feast),
+	(faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_object", "$current_town"),
 	
 	(this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
 		(neg|troop_slot_ge, "trp_player", slot_troop_renown, 50),
@@ -25130,11 +25130,11 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    (quest_get_slot, ":object_troop", "qst_resolve_dispute", slot_quest_object_troop),
    (str_store_troop_name, s4, ":target_troop"),
    (str_store_troop_name, s5, ":object_troop"),
-   (faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
+   (faction_get_slot, ":faction_leader", "$players_kingdom", "slot_faction_leader"),
    (str_store_troop_name, s7, ":faction_leader"),
    (try_begin),
       (eq, "$players_kingdom", "fac_player_supporters_faction"),
-	  (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+	  (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
 	  (str_store_string, s9, "str_you_may_be_aware_my_lord_of_the_quarrel_between_s4_and_s5_which_is_damaging_the_unity_of_this_realm_and_sapping_your_authority_if_you_could_persuade_the_lords_to_reconcile_it_would_boost_your_own_standing_however_in_taking_this_on_you_run_the_risk_of_one_the_lords_deciding_that_you_have_taken_the_rivals_side"),
    (else_try),
 	  (str_store_string, s9, "str_you_may_be_aware_my_lord_of_the_quarrel_between_s4_and_s5_which_is_damaging_the_unity_of_this_realm_and_sapping_your_authority_if_you_could_persuade_the_lords_to_reconcile_i_imagine_that_s7_would_be_most_pleased_however_in_taking_this_on_you_run_the_risk_of_one_the_lords_deciding_that_you_have_taken_the_rivals_side"),
@@ -25351,7 +25351,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
     (val_add, ":reputation_string_2", "str_lord_derogatory_result"),
     (str_store_string, s8, ":reputation_string_2"),
 	
-	(faction_get_slot, ":faction_leader", "$players_kingdom", slot_faction_leader),
+	(faction_get_slot, ":faction_leader", "$players_kingdom", "slot_faction_leader"),
 	(str_store_troop_name, s9, ":faction_leader"),
 	],
    "You and I have a common interest in seeking to curtail the rise of {s4}. I feel that {reg4?she:he} is {s7}, and worry that {reg4?she:he} will {s8}. Were you to tell our liege {s9} your opinion of {s4}, it might discourage {s9} from granting {s4} any further powers or responsibilities, at least for a while, and I would be much obliged to you.", "political_quest_suggested",
@@ -25371,7 +25371,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
    (quest_get_slot, ":target_troop", "qst_intrigue_against_lord", slot_quest_target_troop),
    (store_faction_of_troop, ":target_troop_faction", ":target_troop"),
-   (faction_get_slot, ":faction_liege", ":target_troop_faction", slot_faction_leader),
+   (faction_get_slot, ":faction_liege", ":target_troop_faction", "slot_faction_leader"),
    (str_store_troop_name_link, s14, ":target_troop"),
    (str_store_troop_name_link, s13, ":faction_liege"),
    (str_store_troop_name_link, s12, "$g_talk_troop"),
@@ -26472,7 +26472,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 		(lt, ":relation", 0),
 		(str_clear, s9),
 	(try_end),
-	(faction_get_slot, ":leader",  "$g_encountered_party_faction", slot_faction_leader),
+	(faction_get_slot, ":leader",  "$g_encountered_party_faction", "slot_faction_leader"),
 	(str_store_troop_name, s10, ":leader"),
 	
    ], "Hmm... Well, {s10} is often looking for mercenaries to fight in his wars.{s9}", "tavernkeeper_job_search",
@@ -26954,7 +26954,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
     [
       (store_repeat_object, ":faction_no"),
       (is_between, ":faction_no", npc_kingdoms_begin, npc_kingdoms_end),
-      (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+      (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
       (str_store_faction_name, s1, ":faction_no"),
     ],
   "{s1}", "tavern_traveler_lord",[(store_repeat_object, "$temp")]],
@@ -27889,16 +27889,16 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   (str_clear, s12),
   (assign, ":feast_found", 0),
   (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
-	(faction_slot_eq, ":kingdom", slot_faction_ai_state, sfai_feast),
+	(faction_slot_eq, ":kingdom", "slot_faction_ai_state", sfai_feast),
     (assign, ":feast_found", 1),
 
-	(faction_get_slot, ":feast_venue", ":kingdom", slot_faction_ai_object),
+	(faction_get_slot, ":feast_venue", ":kingdom", "slot_faction_ai_object"),
 	(str_store_party_name, s4, ":feast_venue"),
 	(str_store_faction_name, s3, ":kingdom"),
 
 	(store_current_hours, ":hour"),
 	(store_sub, ":hours_since_start", ":hour", 72),
-	(faction_get_slot, ":feast_time", ":kingdom", slot_faction_last_feast_start_time),
+	(faction_get_slot, ":feast_time", ":kingdom", "slot_faction_last_feast_start_time"),
 	(val_add, ":hours_since_start", ":feast_time"), 
 	
 	(try_begin),
@@ -30494,7 +30494,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
         (is_between, ":town_lord", active_npcs_begin, active_npcs_end),
         (str_store_troop_name, s10, ":town_lord"),
     (else_try),
-        (faction_get_slot, ":faction_leader", "$g_encountered_party_faction", slot_faction_leader),
+        (faction_get_slot, ":faction_leader", "$g_encountered_party_faction", "slot_faction_leader"),
         (str_store_troop_name, s10, ":faction_leader"),
     (try_end),
     ],
@@ -30506,7 +30506,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone|plyr,"mayor_info_talk",[], "That's all I need to know. Thanks.", "mayor_pretalk",[]],
 
 
-  [anyone, "mayor_political_talk", [(faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
+  [anyone, "mayor_political_talk", [(faction_get_slot, ":faction_leader","$g_encountered_party_faction","slot_faction_leader"),
 									(str_store_troop_name, s10, ":faction_leader"),
 									(party_get_slot, ":town_lord","$current_town","slot_town_lord"),
 									(try_begin),
@@ -30522,7 +30522,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 									],
    "Politics? Good heaven, the guild has nothing to do with politics. We are loyal servants of {s10}. We merely govern our own affairs, and pass on the townspeople's concerns to our lords and masters, and maybe warn them from time to time against evil advice. Anyway, what did you wish to ask?", "mayor_political_questions",[]],
 
-  [anyone,"mayor_prepolitics",[ (faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
+  [anyone,"mayor_prepolitics",[ (faction_get_slot, ":faction_leader","$g_encountered_party_faction","slot_faction_leader"),
 								(try_begin),
 									(eq, ":faction_leader", "trp_player"),
 									(str_store_string, s9, "str_your_loyal_subjects"),
@@ -30535,7 +30535,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
    [anyone|plyr,"mayor_political_questions",[], "What is the cause of all these wars in Britannia and Hibernia?", "mayor_war_description_1",[
   ]],
 
-  [anyone,"mayor_war_description_1",[ (faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
+  [anyone,"mayor_war_description_1",[ (faction_get_slot, ":faction_leader","$g_encountered_party_faction","slot_faction_leader"),
 								(str_store_troop_name, s10, ":faction_leader"),
 								(str_store_string, s22, "str_the"),
 								(try_begin),
@@ -30546,7 +30546,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 #Wilson chief								
   ], "Well, to answer your question generally, each monarch claims to be the rightful heir to the title of Brytenwalda, ruler of all Britannia. Some of these claims are based on forgotten dynastic marriages and others are based on obscure promises, while some others are forged through sheer strength of arms. So in theory, any one realm has the right to declare war on any other realm at any time.", "mayor_war_description_2",[]],
   
-  [anyone,"mayor_war_description_2",[ (faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
+  [anyone,"mayor_war_description_2",[ (faction_get_slot, ":faction_leader","$g_encountered_party_faction","slot_faction_leader"),
 								(str_store_troop_name, s10, ":faction_leader"),
 ## Gender Fix chief altura
           (troop_get_type, reg4, ":faction_leader"),
@@ -30555,7 +30555,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   ], "In practice, to make war is exhausting work. It is easy enough to lay waste to the enemy's farmland, but crops will grow back, and it is a far different matter to capture an enemy stronghold and to hold it. So the monarchs of Britannia and Hibernia will fight a little, sign a truce, fight a little more, and so on and so forth. Often, a monarch will go to war when another realm provokes them. At such times, some bad influences who look to enrich themselves with ransoms and pillage will clamor for retribution, and thus the damage caused by war to a monarch's treasury is less than the damage caused by doing nothing would be to his authority... I'm of course not talking about {s10}, as no one would ever question {reg4?her:his} authority", "mayor_war_description_3",[]],
   
   [anyone,"mayor_war_description_3",[
- 	(faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),	
+ 	(faction_get_slot, ":faction_leader","$g_encountered_party_faction","slot_faction_leader"),
 ## Gender Fix chief altura
           (troop_get_type, reg4, ":faction_leader"),
                             (val_mod, reg4, 2),
@@ -30565,7 +30565,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 #Wilson chief acaba  
   [anyone,"mayor_war_description_4",[
     (str_store_party_name, s4, "$g_encountered_party"),
-	(faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),	
+	(faction_get_slot, ":faction_leader","$g_encountered_party_faction","slot_faction_leader"),
 ## Gender Fix chief altura
          (troop_get_type, reg4, ":faction_leader"),
                             (val_mod, reg4, 2),
@@ -30575,12 +30575,12 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   ]],
   
   [anyone|plyr,"mayor_political_questions",[
-	(faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
+	(faction_get_slot, ":faction_leader","$g_encountered_party_faction","slot_faction_leader"),
 	(str_store_troop_name, s10, ":faction_leader"),  
 	(ge, "$g_mayor_given_political_dialog", 1),
 	(assign, ":continue", 0),
 	(try_for_range, ":cur_faction", kingdoms_begin, kingdoms_end),
-	  (faction_slot_eq, ":cur_faction", slot_faction_state, sfs_active),
+	  (faction_slot_eq, ":cur_faction", "slot_faction_state", sfs_active),
 	  (neq, ":cur_faction", "$g_encountered_party_faction"),
 	  (assign, ":continue", 1), #at least 1 faction is active
 	(try_end),
@@ -30594,7 +30594,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone|plyr|repeat_for_factions,"mayor_politics_assess_realm",[
   (store_repeat_object, ":faction"),
   (is_between, ":faction", kingdoms_begin, kingdoms_end),
-  (faction_slot_eq, ":faction", slot_faction_state, sfs_active),
+  (faction_slot_eq, ":faction", "slot_faction_state", sfs_active),
   (neq, ":faction", "$g_encountered_party_faction"),
   (str_store_faction_name, s11, ":faction"),
   ], "{s11}", "mayor_politics_give_realm_assessment",[
@@ -30610,7 +30610,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   
   [anyone,"mayor_internal_politics",[
   (str_store_faction_name, s4, "$g_encountered_party_faction"),
-  (faction_get_slot, ":leader", "$g_encountered_party_faction", slot_faction_leader),
+  (faction_get_slot, ":leader", "$g_encountered_party_faction", "slot_faction_leader"),
   (str_store_troop_name, s5, ":leader"),
 ## Gender Fix chief altura
           (troop_get_type, reg4, ":leader"),
@@ -30737,7 +30737,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   (quest_get_slot, ":target_faction", "qst_retaliate_for_border_incident", slot_quest_target_faction),
   (call_script, "script_faction_get_adjective_to_s10", ":target_faction"),
   
-  (faction_get_slot, ":leader", "$g_encountered_party_faction", slot_faction_leader),
+  (faction_get_slot, ":leader", "$g_encountered_party_faction", "slot_faction_leader"),
   (str_store_troop_name, s5, ":leader"),
   
 	], "Well, there is a very great favor which you could do us... As you may have heard, some {s10}s have come across the border to attack our people. {s5} is under great pressure from some of the more bellicose of his vassals to respond with a declaration of war. Unfortunately, while the great lords of this land grow rich from bloodshed, we of the commons will be caught in the middle, and will suffer.",
@@ -32839,7 +32839,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone|plyr,"prisoner_chat_noble", [], "You are free to go.", "prisoner_chat_noble_prerelease",[]],
   [anyone|plyr,"prisoner_chat_noble", [], "You will remain my prisoner.", "prisoner_chat_noble_prekeep",[]],
 #chief impide que se pueda matar a reyes
-  [anyone|plyr,"prisoner_chat_noble", [(gt, "$players_kingdom", 0),(neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),], "You have committed high treason!", "prisoner_chat_treason",[]],
+  [anyone|plyr,"prisoner_chat_noble", [(gt, "$players_kingdom", 0),(neg|faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),], "You have committed high treason!", "prisoner_chat_treason",[]],
 
   [anyone|plyr,"prisoner_chat_noble_prerelease", [], "Despite what you may have heard, I am a {man/woman} of honor.  You are free to go.", "prisoner_chat_noble_release", []],
   [anyone,     "prisoner_chat_noble_release", [], "I will not forget this act of Honor!", "close_window",
@@ -32851,7 +32851,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
     # determine how much honor and faction relation change this prisoner is worth
     (try_begin),
       # king
-      (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+      (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
       (assign, ":honor", 8),
       (assign, ":fac_reln", 15),
     (else_try),
@@ -33044,7 +33044,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
       (try_begin),
         # handle executing the King!
-        (faction_slot_eq, "$g_talk_troop_faction", slot_faction_leader, "$g_talk_troop"),
+        (faction_slot_eq, "$g_talk_troop_faction", "slot_faction_leader", "$g_talk_troop"),
 
         # find best candidate to become king
         (assign, ":best_troop", -1),
@@ -33065,7 +33065,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
           (neq, ":best_troop", -1),
 
           # make them king
-          (faction_set_slot, "$g_talk_troop_faction", slot_faction_leader, ":best_troop"),
+          (faction_set_slot, "$g_talk_troop_faction", "slot_faction_leader", ":best_troop"),
 
           # announce it!
           #TODO: generate a presentation for this! (start_presentation, "prsnt_enemy_succession"),
@@ -33818,7 +33818,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
                     			                         (val_sub, ":banner", banner_scene_props_begin),
 		                	                             (val_add, ":banner", banner_map_icons_begin),
 ##                                               (else_try),#by the time player gets own kingdom, he/she already has banner
-##                                                 (faction_get_slot, ":banner", "$players_kingdom", slot_faction_banner),
+##                                                 (faction_get_slot, ":banner", "$players_kingdom", "slot_faction_banner"),
 ##                                                 (val_sub, ":banner", banner_meshes_begin),
 ##                                             (val_add, ":banner", banner_map_icons_begin),
                                                (try_end),
@@ -34051,14 +34051,14 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone|plyr,"member_direct_campaign_choice",
    [
 #     (eq, "$g_talk_troop_faction", "$players_kingdom"),
-	 (this_or_next|neg|faction_slot_ge, "$players_kingdom", slot_faction_marshall, active_npcs_begin),
+	 (this_or_next|neg|faction_slot_ge, "$players_kingdom", "slot_faction_marshall", active_npcs_begin),
 		(eq, "$players_kingdom", "fac_player_supporters_faction"),
-     (this_or_next|faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_default),
-		(faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_feast),
+     (this_or_next|faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_default),
+		(faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_feast),
      ],
    "I want to start a new campaign. Let us assemble the army here.", "member_direct_campaign_call_to_arms_verify",
    [   
-     (faction_get_slot, ":old_marshall", "$players_kingdom", slot_faction_marshall),
+     (faction_get_slot, ":old_marshall", "$players_kingdom", "slot_faction_marshall"),
      (try_begin),
         (ge, ":old_marshall", 0),
 		(troop_get_slot, ":old_marshall_party", ":old_marshall", slot_troop_leaded_party),
@@ -34066,23 +34066,23 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
         (party_set_marshall, ":old_marshall_party", 0),
      (try_end),  
    
-    (faction_set_slot, "$players_kingdom", slot_faction_marshall, "trp_player"),
+    (faction_set_slot, "$players_kingdom", "slot_faction_marshall", "trp_player"),
    ]],
 
   [anyone|plyr,"member_direct_campaign_choice",
    [
 #     (eq, "$g_talk_troop_faction", "$players_kingdom"),
-     (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
-     (neg|faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_default),
-     (neg|faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_feast),
+     (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
+     (neg|faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_default),
+     (neg|faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_feast),
      ],
    "I want to end the campaign and let everyone return home.", "member_give_order_disband_army_verify", []],
 
   [anyone|plyr,"member_direct_campaign_choice",
    [
 #     (eq, "$g_talk_troop_faction", "$players_kingdom"),
-     (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
-     (neg|faction_slot_eq, "$players_kingdom", slot_faction_ai_state, sfai_feast),
+     (faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
+     (neg|faction_slot_eq, "$players_kingdom", "slot_faction_ai_state", sfai_feast),
 	 (check_quest_active, "qst_organize_feast"),
 	 (quest_get_slot, ":venue", "qst_organize_feast", slot_quest_target_center),
 	 (store_faction_of_party, ":venue_faction", ":venue"),
@@ -34489,7 +34489,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##   "Who are you? We are {20}.\ We are headed to {s21}", "reinforcements_intro",[]],
 ##  [anyone|plyr, "reinforcements_intro", [], "My name is {playername}. I am only passing through.", "close_window",[]],
 ##  [anyone|plyr, "reinforcements_intro", [], "My name is {playername}. I am here to stop you from reaching your destination!", "reinforcement_hostile",[]],
-##  [party_tpl|LazyFlag("pt_reinforcements"),"reinforcement_hostile", [(faction_get_slot, ":faction_leader", "$g_encountered_party_faction",slot_faction_leader),
+##  [party_tpl|LazyFlag("pt_reinforcements"),"reinforcement_hostile", [(faction_get_slot, ":faction_leader", "$g_encountered_party_faction","slot_faction_leader"),
 ##                                                         (str_store_troop_name, s9, ":faction_leader"),],
 ##                                                         "How dare you, {varlot/whore}! We are under the protection of {s9). Have no doubt that he shall take vengeance upon you!", "reinforcements_attack",[]],
 ##  [anyone|plyr, "reinforcements_attack", [], "I am not afraid! I will personally hunt down and kill each and every one of {s9}'s men!", "close_window",[(call_script, "script_make_kingdom_hostile_to_player", "$g_encountered_party_faction", -1),

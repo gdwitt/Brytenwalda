@@ -3,6 +3,7 @@ from .generic_entity import GenericEntity
 import source.slots_party
 import source.slots_item
 import source.slots_agent
+import source.slots_faction
 
 
 class Slot(GenericEntity):
@@ -16,7 +17,8 @@ class Slot(GenericEntity):
     a slot requires.
     """
     tag = 'slot'
-    raw_objects = [source.slots_party.slots, source.slots_item.slots, source.slots_agent.slots]
+    raw_objects = [source.slots_party.slots, source.slots_item.slots, source.slots_agent.slots,
+                   source.slots_faction.slots]
 
     _index_shift = 0
 

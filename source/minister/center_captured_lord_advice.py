@@ -73,8 +73,8 @@ dialogs = [
         (call_script, "script_give_center_to_lord", "$g_center_taken_by_player_faction", ":new_owner", 0),
 
         (try_begin),
-            (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$g_center_taken_by_player_faction"),
-            (faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+            (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$g_center_taken_by_player_faction"),
+            (faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
         (try_end),
 
         # give some troops
@@ -113,8 +113,8 @@ dialogs = [
 
         (call_script, "script_give_center_to_lord", "$g_center_taken_by_player_faction", ":new_owner", 0),
         (try_begin),
-            (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$g_center_taken_by_player_faction"),
-            (faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+            (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$g_center_taken_by_player_faction"),
+            (faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
         (try_end),
 
         # give some troops

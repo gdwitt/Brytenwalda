@@ -14,7 +14,7 @@ dialog_option = \
 dialogs = [
 
     [anyone, "minister_grant_fief", [
-        (faction_get_slot, ":fief_on_agenda", "$players_kingdom", slot_faction_political_issue),
+        (faction_get_slot, ":fief_on_agenda", "$players_kingdom", "slot_faction_political_issue"),
         (str_clear, s12),
         (try_begin),
             (is_between, ":fief_on_agenda", centers_begin, centers_end),
@@ -59,7 +59,7 @@ dialogs = [
     [anyone, "minister_grant_fief_select_recipient", [
         (str_clear, s12),
         (try_begin),
-            (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$fief_selected"),
+            (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$fief_selected"),
 
             (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
                 (troop_set_slot, ":active_npc", slot_troop_temp_slot, 0),
@@ -149,8 +149,8 @@ dialogs = [
         (str_store_troop_name, s2, "$lord_selected"),
 
         (try_begin),
-            (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$fief_selected"),
-            (faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+            (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$fief_selected"),
+            (faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
         (try_end),
 
         (call_script, "script_add_log_entry", logent_castle_given_to_lord_by_player, "trp_player", "$fief_selected", "$lord_selected", "$g_encountered_party_faction"),

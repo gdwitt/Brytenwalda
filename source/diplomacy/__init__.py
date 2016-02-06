@@ -11,19 +11,19 @@ def add_truce(kingdom_a, kingdom_b):
     Sets a truce between two kingdoms
     """
     return StatementBlock(
-        (store_add, ":truce_slot", kingdom_a, slot_faction_truce_days_with_factions_begin),
+        (store_add, ":truce_slot", kingdom_a, "slot_faction_truce_days_with_factions_begin"),
         (val_sub, ":truce_slot", kingdoms_begin),
         (faction_set_slot, kingdom_b, ":truce_slot", dplmc_treaty_truce_days_initial),
 
-        (store_add, ":truce_slot", kingdom_b, slot_faction_truce_days_with_factions_begin),
+        (store_add, ":truce_slot", kingdom_b, "slot_faction_truce_days_with_factions_begin"),
         (val_sub, ":truce_slot", kingdoms_begin),
         (faction_set_slot, kingdom_a, ":truce_slot", dplmc_treaty_truce_days_initial),
 
-        (store_add, ":slot_war_damage_inflicted_on_b", kingdom_b, slot_faction_war_damage_inflicted_on_factions_begin),
+        (store_add, ":slot_war_damage_inflicted_on_b", kingdom_b, "slot_faction_war_damage_inflicted_on_factions_begin"),
         (val_sub, ":slot_war_damage_inflicted_on_b", kingdoms_begin),
         (faction_set_slot, kingdom_a, ":slot_war_damage_inflicted_on_b", 0),
 
-        (store_add, ":slot_war_damage_inflicted_on_a", kingdom_a, slot_faction_war_damage_inflicted_on_factions_begin),
+        (store_add, ":slot_war_damage_inflicted_on_a", kingdom_a, "slot_faction_war_damage_inflicted_on_factions_begin"),
         (val_sub, ":slot_war_damage_inflicted_on_a", kingdoms_begin),
         (faction_set_slot, kingdom_b, ":slot_war_damage_inflicted_on_a", 0),
     )
@@ -43,21 +43,21 @@ scripts = [
                 (val_add, ":cur_kingdom", "fac_kingdom_1"),
             (try_end),
 
-            (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
+            (faction_slot_eq, ":cur_kingdom", "slot_faction_state", sfs_active),
 
             # choose kingdom 2 by trying 50 times to find a kingdom_2
             (assign, ":num_tries", 50),
             (try_for_range, reg0, 0, ":num_tries"),
                 (store_random_in_range, ":cur_kingdom_2", kingdoms_begin, kingdoms_end),
                 (neq, ":cur_kingdom", ":cur_kingdom_2"),
-                (faction_slot_eq, ":cur_kingdom_2", slot_faction_state, sfs_active),
+                (faction_slot_eq, ":cur_kingdom_2", "slot_faction_state", sfs_active),
                 (assign, ":num_tries", reg0),  # break
             (try_end),
 
             (try_begin),
                 (neq, ":cur_kingdom", ":cur_kingdom_2"),
 
-                (faction_slot_eq, ":cur_kingdom_2", slot_faction_state, sfs_active),
+                (faction_slot_eq, ":cur_kingdom_2", "slot_faction_state", sfs_active),
 
                 # select reason to change behaviour
                 (call_script, "script_npc_decision_checklist_peace_or_war", ":cur_kingdom", ":cur_kingdom_2", -1),
@@ -65,7 +65,7 @@ scripts = [
                 (str_store_string_reg, s57, s14), # save diplomatic explanation string
 
                 # :neighbors -> are they neighbors?
-                (store_add, ":slot", slot_faction_neighbors_begin, ":cur_kingdom_2"),
+                (store_add, ":slot", "slot_faction_neighbors_begin", ":cur_kingdom_2"),
                 (val_sub, ":slot", kingdoms_begin),
                 (faction_get_slot, ":neighbors", ":cur_kingdom", ":slot"),
 
@@ -81,7 +81,7 @@ scripts = [
 
                     (try_begin),
                         (store_current_hours, ":cur_hours"),
-                        (faction_get_slot, ":faction_ai_last_decisive_event", ":cur_kingdom", slot_faction_ai_last_decisive_event),
+                        (faction_get_slot, ":faction_ai_last_decisive_event", ":cur_kingdom", "slot_faction_ai_last_decisive_event"),
                         (store_sub, ":hours_since_last_decisive_event", ":cur_hours", ":faction_ai_last_decisive_event"),
 
                         (this_or_next|eq, "$is_game_start", 1),
@@ -160,13 +160,13 @@ scripts = [
                     (try_for_range, ":third_kingdom", kingdoms_begin, kingdoms_end),
                         (neq, ":third_kingdom", ":cur_kingdom"),
                         (neq, ":third_kingdom", ":cur_kingdom_2"),
-                        (faction_slot_eq, ":third_kingdom", slot_faction_state, sfs_active),
+                        (faction_slot_eq, ":third_kingdom", "slot_faction_state", sfs_active),
 
                         (store_relation, ":cur_relation", ":cur_kingdom_2", ":third_kingdom"),
                         # at peace
                         (ge, ":cur_relation", 0),
 
-                        (store_add, ":truce_slot", ":third_kingdom", slot_faction_truce_days_with_factions_begin),
+                        (store_add, ":truce_slot", ":third_kingdom", "slot_faction_truce_days_with_factions_begin"),
                         (val_sub, ":truce_slot", kingdoms_begin),
                         (faction_get_slot, ":truce_days", ":cur_kingdom_2", ":truce_slot"),
 
@@ -188,11 +188,11 @@ scripts = [
                         # do initial war damage
                         (eq, "$is_game_start", 1),
                         (store_random_in_range, ":war_damage_inflicted", 10, 120),
-                        (store_add, ":slot_war_damage_inflicted", ":cur_kingdom", slot_faction_war_damage_inflicted_on_factions_begin),
+                        (store_add, ":slot_war_damage_inflicted", ":cur_kingdom", "slot_faction_war_damage_inflicted_on_factions_begin"),
                         (val_sub, ":slot_war_damage_inflicted", kingdoms_begin),
                         (faction_set_slot, ":cur_kingdom_2",  ":slot_war_damage_inflicted", ":war_damage_inflicted"),
 
-                        (store_add, ":slot_war_damage_inflicted", ":cur_kingdom_2", slot_faction_war_damage_inflicted_on_factions_begin),
+                        (store_add, ":slot_war_damage_inflicted", ":cur_kingdom_2", "slot_faction_war_damage_inflicted_on_factions_begin"),
                         (val_sub, ":slot_war_damage_inflicted", kingdoms_begin),
                         (faction_set_slot, ":cur_kingdom", ":slot_war_damage_inflicted", ":war_damage_inflicted"),
                     (try_end),
@@ -211,7 +211,7 @@ scripts = [
                         (assign, ":neighbor_of_2", 0),
                         (assign, ":end_loop_2", kingdoms_end),
                         (try_for_range, ":test_faction", kingdoms_begin, ":end_loop_2"),
-                            (store_add, ":slot", slot_faction_neighbors_begin, ":test_faction"),
+                            (store_add, ":slot", "slot_faction_neighbors_begin", ":test_faction"),
                             (val_sub, ":slot", kingdoms_begin),
                             (faction_slot_eq, ":third_kingdom", ":slot", 1),
 
@@ -259,11 +259,11 @@ scripts = [
                     (store_random_in_range, ":random", 0, 7),    #if they either really like each other or want each other, this will auto succeed
                     (lt, ":random", ":goodwill_level"),
 
-                    (store_add, ":slot_truce_days", ":cur_kingdom", slot_faction_truce_days_with_factions_begin),
+                    (store_add, ":slot_truce_days", ":cur_kingdom", "slot_faction_truce_days_with_factions_begin"),
                     (val_sub, ":slot_truce_days", kingdoms_begin),
                     (faction_get_slot, ":truce_days", ":cur_kingdom_2", ":slot_truce_days"),
 
-                    (faction_get_slot, reg0, ":cur_kingdom", slot_faction_leader),
+                    (faction_get_slot, reg0, ":cur_kingdom", "slot_faction_leader"),
                     (call_script, "script_dplmc_store_troop_personality_caution_level", reg0),
                     (assign, ":troop_caution", reg0),
 
@@ -273,7 +273,7 @@ scripts = [
                         (try_begin),
                             (is_between, ":truce_days", dplmc_treaty_trade_days_expire, dplmc_treaty_defense_days_half_done),
                             (ge, ":cur_relation", 30),
-                            (faction_slot_eq, ":cur_kingdom", slot_faction_recognized_player, 1),  #recognized us
+                            (faction_slot_eq, ":cur_kingdom", "slot_faction_recognized_player", 1),  #recognized us
                             #  avoid "diplomacy" wars
                             (call_script, "script_count_wars_and_pacts", ":cur_kingdom", ":cur_kingdom_2"),
                             (ge, reg0, 0),
@@ -283,7 +283,7 @@ scripts = [
                         (else_try),
                             (is_between, ":truce_days", 0, dplmc_treaty_trade_days_half_done),
                             (ge, ":cur_relation", 20),
-                            (faction_slot_eq, ":cur_kingdom", slot_faction_recognized_player, 1), #recognized us
+                            (faction_slot_eq, ":cur_kingdom", "slot_faction_recognized_player", 1), #recognized us
                             #MOTO avoid "diplomacy" wars
                             (call_script, "script_count_wars_and_pacts", ":cur_kingdom", ":cur_kingdom_2"),
                             (ge, reg0, 0),
@@ -297,7 +297,7 @@ scripts = [
                             (is_between, ":truce_days", 0, dplmc_treaty_truce_days_half_done),
                             ##diplomacy end+
                             (ge, ":cur_relation", 10),
-                            (faction_slot_eq, ":cur_kingdom", slot_faction_recognized_player, 1), #recognized us
+                            (faction_slot_eq, ":cur_kingdom", "slot_faction_recognized_player", 1), #recognized us
                             #MOTO avoid "diplomacy" wars
                             (call_script, "script_count_wars_and_pacts", ":cur_kingdom", ":cur_kingdom_2"),
                             (ge, reg0, 0),
@@ -437,19 +437,19 @@ scripts = [
             (display_log_message, "@{s1} has declared war against {s2}.", color_quest_and_faction_news),
 
             (store_current_hours, ":hours"),
-            (faction_set_slot, ":kingdom_a", slot_faction_ai_last_decisive_event, ":hours"),
-            (faction_set_slot, ":kingdom_b", slot_faction_ai_last_decisive_event, ":hours"),
+            (faction_set_slot, ":kingdom_a", "slot_faction_ai_last_decisive_event", ":hours"),
+            (faction_set_slot, ":kingdom_b", "slot_faction_ai_last_decisive_event", ":hours"),
 
             # set provocation and truce days
-            (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
-            (store_add, ":provocation_slot", ":kingdom_b", slot_faction_provocation_days_with_factions_begin),
+            (store_add, ":truce_slot", ":kingdom_b", "slot_faction_truce_days_with_factions_begin"),
+            (store_add, ":provocation_slot", ":kingdom_b", "slot_faction_provocation_days_with_factions_begin"),
             (val_sub, ":truce_slot", kingdoms_begin),
             (val_sub, ":provocation_slot", kingdoms_begin),
             (faction_set_slot, ":kingdom_a", ":truce_slot", 0),
             (faction_set_slot, ":kingdom_a", ":provocation_slot", 0),
 
-            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
-            (store_add, ":provocation_slot", ":kingdom_a", slot_faction_provocation_days_with_factions_begin),
+            (store_add, ":truce_slot", ":kingdom_a", "slot_faction_truce_days_with_factions_begin"),
+            (store_add, ":provocation_slot", ":kingdom_a", "slot_faction_provocation_days_with_factions_begin"),
             (val_sub, ":truce_slot", kingdoms_begin),
             (val_sub, ":provocation_slot", kingdoms_begin),
             (faction_set_slot, ":kingdom_b", ":truce_slot", 0),
@@ -484,7 +484,7 @@ scripts = [
                 (ge, ":cur_relation", 0),
 
                 # not in a truce
-                (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+                (store_add, ":truce_slot", ":kingdom_b", "slot_faction_truce_days_with_factions_begin"),
                 (val_sub, ":truce_slot", kingdoms_begin),
                 (faction_get_slot, ":truce_days", ":cur_kingdom", ":truce_slot"),
                 (gt, ":truce_days", dplmc_treaty_defense_days_expire),
@@ -510,7 +510,7 @@ scripts = [
             (ge, ":cur_relation", 0),
 
             # not in a truce
-            (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+            (store_add, ":truce_slot", ":kingdom_a", "slot_faction_truce_days_with_factions_begin"),
             (val_sub, ":truce_slot", kingdoms_begin),
             (faction_get_slot, ":truce_days", ":cur_kingdom", ":truce_slot"),
             (gt, ":truce_days", dplmc_treaty_alliance_days_expire),
@@ -643,7 +643,7 @@ scripts = [
 
         # share wars
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-            (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+            (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
             (neq, ":kingdom_a", ":faction_no"),
             (neq, ":kingdom_b", ":faction_no"),
             (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction",":kingdom_a", ":faction_no"),
@@ -665,7 +665,7 @@ scripts = [
 
         # todo: this block is a code of the previous; make it a Python function
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-            (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+            (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
             (neq, ":kingdom_a", ":faction_no"),
             (neq, ":kingdom_b", ":faction_no"),
             (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction",":kingdom_b", ":faction_no"),

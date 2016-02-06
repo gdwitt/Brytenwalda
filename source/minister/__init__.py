@@ -247,8 +247,8 @@ dialogs = [
         # $temp = fief to grant
         (call_script, "script_give_center_to_lord", "$temp", "trp_player", 0),
         (try_begin),
-            (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, "$temp"),
-            (faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+            (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$temp"),
+            (faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
         (try_end),
         (str_store_party_name, s4, "$temp"),
     ]],

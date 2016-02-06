@@ -379,7 +379,7 @@ presentations = [
       (try_for_range, ":cur_banner_mesh", banner_meshes_begin, banner_meshes_end_minus_one),
         (assign, ":already_used", 0),
         (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
-          (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
+          (faction_slot_eq, ":cur_faction", "slot_faction_banner", ":cur_banner_mesh"),
           (assign, ":already_used", 1),
         (try_end),
         (eq, ":already_used", 0),
@@ -422,7 +422,7 @@ presentations = [
         (try_for_range, ":cur_banner_mesh", banner_meshes_begin, ":end_cond"),
           (assign, ":already_used", 0),
           (try_for_range, ":cur_faction", npc_kingdoms_begin, npc_kingdoms_end),
-            (faction_slot_eq, ":cur_faction", slot_faction_banner, ":cur_banner_mesh"),
+            (faction_slot_eq, ":cur_faction", "slot_faction_banner", ":cur_banner_mesh"),
             (assign, ":already_used", 1),
           (try_end),
           (eq, ":already_used", 0),
@@ -2920,7 +2920,7 @@ presentations = [
         # (assign, "$g_presentation_next_presentation", -1),
 
         # (store_add, ":total_renown", "$g_presentation_marshall_selection_max_renown_1", "$g_presentation_marshall_selection_max_renown_2"),
-        # (faction_get_slot, ":king", "$players_kingdom", slot_faction_leader),
+        # (faction_get_slot, ":king", "$players_kingdom", "slot_faction_leader"),
 
         # (str_store_troop_name, s1, "$g_presentation_marshall_selection_max_renown_1_troop"),
         # (create_text_overlay, reg1, "@Candidate #1: {s1}", tf_center_justify),
@@ -2986,7 +2986,7 @@ presentations = [
               # (neg|troop_slot_ge, ":cur_troop", slot_troop_prisoner_of_party, 0),
               # (troop_slot_ge, ":cur_troop", slot_troop_leaded_party, 1),
               # (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-              # (neg|faction_slot_eq, ":cur_troop_faction", slot_faction_leader, ":cur_troop"),
+              # (neg|faction_slot_eq, ":cur_troop_faction", "slot_faction_leader", ":cur_troop"),
               # (assign, ":continue", 1),
             # (try_end),
             # (eq, ":continue", 1),
@@ -3106,18 +3106,18 @@ presentations = [
             # (start_presentation, "$g_presentation_next_presentation"),
           # (else_try),
             # (try_begin),
-              # (neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "$g_presentation_marshall_selection_max_renown_1_troop"),
+              # (neg|faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "$g_presentation_marshall_selection_max_renown_1_troop"),
               # (call_script, "script_check_and_finish_active_army_quests_for_faction", "$players_kingdom"),
             # (try_end),
 
-           # (faction_get_slot, ":old_marshall", "$players_kingdom", slot_faction_marshall),
+           # (faction_get_slot, ":old_marshall", "$players_kingdom", "slot_faction_marshall"),
            # (try_begin),
              # (ge, ":old_marshall", 0),
              # (party_is_active, ":old_marshall"),
              # (party_set_marshall, ":old_marshall", 0),
            # (try_end),  
 
-            # (faction_set_slot, "$players_kingdom", slot_faction_marshall, "$g_presentation_marshall_selection_max_renown_1_troop"),
+            # (faction_set_slot, "$players_kingdom", "slot_faction_marshall", "$g_presentation_marshall_selection_max_renown_1_troop"),
             # (try_begin),
               # (eq, "$g_presentation_marshall_selection_max_renown_1_troop", "trp_player"),
               # (call_script, "script_change_player_relation_with_troop", "$g_presentation_marshall_selection_max_renown_2_troop", -3),
@@ -3140,11 +3140,11 @@ presentations = [
        		##nested diplomacy start+ insert g_presentation_obj_5, g_presentation_obj_6 and increment others
 		
 		##Moved up here from below
-        (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
-        (faction_get_slot, ":aristocratcy", "fac_player_supporters_faction", slot_faction_aristocracy),
-        (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
-        (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
-		(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_quality),#<- dplmc+ added
+        (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
+        (faction_get_slot, ":aristocratcy", "fac_player_supporters_faction", "slot_faction_aristocracy"),
+        (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
+        (faction_get_slot, ":quality", "fac_player_supporters_faction", "slot_faction_quality"),
+		(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", "slot_faction_quality"),#<- dplmc+ added
 
         # done
         (create_game_button_overlay, "$g_presentation_obj_12", "@Done"),#<- dplmc+ changed obj_10 to obj_12
@@ -3191,11 +3191,11 @@ presentations = [
 		(create_text_overlay, "$g_presentation_obj_10", "@Mercantilistic policies maximize exports while minimizing imports, and increase government regulation of industry."),#<-dplmc+ added
         
 		##Moved earlier
-        #(faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
-        #(faction_get_slot, ":aristocratcy", "fac_player_supporters_faction", slot_faction_aristocracy),
-        #(faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
-        #(faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
-		#(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_quality),#<- dplmc+ added
+        #(faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
+        #(faction_get_slot, ":aristocratcy", "fac_player_supporters_faction", "slot_faction_aristocracy"),
+        #(faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
+        #(faction_get_slot, ":quality", "fac_player_supporters_faction", "slot_faction_quality"),
+		#(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", "slot_faction_quality"),#<- dplmc+ added
 
         (overlay_set_val, "$g_presentation_obj_sliders_1", ":centralization"),
         (overlay_set_val, "$g_presentation_obj_sliders_2", ":aristocratcy"),
@@ -3294,29 +3294,29 @@ presentations = [
 		#Added new option, so had to increment some sliders
         (try_begin),
           (eq, ":object", "$g_presentation_obj_sliders_1"),
-          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_centralization, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", "slot_faction_centralization", ":value"),
           (val_add, ":value", "str_dplmc_neither_centralize_nor_decentralized"),
           (overlay_set_text, "$g_presentation_obj_sliders_6", ":value"),#dplmc+ incremented "sliders"
         (else_try),          
           (eq, ":object", "$g_presentation_obj_sliders_2"),
-          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_aristocracy, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", "slot_faction_aristocracy", ":value"),
           (val_add, ":value", "str_dplmc_neither_aristocratic_nor_plutocratic"),
           (overlay_set_text, "$g_presentation_obj_sliders_7", ":value"),#dplmc+ incremented "sliders"
         (else_try),          
           (eq, ":object", "$g_presentation_obj_sliders_3"),
-          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_serfdom, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", "slot_faction_serfdom", ":value"),
           (val_add, ":value", "str_dplmc_mixture_serfs"),
           (overlay_set_text, "$g_presentation_obj_sliders_8", ":value"),#dplmc+ incremented "sliders"
         (else_try),          
           (eq, ":object", "$g_presentation_obj_sliders_4"),
-          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_quality, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", "slot_faction_quality", ":value"),
           (val_add, ":value", "str_dplmc_mediocre_quality"),
           (overlay_set_text, "$g_presentation_obj_sliders_9", ":value"),#dplmc+ incremented "sliders"
 		#Finished incremented sliders.
 		(else_try),
 		  #dplmc+ new option: mercantilism
 		  (eq, ":object", "$g_presentation_obj_sliders_5"),
-          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_mercantilism, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", "slot_faction_mercantilism", ":value"),
           (val_add, ":value", "str_dplmc_neither_mercantilist_nor_laissez_faire"),
           (overlay_set_text, "$g_presentation_obj_sliders_10", ":value"),
 		#Change variable associated with "Done" button.
@@ -3484,7 +3484,7 @@ presentations = [
 		  
 		  (assign, ":player_faction", "fac_player_supporters_faction"),
 		  (try_begin),
-		     (neg|faction_slot_eq, ":player_faction", slot_faction_state, sfs_active),
+		     (neg|faction_slot_eq, ":player_faction", "slot_faction_state", sfs_active),
 			 (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
 			 (assign, ":player_faction", "$players_kingdom"),
 		  (try_end),
@@ -3646,11 +3646,11 @@ presentations = [
 		  ##diplomacy start+
 		  #Count "third party" kingdoms: kingdoms that aren't either the player's kingdom
 		  #or the other kingdom in the negotiations, and that aren't allied to either.
-		  #(faction_get_slot, ":npc_faction_leader", ":npc_faction", slot_faction_leader),
+		  #(faction_get_slot, ":npc_faction_leader", ":npc_faction", "slot_faction_leader"),
 		  (assign, ":other_players", 0),
 		  (try_for_range, ":third_faction", kingdoms_begin, kingdoms_end),
 			 #Active faction
-		     (faction_slot_eq, ":third_faction", slot_faction_state, sfs_active),
+		     (faction_slot_eq, ":third_faction", "slot_faction_state", sfs_active),
 			 (neq, ":third_faction", ":npc_faction"),
 			 (neq, ":third_faction", "fac_player_supporters_faction"),
 			 (neq, ":third_faction", "$players_kingdom"),
@@ -3771,7 +3771,7 @@ presentations = [
               (call_script, "script_dplmc_pay_into_treasury", "$demanded_money"),
 			  ##diplomacy start+ other faction loses money
 			  #Since setting terms for surrender is a non-native feature, there is no need to make this optional.
-			  (faction_get_slot, ":faction_leader", "$g_notification_menu_var1", slot_faction_leader),
+			  (faction_get_slot, ":faction_leader", "$g_notification_menu_var1", "slot_faction_leader"),
 			  (try_begin),
 				(ge, ":faction_leader", 1),
 				(neq, "$g_notification_menu_var1", "$players_kingdom"),
@@ -3779,7 +3779,7 @@ presentations = [
 				(ge, "$demanded_money", 1),
 				(assign, ":cost_to_leader", "$demanded_money"),
 				#(try_begin),
-				#	 (faction_get_slot, ":marshall", "$g_notification_menu_var1", slot_faction_marshall),
+				#	 (faction_get_slot, ":marshall", "$g_notification_menu_var1", "slot_faction_marshall"),
 				#	 (neq, ":marshall", "trp_player"),
 				#	 (neq, ":marshall", ":faction_leader"),
 				#	 (ge, ":marshall", 0),
@@ -5240,7 +5240,7 @@ presentations = [
           (neg|party_slot_ge, ":party_no", "slot_town_lord", 1), #unassigned
 		  (store_faction_of_party, ":center_faction", ":party_no"),
 		  (eq, ":center_faction", "fac_player_supporters_faction"),
-		  (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+		  (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
           (assign, ":garrison_troop", 1),		  
 		(try_end),
 		
@@ -5277,8 +5277,8 @@ presentations = [
       ##diplomacy end   
 	  #FLORIS BEGIN seafare duh chief
       (try_begin),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+        (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
+        (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
         (val_add, ":num_lines", 1),
       (try_end),
       	    (assign, reg20, 0),
@@ -5415,22 +5415,22 @@ presentations = [
           (val_add, ":percent", 30), #chief aumenta a 30, tener chamberlain reduce a 20 el tax loss
         (try_end),
         (try_begin),
-          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
+          (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
           (try_begin),
-            (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+            (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
             (neq, ":centralization", 0),
             (val_mul, ":centralization", 5),
             (val_add, ":percent", ":centralization"),
           (try_end),
           (try_begin),
-            (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+            (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
             (neq, ":serfdom", 0),
             (val_mul, ":serfdom", 3),
             (val_add, ":percent", ":serfdom"),
           (try_end),
         (else_try),
           (gt, "$players_kingdom", 0),  
-          (faction_get_slot, ":centralization", "$players_kingdom", slot_faction_centralization),
+          (faction_get_slot, ":centralization", "$players_kingdom", "slot_faction_centralization"),
           (neq, ":centralization", 0),
           (val_mul, ":centralization", -5),
           (val_add, ":percent", ":centralization"),          
@@ -5495,7 +5495,7 @@ presentations = [
           (neg|party_slot_ge, ":party_no", "slot_town_lord", 1), #unassigned
 		  (store_faction_of_party, ":center_faction", ":party_no"),
 		  (eq, ":center_faction", "fac_player_supporters_faction"),
-		  (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+		  (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
           (assign, ":garrison_troop", 1),			  
         (try_end),
         ##mercenario chief begin
@@ -5700,8 +5700,8 @@ presentations = [
 #floris da dinero al player de vasallos
        
       (try_begin),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
-        (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+        (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_state", sfs_active),
+        (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "trp_player"),
         (assign, ":rents_from_vassals", 0),
         (try_for_range, ":center_no", centers_begin, centers_end),
             (party_slot_eq, ":center_no", "slot_village_infested_by_bandits", 0), #Isn't infested
@@ -5753,7 +5753,7 @@ presentations = [
                 (val_add, ":cur_rents", ":rent_change"),
             (try_end),
             (try_begin),
-                (faction_get_slot, ":aristocracy", "fac_player_supporters_faction", slot_faction_aristocracy),
+                (faction_get_slot, ":aristocracy", "fac_player_supporters_faction", "slot_faction_aristocracy"),
                 (neq, ":aristocracy", 0),
                 (val_mul, ":aristocracy", 5), #10
                 (store_div, ":rent_change", ":base_rent", 100),
@@ -5761,7 +5761,7 @@ presentations = [
                 (val_add, ":cur_rents", ":rent_change"),
             (try_end),
             (try_begin),
-                (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+                (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
                 (neq, ":centralization", 0),
                 (val_mul, ":centralization", 10), #20
                 (store_div, ":rent_change", ":base_rent", 100),
@@ -5769,7 +5769,7 @@ presentations = [
                 (val_add, ":cur_rents", ":rent_change"),
             (try_end),
             (try_begin),
-                (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+                (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
                 (neq, ":serfdom", 0),
                 (val_mul, ":serfdom", 2), #5
                 (store_div, ":rent_change", ":base_rent", 100),
@@ -7067,7 +7067,7 @@ The attackers attempted to sweep the decks free of the enemy without damaging th
 				(overlay_set_size, reg10, pos3),
 			(else_try),#player is marshal, kingdom hero obligated to join battle
 				(eq, ":faction_no", "$players_kingdom"), 
-				(faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
+				(faction_slot_eq, "$players_kingdom", "slot_faction_marshall", "trp_player"),
 				(str_store_string,s5,"@{s1} is obligated to join us, bringing his {reg1} troops to battle."),
 				(create_text_overlay, reg10, s5),
 				(val_sub,":pos_y",40),
@@ -10748,7 +10748,7 @@ The attackers attempted to sweep the decks free of the enemy without damaging th
 
         # Line faction loop begins here - fetching corresponding informations and printing the line title
         (try_for_range_backwards, ":faction_line", kingdoms_begin, kingdoms_end),
-            (faction_slot_eq, ":faction_line", slot_faction_state, sfs_active), # continue if active
+            (faction_slot_eq, ":faction_line", "slot_faction_state", sfs_active), # continue if active
 
             # Base position for subheaders
             (assign, ":x_posfhl", 220),
@@ -10757,7 +10757,7 @@ The attackers attempted to sweep the decks free of the enemy without damaging th
             # Loop other factions (columns)
             (try_for_range_backwards, ":faction_column", kingdoms_begin, kingdoms_end),
                 (neq, ":faction_column", ":faction_line"),
-                (faction_slot_eq, ":faction_column", slot_faction_state, sfs_active), # continue if active
+                (faction_slot_eq, ":faction_column", "slot_faction_state", sfs_active), # continue if active
 
                 (str_store_faction_name, s8, ":faction_column"),
 

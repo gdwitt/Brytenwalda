@@ -91,7 +91,7 @@ scripts = [
 
         (call_script, "script_initialize_religion"),
 
-        (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
+        (faction_set_slot, "fac_player_supporters_faction", "slot_faction_state", sfs_inactive),
         (assign, "$g_player_luck", 200),
         (troop_set_slot, "trp_player", slot_troop_occupation, slto_kingdom_hero),
         (store_random_in_range, ":starting_training_ground", training_grounds_begin, training_grounds_end),
@@ -144,7 +144,7 @@ scripts = [
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
             (store_random_in_range, ":last_feast_time", 0, 312),  # 240 + 72
             (val_mul, ":last_feast_time", -1),
-            (faction_set_slot, ":faction_no", slot_faction_last_feast_start_time, ":last_feast_time"),
+            (faction_set_slot, ":faction_no", "slot_faction_last_feast_start_time", ":last_feast_time"),
         (try_end),
 
         # Set random town sequence
@@ -176,9 +176,9 @@ scripts = [
 
         # initialize marshall
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-            (faction_set_slot, ":faction_no", slot_faction_marshall, -1),
+            (faction_set_slot, ":faction_no", "slot_faction_marshall", -1),
         (try_end),
-        (faction_set_slot, "fac_player_supporters_faction", slot_faction_marshall, "trp_player"),
+        (faction_set_slot, "fac_player_supporters_faction", "slot_faction_marshall", "trp_player"),
 
         (call_script, "script_initialize_faction_troop_types"),
 
@@ -377,7 +377,7 @@ scripts = [
             (troop_slot_eq, ":kingdom_hero", slot_troop_occupation, slto_inactive_pretender),
 
             (store_troop_faction, ":kingdom_hero_faction", ":kingdom_hero"),
-            (neg|faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
+            (neg|faction_slot_eq, ":kingdom_hero_faction", "slot_faction_leader", ":kingdom_hero"),
 
             (store_character_level, ":level", ":kingdom_hero"),
             (store_mul, ":renown", ":level", ":level"),
@@ -389,7 +389,7 @@ scripts = [
             (val_add, ":renown", ":age_addition"),
 
             (try_begin),
-                (faction_slot_eq, ":kingdom_hero_faction", slot_faction_leader, ":kingdom_hero"),
+                (faction_slot_eq, ":kingdom_hero_faction", "slot_faction_leader", ":kingdom_hero"),
                 (store_random_in_range, ":random_renown", 350, 500),
             (else_try),
                 (store_random_in_range, ":random_renown", 100, 300),
@@ -408,7 +408,7 @@ scripts = [
         (try_for_range, ":kingdom_a", kingdoms_begin, kingdoms_end),
             (store_add, ":already_done", ":kingdom_a", 1),    #hit every relationship just ONCE
             (try_for_range, ":kingdom_b", ":already_done", kingdoms_end),
-                (store_add, ":truce_slot", ":kingdom_a", slot_faction_truce_days_with_factions_begin),
+                (store_add, ":truce_slot", ":kingdom_a", "slot_faction_truce_days_with_factions_begin"),
                 (val_sub, ":truce_slot", kingdoms_begin),
                 (faction_get_slot, ":truce_days", ":kingdom_b", ":truce_slot"),
                 (ge, ":truce_days", dplmc_treaty_truce_days_initial),
@@ -417,7 +417,7 @@ scripts = [
                 (val_sub, ":truce_days", reg0),
                 (val_add, ":truce_days", 1),    #leave a minimum of 2 days
                 (faction_set_slot, ":kingdom_b", ":truce_slot", ":truce_days"),
-                (store_add, ":truce_slot", ":kingdom_b", slot_faction_truce_days_with_factions_begin),
+                (store_add, ":truce_slot", ":kingdom_b", "slot_faction_truce_days_with_factions_begin"),
                 (val_sub, ":truce_slot", kingdoms_begin),
                 (faction_set_slot, ":kingdom_a", ":truce_slot", ":truce_days"),
             (try_end),
@@ -441,7 +441,7 @@ scripts = [
                 (troop_set_slot, ":troop_id", slot_troop_original_faction, ":faction_id"),
                 (try_begin),
                     (is_between, ":troop_id", pretenders_begin, pretenders_end),
-                    (faction_set_slot, ":faction_id", slot_faction_has_rebellion_chance, 1),
+                    (faction_set_slot, ":faction_id", "slot_faction_has_rebellion_chance", 1),
                 (try_end),
             (try_end),
 
@@ -454,7 +454,7 @@ scripts = [
 
             (try_begin),
                 (store_troop_faction, ":faction", ":troop_id"),
-                (faction_slot_eq, ":faction", slot_faction_leader, ":troop_id"),
+                (faction_slot_eq, ":faction", "slot_faction_leader", ":troop_id"),
                 (assign, ":initial_wealth", 30000),
             (try_end),
             (troop_set_slot, ":troop_id", slot_troop_wealth, ":initial_wealth"),
@@ -581,7 +581,7 @@ scripts = [
         (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
             (call_script, "script_update_faction_notes", ":cur_kingdom"),
             (store_random_in_range, ":random_no", -60, 0),
-            (faction_set_slot, ":cur_kingdom", slot_faction_last_offensive_concluded, ":random_no"),
+            (faction_set_slot, ":cur_kingdom", "slot_faction_last_offensive_concluded", ":random_no"),
         (try_end),
 
         (try_for_range, ":cur_troop", original_kingdom_heroes_begin, active_npcs_end),

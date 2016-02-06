@@ -146,10 +146,10 @@ menus = [
         (val_add, ":morale_increase", ":money_gained_div_100"),
         (call_script, "script_change_player_party_morale", ":morale_increase"),
 
-        (faction_get_slot, ":faction_morale", ":village_faction", slot_faction_morale_of_player_troops),
+        (faction_get_slot, ":faction_morale", ":village_faction", "slot_faction_morale_of_player_troops"),
         (store_mul, ":morale_increase_mul_2", ":morale_increase", 200),
         (val_sub, ":faction_morale", ":morale_increase_mul_2"),
-        (faction_set_slot, ":village_faction",  slot_faction_morale_of_player_troops, ":faction_morale"),
+        (faction_set_slot, ":village_faction",  "slot_faction_morale_of_player_troops", ":faction_morale"),
 
         (call_script, "script_objectionable_action", tmt_humanitarian, "str_loot_village"),
 

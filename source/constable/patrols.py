@@ -3,7 +3,7 @@ from source.header_common import *
 
 from source.header_dialogs import *
 
-from source.module_constants import slot_faction_patrol_time, centers_begin, centers_end, \
+from source.module_constants import centers_begin, centers_end, \
     spt_patrol, spai_undefined, spai_patrolling_around_center, spai_retreating_to_center
 
 
@@ -16,7 +16,7 @@ dialogs = [
     [anyone, "dplmc_constable_patrol_size_ask", [
         (store_current_hours, ":current_hours"),
         (val_sub, ":current_hours", 24 * 7),
-        (faction_get_slot, ":policy_time", "fac_player_faction", slot_faction_patrol_time),
+        (faction_get_slot, ":policy_time", "fac_player_faction", "slot_faction_patrol_time"),
         (ge, ":current_hours", ":policy_time"),
         ], "You can take some men from your garrison or enlist fresh ones. "
            "In the latter case you can enlist a small patrol for 1000 scillingas, "
@@ -31,7 +31,7 @@ dialogs = [
 
         (store_current_hours, ":current_hours"),
         (val_sub, ":current_hours", 24 * 7),
-        (faction_get_slot, ":policy_time", "fac_player_faction", slot_faction_patrol_time),
+        (faction_get_slot, ":policy_time", "fac_player_faction", "slot_faction_patrol_time"),
         (store_sub, ":wait_hours" , ":policy_time", ":current_hours"),
         (store_div, ":wait_days", ":wait_hours", 24),
         (store_mod, ":wait_mod", ":wait_hours", 24),
@@ -147,7 +147,7 @@ dialogs = [
     [anyone | plyr, "dplmc_constable_patrol_size", [
         (store_current_hours, ":current_hours"),
         (val_sub, ":current_hours", 24 * 7),
-        (faction_get_slot, ":policy_time", "fac_player_faction", slot_faction_patrol_time),
+        (faction_get_slot, ":policy_time", "fac_player_faction", "slot_faction_patrol_time"),
         (ge, ":current_hours", ":policy_time"),
 
         (store_troop_gold, ":gold", "trp_household_possessions"),
@@ -159,7 +159,7 @@ dialogs = [
     [anyone | plyr, "dplmc_constable_patrol_size", [
         (store_current_hours, ":current_hours"),
         (val_sub, ":current_hours", 24 * 7),
-        (faction_get_slot, ":policy_time", "fac_player_faction", slot_faction_patrol_time),
+        (faction_get_slot, ":policy_time", "fac_player_faction", "slot_faction_patrol_time"),
         (ge, ":current_hours", ":policy_time"),
 
         (store_troop_gold, ":gold", "trp_household_possessions"),
@@ -171,7 +171,7 @@ dialogs = [
     [anyone | plyr, "dplmc_constable_patrol_size", [
         (store_current_hours, ":current_hours"),
         (val_sub, ":current_hours", 24 * 7),
-        (faction_get_slot, ":policy_time", "fac_player_faction", slot_faction_patrol_time),
+        (faction_get_slot, ":policy_time", "fac_player_faction", "slot_faction_patrol_time"),
         (ge, ":current_hours", ":policy_time"),
 
         (store_troop_gold, ":gold", "trp_household_possessions"),
@@ -183,7 +183,7 @@ dialogs = [
     [anyone | plyr, "dplmc_constable_patrol_size", [
         (store_current_hours, ":current_hours"),
         (val_sub, ":current_hours", 24 * 7),
-        (faction_get_slot, ":policy_time", "fac_player_faction", slot_faction_patrol_time),
+        (faction_get_slot, ":policy_time", "fac_player_faction", "slot_faction_patrol_time"),
         (ge, ":current_hours", ":policy_time"),
 
         (store_troop_gold, ":gold", "trp_household_possessions"),
@@ -225,7 +225,7 @@ dialogs = [
     [anyone | plyr, "dplmc_constable_patrol_confirm", [],
      "Yes.", "dplmc_constable_pretalk", [
         (store_current_hours, ":current_hours"),
-        (faction_set_slot, "fac_player_faction", slot_faction_patrol_time, ":current_hours"),
+        (faction_set_slot, "fac_player_faction", "slot_faction_patrol_time", ":current_hours"),
         (call_script, "script_send_patrol", "$current_town", "$diplomacy_var", "$temp", "$players_kingdom", "trp_player"),
     ]],
 

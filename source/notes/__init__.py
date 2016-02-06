@@ -26,7 +26,7 @@ scripts = [
         (store_script_param, ":faction_no", 1),
 
         (try_begin),
-            (this_or_next | faction_slot_eq, ":faction_no", slot_faction_state, sfs_inactive),
+            (this_or_next | faction_slot_eq, ":faction_no", "slot_faction_state", sfs_inactive),
             (eq, ":faction_no", "fac_player_faction"),
             (faction_set_note_available, ":faction_no", 0),
         (else_try),
@@ -107,7 +107,7 @@ scripts = [
 
             (store_faction_of_troop, ":troop_faction", ":troop_no"),
 
-            (faction_get_slot, ":faction_leader", ":troop_faction", slot_faction_leader),
+            (faction_get_slot, ":faction_leader", ":troop_faction", "slot_faction_leader"),
 
             (str_clear, s40),
             (assign, ":logged_a_rivalry", 0),

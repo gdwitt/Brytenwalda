@@ -67,7 +67,7 @@ dialogs = [
      ],
 
     [anyone, "merchant_quest_4b3", [
-         (faction_get_slot, ":local_ruler", "$g_encountered_party_faction", slot_faction_leader),
+         (faction_get_slot, ":local_ruler", "$g_encountered_party_faction", "slot_faction_leader"),
          (str_store_troop_name, s4, ":local_ruler"),
      ],
      "Now -- here's my plan. I could bring this to the attention of {s4}, "
@@ -194,9 +194,9 @@ scripts = [
 
         (assign, "$g_mt_mode", tcm_default),
         (store_faction_of_party, ":town_faction", "$current_town"),
-        (faction_get_slot, ":tier_2_troop", ":town_faction", slot_faction_tier_3_troop),
-        (faction_get_slot, ":tier_3_troop", ":town_faction", slot_faction_tier_3_troop),
-        (faction_get_slot, ":tier_4_troop", ":town_faction", slot_faction_tier_4_troop),
+        (faction_get_slot, ":tier_2_troop", ":town_faction", "slot_faction_tier_3_troop"),
+        (faction_get_slot, ":tier_3_troop", ":town_faction", "slot_faction_tier_3_troop"),
+        (faction_get_slot, ":tier_4_troop", ":town_faction", "slot_faction_tier_4_troop"),
 
         (party_get_slot, ":town_scene", "$current_town", "slot_town_center"),
         (modify_visitors_at_site, ":town_scene"),

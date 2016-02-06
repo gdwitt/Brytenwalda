@@ -31,11 +31,11 @@ dialogs = [
     [anyone | plyr | repeat_for_factions, "minister_diplomatic_kingdoms_select", [
         (store_repeat_object, ":faction_no"),
         (is_between, ":faction_no", kingdoms_begin, kingdoms_end),
-        (neg | faction_slot_eq, ":faction_no", slot_faction_leader, "trp_player"),
+        (neg | faction_slot_eq, ":faction_no", "slot_faction_leader", "trp_player"),
         (neq, ":faction_no", "$players_kingdom"),
         (neq, ":faction_no", "fac_player_supporters_faction"),
-        (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
-        (faction_get_slot, ":leader_no", ":faction_no", slot_faction_leader),
+        (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
+        (faction_get_slot, ":leader_no", ":faction_no", "slot_faction_leader"),
         (str_store_troop_name, s10, ":leader_no"),
         (str_store_faction_name, s11, ":faction_no"),
         (call_script, "script_change_diplomatic_action_ruler_kingdom_strings", ":leader_no", ":faction_no"),
@@ -72,7 +72,7 @@ dialogs += [
 
     [anyone | plyr, "minister_diplomatic_initiative_type_select", [
         (store_relation, ":relation", "fac_player_supporters_faction", "$g_faction_selected"),
-        (faction_slot_eq, "$g_faction_selected", slot_faction_recognized_player, 0),
+        (faction_slot_eq, "$g_faction_selected", "slot_faction_recognized_player", 0),
         (ge, ":relation", 0)
         ], "That I wish to express my goodwill, as one monarch to another.", "minister_diplomatic_emissary", [
         (assign, "$g_initiative_selected", npc_mission_seek_recognition)

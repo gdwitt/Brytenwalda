@@ -692,7 +692,7 @@ scripts = [
 
         (party_get_slot, ":player_relation", ":center_no", "slot_center_player_relation"),
         (party_get_slot, ":center_culture", ":center_no", "slot_center_culture"),
-        (faction_get_slot, ":troop_type", ":center_culture", slot_faction_tier_1_troop),
+        (faction_get_slot, ":troop_type", ":center_culture", "slot_faction_tier_1_troop"),
 
         (store_div, ":tier_upgrades", ":player_relation", 10),
         upgrade_tier(":tier_upgrades"),
@@ -709,12 +709,12 @@ scripts = [
             (val_add, ":percent", ":player_renown"),
         (try_end),
         (try_begin), #+8% if king
-            (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", slot_faction_leader),
+            (faction_get_slot, ":faction_leader", "fac_player_supporters_faction", "slot_faction_leader"),
             (eq, ":faction_leader", "trp_player"),
             (val_add, ":percent", 8),
 
             (try_begin), #-6% for each point of serfdom
-                (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+                (faction_get_slot, ":serfdom", "fac_player_supporters_faction", "slot_faction_serfdom"),
                 (neq, ":serfdom", 0),
                 (val_mul, ":serfdom", 6),
                 (val_sub, ":percent", ":serfdom"),
@@ -764,7 +764,7 @@ scripts = [
     ("update_npc_volunteer_troops_in_village", [
         (store_script_param, ":center_no", 1),
         (party_get_slot, ":center_culture", ":center_no", "slot_center_culture"),
-        (faction_get_slot, ":troop_type", ":center_culture", slot_faction_tier_1_troop),
+        (faction_get_slot, ":troop_type", ":center_culture", "slot_faction_tier_1_troop"),
 
         upgrade_tier(5),
 

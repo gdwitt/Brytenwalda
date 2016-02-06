@@ -2,8 +2,6 @@ from source.header_operations import *
 from source.header_common import s11
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_faction_truce_days_with_factions_begin
-
 
 dialogs = [
 
@@ -12,7 +10,7 @@ dialogs = [
      "Are you robbing us?{s11}", "merchant_attack_verify", [
          (str_clear, s11),
          (try_begin),
-            (faction_slot_ge, "$g_encountered_party_faction", slot_faction_truce_days_with_factions_begin, 1),
+            (faction_slot_ge, "$g_encountered_party_faction", "slot_faction_truce_days_with_factions_begin", 1),
             (str_store_string, s11, "str__have_you_not_signed_a_truce_with_our_lord"),
          (try_end),
      ]],

@@ -2,8 +2,6 @@ from source.header_operations import *
 from source.header_common import s1, s2, s3, s5, reg0
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_faction_leader
-
 
 dialogs = [
     [anyone, "start", [
@@ -94,7 +92,7 @@ dialogs = [
      "I'm glad to see that you're alive, too.", "merchant_finale", []],
 
     [anyone, "merchant_finale", [
-        (faction_get_slot, ":faction_leader", "$g_encountered_party_faction", slot_faction_leader),
+        (faction_get_slot, ":faction_leader", "$g_encountered_party_faction", "slot_faction_leader"),
         (str_store_troop_name, s5, ":faction_leader"),
         ],
         "Yes, yes... Now, a couple of my boys have the watch captain pinned "

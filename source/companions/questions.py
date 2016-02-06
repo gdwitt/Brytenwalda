@@ -43,7 +43,7 @@ dialogs = [
      "member_intelgathering_1", []],
 
     [anyone | plyr, "member_question_2", [
-        (faction_slot_eq, "$players_kingdom", slot_faction_leader, "trp_player"),
+        (faction_slot_eq, "$players_kingdom", "slot_faction_leader", "trp_player"),
     ], "Would you be interested in holding a fief?", "member_fief_grant_1", []],
 
     [anyone | plyr, "member_question_2", [], "Never mind.", "close_window", []],
@@ -246,8 +246,8 @@ grant_fief_dialogs = [
 
          # todo: what does this do?
          (try_begin),
-            (faction_slot_eq, "$players_kingdom", slot_faction_political_issue, ":fief"),
-            (faction_set_slot, "$players_kingdom", slot_faction_political_issue, -1),
+            (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", ":fief"),
+            (faction_set_slot, "$players_kingdom", "slot_faction_political_issue", -1),
          (try_end),
 
          # If the npc did not have an original faction, set it up.

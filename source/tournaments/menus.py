@@ -67,8 +67,8 @@ menus = [
             (neg|troop_slot_ge, "trp_player", slot_troop_renown, 70),
             (neg|troop_slot_ge, "trp_player", slot_troop_renown, 145),
 
-            (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
-            (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
+            (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_state", sfai_feast),
+            (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_object", "$g_encountered_party"),
             (str_store_string, s8, "str_s8_you_are_also_invited_to_attend_the_ongoing_feast_in_the_castle"),
         (try_end),
 
@@ -485,8 +485,8 @@ menus = [
                 (neg|troop_slot_ge, "trp_player", slot_troop_renown, 50),
             (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
             (gt, "$g_player_tournament_placement", 4),
-            (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
-            (faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
+            (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_state", sfai_feast),
+            (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_object", "$g_encountered_party"),
             (str_store_string, s8, "str__however_you_have_sufficiently_distinguished_yourself_to_be_invited_to_attend_the_ongoing_feast_in_the_lords_castle"),
         (try_end),
    ],

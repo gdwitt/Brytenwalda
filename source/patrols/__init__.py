@@ -9,9 +9,7 @@ from source.statement import StatementBlock
 from source.module_constants import spt_patrol, \
     centers_begin, centers_end, spai_patrolling_around_center, \
     spai_retreating_to_center, npc_kingdoms_begin, \
-    npc_kingdoms_end, towns_begin, towns_end, slot_faction_leader, \
-    slot_faction_reinforcements_a, \
-    slot_troop_original_faction, slot_faction_reinforcements_b, slot_faction_reinforcements_c
+    npc_kingdoms_end, towns_begin, towns_end, slot_troop_original_faction
 
 
 dialogs = [
@@ -234,7 +232,7 @@ simple_triggers = [
                     (neq, ":start_center", -1),
                     (neq, ":target_center", -1),
                     (store_random_in_range, ":random_size", 0, 3),
-                    (faction_get_slot, ":faction_leader", ":kingdom", slot_faction_leader),
+                    (faction_get_slot, ":faction_leader", ":kingdom", "slot_faction_leader"),
                     (call_script, "script_send_patrol", ":start_center", ":target_center", ":random_size", ":kingdom", ":faction_leader"),
                 (try_end),
             (try_end),
@@ -334,9 +332,9 @@ scripts = [
             (try_end),
         (try_end),
 
-        (faction_get_slot, ":party_template_a", ":faction", slot_faction_reinforcements_a),
-        (faction_get_slot, ":party_template_b", ":faction", slot_faction_reinforcements_b),
-        (faction_get_slot, ":party_template_c", ":faction", slot_faction_reinforcements_c),
+        (faction_get_slot, ":party_template_a", ":faction", "slot_faction_reinforcements_a"),
+        (faction_get_slot, ":party_template_b", ":faction", "slot_faction_reinforcements_b"),
+        (faction_get_slot, ":party_template_c", ":faction", "slot_faction_reinforcements_c"),
 
         (try_begin),
             (eq, ":size", 3),

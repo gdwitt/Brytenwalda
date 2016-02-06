@@ -7,7 +7,7 @@ from source.module_constants import *
 
 dialog_option = \
     [anyone | plyr, "minister_talk", [
-        (faction_get_slot, ":current_marshal", "$players_kingdom", slot_faction_marshall),
+        (faction_get_slot, ":current_marshal", "$players_kingdom", "slot_faction_marshall"),
         (try_begin),
             # existing marshal
             (ge, ":current_marshal", 0),
@@ -30,7 +30,7 @@ dialogs = [
     [anyone, "minister_change_marshal", [
         (store_current_hours, ":hours"),
         (val_sub, ":hours", "$g_player_faction_last_marshal_appointment"),
-        (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+        (faction_get_slot, ":centralization", "fac_player_supporters_faction", "slot_faction_centralization"),
         (val_clamp, ":centralization", -3, 4),
         (store_mul, ":reset_time", ":centralization", 8),
         (val_add, ":reset_time", 48),
@@ -51,9 +51,9 @@ dialogs = [
         (assign, "$g_player_faction_last_marshal_appointment", ":hours"),
 
         (try_begin),
-            (faction_slot_eq, "fac_player_supporters_faction", slot_faction_political_issue, 1),
+            (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_political_issue", 1),
 
-            (faction_set_slot, "fac_player_supporters_faction", slot_faction_political_issue, 0),
+            (faction_set_slot, "fac_player_supporters_faction", "slot_faction_political_issue", 0),
             (troop_set_slot, "trp_player", slot_troop_stance_on_faction_issue, -1),
             (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
                 (store_faction_of_troop, ":active_npc_faction", ":active_npc"),
@@ -67,8 +67,8 @@ dialogs = [
      "For a short while, we should have no marshal", "minister_pretalk", [
         (call_script, "script_appoint_faction_marshall", "fac_player_supporters_faction", -1),
         (try_begin),
-            (faction_slot_eq, "fac_player_supporters_faction", slot_faction_political_issue, 1),
-            (faction_set_slot, "fac_player_supporters_faction", slot_faction_political_issue, 0),
+            (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_political_issue", 1),
+            (faction_set_slot, "fac_player_supporters_faction", "slot_faction_political_issue", 0),
 
             (troop_set_slot, "trp_player", slot_troop_stance_on_faction_issue, -1),
             (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
@@ -94,9 +94,9 @@ dialogs = [
         (store_current_hours, ":hours"),
         (assign, "$g_player_faction_last_marshal_appointment", ":hours"),
         (try_begin),
-            (faction_slot_eq, "fac_player_supporters_faction", slot_faction_political_issue, 1),
+            (faction_slot_eq, "fac_player_supporters_faction", "slot_faction_political_issue", 1),
 
-            (faction_set_slot, "fac_player_supporters_faction", slot_faction_political_issue, 0),
+            (faction_set_slot, "fac_player_supporters_faction", "slot_faction_political_issue", 0),
 
             (troop_set_slot, "trp_player", slot_troop_stance_on_faction_issue, -1),
             (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),

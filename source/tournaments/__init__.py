@@ -84,9 +84,9 @@ simple_triggers = [
         (try_end),
 
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),
-          (faction_slot_eq, ":faction_no", slot_faction_ai_state, sfai_feast),
+          (faction_slot_eq, ":faction_no", "slot_faction_ai_state", sfai_feast),
 
-          (faction_get_slot, ":faction_object", ":faction_no", slot_faction_ai_object),
+          (faction_get_slot, ":faction_object", ":faction_no", "slot_faction_ai_object"),
           (is_between, ":faction_object", towns_begin, towns_end),
 
           (party_slot_ge, ":faction_object", "slot_town_has_tournament", 1),

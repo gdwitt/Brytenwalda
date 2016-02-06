@@ -254,7 +254,7 @@ dialogs = [
     [anyone, "dplmc_constable_talk_ask_war", [], "{s12}", "dplmc_constable_talk_ask_war_2", [
         (assign, ":num_enemies", 0),
         (try_for_range_backwards, ":cur_faction", kingdoms_begin, kingdoms_end),
-            (faction_slot_eq, ":cur_faction", slot_faction_state, sfs_active),
+            (faction_slot_eq, ":cur_faction", "slot_faction_state", sfs_active),
             (store_relation, ":cur_relation", ":cur_faction", "fac_player_supporters_faction"),
             (lt, ":cur_relation", 0),
             (try_begin),
@@ -282,7 +282,7 @@ dialogs = [
     [anyone | plyr | repeat_for_factions, "dplmc_constable_talk_ask_war_2", [
         (store_repeat_object, ":faction_no"),
         (is_between, ":faction_no", kingdoms_begin, kingdoms_end),
-        (faction_slot_eq, ":faction_no", slot_faction_state, sfs_active),
+        (faction_slot_eq, ":faction_no", "slot_faction_state", sfs_active),
         (store_relation, ":cur_relation", ":faction_no", "fac_player_supporters_faction"),
         (lt, ":cur_relation", 0),
         (str_store_faction_name, s1, ":faction_no")
@@ -293,11 +293,11 @@ dialogs = [
     [anyone | plyr, "dplmc_constable_talk_ask_war_2", [], "That's all I wanted to know. Thank you.", "dplmc_constable_pretalk",[]],
 
     [anyone, "dplmc_constable_talk_ask_war_details", [], "{!}{s9}.", "dplmc_constable_talk_ask_war_2", [
-        (store_add, ":war_damage_slot", "$faction_requested_to_learn_more_details_about_the_war_against", slot_faction_war_damage_inflicted_on_factions_begin),
+        (store_add, ":war_damage_slot", "$faction_requested_to_learn_more_details_about_the_war_against", "slot_faction_war_damage_inflicted_on_factions_begin"),
         (val_sub, ":war_damage_slot", kingdoms_begin),
         (faction_get_slot, ":war_damage_inflicted", "$players_kingdom", ":war_damage_slot"), #Floris 2.52 - Diplo bugfix was "fac_player_supporters_faction"
 
-        (store_add, ":war_damage_slot", "$players_kingdom", slot_faction_war_damage_inflicted_on_factions_begin), #Floris 2.52 - Diplo bugfix was "fac_player_supporters_faction"
+        (store_add, ":war_damage_slot", "$players_kingdom", "slot_faction_war_damage_inflicted_on_factions_begin"), #Floris 2.52 - Diplo bugfix was "fac_player_supporters_faction"
         (val_sub, ":war_damage_slot", kingdoms_begin),
         (faction_get_slot, ":war_damage_suffered", "$faction_requested_to_learn_more_details_about_the_war_against", ":war_damage_slot"),
 
@@ -350,7 +350,7 @@ dialogs = [
         (try_end),
 
         (try_begin),
-            #(neg|faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "$g_talk_troop"),
+            #(neg|faction_slot_eq, "fac_player_supporters_faction", "slot_faction_leader", "$g_talk_troop"),
             (call_script, "script_npc_decision_checklist_peace_or_war", "$players_kingdom", "$faction_requested_to_learn_more_details_about_the_war_against", -1),
             (str_store_string, s9, "str_s9_s14"),
         (try_end),
