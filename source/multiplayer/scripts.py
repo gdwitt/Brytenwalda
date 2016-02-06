@@ -704,7 +704,7 @@ scripts = [
                (player_is_active, ":player_no"),
                (player_get_team_no, ":player_team", ":player_no"),
                (eq, ":player_team", ":team_with_more_players"),
-               (player_get_slot, ":player_join_time", ":player_no", slot_player_join_time),
+               (player_get_slot, ":player_join_time", ":player_no", "slot_player_join_time"),
                (try_begin),
                  (gt, ":player_join_time", ":max_player_join_time"),
                  (assign, ":max_player_join_time", ":player_join_time"),
@@ -805,7 +805,7 @@ scripts = [
        (try_begin),
          (neg|agent_is_non_player, ":dead_agent_no"),
          (agent_get_player_id, ":dead_player_no", ":dead_agent_no"),
-         (player_get_slot, ":dead_agent_equipment_value", ":dead_player_no", slot_player_total_equipment_value),
+         (player_get_slot, ":dead_agent_equipment_value", ":dead_player_no", "slot_player_total_equipment_value"),
        (else_try),
          (assign, ":dead_agent_equipment_value", 0),
        (try_end),
@@ -832,8 +832,8 @@ scripts = [
          (try_end),
 
          (this_or_next|eq, ":one_spawn_per_round_game_type", 0),
-         (this_or_next|player_slot_eq, ":player_no", slot_player_spawned_this_round, 0),
-         (player_slot_eq, ":player_no", slot_player_spawned_this_round, 1),
+         (this_or_next|player_slot_eq, ":player_no", "slot_player_spawned_this_round", 0),
+         (player_slot_eq, ":player_no", "slot_player_spawned_this_round", 1),
 
          (player_get_agent_id, ":agent_no", ":player_no"),
          (try_begin),
@@ -1546,11 +1546,11 @@ scripts = [
        (eq, ":player_no", 0),
        (call_script, "script_multiplayer_init_player_slots", ":player_no"),
        (store_mission_timer_a, ":player_join_time"),
-       (player_set_slot, ":player_no", slot_player_join_time, ":player_join_time"),
-       (player_set_slot, ":player_no", slot_player_first_spawn, 1),
+       (player_set_slot, ":player_no", "slot_player_join_time", ":player_join_time"),
+       (player_set_slot, ":player_no", "slot_player_first_spawn", 1),
        #fight and destroy only
-       (player_set_slot, ":player_no", slot_player_damage_given_to_target_1, 0),
-       (player_set_slot, ":player_no", slot_player_damage_given_to_target_2, 0),
+       (player_set_slot, ":player_no", "slot_player_damage_given_to_target_1", 0),
+       (player_set_slot, ":player_no", "slot_player_damage_given_to_target_2", 0),
        #fight and destroy only end
        (try_begin),
          (multiplayer_is_server),
@@ -1586,7 +1586,7 @@ scripts = [
        (val_mul, ":initial_gold", "$g_multiplayer_initial_gold_multiplier"),
        (val_div, ":initial_gold", 100),
        (player_set_gold, ":player_no", ":initial_gold"),
-       (player_set_slot, ":player_no", slot_player_first_spawn, 1), #not required in siege, bt, fd
+       (player_set_slot, ":player_no", "slot_player_first_spawn", 1), #not required in siege, bt, fd
      (try_end),
      ]),
 
@@ -2535,9 +2535,9 @@ scripts = [
       (store_script_param, ":player_no", 1),
       (player_get_team_no, ":player_team", ":player_no"),
 
-      (player_get_slot, ":x_coor", ":player_no", slot_player_death_pos_x),
-      (player_get_slot, ":y_coor", ":player_no", slot_player_death_pos_y),
-      (player_get_slot, ":z_coor", ":player_no", slot_player_death_pos_z),
+      (player_get_slot, ":x_coor", ":player_no", "slot_player_death_pos_x"),
+      (player_get_slot, ":y_coor", ":player_no", "slot_player_death_pos_y"),
+      (player_get_slot, ":z_coor", ":player_no", "slot_player_death_pos_z"),
 
       (init_position, pos0),
       (position_set_x, pos0, ":x_coor"),
@@ -2683,7 +2683,7 @@ scripts = [
         (get_max_players, ":max_players"),
 
         #Check if the sender is in the correct condition.
-		(neg|player_slot_ge, ":player_no", rpw_shield_bash_timer, 1), #Less than.
+		(neg|player_slot_ge, ":player_no", "slot_player_rpw_shield_bash_timer", 1), #Less than.
         (agent_get_wielded_item, ":shield", ":agent_no", 1), #Offhand item.
        # (this_or_next|is_between, ":shield", "itm_roman_shield_square", "itm_roman_shield_end"),
 		(is_between, ":shield", "itm_cheap_buckler", "itm_darts"),
@@ -2693,7 +2693,7 @@ scripts = [
         (eq, ":horse", -1), #No horse.
 
         #If everything is correct, then set the sender agent up for bash.
-		(player_set_slot, ":player_no", rpw_shield_bash_timer, 15), #Actually is 2*2.5=5seconds. #chief cambia
+		(player_set_slot, ":player_no", "slot_player_rpw_shield_bash_timer", 15), #Actually is 2*2.5=5seconds. #chief cambia
         (agent_set_animation, ":agent_no", "anim_shield_bash"),
         (agent_get_troop_id, ":troop_no", ":agent_no"),
         (troop_get_type, ":type_no", ":troop_no"),
@@ -2792,7 +2792,7 @@ scripts = [
         (store_script_param, ":value", 4),
         (try_begin),
           #valid slot check
-          (is_between, ":slot_no", slot_player_selected_item_indices_begin, slot_player_selected_item_indices_end),
+          (is_between, ":slot_no", "slot_player_selected_item_indices_begin", "slot_player_selected_item_indices_end"),
           #valid item check
           (assign, ":valid_item", 0),
           (try_begin),
@@ -2830,7 +2830,7 @@ scripts = [
         (store_script_param, ":value", 4),
         (try_begin),
           #condition check
-          (is_between, ":slot_no", slot_player_bot_type_1_wanted, slot_player_bot_type_4_wanted + 1),
+          (is_between, ":slot_no", "slot_player_bot_type_wanted_begin", "slot_player_bot_type_wanted_end"),
           (is_between, ":value", 0, 2),
           #condition checks are done
           (player_set_slot, ":player_no", ":slot_no", ":value"),
@@ -2855,7 +2855,7 @@ scripts = [
               (neq, ":value", multi_team_unassigned),
 
               (store_mission_timer_a, ":player_last_team_select_time"),
-              (player_set_slot, ":player_no", slot_player_last_team_select_time, ":player_last_team_select_time"),
+              (player_set_slot, ":player_no", "slot_player_last_team_select_time", ":player_last_team_select_time"),
 
               (multiplayer_send_message_to_player, ":player_no", multiplayer_event_return_confirmation),
             (try_end),
@@ -3315,7 +3315,7 @@ scripts = [
            #validity check
           (eq, "$g_multiplayer_poll_running", 0),
           (store_mission_timer_a, ":mission_timer"),
-          (player_get_slot, ":poll_disable_time", ":player_no", slot_player_poll_disabled_until_time),
+          (player_get_slot, ":poll_disable_time", ":player_no", "slot_player_poll_disabled_until_time"),
           (ge, ":mission_timer", ":poll_disable_time"),
           (assign, ":continue", 0),
           (try_begin),
@@ -3427,12 +3427,12 @@ scripts = [
             (assign, "$g_multiplayer_poll_value_3_to_show", -1),
           (try_end),
           (store_add, ":poll_disable_until", ":mission_timer", multiplayer_poll_disable_period),
-          (player_set_slot, ":player_no", slot_player_poll_disabled_until_time, ":poll_disable_until"),
+          (player_set_slot, ":player_no", "slot_player_poll_disabled_until_time", ":poll_disable_until"),
           (store_add, "$g_multiplayer_poll_end_time", ":mission_timer", 60),
           (get_max_players, ":num_players"),
           (try_for_range, ":cur_player", 0, ":num_players"),
             (player_is_active, ":cur_player"),
-            (player_set_slot, ":cur_player", slot_player_can_answer_poll, 1),
+            (player_set_slot, ":cur_player", "slot_player_can_answer_poll", 1),
             (val_add, "$g_multiplayer_poll_num_sent", 1),
             (multiplayer_send_4_int_to_player, ":cur_player", multiplayer_event_ask_for_poll, "$g_multiplayer_poll_to_show", "$g_multiplayer_poll_value_to_show", "$g_multiplayer_poll_value_2_to_show", "$g_multiplayer_poll_value_3_to_show"),
           (try_end),
@@ -3444,9 +3444,9 @@ scripts = [
           #validity check
           (eq, "$g_multiplayer_poll_running", 1),
           (is_between, ":value", 0, 2),
-          (player_slot_eq, ":player_no", slot_player_can_answer_poll, 1),
+          (player_slot_eq, ":player_no", "slot_player_can_answer_poll", 1),
           #condition checks are done
-          (player_set_slot, ":player_no", slot_player_can_answer_poll, 0),
+          (player_set_slot, ":player_no", "slot_player_can_answer_poll", 0),
           (try_begin),
             (eq, ":value", 0),
             (val_add, "$g_multiplayer_poll_no_count", 1),
@@ -5383,7 +5383,7 @@ scripts = [
   ("multiplayer_clear_player_selected_items",
    [
      (store_script_param, ":player_no", 1),
-     (try_for_range, ":slot_no", slot_player_selected_item_indices_begin, slot_player_selected_item_indices_end),
+     (try_for_range, ":slot_no", "slot_player_selected_item_indices_begin", "slot_player_selected_item_indices_end"),
        (player_set_slot, ":player_no", ":slot_no", -1),
      (try_end),
      ]),
@@ -5396,14 +5396,14 @@ scripts = [
    [
      (store_script_param, ":player_no", 1),
      (call_script, "script_multiplayer_clear_player_selected_items", ":player_no"),
-     (player_set_slot, ":player_no", slot_player_spawned_this_round, 0),
-     (player_set_slot, ":player_no", slot_player_last_rounds_used_item_earnings, 0),
-     (player_set_slot, ":player_no", slot_player_poll_disabled_until_time, 0),
+     (player_set_slot, ":player_no", "slot_player_spawned_this_round", 0),
+     (player_set_slot, ":player_no", "slot_player_last_rounds_used_item_earnings", 0),
+     (player_set_slot, ":player_no", "slot_player_poll_disabled_until_time", 0),
 
-     (player_set_slot, ":player_no", slot_player_bot_type_1_wanted, 0),
-     (player_set_slot, ":player_no", slot_player_bot_type_2_wanted, 0),
-     (player_set_slot, ":player_no", slot_player_bot_type_3_wanted, 0),
-     (player_set_slot, ":player_no", slot_player_bot_type_4_wanted, 0),
+     (player_set_slot, ":player_no", "slot_player_bot_type_1_wanted", 0),
+     (player_set_slot, ":player_no", "slot_player_bot_type_2_wanted", 0),
+     (player_set_slot, ":player_no", "slot_player_bot_type_3_wanted", 0),
+     (player_set_slot, ":player_no", "slot_player_bot_type_4_wanted", 0),
      ]),
 
   #script_multiplayer_initialize_belfry_wheel_rotations
@@ -5830,7 +5830,7 @@ scripts = [
        (try_end),
 
        (try_begin),
-         #(player_get_slot, ":spawn_count", ":player_no", slot_player_spawn_count),
+         #(player_get_slot, ":spawn_count", ":player_no", "slot_player_spawn_count"),
          (eq, "$g_multiplayer_game_type", multiplayer_game_type_siege),
          (gt, "$g_multiplayer_number_of_respawn_count", 0),
 
@@ -6040,11 +6040,11 @@ scripts = [
 
      (try_begin),
        (eq, ":calculation_type", 0),
-       (assign, ":begin_cond", slot_player_cur_selected_item_indices_begin),
-       (assign, ":end_cond", slot_player_cur_selected_item_indices_end),
+       (assign, ":begin_cond", "slot_player_cur_selected_item_indices_begin"),
+       (assign, ":end_cond", "slot_player_cur_selected_item_indices_end"),
      (else_try),
-       (assign, ":begin_cond", slot_player_selected_item_indices_begin),
-       (assign, ":end_cond", slot_player_selected_item_indices_end),
+       (assign, ":begin_cond", "slot_player_selected_item_indices_begin"),
+       (assign, ":end_cond", "slot_player_selected_item_indices_end"),
      (try_end),
 
      (try_for_range, ":i_item", ":begin_cond", ":end_cond"),
@@ -6075,7 +6075,7 @@ scripts = [
    [
 
      (multiplayer_get_my_player, ":my_player_no"),
-     (try_for_range, ":i_item", slot_player_selected_item_indices_begin, slot_player_selected_item_indices_end),
+     (try_for_range, ":i_item", "slot_player_selected_item_indices_begin", "slot_player_selected_item_indices_end"),
        (player_get_slot, ":item_id", ":my_player_no", ":i_item"),
        (multiplayer_send_2_int_to_server, multiplayer_event_set_item_selection, ":i_item", ":item_id"),
      (try_end),
@@ -6099,29 +6099,29 @@ scripts = [
          (is_between, ":item_class", multi_item_class_type_weapons_begin, multi_item_class_type_weapons_end),
          (this_or_next|eq, "$g_multiplayer_disallow_ranged_weapons", 0),
          (neg|is_between, ":item_class", multi_item_class_type_ranged_weapons_begin, multi_item_class_type_ranged_weapons_end),
-         (store_add, ":selected_item_slot", slot_player_selected_item_indices_begin, ":cur_weapon_slot"),
+         (store_add, ":selected_item_slot", "slot_player_selected_item_indices_begin", ":cur_weapon_slot"),
          (player_set_slot, ":my_player_no", ":selected_item_slot", ":item_id"),
          (val_add, ":cur_weapon_slot", 1),
        (else_try),
          (is_between, ":item_class", multi_item_class_type_heads_begin, multi_item_class_type_heads_end),
-         (store_add, ":selected_item_slot", slot_player_selected_item_indices_begin, 4),
+         (store_add, ":selected_item_slot", "slot_player_selected_item_indices_begin", 4),
          (player_set_slot, ":my_player_no", ":selected_item_slot", ":item_id"),
        (else_try),
          (is_between, ":item_class", multi_item_class_type_bodies_begin, multi_item_class_type_bodies_end),
-         (store_add, ":selected_item_slot", slot_player_selected_item_indices_begin, 5),
+         (store_add, ":selected_item_slot", "slot_player_selected_item_indices_begin", 5),
          (player_set_slot, ":my_player_no", ":selected_item_slot", ":item_id"),
        (else_try),
          (is_between, ":item_class", multi_item_class_type_feet_begin, multi_item_class_type_feet_end),
-         (store_add, ":selected_item_slot", slot_player_selected_item_indices_begin, 6),
+         (store_add, ":selected_item_slot", "slot_player_selected_item_indices_begin", 6),
          (player_set_slot, ":my_player_no", ":selected_item_slot", ":item_id"),
        (else_try),
          (is_between, ":item_class", multi_item_class_type_gloves_begin, multi_item_class_type_gloves_end),
-         (store_add, ":selected_item_slot", slot_player_selected_item_indices_begin, 7),
+         (store_add, ":selected_item_slot", "slot_player_selected_item_indices_begin", 7),
          (player_set_slot, ":my_player_no", ":selected_item_slot", ":item_id"),
        (else_try),
          (is_between, ":item_class", multi_item_class_type_horses_begin, multi_item_class_type_horses_end),
          (eq, "$g_horses_are_avaliable", 1),
-         (store_add, ":selected_item_slot", slot_player_selected_item_indices_begin, 8),
+         (store_add, ":selected_item_slot", "slot_player_selected_item_indices_begin", 8),
          (player_set_slot, ":my_player_no", ":selected_item_slot", ":item_id"),
        (try_end),
      (try_end),
@@ -6363,7 +6363,7 @@ scripts = [
       (get_max_players, ":num_players"),
       (try_for_range, ":cur_player", 0, ":num_players"),
         (player_is_active, ":cur_player"),
-        (player_set_slot, ":cur_player", slot_player_last_bot_count, 0),
+        (player_set_slot, ":cur_player", "slot_player_last_bot_count", 0),
       (try_end),
 
       (try_for_agents, ":cur_agent"),
@@ -6373,9 +6373,9 @@ scripts = [
         (lt, ":agent_player", 0), #not a player
         (agent_get_group, ":agent_group", ":cur_agent"),
         (player_is_active, ":agent_group"),
-        (player_get_slot, ":bot_count", ":agent_group", slot_player_last_bot_count),
+        (player_get_slot, ":bot_count", ":agent_group", "slot_player_last_bot_count"),
         (val_add, ":bot_count", 1),
-        (player_set_slot, ":agent_group", slot_player_last_bot_count, ":bot_count"),
+        (player_set_slot, ":agent_group", "slot_player_last_bot_count", ":bot_count"),
       (try_end),
       ]),
 
@@ -6446,14 +6446,14 @@ scripts = [
           (player_get_team_no, ":player_team", ":cur_player"),
           (eq, ":team_no", ":player_team"),
           (assign, ":ai_wanted", 0),
-          (store_add, ":end_cond", slot_player_bot_type_1_wanted, ":num_ai_troops"),
-          (try_for_range, ":bot_type_wanted_slot", slot_player_bot_type_1_wanted, ":end_cond"),
+          (store_add, ":end_cond", "slot_player_bot_type_1_wanted", ":num_ai_troops"),
+          (try_for_range, ":bot_type_wanted_slot", "slot_player_bot_type_1_wanted", ":end_cond"),
             (player_slot_ge, ":cur_player", ":bot_type_wanted_slot", 1),
             (assign, ":ai_wanted", 1),
             (assign, ":end_cond", 0), #break
           (try_end),
           (eq, ":ai_wanted", 1),
-          (player_get_slot, ":player_bot_count", ":cur_player", slot_player_last_bot_count),
+          (player_get_slot, ":player_bot_count", ":cur_player", "slot_player_last_bot_count"),
           (lt, ":player_bot_count", ":num_bots_for_each_player"),
           (val_add, ":total_bot_req", ":num_bots_for_each_player"),
           (val_sub, ":total_bot_req", ":player_bot_count"),
@@ -6471,14 +6471,14 @@ scripts = [
           (player_get_team_no, ":player_team", ":cur_player"),
           (eq, ":team_no", ":player_team"),
           (assign, ":ai_wanted", 0),
-          (store_add, ":end_cond", slot_player_bot_type_1_wanted, ":num_ai_troops"),
-          (try_for_range, ":bot_type_wanted_slot", slot_player_bot_type_1_wanted, ":end_cond"),
+          (store_add, ":end_cond", "slot_player_bot_type_1_wanted", ":num_ai_troops"),
+          (try_for_range, ":bot_type_wanted_slot", "slot_player_bot_type_1_wanted", ":end_cond"),
             (player_slot_ge, ":cur_player", ":bot_type_wanted_slot", 1),
             (assign, ":ai_wanted", 1),
             (assign, ":end_cond", 0), #break
           (try_end),
           (eq, ":ai_wanted", 1),
-          (player_get_slot, ":player_bot_count", ":cur_player", slot_player_last_bot_count),
+          (player_get_slot, ":player_bot_count", ":cur_player", "slot_player_last_bot_count"),
           (lt, ":player_bot_count", ":num_bots_for_each_player"),
           (val_sub, ":random_bot", ":num_bots_for_each_player"),
           (val_add, ":random_bot", ":player_bot_count"),
@@ -6508,7 +6508,7 @@ scripts = [
       (try_for_range, ":troop_no", multiplayer_ai_troops_begin, multiplayer_ai_troops_end),
         (store_troop_faction, ":troop_faction", ":troop_no"),
         (eq, ":troop_faction", ":team_faction_no"),
-        (store_add, ":wanted_slot", slot_player_bot_type_1_wanted, ":available_troops_in_faction"),
+        (store_add, ":wanted_slot", "slot_player_bot_type_1_wanted", ":available_troops_in_faction"),
         (val_add, ":available_troops_in_faction", 1),
         (try_begin),
           (this_or_next|lt, ":leader_player", 0),
@@ -6524,7 +6524,7 @@ scripts = [
       (try_for_range, ":troop_no", multiplayer_ai_troops_begin, ":end_cond"),
         (store_troop_faction, ":troop_faction", ":troop_no"),
         (eq, ":troop_faction", ":team_faction_no"),
-        (store_add, ":wanted_slot", slot_player_bot_type_1_wanted, ":available_troops_in_faction"),
+        (store_add, ":wanted_slot", "slot_player_bot_type_1_wanted", ":available_troops_in_faction"),
         (val_add, ":available_troops_in_faction", 1),
         (this_or_next|lt, ":leader_player", 0),
         (player_slot_ge, ":leader_player", ":wanted_slot", 1),
@@ -7140,20 +7140,20 @@ scripts = [
      (store_script_param, ":player_no", 1),
      (player_get_troop_id, ":player_troop", ":player_no"),
      (player_get_gold, ":player_gold", ":player_no"),
-     (player_get_slot, ":added_gold", ":player_no", slot_player_last_rounds_used_item_earnings),
-     (player_set_slot, ":player_no", slot_player_last_rounds_used_item_earnings, 0),
+     (player_get_slot, ":added_gold", ":player_no", "slot_player_last_rounds_used_item_earnings"),
+     (player_set_slot, ":player_no", "slot_player_last_rounds_used_item_earnings", 0),
      (val_add, ":player_gold", ":added_gold"),
      (assign, ":armor_bought", 0),
 
      #moving original values to temp slots
-     (try_for_range, ":i_item", slot_player_selected_item_indices_begin, slot_player_selected_item_indices_end),
+     (try_for_range, ":i_item", "slot_player_selected_item_indices_begin", "slot_player_selected_item_indices_end"),
        (player_get_slot, ":selected_item_index", ":player_no", ":i_item"),
-       (store_sub, ":i_cur_selected_item", ":i_item", slot_player_selected_item_indices_begin),
+       (store_sub, ":i_cur_selected_item", ":i_item", "slot_player_selected_item_indices_begin"),
        (try_begin),
          (player_item_slot_is_picked_up, ":player_no", ":i_cur_selected_item"),
          (assign, ":selected_item_index", -1),
        (try_end),
-       (val_add, ":i_cur_selected_item", slot_player_cur_selected_item_indices_begin),
+       (val_add, ":i_cur_selected_item", "slot_player_cur_selected_item_indices_begin"),
        (player_set_slot, ":player_no", ":i_cur_selected_item", ":selected_item_index"),
      (try_end),
      (assign, ":end_cond", 1000),
@@ -7170,12 +7170,12 @@ scripts = [
 
          (assign, ":max_cost_value", 0),
          (assign, ":max_cost_value_index", -1),
-         (try_for_range, ":i_item", slot_player_cur_selected_item_indices_begin, slot_player_cur_selected_item_indices_end),
+         (try_for_range, ":i_item", "slot_player_cur_selected_item_indices_begin", "slot_player_cur_selected_item_indices_end"),
            (player_get_slot, ":item_id", ":player_no", ":i_item"),
            (ge, ":item_id", 0), #might be -1 for horses etc.
            (call_script, "script_multiplayer_get_item_value_for_troop", ":item_id", ":player_troop"),
            (assign, ":item_value", reg0),
-           (store_sub, ":item_type", ":i_item", slot_player_cur_selected_item_indices_begin),
+           (store_sub, ":item_type", ":i_item", "slot_player_cur_selected_item_indices_begin"),
            (try_begin), #items
              (this_or_next|eq, ":item_type", 0),
              (this_or_next|eq, ":item_type", 1),
@@ -7260,15 +7260,15 @@ scripts = [
          (assign, ":end_cond", 0),
          (val_sub, ":player_gold", ":total_cost"),
          (player_set_gold, ":player_no", ":player_gold", multi_max_gold_that_can_be_stored),
-         (try_for_range, ":i_item", slot_player_cur_selected_item_indices_begin, slot_player_cur_selected_item_indices_end),
+         (try_for_range, ":i_item", "slot_player_cur_selected_item_indices_begin", "slot_player_cur_selected_item_indices_end"),
            (player_get_slot, ":item_id", ":player_no", ":i_item"),
            #checking if different class default item replace is needed for weapons
            (try_begin),
              (ge, ":item_id", 0),
              #then do nothing
            (else_try),
-             (store_sub, ":base_index_slot", ":i_item", slot_player_cur_selected_item_indices_begin),
-             (store_add, ":selected_item_index_slot", ":base_index_slot", slot_player_selected_item_indices_begin),
+             (store_sub, ":base_index_slot", ":i_item", "slot_player_cur_selected_item_indices_begin"),
+             (store_add, ":selected_item_index_slot", ":base_index_slot", "slot_player_selected_item_indices_begin"),
              (player_get_slot, ":selected_item_index", ":player_no", ":selected_item_index_slot"),
              (this_or_next|eq, ":selected_item_index", -1),
              (player_item_slot_is_picked_up, ":player_no", ":base_index_slot"),
@@ -7281,7 +7281,7 @@ scripts = [
              (try_for_range, ":i_dc_item_class", multi_item_class_type_melee_weapons_begin, multi_item_class_type_melee_weapons_end),
                (lt, ":dc_replaced_item", 0),
                (assign, ":dc_item_class_used", 0),
-               (try_for_range, ":i_dc_item", slot_player_cur_selected_item_indices_begin, slot_player_cur_selected_item_indices_end),
+               (try_for_range, ":i_dc_item", "slot_player_cur_selected_item_indices_begin", "slot_player_cur_selected_item_indices_end"),
                  (player_get_slot, ":dc_cur_item", ":player_no", ":i_dc_item"),
                  (ge, ":dc_cur_item", 0),
                  (item_get_slot, ":dc_item_class", ":dc_cur_item", "slot_item_multiplayer_item_class"),
@@ -7305,7 +7305,7 @@ scripts = [
            #finally, add the item to agent
            (try_begin),
              (ge, ":item_id", 0), #might be -1 for horses etc.
-             (store_sub, ":item_slot", ":i_item", slot_player_cur_selected_item_indices_begin),
+             (store_sub, ":item_slot", ":i_item", "slot_player_cur_selected_item_indices_begin"),
              (player_add_spawn_item, ":player_no", ":item_slot", ":item_id"),
              (try_begin),
                (eq, ":item_slot", ek_body), #ek_body is the slot for armor
@@ -7314,7 +7314,7 @@ scripts = [
            (try_end),
          (try_end),
 
-         (player_set_slot, ":player_no", slot_player_total_equipment_value, ":total_cost"),
+         (player_set_slot, ":player_no", "slot_player_total_equipment_value", ":total_cost"),
        (try_end),
      (try_end),
      (try_begin),

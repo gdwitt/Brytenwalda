@@ -299,52 +299,6 @@ stl_reserved_for_player = -2
 stl_rejected_by_player = -3
 
 ########################################################
-##  PLAYER SLOTS           #############################
-########################################################
-
-slot_player_spawned_this_round = 0
-slot_player_last_rounds_used_item_earnings = 1
-slot_player_selected_item_indices_begin = 2
-slot_player_selected_item_indices_end = 11
-slot_player_cur_selected_item_indices_begin = slot_player_selected_item_indices_end
-slot_player_cur_selected_item_indices_end = slot_player_selected_item_indices_end + 9
-slot_player_join_time = 21
-slot_player_button_index = 22  # used for presentations
-slot_player_can_answer_poll = 23
-slot_player_first_spawn = 24
-slot_player_spawned_at_siege_round = 25
-slot_player_poll_disabled_until_time = 26
-slot_player_total_equipment_value = 27
-slot_player_last_team_select_time = 28
-slot_player_death_pos_x = 29
-slot_player_death_pos_y = 30
-slot_player_death_pos_z = 31
-slot_player_damage_given_to_target_1 = 32  # used only in destroy mod
-slot_player_damage_given_to_target_2 = 33  # used only in destroy mod
-slot_player_last_bot_count = 34
-slot_player_bot_type_1_wanted = 35
-slot_player_bot_type_2_wanted = 36
-slot_player_bot_type_3_wanted = 37
-slot_player_bot_type_4_wanted = 38
-slot_player_spawn_count = 39
-
-# COOP chief############################################################
-slot_player_coop_class_0_wanted = 40
-slot_player_coop_class_1_wanted = 41
-slot_player_coop_class_2_wanted = 42
-slot_player_coop_class_3_wanted = 43
-slot_player_coop_class_4_wanted = 44
-slot_player_coop_class_5_wanted = 45
-slot_player_coop_class_6_wanted = 46
-slot_player_coop_class_7_wanted = 47
-slot_player_coop_class_8_wanted = 48
-slot_player_coop_selected_troop = 49
-#################################################################
-
-# This goes into module_constants.py, player slots. multiplayer chief
-rpw_shield_bash_timer = 50
-
-########################################################
 ##  TEAM SLOTS             #############################
 ########################################################
 

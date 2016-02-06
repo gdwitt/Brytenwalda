@@ -465,9 +465,9 @@ scene_props = [
           
           (try_begin),
             (eq, "spr_catapult_destructible", "$g_destructible_target_1"),
-            (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_1),
+            (player_get_slot, ":damage_given", ":player_no", "slot_player_damage_given_to_target_1"),
           (else_try),
-            (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_2),
+            (player_get_slot, ":damage_given", ":player_no", "slot_player_damage_given_to_target_2"),
           (try_end),
 
           (val_add, ":total_damage_given", ":damage_given"),
@@ -494,9 +494,9 @@ scene_props = [
           
           (try_begin),
             (eq, "spr_catapult_destructible", "$g_destructible_target_1"),
-            (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_1),
+            (player_get_slot, ":damage_given", ":player_no", "slot_player_damage_given_to_target_1"),
           (else_try),
-            (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_2),
+            (player_get_slot, ":damage_given", ":player_no", "slot_player_damage_given_to_target_2"),
           (try_end),
 
           (player_get_gold, ":player_gold", ":player_no"), #give money to player which helped flag to be owned by new_flag_owner team
@@ -550,13 +550,13 @@ scene_props = [
           (player_is_active, ":attacker_player_id"),        
           (try_begin),
             (eq, "spr_catapult_destructible", "$g_destructible_target_1"),
-            (player_get_slot, ":damage_given", ":attacker_player_id", slot_player_damage_given_to_target_1),
+            (player_get_slot, ":damage_given", ":attacker_player_id", "slot_player_damage_given_to_target_1"),
             (val_add, ":damage_given", ":damage"),
-            (player_set_slot, ":attacker_player_id", slot_player_damage_given_to_target_1, ":damage_given"),
+            (player_set_slot, ":attacker_player_id", "slot_player_damage_given_to_target_1", ":damage_given"),
           (else_try),
-            (player_get_slot, ":damage_given", ":attacker_player_id", slot_player_damage_given_to_target_2),
+            (player_get_slot, ":damage_given", ":attacker_player_id", "slot_player_damage_given_to_target_2"),
             (val_add, ":damage_given", ":damage"),
-            (player_set_slot, ":attacker_player_id", slot_player_damage_given_to_target_2, ":damage_given"),
+            (player_set_slot, ":attacker_player_id", "slot_player_damage_given_to_target_2", ":damage_given"),
           (try_end),
         (try_end),
       (try_end),
@@ -2536,9 +2536,9 @@ scene_props = [
           
           (try_begin),
             (eq, "spr_trebuchet_destructible", "$g_destructible_target_1"),
-            (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_1),
+            (player_get_slot, ":damage_given", ":player_no", "slot_player_damage_given_to_target_1"),
           (else_try),
-            (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_2),
+            (player_get_slot, ":damage_given", ":player_no", "slot_player_damage_given_to_target_2"),
           (try_end),
 
           (val_add, ":total_damage_given", ":damage_given"),
@@ -2566,9 +2566,9 @@ scene_props = [
           
           (try_begin),
             (eq, "spr_trebuchet_destructible", "$g_destructible_target_1"),
-            (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_1),
+            (player_get_slot, ":damage_given", ":player_no", "slot_player_damage_given_to_target_1"),
           (else_try),
-            (player_get_slot, ":damage_given", ":player_no", slot_player_damage_given_to_target_2),
+            (player_get_slot, ":damage_given", ":player_no", "slot_player_damage_given_to_target_2"),
           (try_end),
 
           (player_get_gold, ":player_gold", ":player_no"), #give money to player which helped flag to be owned by new_flag_owner team
@@ -2616,13 +2616,13 @@ scene_props = [
           (player_is_active, ":attacker_player_id"),
           (try_begin),
             (eq, "spr_trebuchet_destructible", "$g_destructible_target_1"),
-            (player_get_slot, ":damage_given", ":attacker_player_id", slot_player_damage_given_to_target_1),
+            (player_get_slot, ":damage_given", ":attacker_player_id", "slot_player_damage_given_to_target_1"),
             (val_add, ":damage_given", ":damage"),
-            (player_set_slot, ":attacker_player_id", slot_player_damage_given_to_target_1, ":damage_given"),
+            (player_set_slot, ":attacker_player_id", "slot_player_damage_given_to_target_1", ":damage_given"),
           (else_try),
-            (player_get_slot, ":damage_given", ":attacker_player_id", slot_player_damage_given_to_target_2),
+            (player_get_slot, ":damage_given", ":attacker_player_id", "slot_player_damage_given_to_target_2"),
             (val_add, ":damage_given", ":damage"),
-            (player_set_slot, ":attacker_player_id", slot_player_damage_given_to_target_2, ":damage_given"),
+            (player_set_slot, ":attacker_player_id", "slot_player_damage_given_to_target_2", ":damage_given"),
           (try_end),
         (try_end),
       (try_end),

@@ -71,9 +71,9 @@ coop_store_respawn_as_bot = (
            (position_get_y, ":y_coor", pos0),
            (position_get_z, ":z_coor", pos0),
          
-           (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_x, ":x_coor"),
-           (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_y, ":y_coor"),
-           (player_set_slot, ":dead_agent_player_id", slot_player_death_pos_z, ":z_coor"),
+           (player_set_slot, ":dead_agent_player_id", "slot_player_death_pos_x", ":x_coor"),
+           (player_set_slot, ":dead_agent_player_id", "slot_player_death_pos_y", ":y_coor"),
+           (player_set_slot, ":dead_agent_player_id", "slot_player_death_pos_z", ":z_coor"),
          (try_end), 
  
     ])
@@ -102,7 +102,7 @@ coop_respawn_as_bot = (
              (assign, ":continue", 1),
             (else_try),
              (lt, ":player_agent", 0),
-             (player_get_slot, ":player_selected_troop", ":player_no", slot_player_coop_selected_troop),
+             (player_get_slot, ":player_selected_troop", ":player_no", "slot_player_coop_selected_troop"),
              (le, ":player_selected_troop", 0),
              (assign, ":continue", 2),
             (try_end),
@@ -129,9 +129,9 @@ coop_respawn_as_bot = (
              (position_get_x, ":x_coor", pos0),
              (position_get_y, ":y_coor", pos0),
              (position_get_z, ":z_coor", pos0),
-             (player_set_slot, ":player_no", slot_player_death_pos_x, ":x_coor"),
-             (player_set_slot, ":player_no", slot_player_death_pos_y, ":y_coor"),
-             (player_set_slot, ":player_no", slot_player_death_pos_z, ":z_coor"),
+             (player_set_slot, ":player_no", "slot_player_death_pos_x", ":x_coor"),
+             (player_set_slot, ":player_no", "slot_player_death_pos_y", ":y_coor"),
+             (player_set_slot, ":player_no", "slot_player_death_pos_z", ":z_coor"),
             (try_end),
 
              (try_begin),
