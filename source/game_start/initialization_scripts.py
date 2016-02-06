@@ -2346,366 +2346,366 @@ scripts = [
     ("initialize_item_info", [     
         # Setting food bonuses - these have been changed to incentivize using historical rations. Bread is the most cost-efficient
         #Staples#note these get overridden in simple triggers in a test on Aptil 2015
-        (item_set_slot, "itm_bread", slot_item_food_bonus, 6),  #brought up from 4#gdw keep in mind that this does not expire so hardtack
-        (item_set_slot, "itm_grain", slot_item_food_bonus, 3),  #new - can be boiled as porridge
+        (item_set_slot, "itm_bread", "slot_item_food_bonus", 6),  #brought up from 4#gdw keep in mind that this does not expire so hardtack
+        (item_set_slot, "itm_grain", "slot_item_food_bonus", 3),  #new - can be boiled as porridge
 
         #Fat sources - preserved
-        (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 6),#have you ever tasted dried fishgdwleftalone
-        (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 8),
-        (item_set_slot, "itm_cheese", slot_item_food_bonus, 7),
-        (item_set_slot, "itm_sausages", slot_item_food_bonus, 6),
-        (item_set_slot, "itm_butter", slot_item_food_bonus, 7),  #brought down from 8
+        (item_set_slot, "itm_smoked_fish", "slot_item_food_bonus", 6),#have you ever tasted dried fishgdwleftalone
+        (item_set_slot, "itm_dried_meat", "slot_item_food_bonus", 8),
+        (item_set_slot, "itm_cheese", "slot_item_food_bonus", 7),
+        (item_set_slot, "itm_sausages", "slot_item_food_bonus", 6),
+        (item_set_slot, "itm_butter", "slot_item_food_bonus", 7),  #brought down from 8
 
         #Fat sources - perishable
-        (item_set_slot, "itm_chicken", slot_item_food_bonus, 8),  #brought up from 7
-        (item_set_slot, "itm_cattle_meat", slot_item_food_bonus, 11),  #brought down from 7
-        (item_set_slot, "itm_pork", slot_item_food_bonus, 9),  #brought down from 6
+        (item_set_slot, "itm_chicken", "slot_item_food_bonus", 8),  #brought up from 7
+        (item_set_slot, "itm_cattle_meat", "slot_item_food_bonus", 11),  #brought down from 7
+        (item_set_slot, "itm_pork", "slot_item_food_bonus", 9),  #brought down from 6
 
         #Produce
-        (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 11),#imported
-        (item_set_slot, "itm_cabbages", slot_item_food_bonus, 4),
-        (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 10),#spoil
-        (item_set_slot, "itm_apples", slot_item_food_bonus, 5),  #brought down from 5
+        (item_set_slot, "itm_raw_olives", "slot_item_food_bonus", 11),#imported
+        (item_set_slot, "itm_cabbages", "slot_item_food_bonus", 4),
+        (item_set_slot, "itm_raw_grapes", "slot_item_food_bonus", 10),#spoil
+        (item_set_slot, "itm_apples", "slot_item_food_bonus", 5),  #brought down from 5
 
         #Sweet items
-        (item_set_slot, "itm_mead", slot_item_food_bonus, 9),  #brought down from 8
-        (item_set_slot, "itm_honey", slot_item_food_bonus, 9),  #brought down from 12
+        (item_set_slot, "itm_mead", "slot_item_food_bonus", 9),  #brought down from 8
+        (item_set_slot, "itm_honey", "slot_item_food_bonus", 9),  #brought down from 12
 
-        (item_set_slot, "itm_wine", slot_item_food_bonus, 12),
-        (item_set_slot, "itm_ale", slot_item_food_bonus, 9),
+        (item_set_slot, "itm_wine", "slot_item_food_bonus", 12),
+        (item_set_slot, "itm_ale", "slot_item_food_bonus", 9),
 
         #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
         #-#-#-#Hunting chief Mod begin#-#-#-#
         #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-        (item_set_slot, "itm_deer_meat", slot_item_food_bonus, 11),
-        (item_set_slot, "itm_boar_meat", slot_item_food_bonus, 13),
-        (item_set_slot, "itm_wolf_meat", slot_item_food_bonus, 11),
-        (item_set_slot, "itm_goat_meat", slot_item_food_bonus, 11),
-        (item_set_slot, "itm_goatb_meat", slot_item_food_bonus, 13),#createnewname
-        (item_set_slot, "itm_wilddonkey_meat", slot_item_food_bonus, 12),
+        (item_set_slot, "itm_deer_meat", "slot_item_food_bonus", 11),
+        (item_set_slot, "itm_boar_meat", "slot_item_food_bonus", 13),
+        (item_set_slot, "itm_wolf_meat", "slot_item_food_bonus", 11),
+        (item_set_slot, "itm_goat_meat", "slot_item_food_bonus", 11),
+        (item_set_slot, "itm_goatb_meat", "slot_item_food_bonus", 13),#createnewname
+        (item_set_slot, "itm_wilddonkey_meat", "slot_item_food_bonus", 12),
         #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
         #-#-#-#Hunting chief Mod end#-#-#-#
         #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
         #Estandartes bonus de moral chief
-        (item_set_slot, "itm_wessexbanner1", slot_item_food_bonus, 15),
-        (item_set_slot, "itm_cavalrybannert2", slot_item_food_bonus, 16),
-        (item_set_slot, "itm_spearbannert2", slot_item_food_bonus, 15),
-        (item_set_slot, "itm_spearbanner4", slot_item_food_bonus, 15),
-        (item_set_slot, "itm_spearbanner5", slot_item_food_bonus, 15),
-        (item_set_slot, "itm_wessexbanner6", slot_item_food_bonus, 15),
-        (item_set_slot, "itm_wessexbanner7", slot_item_food_bonus, 15),
-        (item_set_slot, "itm_wessexbanner8", slot_item_food_bonus, 15),
-        (item_set_slot, "itm_wessexbanner9", slot_item_food_bonus, 15),
-        (item_set_slot, "itm_heraldicbannert3", slot_item_food_bonus, 16),
+        (item_set_slot, "itm_wessexbanner1", "slot_item_food_bonus", 15),
+        (item_set_slot, "itm_cavalrybannert2", "slot_item_food_bonus", 16),
+        (item_set_slot, "itm_spearbannert2", "slot_item_food_bonus", 15),
+        (item_set_slot, "itm_spearbanner4", "slot_item_food_bonus", 15),
+        (item_set_slot, "itm_spearbanner5", "slot_item_food_bonus", 15),
+        (item_set_slot, "itm_wessexbanner6", "slot_item_food_bonus", 15),
+        (item_set_slot, "itm_wessexbanner7", "slot_item_food_bonus", 15),
+        (item_set_slot, "itm_wessexbanner8", "slot_item_food_bonus", 15),
+        (item_set_slot, "itm_wessexbanner9", "slot_item_food_bonus", 15),
+        (item_set_slot, "itm_heraldicbannert3", "slot_item_food_bonus", 16),
 
 
         #Item economic settings
-        (item_set_slot, "itm_grain", slot_item_urban_demand, 20),
-        (item_set_slot, "itm_grain", slot_item_rural_demand, 20),
-        (item_set_slot, "itm_grain", slot_item_desert_demand, 20),
-        (item_set_slot, "itm_grain", slot_item_production_slot, "slot_center_acres_grain"),
-        (item_set_slot, "itm_grain", slot_item_production_string, "str_acres_grain"),
-        (item_set_slot, "itm_grain", slot_item_base_price, 20),  #chief cambia
+        (item_set_slot, "itm_grain", "slot_item_urban_demand", 20),
+        (item_set_slot, "itm_grain", "slot_item_rural_demand", 20),
+        (item_set_slot, "itm_grain", "slot_item_desert_demand", 20),
+        (item_set_slot, "itm_grain", "slot_item_production_slot", "slot_center_acres_grain"),
+        (item_set_slot, "itm_grain", "slot_item_production_string", "str_acres_grain"),
+        (item_set_slot, "itm_grain", "slot_item_base_price", 20),  #chief cambia
 
-        (item_set_slot, "itm_bread", slot_item_urban_demand, 20),
-        (item_set_slot, "itm_bread", slot_item_rural_demand, 30),
-        (item_set_slot, "itm_bread", slot_item_desert_demand, 30),
-        (item_set_slot, "itm_bread", slot_item_production_slot, "slot_center_mills"),
-        (item_set_slot, "itm_bread", slot_item_production_string, "str_mills"),
-        (item_set_slot, "itm_bread", slot_item_primary_raw_material, "itm_grain"),
-        (item_set_slot, "itm_bread", slot_item_input_number, 2),
-        (item_set_slot, "itm_bread", slot_item_output_per_run, 6),
-        (item_set_slot, "itm_bread", slot_item_overhead_per_run, 12),
-        (item_set_slot, "itm_bread", slot_item_base_price, 50),  #chief cambia
-        (item_set_slot, "itm_bread", slot_item_enterprise_building_cost, 7500),  #chief cambiado
+        (item_set_slot, "itm_bread", "slot_item_urban_demand", 20),
+        (item_set_slot, "itm_bread", "slot_item_rural_demand", 30),
+        (item_set_slot, "itm_bread", "slot_item_desert_demand", 30),
+        (item_set_slot, "itm_bread", "slot_item_production_slot", "slot_center_mills"),
+        (item_set_slot, "itm_bread", "slot_item_production_string", "str_mills"),
+        (item_set_slot, "itm_bread", "slot_item_primary_raw_material", "itm_grain"),
+        (item_set_slot, "itm_bread", "slot_item_input_number", 2),
+        (item_set_slot, "itm_bread", "slot_item_output_per_run", 6),
+        (item_set_slot, "itm_bread", "slot_item_overhead_per_run", 12),
+        (item_set_slot, "itm_bread", "slot_item_base_price", 50),  #chief cambia
+        (item_set_slot, "itm_bread", "slot_item_enterprise_building_cost", 7500),  #chief cambiado
 
-        (item_set_slot, "itm_ale", slot_item_urban_demand, 15),
-        (item_set_slot, "itm_ale", slot_item_rural_demand, 25),
-        (item_set_slot, "itm_ale", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_ale", slot_item_production_slot, "slot_center_breweries"),
-        (item_set_slot, "itm_ale", slot_item_production_string, "str_breweries"),
-        (item_set_slot, "itm_ale", slot_item_base_price, 100),
-        (item_set_slot, "itm_ale", slot_item_primary_raw_material, "itm_grain"),
-        (item_set_slot, "itm_ale", slot_item_input_number, 1),
-        (item_set_slot, "itm_ale", slot_item_output_per_run, 2),
-        (item_set_slot, "itm_ale", slot_item_overhead_per_run, 39),#gdw
-        (item_set_slot, "itm_ale", slot_item_base_price, 250),  #chief cambia
-        (item_set_slot, "itm_ale", slot_item_enterprise_building_cost, 16000),  #gdw cambia
+        (item_set_slot, "itm_ale", "slot_item_urban_demand", 15),
+        (item_set_slot, "itm_ale", "slot_item_rural_demand", 25),
+        (item_set_slot, "itm_ale", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_ale", "slot_item_production_slot", "slot_center_breweries"),
+        (item_set_slot, "itm_ale", "slot_item_production_string", "str_breweries"),
+        (item_set_slot, "itm_ale", "slot_item_base_price", 100),
+        (item_set_slot, "itm_ale", "slot_item_primary_raw_material", "itm_grain"),
+        (item_set_slot, "itm_ale", "slot_item_input_number", 1),
+        (item_set_slot, "itm_ale", "slot_item_output_per_run", 2),
+        (item_set_slot, "itm_ale", "slot_item_overhead_per_run", 39),#gdw
+        (item_set_slot, "itm_ale", "slot_item_base_price", 250),  #chief cambia
+        (item_set_slot, "itm_ale", "slot_item_enterprise_building_cost", 16000),  #gdw cambia
 
-        (item_set_slot, "itm_wine", slot_item_urban_demand, 35),
-        (item_set_slot, "itm_wine", slot_item_rural_demand, 10),
-        (item_set_slot, "itm_wine", slot_item_desert_demand, 25),
-        (item_set_slot, "itm_wine", slot_item_production_slot, "slot_center_wine_presses"),
-        (item_set_slot, "itm_wine", slot_item_production_string, "str_presses"),
-        (item_set_slot, "itm_wine", slot_item_primary_raw_material, "itm_raw_grapes"),#What happened to base price here?gdw
-        (item_set_slot, "itm_wine", slot_item_input_number, 1),  #chief cambia
-        (item_set_slot, "itm_wine", slot_item_output_per_run, 2),
-        (item_set_slot, "itm_wine", slot_item_overhead_per_run, 40),  #chief cambiA
-        (item_set_slot, "itm_wine", slot_item_base_price, 450),  #chief cambia
-        (item_set_slot, "itm_wine", slot_item_enterprise_building_cost, 24500),  #chief cambia
+        (item_set_slot, "itm_wine", "slot_item_urban_demand", 35),
+        (item_set_slot, "itm_wine", "slot_item_rural_demand", 10),
+        (item_set_slot, "itm_wine", "slot_item_desert_demand", 25),
+        (item_set_slot, "itm_wine", "slot_item_production_slot", "slot_center_wine_presses"),
+        (item_set_slot, "itm_wine", "slot_item_production_string", "str_presses"),
+        (item_set_slot, "itm_wine", "slot_item_primary_raw_material", "itm_raw_grapes"),#What happened to base price here?gdw
+        (item_set_slot, "itm_wine", "slot_item_input_number", 1),  #chief cambia
+        (item_set_slot, "itm_wine", "slot_item_output_per_run", 2),
+        (item_set_slot, "itm_wine", "slot_item_overhead_per_run", 40),  #chief cambiA
+        (item_set_slot, "itm_wine", "slot_item_base_price", 450),  #chief cambia
+        (item_set_slot, "itm_wine", "slot_item_enterprise_building_cost", 24500),  #chief cambia
 
-        (item_set_slot, "itm_mead", slot_item_urban_demand, 25),
-        (item_set_slot, "itm_mead", slot_item_rural_demand, 20),
-        (item_set_slot, "itm_mead", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_mead", slot_item_production_slot, "slot_center_breweries"),
-        (item_set_slot, "itm_mead", slot_item_production_string, "str_presses"),
-        (item_set_slot, "itm_mead", slot_item_base_price, 120),
-        (item_set_slot, "itm_mead", slot_item_primary_raw_material, "itm_honey"),
-        (item_set_slot, "itm_mead", slot_item_input_number, 1),  #chief cambia
-        (item_set_slot, "itm_mead", slot_item_output_per_run, 2),
-        (item_set_slot, "itm_mead", slot_item_overhead_per_run, 45),  #chief cambiA
-        (item_set_slot, "itm_mead", slot_item_base_price, 325),  #chief cambia
-        (item_set_slot, "itm_mead", slot_item_enterprise_building_cost, 20000),  #chief cambia gdwnot in game
+        (item_set_slot, "itm_mead", "slot_item_urban_demand", 25),
+        (item_set_slot, "itm_mead", "slot_item_rural_demand", 20),
+        (item_set_slot, "itm_mead", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_mead", "slot_item_production_slot", "slot_center_breweries"),
+        (item_set_slot, "itm_mead", "slot_item_production_string", "str_presses"),
+        (item_set_slot, "itm_mead", "slot_item_base_price", 120),
+        (item_set_slot, "itm_mead", "slot_item_primary_raw_material", "itm_honey"),
+        (item_set_slot, "itm_mead", "slot_item_input_number", 1),  #chief cambia
+        (item_set_slot, "itm_mead", "slot_item_output_per_run", 2),
+        (item_set_slot, "itm_mead", "slot_item_overhead_per_run", 45),  #chief cambiA
+        (item_set_slot, "itm_mead", "slot_item_base_price", 325),  #chief cambia
+        (item_set_slot, "itm_mead", "slot_item_enterprise_building_cost", 20000),  #chief cambia gdwnot in game
 
-        (item_set_slot, "itm_raw_grapes", slot_item_urban_demand, 13),
-        (item_set_slot, "itm_raw_grapes", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_raw_grapes", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_raw_grapes", slot_item_production_slot, "slot_center_acres_vineyard"),
-        (item_set_slot, "itm_raw_grapes", slot_item_production_string, "str_acres_orchard"),
-        (item_set_slot, "itm_raw_grapes", slot_item_is_raw_material_only_for, "itm_wine"),
-        (item_set_slot, "itm_raw_grapes", slot_item_base_price, 125),  #chief cambia
+        (item_set_slot, "itm_raw_grapes", "slot_item_urban_demand", 13),
+        (item_set_slot, "itm_raw_grapes", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_raw_grapes", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_raw_grapes", "slot_item_production_slot", "slot_center_acres_vineyard"),
+        (item_set_slot, "itm_raw_grapes", "slot_item_production_string", "str_acres_orchard"),
+        (item_set_slot, "itm_raw_grapes", "slot_item_is_raw_material_only_for", "itm_wine"),
+        (item_set_slot, "itm_raw_grapes", "slot_item_base_price", 125),  #chief cambia
 
-        (item_set_slot, "itm_apples", slot_item_urban_demand, 9),
-        (item_set_slot, "itm_apples", slot_item_rural_demand, 5),
-        (item_set_slot, "itm_apples", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_apples", slot_item_production_slot, "slot_center_acres_vineyard"),
-        (item_set_slot, "itm_apples", slot_item_production_string, "str_acres_orchard"),
-        (item_set_slot, "itm_apples", slot_item_base_price, 50),  #chief cambia
+        (item_set_slot, "itm_apples", "slot_item_urban_demand", 9),
+        (item_set_slot, "itm_apples", "slot_item_rural_demand", 5),
+        (item_set_slot, "itm_apples", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_apples", "slot_item_production_slot", "slot_center_acres_vineyard"),
+        (item_set_slot, "itm_apples", "slot_item_production_string", "str_acres_orchard"),
+        (item_set_slot, "itm_apples", "slot_item_base_price", 50),  #chief cambia
 
-        (item_set_slot, "itm_smoked_fish", slot_item_urban_demand, 13),
-        (item_set_slot, "itm_smoked_fish", slot_item_rural_demand, 18),
-        (item_set_slot, "itm_smoked_fish", slot_item_desert_demand, 16),
-        (item_set_slot, "itm_smoked_fish", slot_item_production_slot, "slot_center_fishing_fleet"),
-        (item_set_slot, "itm_smoked_fish", slot_item_production_string, "str_boats"),
+        (item_set_slot, "itm_smoked_fish", "slot_item_urban_demand", 13),
+        (item_set_slot, "itm_smoked_fish", "slot_item_rural_demand", 18),
+        (item_set_slot, "itm_smoked_fish", "slot_item_desert_demand", 16),
+        (item_set_slot, "itm_smoked_fish", "slot_item_production_slot", "slot_center_fishing_fleet"),
+        (item_set_slot, "itm_smoked_fish", "slot_item_production_string", "str_boats"),
 
-        (item_set_slot, "itm_salt", slot_item_urban_demand, 6),
-        (item_set_slot, "itm_salt", slot_item_rural_demand, 3),
-        (item_set_slot, "itm_salt", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_salt", slot_item_production_slot, "slot_center_salt_pans"),
-        (item_set_slot, "itm_salt", slot_item_production_string, "str_pans"),
+        (item_set_slot, "itm_salt", "slot_item_urban_demand", 6),
+        (item_set_slot, "itm_salt", "slot_item_rural_demand", 3),
+        (item_set_slot, "itm_salt", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_salt", "slot_item_production_slot", "slot_center_salt_pans"),
+        (item_set_slot, "itm_salt", "slot_item_production_string", "str_pans"),
 
-        (item_set_slot, "itm_dried_meat", slot_item_urban_demand, 10),
-        (item_set_slot, "itm_dried_meat", slot_item_rural_demand, 10),
-        (item_set_slot, "itm_dried_meat", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_dried_meat", slot_item_production_slot, "slot_center_head_cattle"),
-        (item_set_slot, "itm_dried_meat", slot_item_production_string, "str_head_cattle"),
+        (item_set_slot, "itm_dried_meat", "slot_item_urban_demand", 10),
+        (item_set_slot, "itm_dried_meat", "slot_item_rural_demand", 10),
+        (item_set_slot, "itm_dried_meat", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_dried_meat", "slot_item_production_slot", "slot_center_head_cattle"),
+        (item_set_slot, "itm_dried_meat", "slot_item_production_string", "str_head_cattle"),
 
-        (item_set_slot, "itm_cattle_meat", slot_item_urban_demand, 16),
-        (item_set_slot, "itm_cattle_meat", slot_item_rural_demand, 5),
-        (item_set_slot, "itm_cattle_meat", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_cattle_meat", slot_item_production_slot, "slot_center_head_cattle"),
-        (item_set_slot, "itm_cattle_meat", slot_item_production_string, "str_head_cattle"),
+        (item_set_slot, "itm_cattle_meat", "slot_item_urban_demand", 16),
+        (item_set_slot, "itm_cattle_meat", "slot_item_rural_demand", 5),
+        (item_set_slot, "itm_cattle_meat", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_cattle_meat", "slot_item_production_slot", "slot_center_head_cattle"),
+        (item_set_slot, "itm_cattle_meat", "slot_item_production_string", "str_head_cattle"),
 
-        (item_set_slot, "itm_cheese", slot_item_urban_demand, 15),
-        (item_set_slot, "itm_cheese", slot_item_rural_demand, 15),
-        (item_set_slot, "itm_cheese", slot_item_desert_demand, 10),
-        (item_set_slot, "itm_cheese", slot_item_production_slot, "slot_center_head_cattle"),
-        (item_set_slot, "itm_cheese", slot_item_production_string, "str_head_cattle"),
+        (item_set_slot, "itm_cheese", "slot_item_urban_demand", 15),
+        (item_set_slot, "itm_cheese", "slot_item_rural_demand", 15),
+        (item_set_slot, "itm_cheese", "slot_item_desert_demand", 10),
+        (item_set_slot, "itm_cheese", "slot_item_production_slot", "slot_center_head_cattle"),
+        (item_set_slot, "itm_cheese", "slot_item_production_string", "str_head_cattle"),
 
-        (item_set_slot, "itm_butter", slot_item_urban_demand, 10),
-        (item_set_slot, "itm_butter", slot_item_rural_demand, 5),
-        (item_set_slot, "itm_butter", slot_item_desert_demand, 2),
-        (item_set_slot, "itm_butter", slot_item_production_slot, "slot_center_head_cattle"),
-        (item_set_slot, "itm_butter", slot_item_production_string, "str_head_cattle"),
+        (item_set_slot, "itm_butter", "slot_item_urban_demand", 10),
+        (item_set_slot, "itm_butter", "slot_item_rural_demand", 5),
+        (item_set_slot, "itm_butter", "slot_item_desert_demand", 2),
+        (item_set_slot, "itm_butter", "slot_item_production_slot", "slot_center_head_cattle"),
+        (item_set_slot, "itm_butter", "slot_item_production_string", "str_head_cattle"),
 
-        (item_set_slot, "itm_leatherwork", slot_item_urban_demand, 20),
-        (item_set_slot, "itm_leatherwork", slot_item_rural_demand, 10),
-        (item_set_slot, "itm_leatherwork", slot_item_desert_demand, 10),
-        (item_set_slot, "itm_leatherwork", slot_item_production_slot, "slot_center_tanneries"),
-        (item_set_slot, "itm_leatherwork", slot_item_production_string, "str_tanneries"),
-        (item_set_slot, "itm_leatherwork", slot_item_primary_raw_material, "itm_raw_leather"),
-        (item_set_slot, "itm_leatherwork", slot_item_input_number, 3),
-        (item_set_slot, "itm_leatherwork", slot_item_output_per_run, 3),
-        (item_set_slot, "itm_leatherwork", slot_item_overhead_per_run, 43),
-        (item_set_slot, "itm_leatherwork", slot_item_base_price, 400),  #chief cambia
-        (item_set_slot, "itm_leatherwork", slot_item_enterprise_building_cost, 14500),  #chief cambia
+        (item_set_slot, "itm_leatherwork", "slot_item_urban_demand", 20),
+        (item_set_slot, "itm_leatherwork", "slot_item_rural_demand", 10),
+        (item_set_slot, "itm_leatherwork", "slot_item_desert_demand", 10),
+        (item_set_slot, "itm_leatherwork", "slot_item_production_slot", "slot_center_tanneries"),
+        (item_set_slot, "itm_leatherwork", "slot_item_production_string", "str_tanneries"),
+        (item_set_slot, "itm_leatherwork", "slot_item_primary_raw_material", "itm_raw_leather"),
+        (item_set_slot, "itm_leatherwork", "slot_item_input_number", 3),
+        (item_set_slot, "itm_leatherwork", "slot_item_output_per_run", 3),
+        (item_set_slot, "itm_leatherwork", "slot_item_overhead_per_run", 43),
+        (item_set_slot, "itm_leatherwork", "slot_item_base_price", 400),  #chief cambia
+        (item_set_slot, "itm_leatherwork", "slot_item_enterprise_building_cost", 14500),  #chief cambia
 
-        (item_set_slot, "itm_raw_leather", slot_item_urban_demand, 8),
-        (item_set_slot, "itm_raw_leather", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_raw_leather", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_raw_leather", slot_item_production_slot, "slot_center_head_cattle"),
-        (item_set_slot, "itm_raw_leather", slot_item_production_string, "str_head_cattle"),
-        (item_set_slot, "itm_raw_leather", slot_item_is_raw_material_only_for, "itm_leatherwork"),
-        (item_set_slot, "itm_raw_leather", slot_item_base_price, 275),  #chief cambia
+        (item_set_slot, "itm_raw_leather", "slot_item_urban_demand", 8),
+        (item_set_slot, "itm_raw_leather", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_raw_leather", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_raw_leather", "slot_item_production_slot", "slot_center_head_cattle"),
+        (item_set_slot, "itm_raw_leather", "slot_item_production_string", "str_head_cattle"),
+        (item_set_slot, "itm_raw_leather", "slot_item_is_raw_material_only_for", "itm_leatherwork"),
+        (item_set_slot, "itm_raw_leather", "slot_item_base_price", 275),  #chief cambia
 
-        (item_set_slot, "itm_sausages", slot_item_urban_demand, 7),
-        (item_set_slot, "itm_sausages", slot_item_rural_demand, 10),
-        (item_set_slot, "itm_sausages", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_sausages", slot_item_production_slot, "slot_center_head_sheep"),
-        (item_set_slot, "itm_sausages", slot_item_production_string, "str_head_sheep"),
+        (item_set_slot, "itm_sausages", "slot_item_urban_demand", 7),
+        (item_set_slot, "itm_sausages", "slot_item_rural_demand", 10),
+        (item_set_slot, "itm_sausages", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_sausages", "slot_item_production_slot", "slot_center_head_sheep"),
+        (item_set_slot, "itm_sausages", "slot_item_production_string", "str_head_sheep"),
 
-        (item_set_slot, "itm_wool", slot_item_urban_demand, 0),
-        (item_set_slot, "itm_wool", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_wool", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_wool", slot_item_production_slot, "slot_center_head_sheep"),
-        (item_set_slot, "itm_wool", slot_item_production_string, "str_head_sheep"),
-        (item_set_slot, "itm_wool", slot_item_is_raw_material_only_for, "itm_wool_cloth"),
-        (item_set_slot, "itm_wool", slot_item_base_price, 225),  #chief cambia
+        (item_set_slot, "itm_wool", "slot_item_urban_demand", 0),
+        (item_set_slot, "itm_wool", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_wool", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_wool", "slot_item_production_slot", "slot_center_head_sheep"),
+        (item_set_slot, "itm_wool", "slot_item_production_string", "str_head_sheep"),
+        (item_set_slot, "itm_wool", "slot_item_is_raw_material_only_for", "itm_wool_cloth"),
+        (item_set_slot, "itm_wool", "slot_item_base_price", 225),  #chief cambia
 
-        (item_set_slot, "itm_wool_cloth", slot_item_urban_demand, 16),
-        (item_set_slot, "itm_wool_cloth", slot_item_rural_demand, 23),
-        (item_set_slot, "itm_wool_cloth", slot_item_desert_demand, 5),
-        (item_set_slot, "itm_wool_cloth", slot_item_production_slot, "slot_center_wool_looms"),
-        (item_set_slot, "itm_wool_cloth", slot_item_production_string, "str_looms"),
-        (item_set_slot, "itm_wool_cloth", slot_item_primary_raw_material, "itm_wool"),
-        (item_set_slot, "itm_wool_cloth", slot_item_input_number, 1),
-        (item_set_slot, "itm_wool_cloth", slot_item_output_per_run, 2),
-        (item_set_slot, "itm_wool_cloth", slot_item_overhead_per_run, 29),
-        (item_set_slot, "itm_wool_cloth", slot_item_base_price, 350),  #chief cambia
-        (item_set_slot, "itm_wool_cloth", slot_item_enterprise_building_cost, 15000),  #chief cambia
+        (item_set_slot, "itm_wool_cloth", "slot_item_urban_demand", 16),
+        (item_set_slot, "itm_wool_cloth", "slot_item_rural_demand", 23),
+        (item_set_slot, "itm_wool_cloth", "slot_item_desert_demand", 5),
+        (item_set_slot, "itm_wool_cloth", "slot_item_production_slot", "slot_center_wool_looms"),
+        (item_set_slot, "itm_wool_cloth", "slot_item_production_string", "str_looms"),
+        (item_set_slot, "itm_wool_cloth", "slot_item_primary_raw_material", "itm_wool"),
+        (item_set_slot, "itm_wool_cloth", "slot_item_input_number", 1),
+        (item_set_slot, "itm_wool_cloth", "slot_item_output_per_run", 2),
+        (item_set_slot, "itm_wool_cloth", "slot_item_overhead_per_run", 29),
+        (item_set_slot, "itm_wool_cloth", "slot_item_base_price", 350),  #chief cambia
+        (item_set_slot, "itm_wool_cloth", "slot_item_enterprise_building_cost", 15000),  #chief cambia
 
-        (item_set_slot, "itm_raw_flax", slot_item_urban_demand, 0),
-        (item_set_slot, "itm_raw_flax", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_raw_flax", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_raw_flax", slot_item_production_slot, "slot_center_acres_flax"),
-        (item_set_slot, "itm_raw_flax", slot_item_production_string, "str_acres_flax"),
-        (item_set_slot, "itm_raw_flax", slot_item_is_raw_material_only_for, "itm_linen"),
-        (item_set_slot, "itm_raw_flax", slot_item_base_price, 200),  #chief cambiado
+        (item_set_slot, "itm_raw_flax", "slot_item_urban_demand", 0),
+        (item_set_slot, "itm_raw_flax", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_raw_flax", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_raw_flax", "slot_item_production_slot", "slot_center_acres_flax"),
+        (item_set_slot, "itm_raw_flax", "slot_item_production_string", "str_acres_flax"),
+        (item_set_slot, "itm_raw_flax", "slot_item_is_raw_material_only_for", "itm_linen"),
+        (item_set_slot, "itm_raw_flax", "slot_item_base_price", 200),  #chief cambiado
 
-        (item_set_slot, "itm_linen", slot_item_urban_demand, 22),
-        (item_set_slot, "itm_linen", slot_item_rural_demand, 12),
-        (item_set_slot, "itm_linen", slot_item_desert_demand, 15),
-        (item_set_slot, "itm_linen", slot_item_production_slot, "slot_center_linen_looms"),
-        (item_set_slot, "itm_linen", slot_item_production_string, "str_looms"),
-        (item_set_slot, "itm_linen", slot_item_primary_raw_material, "itm_raw_flax"),
-        (item_set_slot, "itm_linen", slot_item_input_number, 2),
-        (item_set_slot, "itm_linen", slot_item_output_per_run, 2),
-        (item_set_slot, "itm_linen", slot_item_overhead_per_run, 41),
-        (item_set_slot, "itm_linen", slot_item_base_price, 450),  #chief cambiado
-        (item_set_slot, "itm_linen", slot_item_enterprise_building_cost, 18500),  #chief cambia
+        (item_set_slot, "itm_linen", "slot_item_urban_demand", 22),
+        (item_set_slot, "itm_linen", "slot_item_rural_demand", 12),
+        (item_set_slot, "itm_linen", "slot_item_desert_demand", 15),
+        (item_set_slot, "itm_linen", "slot_item_production_slot", "slot_center_linen_looms"),
+        (item_set_slot, "itm_linen", "slot_item_production_string", "str_looms"),
+        (item_set_slot, "itm_linen", "slot_item_primary_raw_material", "itm_raw_flax"),
+        (item_set_slot, "itm_linen", "slot_item_input_number", 2),
+        (item_set_slot, "itm_linen", "slot_item_output_per_run", 2),
+        (item_set_slot, "itm_linen", "slot_item_overhead_per_run", 41),
+        (item_set_slot, "itm_linen", "slot_item_base_price", 450),  #chief cambiado
+        (item_set_slot, "itm_linen", "slot_item_enterprise_building_cost", 18500),  #chief cambia
 
-        (item_set_slot, "itm_iron", slot_item_urban_demand, 0),
-        (item_set_slot, "itm_iron", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_iron", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_iron", slot_item_production_slot, "slot_center_iron_deposits"),
-        (item_set_slot, "itm_iron", slot_item_production_string, "str_deposits"),
-        (item_set_slot, "itm_iron", slot_item_is_raw_material_only_for, "itm_tools"),
-        (item_set_slot, "itm_iron", slot_item_base_price, 200),  #chief cambia
+        (item_set_slot, "itm_iron", "slot_item_urban_demand", 0),
+        (item_set_slot, "itm_iron", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_iron", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_iron", "slot_item_production_slot", "slot_center_iron_deposits"),
+        (item_set_slot, "itm_iron", "slot_item_production_string", "str_deposits"),
+        (item_set_slot, "itm_iron", "slot_item_is_raw_material_only_for", "itm_tools"),
+        (item_set_slot, "itm_iron", "slot_item_base_price", 200),  #chief cambia
         #silver
-        (item_set_slot, "itm_silver", slot_item_urban_demand, 0),
-        (item_set_slot, "itm_silver", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_silver", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_silver", slot_item_production_slot, "slot_center_iron_deposits"),
-        (item_set_slot, "itm_silver", slot_item_production_string, "str_deposits"),
+        (item_set_slot, "itm_silver", "slot_item_urban_demand", 0),
+        (item_set_slot, "itm_silver", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_silver", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_silver", "slot_item_production_slot", "slot_center_iron_deposits"),
+        (item_set_slot, "itm_silver", "slot_item_production_string", "str_deposits"),
         #stone
-        (item_set_slot, "itm_mineral", slot_item_urban_demand, 0),
-        (item_set_slot, "itm_mineral", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_mineral", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_mineral", slot_item_production_slot, "slot_center_iron_deposits"),
-        (item_set_slot, "itm_mineral", slot_item_production_string, "str_deposits"),
+        (item_set_slot, "itm_mineral", "slot_item_urban_demand", 0),
+        (item_set_slot, "itm_mineral", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_mineral", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_mineral", "slot_item_production_slot", "slot_center_iron_deposits"),
+        (item_set_slot, "itm_mineral", "slot_item_production_string", "str_deposits"),
 
-        (item_set_slot, "itm_tools", slot_item_urban_demand, 24),
-        (item_set_slot, "itm_tools", slot_item_rural_demand, 14),
-        (item_set_slot, "itm_tools", slot_item_desert_demand, 7),
-        (item_set_slot, "itm_tools", slot_item_production_slot, "slot_center_smithies"),
-        (item_set_slot, "itm_tools", slot_item_production_string, "str_smithies"),
-        (item_set_slot, "itm_tools", slot_item_primary_raw_material, "itm_iron"),
-        (item_set_slot, "itm_tools", slot_item_input_number, 2),
-        (item_set_slot, "itm_tools", slot_item_output_per_run, 2),
-        (item_set_slot, "itm_tools", slot_item_overhead_per_run, 32),
-        (item_set_slot, "itm_tools", slot_item_base_price, 450),  #chief cambia
-        (item_set_slot, "itm_tools", slot_item_enterprise_building_cost, 15500),  #chief cambia
+        (item_set_slot, "itm_tools", "slot_item_urban_demand", 24),
+        (item_set_slot, "itm_tools", "slot_item_rural_demand", 14),
+        (item_set_slot, "itm_tools", "slot_item_desert_demand", 7),
+        (item_set_slot, "itm_tools", "slot_item_production_slot", "slot_center_smithies"),
+        (item_set_slot, "itm_tools", "slot_item_production_string", "str_smithies"),
+        (item_set_slot, "itm_tools", "slot_item_primary_raw_material", "itm_iron"),
+        (item_set_slot, "itm_tools", "slot_item_input_number", 2),
+        (item_set_slot, "itm_tools", "slot_item_output_per_run", 2),
+        (item_set_slot, "itm_tools", "slot_item_overhead_per_run", 32),
+        (item_set_slot, "itm_tools", "slot_item_base_price", 450),  #chief cambia
+        (item_set_slot, "itm_tools", "slot_item_enterprise_building_cost", 15500),  #chief cambia
 
-        (item_set_slot, "itm_pottery", slot_item_urban_demand, 15),
-        (item_set_slot, "itm_pottery", slot_item_rural_demand, 5),
-        (item_set_slot, "itm_pottery", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_pottery", slot_item_production_slot, "slot_center_pottery_kilns"),
-        (item_set_slot, "itm_pottery", slot_item_production_string, "str_kilns"),
+        (item_set_slot, "itm_pottery", "slot_item_urban_demand", 15),
+        (item_set_slot, "itm_pottery", "slot_item_rural_demand", 5),
+        (item_set_slot, "itm_pottery", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_pottery", "slot_item_production_slot", "slot_center_pottery_kilns"),
+        (item_set_slot, "itm_pottery", "slot_item_production_string", "str_kilns"),
 
-        (item_set_slot, "itm_oil", slot_item_urban_demand, 20),
-        (item_set_slot, "itm_oil", slot_item_rural_demand, 15),
-        (item_set_slot, "itm_oil", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_oil", slot_item_production_slot, "slot_center_olive_presses"),
-        (item_set_slot, "itm_oil", slot_item_production_string, "str_presses"),
-        (item_set_slot, "itm_oil", slot_item_primary_raw_material, "itm_raw_olives"),
-        (item_set_slot, "itm_oil", slot_item_input_number, 5),
-        (item_set_slot, "itm_oil", slot_item_output_per_run, 2),
-        (item_set_slot, "itm_oil", slot_item_overhead_per_run, 63),#gdw
-        (item_set_slot, "itm_oil", slot_item_base_price, 700),  #chief cambia
-        (item_set_slot, "itm_oil", slot_item_enterprise_building_cost, 20000),  #chief cambia
+        (item_set_slot, "itm_oil", "slot_item_urban_demand", 20),
+        (item_set_slot, "itm_oil", "slot_item_rural_demand", 15),
+        (item_set_slot, "itm_oil", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_oil", "slot_item_production_slot", "slot_center_olive_presses"),
+        (item_set_slot, "itm_oil", "slot_item_production_string", "str_presses"),
+        (item_set_slot, "itm_oil", "slot_item_primary_raw_material", "itm_raw_olives"),
+        (item_set_slot, "itm_oil", "slot_item_input_number", 5),
+        (item_set_slot, "itm_oil", "slot_item_output_per_run", 2),
+        (item_set_slot, "itm_oil", "slot_item_overhead_per_run", 63),#gdw
+        (item_set_slot, "itm_oil", "slot_item_base_price", 700),  #chief cambia
+        (item_set_slot, "itm_oil", "slot_item_enterprise_building_cost", 20000),  #chief cambia
 
-        (item_set_slot, "itm_raw_olives", slot_item_urban_demand, 9),
-        (item_set_slot, "itm_raw_olives", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_raw_olives", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_raw_olives", slot_item_production_slot, "slot_center_acres_olives"),
-        (item_set_slot, "itm_raw_olives", slot_item_production_string, "str_olive_groves"),
-        (item_set_slot, "itm_raw_olives", slot_item_is_raw_material_only_for, "itm_oil"),
-        (item_set_slot, "itm_raw_olives", slot_item_base_price, 150),  #chief cambia
+        (item_set_slot, "itm_raw_olives", "slot_item_urban_demand", 9),
+        (item_set_slot, "itm_raw_olives", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_raw_olives", "slot_item_desert_demand", 0),
+        (item_set_slot, "itm_raw_olives", "slot_item_production_slot", "slot_center_acres_olives"),
+        (item_set_slot, "itm_raw_olives", "slot_item_production_string", "str_olive_groves"),
+        (item_set_slot, "itm_raw_olives", "slot_item_is_raw_material_only_for", "itm_oil"),
+        (item_set_slot, "itm_raw_olives", "slot_item_base_price", 150),  #chief cambia
 
-        (item_set_slot, "itm_velvet", slot_item_urban_demand, 10),
-        (item_set_slot, "itm_velvet", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_velvet", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_velvet", slot_item_production_slot, "slot_center_silk_looms"),
-        (item_set_slot, "itm_velvet", slot_item_production_string, "str_looms"),
-        (item_set_slot, "itm_velvet", slot_item_primary_raw_material, "itm_wool"),
-        (item_set_slot, "itm_velvet", slot_item_input_number, 2),
-        (item_set_slot, "itm_velvet", slot_item_output_per_run, 2),
-        (item_set_slot, "itm_velvet", slot_item_overhead_per_run, 35),
-        (item_set_slot, "itm_velvet", slot_item_base_price, 650),  #chief cambia
-        (item_set_slot, "itm_velvet", slot_item_secondary_raw_material, "itm_raw_dyes"),
-        (item_set_slot, "itm_velvet", slot_item_enterprise_building_cost, 15000),  #cgdw
+        (item_set_slot, "itm_velvet", "slot_item_urban_demand", 10),
+        (item_set_slot, "itm_velvet", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_velvet", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_velvet", "slot_item_production_slot", "slot_center_silk_looms"),
+        (item_set_slot, "itm_velvet", "slot_item_production_string", "str_looms"),
+        (item_set_slot, "itm_velvet", "slot_item_primary_raw_material", "itm_wool"),
+        (item_set_slot, "itm_velvet", "slot_item_input_number", 2),
+        (item_set_slot, "itm_velvet", "slot_item_output_per_run", 2),
+        (item_set_slot, "itm_velvet", "slot_item_overhead_per_run", 35),
+        (item_set_slot, "itm_velvet", "slot_item_base_price", 650),  #chief cambia
+        (item_set_slot, "itm_velvet", "slot_item_secondary_raw_material", "itm_raw_dyes"),
+        (item_set_slot, "itm_velvet", "slot_item_enterprise_building_cost", 15000),  #cgdw
 
-        (item_set_slot, "itm_rare_fabric", slot_item_urban_demand, 0),
-        (item_set_slot, "itm_rare_fabric", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_rare_fabric", slot_item_production_slot, "slot_center_silk_farms"),
-        (item_set_slot, "itm_rare_fabric", slot_item_production_string, "str_deposits"),
+        (item_set_slot, "itm_rare_fabric", "slot_item_urban_demand", 0),
+        (item_set_slot, "itm_rare_fabric", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_rare_fabric", "slot_item_production_slot", "slot_center_silk_farms"),
+        (item_set_slot, "itm_rare_fabric", "slot_item_production_string", "str_deposits"),
 
-        (item_set_slot, "itm_raw_dyes", slot_item_urban_demand, 25),
-        (item_set_slot, "itm_raw_dyes", slot_item_rural_demand, 10),
-        (item_set_slot, "itm_raw_dyes", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_raw_dyes", slot_item_production_string, "str_caravans"),
-        (item_set_slot, "itm_raw_dyes", slot_item_base_price, 400),  #chief cambia
+        (item_set_slot, "itm_raw_dyes", "slot_item_urban_demand", 25),
+        (item_set_slot, "itm_raw_dyes", "slot_item_rural_demand", 10),
+        (item_set_slot, "itm_raw_dyes", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_raw_dyes", "slot_item_production_string", "str_caravans"),
+        (item_set_slot, "itm_raw_dyes", "slot_item_base_price", 400),  #chief cambia
 
-        (item_set_slot, "itm_spice", slot_item_urban_demand, 25),
-        (item_set_slot, "itm_spice", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_spice", slot_item_desert_demand, 5),
-        (item_set_slot, "itm_spice", slot_item_production_string, "str_caravans"),
+        (item_set_slot, "itm_spice", "slot_item_urban_demand", 25),
+        (item_set_slot, "itm_spice", "slot_item_rural_demand", 0),
+        (item_set_slot, "itm_spice", "slot_item_desert_demand", 5),
+        (item_set_slot, "itm_spice", "slot_item_production_string", "str_caravans"),
 
-        (item_set_slot, "itm_furs", slot_item_urban_demand, 15),
-        (item_set_slot, "itm_furs", slot_item_rural_demand, 5),
-        (item_set_slot, "itm_furs", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_furs", slot_item_production_slot, "slot_center_fur_traps"),
-        (item_set_slot, "itm_furs", slot_item_production_string, "str_traps"),
+        (item_set_slot, "itm_furs", "slot_item_urban_demand", 15),
+        (item_set_slot, "itm_furs", "slot_item_rural_demand", 5),
+        (item_set_slot, "itm_furs", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_furs", "slot_item_production_slot", "slot_center_fur_traps"),
+        (item_set_slot, "itm_furs", "slot_item_production_string", "str_traps"),
 
-        (item_set_slot, "itm_honey", slot_item_urban_demand, 12),
-        (item_set_slot, "itm_honey", slot_item_rural_demand, 3),
-        (item_set_slot, "itm_honey", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_honey", slot_item_production_slot, "slot_center_apiaries"),
-        (item_set_slot, "itm_honey", slot_item_production_string, "str_hives"),
+        (item_set_slot, "itm_honey", "slot_item_urban_demand", 12),
+        (item_set_slot, "itm_honey", "slot_item_rural_demand", 3),
+        (item_set_slot, "itm_honey", "slot_item_desert_demand", -1),
+        (item_set_slot, "itm_honey", "slot_item_production_slot", "slot_center_apiaries"),
+        (item_set_slot, "itm_honey", "slot_item_production_string", "str_hives"),
 
-        (item_set_slot, "itm_cabbages", slot_item_urban_demand, 12),
-        (item_set_slot, "itm_cabbages", slot_item_rural_demand, 7),
-        (item_set_slot, "itm_cabbages", slot_item_desert_demand, 7),
-        (item_set_slot, "itm_cabbages", slot_item_production_slot, "slot_center_household_gardens"),
-        (item_set_slot, "itm_cabbages", slot_item_production_string, "str_gardens"),
+        (item_set_slot, "itm_cabbages", "slot_item_urban_demand", 12),
+        (item_set_slot, "itm_cabbages", "slot_item_rural_demand", 7),
+        (item_set_slot, "itm_cabbages", "slot_item_desert_demand", 7),
+        (item_set_slot, "itm_cabbages", "slot_item_production_slot", "slot_center_household_gardens"),
+        (item_set_slot, "itm_cabbages", "slot_item_production_string", "str_gardens"),
 
-        ##      (item_set_slot, "itm_silver", slot_item_urban_demand, 7),
-        ##      (item_set_slot, "itm_silver", slot_item_rural_demand, 7),
-        ##      (item_set_slot, "itm_silver", slot_item_desert_demand, 7),
-        ##      (item_set_slot, "itm_silver", slot_item_production_slot, "slot_center_household_gardens"),
-        ##      (item_set_slot, "itm_silver", slot_item_production_string, "str_acres_oasis"),
+        ##      (item_set_slot, "itm_silver", "slot_item_urban_demand", 7),
+        ##      (item_set_slot, "itm_silver", "slot_item_rural_demand", 7),
+        ##      (item_set_slot, "itm_silver", "slot_item_desert_demand", 7),
+        ##      (item_set_slot, "itm_silver", "slot_item_production_slot", "slot_center_household_gardens"),
+        ##      (item_set_slot, "itm_silver", "slot_item_production_string", "str_acres_oasis"),
 
-        (item_set_slot, "itm_chicken", slot_item_urban_demand, 30),
-        (item_set_slot, "itm_chicken", slot_item_rural_demand, 13),
-        (item_set_slot, "itm_chicken", slot_item_desert_demand, -1),
+        (item_set_slot, "itm_chicken", "slot_item_urban_demand", 30),
+        (item_set_slot, "itm_chicken", "slot_item_rural_demand", 13),
+        (item_set_slot, "itm_chicken", "slot_item_desert_demand", -1),
 
-        (item_set_slot, "itm_pork", slot_item_urban_demand, 40),
-        (item_set_slot, "itm_pork", slot_item_rural_demand, 10),
-        (item_set_slot, "itm_pork", slot_item_desert_demand, -1),
+        (item_set_slot, "itm_pork", "slot_item_urban_demand", 40),
+        (item_set_slot, "itm_pork", "slot_item_rural_demand", 10),
+        (item_set_slot, "itm_pork", "slot_item_desert_demand", -1),
 
         # Setting book intelligence requirements
-        (item_set_slot, "itm_book_tactics", slot_item_intelligence_requirement, 9),
-        (item_set_slot, "itm_book_persuasion", slot_item_intelligence_requirement, 8),
-        (item_set_slot, "itm_book_leadership", slot_item_intelligence_requirement, 7),
-        (item_set_slot, "itm_book_intelligence", slot_item_intelligence_requirement, 10),
-        (item_set_slot, "itm_book_trade_reference", slot_item_intelligence_requirement, 10),
-        (item_set_slot, "itm_book_weapon_mastery", slot_item_intelligence_requirement, 9),
-        (item_set_slot, "itm_book_engineering", slot_item_intelligence_requirement, 12),
+        (item_set_slot, "itm_book_tactics", "slot_item_intelligence_requirement", 9),
+        (item_set_slot, "itm_book_persuasion", "slot_item_intelligence_requirement", 8),
+        (item_set_slot, "itm_book_leadership", "slot_item_intelligence_requirement", 7),
+        (item_set_slot, "itm_book_intelligence", "slot_item_intelligence_requirement", 10),
+        (item_set_slot, "itm_book_trade_reference", "slot_item_intelligence_requirement", 10),
+        (item_set_slot, "itm_book_weapon_mastery", "slot_item_intelligence_requirement", 9),
+        (item_set_slot, "itm_book_engineering", "slot_item_intelligence_requirement", 12),
 
-        (item_set_slot, "itm_book_wound_treatment_reference", slot_item_intelligence_requirement, 9),#gdw10
-        (item_set_slot, "itm_book_training", slot_item_intelligence_requirement, 9),#gdw10
-        (item_set_slot, "itm_book_surgery", slot_item_intelligence_requirement, 9),   #gdw10
+        (item_set_slot, "itm_book_wound_treatment_reference", "slot_item_intelligence_requirement", 9),#gdw10
+        (item_set_slot, "itm_book_training", "slot_item_intelligence_requirement", 9),#gdw10
+        (item_set_slot, "itm_book_surgery", "slot_item_intelligence_requirement", 9),   #gdw10
     ]),
 
     ("initialize_town_arena_info", [

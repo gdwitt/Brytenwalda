@@ -37,70 +37,70 @@ def get_hrd_weight(y):
 def set_item_difficulty():
   item_difficulty = []
   for i_item in xrange(len(items)):
-    item_difficulty.append((item_set_slot, i_item, slot_item_difficulty, get_difficulty(items[i_item][6])))
+    item_difficulty.append((item_set_slot, i_item, "slot_item_difficulty", get_difficulty(items[i_item][6])))
   return item_difficulty[:]
-  # #item_score.append((item_set_slot, i_item, slot_item_needs_two_hands, items[i_item][3] & itp_two_handed))only needed if use equipbestweapon
+  # #item_score.append((item_set_slot, i_item, "slot_item_needs_two_hands", items[i_item][3] & itp_two_handed))only needed if use equipbestweapon
 
 
 def initialize_items_slots():
     item_score = []
     for i_item, item in enumerate(items):
-        # item_score.append((item_set_slot, i_item, slot_item_weight, get_hrd_weight(items[i_item][6])))
+        # item_score.append((item_set_slot, i_item, "slot_item_weight", get_hrd_weight(items[i_item][6])))
 
         type = item[3] & ibf_item_type_mask
         if type == itp_type_two_handed_wpn and item[3] & itp_two_handed == 0:
             item_score += [
-                (item_set_slot, i_item, slot_item_two_hand_one_hand, 1),
+                (item_set_slot, i_item, "slot_item_two_hand_one_hand", 1),
             ]
         if type == itp_type_shield:
             item_score += [
-                (item_set_slot, i_item, slot_item_length, get_weapon_length(item[6])),
-                (item_set_slot, i_item, slot_item_body_armor, get_body_armor(item[6])),
-                (item_set_slot, i_item, slot_item_speed, get_speed_rating(item[6])),
+                (item_set_slot, i_item, "slot_item_length", get_weapon_length(item[6])),
+                (item_set_slot, i_item, "slot_item_body_armor", get_body_armor(item[6])),
+                (item_set_slot, i_item, "slot_item_speed", get_speed_rating(item[6])),
             ]
         elif type == itp_type_bow or type == itp_type_crossbow:
             item_score += [
-                (item_set_slot, i_item, slot_item_thrust_damage, get_thrust_damage(item[6])),
-                (item_set_slot, i_item, slot_item_swing_damage, get_swing_damage(item[6])),
-                (item_set_slot, i_item, slot_item_speed, get_speed_rating(item[6])),
+                (item_set_slot, i_item, "slot_item_thrust_damage", get_thrust_damage(item[6])),
+                (item_set_slot, i_item, "slot_item_swing_damage", get_swing_damage(item[6])),
+                (item_set_slot, i_item, "slot_item_speed", get_speed_rating(item[6])),
             ]
 
         elif itp_type_one_handed_wpn <= type <= itp_type_thrown:
             item_score += [
-                (item_set_slot, i_item, slot_item_thrust_damage, get_thrust_damage(item[6]) & 0xff),
-                (item_set_slot, i_item, slot_item_swing_damage, get_swing_damage(item[6]) & 0xff),
-                (item_set_slot, i_item, slot_item_speed, get_speed_rating(item[6])),
-                (item_set_slot, i_item, slot_item_length, get_weapon_length(item[6])),
+                (item_set_slot, i_item, "slot_item_thrust_damage", get_thrust_damage(item[6]) & 0xff),
+                (item_set_slot, i_item, "slot_item_swing_damage", get_swing_damage(item[6]) & 0xff),
+                (item_set_slot, i_item, "slot_item_speed", get_speed_rating(item[6])),
+                (item_set_slot, i_item, "slot_item_length", get_weapon_length(item[6])),
             ]
 
             # toggleable weapons
             if (item[3] & itp_next_item_as_melee == itp_next_item_as_melee) and type != itp_type_thrown:
                 item_score += [
-                    (item_set_slot, i_item, slot_item_alternate, i_item + 1),
-                    (item_set_slot, i_item + 1, slot_item_alternate, i_item),
+                    (item_set_slot, i_item, "slot_item_alternate", i_item + 1),
+                    (item_set_slot, i_item + 1, "slot_item_alternate", i_item),
                 ]
 
         elif itp_type_head_armor <= type <= itp_type_hand_armor:
             item_score += [
-                (item_set_slot, i_item, slot_item_head_armor, get_head_armor(item[6])),
-                (item_set_slot, i_item, slot_item_body_armor, get_body_armor(item[6])),
-                (item_set_slot, i_item, slot_item_leg_armor, get_leg_armor(item[6])),
+                (item_set_slot, i_item, "slot_item_head_armor", get_head_armor(item[6])),
+                (item_set_slot, i_item, "slot_item_body_armor", get_body_armor(item[6])),
+                (item_set_slot, i_item, "slot_item_leg_armor", get_leg_armor(item[6])),
             ]
         elif type == itp_type_horse:
             item_score += [
-                (item_set_slot, i_item, slot_item_horse_speed, get_missile_speed(item[6])),
-                (item_set_slot, i_item, slot_item_horse_armor, get_body_armor(item[6])),
-                (item_set_slot, i_item, slot_item_horse_charge, get_thrust_damage(item[6])),
+                (item_set_slot, i_item, "slot_item_horse_speed", get_missile_speed(item[6])),
+                (item_set_slot, i_item, "slot_item_horse_armor", get_body_armor(item[6])),
+                (item_set_slot, i_item, "slot_item_horse_charge", get_thrust_damage(item[6])),
             ]
             # construct cross refs for alternate versions of weapons
             # noswing_name = 'noswing_' + items[i_item][0]
             # i_noswing = find_object (items, noswing_name)
             # if i_noswing > -1:
-            #  item_score.append((item_set_slot, i_item, slot_item_alternate, i_noswing))
-            #  item_score.append((item_set_slot, i_noswing, slot_item_alternate, i_item))
+            #  item_score.append((item_set_slot, i_item, "slot_item_alternate", i_noswing))
+            #  item_score.append((item_set_slot, i_noswing, "slot_item_alternate", i_item))
             ## item_modifier
     for i_modifier in xrange(len(modifiers)):
-        item_score.append((item_set_slot, i_modifier, slot_item_modifier_multiplier, modifiers[i_modifier][1]))
+        item_score.append((item_set_slot, i_modifier, "slot_item_modifier_multiplier", modifiers[i_modifier][1]))
     return item_score
 
 
@@ -5454,7 +5454,7 @@ scripts = [
             (assign, ":continue", 0),
           (try_end),
           (eq, ":continue", 1),
-          (item_get_slot, ":food_bonus", ":item_no", slot_item_food_bonus),
+          (item_get_slot, ":food_bonus", ":item_no", "slot_item_food_bonus"),
           (assign, reg1, ":food_bonus"),
           (set_result_string, "@+{reg1} to party morale"),
           (set_trigger_result, 0x4444FF),
@@ -5475,7 +5475,7 @@ scripts = [
             (assign, ":continue", 0),
           (try_end),
           (eq, ":continue", 1),
-          (item_get_slot, ":food_bonus", ":item_no", slot_item_food_bonus),
+          (item_get_slot, ":food_bonus", ":item_no", "slot_item_food_bonus"),
           (assign, reg1, ":food_bonus"),
           (set_result_string, "@ Increases party morale and improves leadership and tactics skills."),
           (set_trigger_result, 0x4444FF),
@@ -5566,12 +5566,12 @@ scripts = [
         (is_between, ":item_no", readable_books_begin, readable_books_end),
         (try_begin),
           (eq, ":extra_text_id", 0),
-          (item_get_slot, reg1, ":item_no", slot_item_intelligence_requirement),
+          (item_get_slot, reg1, ":item_no", "slot_item_intelligence_requirement"),
           (set_result_string, "@Requires {reg1} intelligence to read"),
           (set_trigger_result, 0xFFEEDD),
         (else_try),
           (eq, ":extra_text_id", 1),
-          (item_get_slot, ":progress", ":item_no", slot_item_book_reading_progress),
+          (item_get_slot, ":progress", ":item_no", "slot_item_book_reading_progress"),
           (val_div, ":progress", 10),
           (assign, reg1, ":progress"),
           (set_result_string, "@Reading Progress: {reg1}%"),
@@ -5657,9 +5657,9 @@ scripts = [
             (this_or_next|eq, ":type", itp_type_foot_armor),
             (eq, ":type", itp_type_hand_armor),
             
-            (item_get_slot, ":head_armor", ":item_no", slot_item_head_armor),
-            (item_get_slot, ":body_armor", ":item_no", slot_item_body_armor),
-            (item_get_slot, ":leg_armor", ":item_no", slot_item_leg_armor),
+            (item_get_slot, ":head_armor", ":item_no", "slot_item_head_armor"),
+            (item_get_slot, ":body_armor", ":item_no", "slot_item_body_armor"),
+            (item_get_slot, ":leg_armor", ":item_no", "slot_item_leg_armor"),
             
             (assign, reg1, 0),
             (assign, reg2, 0),
@@ -5729,11 +5729,11 @@ scripts = [
             (this_or_next|eq, ":type", itp_type_polearm),
             (eq, ":type", itp_type_crossbow),
             
-            (item_get_slot, ":swing_damage", ":item_no", slot_item_swing_damage),
-            (item_get_slot, ":thrust_damage", ":item_no", slot_item_thrust_damage),
+            (item_get_slot, ":swing_damage", ":item_no", "slot_item_swing_damage"),
+            (item_get_slot, ":thrust_damage", ":item_no", "slot_item_thrust_damage"),
             (store_mod, reg1, ":swing_damage", 256),
             (store_mod, reg2, ":thrust_damage", 256),
-            (item_get_slot, reg3, ":item_no", slot_item_difficulty),
+            (item_get_slot, reg3, ":item_no", "slot_item_difficulty"),
             
             (try_begin),
               (eq, ":item_modifier", imod_cracked),
@@ -5762,7 +5762,7 @@ scripts = [
             (try_end),
           (else_try),
             (eq, ":type", itp_type_bow),
-            (item_get_slot, reg3, ":item_no", slot_item_difficulty),
+            (item_get_slot, reg3, ":item_no", "slot_item_difficulty"),
             
             (try_begin),
               (eq, ":item_modifier", imod_cracked),
@@ -5779,7 +5779,7 @@ scripts = [
             (try_end),
           (else_try),
             (eq, ":type", itp_type_thrown),
-            (item_get_slot, reg3, ":item_no", slot_item_difficulty),
+            (item_get_slot, reg3, ":item_no", "slot_item_difficulty"),
             
             (try_begin),
               (eq, ":item_modifier", imod_large_bag),
@@ -5821,7 +5821,7 @@ scripts = [
         (try_end),
 ###############################################################Somebody toggleable  gdw
       (else_try),
-        (item_get_slot, ":swap_no", ":item_no", slot_item_alternate),
+        (item_get_slot, ":swap_no", ":item_no", "slot_item_alternate"),
         (gt, ":swap_no", 0),
         #this condition checks if it's already displayed engine-side
         (store_sub, ":damage", ":swap_no", ":item_no"),
@@ -5833,7 +5833,7 @@ scripts = [
           (set_trigger_result, 0xADA2C2),
         (else_try),
           (eq, ":extra_text_id", 1),
-          (item_get_slot, ":damage", ":swap_no", slot_item_swing_damage),
+          (item_get_slot, ":damage", ":swap_no", "slot_item_swing_damage"),
           #add damage from item modifiers here
           (try_begin),
             (is_between, ":damage", 0, 256),
@@ -5849,7 +5849,7 @@ scripts = [
             (str_store_string, s1, "@{reg1}b"),
           (try_end),
           (str_store_string, s1, "@Swing: {s1}"),
-          (item_get_slot, ":damage", ":swap_no", slot_item_thrust_damage),
+          (item_get_slot, ":damage", ":swap_no", "slot_item_thrust_damage"),
           (try_begin), #some weapons do not have thrust, most should have swing
             (neq, ":damage", 0),
             (neq, ":damage", 256),
@@ -6860,7 +6860,7 @@ scripts = [
         (troop_get_inventory_slot, ":cur_item", ":stack_troop", ":cur_slot"),
         (ge, ":cur_item", 0),
         (item_get_weight, ":cur_item_weight", ":cur_item"),
-        #(item_get_slot, ":cur_item_weight", ":cur_item", slot_item_weight),
+        #(item_get_slot, ":cur_item_weight", ":cur_item", "slot_item_weight"),
         (val_add, ":total_weight", ":cur_item_weight"),
         #assign, reg3, ":total_weight"),
       #(try_end),
@@ -17678,7 +17678,7 @@ scripts = [
 ##      (assign, "$g_player_party_morale_modifier_food", 0),
 ##      (try_for_range, ":cur_edible", food_begin, food_end),      
 ##        (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
-##        (item_get_slot, ":food_bonus", ":cur_edible", slot_item_food_bonus),
+##        (item_get_slot, ":food_bonus", ":cur_edible", "slot_item_food_bonus"),
 ##        
 ##        (val_mul, ":food_bonus", 3),
 ##        (val_div, ":food_bonus", 2),
@@ -17749,7 +17749,7 @@ scripts = [
    (assign, "$g_player_party_morale_modifier_food", -15),    #troops expect basic bread + meat
    (try_for_range, ":cur_edible", food_begin, food_end),
        (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
-       (item_get_slot, ":food_bonus", ":cur_edible", slot_item_food_bonus),
+       (item_get_slot, ":food_bonus", ":cur_edible", "slot_item_food_bonus"),
        (val_add, "$g_player_party_morale_modifier_food", ":food_bonus"),
    (try_end),
    (val_add, ":new_morale", "$g_player_party_morale_modifier_food"),
@@ -23609,8 +23609,8 @@ scripts = [
       (is_between, ":cur_item", food_begin, food_end),
       (troop_get_inventory_slot_modifier, ":item_modifier", "trp_player", ":cur_slot"),
       (neq, ":item_modifier", imod_rotten),
-      (item_slot_eq, ":cur_item", slot_item_is_checked, 0),
-      (item_set_slot, ":cur_item", slot_item_is_checked, 1),
+      (item_slot_eq, ":cur_item", "slot_item_is_checked", 0),
+      (item_set_slot, ":cur_item", "slot_item_is_checked", 1),
       (val_sub, ":selected_food", 1),
       (lt, ":selected_food", 0),
       (assign, ":capacity", 0),
@@ -37450,7 +37450,7 @@ scripts = [
 	(val_max, ":num_servings", 1),
 	
 	(try_for_range, ":item", trade_goods_begin, trade_goods_end), 
-		(item_set_slot, ":item", slot_item_amount_available, 0), #had no "item"
+		(item_set_slot, ":item", "slot_item_amount_available", 0), #had no "item"
 	(try_end),
 	
 	(troop_get_inventory_capacity, ":capacity", ":householder"),
@@ -37458,9 +37458,9 @@ scripts = [
 		(troop_get_inventory_slot, ":item", ":householder", ":inventory_slot"),
 		(is_between, ":item", trade_goods_begin, trade_goods_end),
 	    (troop_inventory_slot_get_item_amount, ":slot_amount", ":householder", ":inventory_slot"),
-		(item_get_slot, ":item_amount", ":item", slot_item_amount_available),
+		(item_get_slot, ":item_amount", ":item", "slot_item_amount_available"),
 		(val_add, ":item_amount", ":slot_amount"),
-		(item_set_slot, ":item", slot_item_amount_available, ":item_amount"),
+		(item_set_slot, ":item", "slot_item_amount_available", ":item_amount"),
 	(try_end),
 	#food
 	(assign, ":food_amount", 0),
@@ -37468,7 +37468,7 @@ scripts = [
 	
 	(store_div, ":servings_div_by_12", ":num_servings", 12),
 	(try_for_range, ":food_item", food_begin, food_end),
-		(item_get_slot, ":food_in_slot", ":food_item", slot_item_amount_available),
+		(item_get_slot, ":food_in_slot", ":food_item", "slot_item_amount_available"),
 		(val_add, ":food_amount", ":food_in_slot"),
 
 
@@ -37496,7 +37496,7 @@ scripts = [
 	(store_div, ":servings_div_by_4", ":num_servings", 4),
 	(try_for_range, ":drink_iterator", "itm_wine", "itm_smoked_fish"),
 		(assign, ":drink_item", ":drink_iterator"),
-		(item_get_slot, ":drink_in_slot", ":drink_item", slot_item_amount_available),
+		(item_get_slot, ":drink_in_slot", ":drink_item", "slot_item_amount_available"),
 		
 		(val_add, ":drink_amount", ":drink_in_slot"),
 	
@@ -37512,7 +37512,7 @@ scripts = [
 	(val_mul, ":drink_variety", 50), #1 to 100 for each
 
 	#in the future, it might be worthwhile to add different varieties of spices
-	(item_get_slot, ":spice_amount", "itm_spice", slot_item_amount_available),
+	(item_get_slot, ":spice_amount", "itm_spice", "slot_item_amount_available"),
 	(store_mul, ":spice_percentage", ":spice_amount", 100),
 	(val_max, ":servings_div_by_12", 1),
 	(val_div, ":spice_amount", ":servings_div_by_12"),
@@ -37523,7 +37523,7 @@ scripts = [
 ##	(display_message, "str_reg3_units_of_spice_of_reg5_to_be_consumed"),
 	
 	#oil availability. In the future, this may become an "atmospherics" category, including incenses
-	(item_get_slot, ":oil_amount", "itm_oil", slot_item_amount_available),
+	(item_get_slot, ":oil_amount", "itm_oil", "slot_item_amount_available"),
 	(store_mul, ":oil_percentage", ":oil_amount", 100),
 	(val_max, ":servings_div_by_12", 1),
 	(val_div, ":oil_amount", ":servings_div_by_12"),
@@ -37590,7 +37590,7 @@ scripts = [
 			(gt, ":num_of_servings_to_serve", 0),
 			
 			(try_for_range, ":item", trade_goods_begin, trade_goods_end),
-				(item_set_slot, ":item", slot_item_is_checked, 0),
+				(item_set_slot, ":item", "slot_item_is_checked", 0),
 			(try_end),
 			
 			(troop_get_inventory_capacity, ":inv_size", ":householder"),
@@ -37602,14 +37602,14 @@ scripts = [
 				(this_or_next|eq, ":item", "itm_ale"),
 				(this_or_next|eq, ":item", "itm_mead"), #chief
 					(is_between, ":item",  food_begin, food_end),
-				(item_slot_eq, ":item", slot_item_is_checked, 0),
+				(item_slot_eq, ":item", "slot_item_is_checked", 0),
 				(troop_inventory_slot_get_item_amount, ":cur_amount", ":householder", ":i_slot"),
 				(gt, ":cur_amount", 0),
 				
 				(val_sub, ":cur_amount", 1),
 				(troop_inventory_slot_set_item_amount, ":householder", ":i_slot", ":cur_amount"),
 				(val_sub, ":num_of_servings_to_serve", 1),
-				(item_set_slot, ":item", slot_item_is_checked, 1),
+				(item_set_slot, ":item", "slot_item_is_checked", 1),
 			(try_end),
 		(try_end),
 	(try_end),
@@ -38498,16 +38498,16 @@ scripts = [
     [
       (try_for_range, ":item_no", all_items_begin, all_items_end),
         (scene_item_get_num_instances, ":num_instances", ":item_no"),
-        (item_set_slot, ":item_no", slot_item_num_positions, 0),
+        (item_set_slot, ":item_no", "slot_item_num_positions", 0),
         (assign, ":num_positions", 0),
         (try_for_range, ":cur_instance", 0, ":num_instances"),
           (scene_item_get_instance, ":scene_item", ":item_no", ":cur_instance"),
           (prop_instance_get_position, "$g_position_to_use_for_replacing_scene_items", ":scene_item"),
-          (store_add, ":cur_slot", slot_item_positions_begin, ":num_positions"),
+          (store_add, ":cur_slot", "slot_item_positions_begin", ":num_positions"),
           (item_set_slot, ":item_no", ":cur_slot", "$g_position_to_use_for_replacing_scene_items"),
           (val_add, ":num_positions", 1),
           (val_add, "$g_position_to_use_for_replacing_scene_items", 1),
-          (item_set_slot, ":item_no", slot_item_num_positions, ":num_positions"),
+          (item_set_slot, ":item_no", "slot_item_num_positions", ":num_positions"),
         (try_end),
         (replace_scene_items_with_scene_props, ":item_no", "spr_empty"),
       (try_end),
@@ -38519,9 +38519,9 @@ scripts = [
   ("replace_scene_items_with_spawn_items_after_ms",
     [
       (try_for_range, ":item_no", all_items_begin, all_items_end),
-        (item_get_slot,  ":num_positions", ":item_no", slot_item_num_positions),
+        (item_get_slot,  ":num_positions", ":item_no", "slot_item_num_positions"),
         (try_for_range, ":cur_position", 0, ":num_positions"),
-          (store_add, ":cur_slot", slot_item_positions_begin, ":cur_position"),
+          (store_add, ":cur_slot", "slot_item_positions_begin", ":cur_position"),
           (item_get_slot, ":pos_no", ":item_no", ":cur_slot"),
           (set_spawn_position, ":pos_no"),
           (spawn_item, ":item_no", 0),
@@ -41248,7 +41248,7 @@ scripts = [
      (store_script_param, ":item", 2),
      (store_script_param, ":item_modifier", 3),
 
-     (item_get_slot, ":difficulty", ":item", slot_item_difficulty),
+     (item_get_slot, ":difficulty", ":item", "slot_item_difficulty"),
      (item_get_type, ":type", ":item"),
      (try_begin),
        (eq, ":difficulty", 0), # don't apply imod modifiers if item has no requirement
@@ -41342,7 +41342,7 @@ scripts = [
   #   (store_script_param, ":imod", 2),
 
   #   (store_item_value, ":score", ":item"),
-  #   (item_get_slot, ":imod_multiplier", ":imod", slot_item_modifier_multiplier),
+  #   (item_get_slot, ":imod_multiplier", ":imod", "slot_item_modifier_multiplier"),
   #   (val_mul, ":score", ":imod_multiplier"),
   #   (assign, reg0, ":score"),
   # ]),
@@ -41495,12 +41495,12 @@ scripts = [
     (item_get_type, ":type", ":item"),
     (try_begin),
       (eq, ":type", itp_type_book),
-      (item_get_slot, ":i_score", ":item", slot_item_intelligence_requirement),
+      (item_get_slot, ":i_score", ":item", "slot_item_intelligence_requirement"),
     (else_try),
       (eq, ":type", itp_type_horse),
-      (item_get_slot, ":horse_speed", ":item", slot_item_horse_speed),
-      (item_get_slot, ":horse_armor", ":item", slot_item_horse_armor),
-      (item_get_slot, ":horse_charge", ":item", slot_item_horse_charge),
+      (item_get_slot, ":horse_speed", ":item", "slot_item_horse_speed"),
+      (item_get_slot, ":horse_armor", ":item", "slot_item_horse_armor"),
+      (item_get_slot, ":horse_charge", ":item", "slot_item_horse_charge"),
       (try_begin),
         (eq, ":imod", imod_swaybacked),
         (val_add, ":horse_speed", -2),
@@ -41527,9 +41527,9 @@ scripts = [
       (val_mul, ":i_score", ":horse_charge"),
     (else_try),
       (eq, ":type", itp_type_shield),
-      (item_get_slot, ":shield_size", ":item", slot_item_length),
-      (item_get_slot, ":shield_armor", ":item", slot_item_body_armor),
-      (item_get_slot, ":shield_speed", ":item", slot_item_speed),
+      (item_get_slot, ":shield_size", ":item", "slot_item_length"),
+      (item_get_slot, ":shield_armor", ":item", "slot_item_body_armor"),
+      (item_get_slot, ":shield_speed", ":item", "slot_item_speed"),
 
       (try_begin),
         (eq, ":imod", imod_cracked),
@@ -41553,9 +41553,9 @@ scripts = [
       (this_or_next|eq, ":type", itp_type_body_armor),
       (this_or_next|eq, ":type", itp_type_foot_armor),
       (eq, ":type", itp_type_hand_armor),
-      (item_get_slot, ":head_armor", ":item", slot_item_head_armor),
-      (item_get_slot, ":body_armor", ":item", slot_item_body_armor),
-      (item_get_slot, ":leg_armor", ":item", slot_item_leg_armor),
+      (item_get_slot, ":head_armor", ":item", "slot_item_head_armor"),
+      (item_get_slot, ":body_armor", ":item", "slot_item_body_armor"),
+      (item_get_slot, ":leg_armor", ":item", "slot_item_leg_armor"),
       (store_add, ":i_score", ":head_armor", ":body_armor"),
       (val_add, ":i_score", ":leg_armor"),
 
@@ -41619,10 +41619,10 @@ scripts = [
       (this_or_next|eq, ":type", itp_type_bow),
       (this_or_next|eq, ":type", itp_type_one_handed_wpn),
       (eq, ":type", itp_type_crossbow),
-      (item_get_slot, ":item_speed", ":item", slot_item_speed),
-      (item_get_slot, ":item_length", ":item", slot_item_length),
-      (item_get_slot, ":swing_damage", ":item", slot_item_swing_damage),
-      (item_get_slot, ":thrust_damage", ":item", slot_item_thrust_damage),
+      (item_get_slot, ":item_speed", ":item", "slot_item_speed"),
+      (item_get_slot, ":item_length", ":item", "slot_item_length"),
+      (item_get_slot, ":swing_damage", ":item", "slot_item_swing_damage"),
+      (item_get_slot, ":thrust_damage", ":item", "slot_item_thrust_damage"),
       (val_mod, ":swing_damage", 256),
       (val_mod, ":thrust_damage", 256),
       (assign, ":item_damage", ":swing_damage"),
@@ -41679,7 +41679,7 @@ scripts = [
       (this_or_next|eq, ":type", itp_type_arrows),
       (this_or_next|eq, ":type", itp_type_bolts),
       (eq, ":type", itp_type_thrown),
-      (item_get_slot, ":thrust_damage", ":item", slot_item_thrust_damage),
+      (item_get_slot, ":thrust_damage", ":item", "slot_item_thrust_damage"),
       (val_mod, ":thrust_damage", 256),
       (assign, ":i_score", ":thrust_damage"),
       (val_add, ":i_score", 3), # +3 to make sure damage > 0
@@ -42419,7 +42419,7 @@ scripts = [
        (try_for_range, ":cur_slot", 0, 8),#equipment slots
          (troop_get_inventory_slot, ":cur_item", ":troop_no", ":cur_slot"),
          (ge, ":cur_item", 0),
-         (item_get_slot, ":cur_item_weight", ":cur_item", slot_item_weight),
+         (item_get_slot, ":cur_item_weight", ":cur_item", "slot_item_weight"),
          (val_add, ":total_weight", ":cur_item_weight"),
        (try_end),
        (val_div, ":total_weight", 100),
@@ -52911,7 +52911,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 				(agent_get_wielded_item, ":agent_weapon", ":agent", 0),
 				(try_begin),
 					(gt, ":agent_weapon", "itm_no_item"),
-					(item_get_slot, ":weapon_length", ":agent_weapon", slot_item_length),
+					(item_get_slot, ":weapon_length", ":agent_weapon", "slot_item_length"),
 				(else_try),
 					(assign, ":weapon_length", 0),
 				(try_end),
@@ -52943,7 +52943,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					(agent_get_wielded_item, ":agent_weapon", ":agent", 0),
 					(try_begin),
 						(gt, ":agent_weapon", "itm_no_item"),
-						(item_get_slot, ":weapon_length", ":agent_weapon", slot_item_length),
+						(item_get_slot, ":weapon_length", ":agent_weapon", "slot_item_length"),
 					(else_try),
 						(assign, ":weapon_length", 0),
 					(try_end),
@@ -53135,9 +53135,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   ("cf_is_thrusting_weapon", [
 	(store_script_param, ":item", 1),
 	(is_between, ":item", weapons_begin, weapons_end),
-	#(item_get_slot, ":thrust_damage", ":item", slot_item_thrust_damage),
+	#(item_get_slot, ":thrust_damage", ":item", "slot_item_thrust_damage"),
 	(item_get_thrust_damage,":thrust_damage", ":item"),
-	#(item_get_slot, ":swing_damage", ":item", slot_item_swing_damage),
+	#(item_get_slot, ":swing_damage", ":item", "slot_item_swing_damage"),
 	(item_get_swing_damage,":swing_damage", ":item"),
 	(val_mul, ":thrust_damage", 5),	#it seems thrusts connect faster than swings (as they should) although the animations seem to take the same time #gdw was 3/2
 	(val_div, ":thrust_damage", 3),	#factor this in with approximation 2*PI/4 (distance swing must travel vs. thrust) This ignores length, which creates too large a differential. This is a happy medium.
@@ -53152,7 +53152,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_for_range, ":item_slot", ek_item_0, ek_head),
 		(agent_get_item_slot, ":item", ":agent", ":item_slot"),
 		(call_script, "script_cf_is_thrusting_weapon", ":item"),
-		(item_get_slot, ":noswing_version", ":item", slot_item_alternate),
+		(item_get_slot, ":noswing_version", ":item", "slot_item_alternate"),
 		(agent_unequip_item, ":agent", ":item", ":item_slot"),	#assumes first ek_* are the weapons
 		(agent_equip_item, ":agent", ":noswing_version", ":item_slot"),	#assumes first ek_* are the weapons'
 	#(else_try),#gdw test no work 80115
@@ -53169,7 +53169,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_for_range, ":item_slot", ek_item_0, ek_head),
 		(agent_get_item_slot, ":item", ":agent", ":item_slot"),
 		(gt, ":item", "itm_items_end"),
-		(item_get_slot, ":original_version", ":item", slot_item_alternate),
+		(item_get_slot, ":original_version", ":item", "slot_item_alternate"),
 		(agent_unequip_item, ":agent", ":item", ":item_slot"),	#assumes first ek_* are the weapons
 		(agent_equip_item, ":agent", ":original_version", ":item_slot"),	#assumes first ek_* are the weapons
 	(else_try),
@@ -53339,14 +53339,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(item_get_type, ":weapon_type", ":item"),
 			(neq, ":weapon_type", itp_type_shield),
 
-			(item_get_slot, reg0, ":item", slot_item_needs_two_hands),
+			(item_get_slot, reg0, ":item", "slot_item_needs_two_hands"),
 			(this_or_next|eq, reg0, 0),
 			(this_or_next|eq, ":force_shield", 0),
 			(eq, ":shield", "itm_no_item"),
 			
 			(try_begin),#equipping longest item for the formation
 				(neq, ":force_length", 0),
-				(item_get_slot, ":item_length", ":item", slot_item_length),
+				(item_get_slot, ":item_length", ":item", "slot_item_length"),
 				(try_begin),
 					(lt, ":cur_score", ":item_length"),
 					(assign, ":cur_score", ":item_length"),
@@ -54453,10 +54453,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_begin),
 			(is_between, ":cur_weapon", weapons_begin, weapons_end),
 			(neg|is_between, ":cur_weapon", estandartes_begin, estandartes_end),	#MOTO these not really weapons
-			(item_get_slot, ":cur_weapon_length", ":cur_weapon", slot_item_length),
+			(item_get_slot, ":cur_weapon_length", ":cur_weapon", "slot_item_length"),
 
-			(item_get_slot, reg0, ":cur_weapon", slot_item_thrust_damage),
-			(item_slot_ge, ":cur_weapon", slot_item_swing_damage, reg0),
+			(item_get_slot, reg0, ":cur_weapon", "slot_item_thrust_damage"),
+			(item_slot_ge, ":cur_weapon", "slot_item_swing_damage", reg0),
 			(assign, ":cur_swung_weapon_length", ":cur_weapon_length"),
 		(try_end),
 		
@@ -54465,11 +54465,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_for_range, ":item_slot", ek_head, ek_horse),
 			(agent_get_item_slot, ":armor", ":cur_agent", ":item_slot"),
 			(gt, ":armor", "itm_no_item"),
-			(item_get_slot, reg0, ":armor", slot_item_head_armor),
+			(item_get_slot, reg0, ":armor", "slot_item_head_armor"),
 			(val_add, ":cur_avg_armor", reg0),
-			(item_get_slot, reg0, ":armor", slot_item_body_armor),
+			(item_get_slot, reg0, ":armor", "slot_item_body_armor"),
 			(val_add, ":cur_avg_armor", reg0),
-			(item_get_slot, reg0, ":armor", slot_item_leg_armor),
+			(item_get_slot, reg0, ":armor", "slot_item_leg_armor"),
 			(val_add, ":cur_avg_armor", reg0),
 		(try_end),
 		(agent_get_wielded_item, ":armor", ":cur_agent", 1),	#include shield
@@ -54477,7 +54477,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(gt, ":armor", "itm_no_item"),
 			(item_get_type, ":item_type", ":armor"),
 			(eq, ":item_type", itp_type_shield),
-			(item_get_slot, reg0, ":armor", slot_item_body_armor),
+			(item_get_slot, reg0, ":armor", "slot_item_body_armor"),
 			(val_add, ":cur_avg_armor", reg0),
 		(try_end),
 		(val_div, ":cur_avg_armor", 3),	#average the zones (head, body, leg)
@@ -54488,7 +54488,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                   (gt, ":cur_horse", -1),
                   (agent_get_item_id, ":itm_horse", ":cur_horse"),
                   (gt, ":itm_horse", "itm_no_item"),
-                  (item_get_slot, reg0, ":itm_horse", slot_item_horse_armor),
+                  (item_get_slot, reg0, ":itm_horse", "slot_item_horse_armor"),
                   (val_add, ":cur_avg_armor", reg0),
                   (val_div, ":cur_avg_armor", 2),
               (try_end),
@@ -55623,14 +55623,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 # 			(item_get_type, ":weapon_type", ":item"),
 # 			(neq, ":weapon_type", itp_type_shield),
 
-# 			(item_get_slot, reg0, ":item", slot_item_needs_two_hands),
+# 			(item_get_slot, reg0, ":item", "slot_item_needs_two_hands"),
 # 			(this_or_next|eq, reg0, 0),
 # 			(this_or_next|eq, ":force_shield", 0),
 # 			(eq, ":shield", "itm_no_item"),
 			
 # 			(try_begin),#equipping longest item for the formation
 # 				(neq, ":force_length", 0),
-# 				(item_get_slot, ":item_length", ":item", slot_item_length),
+# 				(item_get_slot, ":item_length", ":item", "slot_item_length"),
 # 				(try_begin),
 # 					(lt, ":cur_score", ":item_length"),
 # 					(assign, ":cur_score", ":item_length"),

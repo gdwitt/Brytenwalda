@@ -138,7 +138,7 @@ scripts = [
         
         #Price of manufactured goods drift towards primary raw material 
         (try_begin),
-            (item_get_slot, ":raw_material", ":cur_good", slot_item_primary_raw_material),
+            (item_get_slot, ":raw_material", ":cur_good", "slot_item_primary_raw_material"),
             (neq, ":raw_material", 0),
             (store_sub, ":raw_material_price_slot", ":raw_material", trade_goods_begin),
             (val_add, ":raw_material_price_slot", "slot_town_trade_good_prices_begin"),
@@ -469,14 +469,14 @@ scripts = [
         (try_begin),
             (this_or_next|is_between, ":center_no", "p_town_19", "p_castle_1"),        
                 (ge, ":center_no", "p_village_91"),
-            (item_slot_ge, ":cur_good", slot_item_desert_demand, 0), #Otherwise use rural or urban
-            (item_get_slot, ":consumer_consumption", ":cur_good", slot_item_desert_demand),
+            (item_slot_ge, ":cur_good", "slot_item_desert_demand", 0), #Otherwise use rural or urban
+            (item_get_slot, ":consumer_consumption", ":cur_good", "slot_item_desert_demand"),
         (else_try),
             (is_between, ":center_no", villages_begin, villages_end),
-            (item_get_slot, ":consumer_consumption", ":cur_good", slot_item_rural_demand),
+            (item_get_slot, ":consumer_consumption", ":cur_good", "slot_item_rural_demand"),
         (else_try),
             (is_between, ":center_no", towns_begin, towns_end),
-            (item_get_slot, ":consumer_consumption", ":cur_good", slot_item_urban_demand),
+            (item_get_slot, ":consumer_consumption", ":cur_good", "slot_item_urban_demand"),
         (try_end),
         
         
@@ -583,9 +583,9 @@ scripts = [
             # This prevents perishables and raw materials from having a major impact
             (try_begin),
                 (is_between, ":center_no", villages_begin, villages_end),
-                (item_get_slot, ":consumer_consumption", ":cur_good", slot_item_rural_demand),
+                (item_get_slot, ":consumer_consumption", ":cur_good", "slot_item_rural_demand"),
             (else_try),
-                (item_get_slot, ":consumer_consumption", ":cur_good", slot_item_urban_demand),
+                (item_get_slot, ":consumer_consumption", ":cur_good", "slot_item_urban_demand"),
             (try_end),
             (gt, ":consumer_consumption", 2),
 

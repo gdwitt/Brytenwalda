@@ -4210,7 +4210,7 @@ game_menus = game_start.first_menus + [
    [],
     [
       ("action_read_book_1",[(player_has_item, "itm_book_tactics"),
-                             (item_slot_eq, "itm_book_tactics", slot_item_book_read, 0),
+                             (item_slot_eq, "itm_book_tactics", "slot_item_book_read", 0),
                              (str_store_item_name, s1, "itm_book_tactics"),
                              ],"{s1}.",
        [(assign, "$temp", "itm_book_tactics"),
@@ -4218,7 +4218,7 @@ game_menus = game_start.first_menus + [
         ]
        ),
       ("action_read_book_2",[(player_has_item, "itm_book_persuasion"),
-                             (item_slot_eq, "itm_book_persuasion", slot_item_book_read, 0),
+                             (item_slot_eq, "itm_book_persuasion", "slot_item_book_read", 0),
                              (str_store_item_name, s1, "itm_book_persuasion"),
                              ],"{s1}.",
        [(assign, "$temp", "itm_book_persuasion"),
@@ -4226,7 +4226,7 @@ game_menus = game_start.first_menus + [
         ]
        ),
       ("action_read_book_3",[(player_has_item, "itm_book_leadership"),
-                             (item_slot_eq, "itm_book_leadership", slot_item_book_read, 0),
+                             (item_slot_eq, "itm_book_leadership", "slot_item_book_read", 0),
                              (str_store_item_name, s1, "itm_book_leadership"),
                              ],"{s1}.",
        [(assign, "$temp", "itm_book_leadership"),
@@ -4234,7 +4234,7 @@ game_menus = game_start.first_menus + [
         ]
        ),
       ("action_read_book_4",[(player_has_item, "itm_book_intelligence"),
-                             (item_slot_eq, "itm_book_intelligence", slot_item_book_read, 0),
+                             (item_slot_eq, "itm_book_intelligence", "slot_item_book_read", 0),
                              (str_store_item_name, s1, "itm_book_intelligence"),
                              ],"{s1}.",
        [(assign, "$temp", "itm_book_intelligence"),
@@ -4242,7 +4242,7 @@ game_menus = game_start.first_menus + [
         ]
        ),
       ("action_read_book_5",[(player_has_item, "itm_book_trade_reference"),
-                             (item_slot_eq, "itm_book_trade_reference", slot_item_book_read, 0),
+                             (item_slot_eq, "itm_book_trade_reference", "slot_item_book_read", 0),
                              (str_store_item_name, s1, "itm_book_trade_reference"),
                              ],"{s1}.",
        [(assign, "$temp", "itm_book_trade_reference"),
@@ -4250,7 +4250,7 @@ game_menus = game_start.first_menus + [
         ]
        ),
       ("action_read_book_6",[(player_has_item, "itm_book_weapon_mastery"),
-                             (item_slot_eq, "itm_book_weapon_mastery", slot_item_book_read, 0),
+                             (item_slot_eq, "itm_book_weapon_mastery", "slot_item_book_read", 0),
                              (str_store_item_name, s1, "itm_book_weapon_mastery"),
                              ],"{s1}.",
        [(assign, "$temp", "itm_book_weapon_mastery"),
@@ -4258,7 +4258,7 @@ game_menus = game_start.first_menus + [
         ]
        ),
       ("action_read_book_7",[(player_has_item, "itm_book_engineering"),
-                             (item_slot_eq, "itm_book_engineering", slot_item_book_read, 0),
+                             (item_slot_eq, "itm_book_engineering", "slot_item_book_read", 0),
                              (str_store_item_name, s1, "itm_book_engineering"),
                              ],"{s1}.",
        [(assign, "$temp", "itm_book_engineering"),
@@ -4279,7 +4279,7 @@ game_menus = game_start.first_menus + [
     (str_store_item_name, s2, ":new_book"),
     (try_begin),
       (store_attribute_level, ":int", "trp_player", ca_intelligence),
-      (item_get_slot, ":int_req", ":new_book", slot_item_intelligence_requirement),
+      (item_get_slot, ":int_req", ":new_book", "slot_item_intelligence_requirement"),
       (le, ":int_req", ":int"),
       (str_store_string, s1, "@You start reading {s2}. After a few pages,\
  you feel you could learn a lot from this book. You decide to keep it close by and read whenever you have the time."),
@@ -16443,13 +16443,13 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 	   (assign, reg10, ":calradian_average_consumption"),
 
-	   (item_get_slot, ":production_slot", ":cur_good", slot_item_production_slot),
+	   (item_get_slot, ":production_slot", ":cur_good", "slot_item_production_slot"),
 	   (party_get_slot, ":production_number", "$g_encountered_party", ":production_slot"),
 	   (assign, reg11, ":production_number"),
 	   (assign, reg12, ":calradian_total_production"),
 	   (assign, reg13, ":calradian_total_consumption"),
 	   
-	   (item_get_slot, ":production_string", ":cur_good", slot_item_production_string),
+	   (item_get_slot, ":production_string", ":cur_good", "slot_item_production_string"),
 	   (str_store_string, s4, ":production_string"),
 	   
        (str_store_string, s1, "str___s3_price_=_reg4_calradian_average_reg6_capital_reg11_s4_base_reg1modified_by_raw_material_reg2modified_by_prosperity_reg3_calradian_average_production_base_reg5_total_reg12_consumed_reg7used_as_raw_material_reg8modified_total_reg9_calradian_consumption_base_reg10_total_reg13s1_"),
@@ -26561,7 +26561,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     (try_for_range, ":unused", 0, ":consumption_amount"),
       (assign, ":available_food", 0),
       (try_for_range, ":cur_food", food_begin, food_end),
-        (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+        (item_set_slot, ":cur_food", "slot_item_is_checked", 0),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
         (val_add, ":available_food", 1),
       (try_end),
@@ -26834,7 +26834,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     (try_for_range, ":unused", 0, ":consumption_amount"),
       (assign, ":available_food", 0),
       (try_for_range, ":cur_food", food_begin, food_end),
-        (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+        (item_set_slot, ":cur_food", "slot_item_is_checked", 0),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
         (val_add, ":available_food", 1),
       (try_end),
@@ -26963,7 +26963,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     (try_for_range, ":unused", 0, ":consumption_amount"),
       (assign, ":available_food", 0),
       (try_for_range, ":cur_food", food_begin, food_end),
-        (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+        (item_set_slot, ":cur_food", "slot_item_is_checked", 0),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
         (val_add, ":available_food", 1),
       (try_end),
@@ -27008,7 +27008,7 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
     (try_for_range, ":unused", 0, ":consumption_amount"),
       (assign, ":available_food", 0),
       (try_for_range, ":cur_food", food_begin, food_end),
-        (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+        (item_set_slot, ":cur_food", "slot_item_is_checked", 0),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
         (val_add, ":available_food", 1),
       (try_end),
@@ -30249,7 +30249,7 @@ Prisioner talk: My lord I would have never thought of attacking your messenger b
     (try_for_range, ":unused", 0, ":consumption_amount"),
       (assign, ":available_food", 0),
       (try_for_range, ":cur_food", food_begin, food_end),
-        (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+        (item_set_slot, ":cur_food", "slot_item_is_checked", 0),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
         (val_add, ":available_food", 1),
       (try_end),

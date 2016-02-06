@@ -56,7 +56,7 @@ common_ai_order_toggle = (ti_on_order_issued, 0, 0, [
         (try_begin),  # make use of the other item slots
             (eq, ":order_no", mordr_use_any_weapon),
             # just plain swapping
-            (item_get_slot, ":swap_no", ":item_no", slot_item_alternate),
+            (item_get_slot, ":swap_no", ":item_no", "slot_item_alternate"),
             (gt, ":swap_no", 1),
             (agent_unequip_item, ":agent_no", ":item_no"),
             (agent_equip_item, ":agent_no", ":swap_no"),
@@ -67,7 +67,7 @@ common_ai_order_toggle = (ti_on_order_issued, 0, 0, [
         (else_try),
             (eq, ":order_no", mordr_use_blunt_weapons),
             # switching to blunt modes only
-            (neg | item_slot_ge, ":item_no", slot_item_swing_damage, 513),
+            (neg | item_slot_ge, ":item_no", "slot_item_swing_damage", 513),
             # not already holding blunt
             # check inventory to see if weapon can be toggled
             (assign, ":end", ek_head),
@@ -80,20 +80,20 @@ common_ai_order_toggle = (ti_on_order_issued, 0, 0, [
 
                 (item_get_type, ":item_itp", ":item_id"),
                 (is_between, ":item_itp", itp_type_one_handed_wpn, itp_type_arrows),
-                (neg | item_slot_ge, ":item_id", slot_item_swing_damage, 513),
+                (neg | item_slot_ge, ":item_id", "slot_item_swing_damage", 513),
                 # let engine set wielded
                 # (str_store_item_name, s1, ":item_id"),
-                # (item_get_slot, reg9, ":item_id", slot_item_swing_damage),
+                # (item_get_slot, reg9, ":item_id", "slot_item_swing_damage"),
                 # (str_store_string, s10, "@{s10},checking {s1} with {reg9} dmg"),
-                (item_get_slot, ":swap_id", ":item_id", slot_item_alternate),
+                (item_get_slot, ":swap_id", ":item_id", "slot_item_alternate"),
                 (gt, ":swap_id", 1),
                 # (str_store_string, s10, "@{s10} and alt"),
 
                 (try_begin),
-                    # (item_get_slot, ":damage", ":swap_id", slot_item_swing_damage),
+                    # (item_get_slot, ":damage", ":swap_id", "slot_item_swing_damage"),
                     # (gt, ":damage", 512),
-                    (item_slot_ge, ":swap_id", slot_item_swing_damage, 513),
-                    (item_get_slot, ":damage", ":item_id", slot_item_thrust_damage),
+                    (item_slot_ge, ":swap_id", "slot_item_swing_damage", 513),
+                    (item_get_slot, ":damage", ":item_id", "slot_item_thrust_damage"),
                     (this_or_next | eq, ":damage", 0),
                     # no thrust capability
                     (this_or_next | eq, ":damage", 256),
@@ -115,7 +115,7 @@ common_ai_order_toggle = (ti_on_order_issued, 0, 0, [
                 (assign, ":color", 0xFF0000),
                 (display_message, "@{reg10}: switch to nothing", ":color"),
             (else_try),
-                (item_get_slot, ":swap_no", ":item_no", slot_item_alternate),
+                (item_get_slot, ":swap_no", ":item_no", "slot_item_alternate"),
                 (assign, ":color", 0x00FF00),
                 (str_store_item_name, s2, ":swap_no"),
                 (display_message, "@{reg10}: switch to {s2}", ":color"),
@@ -178,7 +178,7 @@ common_ai_random_toggle = (1, 0, 0, [], [
         # check validity of weapon
         (agent_get_wielded_item, ":item_no", ":agent_no", 0),
         (gt, ":item_no", 1),
-        (item_get_slot, ":swap_no", ":item_no", slot_item_alternate),
+        (item_get_slot, ":swap_no", ":item_no", "slot_item_alternate"),
 
         (gt, ":swap_no", 1),
         (item_get_type, ":itp", ":item_no"),
@@ -232,10 +232,10 @@ common_player_toggle = (0, 0, 1, [
     (get_player_agent_no, "$g_player_agent"),
     (agent_get_wielded_item, ":item", "$g_player_agent", 0),
     (gt, ":item", 0),
-    (item_slot_ge, ":item", slot_item_alternate, 1),
+    (item_slot_ge, ":item", "slot_item_alternate", 1),
     ], [
     (agent_get_wielded_item, ":item", "$g_player_agent", 0),
-    (item_get_slot, ":alternate", ":item", slot_item_alternate),
+    (item_get_slot, ":alternate", ":item", "slot_item_alternate"),
     (gt, ":alternate", 1),
     (agent_unequip_item, "$g_player_agent", ":alternate"),
     (agent_unequip_item, "$g_player_agent", ":item"),

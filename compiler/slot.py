@@ -15,7 +15,7 @@ class Slot(GenericEntity):
     a slot requires.
     """
     tag = 'slot'
-    raw_objects = [source.slots_party.slots]
+    raw_objects = [source.slots_party.slots, source.slots_item.slots]
 
     _index_shift = 0
 

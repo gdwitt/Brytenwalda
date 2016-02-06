@@ -81,10 +81,10 @@ scripts = [
       (store_script_param, ":item_type", 1),
       (store_script_param, ":center", 2),
 
-      (item_get_slot, ":labor_cost", ":item_type", slot_item_overhead_per_run),
+      (item_get_slot, ":labor_cost", ":item_type", "slot_item_overhead_per_run"),
 
       # product (output)
-      (item_get_slot, ":base_price", ":item_type", slot_item_base_price),
+      (item_get_slot, ":base_price", ":item_type", "slot_item_base_price"),
 
       (store_sub, ":cur_good_price_slot", ":item_type", trade_goods_begin),
       (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
@@ -94,18 +94,18 @@ scripts = [
       (store_mul, ":revenue_per_unit", ":base_price", ":cur_price_modifier"),
       (val_div, ":revenue_per_unit", 1000),
 
-      (item_get_slot, ":output_units", ":item_type", slot_item_output_per_run),
+      (item_get_slot, ":output_units", ":item_type", "slot_item_output_per_run"),
       (store_mul, ":revenue", ":output_units", ":revenue_per_unit"),
 
       # raw materials (input)
-      (item_get_slot, ":primary_raw_material", ":item_type", slot_item_primary_raw_material),
-      (item_get_slot, ":base_price", ":primary_raw_material", slot_item_base_price),
+      (item_get_slot, ":primary_raw_material", ":item_type", "slot_item_primary_raw_material"),
+      (item_get_slot, ":base_price", ":primary_raw_material", "slot_item_base_price"),
       (store_sub, ":cur_good_price_slot", ":primary_raw_material", trade_goods_begin),
       (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
       (party_get_slot, ":cur_price_modifier", ":center", ":cur_good_price_slot"),
       (store_mul, ":cost_per_primary_input", ":base_price", ":cur_price_modifier"),
       (val_div, ":cost_per_primary_input", 1150),
-      (item_get_slot, ":input_units", ":item_type", slot_item_input_number),
+      (item_get_slot, ":input_units", ":item_type", "slot_item_input_number"),
 
       (try_begin),
         (lt, ":input_units", 0),
@@ -115,10 +115,10 @@ scripts = [
       (try_end),
 
       (try_begin),
-        (item_slot_ge, ":item_type", slot_item_secondary_raw_material, 1),
+        (item_slot_ge, ":item_type", "slot_item_secondary_raw_material", 1),
 
-        (item_get_slot, ":secondary_raw_material", ":item_type", slot_item_secondary_raw_material),
-        (item_get_slot, ":base_price", ":secondary_raw_material", slot_item_base_price),
+        (item_get_slot, ":secondary_raw_material", ":item_type", "slot_item_secondary_raw_material"),
+        (item_get_slot, ":base_price", ":secondary_raw_material", "slot_item_base_price"),
         (store_sub, ":cur_good_price_slot", ":secondary_raw_material", trade_goods_begin),
         (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
         (party_get_slot, ":cur_price_modifier", ":center", ":cur_good_price_slot"),
@@ -266,7 +266,7 @@ budget_report_statement_block = StatementBlock(
           # Compute goods produced and stored:
           # - qnt_sold: products to be sold
           # - qnt_stored: products to be stored in the warehouse
-          (item_get_slot, ":qnt_sold", ":product_type", slot_item_output_per_run),
+          (item_get_slot, ":qnt_sold", ":product_type", "slot_item_output_per_run"),
           (assign, ":qnt_stored", 0),
 
           (try_begin),
@@ -296,11 +296,11 @@ budget_report_statement_block = StatementBlock(
           # Compute goods bought and used
           # - qnt_bought: input bought from market
           # - qnt_used: input used from storage
-          (item_get_slot, ":qnt_bought", ":product_type", slot_item_input_number),
+          (item_get_slot, ":qnt_bought", ":product_type", "slot_item_input_number"),
           (assign, ":qnt_used", 0),
 
           (try_begin),
-            (item_slot_ge, ":product_type", slot_item_secondary_raw_material, 1),
+            (item_slot_ge, ":product_type", "slot_item_secondary_raw_material", 1),
             (assign, ":2ary_qnt_bought", ":qnt_bought"),
           (else_try),
             (assign, ":2ary_qnt_bought", 0),
@@ -313,11 +313,11 @@ budget_report_statement_block = StatementBlock(
               (troop_get_inventory_slot, ":item_in_slot", ":craftsman_troop", ":capacity_iterator"),
 
               (lt, ":qnt_used", ":qnt_bought"),
-              (item_slot_eq, ":product_type", slot_item_primary_raw_material, ":item_in_slot"),
+              (item_slot_eq, ":product_type", "slot_item_primary_raw_material", ":item_in_slot"),
               (val_add, ":qnt_used", 1),
           (else_try),
               (lt, ":2ary_qnt_used", ":2ary_qnt_bought"),
-              (item_slot_eq, ":product_type", slot_item_secondary_raw_material, ":item_in_slot"),
+              (item_slot_eq, ":product_type", "slot_item_secondary_raw_material", ":item_in_slot"),
               (val_add, ":2ary_qnt_used", 1),
           (try_end),
 
@@ -363,12 +363,12 @@ budget_report_statement_block = StatementBlock(
             # remove raw materials from warehouse
             (try_begin),
                 (gt, ":qnt_used", 0),
-                    (item_get_slot, ":raw_material", ":product_type", slot_item_primary_raw_material),
+                    (item_get_slot, ":raw_material", ":product_type", "slot_item_primary_raw_material"),
                     (troop_remove_items, ":craftsman_troop", ":raw_material", ":qnt_used"),
             (try_end),
             (try_begin),
                 (gt, ":2ary_qnt_used", 0),
-                    (item_get_slot, ":2ary_raw_material", ":product_type", slot_item_secondary_raw_material),
+                    (item_get_slot, ":2ary_raw_material", ":product_type", "slot_item_secondary_raw_material"),
                     (troop_remove_items, ":craftsman_troop", ":2ary_raw_material", ":2ary_qnt_used"),
             (try_end),
 
@@ -387,7 +387,7 @@ budget_report_statement_block = StatementBlock(
             (try_begin),
                 (gt, ":qnt_bought", 0),
 
-                (item_get_slot, ":raw_material", ":product_type", slot_item_primary_raw_material),
+                (item_get_slot, ":raw_material", ":product_type", "slot_item_primary_raw_material"),
                 (store_sub, ":item_slot_no", ":raw_material", trade_goods_begin),
                 (val_add, ":item_slot_no", "slot_town_trade_good_prices_begin"),
                 (party_get_slot, ":multiplier", ":center_no", ":item_slot_no"),
@@ -402,7 +402,7 @@ budget_report_statement_block = StatementBlock(
             (try_begin),
                 (gt, ":2ary_qnt_bought", 0),
 
-                (item_get_slot, ":2ary_raw_material", ":product_type", slot_item_secondary_raw_material),
+                (item_get_slot, ":2ary_raw_material", ":product_type", "slot_item_secondary_raw_material"),
                 (store_sub, ":item_slot_no", ":2ary_raw_material", trade_goods_begin),
                 (val_add, ":item_slot_no", "slot_town_trade_good_prices_begin"),
                 (party_get_slot, ":multiplier", ":center_no", ":item_slot_no"),
@@ -462,7 +462,7 @@ dialogs = [
 
     [anyone|plyr, "mayor_talk", [
         (ge, "$cheat_mode", 0),
-        (item_slot_ge, "itm_velvet", slot_item_secondary_raw_material, "itm_raw_dyes"), #ie, the item information has been updated, to ensure savegame compatibility
+        (item_slot_ge, "itm_velvet", "slot_item_secondary_raw_material", "itm_raw_dyes"), #ie, the item information has been updated, to ensure savegame compatibility
     ], "I wish to buy land in this town for a productive enterprise", "mayor_investment_possible",[
      ]],
 
@@ -586,7 +586,7 @@ dialogs = [
    "prices remain constant -- which, I can virtually guarantee you, they will not. "
    "Do you wish to proceed?", "mayor_investment_confirm", [
 
-    (item_get_slot, "$enterprise_cost", "$enterprise_production", slot_item_enterprise_building_cost),
+    (item_get_slot, "$enterprise_cost", "$enterprise_production", "slot_item_enterprise_building_cost"),
 
     (assign, reg7, "$enterprise_cost"),
 
@@ -600,14 +600,14 @@ dialogs = [
     #reg1: Selling price of total goods
     #reg2: Selling price of total goods
 
-    (item_get_slot, ":primary_raw_material", "$enterprise_production", slot_item_primary_raw_material),
+    (item_get_slot, ":primary_raw_material", "$enterprise_production", "slot_item_primary_raw_material"),
     (str_store_item_name, s6, ":primary_raw_material"),
 
     (str_clear, s9),
     (assign, ":cost_of_secondary_input", reg10),
     (try_begin),
       (gt, ":cost_of_secondary_input", 0),
-      (item_get_slot, ":secondary_raw_material", "$enterprise_production", slot_item_secondary_raw_material),
+      (item_get_slot, ":secondary_raw_material", "$enterprise_production", "slot_item_secondary_raw_material"),
       (str_store_item_name, s11, ":secondary_raw_material"),
       (str_store_string, s9, "str_describe_secondary_input"),
     (try_end),
@@ -730,10 +730,10 @@ dialogs += [
     (try_end),
 
     (str_store_item_name, s3, ":item_produced"),
-    (item_get_slot, ":primary_raw_material", ":item_produced", slot_item_primary_raw_material),
+    (item_get_slot, ":primary_raw_material", ":item_produced", "slot_item_primary_raw_material"),
     (str_store_item_name, s4, ":primary_raw_material"),
 
-    (item_get_slot, ":secondary_raw_material", ":item_produced", slot_item_secondary_raw_material),
+    (item_get_slot, ":secondary_raw_material", ":item_produced", "slot_item_secondary_raw_material"),
     (str_clear, s9),
     (try_begin),
 	  (gt, ":secondary_raw_material", 0),
@@ -758,8 +758,8 @@ dialogs += [
 
   [anyone,"master_craftsman_auction_price", [
   (party_get_slot, ":item_produced", "$g_encountered_party", "slot_center_player_enterprise"),
-  (item_get_slot, ":base_price",":item_produced", slot_item_base_price),
-  (item_get_slot, ":number_runs", ":item_produced", slot_item_output_per_run),
+  (item_get_slot, ":base_price",":item_produced", "slot_item_base_price"),
+  (item_get_slot, ":number_runs", ":item_produced", "slot_item_output_per_run"),
   (store_mul, "$liquidation_price", ":base_price", ":number_runs"),
   (val_mul, "$liquidation_price", 4),
 
@@ -767,7 +767,7 @@ dialogs += [
   (try_for_range, ":capacity_iterator", 0, ":total_capacity"),
 		(troop_get_inventory_slot, ":item_in_slot", "$g_talk_troop", ":capacity_iterator"),
 		(gt, ":item_in_slot", 0),
-		(item_get_slot, ":price_for_inventory_item", ":item_in_slot", slot_item_base_price),
+		(item_get_slot, ":price_for_inventory_item", ":item_in_slot", "slot_item_base_price"),
 #		(troop_inventory_slot_get_item_amount, ":item_ammo", "$g_talk_troop", ":capacity_iterator"),
 #		(troop_inventory_slot_get_item_max_amount, ":item_max_ammo", "$g_talk_troop", ":capacity_iterator"),
 #		(try_begin),

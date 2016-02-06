@@ -2453,7 +2453,7 @@ presentations = [
               (else_try),
                 (store_troop_faction, ":my_player_faction_no", ":my_player_troop_no"),
                 (store_sub, ":faction_slot", ":my_player_faction_no", npc_kingdoms_begin),
-                (val_add, ":faction_slot", slot_item_multiplayer_faction_price_multipliers_begin),
+                (val_add, ":faction_slot", "slot_item_multiplayer_faction_price_multipliers_begin"),
                 (item_get_slot, ":price_multiplier", ":item_no", ":faction_slot"),
                 (show_item_details, ":item_no", pos0, ":price_multiplier"),
               (try_end),

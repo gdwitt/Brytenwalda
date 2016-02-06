@@ -3790,7 +3790,7 @@ simple_triggers = [
     (try_for_range, ":unused", 0, ":consumption_amount"),
       (assign, ":available_food", 0),
       (try_for_range, ":cur_food", food_begin, food_end),
-        (item_set_slot, ":cur_food", slot_item_is_checked, 0),
+        (item_set_slot, ":cur_food", "slot_item_is_checked", 0),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_food", imod_rotten),
         (val_add, ":available_food", 1),
       (try_end),
@@ -4431,15 +4431,15 @@ simple_triggers = [
        (gt, "$g_player_reading_book", 0),
        (player_has_item, "$g_player_reading_book"),
        (store_attribute_level, ":int", "trp_player", ca_intelligence),
-       (item_get_slot, ":int_req", "$g_player_reading_book", slot_item_intelligence_requirement),
+       (item_get_slot, ":int_req", "$g_player_reading_book", "slot_item_intelligence_requirement"),
        (le, ":int_req", ":int"),
-       (item_get_slot, ":book_reading_progress", "$g_player_reading_book", slot_item_book_reading_progress),
-       (item_get_slot, ":book_read", "$g_player_reading_book", slot_item_book_read),
+       (item_get_slot, ":book_reading_progress", "$g_player_reading_book", "slot_item_book_reading_progress"),
+       (item_get_slot, ":book_read", "$g_player_reading_book", "slot_item_book_read"),
        (eq, ":book_read", 0),
        (val_add, ":book_reading_progress", 5),#gdw7
-       (item_set_slot, "$g_player_reading_book", slot_item_book_reading_progress, ":book_reading_progress"),
+       (item_set_slot, "$g_player_reading_book", "slot_item_book_reading_progress", ":book_reading_progress"),
        (ge, ":book_reading_progress", 1000),
-       (item_set_slot, "$g_player_reading_book", slot_item_book_read, 1),
+       (item_set_slot, "$g_player_reading_book", "slot_item_book_read", 1),
        (str_store_item_name, s1, "$g_player_reading_book"),
        (str_clear, s2),
        (try_begin),
@@ -8196,58 +8196,58 @@ simple_triggers = [
    [
 	  # Setting food bonuses - these have been changed to incentivize using historical rations. Bread is the most cost-efficient#gdwthisoverlaps w scripts whowin?
 	  #Staples
-      (item_set_slot, "itm_bread", slot_item_food_bonus, 6), #brought up from 4
-      (item_set_slot, "itm_grain", slot_item_food_bonus, 3), #new - can be boiled as porridge
+      (item_set_slot, "itm_bread", "slot_item_food_bonus", 6), #brought up from 4
+      (item_set_slot, "itm_grain", "slot_item_food_bonus", 3), #new - can be boiled as porridge
 	  
 	  #Fat sources - preserved
-      (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 5),#gdwdrdsltfishawful
-      (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 8),
-      (item_set_slot, "itm_cheese", slot_item_food_bonus, 6),#gdwnewprices
-      (item_set_slot, "itm_sausages", slot_item_food_bonus, 5),#gdwnewprices
-      (item_set_slot, "itm_butter", slot_item_food_bonus, 7), #brought down from 8
+      (item_set_slot, "itm_smoked_fish", "slot_item_food_bonus", 5),#gdwdrdsltfishawful
+      (item_set_slot, "itm_dried_meat", "slot_item_food_bonus", 8),
+      (item_set_slot, "itm_cheese", "slot_item_food_bonus", 6),#gdwnewprices
+      (item_set_slot, "itm_sausages", "slot_item_food_bonus", 5),#gdwnewprices
+      (item_set_slot, "itm_butter", "slot_item_food_bonus", 7), #brought down from 8
 
 	  #Fat sources - perishable
-      (item_set_slot, "itm_chicken", slot_item_food_bonus, 8), #brought up from 7
-      (item_set_slot, "itm_cattle_meat", slot_item_food_bonus, 11), #gdwnewprices
-      (item_set_slot, "itm_pork", slot_item_food_bonus, 9), #gdwnewprices
+      (item_set_slot, "itm_chicken", "slot_item_food_bonus", 8), #brought up from 7
+      (item_set_slot, "itm_cattle_meat", "slot_item_food_bonus", 11), #gdwnewprices
+      (item_set_slot, "itm_pork", "slot_item_food_bonus", 9), #gdwnewprices
 	  
 	  #Produce
-      (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 10),#gdwnewprices
-      (item_set_slot, "itm_cabbages", slot_item_food_bonus, 4),#gdwnewprices
-      (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 8),
-      (item_set_slot, "itm_apples", slot_item_food_bonus, 5), #gdwnewprices
+      (item_set_slot, "itm_raw_olives", "slot_item_food_bonus", 10),#gdwnewprices
+      (item_set_slot, "itm_cabbages", "slot_item_food_bonus", 4),#gdwnewprices
+      (item_set_slot, "itm_raw_grapes", "slot_item_food_bonus", 8),
+      (item_set_slot, "itm_apples", "slot_item_food_bonus", 5), #gdwnewprices
 
 	  #Sweet items
-      (item_set_slot, "itm_mead", slot_item_food_bonus, 16), #brought down from 8
-      (item_set_slot, "itm_honey", slot_item_food_bonus, 10), ##gdwnewprices6
+      (item_set_slot, "itm_mead", "slot_item_food_bonus", 16), #brought down from 8
+      (item_set_slot, "itm_honey", "slot_item_food_bonus", 10), ##gdwnewprices6
       
-      (item_set_slot, "itm_wine", slot_item_food_bonus, 12),#gdwnewprices
-      (item_set_slot, "itm_ale", slot_item_food_bonus, 14),
+      (item_set_slot, "itm_wine", "slot_item_food_bonus", 12),#gdwnewprices
+      (item_set_slot, "itm_ale", "slot_item_food_bonus", 14),
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 #-#-#-#Hunting chief Mod begin#-#-#-#
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-      (item_set_slot, "itm_deer_meat", slot_item_food_bonus, 11),#gdwnewprices
-      (item_set_slot, "itm_boar_meat", slot_item_food_bonus, 13),#gdwnewprices
-      (item_set_slot, "itm_wolf_meat", slot_item_food_bonus, 8),#gdwnon-perishable
-      (item_set_slot, "itm_goat_meat", slot_item_food_bonus, 12),#gdwrare
-      (item_set_slot, "itm_goatb_meat", slot_item_food_bonus, 9),#gdwmorecomon
-      (item_set_slot, "itm_wilddonkey_meat", slot_item_food_bonus, 11),#gdwnewprices
+      (item_set_slot, "itm_deer_meat", "slot_item_food_bonus", 11),#gdwnewprices
+      (item_set_slot, "itm_boar_meat", "slot_item_food_bonus", 13),#gdwnewprices
+      (item_set_slot, "itm_wolf_meat", "slot_item_food_bonus", 8),#gdwnon-perishable
+      (item_set_slot, "itm_goat_meat", "slot_item_food_bonus", 12),#gdwrare
+      (item_set_slot, "itm_goatb_meat", "slot_item_food_bonus", 9),#gdwmorecomon
+      (item_set_slot, "itm_wilddonkey_meat", "slot_item_food_bonus", 11),#gdwnewprices
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 #-#-#-#Hunting chief Mod end#-#-#-#
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
 #Estandartes bonus de moral chief
-      (item_set_slot, "itm_wessexbanner1", slot_item_food_bonus, 15),#gdwunchanged
-      (item_set_slot, "itm_cavalrybannert2", slot_item_food_bonus, 17),#gdw16inscripts
-      (item_set_slot, "itm_spearbannert2", slot_item_food_bonus, 15),
-      (item_set_slot, "itm_spearbanner4", slot_item_food_bonus, 15),
-      (item_set_slot, "itm_spearbanner5", slot_item_food_bonus, 15),
-      (item_set_slot, "itm_wessexbanner6", slot_item_food_bonus, 15),
-      (item_set_slot, "itm_wessexbanner7", slot_item_food_bonus, 15),
-      (item_set_slot, "itm_wessexbanner8", slot_item_food_bonus, 15),
-      (item_set_slot, "itm_wessexbanner9", slot_item_food_bonus, 15),
-      (item_set_slot, "itm_heraldicbannert3", slot_item_food_bonus, 18),#gdwtest15
+      (item_set_slot, "itm_wessexbanner1", "slot_item_food_bonus", 15),#gdwunchanged
+      (item_set_slot, "itm_cavalrybannert2", "slot_item_food_bonus", 17),#gdw16inscripts
+      (item_set_slot, "itm_spearbannert2", "slot_item_food_bonus", 15),
+      (item_set_slot, "itm_spearbanner4", "slot_item_food_bonus", 15),
+      (item_set_slot, "itm_spearbanner5", "slot_item_food_bonus", 15),
+      (item_set_slot, "itm_wessexbanner6", "slot_item_food_bonus", 15),
+      (item_set_slot, "itm_wessexbanner7", "slot_item_food_bonus", 15),
+      (item_set_slot, "itm_wessexbanner8", "slot_item_food_bonus", 15),
+      (item_set_slot, "itm_wessexbanner9", "slot_item_food_bonus", 15),
+      (item_set_slot, "itm_heraldicbannert3", "slot_item_food_bonus", 18),#gdwtest15
    ]),
 
 # Check escape hero prisoners in lairs. No lords in lair
