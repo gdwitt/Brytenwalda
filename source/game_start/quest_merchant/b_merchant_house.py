@@ -6,8 +6,7 @@ from source.header_triggers import ti_on_agent_spawn, ti_tab_pressed, ti_once, t
 from source.header_game_menus import mnf_disable_all_keys
 from source.header_music import mtf_sit_town_infiltrate, mtf_sit_tavern, mtf_sit_town
 
-from source.module_constants import slot_scene_visited, tc_tavern_talk, \
-    tc_merchants_house
+from source.module_constants import tc_tavern_talk, tc_merchants_house
 
 
 menus = [
@@ -99,7 +98,7 @@ mission_templates = [
         (1, 0, ti_once, [], [
             (assign, "$dialog_with_merchant_ended", 0),
             (store_current_scene, ":cur_scene"),
-            (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
+            (scene_set_slot, ":cur_scene", "slot_scene_visited", 1),
             (try_begin),
                 (eq, "$sneaked_into_town", 1),
                 (call_script, "script_music_set_situation_with_culture", mtf_sit_town_infiltrate),

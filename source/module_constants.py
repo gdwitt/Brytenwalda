@@ -196,13 +196,7 @@ pis_ship = 2
 
 num_party_loot_slots = 5
 
-########################################################
-##  SCENE SLOTS            #############################
-########################################################
-slot_scene_visited = 0
-slot_scene_belfry_props_begin = 10
-# ram siege warfare
-slot_scene_ram_props_begin = 25
+# initial position of the ram
 pos_ram_begin = 35
 
 ########################################################
@@ -336,34 +330,6 @@ cb4_greed = 6
 # Encounter types
 enctype_fighting_against_village_raid = 1
 enctype_catched_during_village_raid = 2
-
-########################################################
-##  SCENE PROP SLOTS       #############################
-########################################################
-
-scene_prop_open_or_close_slot = 1
-scene_prop_smoke_effect_done = 2
-scene_prop_number_of_agents_pushing = 3  # for belfries only
-scene_prop_next_entry_point_id = 4  # for belfries only
-scene_prop_belfry_platform_moved = 5  # for belfries only
-###sea battles chief phaiak empieza
-# scene_prop_sail						= 6 #for KLABAUTERMANN only begins
-# scene_prop_rowing				    = 7
-# scene_prop_rudder				    = 8
-# scene_prop_last_speed				= 9
-# scene_prop_last_turn			    = 10
-# scene_prop_wank_state			    = 11
-# scene_prop_boarding_wanted		    = 12 # "-1"=no, "0"=yes, "1"=yes, also with friendly ships
-# scene_prop_landing_wanted		    = 13 # "0"=no, "1"=yes
-# scene_prop_boarding_left		    = 14
-# scene_prop_boarding_right		    = 15
-# scene_prop_boarding_progress	    = 16
-# scene_prop_sail_off_instance	    = 17
-# scene_prop_planks_a				    = 18
-# scene_prop_planks_b				    = 19 #for KLABAUTERMANN only ends
-# scene_prop_slots_end                = 20
-# phaiak acaba chief
-scene_prop_slots_end = 6  # gdw this is still in floris
 
 ########################################################
 # Talk contexts
@@ -1348,10 +1314,6 @@ Km_Per_Hour_To_Cm = formation_reform_interval * 100000 / 3600
 Reform_Trigger_Modulus = formation_reform_interval * 2  # trigger is half-second
 Top_Speed = 13
 Far_Away = 1000000
-###################################################################################
-# AutoLoot: Modified Constants motomataru chief
-# Most of these are slot definitions, make sure they do not clash with your mod's other slot usage
-###################################################################################
 
 # positions used through formations and AI triggers
 Current_Pos = 34  # pos34

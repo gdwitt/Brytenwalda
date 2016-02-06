@@ -297,7 +297,7 @@ town_menu_options = [
              (try_begin),#gdw moved here to be near bishop of alt clut
              (party_get_slot, ":cur_scene", "$current_town", "slot_town_castle"),
              (jump_to_scene, ":cur_scene"),
-             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
+             (scene_set_slot, ":cur_scene", "slot_scene_visited", 1),
               (eq, ":cur_scene", "scn_town_6_castle"),#gdw
               #(assign, ":cur_entry", 10),
               (set_visitor, 10, "trp_antler"),
@@ -471,7 +471,7 @@ town_menu_options = [
           (this_or_next|eq,"$entry_to_town_forbidden",0),
           (eq, "$sneaked_into_town",1),
 #          (party_get_slot, ":scene", "$current_town", "slot_town_tavern"),
-#          (scene_slot_eq, ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
+#          (scene_slot_eq, ":scene", "slot_scene_visited", 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
           ],
        "Visit the mead hall", #chief sot cambia
        [
@@ -491,7 +491,7 @@ town_menu_options = [
 
              (party_get_slot, ":cur_scene", "$current_town", "slot_town_tavern"),
              (jump_to_scene, ":cur_scene"),
-             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
+             (scene_set_slot, ":cur_scene", "slot_scene_visited", 1),
 
              (assign, "$talk_context", tc_tavern_talk),
              (call_script, "script_initialize_tavern_variables"),
@@ -788,7 +788,7 @@ town_menu_options = [
            (this_or_next|eq,"$entry_to_town_forbidden",0),
            (eq, "$sneaked_into_town",1),
 #           (party_get_slot, ":scene", "$current_town", "slot_town_store"),
-#           (scene_slot_eq, ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
+#           (scene_slot_eq, ":scene", "slot_scene_visited", 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
            ],
        "Speak with the merchant.",
        [
@@ -806,7 +806,7 @@ town_menu_options = [
              (try_end),
              (party_get_slot, ":cur_scene", "$current_town", "slot_town_store"),
              (jump_to_scene, ":cur_scene"),
-             (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
+             (scene_set_slot, ":cur_scene", "slot_scene_visited", 1),
              (change_screen_mission),
            (try_end),
         ],"Door to the shop."),
@@ -815,7 +815,7 @@ town_menu_options = [
        [(party_slot_eq,"$current_town","slot_party_type", spt_town),
         (eq, "$sneaked_into_town", 0),
 #           (party_get_slot, ":scene", "$current_town", "slot_town_arena"),
-#           (scene_slot_eq,  ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
+#           (scene_slot_eq,  ":scene", "slot_scene_visited", 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
            ],
        "Enter the arena.",
        [
@@ -834,7 +834,7 @@ town_menu_options = [
              (set_visitor, 44, "trp_merc_infantryt5"),
              (set_jump_entry, 50),
              (jump_to_scene, ":arena_scene"),
-             (scene_set_slot, ":arena_scene", slot_scene_visited, 1),
+             (scene_set_slot, ":arena_scene", "slot_scene_visited", 1),
              (change_screen_mission),
            (try_end),
         ],"Door to the arena."),
@@ -1085,7 +1085,7 @@ town_menu_options = [
            (set_visitor, 42, "trp_picto_sacerdote"),
            (try_end),
              (set_jump_entry, 0),
-	  (scene_set_slot, "scn_fort_exterior", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_fort_exterior", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_fort_interior"),
              (change_screen_mission),
 #           (try_end),
@@ -7938,7 +7938,7 @@ game_menus = game_start.first_menus + [
 	  (set_visitor,39,reg(0)),
 	  (set_visitor,40,reg(1)),
       (set_jump_entry, 0),
-	  (scene_set_slot, "scn_celidon_forest", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_celidon_forest", "slot_scene_visited", 1),
 
                  (jump_to_scene,"scn_celidon_forest"),
                (change_screen_mission),
@@ -8042,7 +8042,7 @@ game_menus = game_start.first_menus + [
 	  (set_visitor,29,"trp_peasant_womanromanruins"),
 	  (set_visitor,30,"trp_peasant_womanromanruins"),
       (set_jump_entry, 0),
-	  (scene_set_slot, "scn_hidden_valley", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_hidden_valley", "slot_scene_visited", 1),
 
 #		 (display_message,"@It's cold and smells old, taking you back to another time... a time when Rome ruled the world, and men knew how to construct huge stone buildings with several storeys.",color_good_news),
 
@@ -8110,7 +8110,7 @@ game_menus = game_start.first_menus + [
 	  (set_visitor,23,"trp_peasant_womanromanruins"),
 	  (set_visitor,24,"trp_peasant_womanromanruins"),
       (set_jump_entry, 0),
-	  (scene_set_slot, "scn_odin_cave", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_odin_cave", "slot_scene_visited", 1),
 
 #		 (display_message,"@It's cold and smells old, taking you back to another time... a time when Rome ruled the world, and men knew how to construct huge stone buildings with several storeys.",color_good_news),
 
@@ -8162,7 +8162,7 @@ game_menus = game_start.first_menus + [
 	  (set_visitor,19,"trp_farmerdruid"), #old roman chief
 	  (set_visitor,20,"trp_refugeedruid"), #old roman chief
       (set_jump_entry, 0),
-	  (scene_set_slot, "scn_hadrian_wall", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_hadrian_wall", "slot_scene_visited", 1),
 
                  (jump_to_scene,"scn_hadrian_wall"),
                (change_screen_mission),
@@ -8239,7 +8239,7 @@ game_menus = game_start.first_menus + [
 	  (set_visitor,39,reg(0)),
 	  (set_visitor,40,reg(1)),
       (set_jump_entry, 0),
-	  (scene_set_slot, "scn_quarry1", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_quarry1", "slot_scene_visited", 1),
 
 #		 (display_message,"@ The rattle of spikes on the stone is deafening. Below, you can see people working hard under the command of a foreman.",color_good_news),
 
@@ -8396,35 +8396,35 @@ game_menus = game_start.first_menus + [
 
 		(try_begin),
           (eq, "$g_encountered_party", "p_monasterio1"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio1_costa"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio2"),
-	  (scene_set_slot, "scn_monasterio2_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio2_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio2_costa"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio3"),
-	  (scene_set_slot, "scn_monasterio2_normal", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio2_normal", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio2_normal"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio4"),
-	  (scene_set_slot, "scn_monasterio1_normal", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_normal", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio1_normal"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio5"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio1_costa"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio6"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio3_costa"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio7"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio1_normal"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio8"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio3_costa"),
 		(try_end),        
                (change_screen_mission),
@@ -8483,35 +8483,35 @@ game_menus = game_start.first_menus + [
              (set_jump_entry, 0),
 		(try_begin),
           (eq, "$g_encountered_party", "p_monasterio1"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio1_normal_interior"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio2"),
-	  (scene_set_slot, "scn_monasterio2_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio2_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio2_normal_interior"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio3"),
-	  (scene_set_slot, "scn_monasterio2_normal", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio2_normal", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio2_normal_interior"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio4"),
-	  (scene_set_slot, "scn_monasterio1_normal", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_normal", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio1_normal_interior"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio5"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio1_normal_interior"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio6"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio3_normal_interior"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio7"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio1_normal_interior"),
 		(else_try),
           (eq, "$g_encountered_party", "p_monasterio8"),
-	  (scene_set_slot, "scn_monasterio1_costa", slot_scene_visited, 1),
+	  (scene_set_slot, "scn_monasterio1_costa", "slot_scene_visited", 1),
                  (jump_to_scene,"scn_monasterio3_normal_interior"),
 		(try_end),        
              (change_screen_mission),
@@ -15270,7 +15270,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [(party_slot_eq,"$current_town","slot_party_type", spt_town),
         (eq, "$sneaked_into_town", 0),
 #           (party_get_slot, ":scene", "$current_town", "slot_town_arena"),
-#           (scene_slot_eq,  ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
+#           (scene_slot_eq,  ":scene", "slot_scene_visited", 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
            ],
        "Enter the arena.",
        [
@@ -15289,7 +15289,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
              (set_visitor, 44, "trp_merc_infantryt5"),
              (set_jump_entry, 50),
              (jump_to_scene, ":arena_scene"),
-             (scene_set_slot, ":arena_scene", slot_scene_visited, 1),
+             (scene_set_slot, ":arena_scene", "slot_scene_visited", 1),
              (change_screen_mission),
            (try_end),
         ],"Door to the arena."),

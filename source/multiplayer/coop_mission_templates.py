@@ -1514,13 +1514,13 @@ coop_mission_templates = [
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_a"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_a", ":belfry_no"),
-             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),
+             (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 1),
            (try_end),
          
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_b"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_b", ":belfry_no"),
-             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),
+             (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 1),
            (try_end),
           #call coop script
            (call_script, "script_coop_move_belfries_to_their_first_entry_point", "spr_belfry_a"),
@@ -1529,28 +1529,28 @@ coop_mission_templates = [
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_a"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_a", ":belfry_no"),
-             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, 0),
-             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_next_entry_point_id, 0),
+             (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_number_of_agents_pushing", 0),
+             (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_next_entry_point_id", 0),
            (try_end),
          
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_b"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_b", ":belfry_no"),
-             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, 0),
-             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_next_entry_point_id, 0),
+             (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_number_of_agents_pushing", 0),
+             (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_next_entry_point_id", 0),
            (try_end),
 
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_a"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_a", ":belfry_no"),
-             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
+             (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 0),
              (assign, "$coop_use_belfry", 1), #
            (try_end),
 
            (scene_prop_get_num_instances, ":num_belfries", "spr_belfry_b"),
            (try_for_range, ":belfry_no", 0, ":num_belfries"),
              (scene_prop_get_instance, ":belfry_scene_prop_id", "spr_belfry_b", ":belfry_no"),
-             (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
+             (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 0),
              (assign, "$coop_use_belfry", 1), #
            (try_end),
            (assign, "$belfry_positioned", 0),
@@ -1716,8 +1716,8 @@ coop_mission_templates = [
           (val_min, ":number_of_agents_around_belfry", 16),
 
           (try_begin),
-            (scene_prop_get_slot, ":pre_number_of_agents_around_belfry", ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing),
-            (scene_prop_get_slot, ":next_entry_point_id", ":belfry_scene_prop_id", scene_prop_next_entry_point_id),
+            (scene_prop_get_slot, ":pre_number_of_agents_around_belfry", ":belfry_scene_prop_id", "slot_scene_prop_number_of_agents_pushing"),
+            (scene_prop_get_slot, ":next_entry_point_id", ":belfry_scene_prop_id", "slot_scene_prop_next_entry_point_id"),
             (this_or_next|neq, ":pre_number_of_agents_around_belfry", ":number_of_agents_around_belfry"),
             (neq, ":next_entry_point_id", ":belfry_next_entry_point_id"),
 
@@ -1870,14 +1870,14 @@ coop_mission_templates = [
               (prop_instance_stop_animating, ":belfry_scene_prop_id"),
             (try_end),
         
-            (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, ":number_of_agents_around_belfry"),    
-            (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_next_entry_point_id, ":belfry_next_entry_point_id"),
+            (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_number_of_agents_pushing", ":number_of_agents_around_belfry"),
+            (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_next_entry_point_id", ":belfry_next_entry_point_id"),
           (try_end),
         (else_try),
           (le, ":dist_between_belfry_and_its_destination", 4),
-          (scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
+          (scene_prop_slot_eq, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 0),
       
-          (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),    
+          (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 1),
 
           (try_begin),
             (eq, ":belfry_kind", 0),

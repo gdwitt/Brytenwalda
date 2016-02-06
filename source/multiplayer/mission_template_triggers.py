@@ -787,8 +787,8 @@ multiplayer_server_check_belfry_movement = (
           (val_min, ":number_of_agents_around_belfry", 16),
 
           (try_begin),
-            (scene_prop_get_slot, ":pre_number_of_agents_around_belfry", ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing),
-            (scene_prop_get_slot, ":next_entry_point_id", ":belfry_scene_prop_id", scene_prop_next_entry_point_id),
+            (scene_prop_get_slot, ":pre_number_of_agents_around_belfry", ":belfry_scene_prop_id", "slot_scene_prop_number_of_agents_pushing"),
+            (scene_prop_get_slot, ":next_entry_point_id", ":belfry_scene_prop_id", "slot_scene_prop_next_entry_point_id"),
             (this_or_next|neq, ":pre_number_of_agents_around_belfry", ":number_of_agents_around_belfry"),
             (neq, ":next_entry_point_id", ":belfry_next_entry_point_id"),
 
@@ -941,14 +941,14 @@ multiplayer_server_check_belfry_movement = (
               (prop_instance_stop_animating, ":belfry_scene_prop_id"),
             (try_end),
 
-            (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_number_of_agents_pushing, ":number_of_agents_around_belfry"),
-            (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_next_entry_point_id, ":belfry_next_entry_point_id"),
+            (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_number_of_agents_pushing", ":number_of_agents_around_belfry"),
+            (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_next_entry_point_id", ":belfry_next_entry_point_id"),
           (try_end),
         (else_try),
           (le, ":dist_between_belfry_and_its_destination", 4),
-          (scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
+          (scene_prop_slot_eq, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 0),
 
-          (scene_prop_set_slot, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 1),
+          (scene_prop_set_slot, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 1),
 
           (try_begin),
             (eq, ":belfry_kind", 0),

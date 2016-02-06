@@ -40,7 +40,7 @@ check_sally_door_use_trigger_double = (ti_on_scene_prop_use,
       (agent_get_position, pos1, ":agent_id"),
       (prop_instance_get_starting_position, pos2, ":instance_id"),
       
-      (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
+      (scene_prop_get_slot, ":opened_or_closed", ":instance_id", "slot_scene_prop_open_or_close"),
 
       (try_begin),
         #out doors like castle sally door can be opened only from inside, if door coordinate is behind your coordinate. Also it can be closed from both sides.
@@ -90,7 +90,7 @@ check_sally_door_use_trigger = (ti_on_scene_prop_use,
       (agent_get_position, pos1, ":agent_id"),
       (prop_instance_get_starting_position, pos2, ":instance_id"),
       
-      (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
+      (scene_prop_get_slot, ":opened_or_closed", ":instance_id", "slot_scene_prop_open_or_close"),
 
       (try_begin),
         #out doors like castle sally door can be opened only from inside, if door coordinate is behind your coordinate. Also it can be closed from both sides.
@@ -118,7 +118,7 @@ check_castle_door_use_trigger = (ti_on_scene_prop_use,
       (agent_get_position, pos1, ":agent_id"),
       (prop_instance_get_starting_position, pos2, ":instance_id"),
       
-      (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
+      (scene_prop_get_slot, ":opened_or_closed", ":instance_id", "slot_scene_prop_open_or_close"),
 
       (try_begin),
         (ge, ":agent_id", 0),

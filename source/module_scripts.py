@@ -1475,7 +1475,7 @@ scripts = [
        (assign, ":effected_object", ":scene_prop_id"),
      (try_end),   
 
-     (scene_prop_get_slot, ":item_situation", ":instance_id", scene_prop_open_or_close_slot),
+     (scene_prop_get_slot, ":item_situation", ":instance_id", "slot_scene_prop_open_or_close"),
    
      (try_begin), #opening/closing portcullis
        (eq, ":effected_object", "spr_portcullis"),
@@ -4873,8 +4873,8 @@ scripts = [
         (lt, ":remaining_time", 15), #less then 0.15 seconds
         (gt, ":remaining_time", 3), #more than 0.03 seconds
       
-        (scene_prop_get_slot, ":smoke_effect_done", ":instance_id", scene_prop_smoke_effect_done),
-        (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
+        (scene_prop_get_slot, ":smoke_effect_done", ":instance_id", "slot_scene_prop_smoke_effect_done"),
+        (scene_prop_get_slot, ":opened_or_closed", ":instance_id", "slot_scene_prop_open_or_close"),
 
         (try_begin),
           (eq, ":smoke_effect_done", 0),
@@ -4939,7 +4939,7 @@ scripts = [
               (particle_system_burst, "psys_ladder_straw_14m", pos3, 100),
             (try_end),
 
-            (scene_prop_set_slot, ":instance_id", scene_prop_smoke_effect_done, 1),
+            (scene_prop_set_slot, ":instance_id", "slot_scene_prop_smoke_effect_done", 1),
           (try_end),
         (try_end),
       (try_end),
@@ -4970,7 +4970,7 @@ scripts = [
        (agent_get_team, ":my_team_no", ":my_agent_id"),
        (eq, ":my_team_no", 0),
                              
-       (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
+       (scene_prop_get_slot, ":opened_or_closed", ":instance_id", "slot_scene_prop_open_or_close"),
        (ge, ":user_id", 0),
        (agent_is_active, ":user_id"),
        (agent_get_player_id, ":user_player", ":user_id"),
@@ -5027,7 +5027,7 @@ scripts = [
 
        (try_begin),     
          (eq, ":effected_object", "spr_portcullis"),
-         (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
+         (scene_prop_get_slot, ":opened_or_closed", ":instance_id", "slot_scene_prop_open_or_close"),
 
          (try_begin),
            (eq, ":opened_or_closed", 0), #open gate
@@ -5040,7 +5040,7 @@ scripts = [
              (position_move_z, pos0, 375),
              (prop_instance_animate_to_position, ":effected_object_instance_id", pos0, 400),
            (try_end),
-           (scene_prop_set_slot, ":instance_id", scene_prop_open_or_close_slot, 1),
+           (scene_prop_set_slot, ":instance_id", "slot_scene_prop_open_or_close", 1),
 
            (try_begin),
              (eq, ":scene_prop_id", "spr_winch_b"),
@@ -5058,7 +5058,7 @@ scripts = [
              (position_move_z, pos0, -375),
              (prop_instance_animate_to_position, ":effected_object_instance_id", pos0, 400),
            (try_end),
-           (scene_prop_set_slot, ":instance_id", scene_prop_open_or_close_slot, 0),
+           (scene_prop_set_slot, ":instance_id", "slot_scene_prop_open_or_close", 0),
 
            (try_begin),
              (eq, ":scene_prop_id", "spr_winch_b"),
@@ -5097,7 +5097,7 @@ scripts = [
            (assign, ":animation_time_elevate", 400),
          (try_end),
      
-         (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
+         (scene_prop_get_slot, ":opened_or_closed", ":instance_id", "slot_scene_prop_open_or_close"),
 
          (try_begin),
            (scene_prop_enable_after_time, ":effected_object_instance_id", ":animation_time_elevate"), #3 seconds in average
@@ -5105,7 +5105,7 @@ scripts = [
            (prop_instance_get_starting_position, pos0, ":effected_object_instance_id"),
            (prop_instance_enable_physics, ":effected_object_instance_id", 0),
            (prop_instance_animate_to_position, ":effected_object_instance_id", pos0, 300),
-           (scene_prop_set_slot, ":effected_object_instance_id", scene_prop_open_or_close_slot, 1), 
+           (scene_prop_set_slot, ":effected_object_instance_id", "slot_scene_prop_open_or_close", 1),
          (else_try), #ladder at wall
            (scene_prop_enable_after_time, ":effected_object_instance_id", ":animation_time_drop"), #1.5 seconds in average
            (prop_instance_get_position, pos0, ":instance_id"),
@@ -5125,12 +5125,12 @@ scripts = [
              (lt, ":smallest_dist", 22500), #max 15m distance
              (entry_point_get_position, pos1, ":nearest_entry_point"),
              (position_rotate_x, pos1, -90),
-             (scene_prop_set_slot, ":effected_object_instance_id", scene_prop_smoke_effect_done, 0),
+             (scene_prop_set_slot, ":effected_object_instance_id", "slot_scene_prop_smoke_effect_done", 0),
              (prop_instance_enable_physics, ":effected_object_instance_id", 0),
              (prop_instance_animate_to_position, ":effected_object_instance_id", pos1, 130),
            (try_end),
 
-           (scene_prop_set_slot, ":effected_object_instance_id", scene_prop_open_or_close_slot, 0),
+           (scene_prop_set_slot, ":effected_object_instance_id", "slot_scene_prop_open_or_close", 0),
          (try_end),
        (else_try),
          (this_or_next|eq, ":effected_object", "spr_door_destructible"),
@@ -5144,7 +5144,7 @@ scripts = [
          (eq, ":scene_prop_id", "spr_castle_f_door_a"),
      
          (assign, ":effected_object_instance_id", ":instance_id"),
-         (scene_prop_get_slot, ":opened_or_closed", ":effected_object_instance_id", scene_prop_open_or_close_slot),
+         (scene_prop_get_slot, ":opened_or_closed", ":effected_object_instance_id", "slot_scene_prop_open_or_close"),
 
          (try_begin),
            (eq, ":opened_or_closed", 0),
@@ -5164,7 +5164,7 @@ scripts = [
            
            (prop_instance_animate_to_position, ":effected_object_instance_id", pos0, 100),
           
-           (scene_prop_set_slot, ":effected_object_instance_id", scene_prop_open_or_close_slot, 1),
+           (scene_prop_set_slot, ":effected_object_instance_id", "slot_scene_prop_open_or_close", 1),
          (else_try),          
            (prop_instance_get_starting_position, pos0, ":effected_object_instance_id"),
 
@@ -5172,7 +5172,7 @@ scripts = [
 
            (prop_instance_animate_to_position, ":effected_object_instance_id", pos0, 100),
 
-           (scene_prop_set_slot, ":effected_object_instance_id", scene_prop_open_or_close_slot, 0),
+           (scene_prop_set_slot, ":effected_object_instance_id", "slot_scene_prop_open_or_close", 0),
          (try_end),
        (try_end),
      (try_end),
@@ -18857,7 +18857,7 @@ scripts = [
 	  
       (set_jump_entry, 0),
       (jump_to_scene,":dungeon_scene"),
-      (scene_set_slot, ":dungeon_scene", slot_scene_visited, 1),
+      (scene_set_slot, ":dungeon_scene", "slot_scene_visited", 1),
       (change_screen_mission),
   ]),
   
@@ -19105,7 +19105,7 @@ scripts = [
       (set_jump_entry, 0),
       
       (jump_to_scene,":castle_scene"),
-      (scene_set_slot, ":castle_scene", slot_scene_visited, 1),
+      (scene_set_slot, ":castle_scene", "slot_scene_visited", 1),
       (change_screen_mission),
   ]),
 
@@ -19132,7 +19132,7 @@ scripts = [
       (assign, "$talk_context", tc_garden),
 	  
       (jump_to_scene,":castle_scene"),
-      (scene_set_slot, ":castle_scene", slot_scene_visited, 1),
+      (scene_set_slot, ":castle_scene", "slot_scene_visited", 1),
       (change_screen_mission),	  
 	]),  
   
@@ -23051,7 +23051,7 @@ scripts = [
   # Output: none (required for siege mission templates)
   ("siege_init_ai_and_belfry",
    [(assign, "$cur_belfry_pos", 50),
-    (assign, ":cur_belfry_object_pos", slot_scene_belfry_props_begin),
+    (assign, ":cur_belfry_object_pos", "slot_scene_belfry_props_begin"),
     (store_current_scene, ":cur_scene"),
     #Collecting belfry objects
     (try_for_range, ":i_belfry_instance", 0, 3),
@@ -23089,10 +23089,10 @@ scripts = [
     #Moving the belfry objects to their starting position
     (entry_point_get_position,pos1,55),
     (entry_point_get_position,pos3,50),
-    (try_for_range, ":i_belfry_object_pos", slot_scene_belfry_props_begin, "$last_belfry_object_pos"),
+    (try_for_range, ":i_belfry_object_pos", "slot_scene_belfry_props_begin", "$last_belfry_object_pos"),
       (assign, ":pos_no", pos_belfry_begin),
       (val_add, ":pos_no", ":i_belfry_object_pos"),
-      (val_sub, ":pos_no", slot_scene_belfry_props_begin),
+      (val_sub, ":pos_no", "slot_scene_belfry_props_begin"),
       (scene_get_slot, ":cur_belfry_object", ":cur_scene", ":i_belfry_object_pos"),
       (prop_instance_get_position, pos2, ":cur_belfry_object"),
       (try_begin),
@@ -23117,13 +23117,13 @@ scripts = [
   # Input: none
   # Output: none (required for siege mission templates)
   ("cf_siege_move_belfry",
-   [(neq, "$last_belfry_object_pos", slot_scene_belfry_props_begin),
+   [(neq, "$last_belfry_object_pos", "slot_scene_belfry_props_begin"),
      (eq, "$g_belfry_was_destroyed", 0), #fire arrow chief
     (entry_point_get_position,pos1,50),
     (entry_point_get_position,pos4,55),
     (get_distance_between_positions, ":total_distance", pos4, pos1),
     (store_current_scene, ":cur_scene"),
-    (scene_get_slot, ":first_belfry_object", ":cur_scene", slot_scene_belfry_props_begin),
+    (scene_get_slot, ":first_belfry_object", ":cur_scene", "slot_scene_belfry_props_begin"),
     (prop_instance_get_position, pos2, ":first_belfry_object"),
     (entry_point_get_position,pos1,"$cur_belfry_pos"),
     (position_transform_position_to_parent, pos3, pos1, pos_belfry_begin),
@@ -23166,10 +23166,10 @@ scripts = [
       (le, "$cur_belfry_pos", 55),
       (init_position, pos3),
       (position_rotate_x, pos3, ":distance_moved"),
-      (scene_get_slot, ":base_belfry_object", ":cur_scene", slot_scene_belfry_props_begin),
+      (scene_get_slot, ":base_belfry_object", ":cur_scene", "slot_scene_belfry_props_begin"),
       (prop_instance_get_position, pos4, ":base_belfry_object"),
       (entry_point_get_position,pos1,"$cur_belfry_pos"),
-      (try_for_range, ":i_belfry_object_pos", slot_scene_belfry_props_begin, "$last_belfry_object_pos"),
+      (try_for_range, ":i_belfry_object_pos", "slot_scene_belfry_props_begin", "$last_belfry_object_pos"),
         (scene_get_slot, ":cur_belfry_object", ":cur_scene", ":i_belfry_object_pos"),
         (try_begin),
           (ge, ":i_belfry_object_pos", "$belfry_rotating_objects_begin"),
@@ -23182,7 +23182,7 @@ scripts = [
         (else_try),
           (assign, ":pos_no", pos_belfry_begin),
           (val_add, ":pos_no", ":i_belfry_object_pos"),
-          (val_sub, ":pos_no", slot_scene_belfry_props_begin),
+          (val_sub, ":pos_no", "slot_scene_belfry_props_begin"),
           (position_transform_position_to_parent, pos2, pos1, ":pos_no"),
           (prop_instance_animate_to_position, ":cur_belfry_object", pos2, ":belfry_speed"),
         (try_end),
@@ -23211,14 +23211,14 @@ scripts = [
   ("cf_siege_assign_men_to_belfry",
    [
 ##    (store_mission_timer_a, ":cur_seconds"),
-    (neq, "$last_belfry_object_pos", slot_scene_belfry_props_begin),
+    (neq, "$last_belfry_object_pos", "slot_scene_belfry_props_begin"),
     (assign, ":end_trigger", 0),
     (try_begin),
       (eq, "$g_belfry_was_destroyed", 0), #fire arrow chief
     (lt, "$belfry_positioned", 3),
       (get_player_agent_no, ":player_agent"),
       (store_current_scene, ":cur_scene"),
-      (scene_get_slot, ":first_belfry_object", ":cur_scene", slot_scene_belfry_props_begin),
+      (scene_get_slot, ":first_belfry_object", ":cur_scene", "slot_scene_belfry_props_begin"),
       (prop_instance_get_position, pos2, ":first_belfry_object"),
       (assign, ":slot_1_positioned", 0),
       (assign, ":slot_2_positioned", 0),
@@ -43567,7 +43567,7 @@ scripts = [
   #~ This file goes to the very bottom of module_scripts.py, right before the last ']'. ~#
   ("siege_init_ai_and_ram",
    [(assign, "$cur_ram_pos", 50),
-    (assign, ":cur_ram_object_pos", slot_scene_ram_props_begin),
+    (assign, ":cur_ram_object_pos", "slot_scene_ram_props_begin"),
     (store_current_scene, ":cur_scene"),
     #Collecting ram objects
     (try_for_range, ":i_ram_instance", 0, 3),
@@ -43600,10 +43600,10 @@ scripts = [
     # Moving the ram objects to their starting position
     (entry_point_get_position,pos1,55),
     (entry_point_get_position,pos3,50),
-    (try_for_range, ":i_ram_object_pos", slot_scene_ram_props_begin, "$last_ram_object_pos"),
+    (try_for_range, ":i_ram_object_pos", "slot_scene_ram_props_begin", "$last_ram_object_pos"),
       (assign, ":pos_no", pos_ram_begin),
       (val_add, ":pos_no", ":i_ram_object_pos"),
-      (val_sub, ":pos_no", slot_scene_ram_props_begin),
+      (val_sub, ":pos_no", "slot_scene_ram_props_begin"),
       (scene_get_slot, ":cur_ram_object", ":cur_scene", ":i_ram_object_pos"),
       (prop_instance_get_position, pos2, ":cur_ram_object"),
       (position_transform_position_to_local, ":pos_no", pos1, pos2),
@@ -43617,13 +43617,13 @@ scripts = [
 
   # Move the ram itself.
   ("cf_siege_move_ram",
-   [(neq, "$last_ram_object_pos", slot_scene_ram_props_begin),
+   [(neq, "$last_ram_object_pos", "slot_scene_ram_props_begin"),
     (eq, "$g_ram_was_destroyed", 0), #chief fire arrow
     (entry_point_get_position,pos1,50),
     (entry_point_get_position,pos4,55),
     (get_distance_between_positions, ":total_distance", pos4, pos1),
     (store_current_scene, ":cur_scene"),
-    (scene_get_slot, ":first_ram_object", ":cur_scene", slot_scene_ram_props_begin),
+    (scene_get_slot, ":first_ram_object", ":cur_scene", "slot_scene_ram_props_begin"),
     (prop_instance_get_position, pos2, ":first_ram_object"),
     (entry_point_get_position,pos1,"$cur_ram_pos"),
     (position_transform_position_to_parent, pos3, pos1, pos_ram_begin),
@@ -43667,10 +43667,10 @@ scripts = [
       (le, "$cur_ram_pos", 55),
       (init_position, pos3),
       (position_rotate_x, pos3, ":distance_moved"),
-      (scene_get_slot, ":base_ram_object", ":cur_scene", slot_scene_ram_props_begin),
+      (scene_get_slot, ":base_ram_object", ":cur_scene", "slot_scene_ram_props_begin"),
       (prop_instance_get_position, pos4, ":base_ram_object"),
       (entry_point_get_position,pos1,"$cur_ram_pos"),
-      (try_for_range, ":i_ram_object_pos", slot_scene_ram_props_begin, "$last_ram_object_pos"),
+      (try_for_range, ":i_ram_object_pos", "slot_scene_ram_props_begin", "$last_ram_object_pos"),
         (scene_get_slot, ":cur_ram_object", ":cur_scene", ":i_ram_object_pos"),
         (try_begin),
           (ge, ":i_ram_object_pos", "$ram_rotating_objects_begin"),
@@ -43683,7 +43683,7 @@ scripts = [
         (else_try),
           (assign, ":pos_no", pos_ram_begin),
           (val_add, ":pos_no", ":i_ram_object_pos"),
-          (val_sub, ":pos_no", slot_scene_ram_props_begin),
+          (val_sub, ":pos_no", "slot_scene_ram_props_begin"),
           (position_transform_position_to_parent, pos2, pos1, ":pos_no"),
           (prop_instance_animate_to_position, ":cur_ram_object", pos2, ":ram_speed"),
         (try_end),
@@ -43707,14 +43707,14 @@ scripts = [
   ("cf_siege_assign_men_to_ram",
    [
     (store_mission_timer_a, ":cur_seconds"),
-    (neq, "$last_ram_object_pos", slot_scene_ram_props_begin),
+    (neq, "$last_ram_object_pos", "slot_scene_ram_props_begin"),
     (assign, ":end_trigger", 0),
     (try_begin),
     (eq, "$g_ram_was_destroyed", 0), #chief fire arrow
     (lt, "$ram_positioned", 3),
       (get_player_agent_no, ":player_agent"),
       (store_current_scene, ":cur_scene"),
-      (scene_get_slot, ":first_ram_object", ":cur_scene", slot_scene_ram_props_begin),
+      (scene_get_slot, ":first_ram_object", ":cur_scene", "slot_scene_ram_props_begin"),
       (prop_instance_get_position, pos2, ":first_ram_object"),
       (assign, ":slot_1_positioned", 0),
       (assign, ":slot_2_positioned", 0),

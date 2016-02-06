@@ -9,6 +9,8 @@ import source.slots_player
 import source.slots_team
 import source.slots_quest
 import source.slots_party_template
+import source.slots_scene
+import source.slots_scene_prop
 
 
 class Slot(GenericEntity):
@@ -25,7 +27,8 @@ class Slot(GenericEntity):
     raw_objects = [source.slots_party.slots, source.slots_item.slots, source.slots_agent.slots,
                    source.slots_faction.slots, source.slots_troop.slots, source.slots_player.slots,
                    source.slots_team.slots, source.slots_quest.slots,
-                   source.slots_party_template.slots]
+                   source.slots_party_template.slots, source.slots_scene.slots,
+                   source.slots_scene_prop.slots]
 
     _index_shift = 0
 

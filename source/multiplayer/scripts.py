@@ -979,7 +979,7 @@ scripts = [
      (scene_prop_get_num_instances, ":num_instances_of_scene_prop", ":scene_prop_no"),
      (try_for_range, ":cur_instance", 0, ":num_instances_of_scene_prop"),
        (scene_prop_get_instance, ":cur_instance_id", ":scene_prop_no", ":cur_instance"),
-       (try_for_range, ":cur_slot", 0, scene_prop_slots_end),
+       (try_for_range, ":cur_slot", 0, "slot_scene_prop_end"),
          (scene_prop_set_slot, ":cur_instance_id", ":cur_slot", 0),
        (try_end),
      (try_end),
@@ -1693,7 +1693,7 @@ scripts = [
      (scene_prop_get_num_instances, ":num_instances_of_scene_prop", "spr_winch_b"),
      (try_for_range, ":cur_prop_instance", 0, ":num_instances_of_scene_prop"),
        (scene_prop_get_instance, ":prop_instance_id", "spr_winch_b", ":cur_prop_instance"),
-       (scene_prop_slot_eq, ":prop_instance_id", scene_prop_open_or_close_slot, 1),
+       (scene_prop_slot_eq, ":prop_instance_id", "slot_scene_prop_open_or_close", 1),
        (scene_prop_get_instance, ":effected_object_instance_id", "spr_portcullis", ":cur_prop_instance"),
        (prop_instance_get_starting_position, pos0, ":effected_object_instance_id"),
        (prop_instance_animate_to_position, ":effected_object_instance_id", pos0, 1),
@@ -1833,7 +1833,7 @@ scripts = [
         (position_transform_position_to_local, pos7, pos0, pos6),
         (position_transform_position_to_parent, pos8, pos1, pos7),
         (try_begin),
-          (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
+          (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 0),
 
           (init_position, pos20),
           (position_rotate_x, pos20, 90),
@@ -1853,7 +1853,7 @@ scripts = [
         (position_transform_position_to_local, pos7, pos0, pos6),
         (position_transform_position_to_parent, pos8, pos1, pos7),
         (try_begin),
-          (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
+          (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 0),
 
           (init_position, pos20),
           (position_rotate_x, pos20, 50),
@@ -4215,7 +4215,7 @@ scripts = [
           (eq, ":event_type", multiplayer_event_set_scene_prop_open_or_close),
           (store_script_param, ":instance_id", 3),
 
-          (scene_prop_set_slot, ":instance_id", scene_prop_open_or_close_slot, 1),
+          (scene_prop_set_slot, ":instance_id", "slot_scene_prop_open_or_close", 1),
 
           (prop_instance_get_scene_prop_kind, ":scene_prop_id", ":instance_id"),
 
@@ -5475,7 +5475,7 @@ scripts = [
 
      (try_for_range, ":instance_no", 0, ":num_instances"),
        (scene_prop_get_instance, ":instance_id", ":scene_prop_no", ":instance_no"),
-       (scene_prop_get_slot, ":opened_or_closed", ":instance_id", scene_prop_open_or_close_slot),
+       (scene_prop_get_slot, ":opened_or_closed", ":instance_id", "slot_scene_prop_open_or_close"),
        (try_begin),
          (eq, ":opened_or_closed", 1),
          (multiplayer_send_int_to_player, ":player_no", multiplayer_event_set_scene_prop_open_or_close, ":instance_id"),

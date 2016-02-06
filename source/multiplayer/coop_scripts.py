@@ -1827,7 +1827,7 @@ coop_scripts = [
         (position_transform_position_to_local, pos7, pos0, pos6),
         (position_transform_position_to_parent, pos8, pos1, pos7),
         (try_begin),
-          (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
+          (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 0),
      
           (init_position, pos20),
           (position_rotate_x, pos20, 90),
@@ -1849,7 +1849,7 @@ coop_scripts = [
         (position_transform_position_to_local, pos7, pos0, pos6),
         (position_transform_position_to_parent, pos8, pos1, pos7),
         (try_begin),
-          (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", scene_prop_belfry_platform_moved, 0),
+          (neg|scene_prop_slot_eq, ":belfry_scene_prop_id", "slot_scene_prop_belfry_platform_moved", 0),
      
           (init_position, pos20),
           (position_rotate_x, pos20, 50),
