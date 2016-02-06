@@ -124,10 +124,10 @@ common_weapon_use = (
             (assign, ":in_formation", 0),
             (agent_get_division, ":division", ":agent"),
             (try_begin),
-                (store_add, ":slot", slot_team_d0_type, ":division"),
+                (store_add, ":slot", "slot_team_d0_type", ":division"),
                 (this_or_next|team_slot_eq, ":player_team", ":slot", sdt_infantry),
                 (team_slot_eq, ":player_team", ":slot", sdt_polearm),    #formation equip only on infantry
-                (store_add, ":slot", slot_team_d0_formation, ":division"),
+                (store_add, ":slot", "slot_team_d0_formation", ":division"),
                 (neg|team_slot_eq, ":player_team", ":slot", formation_none),
                 (assign, ":in_formation", 1),
             (try_end),

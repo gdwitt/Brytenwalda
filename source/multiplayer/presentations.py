@@ -3798,7 +3798,7 @@ presentations = [
       (set_fixed_point_multiplier, 1000),
 
       (scene_prop_get_instance, ":flag_red_id", "$team_1_flag_scene_prop", 0),
-      (team_get_slot, ":team_0_flag_situation", 0, slot_team_flag_situation),
+      (team_get_slot, ":team_0_flag_situation", 0, "slot_team_flag_situation"),
       (try_begin),
         (neq, ":team_0_flag_situation", 1),
         (prop_instance_get_position, pos1, ":flag_red_id"), #hold position of flag of team 1 (red flag) at pos1
@@ -3808,7 +3808,7 @@ presentations = [
       (position_move_z, pos1, 200, 1),
 
       (scene_prop_get_instance, ":flag_blue_id", "$team_2_flag_scene_prop", 0),
-      (team_get_slot, ":team_1_flag_situation", 1, slot_team_flag_situation),
+      (team_get_slot, ":team_1_flag_situation", 1, "slot_team_flag_situation"),
       (try_begin),
         (neq, ":team_1_flag_situation", 1),
         (prop_instance_get_position, pos2, ":flag_blue_id"), #hold position of flag of team 1 (red flag) at pos1
@@ -3876,7 +3876,7 @@ presentations = [
         (is_between, ":x_pos", -100, 1100),
         (is_between, ":y_pos", -100, 850),
 
-        (team_get_slot, ":team_1_flag_situation", 1, slot_team_flag_situation),
+        (team_get_slot, ":team_1_flag_situation", 1, "slot_team_flag_situation"),
 
         (multiplayer_get_my_player, ":my_player_number"),
         (try_begin),

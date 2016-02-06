@@ -2361,7 +2361,7 @@ resta_fatigue_multi,
                (else_try),
                  (assign, ":dead_agent_rival_team", 0),
                (try_end),
-               (team_set_slot, ":dead_agent_rival_team", slot_team_flag_situation, 2), #2-flag at ground
+               (team_set_slot, ":dead_agent_rival_team", "slot_team_flag_situation", 2), #2-flag at ground
                (multiplayer_get_my_player, ":my_player_no"),
                (get_max_players, ":num_players"),
                #for only server itself-----------------------------------------------------------------------------------------------
@@ -2382,7 +2382,7 @@ resta_fatigue_multi,
          (multiplayer_is_server),
          (try_for_range, ":team_no", 0, 2),
            (try_begin),
-             (team_slot_eq, ":team_no", slot_team_flag_situation, 2),
+             (team_slot_eq, ":team_no", "slot_team_flag_situation", 2),
 
              (assign, ":flag_team_no", -1),
 
@@ -2409,7 +2409,7 @@ resta_fatigue_multi,
                (try_end),
 
                #cur agent returned his own flag to its default position!
-               (team_set_slot, ":flag_team_no", slot_team_flag_situation, 0), #0-flag at base
+               (team_set_slot, ":flag_team_no", "slot_team_flag_situation", 0), #0-flag at base
 
                #return team flag to its starting position.
                #for only server itself-----------------------------------------------------------------------------------------------
@@ -2636,14 +2636,14 @@ resta_fatigue_multi,
            (agent_get_position, pos3, ":cur_agent"),
            (prop_instance_get_position, pos4, ":our_flag_id"),
            (get_distance_between_positions, ":dist", pos3, pos4),
-           (team_get_slot, ":cur_agent_flag_situation", ":cur_agent_team", slot_team_flag_situation),
+           (team_get_slot, ":cur_agent_flag_situation", ":cur_agent_team", "slot_team_flag_situation"),
 
            (try_begin), #control if agent can return his own flag to default position
              (eq, ":cur_agent_flag_situation", 2), #if our flag is at ground
              (lt, ":dist", 100), #if this agent is near to his team's own flag
 
              #cur agent returned his own flag to its default position!
-             (team_set_slot, ":cur_agent_team", slot_team_flag_situation, 0), #0-flag at base
+             (team_set_slot, ":cur_agent_team", "slot_team_flag_situation", 0), #0-flag at base
 
              #return team flag to its starting position.
              #for only server itself-----------------------------------------------------------------------------------------------
@@ -2726,7 +2726,7 @@ resta_fatigue_multi,
              (try_end),
 
              (agent_set_attached_scene_prop, ":cur_agent", -1),
-             (team_set_slot, ":cur_agent_rival_team", slot_team_flag_situation, 0), #0-flag at base
+             (team_set_slot, ":cur_agent_rival_team", "slot_team_flag_situation", 0), #0-flag at base
 
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_set_attached_scene_prop", ":cur_agent", -1),
@@ -2796,7 +2796,7 @@ resta_fatigue_multi,
 
            (try_begin),  #control if agent stole enemy flag
              (le, ":dist", 100),
-             (neg|team_slot_eq, ":cur_agent_rival_team", slot_team_flag_situation, 1), #if flag is not already stolen.
+             (neg|team_slot_eq, ":cur_agent_rival_team", "slot_team_flag_situation", 1), #if flag is not already stolen.
 
              (agent_set_attached_scene_prop, ":cur_agent", ":rival_flag_id"),
              (agent_set_attached_scene_prop_x, ":cur_agent", 20),
@@ -2811,7 +2811,7 @@ resta_fatigue_multi,
              (try_end),
 
              #cur_agent stole rival team's flag!
-             (team_set_slot, ":cur_agent_rival_team", slot_team_flag_situation, 1), #1-stolen flag
+             (team_set_slot, ":cur_agent_rival_team", "slot_team_flag_situation", 1), #1-stolen flag
 
              #for only server itself-----------------------------------------------------------------------------------------------
              (call_script, "script_set_attached_scene_prop", ":cur_agent", ":rival_flag_id"),

@@ -302,10 +302,6 @@ stl_rejected_by_player = -3
 ##  TEAM SLOTS             #############################
 ########################################################
 
-slot_team_flag_situation = 0
-slot_team_d0_order_volley = 302  # plus 8 more for the other divisions
-# AI and volley 1-310 (see below)
-
 # Rebellion changes end
 # character backgrounds
 cb_noble = 1
@@ -1050,54 +1046,6 @@ ctm_ranged = 2
 ctm_mounted = 3
 # ctm_training = 4
 
-# # troop slots
-# ###################################################################################
-# # AutoLoot: Modified Constants
-# # Most of these are slot definitions, make sure they do not clash with your mod's other slot usage
-# ###################################################################################
-
-# # These are troops slots
-# slot_upgrade_armor = 313
-# slot_upgrade_horse = 314
-
-# slot_upgrade_wpn_0 = 317
-# slot_upgrade_wpn_1 = 318
-# slot_upgrade_wpn_2 = 319
-# slot_upgrade_wpn_3 = 320
-
-# ## CC, disabled in 1.324
-# #slot_upgrade_wpn_set_sel = 321
-# #slot_upgrade_wpn_0_set_2 = 322
-# #slot_upgrade_wpn_1_set_2 = 323
-# #slot_upgrade_wpn_2_set_2 = 324
-# #slot_upgrade_wpn_3_set_2 = 325
-# #
-# #offset_of_two_sets_slot = slot_upgrade_wpn_0_set_2 - slot_upgrade_wpn_0
-# ## CC
-# ###################################################################################
-# # End Autoloot
-# ###################################################################################
-
-# #slot_all_proficiency_limit        = 336
-# #slot_one_handed_proficiency_limit = 337
-# #slot_two_handed_proficiency_limit = 338
-# #slot_polearm_proficiency_limit    = 339
-# #slot_archery_proficiency_limit    = 340
-# #slot_crossbow_proficiency_limit   = 341
-# #slot_throwing_proficiency_limit   = 342
-
-
-# # party template slots
-# slot_party_template_has_hero            = 6
-# slot_party_template_spawn_point         = 7
-# slot_party_template_hero_id             = 8
-# slot_party_template_hero_name_begin     = 9
-# slot_party_template_hero_party_id       = 10
-# slot_party_template_hero_pre_name       = 11
-# slot_party_template_hero_pre_pre_name   = 12
-## CC
-# gdw floris end
-
 # recruiter kit end
 dplmc_npc_mission_war_request = 9
 dplmc_npc_mission_alliance_request = 10
@@ -1460,67 +1408,9 @@ Target_Pos = 37  # pos37
 Enemy_Team_Pos = 38  # pos38
 Temp_Pos = 39  # pos39
 
-# Team Slots
-slot_team_faction = 1
-slot_team_starting_x = 2
-slot_team_starting_y = 3
-slot_team_reinforcement_stage = 4
-
-# Reset with every call of Store_Battlegroup_Data
-slot_team_size = 5
-slot_team_adj_size = 6  # cavalry double counted for AI considerations
-slot_team_num_infantry = 7  # class counts
-slot_team_num_archers = 8
-slot_team_num_cavalry = 9
-slot_team_level = 10
-# slot_team_dist_enemy_inf_to_start       = 11
-slot_team_avg_x = 12
-slot_team_avg_y = 13
-# Team Slots end
-
-# Battlegroup slots (1 for each of 9 divisions)
-slot_team_d0_size = 14
-slot_team_d0_percent_ranged = 23
-slot_team_d0_percent_throwers = 32
-slot_team_d0_low_ammo = 41
-slot_team_d0_level = 50
-slot_team_d0_armor = 59
-slot_team_d0_weapon_length = 68
-slot_team_d0_swung_weapon_length = 77
-slot_team_d0_front_weapon_length = 86
-slot_team_d0_front_agents = 95  # for calculating slot_team_d0_front_weapon_length
-slot_team_d0_in_melee = 104
-slot_team_d0_enemy_supporting_melee = 113
-slot_team_d0_closest_enemy = 122
-slot_team_d0_closest_enemy_dist = 131  # for calculating slot_team_d0_closest_enemy
-slot_team_d0_closest_enemy_special = 140  # tracks non-cavalry for AI infantry division, infantry for AI archer division
-slot_team_d0_closest_enemy_special_dist = 149  # for calculating slot_team_d0_closest_enemy_special
-slot_team_d0_avg_x = 158
-slot_team_d0_avg_y = 167
-# End Reset Group
-
-slot_team_d0_type = 176
-slot_team_d0_formation = 185
-slot_team_d0_formation_space = 194
-slot_team_d0_move_order = 203  # now used only for player divisions
-slot_team_d0_fclock = 212  # now used only for player divisions
-slot_team_d0_first_member = 221
-slot_team_d0_prev_first_member = 230
-slot_team_d0_speed_limit = 239
-slot_team_d0_percent_in_place = 248
-slot_team_d0_destination_x = 257
-slot_team_d0_destination_y = 266
-slot_team_d0_destination_zrot = 275
-slot_team_d0_target_team = 284  # targeted battlegroup (team ID)
-slot_team_d0_target_division = 293  # targeted battlegroup (division ID)
-# Battlegroup slots end
-
-reset_team_stats_begin = slot_team_size
-reset_team_stats_end = slot_team_d0_avg_y + 8 + 1
-
 scratch_team = 7
 
-# Slot Division Type definitions
+# "slot_team_d0_type"
 sdt_infantry = 0
 sdt_archer = 1
 sdt_cavalry = 2

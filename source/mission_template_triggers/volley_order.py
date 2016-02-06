@@ -12,7 +12,7 @@ order_volley_triggers = [
     (1, 0, 0, [(call_script, "script_cf_order_volley_check")], [
         (try_for_range, ":team", 0, 4),
             (try_for_range, ":division", 0, 9),
-                (store_add, ":slot", slot_team_d0_order_volley, ":division"),
+                (store_add, ":slot", "slot_team_d0_order_volley", ":division"),
                 (team_slot_ge, ":team", ":slot", 1),
                 (team_get_slot, ":volley_counter", ":team", ":slot"),
                 (val_add, ":volley_counter", 1),
@@ -28,7 +28,7 @@ order_volley_triggers = [
 
             (agent_get_team, ":team", ":agent"),
             (agent_get_division, ":division", ":agent"),
-            (store_add, ":slot", slot_team_d0_order_volley, ":division"),
+            (store_add, ":slot", "slot_team_d0_order_volley", ":division"),
             (team_get_slot, ":volley_counter", ":team", ":slot"),
 
             (agent_get_slot, ":volley_wpn_type", ":agent", "slot_agent_volley_fire"),
@@ -55,7 +55,7 @@ order_volley_triggers = [
 
     (1, 0, ti_once, [(neq, "$g_battle_result", 0)], [   #Disable Volley @ end of battle
         (try_for_range, ":team", 0, 4),
-            (try_for_range, ":slot", slot_team_d0_order_volley, slot_team_d0_order_volley + 9),
+            (try_for_range, ":slot", "slot_team_d0_order_volley", "slot_team_d0_order_volley_end"),
                 (team_set_slot, ":team", ":slot", 0),
             (try_end),
         (try_end),
@@ -76,7 +76,7 @@ scripts = [
 
      (try_for_range, ":class", 0, 8),
          (class_is_listening_order, ":playerteam", ":class"), #Listening to Order
-         (store_add, ":class_ordered", slot_team_d0_order_volley, ":class"),
+         (store_add, ":class_ordered", "slot_team_d0_order_volley", ":class"),
          (team_slot_eq, ":playerteam", ":class_ordered", 0),
          (team_set_slot, ":playerteam", ":class_ordered", 1),
          (assign, ":volley", 1),
@@ -149,7 +149,7 @@ scripts = [
          (class_is_listening_order, ":team", ":class"), #Is the agent's division selected?
          (try_begin),
              (eq, ":volley", 0),
-             (store_add, ":class_ordered", slot_team_d0_order_volley, ":class"),
+             (store_add, ":class_ordered", "slot_team_d0_order_volley", ":class"),
              (team_set_slot, ":team", ":class_ordered", 0),
              (try_begin),
                 (agent_slot_ge, ":agent", "slot_agent_volley_fire", 1),
@@ -354,13 +354,13 @@ scripts = [
     ("cf_order_volley_check", [
         (assign, ":active", 0),
         (assign, ":end", 4),
-        (assign, ":end2", slot_team_d0_order_volley + 9),
+        (assign, ":end2", "slot_team_d0_order_volley_end"),
         (try_for_range, ":team", 0, ":end"),
-            (try_for_range, ":i", slot_team_d0_order_volley, ":end2"),
+            (try_for_range, ":i", "slot_team_d0_order_volley", ":end2"),
                 (team_slot_ge, ":team", ":i", 1),
                 (assign, ":active", 1),
                 (assign, ":end", 0),
-                (assign, ":end2", slot_team_d0_order_volley),
+                (assign, ":end2", "slot_team_d0_order_volley"),
             (try_end),
         (try_end),
         (eq, ":active", 1),

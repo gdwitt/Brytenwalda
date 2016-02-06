@@ -1957,7 +1957,7 @@ scripts = [
          (assign, ":flag_owner_team", 1),
        (try_end),
        (ge, ":flag_owner_team", 0),
-       (team_set_slot, ":flag_owner_team", slot_team_flag_situation, 1), #1-stolen flag
+       (team_set_slot, ":flag_owner_team", "slot_team_flag_situation", 1), #1-stolen flag
      (try_end),
 
      (agent_set_attached_scene_prop, ":agent_id", ":flag_id"),
@@ -1973,7 +1973,7 @@ scripts = [
      (store_script_param, ":team_no", 1),
      (store_script_param, ":flag_situation", 2),
 
-     (team_set_slot, ":team_no", slot_team_flag_situation, ":flag_situation"),
+     (team_set_slot, ":team_no", "slot_team_flag_situation", ":flag_situation"),
    ]),
 
   #script_start_death_mode
@@ -5551,9 +5551,9 @@ scripts = [
      (else_try),
        (eq, "$g_multiplayer_game_type", multiplayer_game_type_capture_the_flag),
        #if game type is capture the flag send current flag situations to each player.
-       (team_get_slot, ":flag_situation_team_1", 0, slot_team_flag_situation),
+       (team_get_slot, ":flag_situation_team_1", 0, "slot_team_flag_situation"),
        (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_flag_situation, 0, ":flag_situation_team_1"),
-       (team_get_slot, ":flag_situation_team_2", 1, slot_team_flag_situation),
+       (team_get_slot, ":flag_situation_team_2", 1, "slot_team_flag_situation"),
        (multiplayer_send_2_int_to_player, ":player_no", multiplayer_event_set_team_flag_situation, 1, ":flag_situation_team_2"),
      (else_try),
        (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_headquarters),

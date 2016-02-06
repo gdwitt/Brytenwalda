@@ -816,20 +816,20 @@ presentations = [
                     (try_end),
                     (eq, ":do_it", 1),
 
-                    (store_add, ":slot", slot_team_d0_formation, ":division"),
+                    (store_add, ":slot", "slot_team_d0_formation", ":division"),
                     (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
                     (neq, ":formation", formation_none),
                     (copy_position, pos1, pos3),
                     (call_script, "script_point_y_toward_position", pos1, Enemy_Team_Pos),
                     (call_script, "script_set_formation_destination", "$fplayer_team_no", ":division", pos1),
 
-                    (store_add, ":slot", slot_team_d0_size, ":division"),
+                    (store_add, ":slot", "slot_team_d0_size", ":division"),
                     (team_get_slot, ":troop_count", "$fplayer_team_no", ":slot"),
 
-                    (store_add, ":slot", slot_team_d0_formation_space, ":division"),
+                    (store_add, ":slot", "slot_team_d0_formation_space", ":division"),
                     (team_get_slot, ":spacing", "$fplayer_team_no", ":slot"),
 
-                    (store_add, ":slot", slot_team_d0_type, ":division"),
+                    (store_add, ":slot", "slot_team_d0_type", ":division"),
                     (try_begin),
                         (team_slot_eq, "$fplayer_team_no", ":slot", sdt_archer),
                         (call_script, "script_get_centering_amount", formation_default, ":troop_count", ":spacing"),
@@ -846,7 +846,7 @@ presentations = [
                         (call_script, "script_form_infantry", "$fplayer_team_no", ":division", "$fplayer_agent_no", ":spacing", 0, ":formation"),
                     (try_end),
 
-                    (store_add, ":slot", slot_team_d0_move_order, ":division"),
+                    (store_add, ":slot", "slot_team_d0_move_order", ":division"),
                     (team_set_slot, "$fplayer_team_no", ":slot", mordr_hold),
                 (try_end),
 

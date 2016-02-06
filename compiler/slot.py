@@ -6,6 +6,7 @@ import source.slots_agent
 import source.slots_faction
 import source.slots_troop
 import source.slots_player
+import source.slots_team
 
 
 class Slot(GenericEntity):
@@ -20,7 +21,8 @@ class Slot(GenericEntity):
     """
     tag = 'slot'
     raw_objects = [source.slots_party.slots, source.slots_item.slots, source.slots_agent.slots,
-                   source.slots_faction.slots, source.slots_troop.slots, source.slots_player.slots]
+                   source.slots_faction.slots, source.slots_troop.slots, source.slots_player.slots,
+                   source.slots_team.slots]
 
     _index_shift = 0
 
