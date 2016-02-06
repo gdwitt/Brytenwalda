@@ -56,29 +56,38 @@ index_is_id = {Dialog, SimpleTrigger, Trigger}
 data_is_spliced = {Troop: 16}
 
 
+def _create_objects(object_type, objects):
+    for data in objects:
+        # choose index
+        if object_type in index_is_id:
+            id = len(object_type.objects)
+        else:
+            id = data[0]
+
+        logging.debug('Creating "%s.%s"' % (object_type.__name__, id))
+
+        if object_type in data_is_spliced:
+            data = data[:data_is_spliced[object_type]]
+
+        if id in object_type.objects:
+            logging.warning('%s "%s" is duplicated' % (object_type.__name__, id))
+            object_type.objects[id] = object_type(object_type.objects[id].index, *data)
+        else:
+            object_type.objects[id] = object_type(len(object_type.objects), *data)
+
+
 def create_objects(types=ALL_TYPES):
     logging.info('Creating objects...')
     for object_type in ALL_TYPES:
         logging.info('Create "%s"' % object_type.__name__)
         object_type.objects = OrderedDict()
 
-        for data in object_type.raw_objects:
-            # choose index
-            if object_type in index_is_id:
-                id = len(object_type.objects)
-            else:
-                id = data[0]
-
-            logging.debug('Creating "%s.%s"' % (object_type.__name__, id))
-
-            if object_type in data_is_spliced:
-                data = data[:data_is_spliced[object_type]]
-
-            if id in object_type.objects:
-                logging.warning('%s "%s" is duplicated' % (object_type.__name__, id))
-                object_type.objects[id] = object_type(object_type.objects[id].index, *data)
-            else:
-                object_type.objects[id] = object_type(len(object_type.objects), *data)
+        if object_type == Slot:
+            for slot_objects in object_type.raw_objects:
+                _create_objects(object_type, slot_objects)
+                object_type.reset_shift()
+        else:
+            _create_objects(object_type, object_type.raw_objects)
 
 
 FILE_NAMES = {

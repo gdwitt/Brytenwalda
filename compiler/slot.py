@@ -1,6 +1,7 @@
 from .generic_entity import GenericEntity
 
 import source.slots_party
+import source.slots_item
 
 
 class Slot(GenericEntity):
@@ -14,7 +15,7 @@ class Slot(GenericEntity):
     a slot requires.
     """
     tag = 'slot'
-    raw_objects = source.slots_party.slots
+    raw_objects = [source.slots_party.slots]
 
     _index_shift = 0
 
@@ -28,3 +29,10 @@ class Slot(GenericEntity):
     @property
     def slots_allocated(self):
         return self._slots_allocated
+
+    @classmethod
+    def reset_shift(cls):
+        """
+        To be called between each type of raw_object added.
+        """
+        cls._index_shift = -len(cls.objects)
