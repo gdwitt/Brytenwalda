@@ -3,8 +3,8 @@ from source.header_common import s2, s3, s4, pos0, pos1, pos2, reg0
 
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_village_number_of_cattle, \
-    slot_quest_target_center, slot_quest_target_amount, villages_begin, villages_end, \
+from source.module_constants import slot_quest_target_center, slot_quest_target_amount, \
+    villages_begin, villages_end, \
     village_elders_begin, village_elders_end, \
     slot_troop_does_not_give_quest, logent_helped_peasants
 
@@ -15,7 +15,7 @@ quest_block = StatementBlock(
     (eq, ":quest_no", "qst_deliver_cattle"),
     (try_begin),
         (is_between, ":giver_center_no", villages_begin, villages_end),
-        (party_get_slot, ":num_cattle", ":giver_center_no", slot_village_number_of_cattle),
+        (party_get_slot, ":num_cattle", ":giver_center_no", "slot_village_number_of_cattle"),
         (lt, ":num_cattle", 50),
         (assign, ":quest_target_center", ":giver_center_no"),
         (store_random_in_range, ":quest_target_amount", 5, 10),

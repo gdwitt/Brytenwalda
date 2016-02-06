@@ -2,7 +2,6 @@ import logging
 from collections import OrderedDict
 
 import source.header_common as h_common
-
 from .animation import Animation
 from .dialog import Dialog
 from .faction import Faction
@@ -30,13 +29,14 @@ from .tableau import Tableau
 from .track import Track
 from .trigger import Trigger
 from .troop import Troop
+from .slot import Slot
 
 
 ALL_TYPES = [
     Animation, Dialog, Faction, InfoPage, Item, MapIcon, Menu, Mesh, MissionTemplate,
     ParticleSystem, ParticleSystem, Party, PartyTemplate, PostFX, Presentation,
     Quest, Scene, SceneProp, Script, SimpleTrigger, Skill, Skin, Sound, String,
-    Tableau, Track, Trigger, Troop,
+    Tableau, Track, Trigger, Troop, Slot
 ]
 
 

@@ -75,10 +75,10 @@ menus = [
         (troop_add_gold, "trp_player", ":total_win"),
         (assign, ":player_odds_sub", 0),
         (store_div, ":player_odds_sub", "$g_tournament_bet_win_amount", 5),
-        (party_get_slot, ":player_odds", "$current_town", slot_town_player_odds),
+        (party_get_slot, ":player_odds", "$current_town", "slot_town_player_odds"),
         (val_sub, ":player_odds", ":player_odds_sub"),
         (val_max, ":player_odds", 250),
-        (party_set_slot, "$current_town", slot_town_player_odds, ":player_odds"),
+        (party_set_slot, "$current_town", "slot_town_player_odds", ":player_odds"),
         (call_script, "script_play_victorious_sound"),
 
         (unlock_achievement, ACHIEVEMENT_MEDIEVAL_TIMES),
@@ -135,7 +135,7 @@ menus = [
     "{s1}You are at tier {reg0} of the tournament, with {reg1} participants remaining. In the next round, there will be {reg2} teams with {reg3} {reg4?fighters:fighter} each.",
     "none",
     [
-        (party_set_slot, "$current_town", slot_town_has_tournament, 0), #No way to return back if this menu is left
+        (party_set_slot, "$current_town", "slot_town_has_tournament", 0), #No way to return back if this menu is left
         (call_script, "script_sort_tournament_participant_troops"),#Moving trp_player to the top of the list
         (call_script, "script_get_num_tournament_participants"),
         (assign, ":num_participants", reg0),
@@ -144,10 +144,10 @@ menus = [
 
           (assign, ":player_odds_add", 0),
           (store_div, ":player_odds_add", "$g_tournament_bet_placed", 5),
-          (party_get_slot, ":player_odds", "$current_town", slot_town_player_odds),
+          (party_get_slot, ":player_odds", "$current_town", "slot_town_player_odds"),
           (val_add, ":player_odds", ":player_odds_add"),
           (val_min, ":player_odds", 4000),
-          (party_set_slot, "$current_town", slot_town_player_odds, ":player_odds"),
+          (party_set_slot, "$current_town", "slot_town_player_odds", ":player_odds"),
 
           (jump_to_menu, "mnu_town_tournament_lost"),
         (else_try),
@@ -184,7 +184,7 @@ menus = [
         ]),
       ("tournament_join_next_fight", [], "Fight in the next round.",
        [
-           (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+           (party_get_slot, ":arena_scene", "$current_town", "slot_town_arena"),
            (modify_visitors_at_site, ":arena_scene"),
            (reset_visitors),
            #Assuming that there are enough participants for the teams
@@ -234,7 +234,7 @@ menus = [
 
            (assign, "$g_mt_mode", abm_tournament),
 
-           (party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
+           (party_get_slot, ":town_original_faction", "$current_town", "slot_center_original_faction"),
            (assign, ":town_index_within_faction", 0),
            (assign, ":end_cond", towns_end),
            (try_for_range, ":cur_town", towns_begin, ":end_cond"),
@@ -242,7 +242,7 @@ menus = [
                (eq, ":cur_town", "$current_town"),
                (assign, ":end_cond", 0), #break
              (else_try),
-               (party_slot_eq, ":cur_town", slot_center_original_faction, ":town_original_faction"),
+               (party_slot_eq, ":cur_town", "slot_center_original_faction", ":town_original_faction"),
                (val_add, ":town_index_within_faction", 1),
              (try_end),
            (try_end),

@@ -6,20 +6,20 @@ from source.header_parties import ai_bhvr_travel_to_party, ai_bhvr_patrol_locati
 
 from source.statement import StatementBlock
 
-from source.module_constants import spt_patrol, slot_party_type, slot_party_ai_object, \
-    centers_begin, centers_end, slot_party_ai_state, spai_patrolling_around_center, \
-    slot_party_mission_diplomacy, spai_retreating_to_center, npc_kingdoms_begin, \
-    npc_kingdoms_end, towns_begin, towns_end, slot_faction_leader, slot_party_home_center, \
-    slot_center_original_faction, slot_faction_reinforcements_a, slot_town_lord, \
+from source.module_constants import spt_patrol, \
+    centers_begin, centers_end, spai_patrolling_around_center, \
+    spai_retreating_to_center, npc_kingdoms_begin, \
+    npc_kingdoms_end, towns_begin, towns_end, slot_faction_leader, \
+    slot_faction_reinforcements_a, \
     slot_troop_original_faction, slot_faction_reinforcements_b, slot_faction_reinforcements_c
 
 
 dialogs = [
 
     [anyone, "start", [
-        (party_slot_eq, "$g_encountered_party", slot_party_type, spt_patrol),
-        (party_slot_eq, "$g_encountered_party", slot_party_mission_diplomacy, "trp_player"),
-        (party_get_slot, ":target_party", "$g_encountered_party", slot_party_ai_object),
+        (party_slot_eq, "$g_encountered_party", "slot_party_type", spt_patrol),
+        (party_slot_eq, "$g_encountered_party", "slot_party_mission_diplomacy", "trp_player"),
+        (party_get_slot, ":target_party", "$g_encountered_party", "slot_party_ai_object"),
         (str_store_party_name, s6, ":target_party"),
         ], "Greetings, Sire. We are still patrolling {s6}. Do you have new orders?", "patrol_talk", []
     ],
@@ -56,8 +56,8 @@ dialogs = [
         (str_store_party_name, s5, "$diplomacy_var")
     ], "Thank you.", "close_window", [
         (party_set_name, "$g_encountered_party", "@{s5} patrol"),
-        (party_set_slot, "$g_encountered_party", slot_party_ai_object, "$diplomacy_var"),
-        (party_set_slot, "$g_encountered_party", slot_party_ai_state, spai_patrolling_around_center),
+        (party_set_slot, "$g_encountered_party", "slot_party_ai_object", "$diplomacy_var"),
+        (party_set_slot, "$g_encountered_party", "slot_party_ai_state", spai_patrolling_around_center),
         (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_travel_to_party),
         (party_set_ai_object, "$g_encountered_party", "$diplomacy_var"),
         (assign, "$g_leave_encounter", 1),
@@ -93,8 +93,8 @@ dialogs = [
         (str_store_party_name, s5, "$diplomacy_var")
         ], "Thank you.", "close_window", [
         (party_set_name, "$g_encountered_party", "@{s5} patrol"),
-        (party_set_slot, "$g_encountered_party", slot_party_ai_object, "$diplomacy_var"),
-        (party_set_slot, "$g_encountered_party", slot_party_ai_state, spai_retreating_to_center),
+        (party_set_slot, "$g_encountered_party", "slot_party_ai_object", "$diplomacy_var"),
+        (party_set_slot, "$g_encountered_party", "slot_party_ai_state", spai_retreating_to_center),
         (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_travel_to_party),
         (party_set_ai_object, "$g_encountered_party", "$diplomacy_var"),
         (assign, "$g_leave_encounter", 1),
@@ -131,13 +131,13 @@ simple_triggers = [
     # todo: why aren't patrol wages equal to NPC patrols?
     (24 * 7, [
         (try_for_parties, ":party_no"),
-            (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
+            (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
 
-            (party_get_slot, ":ai_state", ":party_no", slot_party_ai_state),
+            (party_get_slot, ":ai_state", ":party_no", "slot_party_ai_state"),
             (eq, ":ai_state", spai_patrolling_around_center),
 
             (try_begin),
-                (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
+                (party_slot_eq, ":party_no", "slot_party_mission_diplomacy", "trp_player"),
                 (assign, ":total_wage", 0),
                 (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
                 (try_for_range, ":i_stack", 0, ":num_stacks"),
@@ -151,7 +151,7 @@ simple_triggers = [
 
                 (try_begin),
                     (lt, ":gold", ":total_wage"),
-                    (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
+                    (party_get_slot, ":target_party", ":party_no", "slot_party_ai_object"),
                     (str_store_party_name, s6, ":target_party"),
                     (display_log_message, "@Your soldiers patrolling {s6} disbanded because you can't pay the wages!", 0xFF0000),
                     (remove_party, ":party_no"),
@@ -175,10 +175,10 @@ simple_triggers = [
             (assign, ":count", 0),
             (try_for_parties, ":party_no"),
                 # Remove patrols above the maximum number allowed.
-                (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
+                (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
                 (store_faction_of_party, ":party_faction", ":party_no"),
                 (eq, ":party_faction", ":kingdom"),
-                (neg | party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),  # not player ordered
+                (neg | party_slot_eq, ":party_no", "slot_party_mission_diplomacy", "trp_player"),  # not player ordered
                 (try_begin),
                     (ge, ":count", ":max_patrols"),
 
@@ -214,10 +214,10 @@ simple_triggers = [
 
                     (assign, ":continue", 1),
                     (try_for_parties, ":party_no"),
-                        (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
+                        (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
                         (store_faction_of_party, ":party_faction", ":party_no"),
                         (eq, ":party_faction", ":kingdom"),
-                        (party_get_slot, ":target_patrol", ":party_no", slot_party_ai_object),  # chief cambia
+                        (party_get_slot, ":target_patrol", ":party_no", "slot_party_ai_object"),  # chief cambia
                         (eq, ":target_patrol", ":center"),  # chief cambia
                         (assign, ":continue", 0),
                     (try_end),
@@ -244,7 +244,7 @@ simple_triggers = [
     # Patrol ai
     (2, [
         (try_for_parties, ":party_no"),
-            (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
+            (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
 
             # todo: patrols don't keep prisoners, why?
             (call_script, "script_party_remove_all_prisoners", ":party_no"),
@@ -252,7 +252,7 @@ simple_triggers = [
             (try_begin),
                 (get_party_ai_behavior, ":ai_behavior", ":party_no"),
                 (eq, ":ai_behavior", ai_bhvr_travel_to_party),
-                (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
+                (party_get_slot, ":target_party", ":party_no", "slot_party_ai_object"),
 
                 (try_begin),
                     (gt, ":target_party", 0),
@@ -260,7 +260,7 @@ simple_triggers = [
                     (le, ":distance_to_target", 5),
                     (try_begin),
                         # patrol returned to town, merge it.
-                        (party_get_slot, ":ai_state", ":party_no", slot_party_ai_state),
+                        (party_get_slot, ":ai_state", ":party_no", "slot_party_ai_state"),
                         (eq, ":ai_state", spai_retreating_to_center),
                         (try_begin),
                             (le, ":distance_to_target", 1),
@@ -296,27 +296,27 @@ scripts = [
         (spawn_around_party, ":start_party", "pt_patrol_party"),
         (assign, ":spawned_party", reg0),
         (party_set_faction, ":spawned_party", ":faction"),
-        (party_set_slot, ":spawned_party", slot_party_type, spt_patrol),
-        (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
-        (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":order_troop"),
+        (party_set_slot, ":spawned_party", "slot_party_type", spt_patrol),
+        (party_set_slot, ":spawned_party", "slot_party_home_center", ":start_party"),
+        (party_set_slot, ":spawned_party", "slot_party_mission_diplomacy", ":order_troop"),
         (str_store_party_name, s5, ":target_party"),
         (party_set_name, ":spawned_party", "@{s5} patrol"),
 
         (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),
         (party_set_ai_object, ":spawned_party", ":target_party"),
-        (party_set_slot, ":spawned_party", slot_party_ai_object, ":target_party"),
-        (party_set_slot, ":spawned_party", slot_party_ai_state, spai_patrolling_around_center),
+        (party_set_slot, ":spawned_party", "slot_party_ai_object", ":target_party"),
+        (party_set_slot, ":spawned_party", "slot_party_ai_state", spai_patrolling_around_center),
 
         (try_begin),
             # own patrols cost money.
             (neg | is_between, ":faction", npc_kingdoms_begin, npc_kingdoms_end),
 
-            (party_get_slot, ":faction", ":start_party", slot_center_original_faction),
+            (party_get_slot, ":faction", ":start_party", "slot_center_original_faction"),
             (try_begin),
                 (is_between, "$g_player_culture", npc_kingdoms_begin, npc_kingdoms_end),
                 (assign, ":faction", "$g_player_culture"),
             (else_try),
-                (party_get_slot, ":town_lord", ":start_party", slot_town_lord),
+                (party_get_slot, ":town_lord", ":start_party", "slot_town_lord"),
                 (gt, ":town_lord", 0),
                 (troop_get_slot, ":faction", ":town_lord", slot_troop_original_faction),
             (try_end),
@@ -387,17 +387,17 @@ scripts = [
         (assign, ":spawned_party", reg0),
 
         (party_set_faction, ":spawned_party", ":faction"),
-        (party_set_slot, ":spawned_party", slot_party_type, spt_patrol),
-        (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
-        (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":order_troop"),
+        (party_set_slot, ":spawned_party", "slot_party_type", spt_patrol),
+        (party_set_slot, ":spawned_party", "slot_party_home_center", ":start_party"),
+        (party_set_slot, ":spawned_party", "slot_party_mission_diplomacy", ":order_troop"),
 
         (str_store_party_name, s5, ":target_party"),
         (party_set_name, ":spawned_party", "@{s5} patrol"),
 
         (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),
         (party_set_ai_object, ":spawned_party", ":target_party"),
-        (party_set_slot, ":spawned_party", slot_party_ai_object, ":target_party"),
-        (party_set_slot, ":spawned_party", slot_party_ai_state, spai_patrolling_around_center),
+        (party_set_slot, ":spawned_party", "slot_party_ai_object", ":target_party"),
+        (party_set_slot, ":spawned_party", "slot_party_ai_state", spai_patrolling_around_center),
 
         (call_script, "script_party_add_party", ":spawned_party", ":party_no"),
     ]),
@@ -405,9 +405,9 @@ scripts = [
 
 consequences_battle_lost = StatementBlock(
     (try_begin),
-        (party_slot_eq, ":root_defeated_party", slot_party_type, spt_patrol),
-        (party_slot_eq, ":root_defeated_party", slot_party_mission_diplomacy, "trp_player"),
-        (party_get_slot, ":target_party", ":root_defeated_party", slot_party_ai_object),
+        (party_slot_eq, ":root_defeated_party", "slot_party_type", spt_patrol),
+        (party_slot_eq, ":root_defeated_party", "slot_party_mission_diplomacy", "trp_player"),
+        (party_get_slot, ":target_party", ":root_defeated_party", "slot_party_ai_object"),
         (str_store_party_name, s13, ":target_party"),
         (display_log_message, "@Your soldiers patrolling {s13} have been defeated {s10}!", 0xFF0000),
     (try_end),
@@ -415,9 +415,9 @@ consequences_battle_lost = StatementBlock(
 
 consequences_player_disbands = StatementBlock(
     (try_for_parties, ":party_no"),
-        (party_slot_eq,":party_no", slot_party_type, spt_patrol),
-        (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
-        (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
+        (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
+        (party_slot_eq, ":party_no", "slot_party_mission_diplomacy", "trp_player"),
+        (party_get_slot, ":target_party", ":party_no", "slot_party_ai_object"),
         (str_store_party_name, s6, ":target_party"),
         (display_log_message, "@Your soldiers patrolling {s6} disbanded because you left the faction!", 0xFF0000),
         (remove_party, ":party_no"),

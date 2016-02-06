@@ -36,7 +36,7 @@ dialogs = [
         (call_script, "script_troop_add_gold", "trp_player", "$temp"),
 
         (store_add, ":toll_finish_time", "$g_current_hours", merchant_toll_duration),
-        (party_set_slot, "$g_encountered_party", slot_party_last_toll_paid_hours, ":toll_finish_time"),
+        (party_set_slot, "$g_encountered_party", "slot_party_last_toll_paid_hours", ":toll_finish_time"),
 
         (try_begin),
             (ge, "$g_encountered_party_relation", -5),

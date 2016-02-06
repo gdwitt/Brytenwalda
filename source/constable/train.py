@@ -5,7 +5,7 @@ from source.header_dialogs import *
 from source.header_skills import skl_trainer
 
 from source.module_constants import walled_centers_begin, walled_centers_end, \
-    slot_party_type, spt_town, spt_castle, slot_town_lord
+    spt_town, spt_castle
 
 
 dialog_option = \
@@ -22,9 +22,9 @@ dialogs = [
 
     [anyone | plyr | repeat_for_parties, "dplmc_constable_train_select", [
         (store_repeat_object, ":party_no"),
-        (this_or_next | party_slot_eq, ":party_no", slot_party_type, spt_town),
-        (party_slot_eq, ":party_no", slot_party_type, spt_castle),
-        (party_slot_eq, ":party_no", slot_town_lord, "trp_player"),
+        (this_or_next | party_slot_eq, ":party_no", "slot_party_type", spt_town),
+        (party_slot_eq, ":party_no", "slot_party_type", spt_castle),
+        (party_slot_eq, ":party_no", "slot_town_lord", "trp_player"),
         (str_store_party_name, s11, ":party_no"),
         ], "{!}{s11}.", "dplmc_constable_train_type_ask", [
         (store_repeat_object, "$diplomacy_var"),
@@ -105,7 +105,7 @@ simple_triggers = [
     (24, [
         (eq, "$g_player_constable", "trp_dplmc_constable"),
         (is_between, "$g_constable_training_center", walled_centers_begin, walled_centers_end),
-        (party_slot_eq, "$g_constable_training_center", slot_town_lord, "trp_player"),
+        (party_slot_eq, "$g_constable_training_center", "slot_town_lord", "trp_player"),
 
         # Base of 100 + 10 per level of the player's base trainer skill, max of 200 points at 10 skill.
         (store_skill_level, ":training_points", skl_trainer, "trp_player"),

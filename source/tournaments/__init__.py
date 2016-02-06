@@ -10,7 +10,7 @@ from menus import menus
 
 
 town_menu_options = [
-    ("join_tournament", [(neg|is_currently_night),(party_slot_ge, "$current_town", slot_town_has_tournament, 1),]
+    ("join_tournament", [(neg|is_currently_night),(party_slot_ge, "$current_town", "slot_town_has_tournament", 1),]
        ,"Join the Competition.", #chief cambia sot
        [
            (call_script, "script_fill_tournament_participants_troop", "$current_town", 1),
@@ -32,7 +32,7 @@ simple_triggers = [
     (72,
      [
          (try_for_range, ":cur_center", centers_begin, centers_end),
-             (party_get_slot, ":player_odds", ":cur_center", slot_town_player_odds),
+             (party_get_slot, ":player_odds", ":cur_center", "slot_town_player_odds"),
              (try_begin),
                  (gt, ":player_odds", 1000),
                  (val_mul, ":player_odds", 95),
@@ -44,7 +44,7 @@ simple_triggers = [
                  (val_div, ":player_odds", 100),
                  (val_min, ":player_odds", 1000),
              (try_end),
-             (party_set_slot, ":cur_center", slot_town_player_odds, ":player_odds"),
+             (party_set_slot, ":cur_center", "slot_town_player_odds", ":player_odds"),
          (try_end),
      ]),
 
@@ -54,7 +54,7 @@ simple_triggers = [
         (assign, ":num_active_tournaments", 0),
 
         (try_for_range, ":center_no", towns_begin, towns_end),
-          (party_get_slot, ":has_tournament", ":center_no", slot_town_has_tournament),
+          (party_get_slot, ":has_tournament", ":center_no", "slot_town_has_tournament"),
 
           (try_begin),
             (eq, ":has_tournament", 1),
@@ -76,7 +76,7 @@ simple_triggers = [
 
           (val_sub, ":has_tournament", 1),
           (val_max, ":has_tournament", 0),
-          (party_set_slot, ":center_no", slot_town_has_tournament, ":has_tournament"),
+          (party_set_slot, ":center_no", "slot_town_has_tournament", ":has_tournament"),
           (try_begin),
             (gt, ":has_tournament", 0),
             (val_add, ":num_active_tournaments", 1),
@@ -89,9 +89,9 @@ simple_triggers = [
           (faction_get_slot, ":faction_object", ":faction_no", slot_faction_ai_object),
           (is_between, ":faction_object", towns_begin, towns_end),
 
-          (party_slot_ge, ":faction_object", slot_town_has_tournament, 1),
+          (party_slot_ge, ":faction_object", "slot_town_has_tournament", 1),
           # continue holding tournaments during the feast
-          (party_set_slot, ":faction_object", slot_town_has_tournament, 2),
+          (party_set_slot, ":faction_object", "slot_town_has_tournament", 2),
         (try_end),
 
         (try_begin),
@@ -101,7 +101,7 @@ simple_triggers = [
           (lt, ":random_no", 30),
           (store_random_in_range, ":random_town", towns_begin, towns_end),
           (store_random_in_range, ":random_days", 12, 15),
-          (party_set_slot, ":random_town", slot_town_has_tournament, ":random_days"),
+          (party_set_slot, ":random_town", "slot_town_has_tournament", ":random_days"),
 
           (try_begin),
             (eq, "$cheat_mode", 1),
@@ -189,7 +189,7 @@ dialogs = [
      [
          (assign, ":num_tournaments", 0),
          (try_for_range_backwards, ":town_no", towns_begin, towns_end),
-             (party_slot_ge, ":town_no", slot_town_has_tournament, 1),
+             (party_slot_ge, ":town_no", "slot_town_has_tournament", 1),
              (val_add, ":num_tournaments", 1),
              (try_begin),
                 (eq, ":num_tournaments", 1),

@@ -1,9 +1,6 @@
 from source.header_operations import *
 from source.header_common import *
 
-from source.module_constants import slot_town_lord, slot_center_volunteer_troop_amount
-
-
 menus = [
 
     ("force_recruit", 0,
@@ -17,7 +14,7 @@ menus = [
             # todo: this does not make sense as village wins for sure.
             (lt, ":player_party_size", 6),
             (ge, ":villagers_party_size", 40),
-            (neg | party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+            (neg | party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
             (jump_to_menu, "mnu_village_start_attack"),
         (try_end),
         ], [
@@ -48,7 +45,7 @@ menus = [
         ("continue", [
             (lt, reg0, 1),
             ], "[Leave]", [
-            (party_set_slot, "$current_town", slot_center_volunteer_troop_amount, -1),
+            (party_set_slot, "$current_town", "slot_center_volunteer_troop_amount", -1),
                 (jump_to_menu, "mnu_village"),
         ]),
 

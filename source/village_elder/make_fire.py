@@ -3,15 +3,14 @@ from source.header_common import s4, pos0, pos1, pos2
 
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_village_bound_center, \
-    slot_town_last_nearby_fire_time, villages_begin, villages_end, \
-    village_elders_begin, village_elders_end, fire_duration, slot_village_smoke_added
+from source.module_constants import villages_begin, villages_end, \
+    village_elders_begin, village_elders_end, fire_duration
 
 from source.statement import StatementBlock
 
 
 village_elder_talk_condition = StatementBlock(
-    (party_get_slot, ":bound_center", "$current_town", slot_village_bound_center),
+    (party_get_slot, ":bound_center", "$current_town", "slot_village_bound_center"),
 
     (assign, ":num_heroes_in_dungeon", 0),
     (assign, ":num_heroes_given_parole", 0),
@@ -38,8 +37,8 @@ dialogs = [
 
     [anyone, "village_elder_ask_set_fire", [
         (eq, "$g_village_elder_did_not_liked_money_offered", 0),
-        (party_get_slot, ":bound_center", "$current_town", slot_village_bound_center),
-        (party_get_slot, ":fire_time", ":bound_center", slot_town_last_nearby_fire_time),
+        (party_get_slot, ":bound_center", "$current_town", "slot_village_bound_center"),
+        (party_get_slot, ":fire_time", ":bound_center", "slot_town_last_nearby_fire_time"),
         (store_current_hours, ":cur_time"),
         (ge, ":fire_time", ":cur_time"),
     ],
@@ -75,7 +74,7 @@ dialogs = [
      "village_elder_ask_set_fire_explain_plan", []],
 
     [anyone | plyr, "village_elder_ask_set_fire_explain_plan", [
-        (party_get_slot, ":bound_center", "$g_encountered_party", slot_village_bound_center),
+        (party_get_slot, ":bound_center", "$g_encountered_party", "slot_village_bound_center"),
         (str_store_party_name, s4, ":bound_center"),
     ],
      "I wish to rescue a prisoner from {s4}. When you light the fire, the guards in {s4} will see the smoke, and some of them will rush outside to see what is going on. ",
@@ -177,16 +176,16 @@ dialogs = [
     [anyone | plyr, "village_elder_ask_set_fire_9", [],
      "Continue with your preparations. One hour from now, I need that fire.",
      "village_elder_ask_set_fire_10", [
-         (party_get_slot, ":bound_center", "$current_town", slot_village_bound_center),
+         (party_get_slot, ":bound_center", "$current_town", "slot_village_bound_center"),
          (store_current_hours, ":cur_time"),
          (val_add, ":cur_time", 1),
          (assign, ":fire_time", ":cur_time"),
-         (party_set_slot, ":bound_center", slot_town_last_nearby_fire_time, ":fire_time"),
+         (party_set_slot, ":bound_center", "slot_town_last_nearby_fire_time", ":fire_time"),
          (try_begin),
              (is_between, "$next_center_will_be_fired", villages_begin, villages_end),
-             (party_get_slot, ":is_there_already_fire", "$next_center_will_be_fired", slot_village_smoke_added),
+             (party_get_slot, ":is_there_already_fire", "$next_center_will_be_fired", "slot_village_smoke_added"),
              (eq, ":is_there_already_fire", 0),
-             (party_get_slot, ":fire_time", "$next_center_will_be_fired", slot_town_last_nearby_fire_time),
+             (party_get_slot, ":fire_time", "$next_center_will_be_fired", "slot_town_last_nearby_fire_time"),
              (store_current_hours, ":cur_hours"),
              (store_sub, ":cur_time_sub_fire_duration", ":cur_hours", fire_duration),
              (val_sub, ":cur_time_sub_fire_duration", 1),
@@ -205,19 +204,19 @@ dialogs = [
      "Do this in at the stroke of midnight. I will wait exactly one hour.",
      "village_elder_ask_set_fire_11", [
          (party_get_slot, ":bound_center", "$current_town",
-          slot_village_bound_center),
+          "slot_village_bound_center"),
          (store_time_of_day, ":cur_day_hour"),
          (store_current_hours, ":cur_time"),
          (store_sub, ":difference", 24, ":cur_day_hour"),
          # fire will be at 24 midnight today
          (store_add, ":fire_time", ":cur_time", ":difference"),
-         (party_set_slot, ":bound_center", slot_town_last_nearby_fire_time, ":fire_time"),
+         (party_set_slot, ":bound_center", "slot_town_last_nearby_fire_time", ":fire_time"),
 
          (try_begin),
              (is_between, "$next_center_will_be_fired", villages_begin, villages_end),
-             (party_get_slot, ":is_there_already_fire", "$next_center_will_be_fired", slot_village_smoke_added),
+             (party_get_slot, ":is_there_already_fire", "$next_center_will_be_fired", "slot_village_smoke_added"),
              (eq, ":is_there_already_fire", 0),
-             (party_get_slot, ":fire_time", "$next_center_will_be_fired", slot_town_last_nearby_fire_time),
+             (party_get_slot, ":fire_time", "$next_center_will_be_fired", "slot_town_last_nearby_fire_time"),
              (store_current_hours, ":cur_hours"),
              (store_sub, ":cur_time_sub_fire_duration", ":cur_hours", fire_duration),
              (val_sub, ":cur_time_sub_fire_duration", 1),

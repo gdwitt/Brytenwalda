@@ -5,9 +5,7 @@ from source.header_dialogs import *
 from source.header_parties import ai_bhvr_travel_to_party
 
 from source.module_constants import towns_begin, castles_end, \
-    slot_party_ai_object, slot_party_home_center, \
-    slot_party_ai_state, slot_party_type, spt_patrol, slot_party_mission_diplomacy, \
-    spai_retreating_to_center
+    spt_patrol, spai_retreating_to_center
 
 
 dialog_option = \
@@ -150,16 +148,16 @@ scripts = [
         (spawn_around_party, ":start_party", "pt_patrol_party"),
         (assign, ":spawned_party", reg0),
         (party_set_faction, ":spawned_party", ":faction"),
-        (party_set_slot, ":spawned_party", slot_party_type, spt_patrol),
-        (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
-        (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":order_troop"),
+        (party_set_slot, ":spawned_party", "slot_party_type", spt_patrol),
+        (party_set_slot, ":spawned_party", "slot_party_home_center", ":start_party"),
+        (party_set_slot, ":spawned_party", "slot_party_mission_diplomacy", ":order_troop"),
         (str_store_party_name, s5, ":target_party"),
         (party_set_name, ":spawned_party", "@Transfer to {s5}"),
 
         (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),
         (party_set_ai_object, ":spawned_party", ":target_party"),
-        (party_set_slot, ":spawned_party", slot_party_ai_object, ":target_party"),
-        (party_set_slot, ":spawned_party", slot_party_ai_state, spai_retreating_to_center),
+        (party_set_slot, ":spawned_party", "slot_party_ai_object", ":target_party"),
+        (party_set_slot, ":spawned_party", "slot_party_ai_state", spai_retreating_to_center),
         (party_set_aggressiveness, ":spawned_party", 0),
         (party_set_courage, ":spawned_party", 3),
         (party_set_ai_initiative, ":spawned_party", 100),

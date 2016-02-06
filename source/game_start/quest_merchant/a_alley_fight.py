@@ -32,7 +32,7 @@ menus = [
             (set_encountered_party, "$current_town"),
 
             # creates the alley fight
-            (party_get_slot, ":scene_no", "$current_town", slot_town_alley),
+            (party_get_slot, ":scene_no", "$current_town", "slot_town_alley"),
             (modify_visitors_at_site, ":scene_no"),
             (reset_visitors),
             (set_visitor, 0, "trp_player"),

@@ -207,7 +207,7 @@ grant_fief_dialogs = [
         (neq, ":center", "$g_player_court"),
         (store_faction_of_party, ":center_faction", ":center"),
         (eq, ":center_faction", "fac_player_supporters_faction"),
-        (neg | party_slot_ge, ":center", slot_town_lord, active_npcs_begin),
+        (neg | party_slot_ge, ":center", "slot_town_lord", active_npcs_begin),
         # ie, owned by player or unassigned
         (str_store_party_name, s11, ":center"),
 
@@ -253,7 +253,7 @@ grant_fief_dialogs = [
          # If the npc did not have an original faction, set it up.
          (try_begin),
             (troop_slot_eq, "$g_talk_troop", slot_troop_original_faction, 0),
-            (party_get_slot, ":fief_culture", ":fief", slot_center_original_faction),
+            (party_get_slot, ":fief_culture", ":fief", "slot_center_original_faction"),
             (troop_set_slot, "$g_talk_troop", slot_troop_original_faction, ":fief_culture"),
          (try_end),
 

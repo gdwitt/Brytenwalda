@@ -7,10 +7,9 @@ from source.header_parties import ai_bhvr_travel_to_point, ai_bhvr_travel_to_par
 from source.header_troops import *
 from source.header_skills import *
 from source.lazy_flag import LazyFlag
-from source.module_constants import slot_party_type, spt_scout, slot_party_home_center, \
-    slot_party_ai_object, slot_party_orders_object, slot_party_mission_diplomacy, \
+from source.module_constants import spt_scout, \
     kingdoms_begin, kingdoms_end, walled_centers_begin, walled_centers_end, \
-    towns_begin, towns_end, castles_begin, castles_end, slot_party_food_store
+    towns_begin, towns_end, castles_begin, castles_end
 
 # todo: Make it consistent: the dialog only allows to choose "walled centers"
 # but the menu accepts castles and towns.
@@ -93,8 +92,8 @@ scripts = [
         (spawn_around_party, ":start_party", "pt_scout_party"),
         (assign, ":spawned_party", reg0),
         (party_set_faction, ":spawned_party", ":faction"),
-        (party_set_slot, ":spawned_party", slot_party_type, spt_scout),
-        (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
+        (party_set_slot, ":spawned_party", "slot_party_type", spt_scout),
+        (party_set_slot, ":spawned_party", "slot_party_home_center", ":start_party"),
         (str_store_party_name, s5, ":target_party"),
         (party_set_name, ":spawned_party", "@{s5} scout"),
 
@@ -104,8 +103,8 @@ scripts = [
         (map_get_random_position_around_position, pos2, pos1, 1),
         (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_point),
         (party_set_ai_target_position, ":spawned_party", pos2),
-        (party_set_slot, ":spawned_party", slot_party_ai_object, ":target_party"),
-        (party_set_slot, ":spawned_party", slot_party_orders_object, ":target_party"),
+        (party_set_slot, ":spawned_party", "slot_party_ai_object", ":target_party"),
+        (party_set_slot, ":spawned_party", "slot_party_orders_object", ":target_party"),
         (party_set_aggressiveness, ":spawned_party", 0),
         (party_set_courage, ":spawned_party", 3),
         (party_set_ai_initiative, ":spawned_party", 100),
@@ -117,13 +116,13 @@ simple_triggers = [
     # Scout ai
     (0.2, [
         (try_for_parties, ":party_no"),
-            (party_slot_eq, ":party_no", slot_party_type, spt_scout),
+            (party_slot_eq, ":party_no", "slot_party_type", spt_scout),
 
             (get_party_ai_behavior, ":ai_behavior", ":party_no"),
             (this_or_next|eq, ":ai_behavior", ai_bhvr_travel_to_point),
             (eq, ":ai_behavior", ai_bhvr_travel_to_party),
 
-            (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
+            (party_get_slot, ":target_party", ":party_no", "slot_party_ai_object"),
             (store_distance_to_party_from_party, ":distance_to_target", ":party_no", ":target_party"),
             (le, ":distance_to_target", 1),
 
@@ -131,19 +130,19 @@ simple_triggers = [
                 # spy arrived after successful mission
                 (eq, ":target_party", "p_main_party"),
 
-                (party_get_slot, ":mission_target", ":party_no", slot_party_mission_diplomacy),
+                (party_get_slot, ":mission_target", ":party_no", "slot_party_mission_diplomacy"),
                 (call_script, "script_add_notification_menu", "mnu_dplmc_scout", ":mission_target", 0),
 
                 (remove_party, ":party_no"),
             (else_try),
                 (neq, ":target_party", "p_main_party"),
-                (party_get_slot, ":hours", ":party_no", slot_party_mission_diplomacy),
+                (party_get_slot, ":hours", ":party_no", "slot_party_mission_diplomacy"),
 
                 (try_begin),
                     (le, ":hours", 100),
                     (disable_party, ":party_no"),
                     (val_add, ":hours", 1),
-                    (party_set_slot, ":party_no", slot_party_mission_diplomacy, ":hours"),
+                    (party_set_slot, ":party_no", "slot_party_mission_diplomacy", ":hours"),
 
                     (try_begin),
                         # spy was caught
@@ -160,8 +159,8 @@ simple_triggers = [
                     (enable_party, ":party_no"),
                     (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
                     (party_set_ai_object, ":party_no", "p_main_party"),
-                    (party_set_slot, ":party_no", slot_party_ai_object, "p_main_party"),
-                    (party_set_slot, ":party_no", slot_party_mission_diplomacy, ":target_party"),
+                    (party_set_slot, ":party_no", "slot_party_ai_object", "p_main_party"),
+                    (party_set_slot, ":party_no", "slot_party_mission_diplomacy", ":target_party"),
                 (try_end),
             (try_end),
         (try_end),
@@ -178,7 +177,7 @@ menus = [
         (try_begin),
             (this_or_next|is_between, "$g_notification_menu_var1", towns_begin, towns_end),
             (is_between, "$g_notification_menu_var1", castles_begin, castles_end),
-            (party_get_slot, ":center_food_store", "$g_notification_menu_var1", slot_party_food_store),
+            (party_get_slot, ":center_food_store", "$g_notification_menu_var1", "slot_party_food_store"),
             (call_script, "script_center_get_food_consumption", "$g_notification_menu_var1"),
             (assign, ":food_consumption", reg0),
             (store_div, reg6, ":center_food_store", ":food_consumption"),

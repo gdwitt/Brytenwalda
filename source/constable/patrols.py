@@ -4,8 +4,7 @@ from source.header_common import *
 from source.header_dialogs import *
 
 from source.module_constants import slot_faction_patrol_time, centers_begin, centers_end, \
-    slot_party_type, spt_patrol, spai_undefined, slot_party_mission_diplomacy, \
-    spai_patrolling_around_center, spai_retreating_to_center
+    spt_patrol, spai_undefined, spai_patrolling_around_center, spai_retreating_to_center
 
 
 create_option = \
@@ -247,8 +246,8 @@ dialogs += [
 
     [anyone | plyr | repeat_for_parties, "dplmc_constable_patrol_change", [
         (store_repeat_object, ":party_no"),
-        (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
-        (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
+        (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
+        (party_slot_eq, ":party_no", "slot_party_mission_diplomacy", "trp_player"),
         (str_store_party_name, s11, ":party_no"),
         ], "{!}{s11}.", "dplmc_constable_patrol_change_target_ask", [
         (store_repeat_object, "$diplomacy_var"),
@@ -304,8 +303,8 @@ dialogs += [
 
     [anyone | plyr | repeat_for_parties, "dplmc_constable_patrol_to_center", [
         (store_repeat_object, ":party_no"),
-        (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
-        (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
+        (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
+        (party_slot_eq, ":party_no", "slot_party_mission_diplomacy", "trp_player"),
         (str_store_party_name, s11, ":party_no"),
         ], "{!}{s11}.", "dplmc_constable_patrol_to_center_target_ask", [
         (store_repeat_object, "$diplomacy_var"),
@@ -367,8 +366,8 @@ dialogs += [
 
     [anyone | plyr | repeat_for_parties, "dplmc_constable_patrol_disband", [
         (store_repeat_object, ":party_no"),
-        (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
-        (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
+        (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
+        (party_slot_eq, ":party_no", "slot_party_mission_diplomacy", "trp_player"),
         (str_store_party_name, s11, ":party_no"),
         ], "{!}{s11}.", "dplmc_constable_patrol_disband_confirm_ask", [
         (store_repeat_object, "$diplomacy_var"),

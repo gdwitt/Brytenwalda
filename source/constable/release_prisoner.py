@@ -4,7 +4,7 @@ from source.header_common import *
 from source.header_dialogs import *
 
 from source.module_constants import walled_centers_begin, walled_centers_end, \
-    slot_town_lord, slot_troop_occupation, slto_kingdom_hero, kings_begin, lords_end, \
+    slot_troop_occupation, slto_kingdom_hero, kings_begin, lords_end, \
     slot_troop_prisoner_of_party
 
 
@@ -30,7 +30,7 @@ dialogs = [
         (assign, ":can_release", 0),
         (try_begin),
             (is_between, ":party", walled_centers_begin, walled_centers_end),
-            (party_slot_eq, ":party", slot_town_lord, "trp_player"),
+            (party_slot_eq, ":party", "slot_town_lord", "trp_player"),
             (assign, ":can_release", 1),
         (else_try),
             (eq, ":party", "p_main_party"),

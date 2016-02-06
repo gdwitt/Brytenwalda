@@ -5,9 +5,7 @@ from source.header_game_menus import mnf_disable_all_keys
 
 from source.header_items import num_equipment_kinds, max_inventory_items
 
-from source.module_constants import slot_village_infested_by_bandits, \
-    slot_village_raid_progress, slot_village_recover_progress, slot_quest_target_center, \
-    slot_town_elder, svs_looted
+from source.module_constants import slot_quest_target_center, svs_looted
 
 
 menus = [
@@ -25,10 +23,10 @@ menus = [
         (try_end),
         ], [
         ("continue",[],"Continue...", [
-            (party_set_slot, "$g_encountered_party", slot_village_infested_by_bandits, 0),
+            (party_set_slot, "$g_encountered_party", "slot_village_infested_by_bandits", 0),
             (call_script, "script_village_set_state",  "$current_town", svs_looted),
-            (party_set_slot, "$current_town", slot_village_raid_progress, 0),
-            (party_set_slot, "$current_town", slot_village_recover_progress, 0),
+            (party_set_slot, "$current_town", "slot_village_raid_progress", 0),
+            (party_set_slot, "$current_town", "slot_village_recover_progress", 0),
             (try_begin),
                 (check_quest_active, "qst_eliminate_bandits_infesting_village"),
                 (quest_slot_eq, "qst_eliminate_bandits_infesting_village", slot_quest_target_center, "$g_encountered_party"),
@@ -53,8 +51,8 @@ menus = [
      "village, making it safe once more. The villagers have little left in the "
      "way of wealth after their ordeal, but they offer you all they can find.", "none", [
 
-        (party_get_slot, ":bandit_troop", "$g_encountered_party", slot_village_infested_by_bandits),
-        (party_set_slot, "$g_encountered_party", slot_village_infested_by_bandits, 0),
+        (party_get_slot, ":bandit_troop", "$g_encountered_party", "slot_village_infested_by_bandits"),
+        (party_set_slot, "$g_encountered_party", "slot_village_infested_by_bandits", 0),
         (party_clear, "p_temp_party"),
         (party_add_members, "p_temp_party", ":bandit_troop", "$qst_eliminate_bandits_infesting_village_num_bandits"),
         (assign, "$g_strength_contribution_of_player", 50),
@@ -78,7 +76,7 @@ menus = [
             (call_script, "script_change_player_relation_with_faction", "fac_commoners", 5),
         (try_end),
 
-        (party_get_slot, ":merchant_troop", "$current_town", slot_town_elder),
+        (party_get_slot, ":merchant_troop", "$current_town", "slot_town_elder"),
         (try_for_range, ":slot_no", num_equipment_kinds, max_inventory_items + num_equipment_kinds),
             (store_random_in_range, ":rand", 0, 100),
             (lt, ":rand", 70),
@@ -88,7 +86,7 @@ menus = [
 
         ("village_bandits_defeated_accept", [], "Take it as your just due.", [
             (jump_to_menu, "mnu_village"),
-            (party_get_slot, ":merchant_troop", "$current_town", slot_town_elder),
+            (party_get_slot, ":merchant_troop", "$current_town", "slot_town_elder"),
             (troop_sort_inventory, ":merchant_troop"),
             (change_screen_loot, ":merchant_troop"),
         ]),

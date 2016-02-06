@@ -37,10 +37,10 @@ scripts = [
   ("refresh_village_merchant_inventory",
     [
       (store_script_param_1, ":village_no"),
-      (party_get_slot, ":merchant_troop", ":village_no", slot_town_elder),
+      (party_get_slot, ":merchant_troop", ":village_no", "slot_town_elder"),
       (reset_item_probabilities,0),
 
-      (party_get_slot, ":bound_center", ":village_no", slot_village_bound_center),
+      (party_get_slot, ":bound_center", ":village_no", "slot_village_bound_center"),
 
       (assign, ":total_probability", 0),
       (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),        
@@ -56,7 +56,7 @@ scripts = [
       (try_end),
       
       (try_begin),
-        (party_get_slot, ":prosperity", ":village_no", slot_town_prosperity),
+        (party_get_slot, ":prosperity", ":village_no", "slot_town_prosperity"),
         (val_div, ":prosperity", 15), #up to 6
         (store_add, ":number_of_items_in_village", ":prosperity", 1),
       (try_end),
@@ -102,7 +102,7 @@ scripts = [
 
     # Add trade goods to merchant inventories
     (try_for_range,":cur_center",towns_begin, towns_end),
-      (party_get_slot,":cur_merchant",":cur_center",slot_town_merchant),
+      (party_get_slot,":cur_merchant",":cur_center","slot_town_merchant"),
       (reset_item_probabilities,100),
       (assign, ":total_production", 0),
       (try_for_range, ":cur_goods", trade_goods_begin, trade_goods_end),
@@ -110,7 +110,7 @@ scripts = [
         (assign, ":cur_production", reg0),
 
         (try_for_range, ":cur_village", villages_begin, villages_end),
-          (party_slot_eq, ":cur_village", slot_village_bound_center, ":cur_center"),
+          (party_slot_eq, ":cur_village", "slot_village_bound_center", ":cur_center"),
           (call_script, "script_center_get_production", ":cur_village", ":cur_goods"),
           (val_div, reg0, 3),
           (val_add, ":cur_production", reg0),
@@ -122,7 +122,7 @@ scripts = [
         (val_add, ":total_production", ":cur_production"),
       (try_end),
 
-      (party_get_slot, ":town_prosperity", ":cur_center", slot_town_prosperity),
+      (party_get_slot, ":town_prosperity", ":cur_center", "slot_town_prosperity"),
       (assign, ":number_of_items_in_town", 25),
 
       (try_begin), #1.0x - 2.0x (50 - 100 prosperity)
@@ -151,7 +151,7 @@ scripts = [
         (assign, ":cur_production", reg0),
 
         (try_for_range, ":cur_village", villages_begin, villages_end),
-          (party_slot_eq, ":cur_village", slot_village_bound_center, ":cur_center"),
+          (party_slot_eq, ":cur_village", "slot_village_bound_center", ":cur_center"),
           (call_script, "script_center_get_production", ":cur_village", ":cur_goods"),
           (val_div, reg0, 3),
           (val_add, ":cur_production", reg0),
@@ -187,7 +187,7 @@ scripts = [
       (store_sub, ":cur_town", ":cur_merchant", armor_merchants_begin),
       (val_add, ":cur_town", towns_begin),
       (troop_clear_inventory, ":cur_merchant"),
-      (party_get_slot, ":cur_faction", ":cur_town", slot_center_original_faction),
+      (party_get_slot, ":cur_faction", ":cur_town", "slot_center_original_faction"),
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_body_armor, 17),#gdw
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_head_armor, 16),
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_foot_armor, 7),#gdw
@@ -210,7 +210,7 @@ scripts = [
       (store_sub, ":cur_town", ":cur_merchant", weapon_merchants_begin),
       (val_add, ":cur_town", towns_begin),
       (troop_clear_inventory, ":cur_merchant"),
-      (party_get_slot, ":cur_faction", ":cur_town", slot_center_original_faction),
+      (party_get_slot, ":cur_faction", ":cur_town", "slot_center_original_faction"),
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_one_handed_wpn, 6),
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_two_handed_wpn, 6),
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_polearm, 5),
@@ -240,7 +240,7 @@ scripts = [
       (troop_clear_inventory, ":cur_merchant"),
       (store_sub, ":cur_town", ":cur_merchant", horse_merchants_begin),
       (val_add, ":cur_town", towns_begin),
-      (party_get_slot, ":cur_faction", ":cur_town", slot_center_original_faction),
+      (party_get_slot, ":cur_faction", ":cur_town", "slot_center_original_faction"),
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_horse, 9),
       (troop_ensure_inventory_space, ":cur_merchant", 65),
       (troop_sort_inventory, ":cur_merchant"),

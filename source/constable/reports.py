@@ -4,8 +4,8 @@ from source.header_common import *
 from source.header_dialogs import *
 
 from source.module_constants import walled_centers_begin, walled_centers_end, \
-    slot_town_lord, slot_troop_occupation, slto_kingdom_hero, slot_party_type, spt_town, \
-    slot_troop_prisoner_of_party, spt_castle, spt_patrol, slot_party_mission_diplomacy, \
+    slot_troop_occupation, slto_kingdom_hero, spt_town, \
+    slot_troop_prisoner_of_party, spt_castle, spt_patrol, \
     slot_troop_leaded_party, spt_kingdom_hero_party
 
 
@@ -24,8 +24,8 @@ dialogs = [
 
         (try_for_parties, ":selected_party"),
             (try_begin),
-                (this_or_next|party_slot_eq, ":selected_party", slot_party_type, spt_town),
-                (party_slot_eq, ":selected_party", slot_party_type, spt_castle),
+                (this_or_next|party_slot_eq, ":selected_party", "slot_party_type", spt_town),
+                (party_slot_eq, ":selected_party", "slot_party_type", spt_castle),
                 (store_faction_of_party, ":party_faction", ":selected_party"),
                 (eq, ":party_faction", "fac_player_supporters_faction"),
 
@@ -36,13 +36,13 @@ dialogs = [
                 (try_end),
 
                 (try_begin),
-                    (party_slot_eq, ":selected_party", slot_party_type, spt_castle),
+                    (party_slot_eq, ":selected_party", "slot_party_type", spt_castle),
                     (val_add, ":castle_count", 1),
                 (else_try),
                     (val_add, ":town_count", 1),
                 (try_end),
             (else_try),
-                (party_slot_eq, ":selected_party", slot_party_type, spt_kingdom_hero_party),
+                (party_slot_eq, ":selected_party", "slot_party_type", spt_kingdom_hero_party),
                 (store_faction_of_party, ":party_faction", ":selected_party"),
                 (eq, ":party_faction", "fac_player_supporters_faction"),
                 (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
@@ -91,9 +91,9 @@ dialogs += [
         (try_for_parties, ":selected_party"),
 
             (try_begin),
-                (this_or_next|party_slot_eq, ":selected_party", slot_party_type, spt_town),
-                (party_slot_eq, ":selected_party", slot_party_type, spt_castle),
-                (party_slot_eq, ":selected_party", slot_town_lord, "trp_player"),
+                (this_or_next|party_slot_eq, ":selected_party", "slot_party_type", spt_town),
+                (party_slot_eq, ":selected_party", "slot_party_type", spt_castle),
+                (party_slot_eq, ":selected_party", "slot_town_lord", "trp_player"),
 
                 (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
                 (try_for_range, ":i_stack", 0, ":num_stacks"),
@@ -102,7 +102,7 @@ dialogs += [
                 (try_end),
 
                 (try_begin),
-                    (party_slot_eq, ":selected_party", slot_party_type, spt_castle),
+                    (party_slot_eq, ":selected_party", "slot_party_type", spt_castle),
                     (val_add, ":castle_count", 1),
                 (else_try),
                     (val_add, ":town_count", 1),
@@ -115,8 +115,8 @@ dialogs += [
                     (val_add, ":field_size", ":stack_size"),
                 (try_end),
             (else_try),
-                (party_slot_eq, ":selected_party", slot_party_type, spt_patrol),
-                (party_slot_eq, ":selected_party", slot_party_mission_diplomacy, "trp_player"),
+                (party_slot_eq, ":selected_party", "slot_party_type", spt_patrol),
+                (party_slot_eq, ":selected_party", "slot_party_mission_diplomacy", "trp_player"),
                 (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
                 (try_for_range, ":i_stack", 0, ":num_stacks"),
                     (party_stack_get_size, ":stack_size", ":selected_party", ":i_stack"),
@@ -268,7 +268,7 @@ dialogs += [
         (store_repeat_object, ":party_no"),
         (is_between, ":party_no", walled_centers_begin, walled_centers_end),
         (store_faction_of_party, ":party_faction", ":party_no"),
-        (this_or_next|party_slot_eq, ":party_no", slot_town_lord, "trp_player"),
+        (this_or_next|party_slot_eq, ":party_no", "slot_town_lord", "trp_player"),
         (eq, ":party_faction", "fac_player_supporters_faction"),
         (str_store_party_name, s60, ":party_no"),
         ], "{!}{s60}.", "dplmc_constable_status_info", [

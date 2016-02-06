@@ -32,9 +32,9 @@ dialogs = [
         (is_between, ":center_no", centers_begin, centers_end),
         (store_faction_of_party, ":center_faction", ":center_no"),
         (eq, ":center_faction", "fac_player_supporters_faction"),
-        (neg | party_slot_eq, ":center_no", slot_village_infested_by_bandits, "trp_peasant_woman"),
+        (neg | party_slot_eq, ":center_no", "slot_village_infested_by_bandits", "trp_peasant_woman"),
         (neq, ":center_no", "$g_player_court"),
-        (party_get_slot, ":town_lord", ":center_no", slot_town_lord),
+        (party_get_slot, ":town_lord", ":center_no", "slot_town_lord"),
 
         (try_begin),
             (ge, ":town_lord", active_npcs_begin),
@@ -47,7 +47,7 @@ dialogs = [
         (str_store_party_name, s1, ":center_no"),
         (str_clear, s12),
         (try_begin),
-            (party_slot_eq, ":center_no", slot_town_lord, -1),
+            (party_slot_eq, ":center_no", "slot_town_lord", -1),
             (str_store_string, s12, "str_unassigned_center"),
         (try_end),
         ], "{s1}{s12}", "minister_grant_fief_select_recipient", [

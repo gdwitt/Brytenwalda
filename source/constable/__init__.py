@@ -25,7 +25,7 @@ simple_triggers = [
     (2, [
         (assign, ":has_walled_center", 0),
         (try_for_range, ":center_no", centers_begin, centers_end),
-            (party_get_slot, ":lord_troop_id", ":center_no", slot_town_lord),
+            (party_get_slot, ":lord_troop_id", ":center_no", "slot_town_lord"),
             (eq, ":lord_troop_id", "trp_player"),
 
             (is_between, ":center_no", walled_centers_begin, walled_centers_end),
@@ -51,7 +51,7 @@ triggers = [
     (24, 0, 24 * 13, [], [
         (assign, ":has_fief", 0),
         (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-            (party_get_slot, ":lord_troop_id", ":center_no", slot_town_lord),
+            (party_get_slot, ":lord_troop_id", ":center_no", "slot_town_lord"),
             (eq, ":lord_troop_id", "trp_player"),
             (assign, ":has_fief", 1),
         (try_end),
@@ -117,7 +117,7 @@ court_visitor = StatementBlock(
         (gt, "$g_player_constable", 0),
         # todo: this is wrong: appoint constable should not be here
         (call_script, "script_dplmc_appoint_constable"),  #fix for wrong troops after update
-        (party_get_slot, ":town_lord", ":center_no", slot_town_lord),
+        (party_get_slot, ":town_lord", ":center_no", "slot_town_lord"),
         (eq, ":town_lord", "trp_player"),
         (set_visitor, ":cur_pos", "$g_player_constable"),
         (val_add, ":cur_pos", 1),
@@ -143,8 +143,8 @@ consequences_staff_salary = StatementBlock(
 scripts = [
     ("dplmc_appoint_constable", [
         (troop_set_inventory_slot, "trp_dplmc_constable", ek_body, "itm_dplmc_coat_of_plates_red_constable"),
-        (troop_set_inventory_slot, "trp_dplmc_constable", ek_foot, "itm_leather_boots1"),     
-        (assign, "$g_player_constable", "trp_dplmc_constable"),   
+        (troop_set_inventory_slot, "trp_dplmc_constable", ek_foot, "itm_leather_boots1"),
+        (assign, "$g_player_constable", "trp_dplmc_constable"),
   ]),
 ] \
     + recruit.scripts \
@@ -158,7 +158,7 @@ appoint_dialog_option = \
         (le, "$g_player_constable", 0),
         (assign, ":has_fief", 0),
         (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-            (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+            (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
             (eq, ":lord_troop_id", "trp_player"),
             (assign, ":has_fief", 1),
         (try_end),

@@ -1310,7 +1310,7 @@ scene_props = [
    [
      (ti_on_init_scene_prop,
       [
-        (party_get_slot, ":leader_troop", "$g_encountered_party", slot_town_lord),
+        (party_get_slot, ":leader_troop", "$g_encountered_party", "slot_town_lord"),
         (try_begin),
           (ge, ":leader_troop", 0),
           (cur_scene_prop_set_tableau_material, "tableau_custom_banner_default", ":leader_troop"),
@@ -1321,7 +1321,7 @@ scene_props = [
    [
      (ti_on_init_scene_prop,
       [
-        (party_get_slot, ":leader_troop", "$g_encountered_party", slot_town_lord),
+        (party_get_slot, ":leader_troop", "$g_encountered_party", "slot_town_lord"),
         (try_begin),
           (ge, ":leader_troop", 0),
           (cur_scene_prop_set_tableau_material, "tableau_custom_banner_default", ":leader_troop"),

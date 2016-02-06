@@ -5,7 +5,7 @@ from source.module_constants import tc_tavern_talk, tc_party_encounter, tc_hero_
 from source.header_triggers import ti_on_agent_spawn, ti_once
 from source.header_parties import pf_always_visible
 
-from source.module_constants import villages_begin, villages_end, slot_village_bound_center, slot_party_ai_substate
+from source.module_constants import villages_begin, villages_end
 
 
 dialogs = [
@@ -73,7 +73,7 @@ dialogs = [
 
         (assign, ":possible_villages", 0),
         (try_for_range, ":village_no", villages_begin, villages_end),
-            (party_slot_eq, ":village_no", slot_village_bound_center, "$g_starting_town"),
+            (party_slot_eq, ":village_no", "slot_village_bound_center", "$g_starting_town"),
             (val_add, ":possible_villages", 1),
         (try_end),
 
@@ -81,7 +81,7 @@ dialogs = [
         (val_add, ":random_village", 1),
 
         (try_for_range, ":village_no", villages_begin, villages_end),
-            (party_slot_eq, ":village_no", slot_village_bound_center, "$g_starting_town"),
+            (party_slot_eq, ":village_no", "slot_village_bound_center", "$g_starting_town"),
             (val_sub, ":random_village", 1),
             (eq, ":random_village", 0),
             (assign, "$lair_neighboor_village", ":village_no"),
@@ -280,7 +280,7 @@ lair_mission_templates_triggers = [
         (try_begin),
             (main_hero_fallen),
         (else_try),
-            (party_set_slot, "$g_encountered_party", slot_party_ai_substate, 2),
+            (party_set_slot, "$g_encountered_party", "slot_party_ai_substate", 2),
         (try_end),
 
         (finish_mission),

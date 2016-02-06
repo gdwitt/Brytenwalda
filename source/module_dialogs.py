@@ -87,7 +87,7 @@ _start_dialogs = [
         (try_begin),
             (this_or_next|is_between, "$g_talk_troop", village_elders_begin, village_elders_end),
             (is_between, "$g_talk_troop", mayors_begin, mayors_end),
-            (party_get_slot, "$g_talk_troop_relation", "$current_town", slot_center_player_relation),
+            (party_get_slot, "$g_talk_troop_relation", "$current_town", "slot_center_player_relation"),
         (try_end),
         (store_relation, "$g_talk_troop_faction_relation", "$g_talk_troop_faction", "fac_player_faction"),
 
@@ -373,25 +373,25 @@ dialogs = [
 ##        (display_message,"@ Remember: to disembark you need to click on a settlement or party.",0xFFFFAAAA),
 ##        (assign, "$g_leave_encounter",1)
          (try_begin), #seafaring duh anadido chief
-		(party_get_slot, ":num_ships", "$current_town", slot_town_has_ship),
+		(party_get_slot, ":num_ships", "$current_town", "slot_town_has_ship"),
 		(le, ":num_ships", 4),
       (store_troop_gold,":money","trp_player"),
         (gt,":money",18999),
               (troop_remove_gold,"trp_player",19000),
 		(val_add, ":num_ships", 1),		
-		(party_set_slot, "$current_town", slot_town_has_ship, ":num_ships"),
+		(party_set_slot, "$current_town", "slot_town_has_ship", ":num_ships"),
 		(try_begin),
 			(set_spawn_radius, 0),
 			(spawn_around_party, "$current_town", "pt_ship"),
 			(assign, ":new_ship", reg0),
-			(party_set_slot, ":new_ship", slot_party_type, spt_ship),
+			(party_set_slot, ":new_ship", "slot_party_type", spt_ship),
 			(party_set_slot, ":new_ship", slot_ship_center, "$current_town"),
 			(assign, reg6, ":new_ship"),
 		(try_end),
 		(display_message,"@You now own a ship and can disembark from this town."),
         (display_message,"@ Remember: to disembark you need to click on a settlement or party.",0xFFFFAAAA),
 	(else_try),
-		(party_slot_ge, "$current_town", slot_town_has_ship, 5),
+		(party_slot_ge, "$current_town", "slot_town_has_ship", 5),
 		(display_message, "@There is no room for any further ships in this harbor."),
 	(else_try),		
 		(display_message,"@You don't have enough money to buy a ship."),
@@ -1339,14 +1339,14 @@ dialogs = [
                                           (agent_play_sound, "$g_talk_agent", "snd_encounter_farmers"),
   ],
    " My {lord/lady}, we're only poor farmers from the village of {s11}. {reg1?We are taking our products to the market at {s12}.:We are returning from the market at {s12} back to our village.}", "village_farmer_talk",
-   [(party_get_slot, ":target_center", "$g_encountered_party", slot_party_ai_object),
-    (party_get_slot, ":home_center", "$g_encountered_party", slot_party_home_center),
-    (party_get_slot, ":market_town", ":home_center", slot_village_market_town),
+   [(party_get_slot, ":target_center", "$g_encountered_party", "slot_party_ai_object"),
+    (party_get_slot, ":home_center", "$g_encountered_party", "slot_party_home_center"),
+    (party_get_slot, ":market_town", ":home_center", "slot_village_market_town"),
     (str_store_party_name, s11, ":home_center"),
     (str_store_party_name, s12, ":market_town"),
     (assign, reg1, 1),
     (try_begin),
-      (party_slot_eq, ":target_center", slot_party_type, spt_village),
+      (party_slot_eq, ":target_center", "slot_party_type", spt_village),
       (assign, reg1, 0),
     (try_end),
     ]],
@@ -1369,9 +1369,9 @@ dialogs = [
     (neq, ":faction_of_villager", "fac_player_supporters_faction"),
   ], 
   "We'll see how poor you are after I take what you've got!", "close_window",
-   [(party_get_slot, ":home_center", "$g_encountered_party", slot_party_home_center),
-    (party_get_slot, ":market_town", ":home_center", slot_village_market_town),
-    (party_get_slot, ":village_owner", ":home_center", slot_town_lord),
+   [(party_get_slot, ":home_center", "$g_encountered_party", "slot_party_home_center"),
+    (party_get_slot, ":market_town", ":home_center", "slot_village_market_town"),
+    (party_get_slot, ":village_owner", ":home_center", "slot_town_lord"),
     (call_script, "script_change_player_relation_with_center", ":home_center", -4),
     (call_script, "script_change_player_relation_with_center", ":market_town", -2),
     (call_script, "script_change_player_relation_with_troop", ":village_owner", -2),
@@ -1574,8 +1574,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
                 (party_set_ai_patrol_radius, ":qst_neko_party", 1),]],
                 # (party_set_ai_object, ":party_no", ":new_ai_object"),
                 # (party_set_flags, ":party_no", pf_default_behavior, 0),
-                # (party_set_slot, ":party_no", slot_party_follow_me, 1),
-                # (party_set_slot, ":party_no", slot_party_ai_substate, 0),[]],
+                # (party_set_slot, ":party_no", "slot_party_follow_me", 1),
+                # (party_set_slot, ":party_no", "slot_party_ai_substate", 0),[]],
   [LazyFlag('trp_hareck')|plyr,"hareck_troublemakers_16", [], "His party is too strong for me. Please find a way to calm him down and stop him from chasing me down","close_window",
    [(fail_quest,"qst_mod_trouble"),(mission_disable_talk),(call_script, "script_end_quest", "qst_mod_trouble"),###
    # (remove_party, "pt_neko"),
@@ -2217,7 +2217,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 ### COMPANIONS
 
   [anyone,"start", [(troop_slot_eq,"$g_talk_troop", slot_troop_occupation, slto_player_companion),
-                    (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
+                    (party_slot_eq, "$g_encountered_party", "slot_party_type", spt_castle),
                     (party_get_num_companion_stacks, ":num_stacks", "$g_encountered_party"),
                     (ge, ":num_stacks", 1),
                     (party_stack_get_troop_id, ":castle_leader", "$g_encountered_party", 0),
@@ -2304,16 +2304,16 @@ but before burial, you must allow the crows to descend on their breasts and rele
 											(eq,"$g_encountered_party_template","pt_spy_party"),
 									],
 	" You really must learn to count properly, my {lord/lady}.", "close_window",
-			[ 	(party_get_slot,":cur_spy_count","p_main_party",slot_spies_deployed),
+			[ 	(party_get_slot,":cur_spy_count","p_main_party","slot_spies_deployed"),
 				(val_add,":cur_spy_count",1),
-				(party_set_slot,"p_main_party",slot_spies_deployed,":cur_spy_count"),			
+				(party_set_slot,"p_main_party","slot_spies_deployed",":cur_spy_count"),			
 				(assign, ":closest_dist", 100000),
 				(try_for_range,":cur_town", walled_centers_begin, walled_centers_end),
 					(store_distance_to_party_from_party, ":dist", ":cur_town", "$g_encountered_party"),
 					(store_faction_of_party, ":cur_town_faction", ":cur_town"),
 					(store_relation,":relation",":cur_town_faction","fac_player_supporters_faction"),
 					(lt, ":relation",1),
-					(party_get_slot,":has_spy",":cur_town",slot_spy_in_town),
+					(party_get_slot,":has_spy",":cur_town","slot_spy_in_town"),
 					(le,":has_spy",0),
 					(lt, ":dist", ":closest_dist"),
 					(assign, ":closest_dist", ":dist"),
@@ -2321,7 +2321,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 				(try_end),
 				(party_set_ai_behavior, "$g_encountered_party", ai_bhvr_travel_to_party),
 				(party_set_ai_object,"$g_encountered_party",":target_town"),
-				(party_set_slot,"$g_encountered_party",slot_spy_target_town,":target_town"),
+				(party_set_slot,"$g_encountered_party","slot_spy_target_town",":target_town"),
 			]],	
   [anyone,"returned_party_reply", 	[  	
 											(eq,"$can_join",0),
@@ -2329,9 +2329,9 @@ but before burial, you must allow the crows to descend on their breasts and rele
 									],
 	" So you are abandoning us! Very well, but do not think we shall wait forever.", "close_window",
 			[ 	(party_set_faction,"$g_encountered_party","fac_neutral"),
-				(party_set_slot, "$g_encountered_party", slot_party_ai_state, spai_undefined),
-				(party_set_slot,"$g_encountered_party",slot_party_commander_party,-1),
-				(party_set_slot, "$g_encountered_party", slot_party_following_player, 0),
+				(party_set_slot, "$g_encountered_party", "slot_party_ai_state", spai_undefined),
+				(party_set_slot,"$g_encountered_party","slot_party_commander_party",-1),
+				(party_set_slot, "$g_encountered_party", "slot_party_following_player", 0),
 				(party_set_ai_behavior, "$g_encountered_party", ai_bhvr_hold),
 				(party_set_morale,"$g_encountered_party",60),
 				(party_get_morale,":cur_morale","p_main_party"),
@@ -2349,7 +2349,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 					(troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
                     (str_store_string, s21, ":honorific"),
 					(str_store_string, s2, "@ I think I may need a surgeon."),
-					(party_get_slot,":wagon_leader","p_main_party",slot_party_wagon_leader),
+					(party_get_slot,":wagon_leader","p_main_party","slot_party_wagon_leader"),
 					(try_begin),
 						(eq,"$g_talk_troop",":wagon_leader"),
 						(str_store_string,s2,"@ I fear that the supply wagon is long lost."),
@@ -2367,7 +2367,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 					(troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
                     (str_store_string, s21, ":honorific"),
 					(str_store_string, s2, "@ I think I may need a surgeon."),
-					(party_get_slot,":wagon_leader","p_main_party",slot_party_wagon_leader),
+					(party_get_slot,":wagon_leader","p_main_party","slot_party_wagon_leader"),
 					(try_begin),
 						(eq,"$g_talk_troop",":wagon_leader"),
 						(str_store_string,s2,"@ I fear that the supply wagon was also lost."),
@@ -2378,13 +2378,13 @@ but before burial, you must allow the crows to descend on their breasts and rele
 				],
    " {s21}, forgive me. The troops you entrusted me to command were attacked and slaughtered! I was left for dead, but managed to summon the strength to bring you this news.{s2}", "wilderness_escape",[]],
    
-  [anyone|plyr,"wilderness_escape", [ 	(party_get_slot,":wagon_leader","p_main_party",slot_party_wagon_leader), 
+  [anyone|plyr,"wilderness_escape", [ 	(party_get_slot,":wagon_leader","p_main_party","slot_party_wagon_leader"), 
 										(eq,"$g_talk_troop",":wagon_leader"),
 									], " Well the good news is that you managed to survive. We can build a new wagon.", "wilderness_escape_answer",
 					[ 	
 					]],
 					
-  [anyone|plyr,"wilderness_escape", [  	(party_get_slot,":wagon_leader","p_main_party",slot_party_wagon_leader),
+  [anyone|plyr,"wilderness_escape", [  	(party_get_slot,":wagon_leader","p_main_party","slot_party_wagon_leader"),
 										(neq,"$g_talk_troop",":wagon_leader"),
 									], " Well the good news is that you managed to survive.", "wilderness_escape_answer",[]],
 									
@@ -2402,13 +2402,13 @@ but before burial, you must allow the crows to descend on their breasts and rele
 					]],
 				
   [anyone,"wilderness_escape_no_room", [], " Perhaps if you didn't recruit every peasant strumpet that wiggled by, you would have sufficient room.", "close_window",
-					[ 	(party_set_slot,"$g_encountered_party",slot_party_commander_party,"p_main_party"),
-						(party_set_slot, "$g_encountered_party", slot_party_following_player, 1),
-						(party_set_slot, "$g_encountered_party", slot_party_type, -1),
-						(party_set_slot,"p_main_party",slot_party_wagon_leader,-1),
+					[ 	(party_set_slot,"$g_encountered_party","slot_party_commander_party","p_main_party"),
+						(party_set_slot, "$g_encountered_party", "slot_party_following_player", 1),
+						(party_set_slot, "$g_encountered_party", "slot_party_type", -1),
+						(party_set_slot,"p_main_party","slot_party_wagon_leader",-1),
 					]],										
   [anyone,"wilderness_escape_companion_injured", [], " I think I broke my clavicle. ", "close_window",
-					[ 	(party_set_slot,"p_main_party",slot_party_wagon_leader,-1),
+					[ 	(party_set_slot,"p_main_party","slot_party_wagon_leader",-1),
 						(party_join),
 					]],	
 					   
@@ -2420,7 +2420,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "Do you want me to rejoin you?", "member_wilderness_talk",[]],
   [anyone,"start", [(neg|main_party_has_troop,"$g_talk_troop"),(eq, "$g_encountered_party", "p_four_ways_inn")], "{!}Do you want me to rejoin you?", "close_window",[]], # unused
 
-  [anyone|plyr,"member_wilderness_talk", [ 	(party_slot_eq, "$g_encountered_party", slot_party_type, spt_player_loot_wagon),
+  [anyone|plyr,"member_wilderness_talk", [ 	(party_slot_eq, "$g_encountered_party", "slot_party_type", spt_player_loot_wagon),
 											(eq,"$can_join",1),
 											(str_store_string,s2,"@ Good to see you back in one piece."),
 											(try_begin),
@@ -2430,26 +2430,26 @@ but before burial, you must allow the crows to descend on their breasts and rele
 										 ], "Yes. {s2}", "close_window",
 					[ 	(try_begin),
 							(eq,"$loot_wagon_trade_state",1),
-							(party_get_slot,":gold","$g_encountered_party",slot_center_accumulated_tariffs),
+							(party_get_slot,":gold","$g_encountered_party","slot_center_accumulated_tariffs"),
 							(call_script, "script_troop_add_gold", "trp_player", ":gold"),
-							(party_set_slot,"$g_encountered_party",slot_center_accumulated_tariffs,0),
+							(party_set_slot,"$g_encountered_party","slot_center_accumulated_tariffs",0),
 						(try_end),
 						(party_join),
 						(assign,"$wagon_attached",1),
 						(assign,"$loot_wagon_trade_state",0),
-						(party_set_slot,"p_main_party",slot_party_loot_wagon,-1),
+						(party_set_slot,"p_main_party","slot_party_loot_wagon",-1),
 						(str_clear,s2),
 					]],
-  [anyone|plyr,"member_wilderness_talk", [ 	(party_slot_eq, "$g_encountered_party", slot_party_type, spt_player_loot_wagon),
+  [anyone|plyr,"member_wilderness_talk", [ 	(party_slot_eq, "$g_encountered_party", "slot_party_type", spt_player_loot_wagon),
 											(eq,"$can_join",0),
 										 ], "No, I've too many troops to keep track of at the moment. I need you to follow me until further notice.", "close_window",
-					[ 	(party_set_slot,"$g_encountered_party",slot_party_commander_party,"p_main_party"),
-						(party_set_slot, "$g_encountered_party", slot_party_following_player, 1),
+					[ 	(party_set_slot,"$g_encountered_party","slot_party_commander_party","p_main_party"),
+						(party_set_slot, "$g_encountered_party", "slot_party_following_player", 1),
 						(try_begin),
 							(eq,"$loot_wagon_trade_state",1),
-							(party_get_slot,":gold","$g_encountered_party",slot_center_accumulated_tariffs),
+							(party_get_slot,":gold","$g_encountered_party","slot_center_accumulated_tariffs"),
 							(call_script, "script_troop_add_gold", "trp_player", ":gold"),
-							(party_set_slot,"$g_encountered_party",slot_center_accumulated_tariffs,0),
+							(party_set_slot,"$g_encountered_party","slot_center_accumulated_tariffs",0),
 							(assign,"$loot_wagon_trade_state",0),
 						(try_end),
 					]],
@@ -2506,25 +2506,25 @@ but before burial, you must allow the crows to descend on their breasts and rele
          (try_begin),
            (eq, ":center_faction", "fac_player_supporters_faction"),
            (try_begin),
-             (party_slot_eq, ":center_no", slot_party_type, spt_town),
+             (party_slot_eq, ":center_no", "slot_party_type", spt_town),
              (val_add, reg13, 1),
            (else_try),
-             (party_slot_eq, ":center_no", slot_party_type, spt_castle),
+             (party_slot_eq, ":center_no", "slot_party_type", spt_castle),
              (val_add, reg14, 1),
            (else_try),
-             (party_slot_eq, ":center_no", slot_party_type, spt_village),
+             (party_slot_eq, ":center_no", "slot_party_type", spt_village),
              (val_add, reg15, 1),
            (try_end),
          (else_try),
            (eq, ":center_faction", "$supported_pretender_old_faction"),
            (try_begin),
-             (party_slot_eq, ":center_no", slot_party_type, spt_town),
+             (party_slot_eq, ":center_no", "slot_party_type", spt_town),
              (val_add, reg23, 1),
            (else_try),
-             (party_slot_eq, ":center_no", slot_party_type, spt_castle),
+             (party_slot_eq, ":center_no", "slot_party_type", spt_castle),
              (val_add, reg24, 1),
            (else_try),
-             (party_slot_eq, ":center_no", slot_party_type, spt_village),
+             (party_slot_eq, ":center_no", "slot_party_type", spt_village),
              (val_add, reg25, 1),
            (try_end),
          (try_end),
@@ -2609,7 +2609,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
        (store_faction_of_party, ":cur_faction", ":cur_center"),
        (eq, ":cur_faction", "fac_player_supporters_faction"),
        (assign, ":has_center", 1),
-       (neg|party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+       (neg|party_slot_eq, ":cur_center", "slot_town_lord", "trp_player"),
        (call_script, "script_give_center_to_lord", ":cur_center", "trp_player", 0),
      (try_end),
      (party_remove_members, "p_main_party", "$supported_pretender", 1),
@@ -2647,7 +2647,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   (try_for_range, ":fief_to_grant", centers_begin, centers_end),
 	(store_faction_of_party, ":fief_faction", ":fief_to_grant"),
 	(eq, ":fief_faction", "fac_player_supporters_faction"),  
-	(party_slot_eq, ":fief_to_grant", slot_town_lord, -1),
+	(party_slot_eq, ":fief_to_grant", "slot_town_lord", -1),
     (assign, ":center_found", 1),
   (try_end),
   (eq, ":center_found", 1),
@@ -2664,7 +2664,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   (is_between, ":fief_to_grant", centers_begin, centers_end),
   (store_faction_of_party, ":fief_faction", ":fief_to_grant"),
   (eq, ":fief_faction", "fac_player_supporters_faction"),  
-  (party_slot_eq, ":fief_to_grant", slot_town_lord, -1),
+  (party_slot_eq, ":fief_to_grant", "slot_town_lord", -1),
   (str_store_party_name, s4, ":fief_to_grant"),
   ],
    "{s4}", "supported_pretender_grant_fief_choose_recipient",[
@@ -2877,14 +2877,14 @@ but before burial, you must allow the crows to descend on their breasts and rele
   ##gift caravan
   [LazyFlag("pt_dplmc_gift_caravan")|party_tpl, "start",
   [
-    (party_slot_eq, "$g_talk_troop_party", slot_party_type, dplmc_spt_gift_caravan), 
-    (party_get_slot, ":target_party", "$g_talk_troop_party", slot_party_ai_object),
-    (party_get_slot, ":gift", "$g_talk_troop_party", slot_party_mission_diplomacy),
+    (party_slot_eq, "$g_talk_troop_party", "slot_party_type", dplmc_spt_gift_caravan), 
+    (party_get_slot, ":target_party", "$g_talk_troop_party", "slot_party_ai_object"),
+    (party_get_slot, ":gift", "$g_talk_troop_party", "slot_party_mission_diplomacy"),
     (str_store_item_name, s12, ":gift"),
     
     (try_begin),
-      (party_slot_ge, "$g_talk_troop_party",  slot_party_orders_object,  0), 
-      (party_get_slot, ":target_troop", "$g_talk_troop_party",  slot_party_orders_object),
+      (party_slot_ge, "$g_talk_troop_party",  "slot_party_orders_object",  0), 
+      (party_get_slot, ":target_troop", "$g_talk_troop_party",  "slot_party_orders_object"),
       (str_store_troop_name, s13, ":target_troop"),
     (else_try), 
       (str_store_party_name, s13, ":target_party"),
@@ -3434,7 +3434,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone, "dplmc_chancellor_cur_stance", 
    [
      (try_for_parties, ":party_no"),
-      (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
+      (party_slot_eq, ":party_no", "slot_party_type", spt_kingdom_hero_party),
       (store_faction_of_party, ":faction_no", ":party_no"),
       (eq, "fac_player_supporters_faction", ":faction_no"),
       (party_stack_get_troop_id, ":party_leader", ":party_no", 0),
@@ -3443,7 +3443,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (try_end),  
 
     (try_for_parties, ":party_no"),
-      (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
+      (party_slot_eq, ":party_no", "slot_party_type", spt_kingdom_hero_party),
       (store_faction_of_party, ":faction_no", ":party_no"),
       (eq, "fac_player_supporters_faction", ":faction_no"),
       (party_stack_get_troop_id, ":party_leader", ":party_no", 0),
@@ -3458,7 +3458,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (assign, ":report", 0),
     (str_store_string, s10, "@According  to the report of our spies"),
      (try_for_parties, ":party_no"),
-      (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
+      (party_slot_eq, ":party_no", "slot_party_type", spt_kingdom_hero_party),
       (store_faction_of_party, ":faction_no", ":party_no"),
       (eq, "fac_player_supporters_faction", ":faction_no"),
       (party_stack_get_troop_id, ":party_leader", ":party_no", 0),
@@ -3604,24 +3604,24 @@ but before burial, you must allow the crows to descend on their breasts and rele
        (this_or_next|eq, "$temp", spai_retreating_to_center),
          (eq, "$temp", spai_holding_center),
        (try_begin),
-         (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_castle),
-			(party_slot_eq, ":party_no", slot_party_type, spt_town),
+         (this_or_next|party_slot_eq, ":party_no", "slot_party_type", spt_castle),
+			(party_slot_eq, ":party_no", "slot_party_type", spt_town),
          (eq, ":party_faction", "$players_kingdom"),
          (assign, ":continue", 1),
        (try_end),
      (else_try),
        (eq, "$temp", spai_raiding_around_center),
        (try_begin),
-         (party_slot_eq, ":party_no", slot_party_type, spt_village),
+         (party_slot_eq, ":party_no", "slot_party_type", spt_village),
          (lt, ":relation", 0),
          (assign, ":continue", 1),
        (try_end),
      (else_try),
        (eq, "$temp", spai_besieging_center),
        (try_begin),
-         (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_castle),
-			(party_slot_eq, ":party_no", slot_party_type, spt_town),
-		 (party_slot_eq, ":party_no", slot_center_is_besieged_by, -1),
+         (this_or_next|party_slot_eq, ":party_no", "slot_party_type", spt_castle),
+			(party_slot_eq, ":party_no", "slot_party_type", spt_town),
+		 (party_slot_eq, ":party_no", "slot_center_is_besieged_by", -1),
          (lt, ":relation", 0),
          (assign, ":continue", 1),
        (try_end),
@@ -3649,10 +3649,10 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
     (store_repeat_object, "$temp_2"),
 	(store_current_hours, ":hours"),
-	(party_set_slot, "$g_talk_troop_party", slot_party_following_orders_of_troop, "trp_kingdom_heroes_including_player_begin"),
-	(party_set_slot, "$g_talk_troop_party", slot_party_orders_type, "$temp"),
-	(party_set_slot, "$g_talk_troop_party", slot_party_orders_object, "$temp_2"),
-	(party_set_slot, "$g_talk_troop_party", slot_party_orders_time, ":hours"),
+	(party_set_slot, "$g_talk_troop_party", "slot_party_following_orders_of_troop", "trp_kingdom_heroes_including_player_begin"),
+	(party_set_slot, "$g_talk_troop_party", "slot_party_orders_type", "$temp"),
+	(party_set_slot, "$g_talk_troop_party", "slot_party_orders_object", "$temp_2"),
+	(party_set_slot, "$g_talk_troop_party", "slot_party_orders_time", ":hours"),
 	 
      ]],
    
@@ -3883,8 +3883,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [anyone|plyr|repeat_for_parties, "dplmc_chancellor_center_gift_lord_select",
    [
      (store_repeat_object, ":party_no"),
-     (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_town),
-     (party_slot_eq, ":party_no", slot_party_type, spt_village),
+     (this_or_next|party_slot_eq, ":party_no", "slot_party_type", spt_town),
+     (party_slot_eq, ":party_no", "slot_party_type", spt_village),
      (store_faction_of_party, ":faction_no", ":party_no"),
      (eq, ":faction_no", "$g_faction_selected"),
      (str_store_party_name, s11, ":party_no"),
@@ -4344,17 +4344,17 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (assign, ":total_wage", 0),
     (assign, ":num_owned_center_values_for_tax_efficiency", 0),
     (try_for_range, ":selected_party", centers_begin, centers_end),
-      (party_slot_eq, ":selected_party", slot_town_lord, "trp_player"),    
+      (party_slot_eq, ":selected_party", "slot_town_lord", "trp_player"),    
       
       (val_add, ":num_owned_center_values_for_tax_efficiency", 1),
   
-      (party_get_slot, ":accumulated_rents", ":selected_party", slot_center_accumulated_rents),
+      (party_get_slot, ":accumulated_rents", ":selected_party", "slot_center_accumulated_rents"),
       (val_add, ":income", ":accumulated_rents"),  
     
       (str_clear, s60),
       (try_begin),
-        (this_or_next|party_slot_eq, ":selected_party", slot_party_type, spt_town),
-        (party_slot_eq, ":selected_party", slot_party_type, spt_castle),
+        (this_or_next|party_slot_eq, ":selected_party", "slot_party_type", spt_town),
+        (party_slot_eq, ":selected_party", "slot_party_type", spt_castle),
         (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
         
         (assign, ":troop_size", 0),
@@ -4370,10 +4370,10 @@ but before burial, you must allow the crows to descend on their breasts and rele
         (try_end),
        
         (try_begin),
-          (party_slot_eq, ":selected_party", slot_party_type, spt_town),
+          (party_slot_eq, ":selected_party", "slot_party_type", spt_town),
           
           (val_add, ":num_owned_center_values_for_tax_efficiency", 1),
-          (party_get_slot, ":accumulated_tariffs", ":selected_party", slot_center_accumulated_tariffs),
+          (party_get_slot, ":accumulated_tariffs", ":selected_party", "slot_center_accumulated_tariffs"),
           (assign, reg0, ":accumulated_tariffs"),
           (val_add, ":income", ":accumulated_tariffs"),
         (try_end),
@@ -4652,7 +4652,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
     (store_repeat_object, ":party_no"),
     (is_between, ":party_no", centers_begin, centers_end),
-    (party_slot_eq, ":party_no", slot_town_lord, "trp_player"),
+    (party_slot_eq, ":party_no", "slot_town_lord", "trp_player"),
     (str_store_party_name, s60, ":party_no"),
    ],
    "{!}{s60}", "dplmc_chamberlain_status_info",
@@ -4670,15 +4670,15 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (assign, ":selected_party", "$diplomacy_var"),
     (str_store_party_name, s60, ":selected_party"),
     (try_begin),
-      (party_slot_ge, ":selected_party", slot_village_infested_by_bandits, 1),
+      (party_slot_ge, ":selected_party", "slot_village_infested_by_bandits", 1),
       (str_store_string, s51, "@{s60} is currently occupied by outlaws you should counter them as soon as possible."),
     (else_try),
-      (party_get_slot, ":relation", ":selected_party", slot_center_player_relation),
+      (party_get_slot, ":relation", ":selected_party", "slot_center_player_relation"),
       (call_script, "script_describe_center_relation_to_s3", ":relation"),
-      (party_get_slot, ":tax_rate", ":selected_party", slot_center_taxation),
+      (party_get_slot, ":tax_rate", ":selected_party", "slot_center_taxation"),
       (call_script, "script_dplmc_describe_tax_rate_to_s50", ":tax_rate"),
       
-      (party_get_slot, ":accumulated_rents", ":selected_party", slot_center_accumulated_rents),
+      (party_get_slot, ":accumulated_rents", ":selected_party", "slot_center_accumulated_rents"),
       (assign, reg0, ":accumulated_rents"),
       (str_store_string, s61, "@ We are expecting {reg0} scillingas for rents"),
       
@@ -4686,8 +4686,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (assign, ":total_wage", 0),
       (str_clear, s59),
       (try_begin),
-        (this_or_next|party_slot_eq, ":selected_party", slot_party_type, spt_town),
-        (party_slot_eq, ":selected_party", slot_party_type, spt_castle),
+        (this_or_next|party_slot_eq, ":selected_party", "slot_party_type", spt_town),
+        (party_slot_eq, ":selected_party", "slot_party_type", spt_castle),
         (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
         
         (assign, ":troop_size", 0),
@@ -4708,8 +4708,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
 
         (try_begin),
-          (party_slot_eq, ":selected_party", slot_party_type, spt_town),
-          (party_get_slot, ":accumulated_tariffs", ":selected_party", slot_center_accumulated_tariffs),
+          (party_slot_eq, ":selected_party", "slot_party_type", spt_town),
+          (party_get_slot, ":accumulated_tariffs", ":selected_party", "slot_center_accumulated_tariffs"),
           (assign, reg0, ":accumulated_tariffs"),
           (str_store_string, s61, "@{s61} and {reg0} scillingas for tariffs"),
           (val_add, ":overall", ":accumulated_tariffs"),
@@ -4752,7 +4752,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (store_repeat_object, ":center_no"),
     (this_or_next|is_between, ":center_no", towns_begin, towns_end),
     (is_between, ":center_no", villages_begin, villages_end),
-    (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+    (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
     (store_faction_of_party, ":center_faction", ":center_no"),
     (this_or_next|eq, ":center_faction", "fac_player_supporters_faction"),
     (eq, ":center_faction", "$players_kingdom"),
@@ -4779,7 +4779,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, -50),
+    (neg|party_slot_eq, "$diplomacy_var", "slot_center_taxation", -50),
    ],
    "Very low.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4789,7 +4789,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, -25),
+    (neg|party_slot_eq, "$diplomacy_var", "slot_center_taxation", -25),
    ],
    "Low.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4799,7 +4799,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, 0),
+    (neg|party_slot_eq, "$diplomacy_var", "slot_center_taxation", 0),
    ],
    "Normal.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4809,7 +4809,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, 25),
+    (neg|party_slot_eq, "$diplomacy_var", "slot_center_taxation", 25),
    ],
    "High.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4819,7 +4819,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, 50),
+    (neg|party_slot_eq, "$diplomacy_var", "slot_center_taxation", 50),
    ],
    "Very High.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4844,7 +4844,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    ],
    "Yes.", "dplmc_chamberlain_pretalk",
    [
-    (party_set_slot, "$diplomacy_var", slot_center_taxation, "$diplomacy_tax_rate"),
+    (party_set_slot, "$diplomacy_var", "slot_center_taxation", "$diplomacy_tax_rate"),
     (display_message, "@Tax rate for {s6}: {s11}"),
    ]],
    
@@ -4870,7 +4870,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (try_for_parties, ":center_no"),
       (this_or_next|is_between, ":center_no", towns_begin, towns_end),
       (is_between, ":center_no", villages_begin, villages_end),
-      (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+      (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
       (store_faction_of_party, ":center_faction", ":center_no"),
       (this_or_next|eq, ":center_faction", "fac_player_supporters_faction"),
       (eq, ":center_faction", "$players_kingdom"),  
@@ -4878,13 +4878,13 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (val_add, ":fief_count", 1),
 
       (try_begin),
-        (party_slot_eq, ":center_no", slot_party_type, spt_village),
-        (assign, ":begin", village_improvements_begin),
-        (assign, ":end", village_improvements_end),
+        (party_slot_eq, ":center_no", "slot_party_type", spt_village),
+        (assign, ":begin", "slot_village_improvements_begin"),
+        (assign, ":end", "slot_village_improvements_end"),
       (else_try),
-        (party_slot_eq, ":center_no", slot_party_type, spt_town),
-        (assign, ":begin", walled_center_improvements_begin),
-        (assign, ":end", walled_center_improvements_end),
+        (party_slot_eq, ":center_no", "slot_party_type", spt_town),
+        (assign, ":begin", "slot_walled_center_improvements_begin"),
+        (assign, ":end", "slot_walled_center_improvements_end"),
       (try_end),
 
       (assign, ":has_building", 0),
@@ -4928,19 +4928,19 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
     (store_repeat_object, ":center_no"),
     (is_between, ":center_no", centers_begin, centers_end),
-    (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+    (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
     (store_faction_of_party, ":center_faction", ":center_no"),
     (this_or_next|eq, ":center_faction", "fac_player_supporters_faction"),
     (eq, ":center_faction", "$players_kingdom"),  
 
     (assign, ":improvement_possible", 0),
     (try_begin),
-      (party_slot_eq, ":center_no", slot_party_type, spt_village),
-      (assign, ":begin", village_improvements_begin),
-      (assign, ":end", village_improvements_end),
+      (party_slot_eq, ":center_no", "slot_party_type", spt_village),
+      (assign, ":begin", "slot_village_improvements_begin"),
+      (assign, ":end", "slot_village_improvements_end"),
     (else_try),
-      (assign, ":begin", walled_center_improvements_begin),
-      (assign, ":end", walled_center_improvements_end),
+      (assign, ":begin", "slot_walled_center_improvements_begin"),
+      (assign, ":end", "slot_walled_center_improvements_end"),
     (try_end),
 
     (try_for_range, ":improvement_no", ":begin", ":end"),
@@ -4967,14 +4967,14 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
 
      (try_begin),
-       (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-       (assign, ":begin", village_improvements_begin),
-       (assign, ":end", village_improvements_end),
+       (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+       (assign, ":begin", "slot_village_improvements_begin"),
+       (assign, ":end", "slot_village_improvements_end"),
        (str_store_string, s17, "@village"),
      (else_try),
-       (assign, ":begin", walled_center_improvements_begin),
-       (assign, ":end", walled_center_improvements_end),
-       (party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
+       (assign, ":begin", "slot_walled_center_improvements_begin"),
+       (assign, ":end", "slot_walled_center_improvements_end"),
+       (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
        (str_store_string, s17, "@town"),
      (else_try),
        (str_store_string, s17, "@castle"),
@@ -5000,13 +5000,13 @@ but before burial, you must allow the crows to descend on their breasts and rele
        (str_store_string, s19, "@The {s17} has the following improvements: {s18}."),
      (try_end),   
 
-     (party_get_slot, ":cur_improvement", "$diplomacy_var", slot_center_current_improvement),
+     (party_get_slot, ":cur_improvement", "$diplomacy_var", "slot_center_current_improvement"),
      (gt, ":cur_improvement", 0),
      (call_script, "script_get_improvement_details", ":cur_improvement"),
      (str_store_string, s7, s0),
      (assign, reg6, 1),
      (store_current_hours, ":cur_hours"),
-     (party_get_slot, ":finish_time", "$diplomacy_var", slot_center_improvement_end_hour),
+     (party_get_slot, ":finish_time", "$diplomacy_var", "slot_center_improvement_end_hour"),
      (val_sub, ":finish_time", ":cur_hours"),
      (store_div, reg8, ":finish_time", 24),
      (val_max, reg8, 1),
@@ -5020,14 +5020,14 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
 
      (try_begin),
-       (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-       (assign, ":begin", village_improvements_begin),
-       (assign, ":end", village_improvements_end),
+       (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+       (assign, ":begin", "slot_village_improvements_begin"),
+       (assign, ":end", "slot_village_improvements_end"),
        (str_store_string, s17, "@village"),
      (else_try),
-       (assign, ":begin", walled_center_improvements_begin),
-       (assign, ":end", walled_center_improvements_end),
-       (party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
+       (assign, ":begin", "slot_walled_center_improvements_begin"),
+       (assign, ":end", "slot_walled_center_improvements_end"),
+       (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
        (str_store_string, s17, "@town"),
      (else_try),
        (str_store_string, s17, "@castle"),
@@ -5058,161 +5058,161 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
    [
-     (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-     (party_slot_eq, "$diplomacy_var", slot_center_has_manor, 0),       
+     (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+     (party_slot_eq, "$diplomacy_var", "slot_center_has_manor", 0),       
    ],
    "Build a manor.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-   [(assign, "$g_improvement_type", slot_center_has_manor),]
+   [(assign, "$g_improvement_type", "slot_center_has_manor"),]
    ],
 
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
    [
-     (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-     (party_slot_eq, "$diplomacy_var", slot_center_has_fish_pond, 0),       
+     (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+     (party_slot_eq, "$diplomacy_var", "slot_center_has_fish_pond", 0),       
    ],
    "Build a mill.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-   [(assign, "$g_improvement_type", slot_center_has_fish_pond),]
+   [(assign, "$g_improvement_type", "slot_center_has_fish_pond"),]
    ],
 
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
    [
-     (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-     (party_slot_eq, "$diplomacy_var", slot_center_has_watch_tower, 0),       
+     (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+     (party_slot_eq, "$diplomacy_var", "slot_center_has_watch_tower", 0),       
    ],
    "Build a watch tower.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-   [(assign, "$g_improvement_type", slot_center_has_watch_tower),]
+   [(assign, "$g_improvement_type", "slot_center_has_watch_tower"),]
    ],
    
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
    [
-     (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-     (party_slot_eq, "$diplomacy_var", slot_center_has_school, 0),       
+     (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+     (party_slot_eq, "$diplomacy_var", "slot_center_has_school", 0),       
    ],
    "Build a school.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-   [(assign, "$g_improvement_type", slot_center_has_school),]
+   [(assign, "$g_improvement_type", "slot_center_has_school"),]
    ],
    
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
    [
-     (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-     (party_slot_eq, "$diplomacy_var", slot_center_has_messenger_post, 0),       
+     (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+     (party_slot_eq, "$diplomacy_var", "slot_center_has_messenger_post", 0),       
    ],
    "Build a messenger post.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-   [(assign, "$g_improvement_type", slot_center_has_messenger_post),]
+   [(assign, "$g_improvement_type", "slot_center_has_messenger_post"),]
    ],
 
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
    [
-     (this_or_next|party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
-     (party_slot_eq, "$diplomacy_var", slot_party_type, spt_castle),
-     (party_slot_eq, "$diplomacy_var", slot_center_has_prisoner_tower, 0),       
+     (this_or_next|party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
+     (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_castle),
+     (party_slot_eq, "$diplomacy_var", "slot_center_has_prisoner_tower", 0),       
    ],
    "Build a prisoner tower.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-   [(assign, "$g_improvement_type", slot_center_has_prisoner_tower),]
+   [(assign, "$g_improvement_type", "slot_center_has_prisoner_tower"),]
    ],   
 ###chief anade nuevos
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 1),
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_temple1, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_temple1", 0),
                                   ],
 		"Build a Christian Church (Conversion factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-   [(assign, "$g_improvement_type", slot_center_has_temple1),
+   [(assign, "$g_improvement_type", "slot_center_has_temple1"),
         (assign, "$g_pueblos_religion", 4),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 2),
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_temple2, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_temple2", 0),
                                   ],
 		"Build a celtic sacred forest (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_temple2),]
+[(party_set_slot,"$g_encountered_party","slot_center_religion_pagan", 1),(assign, "$g_improvement_type", "slot_center_has_temple2"),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 3),
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_temple3, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_temple3", 0),
                                   ],
 		"Build a temple to Woden (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_temple3),]
+[(party_set_slot,"$g_encountered_party","slot_center_religion_pagan", 1),(assign, "$g_improvement_type", "slot_center_has_temple3"),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 4),
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_village),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_temple5, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_village),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_temple5", 0),
                                   ],
 		"Build a Christian church (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(assign, "$g_improvement_type", slot_center_has_temple5),
+[(assign, "$g_improvement_type", "slot_center_has_temple5"),
         (assign, "$g_pueblos_religion", 4),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 4),
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_chapel5, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_chapel5", 0),
                                   ],
 		"Build a Christian monastery (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(assign, "$g_improvement_type", slot_center_has_chapel5),
+[(assign, "$g_improvement_type", "slot_center_has_chapel5"),
        (assign, "$g_pueblos_religion", 4),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 1),
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_monastery1, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_monastery1", 0),
                                   ],
 		"Build a Christian monastery (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[	(assign, "$g_improvement_type", slot_center_has_monastery1),
+[	(assign, "$g_improvement_type", "slot_center_has_monastery1"),
        (assign, "$g_pueblos_religion", 4),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 2),
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_monastery2, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_monastery2", 0),
                                   ],
 		"Build a temple of The Old Celtic Gods (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_monastery2),]
+[(party_set_slot,"$g_encountered_party","slot_center_religion_pagan", 1),(assign, "$g_improvement_type", "slot_center_has_monastery2"),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 3),
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_monastery3, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_monastery3", 0),
                                   ],
 		"Build a shrine to Germanic Gods (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_monastery3),]
+[(party_set_slot,"$g_encountered_party","slot_center_religion_pagan", 1),(assign, "$g_improvement_type", "slot_center_has_monastery3"),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_castle),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_blacksmith, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_castle),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_blacksmith", 0),
                                   ],
 		"Build a blacksmith.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(assign, "$g_improvement_type", slot_center_has_blacksmith),]
+[(assign, "$g_improvement_type", "slot_center_has_blacksmith"),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_guild, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_guild", 0),
                                   ],
 		"Build a guild hall.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(assign, "$g_improvement_type", slot_center_has_guild),]
+[(assign, "$g_improvement_type", "slot_center_has_guild"),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
 							 
-                             (party_slot_eq, "$diplomacy_var", slot_party_type, spt_town),
-                             (party_slot_eq, "$diplomacy_var", slot_center_has_university, 0),
+                             (party_slot_eq, "$diplomacy_var", "slot_party_type", spt_town),
+                             (party_slot_eq, "$diplomacy_var", "slot_center_has_university", 0),
                                   ],
 		"Build a library.", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(assign, "$g_improvement_type", slot_center_has_university),]
+[(assign, "$g_improvement_type", "slot_center_has_university"),]
    ],   
 ###chief nuevos acaba
 
@@ -5268,11 +5268,11 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "Yes.", "dplmc_chamberlain_pretalk",
    [
     (call_script, "script_dplmc_withdraw_from_treasury", reg5),
-    (party_set_slot, "$diplomacy_var", slot_center_current_improvement, "$g_improvement_type"),
+    (party_set_slot, "$diplomacy_var", "slot_center_current_improvement", "$g_improvement_type"),
     (store_current_hours, ":cur_hours"),
     (store_mul, ":hours_takes", reg6, 24),
     (val_add, ":hours_takes", ":cur_hours"),
-    (party_set_slot, "$diplomacy_var", slot_center_improvement_end_hour, ":hours_takes"),   
+    (party_set_slot, "$diplomacy_var", "slot_center_improvement_end_hour", ":hours_takes"),   
    ]],
    
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_confirm",
@@ -5334,7 +5334,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
     (assign, ":has_fief", 0),
     (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),
       (assign, ":has_fief", 1),
     (try_end),
@@ -5357,7 +5357,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (le, "$g_player_chamberlain", 0),
     (assign, ":has_fief", 0),
     (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),
       (assign, ":has_fief", 1),
     (try_end),
@@ -5432,7 +5432,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (le, "$g_player_chancellor", 0),
     (assign, ":has_fief", 0),
     (try_for_range, ":center_no", towns_begin, towns_end),
-      (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+      (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
       (assign, ":has_fief", 1),
     (try_end),
     (eq, ":has_fief", 1),
@@ -5583,7 +5583,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (is_between,"$current_town",castles_begin, castles_end),
       (try_begin),
        (is_between, "$current_town", walled_centers_begin, walled_centers_end),
-       (neg|party_slot_eq, "$current_town", slot_center_is_besieged_by, -1),
+       (neg|party_slot_eq, "$current_town", "slot_center_is_besieged_by", -1),
        (assign, ":can_leave", 0),
       (try_end),
     (try_end),
@@ -5601,11 +5601,11 @@ but before burial, you must allow the crows to descend on their breasts and rele
         (assign, ":proceed", 1),
         (try_begin),
           (is_between, ":center_no", towns_begin, towns_end),
-          (party_get_slot,":cur_merchant",":center_no",slot_town_merchant),
+          (party_get_slot,":cur_merchant",":center_no","slot_town_merchant"),
         (else_try),
           (is_between, ":center_no", villages_begin, villages_end),
-          (party_get_slot,":cur_merchant",":center_no", slot_town_elder),
-          (neg|party_slot_eq, ":center_no", slot_village_state, svs_normal),
+          (party_get_slot,":cur_merchant",":center_no", "slot_town_elder"),
+          (neg|party_slot_eq, ":center_no", "slot_village_state", svs_normal),
           (assign, ":proceed", 0),
         (try_end),
         (eq, ":proceed", 1),
@@ -5676,16 +5676,16 @@ but before burial, you must allow the crows to descend on their breasts and rele
         
         (party_add_members, ":spouse_party", ":player_spouse", 1),
         (party_set_faction, ":spouse_party", "fac_neutral"), #no capture
-        (party_set_slot, ":spouse_party", slot_party_home_center, "$g_encountered_party"),
-        (party_set_slot, ":spouse_party", slot_party_type, dplmc_spt_spouse), 
-        (party_set_slot, ":spouse_party", slot_party_orders_object, ":mission_object"),     
+        (party_set_slot, ":spouse_party", "slot_party_home_center", "$g_encountered_party"),
+        (party_set_slot, ":spouse_party", "slot_party_type", dplmc_spt_spouse), 
+        (party_set_slot, ":spouse_party", "slot_party_orders_object", ":mission_object"),     
         (party_set_ai_object, ":spouse_party", ":mission_object"),   
         (party_set_ai_behavior, ":spouse_party", ai_bhvr_travel_to_party),
-        (party_set_slot, ":spouse_party", slot_party_ai_state, spai_undefined),
+        (party_set_slot, ":spouse_party", "slot_party_ai_state", spai_undefined),
         (troop_set_slot, ":player_spouse", slot_troop_cur_center, -1), 
       (try_end),
     (else_try), 
-      (party_get_slot,":cur_merchant",":mission_object",slot_town_merchant), 
+      (party_get_slot,":cur_merchant",":mission_object","slot_town_merchant"), 
       (troop_remove_items, ":cur_merchant", "itm_bread", 2),
       (troop_add_items, "trp_household_possessions", "itm_bread", 2),
     (try_end),
@@ -5705,7 +5705,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (neq,"$g_talk_troop",":player_spouse"), #only if spouse != minister
     (assign, ":has_fief", 0),
     (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),
       (assign, ":has_fief", 1),
     (try_end),
@@ -5742,8 +5742,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
 		(store_repeat_object, ":center"),
     (is_between, ":center", centers_begin, centers_end),
 		(neq, ":center", "$g_player_court"), #court can't be returned
-    (party_slot_eq, ":center", slot_center_is_besieged_by, -1), 
-		(party_slot_eq, ":center", slot_town_lord, "trp_player"),
+    (party_slot_eq, ":center", "slot_center_is_besieged_by", -1), 
+		(party_slot_eq, ":center", "slot_town_lord", "trp_player"),
 		(str_store_party_name, s11, ":center"),
   ],
    "{!}{s11}.", "dplmc_lord_give_back_fief_confirm_ask",[
@@ -6026,8 +6026,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (assign, ":persuasion", -1),
     (try_for_parties, ":party_no"), 
   		(store_faction_of_party, ":party_current_faction", ":party_no"),
-  		(party_get_slot, ":party_original_faction", ":party_no", slot_center_original_faction),
-  		(party_get_slot, ":party_ex_faction", ":party_no", slot_center_ex_faction),
+  		(party_get_slot, ":party_original_faction", ":party_no", "slot_center_original_faction"),
+  		(party_get_slot, ":party_ex_faction", ":party_no", "slot_center_ex_faction"),
 			(eq, ":party_current_faction", "$g_faction_selected"),
 			(this_or_next|eq, ":party_original_faction", "$players_kingdom"),
 		  (eq, ":party_ex_faction", "$players_kingdom"),
@@ -6212,9 +6212,9 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_cunning),
       (assign, ":has_center", 0), 
       (try_for_range, ":center_no", centers_begin, centers_end),
-        (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_town),
-        (party_slot_eq, ":center_no", slot_party_type, spt_castle),        
-        (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+        (this_or_next|party_slot_eq, ":center_no", "slot_party_type", spt_town),
+        (party_slot_eq, ":center_no", "slot_party_type", spt_castle),        
+        (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
         (assign, ":has_center", 1),
       (try_end),
       (try_begin),
@@ -6404,7 +6404,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
     (assign, ":has_fief", 0),
     (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),
       (val_add, ":has_fief", 1),
     (try_end),
@@ -6459,7 +6459,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (is_between, ":center", walled_centers_begin, walled_centers_end),
     (troop_get_slot, ":cur_residence", "$g_talk_troop", slot_troop_cur_center),
     (neq, ":center", ":cur_residence"),
-    (party_slot_eq, ":center", slot_town_lord, "trp_player"),
+    (party_slot_eq, ":center", "slot_town_lord", "trp_player"),
     (str_store_party_name, s6, ":center"),
    ],
    "{s6}.", "dplmc_spouse_move_residence_ask_confirm",[
@@ -6774,7 +6774,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
      (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
      (troop_get_slot, ":party", ":troop_no", slot_troop_prisoner_of_party),
      (is_between, ":party", walled_centers_begin, walled_centers_end),
-     (party_slot_eq, ":party", slot_town_lord, "trp_player"),
+     (party_slot_eq, ":party", "slot_town_lord", "trp_player"),
      (str_store_troop_name, s10, ":troop_no"),
      (store_faction_of_troop, ":faction_no", ":troop_no"),
      (str_store_faction_name, s11, ":faction_no"),
@@ -6948,8 +6948,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
       #player has fief
     	(assign, ":one_fortress_found", 0),
     	(try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-    		(this_or_next|party_slot_eq, ":walled_center", slot_town_lord, "$g_talk_troop"),
-    	  (party_slot_eq, ":walled_center", slot_town_lord, "trp_player"),
+    		(this_or_next|party_slot_eq, ":walled_center", "slot_town_lord", "$g_talk_troop"),
+    	  (party_slot_eq, ":walled_center", "slot_town_lord", "trp_player"),
     		(assign, ":one_fortress_found", 1),
     	(try_end),
     	
@@ -7398,7 +7398,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
       (call_script, "script_dplmc_describe_prosperity_to_s4", "$spy_center_selected"),
       
-      (party_get_slot, ":center_relation", "$spy_center_selected", slot_center_player_relation),
+      (party_get_slot, ":center_relation", "$spy_center_selected", "slot_center_player_relation"),
       (call_script, "script_describe_center_relation_to_s3", ":center_relation"),     
 
       ],  "{s4} {s3} and there are {s31} troops around.", "dplmc_companion_spy_request_select_newcenter", [
@@ -7898,8 +7898,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	(party_is_active, ":party_no"),
    (store_faction_of_party, ":party_faction", ":party_no"),
 	(eq, ":party_faction", ":mission_object"),
-	(this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
-	   (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
+	(this_or_next|party_slot_eq, ":party_no", "slot_party_type", spt_kingdom_hero_party),
+	   (party_slot_eq, ":party_no", "slot_party_type", spt_patrol),
 	(try_begin),
 	   (eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
 		(call_script, "script_dplmc_get_terrain_code_for_battle", -1, ":party_no"),
@@ -8339,7 +8339,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
          (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
          (str_store_troop_name, s12, ":emissary_object"),
-         (neg|party_slot_eq, "$g_player_court", slot_center_original_faction, ":mission_object"),
+         (neg|party_slot_eq, "$g_player_court", "slot_center_original_faction", ":mission_object"),
          (str_store_party_name, s4, "$g_player_court"),
 ],
 "In this letter, {s12} addresses you as Lord, which implies some sort of recognition that you are a sovereign and independent monarch.","companion_rejoin_response", [
@@ -8520,8 +8520,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
   (quest_slot_eq, "qst_wed_betrothed_female", slot_quest_giver_troop, "$g_talk_troop"),
   (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
   (faction_get_slot, ":feast_venue", "$g_talk_troop_faction", slot_faction_ai_object),
-  (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_holding_center),
-  (party_slot_eq, "$g_talk_troop_party", slot_party_ai_object, ":feast_venue"),
+  (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_holding_center),
+  (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_object", ":feast_venue"),
   
   (neq, ":feast_venue", "$g_encountered_party"),
   (str_store_party_name, s4, ":feast_venue"),
@@ -8544,8 +8544,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
   (party_get_attached_to, ":attached", "$g_talk_troop_party"),
   (neg|is_between, ":attached", walled_centers_begin, walled_centers_end),
 
-  (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_holding_center),
-  (party_get_slot, ":object", "$g_talk_troop_party", slot_party_ai_object),
+  (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_holding_center),
+  (party_get_slot, ":object", "$g_talk_troop_party", "slot_party_ai_object"),
   (str_store_party_name, s4, ":object"),
   ],
    "My lady, I grow tired of waiting for the lords of this realm to assemble. Come with me to {s4} exchange our vows.", "lord_start", [
@@ -8802,13 +8802,13 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	(assign, reg0, 0),
 	(try_begin),
 		#I assume that $g_encountered_party is the town, but this could be wrong
-		(neg|party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
-		(neg|party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+		(neg|party_slot_eq, "$g_encountered_party", "slot_party_type", spt_castle),
+		(neg|party_slot_eq, "$g_encountered_party", "slot_party_type", spt_town),
 		(try_begin),
 			(ge, "$cheat_mode", 1),
 			(assign, reg0, "$g_encountered_party"),
 			(str_store_party_name, s0, "$g_encountered_party"),
-			(party_get_slot, reg1, "$g_encountered_party", slot_party_type),
+			(party_get_slot, reg1, "$g_encountered_party", "slot_party_type"),
 			(display_message, "@{!}Party at address {reg0} named {s0} has slot_party_type {reg1} (not castle or town)"),
 		(try_end),
 		(assign, reg0, 1),#<- don't continue
@@ -8831,7 +8831,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	(val_max, ":defender_str", 5),#establish a minimum (if you can't just walk in, there must be some defenders)
 	(try_begin),
 		#Not that it matters much, given how extremely low it is, but increase the minimum for towns.
-		(party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+		(party_slot_eq, "$g_encountered_party", "slot_party_type", spt_town),
 		(val_max, ":defender_str", 10),
 	(try_end),
 	
@@ -8845,7 +8845,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 			(val_add, ":forts_held", 1),
 		(try_end),
 		(try_begin),
-			(party_slot_eq, ":center_no", slot_center_original_faction, "$g_encountered_party_faction"),
+			(party_slot_eq, ":center_no", "slot_center_original_faction", "$g_encountered_party_faction"),
 			(val_add, ":starting_forts", 1),
 		(try_end),
 	(try_end),
@@ -8862,7 +8862,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	(try_begin),
 		(is_between, "$g_encountered_party_faction", npc_kingdoms_begin, npc_kingdoms_end),#this bonus is only intended for ordinary factions
 		(this_or_next|party_slot_eq, "$g_talk_troop", slot_troop_original_faction, "$g_encountered_party_faction"),
-			(party_slot_eq, "$g_encountered_party", slot_center_original_faction, "$g_encountered_party_faction"),
+			(party_slot_eq, "$g_encountered_party", "slot_center_original_faction", "$g_encountered_party_faction"),
 		(assign, ":is_native", 1),
 	(try_end),
 	
@@ -8948,15 +8948,15 @@ but before burial, you must allow the crows to descend on their breasts and rele
 #Make a defiant remark if the enemy is vastly outnumbered but refusing to surrender.
 [anyone,"player_siege_ask_surrender", [
 	#I assume that $g_encountered_party is the town, but this could be wrong
-	(this_or_next|party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
-		(party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
+	(this_or_next|party_slot_eq, "$g_encountered_party", "slot_party_type", spt_castle),
+		(party_slot_eq, "$g_encountered_party", "slot_party_type", spt_town),
 	(is_between, "$g_encountered_party_faction", kingdoms_begin, kingdoms_end),
 	#The attackers outnumber the defenders by a decent ratio.
 	(store_mul, reg0,"$g_enemy_strength", 4),
 	(ge, "$g_ally_strength", reg0),
 	#The attack is on native soil, or the odds are REALLY bad.
 	(store_mul, reg0, "$g_enemy_strength", 8),
-	(this_or_next|party_slot_eq, "$g_encountered_party", slot_center_original_faction, "$g_encountered_party_faction"),
+	(this_or_next|party_slot_eq, "$g_encountered_party", "slot_center_original_faction", "$g_encountered_party_faction"),
 		(ge, "$g_ally_strength", reg0),
 	#Store name of castle and name of faction
 	(str_store_faction_name, s0, "$g_talk_troop_faction"),
@@ -9117,7 +9117,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 #         (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
 #         (assign,"$g_player_besiege_town", -1),
 #         (assign,"$g_player_besiege_town", -1),
-		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp		 
+		 (party_set_slot,"p_main_party","slot_party_siege_camp",0),  #Tempered chief added for siege camp		 
 ##         #siege warfare chief
          (assign, "$g_empieza_asedio", 0),
 #         (assign, "$g_siege_circunvalation", 0),
@@ -9131,7 +9131,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 ##         (assign, "$g_enemigo_quema_comida", 0),
 ##         (assign, "$g_cabezas_dentro", 0),
 ##       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-##       (party_set_slot,"$g_encountered_party",slot_center_port_blockaded, 0),
+##       (party_set_slot,"$g_encountered_party","slot_center_port_blockaded", 0),
 ##         #siege warfare acaba
        ]],
   [anyone,"player_tributo3", [],
@@ -9340,7 +9340,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 					[ 
 						(assign,"$duel_encounter",1),
 						(troop_set_slot,"$g_talk_troop",slot_troop_duel_challenged,-1),
-						(party_set_slot,"$g_encountered_party",slot_message_target_2,-1),
+						(party_set_slot,"$g_encountered_party","slot_message_target_2",-1),
 						(call_script,"script_change_player_honor",2),
 					]],
 					
@@ -9360,7 +9360,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 						(assign, "$encountered_party_friendly", 1),
 						(assign, "$cant_leave_encounter", 0),
 						(troop_set_slot, "$g_talk_troop", slot_troop_duel_challenged, -1),
-						(party_set_slot,"$g_encountered_party",slot_message_target_2,-1),
+						(party_set_slot,"$g_encountered_party","slot_message_target_2",-1),
 						(call_script,"script_change_player_relation_with_troop","$g_talk_troop",-3),
 						(call_script,"script_change_troop_renown","trp_player",-10),
 						(call_script,"script_change_player_honor",-10),
@@ -9385,7 +9385,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 						(call_script,"script_change_player_relation_with_faction",":faction",-5),
 						(call_script,"script_change_player_relation_with_troop","$g_talk_troop",-10),
 						(troop_set_slot, "$g_talk_troop", slot_troop_duel_challenged, -1),
-						(party_set_slot,"$g_encountered_party",slot_message_target_2,-1),
+						(party_set_slot,"$g_encountered_party","slot_message_target_2",-1),
 						(call_script,"script_change_player_honor",-10),
 						(call_script,"script_change_troop_renown","trp_player",10),
 						(assign, "$encountered_party_hostile", 1),
@@ -9418,7 +9418,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 					[ 
 						(assign,"$duel_encounter",1),
 						(troop_set_slot,"$g_talk_troop",slot_troop_duel_challenger,-1),
-						(party_set_slot,"$g_encountered_party",slot_message_target_2,-1),
+						(party_set_slot,"$g_encountered_party","slot_message_target_2",-1),
 						(call_script,"script_change_player_honor",2),
 					]],
 					
@@ -9436,7 +9436,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "HaHa! Just as I thought, a coward. Still, you must be taught a lesson, else your tongue continue to wag.", "close_window", 
 					[	(assign, "$cant_leave_encounter", 1),
 						(troop_set_slot, "$g_talk_troop", slot_troop_duel_challenger, -1),
-						(party_set_slot,"$g_encountered_party",slot_message_target_2,-1),
+						(party_set_slot,"$g_encountered_party","slot_message_target_2",-1),
 						(call_script,"script_change_player_relation_with_troop","$g_talk_troop",-5),
 						(call_script,"script_change_troop_renown","trp_player",-10),
 						(call_script,"script_change_player_honor",-10),
@@ -9455,7 +9455,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 						(call_script,"script_change_player_relation_with_faction",":faction",-5),
 						(call_script,"script_change_player_relation_with_troop","$g_talk_troop",-10),
 						(troop_set_slot, "$g_talk_troop", slot_troop_duel_challenger, -1),
-						(party_set_slot,"$g_encountered_party",slot_message_target_2,-1),
+						(party_set_slot,"$g_encountered_party","slot_message_target_2",-1),
 						(call_script,"script_change_player_honor",-10),
 						(call_script,"script_change_troop_renown","trp_player",10),
 						(assign, "$encountered_party_hostile", 1),
@@ -9532,7 +9532,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (call_script, "script_change_player_relation_with_troop","$g_talk_troop", -7),
     (store_current_hours,":protected_until"),
     (val_add, ":protected_until", 72),
-    (party_set_slot,"$g_encountered_party",slot_party_ignore_player_until,":protected_until"),
+    (party_set_slot,"$g_encountered_party","slot_party_ignore_player_until",":protected_until"),
     (party_ignore_player, "$g_encountered_party", 72),
     (assign, "$g_leave_encounter",1)
        ]],
@@ -9580,7 +9580,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (call_script, "script_change_player_honor", -2),
     (store_current_hours,":protected_until"),
     (val_add, ":protected_until", 72),
-    (party_set_slot,"$g_encountered_party",slot_party_ignore_player_until,":protected_until"),
+    (party_set_slot,"$g_encountered_party","slot_party_ignore_player_until",":protected_until"),
     (party_ignore_player, "$g_encountered_party", 72),
     (assign, "$g_leave_encounter",1)]
   ],
@@ -9920,14 +9920,14 @@ but before burial, you must allow the crows to descend on their breasts and rele
 #            (faction_set_slot, "$g_talk_troop_faction", slot_faction_inactive_leader_location, 0),
 
 #            (call_script, "script_create_kingdom_hero_party", "$g_talk_troop", ":location"),
-#            (party_set_slot, "$pout_party", slot_party_commander_party, "p_main_party"),
+#            (party_set_slot, "$pout_party", "slot_party_commander_party", "p_main_party"),
 #            (call_script, "script_party_decide_next_ai_state_under_command", "$pout_party"),
 #            (store_current_hours, ":follow_until_time"),
 #            (store_add, ":follow_period", 60, "$g_talk_troop_relation"),
 #            (val_div, ":follow_period", 2),
 #            (val_add, ":follow_until_time", ":follow_period"),
-#            (party_set_slot, "$pout_party", slot_party_follow_player_until_time, ":follow_until_time"),
-#            (party_set_slot, "$pout_party", slot_party_following_player, 1),
+#            (party_set_slot, "$pout_party", "slot_party_follow_player_until_time", ":follow_until_time"),
+#            (party_set_slot, "$pout_party", "slot_party_following_player", 1),
 
 
 
@@ -10218,7 +10218,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
                           (assign, ":num_centers", 0),
                           (str_clear, s8),
                           (try_for_range_backwards, ":cur_center", centers_begin, centers_end),
-                            (party_slot_eq, ":cur_center", slot_town_lord, "$g_talk_troop"),
+                            (party_slot_eq, ":cur_center", "slot_town_lord", "$g_talk_troop"),
                             (try_begin),
                               (eq, ":num_centers", 0),
                               (str_store_party_name, s8, ":cur_center"),
@@ -12006,7 +12006,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 ##    (val_sub, ":wealth", 6000),
 ##    (troop_set_slot, "$g_talk_troop", slot_troop_wealth, ":wealth"),
 ##    (call_script, "script_troop_add_gold", "trp_player", 5000),
-##    (party_set_slot, "$center_wanted_to_be_bought", slot_town_lord, "$g_talk_troop"),
+##    (party_set_slot, "$center_wanted_to_be_bought", "slot_town_lord", "$g_talk_troop"),
 ##    #Changing center faction
 ##    (party_set_faction, "$center_wanted_to_be_bought", "$g_talk_troop_faction"),
 ##    (set_spawn_radius, 1),
@@ -12116,7 +12116,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 
 
-  [anyone,"lord_start", [(party_slot_eq, "$g_encountered_party",slot_town_lord, "$g_talk_troop"),#we are talking to Town's Lord.
+  [anyone,"lord_start", [(party_slot_eq, "$g_encountered_party","slot_town_lord", "$g_talk_troop"),#we are talking to Town's Lord.
                          (ge,"$g_talk_troop_faction_relation",0),
                          (neq, "$g_ransom_offer_rejected", 1),
                          (lt, "$g_encountered_party_2", 0), #town is not under siege
@@ -12223,8 +12223,8 @@ Wes gesund.", "Cundwalh_historia5", []],
    ],
    "To your health, {sire/your Highness}. Long may you reign. What is your bidding?", "lord_talk",[
    (try_begin),
-	(this_or_next|party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player"),
-		(party_slot_eq, "$g_encountered_party", slot_town_lord, "$g_talk_troop"),
+	(this_or_next|party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player"),
+		(party_slot_eq, "$g_encountered_party", "slot_town_lord", "$g_talk_troop"),
     (ge, "$g_time_since_last_talk", 24),
 	(ge, "$g_talk_troop_relation", 0),
 	(call_script, "script_troop_change_relation_with_troop", "$g_talk_troop", "trp_player", 1),
@@ -12243,7 +12243,7 @@ Wes gesund.", "Cundwalh_historia5", []],
    (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
    (faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
    (ge, "$g_encountered_party_relation", 0),   
-   (party_slot_eq, "$g_encountered_party", slot_town_lord, "$g_talk_troop"),
+   (party_slot_eq, "$g_encountered_party", "slot_town_lord", "$g_talk_troop"),
    (neq, "$talk_context", tc_castle_gate),
    ],
    "I wish to welcome you to my hall on this auspicious occasion. Now, what is it?", "lord_talk",[
@@ -12265,7 +12265,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_state, sfai_feast),
 	(faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, "$g_encountered_party"),
 	(ge, "$g_encountered_party_relation", 0),
-	(party_get_slot, ":town_lord", "$g_encountered_party", slot_town_lord),
+	(party_get_slot, ":town_lord", "$g_encountered_party", "slot_town_lord"),
 	(str_store_troop_name, s4, ":town_lord"),
 
     (neq, "$talk_context", tc_castle_gate),
@@ -12678,7 +12678,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone,"lord_husband_auto_recruit",
 	[
 	(is_between, "$g_encountered_party", centers_begin, centers_end),						
-	(neg|party_slot_eq, "$g_encountered_party", slot_town_lord, "$g_talk_troop"),						
+	(neg|party_slot_eq, "$g_encountered_party", "slot_town_lord", "$g_talk_troop"),						
 	],
    "Ask me again when we are outside of these walls, my wife.", "lord_pretalk",
    []],
@@ -13314,7 +13314,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 		
 		(val_add, ":total_faction_center_value", ":center_value"),
 		
-		(party_slot_eq, ":center", slot_town_lord, "trp_player"),
+		(party_slot_eq, ":center", "slot_town_lord", "trp_player"),
 		(val_add, ":center_points_held_by_player", ":center_value"),
 	(try_end),
 	(val_max, ":total_faction_center_value", 1),
@@ -13623,8 +13623,8 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone,"lord_spouse_leave_faction_husband_king", [
   (assign, ":lord_has_fortress", 0),
   (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-	(this_or_next|party_slot_eq, ":walled_center", slot_town_lord, "trp_player"),
-		(party_slot_eq, ":walled_center", slot_town_lord, "$g_talk_troop"),
+	(this_or_next|party_slot_eq, ":walled_center", "slot_town_lord", "trp_player"),
+		(party_slot_eq, ":walled_center", "slot_town_lord", "$g_talk_troop"),
     (assign, ":lord_has_fortress", 1),  
   (try_end),
   (eq, ":lord_has_fortress", 0),  
@@ -13635,8 +13635,8 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone,"lord_spouse_leave_faction_proclaim_queen", [
   (assign, ":lord_has_fortress", 0),
   (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-	(this_or_next|party_slot_eq, ":walled_center", slot_town_lord, "trp_player"),
-		(party_slot_eq, ":walled_center", slot_town_lord, "$g_talk_troop"),
+	(this_or_next|party_slot_eq, ":walled_center", "slot_town_lord", "trp_player"),
+		(party_slot_eq, ":walled_center", "slot_town_lord", "$g_talk_troop"),
     (assign, ":lord_has_fortress", 1),  
   (try_end),
   (eq, ":lord_has_fortress", 0),  
@@ -14130,8 +14130,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 	
 	(assign, ":one_fortress_found", 0),
 	(try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-		(this_or_next|party_slot_eq, ":walled_center", slot_town_lord, "$g_talk_troop"),
-			(party_slot_eq, ":walled_center", slot_town_lord, "trp_player"),
+		(this_or_next|party_slot_eq, ":walled_center", "slot_town_lord", "$g_talk_troop"),
+			(party_slot_eq, ":walled_center", "slot_town_lord", "trp_player"),
 		(assign, ":one_fortress_found", 1),
 	(try_end),
 	(eq, ":one_fortress_found", 0),
@@ -15295,8 +15295,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 ##  [anyone|plyr,"lord_talk", [(troop_slot_eq, "$g_talk_troop", slot_troop_is_prisoner, 0),
 ##                             (ge,"$g_talk_troop_faction_relation",0),
-##                             (party_slot_eq, "$g_encountered_party", slot_party_type, spt_castle),
-##                             (party_slot_eq, "$g_encountered_party", slot_town_lord, "$g_talk_troop"),
+##                             (party_slot_eq, "$g_encountered_party", "slot_party_type", spt_castle),
+##                             (party_slot_eq, "$g_encountered_party", "slot_town_lord", "$g_talk_troop"),
 ##                             (eq, "$g_permitted_to_center",0),
 ##                             (party_get_num_companions, reg7, "p_main_party"),
 ##                             (val_sub, reg7, 1),
@@ -15336,7 +15336,7 @@ Wes gesund.", "Cundwalh_historia5", []],
      (try_for_range, ":cur_center", walled_centers_begin, walled_centers_end),
        (store_faction_of_party, ":cur_center_faction", ":cur_center"),
        (eq, ":cur_center_faction", "fac_player_supporters_faction"),
-       (party_slot_eq, ":cur_center", slot_center_faction_when_oath_renounced, "$g_talk_troop_faction"),
+       (party_slot_eq, ":cur_center", "slot_center_faction_when_oath_renounced", "$g_talk_troop_faction"),
        (val_add, ":num_centers_captured_by_player", 1),
      (try_end),
      (store_mul, ":peace_score", ":num_centers_captured_by_player", 500),
@@ -15361,7 +15361,7 @@ Wes gesund.", "Cundwalh_historia5", []],
        (try_for_range, ":cur_center", walled_centers_begin, walled_centers_end),
          (store_faction_of_party, ":cur_center_faction", ":cur_center"),
          (eq, ":cur_center_faction", "fac_player_supporters_faction"),
-         (party_slot_eq, ":cur_center", slot_center_faction_when_oath_renounced, "$g_talk_troop_faction"),
+         (party_slot_eq, ":cur_center", "slot_center_faction_when_oath_renounced", "$g_talk_troop_faction"),
          (try_begin),
            (eq, ":given_center", 0),
            (assign, "$players_oath_renounced_given_center", ":cur_center"),
@@ -15438,10 +15438,10 @@ Wes gesund.", "Cundwalh_historia5", []],
      (try_for_range, ":cur_center", walled_centers_begin, walled_centers_end),
        (store_faction_of_party, ":cur_center_faction", ":cur_center"),
        (eq, ":cur_center_faction", "fac_player_supporters_faction"),
-       (party_slot_eq, ":cur_center", slot_center_faction_when_oath_renounced, "$g_talk_troop_faction"),
+       (party_slot_eq, ":cur_center", "slot_center_faction_when_oath_renounced", "$g_talk_troop_faction"),
        (neq, ":cur_center", "$players_oath_renounced_given_center"),
  ##diplomacy start+ Apply relation reduction with former town lord chief
- (party_get_slot, ":town_lord", ":cur_center", slot_town_lord),
+ (party_get_slot, ":town_lord", ":cur_center", "slot_town_lord"),
  (try_begin),
 	#Rationale: since you gain 10 relation for granting a fief, you lose 10 relation for ceding it.
 	#This is just a rough temporary measure.  It doesn't take into account villages.
@@ -15706,14 +15706,14 @@ Wes gesund.", "Cundwalh_historia5", []],
 	
     (try_begin),
 		(is_between, "$current_town", walled_centers_begin, walled_centers_end),
-		(this_or_next|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
-			(party_slot_eq, "$current_town", slot_town_lord, "$g_talk_troop"),
+		(this_or_next|party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
+			(party_slot_eq, "$current_town", "slot_town_lord", "$g_talk_troop"),
 		(assign, ":feast_venue", "$current_town"),	
 	(else_try),
 		(try_for_range, ":center", walled_centers_begin, walled_centers_end),
 			(eq, ":feast_venue", -1),
-			(this_or_next|party_slot_eq, ":center", slot_town_lord, "trp_player"),
-				(party_slot_eq, ":center", slot_town_lord, "$g_talk_troop"),
+			(this_or_next|party_slot_eq, ":center", "slot_town_lord", "trp_player"),
+				(party_slot_eq, ":center", "slot_town_lord", "$g_talk_troop"),
 			(assign, ":feast_venue", ":center"),	
 		(try_end),
 		(is_between, ":feast_venue", walled_centers_begin, walled_centers_end), #unless there's a try/fail, will not do last check
@@ -16196,10 +16196,10 @@ Wes gesund.", "Cundwalh_historia5", []],
      (assign, "$temp_2", "p_main_party"),
 	 
 	(store_current_hours, ":hours"),
-	(party_set_slot, "$g_talk_troop_party", slot_party_following_orders_of_troop, "trp_kingdom_heroes_including_player_begin"),
-	(party_set_slot, "$g_talk_troop_party", slot_party_orders_type, "$temp"),
-	(party_set_slot, "$g_talk_troop_party", slot_party_orders_object, "$temp_2"),
-	(party_set_slot, "$g_talk_troop_party", slot_party_orders_time, ":hours"),	 
+	(party_set_slot, "$g_talk_troop_party", "slot_party_following_orders_of_troop", "trp_kingdom_heroes_including_player_begin"),
+	(party_set_slot, "$g_talk_troop_party", "slot_party_orders_type", "$temp"),
+	(party_set_slot, "$g_talk_troop_party", "slot_party_orders_object", "$temp_2"),
+	(party_set_slot, "$g_talk_troop_party", "slot_party_orders_time", ":hours"),	 
      ]],
 
   [anyone|plyr,"lord_give_order", [
@@ -16211,10 +16211,10 @@ Wes gesund.", "Cundwalh_historia5", []],
      (assign, "$temp_2", "p_main_party"),
 	 
 	 (store_current_hours, ":hours"),
-	 (party_set_slot, "$g_talk_troop_party", slot_party_following_orders_of_troop, "trp_kingdom_heroes_including_player_begin"),
-	 (party_set_slot, "$g_talk_troop_party", slot_party_orders_type, "$temp"),
-	 (party_set_slot, "$g_talk_troop_party", slot_party_orders_object, "$temp_2"),
-	 (party_set_slot, "$g_talk_troop_party", slot_party_orders_time, ":hours"),	 	 
+	 (party_set_slot, "$g_talk_troop_party", "slot_party_following_orders_of_troop", "trp_kingdom_heroes_including_player_begin"),
+	 (party_set_slot, "$g_talk_troop_party", "slot_party_orders_type", "$temp"),
+	 (party_set_slot, "$g_talk_troop_party", "slot_party_orders_object", "$temp_2"),
+	 (party_set_slot, "$g_talk_troop_party", "slot_party_orders_time", ":hours"),	 	 
    ]],
 	 	 
   [anyone|plyr,"lord_give_order", [
@@ -16247,10 +16247,10 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 #only as suggestion
   [anyone|plyr,"lord_give_order", [
-	    (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_besieging_center),
-        (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
-		(party_slot_eq, ":ai_object", slot_center_is_besieged_by, "$g_talk_troop_party"),
-		(party_slot_eq, ":ai_object", slot_village_state, svs_under_siege),
+	    (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_besieging_center),
+        (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
+		(party_slot_eq, ":ai_object", "slot_center_is_besieged_by", "$g_talk_troop_party"),
+		(party_slot_eq, ":ai_object", "slot_village_state", svs_under_siege),
 		(str_store_party_name, s11, ":ai_object"),
 		],
    "Together, you and I can take {s11}. You should assault immediately...", "lord_give_order_assault",
@@ -16281,8 +16281,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 	 
 
   [anyone,"lord_give_order_assault", [
-		(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
-		(party_get_slot, ":besieging_party", ":ai_object", slot_center_is_besieged_by),
+		(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
+		(party_get_slot, ":besieging_party", ":ai_object", "slot_center_is_besieged_by"),
         (neq, ":besieging_party", "$g_talk_troop_party"),
 		(party_stack_get_troop_id, ":siege_commander", ":besieging_party", 0),
 		(str_store_troop_name, s4, ":siege_commander"),
@@ -16296,8 +16296,8 @@ Wes gesund.", "Cundwalh_historia5", []],
 		
 				
   [anyone,"lord_give_order_assault", [
-    (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
-    (party_get_slot, ":siege_begun", ":ai_object", slot_center_siege_begin_hours),
+    (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
+    (party_get_slot, ":siege_begun", ":ai_object", "slot_center_siege_begin_hours"),
 	(store_current_hours, ":cur_hour"),
 	(store_sub, ":hours_of_siege", ":cur_hour", ":siege_begun"),
 	
@@ -16323,10 +16323,10 @@ Wes gesund.", "Cundwalh_historia5", []],
   ],
    "Very well -- to the walls!", "close_window",
    [
-    (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+    (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
 	(call_script, "script_begin_assault_on_center", ":ai_object"),
 
-	(party_set_slot, "$g_talk_troop_party", slot_party_under_player_suggestion, spai_besieging_center),
+	(party_set_slot, "$g_talk_troop_party", "slot_party_under_player_suggestion", spai_besieging_center),
     (assign, "$g_leave_encounter", 1),
 		
      ]],
@@ -16366,8 +16366,8 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone|plyr,"lord_give_order",
    [
 	(neg|faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
-	(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_accompanying_army),
-	(party_slot_eq, "$g_talk_troop_party", slot_party_ai_object, "p_main_party"),
+	(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_accompanying_army),
+	(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_object", "p_main_party"),
      ],
    "You no longer need to accompany me.", "lord_give_order_stop",
    []],
@@ -16412,24 +16412,24 @@ Wes gesund.", "Cundwalh_historia5", []],
        (this_or_next|eq, "$temp", spai_retreating_to_center),
          (eq, "$temp", spai_holding_center),
        (try_begin),
-         (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_castle),
-			(party_slot_eq, ":party_no", slot_party_type, spt_town),
+         (this_or_next|party_slot_eq, ":party_no", "slot_party_type", spt_castle),
+			(party_slot_eq, ":party_no", "slot_party_type", spt_town),
          (eq, ":party_faction", "$players_kingdom"),
          (assign, ":continue", 1),
        (try_end),
      (else_try),
        (eq, "$temp", spai_raiding_around_center),
        (try_begin),
-         (party_slot_eq, ":party_no", slot_party_type, spt_village),
+         (party_slot_eq, ":party_no", "slot_party_type", spt_village),
          (lt, ":relation", 0),
          (assign, ":continue", 1),
        (try_end),
      (else_try),
        (eq, "$temp", spai_besieging_center),
        (try_begin),
-         (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_castle),
-			(party_slot_eq, ":party_no", slot_party_type, spt_town),
-		 (party_slot_eq, ":party_no", slot_center_is_besieged_by, -1),
+         (this_or_next|party_slot_eq, ":party_no", "slot_party_type", spt_castle),
+			(party_slot_eq, ":party_no", "slot_party_type", spt_town),
+		 (party_slot_eq, ":party_no", "slot_center_is_besieged_by", -1),
          (lt, ":relation", 0),
          (assign, ":continue", 1),
        (try_end),	   	   
@@ -16453,10 +16453,10 @@ Wes gesund.", "Cundwalh_historia5", []],
    [
      (store_repeat_object, "$temp_2"),
      (store_current_hours, ":hours"),
-     (party_set_slot, "$g_talk_troop_party", slot_party_following_orders_of_troop, "trp_kingdom_heroes_including_player_begin"),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_type, "$temp"),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_object, "$temp_2"),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_time, ":hours"),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_following_orders_of_troop", "trp_kingdom_heroes_including_player_begin"),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_type", "$temp"),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_object", "$temp_2"),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_time", ":hours"),
 	]],
 
   [anyone|plyr, "lord_give_order_details",
@@ -16466,24 +16466,24 @@ Wes gesund.", "Cundwalh_historia5", []],
   [anyone,"lord_give_order_stop", [],
    "All right. I will stop here.", "lord_pretalk",
    [
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_type, spai_undefined),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_object, -1),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_type", spai_undefined),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_object", -1),
      #this is not set above, so should be set here
      (store_current_hours, ":hours"),
      (val_sub, ":hours", 36),
      (val_max, ":hours", 0),
      
-     (party_set_slot, "$g_talk_troop_party", slot_party_following_orders_of_troop, "trp_kingdom_heroes_including_player_begin"),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_type, spai_undefined),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_object, -1),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_time, ":hours"),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_following_orders_of_troop", "trp_kingdom_heroes_including_player_begin"),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_type", spai_undefined),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_object", -1),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_time", ":hours"),
      
      #same variable as above
      (troop_get_slot, ":party_no", "$g_talk_troop", slot_troop_leaded_party),
      (try_begin),
        (gt, ":party_no", 0),
        (call_script, "script_party_set_ai_state", ":party_no", spai_undefined, -1),
-       (party_set_slot, ":party_no", slot_party_commander_party, -1),
+       (party_set_slot, ":party_no", "slot_party_commander_party", -1),
      (try_end),	 
    ]],
 
@@ -16518,10 +16518,10 @@ Wes gesund.", "Cundwalh_historia5", []],
    ],
    "That would hardly be proper. It would be more appropriate for you to follow me instead. Did you have any other ideas?", "lord_give_order",
    [
-     (party_set_slot, "$g_talk_troop_party", slot_party_following_orders_of_troop, 0),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_type, 0),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_object, 0),
-     (party_set_slot, "$g_talk_troop_party", slot_party_orders_time, 0),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_following_orders_of_troop", 0),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_type", 0),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_object", 0),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_orders_time", 0),
    ]],
 	
    #More complicated order
@@ -16656,8 +16656,8 @@ Wes gesund.", "Cundwalh_historia5", []],
     (neg|troop_slot_eq, "$g_talk_troop", slot_troop_leaded_party, -1)
   ],
    "What are you and your men doing?", "lord_tell_objective",[
-	(party_get_slot, ":ai_behavior", "$g_talk_troop_party", slot_party_ai_state),
-	(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+	(party_get_slot, ":ai_behavior", "$g_talk_troop_party", "slot_party_ai_state"),
+	(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
 
 	(try_begin),
 		(eq, "$cheat_mode", 1),
@@ -16840,7 +16840,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   (call_script, "script_get_kingdom_lady_social_determinants", ":bride"),
   (assign, ":venue", reg1),
   (is_between, ":venue", walled_centers_begin, walled_centers_end),
-  (party_slot_eq, ":venue", slot_village_state, svs_normal),
+  (party_slot_eq, ":venue", "slot_village_state", svs_normal),
   (str_store_party_name, s24, ":venue"),
   ],
    "Splendid! You two may now consider yourselves offically betrothed. Very well -- I shall plan to hold a great feast in {s24}, as soon as circumstances permit. We will be sure to notify you when the day comes.", "close_window",
@@ -17261,9 +17261,9 @@ Wes gesund.", "Cundwalh_historia5", []],
 	(party_is_active, ":marshal_party"),
 	
 	(this_or_next|eq, "$g_talk_troop", ":faction_marshal"),
-		(party_slot_eq, "$g_talk_troop_party", slot_party_ai_object, ":marshal_party"),
+		(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_object", ":marshal_party"),
 	
-	(party_get_slot, ":marshal_object", ":marshal_party", slot_party_ai_object),
+	(party_get_slot, ":marshal_object", ":marshal_party", "slot_party_ai_object"),
 	
     (try_begin),
 		(eq, ":marshal_object", -1),
@@ -17626,7 +17626,7 @@ Wes gesund.", "Cundwalh_historia5", []],
     (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_ai_object, ":selected_center"),
     (neq, "$g_target_after_gathering", ":selected_center"),
     
-    (party_slot_ge, ":selected_center", slot_center_sortie_enemy_strength, 1),
+    (party_slot_ge, ":selected_center", "slot_center_sortie_enemy_strength", 1),
     (str_store_party_name,s4, ":selected_center"),
   ],
    "..defending {s4}?",
@@ -17654,7 +17654,7 @@ Wes gesund.", "Cundwalh_historia5", []],
      (try_begin),
        (eq, "$cheat_mode", 1),
        (store_sub, ":faction_recce_slot", "$g_talk_troop_faction", kingdoms_begin),
-       (val_add, ":faction_recce_slot", slot_center_last_reconnoitered_by_faction_time),
+       (val_add, ":faction_recce_slot", "slot_center_last_reconnoitered_by_faction_time"),
        (store_current_hours, ":hours_since_last_recon"),
        (party_get_slot, ":last_recon_time", "$temp", ":faction_recce_slot"), 
        (val_sub, ":hours_since_last_recon", ":last_recon_time"),
@@ -17717,8 +17717,8 @@ Wes gesund.", "Cundwalh_historia5", []],
     (else_try),
       (troop_get_slot, ":marshal_party", ":faction_marshal", slot_troop_leaded_party),
       (party_is_active, ":marshal_party"),
-      (party_get_slot, ":cached_strength", ":marshal_party", slot_party_cached_strength),
-      (party_get_slot, ":follower_strength", ":marshal_party", slot_party_follower_strength),
+      (party_get_slot, ":cached_strength", ":marshal_party", "slot_party_cached_strength"),
+      (party_get_slot, ":follower_strength", ":marshal_party", "slot_party_follower_strength"),
       (store_add, ":total_strength", ":cached_strength", ":follower_strength"),
       (ge, ":enemy_strength_near_threatened_center", ":total_strength"),
       (assign, reg4, ":enemy_strength_near_threatened_center"),
@@ -17818,13 +17818,13 @@ Wes gesund.", "Cundwalh_historia5", []],
 	(try_begin),
 	  (eq, "$cheat_mode", 1),
 	  (store_sub, ":faction_recce_slot", "$g_talk_troop_faction", kingdoms_begin),
-	  (val_add, ":faction_recce_slot", slot_center_last_reconnoitered_by_faction_time),
+	  (val_add, ":faction_recce_slot", "slot_center_last_reconnoitered_by_faction_time"),
 	  (store_current_hours, ":hours_since_last_recon"),
 	  (party_get_slot, ":last_recon_time", "$temp", ":faction_recce_slot"), 
 	  (val_sub, ":hours_since_last_recon", ":last_recon_time"),
 	  
 	  (store_sub, ":faction_recce_slot", "$g_talk_troop_faction", kingdoms_begin),
-	  (val_add, ":faction_recce_slot", slot_center_last_reconnoitered_by_faction_time),
+	  (val_add, ":faction_recce_slot", "slot_center_last_reconnoitered_by_faction_time"),
 	  (store_current_hours, ":hours_since_last_recon"),
 	  (party_get_slot, ":last_recon_time", ":cur_object", ":faction_recce_slot"), 
 	  (val_sub, ":hours_since_last_recon", ":last_recon_time"),
@@ -17833,7 +17833,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 	(try_begin),
 	  (assign, ":continue", 0),
 	  (try_begin),
-	    (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, sfai_gathering_army),
+	    (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", sfai_gathering_army),
 	    (lt, "$g_target_after_gathering", 0), #then this means faction is gathering army to attack a center.
 	    (assign, ":continue", 1),
 	  (try_end),  
@@ -18311,7 +18311,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   [
     (troop_get_slot, ":prison_location", "$g_talk_troop", slot_troop_prisoner_of_party),
     (is_between, ":prison_location", centers_begin, centers_end),
-    (neg|party_slot_eq, ":prison_location", slot_town_lord, "trp_player"),
+    (neg|party_slot_eq, ":prison_location", "slot_town_lord", "trp_player"),
     (neq, "$talk_context", tc_prison_break),
   ],
   "I've come to break you out of here.", "lord_prison_break_chains",[]],
@@ -18343,7 +18343,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 
   [anyone,"lord_tell_objective", [
-  (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_holding_center),
+  (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_holding_center),
   (party_get_attached_to, ":cur_center_no", "$g_talk_troop_party"),
   (try_begin),
     (lt, ":cur_center_no", 0),
@@ -18353,7 +18353,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   ],
    "We are resting at {s1}. {s14}{s15}",
    "lord_pretalk",
-   [(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+   [(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
     (str_store_party_name, s1, ":ai_object")]],
 	
 
@@ -18362,84 +18362,84 @@ Wes gesund.", "Cundwalh_historia5", []],
 
 	
 
-  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_holding_center)],
+  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_holding_center)],
    "We are travelling to {s1}. {s14}{s15}", "lord_pretalk",
-   [(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+   [(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
     (str_store_party_name, s1, ":ai_object"),
 	]],
 
   [anyone|auto_proceed,"lord_tell_objective", [
   (faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "$g_talk_troop"),
-  (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_visiting_village)],
+  (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_visiting_village)],
    "{!}Warning: This line should never display.", "lord_tell_objective_2",
    []],
 
 #fix for translation variable changes
   [anyone,"lord_tell_objective_2", [],
    "I am heading to the vicinity of {s1}. {s14}{s15}", "lord_pretalk",
-   [(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+   [(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
     (str_store_party_name, s1, ":ai_object")]],
 
   [anyone,"lord_tell_objective", [
-  (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_visiting_village)],
+  (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_visiting_village)],
    "We are recruiting new soldiers from {s1}. {s14}{s15}", "lord_pretalk",
-   [(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+   [(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
     (str_store_party_name, s1, ":ai_object")]],
 	
 	
 	
 	
-  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_patrolling_around_center)],
+  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_patrolling_around_center)],
    "We are scouting for the enemy around {s1}. {s14}{s15}", "lord_pretalk",
-   [(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+   [(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
     (str_store_party_name, s1, ":ai_object"),
 	]],
 
-#  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_raiding_around_center)],
-#   "We ride out to lay waste to village of {s1} to punish the foe for his misdeeds.", "lord_pretalk",[(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+#  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_raiding_around_center)],
+#   "We ride out to lay waste to village of {s1} to punish the foe for his misdeeds.", "lord_pretalk",[(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
 #                                                               (str_store_party_name, s1, ":ai_object")]],
 
   [anyone,"lord_tell_objective", [
-  (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_raiding_around_center),
-  (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+  (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_raiding_around_center),
+  (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
   (str_store_party_name, s1, ":ai_object")  
   ],
    "We are laying waste to the village of {s1}. {s14}{s15}", "lord_pretalk",[]],
 
-  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_retreating_to_center)],
-   "We are retreating to {s1}. {s14}{s15}", "lord_pretalk",[(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_retreating_to_center)],
+   "We are retreating to {s1}. {s14}{s15}", "lord_pretalk",[(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
                                                                (str_store_party_name, s1, ":ai_object")]],
 
-  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_besieging_center)],
-   "We are besieging {s1}. {s14}{s15}", "lord_pretalk",[(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_besieging_center)],
+   "We are besieging {s1}. {s14}{s15}", "lord_pretalk",[(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
                                                                (str_store_party_name, s1, ":ai_object")]],
 
-  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_engaging_army),
-                                  (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_engaging_army),
+                                  (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
                                   (party_is_active, ":ai_object"),
                                   ],
    "We are fighting against {s1}. {s14}{s15}", "lord_pretalk",
    [
-     (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+     (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
      (str_store_party_name, s1, ":ai_object")
      ]],
 
   [anyone,"lord_tell_objective", [
 
  #MOTO use substate to represent screening properly
-       # (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state,      spai_screening_army)],
-       (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state,      spai_accompanying_army),
-       (party_slot_eq, "$g_talk_troop_party", slot_party_ai_substate,      1)],
+       # (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state",      spai_screening_army)],
+       (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state",      spai_accompanying_army),
+       (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_substate",      1)],
        #MOTO end use substate to represent screening properly
    "I am screening {s1}'s advance. {s14}{s15}", "lord_pretalk",[
-    (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+    (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
 	(party_stack_get_troop_id, ":ai_object_commander", ":ai_object", 0),
     (str_store_troop_name, s1, ":ai_object_commander")
 	]],
 	 
 	 
-  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_accompanying_army)],
-   "We are accompanying {s1}. {s14}{s15}", "lord_pretalk",[(party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+  [anyone,"lord_tell_objective", [(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_accompanying_army)],
+   "We are accompanying {s1}. {s14}{s15}", "lord_pretalk",[(party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
                                                       (str_store_party_name, s1, ":ai_object")]],
 
 
@@ -18456,11 +18456,11 @@ Wes gesund.", "Cundwalh_historia5", []],
    [
      (assign, ":pass", 0),
      (try_begin),
-       (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_undefined),
+       (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_undefined),
        (assign, ":pass", 1),
      (else_try),
-       (party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_engaging_army),
-       (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+       (party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_engaging_army),
+       (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
        (neg|party_is_active, ":ai_object"),
        (assign, ":pass", 1),
      (try_end),
@@ -18469,8 +18469,8 @@ Wes gesund.", "Cundwalh_historia5", []],
    "We are reconsidering our next objective.", "lord_pretalk",[]],
 
   [anyone,"lord_tell_objective", [],
-   "I don't know: {reg1} {s1} (ERROR)", "lord_pretalk",[(party_get_slot, reg1, "$g_talk_troop_party", slot_party_ai_state),
-                                                (party_get_slot, ":ai_object", "$g_talk_troop_party", slot_party_ai_object),
+   "I don't know: {reg1} {s1} (ERROR)", "lord_pretalk",[(party_get_slot, reg1, "$g_talk_troop_party", "slot_party_ai_state"),
+                                                (party_get_slot, ":ai_object", "$g_talk_troop_party", "slot_party_ai_object"),
                                                                (str_store_party_name, s1, ":ai_object")]],
 
   [anyone|plyr,"lord_talk",
@@ -18478,12 +18478,12 @@ Wes gesund.", "Cundwalh_historia5", []],
      (eq, "$talk_context", tc_party_encounter),
 	 (eq, 1, 0),
      (eq, "$g_talk_troop_faction", "$players_kingdom"),
-     (party_slot_eq, "$g_encountered_party", slot_party_following_player, 0),
+     (party_slot_eq, "$g_encountered_party", "slot_party_following_player", 0),
      (neg|faction_slot_eq, "$g_talk_troop_faction", slot_faction_marshall, "trp_player"),
      ],
    "Will you follow me? I have a plan.", "lord_ask_follow",[]],
 
-  [anyone,"lord_ask_follow", [(party_get_slot, ":dont_follow_until_time", "$g_encountered_party", slot_party_dont_follow_player_until_time),
+  [anyone,"lord_ask_follow", [(party_get_slot, ":dont_follow_until_time", "$g_encountered_party", "slot_party_dont_follow_player_until_time"),
                               (store_current_hours, ":cur_time"),
                               (lt, ":cur_time", ":dont_follow_until_time")],
    "I enjoy your company, {playername}, but there are other things I must attend to. Perhaps in a few days I can ride with you again.", "close_window",
@@ -18507,7 +18507,7 @@ Wes gesund.", "Cundwalh_historia5", []],
 
   [anyone,"lord_ask_follow", [],
    "Lead the way, {playername}! Let us bring death and defeat to all our enemies.", "close_window",
-   [(party_set_slot, "$g_talk_troop_party", slot_party_commander_party, "p_main_party"),
+   [(party_set_slot, "$g_talk_troop_party", "slot_party_commander_party", "p_main_party"),
     #(call_script, "script_party_decide_next_ai_state_under_command", "$g_talk_troop_party"),    
     (call_script, "script_npc_decision_checklist_party_ai", "$g_talk_troop"), #This handles AI for both marshal and other parties		
 	(call_script, "script_party_set_ai_state", "$g_talk_troop_party", reg0, reg1),
@@ -18516,8 +18516,8 @@ Wes gesund.", "Cundwalh_historia5", []],
     (store_add, ":follow_period", 30, "$g_talk_troop_relation"),
     (val_div, ":follow_period", 2),
     (val_add, ":follow_until_time", ":follow_period"),
-    (party_set_slot, "$g_encountered_party", slot_party_follow_player_until_time, ":follow_until_time"),
-    (party_set_slot, "$g_encountered_party", slot_party_following_player, 1),
+    (party_set_slot, "$g_encountered_party", "slot_party_follow_player_until_time", ":follow_until_time"),
+    (party_set_slot, "$g_encountered_party", "slot_party_following_player", 1),
     (assign, "$g_leave_encounter",1)]],
 
   [anyone,"lord_talk_preoffer", [], "Yes?", "lord_talk_offer",[]],
@@ -18673,7 +18673,7 @@ Wes gesund.", "Cundwalh_historia5", []],
   
   
   (try_for_range, ":center", centers_begin, centers_end),
-	(party_slot_eq, ":center", slot_town_lord, "trp_player"),
+	(party_slot_eq, ":center", "slot_town_lord", "trp_player"),
     (assign, "$bypass_female_vassal_explanation", 1),
   (try_end),
   (eq, "$bypass_female_vassal_explanation", 0),
@@ -19487,10 +19487,10 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
 ##
 ##  [anyone,"lord_claim_center_2", [(assign, ":number_of_claimed_centers", 0),
 ##                                  (try_for_range, ":center_no", centers_begin, centers_end),
-##                                    (party_slot_eq, ":center_no", slot_party_type, spt_castle),
+##                                    (party_slot_eq, ":center_no", "slot_party_type", spt_castle),
 ##                                    (store_faction_of_party, ":faction_no", ":center_no"),
 ##                                    (eq, ":faction_no", "fac_player_supporters_faction"),
-##                                    (party_slot_eq, ":center_no", slot_town_claimed_by_player, 1),
+##                                    (party_slot_eq, ":center_no", "slot_town_claimed_by_player", 1),
 ##                                    (val_add, ":number_of_claimed_centers", 1),
 ##                                  (try_end),
 ##                                  (lt, ":number_of_claimed_centers", "$g_player_permitted_castles"),
@@ -19507,7 +19507,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
 ## I will never act in a way to cause you harm, and I will be at your side to fight your enemies should you need my sword.", "lord_claim_center_direct_3", []],
 ##  [anyone,"lord_claim_center_direct_3", [],  "You have given your oath of fealty {playername}. I accept your oath and give you the fief of {s4}.\
 ## Rule it wisely and protect it against our enemies.", "lord_claim_center_direct_4", [
-##     (party_set_slot, "$center_to_be_claimed", slot_town_claimed_by_player, 1),
+##     (party_set_slot, "$center_to_be_claimed", "slot_town_claimed_by_player", 1),
 ##     (call_script, "script_give_center_to_lord", "$center_to_be_claimed", "trp_player")]],
 ##  [anyone|plyr,"lord_claim_center_direct_4", [],  "I thank you lord.", "close_window", [(assign, "$g_leave_encounter",1)]],
 
@@ -19592,8 +19592,8 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
    "{!}Hmm. Which town or castle do you suggest we go to?", "lord_suggest_go_to_friendly_town2",[]],
   [anyone|plyr|repeat_for_parties,"lord_suggest_go_to_friendly_town2", [
                                                                        (store_repeat_object, ":center_no"),
-                                                                       (this_or_next|party_slot_eq,":center_no",slot_party_type, spt_castle),
-                                                                       (party_slot_eq,":center_no",slot_party_type, spt_town),
+                                                                       (this_or_next|party_slot_eq,":center_no","slot_party_type", spt_castle),
+                                                                       (party_slot_eq,":center_no","slot_party_type", spt_town),
                                                                        (neq, ":center_no", "$g_encountered_party"),
                                                                        (store_faction_of_party, ":town_faction", ":center_no"),
                                                                        (eq, ":town_faction", "$g_talk_troop_faction"),
@@ -19614,7 +19614,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
    "{!}Hmm. Which party do you suggest we attack?", "lord_suggest_attack_enemy_party2",[]],
   [anyone|plyr|repeat_for_parties,"lord_suggest_attack_enemy_party2", [
                                                                        (store_repeat_object, ":party_no"),
-                                                                       (party_slot_eq,":party_no",slot_party_type, spt_kingdom_hero_party),
+                                                                       (party_slot_eq,":party_no","slot_party_type", spt_kingdom_hero_party),
                                                                        (party_is_active, ":party_no"),
                                                                        (store_faction_of_party, ":party_faction", ":party_no"),
                                                                        (store_relation, ":party_relation", ":party_faction", "$g_talk_troop_faction"),
@@ -19643,8 +19643,8 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
    "{!}Hmm. Which one do you suggest we attack?", "lord_suggets_attack_enemy_castle2",[]],
   [anyone|plyr|repeat_for_parties,"lord_suggets_attack_enemy_castle2", [
                                                                        (store_repeat_object, ":center_no"),
-                                                                       (this_or_next|party_slot_eq,":center_no",slot_party_type, spt_castle),
-                                                                       (party_slot_eq,":center_no",slot_party_type, spt_town),
+                                                                       (this_or_next|party_slot_eq,":center_no","slot_party_type", spt_castle),
+                                                                       (party_slot_eq,":center_no","slot_party_type", spt_town),
                                                                        (store_faction_of_party, ":town_faction", ":center_no"),
                                                                        (store_relation, ":town_relation", ":town_faction", "$g_talk_troop_faction"),
                                                                        (le, ":town_relation", -10),
@@ -19666,7 +19666,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
    "{!}Hmm. Which village do you suggest we attack?", "lord_suggest_raid_village_2",[]],
   [anyone|plyr|repeat_for_parties,"lord_suggest_raid_village_2", [
                                                                        (store_repeat_object, ":center_no"),
-                                                                       (party_slot_eq,":center_no",slot_party_type, spt_village),
+                                                                       (party_slot_eq,":center_no","slot_party_type", spt_village),
                                                                        (store_faction_of_party, ":town_faction", ":center_no"),
                                                                        (store_relation, ":town_relation", ":town_faction", "$g_talk_troop_faction"),
                                                                        (le, ":town_relation", -10),
@@ -19686,7 +19686,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
   [anyone,"lord_suggest_follow_me", [],
    "{!}Aye, I'll follow you.", "lord_pretalk",
    [
-     (party_set_slot, "$g_talk_troop_party", slot_party_commander_party, "p_main_party"),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_commander_party", "p_main_party"),
      #(call_script, "script_party_decide_next_ai_state_under_command", "$g_talk_troop_party")
      (call_script, "script_npc_decision_checklist_party_ai", "$g_talk_troop"), 
 	 (call_script, "script_party_set_ai_state", "$g_talk_troop_party", reg0, reg1),
@@ -19697,7 +19697,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
    "{!}Who do you want me to follow?", "lord_suggest_follow_other_2",[]],
   [anyone|plyr|repeat_for_parties,"lord_suggest_follow_other_2", [
                                                                        (store_repeat_object, ":party_no"),
-                                                                       (party_slot_eq,":party_no",slot_party_type, spt_kingdom_hero_party),
+                                                                       (party_slot_eq,":party_no","slot_party_type", spt_kingdom_hero_party),
                                                                        (neq, ":party_no", "$g_talk_troop"),
                                                                        (store_faction_of_party, ":party_faction", ":party_no"),
                                                                        (eq, ":party_faction", "$g_talk_troop_faction"),
@@ -19709,7 +19709,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
   [anyone,"lord_suggest_follow_other_3", [(str_store_party_name, 1, "$town_suggested_to_go_to")],
    "{!}As you wish, I shall be accompanying {s1}.", "lord_pretalk",
    [
-     (party_set_slot, "$g_talk_troop_party", slot_party_commander_party, "$town_suggested_to_go_to"),
+     (party_set_slot, "$g_talk_troop_party", "slot_party_commander_party", "$town_suggested_to_go_to"),
      #(call_script, "script_party_decide_next_ai_state_under_command", "$g_talk_troop_party"),
      (call_script, "script_npc_decision_checklist_party_ai", "$g_talk_troop"), 
      (call_script, "script_party_set_ai_state", "$g_talk_troop_party", reg0, reg1),       
@@ -19924,10 +19924,10 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
    
    
   [anyone,"lord_tell_mission_sworn_vassal", [
-	(this_or_next|party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_besieging_center),
-		(party_slot_eq, "$g_talk_troop_party", slot_party_ai_state, spai_raiding_around_center),
+	(this_or_next|party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_besieging_center),
+		(party_slot_eq, "$g_talk_troop_party", "slot_party_ai_state", spai_raiding_around_center),
 		
-	(party_get_slot, ":cur_object", "$g_talk_troop_party", slot_party_ai_object),
+	(party_get_slot, ":cur_object", "$g_talk_troop_party", "slot_party_ai_object"),
 	(is_between, ":cur_object", centers_begin, centers_end),
 	(str_store_party_name, s4, ":cur_object"),
   ], 
@@ -19938,9 +19938,9 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
   [anyone,"lord_tell_mission_sworn_vassal", [
     (eq, "$g_talk_troop_faction", "$players_kingdom"),
   
-	(party_get_slot, ":cur_object", "$g_talk_troop_party", slot_party_ai_object),
+	(party_get_slot, ":cur_object", "$g_talk_troop_party", "slot_party_ai_object"),
 	(is_between, ":cur_object", centers_begin, centers_end),
-	(party_get_slot, ":last_spotted_enemy", ":cur_object", slot_center_last_spotted_enemy),
+	(party_get_slot, ":last_spotted_enemy", ":cur_object", "slot_center_last_spotted_enemy"),
 	(party_is_active, ":last_spotted_enemy"),
 	(store_faction_of_party, ":last_spotted_enemy_faction", ":last_spotted_enemy"),
 	(store_relation, ":relation",":last_spotted_enemy_faction", "$g_talk_troop_faction"),
@@ -19961,7 +19961,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
 	(try_for_range, ":center_no", centers_begin, centers_end),
 		(store_faction_of_party, ":center_faction", ":center_no"),
 		(eq, ":center_faction", "$g_talk_troop_faction"),
-		(party_get_slot, ":last_spotted_enemy", ":center_no", slot_center_last_spotted_enemy),
+		(party_get_slot, ":last_spotted_enemy", ":center_no", "slot_center_last_spotted_enemy"),
 		(party_is_active, ":last_spotted_enemy"),
 		(store_faction_of_party, ":last_spotted_enemy_faction", ":last_spotted_enemy"),
 		(is_between, ":last_spotted_enemy_faction", kingdoms_begin, kingdoms_end),
@@ -20011,7 +20011,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
      (str_store_troop_name_link, s9, "$g_talk_troop"),
      (str_store_troop_name_link, s13, ":quest_target_troop"),
      (str_store_party_name_link, s24, ":quest_target_center"),
-	 (party_get_slot, ":captor", ":quest_target_center", slot_town_lord),
+	 (party_get_slot, ":captor", ":quest_target_center", "slot_town_lord"),
      (str_store_troop_name, s14, ":captor"),
 	 (store_faction_of_party, ":target_faction", ":quest_target_center"),
      (str_store_faction_name, s15, ":target_faction"),
@@ -20405,7 +20405,7 @@ I'd like nothing better than to go out there and teach them a lesson,\
                                 (assign, reg9, 0),
                                 (try_begin),
                                   (quest_get_slot, ":quest_target_center", "$random_quest_no", slot_quest_target_center),
-                                  (party_slot_eq, ":quest_target_center", slot_party_type, spt_town),
+                                  (party_slot_eq, ":quest_target_center", "slot_party_type", spt_town),
                                   (assign, reg9, 1),
                                 (try_end),
                                 ], "You probably know that I am the lord of the {reg9?town:village} of {s3}.\
@@ -20435,7 +20435,7 @@ I'd like nothing better than to go out there and teach them a lesson,\
     (assign, reg9, 0),
     (quest_get_slot, ":quest_target_center", "$random_quest_no", slot_quest_target_center),
     (try_begin),
-      (party_slot_eq, ":quest_target_center", slot_party_type, spt_town),
+      (party_slot_eq, ":quest_target_center", "slot_party_type", spt_town),
       (assign, reg9, 1),
     (try_end),
    ]],
@@ -21096,7 +21096,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    [anyone|plyr,"lord_talk", 
      [
        (troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
-       (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+       (party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
      ], "You are free to go.", "prisoner_chat_let_go",
      [
        (call_script, "script_remove_troop_from_prison", "$g_talk_troop"),
@@ -21789,14 +21789,14 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
     (assign, ":feast_venue", -1),
     (try_begin),
 		(is_between, "$g_encountered_party", walled_centers_begin, walled_centers_end),
-		(this_or_next|party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player"),
-			(party_slot_eq, "$g_encountered_party", slot_town_lord, "$g_talk_troop"),
+		(this_or_next|party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player"),
+			(party_slot_eq, "$g_encountered_party", "slot_town_lord", "$g_talk_troop"),
 		(assign, ":feast_venue", "$g_encountered_party"),	
 	(else_try),
 		(try_for_range, ":center", walled_centers_begin, walled_centers_end),
 			(eq, ":feast_venue", -1),
-			(this_or_next|party_slot_eq, ":center", slot_town_lord, "trp_player"),
-				(party_slot_eq, ":center", slot_town_lord, "$g_talk_troop"),
+			(this_or_next|party_slot_eq, ":center", "slot_town_lord", "trp_player"),
+				(party_slot_eq, ":center", "slot_town_lord", "$g_talk_troop"),
 			(assign, ":feast_venue", ":center"),	
 		(try_end),
 	(else_try),
@@ -21896,9 +21896,9 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    [
     (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_lady),
 	(neq, "$g_talk_troop_faction", "$g_encountered_party_faction"),
-        ##diplomacy start+ slot_town_lord is 7... there's no way this can work
+        ##diplomacy start+ "slot_town_lord" is 7... there's no way this can work
 	#(party_get_slot, ":town_lord", "$g_encountered_party"),
-        (party_get_slot, ":town_lord", "$g_encountered_party", slot_town_lord),
+        (party_get_slot, ":town_lord", "$g_encountered_party", "slot_town_lord"),
         ##diplomacy end+ chief
 	(ge, ":town_lord", active_npcs_begin),
 	(str_store_troop_name, s12, ":town_lord"),
@@ -22750,10 +22750,10 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 	(assign, "$home_for_spouse", -1),
 	(try_for_range, ":player_center", centers_begin, centers_end),
 		(eq, "$home_for_spouse", -1),
-		(party_slot_eq, ":player_center", slot_town_lord, "trp_player"),
+		(party_slot_eq, ":player_center", "slot_town_lord", "trp_player"),
 		(is_between, ":player_center", walled_centers_begin, walled_centers_end),
 #		(this_or_next|is_between, ":player_center", walled_centers_begin, walled_centers_end),
-#			(party_slot_eq, ":player_center", slot_center_has_manor, 1),
+#			(party_slot_eq, ":player_center", "slot_center_has_manor", 1),
 		(assign, "$home_for_spouse", ":player_center"),	
 	(try_end),
 	(eq, "$home_for_spouse", -1),
@@ -23214,7 +23214,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
     (try_for_range, ":lord", active_npcs_begin, kingdom_ladies_end), #use this as the basis for "troop_describe_relation_with_troop"
 		(call_script, "script_troop_get_family_relation_to_troop", "$g_talk_troop", ":lord"), #The normal order is reversed, because the lady is describing herself
 		(this_or_next|gt, reg0, 5),
-			(party_slot_eq, "$g_encountered_party", slot_town_lord, ":lord"),
+			(party_slot_eq, "$g_encountered_party", "slot_town_lord", ":lord"),
 		(gt, reg0, 0),
 		
 		(str_store_troop_name, s14, ":lord"),
@@ -23226,7 +23226,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 		(assign, ":relation_found", 1),
 		
 		(try_begin),
-			(party_slot_eq, "$g_encountered_party", slot_town_lord, ":lord"),
+			(party_slot_eq, "$g_encountered_party", "slot_town_lord", ":lord"),
 			(assign, ":in_castle_of_relative", 1),
 		(try_end),
     (try_end),
@@ -24245,14 +24245,14 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 ##
 ##
 ##  [anyone,"seneschal_supplies_given", [],
-##   "TODO: Thank you.", "seneschal_pretalk",[(party_get_slot, ":town_siege_days", "$g_encountered_party", slot_town_siege_days),
+##   "TODO: Thank you.", "seneschal_pretalk",[(party_get_slot, ":town_siege_days", "$g_encountered_party", "slot_town_siege_days"),
 ##                                            (quest_get_slot, ":target_amount", "qst_deliver_supply_to_center_under_siege", slot_quest_target_amount),
 ##                                            (val_sub, ":town_siege_days", ":target_amount"),
 ##                                            (try_begin),
 ##                                              (lt, ":town_siege_days", 0),
 ##                                              (assign, ":town_siege_days", 0),
 ##                                            (try_end),
-##                                            (party_set_slot, "$g_encountered_party", slot_town_siege_days, ":town_siege_days"),
+##                                            (party_set_slot, "$g_encountered_party", "slot_town_siege_days", ":town_siege_days"),
 ##                                            (troop_remove_items, "trp_player", "itm_siege_supply", ":target_amount"),
 ##                                            (call_script, "script_finish_quest", "qst_deliver_supply_to_center_under_siege", 100)]],
 ##
@@ -24263,13 +24263,13 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 ##                                                                  (val_mul, ":percentage_completed", ":no_supplies"),
 ##                                                                  (val_div, ":percentage_completed", ":target_amount"),
 ##                                                                  (call_script, "script_finish_quest", "qst_deliver_supply_to_center_under_siege", ":percentage_completed"),
-##                                                                  (party_get_slot, ":town_siege_days", "$g_encountered_party", slot_town_siege_days),
+##                                                                  (party_get_slot, ":town_siege_days", "$g_encountered_party", "slot_town_siege_days"),
 ##                                                                  (val_sub, ":town_siege_days", ":no_supplies"),
 ##                                                                  (try_begin),
 ##                                                                    (lt, ":town_siege_days", 0),
 ##                                                                    (assign, ":town_siege_days", 0),
 ##                                                                  (try_end),
-##                                                                  (party_set_slot, "$g_encountered_party", slot_town_siege_days, ":town_siege_days"),
+##                                                                  (party_set_slot, "$g_encountered_party", "slot_town_siege_days", ":town_siege_days"),
 ##                                                                  (troop_remove_items, "trp_player", "itm_siege_supply", ":no_supplies"),
 ##                                                                  (call_script, "script_end_quest", "qst_deliver_supply_to_center_under_siege")]],
 ##
@@ -24359,7 +24359,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 # Prison Guards
   [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", slot_faction_prison_guard_troop, "$g_talk_troop"),
                     (this_or_next|eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
-                    (             party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player")
+                    (             party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player")
                     ],
    "Good day, my {lord/lady}. Will you be visiting the prison?", "prison_guard_players",[]],
   [anyone|plyr,"prison_guard_players", [],
@@ -24376,7 +24376,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    "I want to speak with a prisoner.", "prison_guard_visit_prison",[]],
 ##diplomacy chief begin
   [anyone|plyr,"prison_guard_talk", [
-    (party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player"),
+    (party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player"),
     ],
    "I want to release a prisoner.", "dplmc_prison_guard_talk_ask_prisoner",[]],
    
@@ -24480,7 +24480,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   [anyone,"prison_guard_visit_prison", 
   [
     (this_or_next|faction_slot_eq, "$g_encountered_party_faction", slot_faction_marshall, "trp_player"),
-    (this_or_next|party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player"),
+    (this_or_next|party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player"),
     (eq, "$g_encountered_party_faction", "$players_kingdom"),
   ],
    "Of course, {sir/madam}. Go in.", "close_window",
@@ -24560,7 +24560,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 # Castle Guards
   [anyone,"start", [(eq, "$talk_context", 0),(faction_slot_eq, "$g_encountered_party_faction", slot_faction_castle_guard_troop, "$g_talk_troop"),
                     (this_or_next|eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
-                    (             party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player")
+                    (             party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player")
                     ],
    "Your orders, {Lord/Lady}?", "castle_guard_players",[]],
   [anyone|plyr,"castle_guard_players", [],
@@ -24637,9 +24637,9 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 #Kingdom Parties Chief activado SoT
 #  [anyone,"start", [(this_or_next|eq,"$g_encountered_party_template","pt_swadian_foragers"),
 #                    (eq,"$g_encountered_party_template","pt_vaegir_foragers"),
-## [anyone,"start", [(this_or_next|party_slot_eq,"$g_encountered_party",slot_party_type, spt_forager),
-##                    (party_slot_eq,"$g_encountered_party",slot_party_type, spt_scouts),
-###                    (party_slot_eq,"$g_encountered_party",slot_party_type, spt_patrol),
+## [anyone,"start", [(this_or_next|party_slot_eq,"$g_encountered_party","slot_party_type", spt_forager),
+##                    (party_slot_eq,"$g_encountered_party","slot_party_type", spt_scouts),
+###                    (party_slot_eq,"$g_encountered_party","slot_party_type", spt_patrol),
 ##                    (str_store_faction_name,5,"$g_encountered_party_faction")],
 ##   "In the name of the {s5}.", "kingdom_party_encounter",[]],
 ##  
@@ -24705,12 +24705,12 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
   [anyone|plyr,"castle_gate_guard_talk", [(ge, "$g_encountered_party_relation", 0)], 
   "We need shelter for the night. Will you let us in?", "castle_gate_open",[]],
-  [anyone|plyr,"castle_gate_guard_talk", [(party_slot_ge, "$g_encountered_party", slot_town_lord, 1)], "I want to speak with the lord of the fort.", "request_meeting_castle_lord",[]],
+  [anyone|plyr,"castle_gate_guard_talk", [(party_slot_ge, "$g_encountered_party", "slot_town_lord", 1)], "I want to speak with the lord of the fort.", "request_meeting_castle_lord",[]],
   [anyone|plyr,"castle_gate_guard_talk", [], "I want to speak with someone in the castle.", "request_meeting_other",[]],
 
   [anyone|plyr,"castle_gate_guard_talk", [], "[Leave]", "close_window",[]],
 
-  [anyone,"request_meeting_castle_lord", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),
+  [anyone,"request_meeting_castle_lord", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),
                                          (call_script, "script_get_troop_attached_party", ":castle_lord"),
                                          (eq, "$g_encountered_party", reg0),
                                          (str_store_troop_name, s2, ":castle_lord"),
@@ -24745,7 +24745,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
   [anyone,"request_meeting_6", [(str_store_troop_name, s2, "$lord_requested_to_talk_to")], "{s2} says he will not see you. Begone now.", "close_window",[]],
 
-  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),
+  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),
                                          (call_script, "script_get_troop_attached_party", ":castle_lord"),
                                          (eq, "$g_encountered_party", reg0),
                                          (ge, "$g_encountered_party_relation", 0),
@@ -24758,7 +24758,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
  Come on in. I am opening the gates for you.", "close_window",[(assign,"$g_permitted_to_center",1)]],
 
 
-  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),
+  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),
                                          (call_script, "script_get_troop_attached_party", ":castle_lord"),
                                          (neq, "$g_encountered_party", reg0),
                                          (ge, "$g_encountered_party_relation", 0),
@@ -24771,14 +24771,14 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
  But I think he would approve of you taking shelter here.\
  Come on in. I am opening the gates for you.", "close_window",[(assign,"$g_permitted_to_center",1)]],
  
-  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),
+  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),
                                (call_script, "script_troop_get_player_relation", ":castle_lord"),
                                (assign, ":castle_lord_relation", reg0),
                                #(troop_get_slot, ":castle_lord_relation", ":castle_lord", slot_troop_player_relation),
                                (ge, ":castle_lord_relation", -2),
                                          ],  "Come on in. I am opening the gates for you.", "close_window",[(assign,"$g_permitted_to_center",1)]],
                                          
-  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),
+  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),
                                (call_script, "script_troop_get_player_relation", ":castle_lord"),
                                (assign, ":castle_lord_relation", reg0),
                                #(troop_get_slot, ":castle_lord_relation", ":castle_lord", slot_troop_player_relation),
@@ -24787,7 +24787,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
                                          ],  "Come on in. But make sure your men behave sensibly within the walls.\
  My lord {s2} does not want trouble here.", "close_window",[(assign,"$g_permitted_to_center",1)]],
  
-  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),
+  [anyone,"castle_gate_open", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),
                                (str_store_troop_name, s2, ":castle_lord"),
   ],  "My lord {s2} does not want you here. Begone now.", "close_window",[]],
 
@@ -24803,7 +24803,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   
 #  [anyone|plyr,"request_meeting_1", [(ge, "$g_encountered_party_faction", 0)], "Open the gates and let me in!", "request_meeting_open_gates",[]],
   
-#  [anyone|plyr,"request_meeting_1", [(party_slot_ge, "$g_encountered_party", slot_town_lord, 1)], "I want to speak with the lord of the castle.", "request_meeting_castle_lord",[]],
+#  [anyone|plyr,"request_meeting_1", [(party_slot_ge, "$g_encountered_party", "slot_town_lord", 1)], "I want to speak with the lord of the castle.", "request_meeting_castle_lord",[]],
 #  [anyone|plyr,"request_meeting_1", [], "I want to speak with someone in the castle.", "request_meeting_other",[]],
 
 ##### TODO: QUESTS COMMENT OUT BEGIN
@@ -24829,7 +24829,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 ##    (val_mul, ":reward", ":quest_target_amount"),
 ##    (val_div, ":reward", 2),
 ##    (call_script, "script_troop_add_gold", "trp_player", ":reward"),
-##    (party_get_slot, ":cur_lord", "$g_encountered_party", slot_town_lord),#Removing gold from the town owner's wealth
+##    (party_get_slot, ":cur_lord", "$g_encountered_party", "slot_town_lord"),#Removing gold from the town owner's wealth
 ##    (troop_get_slot, ":cur_wealth", ":cur_lord", slot_troop_wealth),
 ##    (val_sub, ":cur_wealth", ":reward"),
 ##    (troop_set_slot, ":cur_lord", slot_troop_wealth, ":cur_wealth"),
@@ -24861,7 +24861,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 ##    (val_mul, ":reward", ":num_prisoners"),
 ##    (val_div, ":reward", 2),
 ##    (call_script, "script_troop_add_gold", "trp_player", ":reward"),
-##    (party_get_slot, ":cur_lord", "$g_encountered_party", slot_town_lord),#Removing gold from the town owner's wealth
+##    (party_get_slot, ":cur_lord", "$g_encountered_party", "slot_town_lord"),#Removing gold from the town owner's wealth
 ##    (troop_get_slot, ":cur_wealth", ":cur_lord", slot_troop_wealth),
 ##    (val_sub, ":cur_wealth", ":reward"),
 ##    (troop_set_slot, ":cur_lord", slot_troop_wealth, ":cur_wealth"),
@@ -24887,13 +24887,13 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
 
   
-##  [anyone,"request_meeting_open_gates", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),
+##  [anyone,"request_meeting_open_gates", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),
 ##                                         (call_script, "script_get_troop_attached_party", ":castle_lord"),
 ##                                         (eq, "$g_encountered_party", reg0),
 ##                                         (str_store_troop_name, 1, ":castle_lord")
 ##                                         ],  "My lord {s1} is in the castle now. You must ask his permission to enter.", "request_meeting_pretalk",[]],
 ##
-##  [anyone,"request_meeting_open_gates", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),
+##  [anyone,"request_meeting_open_gates", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),
 ##                                         (call_script, "script_get_troop_attached_party", ":castle_lord"),
 ##                                         (neq, "$g_encountered_party", reg0),
 ##                                         (ge, "$g_encountered_party_relation", 0),
@@ -24904,7 +24904,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 ## But I think he would approve of you taking shelter here, {sir/madam}.\
 ## Come on in. I am opening the gates for you.", "close_window",[]],
 ##  
-##  [anyone,"request_meeting_open_gates", [(party_get_slot, ":castle_lord", "$g_encountered_party", slot_town_lord),(str_store_troop_name, 1, ":castle_lord")],
+##  [anyone,"request_meeting_open_gates", [(party_get_slot, ":castle_lord", "$g_encountered_party", "slot_town_lord"),(str_store_troop_name, 1, ":castle_lord")],
 ##   "My lord {s1} is not in the castle now. I can't allow you into the castle without his orders.", "request_meeting_pretalk",[]],
   
 
@@ -25701,9 +25701,9 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 #Runaway Peasants
 
 
-  [party_tpl|LazyFlag("pt_runaway_serfs"),"start", [(party_slot_eq, "$g_encountered_party", slot_town_center, 0)],#slot_town_center is used for first time meeting
+  [party_tpl|LazyFlag("pt_runaway_serfs"),"start", [(party_slot_eq, "$g_encountered_party", "slot_town_center", 0)],#"slot_town_center" is used for first time meeting
    "Good day {sir/madam}.", "runaway_serf_intro_1",
-   [(party_set_slot, "$g_encountered_party", slot_town_center, 1)]],
+   [(party_set_slot, "$g_encountered_party", "slot_town_center", 1)]],
   
   [anyone|plyr,"runaway_serf_intro_1", [(quest_get_slot, ":lord", "qst_bring_back_runaway_serfs", slot_quest_giver_troop),
                                         (str_store_troop_name, s4, ":lord")],
@@ -25734,23 +25734,23 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
     (assign, "$g_leave_encounter",1)]],
   
   [anyone,"runaway_serf_let_go", [], "God bless you, {sir/madam}. We will not forget your help.", "close_window",
-   [(party_set_slot, "$g_encountered_party", slot_town_castle, 1),
+   [(party_set_slot, "$g_encountered_party", "slot_town_castle", 1),
     (assign, "$g_leave_encounter",1)]],
   
 
-  [party_tpl|LazyFlag("pt_runaway_serfs"),"start", [(party_slot_eq, "$g_encountered_party", slot_town_castle, 1),
+  [party_tpl|LazyFlag("pt_runaway_serfs"),"start", [(party_slot_eq, "$g_encountered_party", "slot_town_castle", 1),
                                         ],
    "Good day {sir/madam}. Don't worry. If anyone asks, we haven't seen you.", "runaway_serf_reconsider",[]],
 
   [anyone|plyr,"runaway_serf_reconsider", [], "I have changed my mind. You must back to your village!", "runaway_serf_go_back",
-   [(party_set_slot, "$g_encountered_party", slot_town_castle, 0),
+   [(party_set_slot, "$g_encountered_party", "slot_town_castle", 0),
     (quest_get_slot, ":quest_object_center", "qst_bring_back_runaway_serfs", slot_quest_object_center),
     (call_script, "script_change_player_relation_with_center", ":quest_object_center", -2)]],
 
   [anyone|plyr,"runaway_serf_reconsider", [], "Good. Go quickly now before I change my mind.", "runaway_serf_let_go",[]],
   
   
-  [party_tpl|LazyFlag("pt_runaway_serfs"),"start", [(party_slot_eq, "$g_encountered_party", slot_town_castle, 0),
+  [party_tpl|LazyFlag("pt_runaway_serfs"),"start", [(party_slot_eq, "$g_encountered_party", "slot_town_castle", 0),
                                         (get_party_ai_object, ":cur_ai_object"),
                                         (quest_get_slot, ":home_center", "qst_bring_back_runaway_serfs", slot_quest_object_center),
                                         (neq, ":home_center", ":cur_ai_object")],
@@ -25807,7 +25807,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
 #Deserters
   [party_tpl|LazyFlag("pt_deserters"), "start", [(eq,"$talk_context",tc_party_encounter),
-                                     (party_get_slot,":protected_until_hours", "$g_encountered_party",slot_party_ignore_player_until),
+                                     (party_get_slot,":protected_until_hours", "$g_encountered_party","slot_party_ignore_player_until"),
                                      (store_current_hours,":cur_hours"),
                                      (store_sub, ":protection_remaining",":protected_until_hours",":cur_hours"),
                                      (gt, ":protection_remaining", 0)], "What do you want?\
@@ -25817,7 +25817,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
  I want to see that purse full next time I see you.", "close_window",[(assign, "$g_leave_encounter",1)]],
   [anyone|plyr,"deserter_paid_talk", [], "No. It's your turn to pay me this time.", "deserter_paid_talk_2b",[]],
   [anyone,"deserter_paid_talk_2b", [], "What nonsense are you talking about? You want trouble? You got it.", "close_window",[
-       (party_set_slot,"$g_encountered_party",slot_party_ignore_player_until,0),
+       (party_set_slot,"$g_encountered_party","slot_party_ignore_player_until",0),
        (party_ignore_player, "$g_encountered_party", 0),
     ]],
 
@@ -25923,7 +25923,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   [anyone,"deserter_barter_3a", [], "Heh. That wasn't difficult, now, was it? All right. Go now.", "close_window",[
     (store_current_hours,":protected_until"),
     (val_add, ":protected_until", 72),
-    (party_set_slot,"$g_encountered_party",slot_party_ignore_player_until,":protected_until"),
+    (party_set_slot,"$g_encountered_party","slot_party_ignore_player_until",":protected_until"),
     (party_ignore_player, "$g_encountered_party", 72),
       
     (assign, "$g_leave_encounter",1)
@@ -25937,7 +25937,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    "Good day dear {sir/madam}. How can I help you?", "tavernkeeper_talk",
    [
 #    (store_encountered_party,reg(2)),
-#    (party_get_slot,"$tavernkeeper_party",reg(2),slot_town_mercs),
+#    (party_get_slot,"$tavernkeeper_party",reg(2),"slot_town_mercs"),
     ]],
   
   [anyone,"tavernkeeper_pretalk", [], "Anything else?", "tavernkeeper_talk",[]],
@@ -26530,7 +26530,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 		(else_try),
 			(is_between, ":quest_giver", mayors_begin, mayors_end),
 			(try_for_range, ":town", towns_begin, towns_end),
-				(party_slot_eq, ":town", slot_town_elder, ":quest_giver"),
+				(party_slot_eq, ":town", "slot_town_elder", ":quest_giver"),
 				(assign, ":location", ":town"),
 			(try_end),
 		(try_end),
@@ -26716,7 +26716,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 		##diplomacy start+ give ransom to one who was imprisoning the companion chief
 	(try_begin),
 		(is_between, ":held_at_prison", centers_begin, centers_end),
-		(party_get_slot, ":town_lord", ":held_at_prison", slot_town_lord),
+		(party_get_slot, ":town_lord", ":held_at_prison", "slot_town_lord"),
 		(is_between, ":town_lord", heroes_begin, heroes_end),
 		(troop_add_gold, ":town_lord", "$companion_ransom_amount"),
 	(else_try),
@@ -26987,7 +26987,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
     [
       (assign, ":num_towns", 0),
       (try_for_range, ":town_no", towns_begin, towns_end),
-        (neg|party_slot_eq, ":town_no", slot_center_tavern_bookseller, 0),
+        (neg|party_slot_eq, ":town_no", "slot_center_tavern_bookseller", 0),
         (val_add, ":num_towns", 1),
       (try_end),
       (eq, ":num_towns", 0),
@@ -27010,7 +27010,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    [
       (assign, ":num_towns", 0),
       (try_for_range, ":town_no", towns_begin, towns_end),
-        (neg|party_slot_eq, ":town_no", slot_center_tavern_bookseller, 0),
+        (neg|party_slot_eq, ":town_no", "slot_center_tavern_bookseller", 0),
         (val_add, ":num_towns", 1),
         (try_begin),
           (eq, ":num_towns", 1),
@@ -27031,7 +27031,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
       (assign, ":num_towns", 0),
       (try_for_range, ":town_no", towns_begin, towns_end),
         (neq, ":town_no", "p_town_2"),
-        (neg|party_slot_eq, ":town_no", slot_center_ransom_broker, 0),
+        (neg|party_slot_eq, ":town_no", "slot_center_ransom_broker", 0),
         (val_add, ":num_towns", 1),
       (try_end),
       (eq, ":num_towns", 0),
@@ -27055,7 +27055,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
       (assign, ":num_towns", 0),
       (try_for_range, ":town_no", towns_begin, towns_end),
         (neq, ":town_no", "p_town_2"),
-        (neg|party_slot_eq, ":town_no", slot_center_ransom_broker, 0),
+        (neg|party_slot_eq, ":town_no", "slot_center_ransom_broker", 0),
         (val_add, ":num_towns", 1),
         (try_begin),
           (eq, ":num_towns", 1),
@@ -27154,14 +27154,14 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
    "Farewell.", "close_window", []],
 
   [anyone, "start", [(is_between, "$g_talk_troop", tavern_travelers_begin, tavern_travelers_end),
-                     (party_get_slot, ":info_faction", "$g_encountered_party", slot_center_traveler_info_faction),
+                     (party_get_slot, ":info_faction", "$g_encountered_party", "slot_center_traveler_info_faction"),
                      (str_store_faction_name, s17, ":info_faction"),
                      ],
    "Greetings. They say you're the kind of {man/woman} who'd be interested to hear that I travel frequently to {s17}. I'll tell you all I know for a mere 100 scillingas.", "tavern_traveler_answer", []],
 
   [anyone|plyr, "tavern_traveler_answer", [(store_troop_gold, ":cur_gold", "trp_player"),
                                             (ge, ":cur_gold", 100)],
-   "Here's 100 scillingas. Tell me what you know.", "tavern_traveler_continue", [(party_get_slot, ":info_faction", "$g_encountered_party", slot_center_traveler_info_faction),
+   "Here's 100 scillingas. Tell me what you know.", "tavern_traveler_continue", [(party_get_slot, ":info_faction", "$g_encountered_party", "slot_center_traveler_info_faction"),
                                            (call_script, "script_update_faction_traveler_notes", ":info_faction"),
                                            (change_screen_notes, 2, ":info_faction"),
                                            ]],
@@ -28108,15 +28108,15 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
                      (neg|check_quest_active, "qst_deal_with_bandits_at_lords_village"),
                      (assign, ":end_cond", villages_end),
                      (try_for_range, ":cur_village", villages_begin, ":end_cond"),
-                       (party_slot_eq, ":cur_village", slot_village_bound_center, "$g_encountered_party"),
-                       (party_slot_ge, ":cur_village", slot_village_infested_by_bandits, 1),
+                       (party_slot_eq, ":cur_village", "slot_village_bound_center", "$g_encountered_party"),
+                       (party_slot_ge, ":cur_village", "slot_village_infested_by_bandits", 1),
                        ##diplomacy chief begin
-                       (neg|party_slot_eq, ":cur_village", slot_village_infested_by_bandits, "trp_peasant_woman"),
+                       (neg|party_slot_eq, ":cur_village", "slot_village_infested_by_bandits", "trp_peasant_woman"),
                        ##diplomacy_end chief
                        (str_store_party_name, s1, ":cur_village"),
                        (quest_set_slot, "qst_eliminate_bandits_infesting_village", slot_quest_target_center, ":cur_village"),
                        (quest_set_slot, "qst_eliminate_bandits_infesting_village", slot_quest_current_state, 0),
-                       (party_get_slot, ":village_elder", ":cur_village", slot_town_elder),
+                       (party_get_slot, ":village_elder", ":cur_village", "slot_town_elder"),
                        (quest_set_slot, "qst_eliminate_bandits_infesting_village", slot_quest_giver_troop, ":village_elder"),
                        (quest_set_slot, "qst_eliminate_bandits_infesting_village", slot_quest_giver_center, ":cur_village"),
                        (assign, ":end_cond", 0),
@@ -28416,16 +28416,16 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
            (neg|troop_is_hero, "$g_talk_troop"),
                      (neg|is_between, "$g_talk_troop", "trp_briton_merchant", "trp_startup_merchants_end"),
            (assign, ":mercenary_amount", -1),
-                     #(party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
-                     #(party_get_slot, ":mercenary_amount", "$g_encountered_party", slot_center_mercenary_troop_amount),
+                     #(party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
+                     #(party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount"),
                      (try_begin),                                            #Extra mercenaries in tavern
-             (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+             (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
              (eq, "$g_talk_troop", ":mercenary_troop"),
-             (party_get_slot, ":mercenary_amount", "$g_encountered_party", slot_center_mercenary_troop_amount),
+             (party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount"),
                      (else_try),
-            (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type_2),
+            (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type_2"),
             (eq, "$g_talk_troop", ":mercenary_troop"),
-            (party_get_slot, ":mercenary_amount", "$g_encountered_party", slot_center_mercenary_troop_amount_2),
+            (party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount_2"),
                      (try_end),                                              #Tavern end
                      (gt, ":mercenary_amount", 0),
                      (store_sub, reg3, ":mercenary_amount", 1),
@@ -28448,8 +28448,8 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   #                    (eq, "$talk_context", tc_tavern_talk),
 		# 			 (neg|troop_is_hero, "$g_talk_troop"),
   #                    (neg|is_between, "$g_talk_troop", "trp_briton_merchant", "trp_startup_merchants_end"),
-  #                    (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
-  #                    (party_get_slot, ":mercenary_amount", "$g_encountered_party", slot_center_mercenary_troop_amount),
+  #                    (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
+  #                    (party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount"),
   #                    (gt, ":mercenary_amount", 0),
   #                    (store_sub, reg3, ":mercenary_amount", 1),
   #                    (store_sub, reg4, reg3, 1),
@@ -28472,7 +28472,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
   [anyone, "start", [
   (eq, "$talk_context", tc_tavern_talk),
-  (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+  (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
   (eq, "$g_talk_troop", ":mercenary_troop"),
   ],
    "Any orders, {sir/madam}?", "mercenary_after_recruited", []],
@@ -28485,32 +28485,32 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
   [anyone, "mercenary_after_recruited_2", [], "Yes {sir/madam}. We'll be ready when you tell us to leave.", "close_window", []],
 
   [anyone|plyr, "mercenary_tavern_talk", [(try_begin),     #More Mercaneries Tavern
-                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
                                           (eq, "$g_talk_troop", ":mercenary_troop"),                     
-                                          (party_get_slot, ":mercenary_amount", "$g_encountered_party", slot_center_mercenary_troop_amount),
+                                          (party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount"),
                                           (else_try),
-                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type_2),
-                                          (party_get_slot, ":mercenary_amount", "$g_encountered_party", slot_center_mercenary_troop_amount_2),
+                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type_2"),
+                                          (party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount_2"),
                                           (try_end),
                                           (eq, ":mercenary_amount", "$temp"),
-                                         #(party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+                                         #(party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
                                           (call_script, "script_game_get_join_cost", ":mercenary_troop"),
                                           (store_mul, reg5, "$temp", reg0), #Tavern End
                                           ],
    "All right. I will hire all of you. Here is {reg5} scillingas.", "mercenary_tavern_talk_hire", []],
 
    [anyone|plyr, "mercenary_tavern_talk", [(try_begin),     #More Mercaneries Tavern
-                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
                                           (eq, "$g_talk_troop", ":mercenary_troop"),                     
-                                          (party_get_slot, ":mercenary_amount", "$g_encountered_party", slot_center_mercenary_troop_amount),
+                                          (party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount"),
                                           (else_try),
-                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type_2),
-                                          (party_get_slot, ":mercenary_amount", "$g_encountered_party", slot_center_mercenary_troop_amount_2),
+                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type_2"),
+                                          (party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount_2"),
                                           (try_end),
                                           (lt, "$temp", ":mercenary_amount"),
                                           (gt, "$temp", 0),
                                           (assign, reg6, "$temp"),
-                                          #(party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+                                          #(party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
                                           (call_script, "script_game_get_join_cost", ":mercenary_troop"),
                                           (store_mul, reg5, "$temp", reg0),
                                           ],
@@ -28536,20 +28536,20 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
                                              "str_you_will_not_be_disappointed_sirmadam_you_will_not_find_better_warriors_in_all_calradia"),
                                           (try_end),],
    "{s17}", "close_window", [            
-#                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+#                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
                                           (try_begin),     #More Mercaneries Tavern
-                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type),
+                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
                                           (eq, "$g_talk_troop", ":mercenary_troop"),                     
-                                          (assign, ":slot", slot_center_mercenary_troop_amount),
+                                          (assign, ":slot", "slot_center_mercenary_troop_amount"),
                                           (else_try),
-                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", slot_center_mercenary_troop_type_2),
-                                          (assign, ":slot", slot_center_mercenary_troop_amount_2),
+                                          (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type_2"),
+                                          (assign, ":slot", "slot_center_mercenary_troop_amount_2"),
                                           (try_end),
                                           (call_script, "script_game_get_join_cost", ":mercenary_troop"),
                                           (store_mul, ":total_cost", "$temp", reg0),
                                           (troop_remove_gold, "trp_player", ":total_cost"),
                                           (party_add_members, "p_main_party", ":mercenary_troop", "$temp"),
-#                                          (party_set_slot, "$g_encountered_party", slot_center_mercenary_troop_amount, 0),
+#                                          (party_set_slot, "$g_encountered_party", "slot_center_mercenary_troop_amount", 0),
                       (party_set_slot, "$g_encountered_party", ":slot", 0),
                                           ]],
 
@@ -28844,7 +28844,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 ##                                                             (assign, ":cur_center_2", reg0),
 ##                                                             (this_or_next|eq, ":cur_center", ":center_no"),
 ##                                                             (eq, ":cur_center_2", ":center_no"),
-##                                                             (neg|party_slot_eq, ":center_no", slot_town_lord, ":troop_no"),#Neglect the ruler of the center
+##                                                             (neg|party_slot_eq, ":center_no", "slot_town_lord", ":troop_no"),#Neglect the ruler of the center
 ##                                                             (str_store_troop_name, s1, ":troop_no")],
 ##   "{s1}", "crook_request_meeting_3", [(store_repeat_object, "$selected_troop")]],
 ##
@@ -28866,7 +28866,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 ##   "TODO: I don't have that much money.", "crook_search_person_5_2",[]],
 ##
 ##  [anyone, "crook_search_person_5_1", [],
-##   "TODO: Ok.", "close_window",[(party_get_slot, ":town_alley", "$g_encountered_party", slot_town_alley),
+##   "TODO: Ok.", "close_window",[(party_get_slot, ":town_alley", "$g_encountered_party", "slot_town_alley"),
 ##                                (modify_visitors_at_site,":town_alley"),(reset_visitors),
 ##                                (set_visitor,0,"trp_player"),
 ##                                (set_visitor,17,"$selected_troop"),
@@ -30486,7 +30486,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone|plyr,"mayor_info_talk",[(eq, "$mayor_info_lord_told",0)], "Who rules this town?", "mayor_info_lord",[]],
  #MOTO chief rewrite to handle lord not assigned
   [anyone, "mayor_info_lord", [
-    (party_get_slot, ":town_lord","$current_town",slot_town_lord),
+    (party_get_slot, ":town_lord","$current_town","slot_town_lord"),
     (try_begin),
         (eq, ":town_lord", "trp_player"),
         (str_store_string, s10, "str_your_excellency"),
@@ -30508,7 +30508,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
   [anyone, "mayor_political_talk", [(faction_get_slot, ":faction_leader","$g_encountered_party_faction",slot_faction_leader),
 									(str_store_troop_name, s10, ":faction_leader"),
-									(party_get_slot, ":town_lord","$current_town",slot_town_lord),
+									(party_get_slot, ":town_lord","$current_town","slot_town_lord"),
 									(try_begin),
 										(eq, ":town_lord", "trp_player"),
 										(str_store_string, s10, "str_your_excellency"),
@@ -30676,10 +30676,10 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
    [
      (eq,"$random_merchant_quest_no","qst_deal_with_looters"),
      (try_begin),
-       (party_slot_eq,"$g_encountered_party",slot_party_type,spt_town),
+       (party_slot_eq,"$g_encountered_party","slot_party_type",spt_town),
        (str_store_string,s5,"@town"),
      (else_try),
-       (party_slot_eq,"$g_encountered_party",slot_party_type,spt_village),
+       (party_slot_eq,"$g_encountered_party","slot_party_type",spt_village),
        (str_store_string,s5,"@village"),
      (try_end),
      ],
@@ -30694,14 +30694,14 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
   [anyone,"merchant_quest_looters_brief", [
    (try_begin),
-	(party_slot_eq,"$g_encountered_party",slot_party_type,spt_town),
+	(party_slot_eq,"$g_encountered_party","slot_party_type",spt_town),
 	(str_store_string,s5,"@town"),
    (else_try),
-	(party_slot_eq,"$g_encountered_party",slot_party_type,spt_village),
+	(party_slot_eq,"$g_encountered_party","slot_party_type",spt_village),
 	(str_store_string,s5,"@village"),
    (try_end),
 
-#     (party_get_slot,":merchant","$current_town",slot_town_merchant),
+#     (party_get_slot,":merchant","$current_town","slot_town_merchant"),
 #     (troop_clear_inventory,":merchant"),
    (store_random_in_range,":random_num_looters",3,7),
    (quest_set_slot,"qst_deal_with_looters",slot_quest_target_amount,":random_num_looters"),
@@ -31665,7 +31665,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 #Goods Merchants
   
   [anyone ,"start", [(is_between,"$g_talk_troop",goods_merchants_begin,goods_merchants_end),
-                     (party_slot_eq, "$current_town", slot_town_lord, "trp_player")],
+                     (party_slot_eq, "$current_town", "slot_town_lord", "trp_player")],
    "{My lord/my lady}, you honour my humble shop with your presence.", "goods_merchant_talk",[]],
   [anyone ,"start", [(is_between,"$g_talk_troop",goods_merchants_begin,goods_merchants_end)],
    "Welcome {sir/madam}. What can I do for you?", "goods_merchant_talk",[]],
@@ -31781,8 +31781,8 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##
 ##  [anyone,"goods_merchant_town_info", [
 ##                                       (store_encountered_party,reg(9)),
-##                                       (party_get_slot,reg(5),reg(9),slot_town_export_good),
-##                                       (party_get_slot,reg(6),reg(9),slot_town_import_good),
+##                                       (party_get_slot,reg(5),reg(9),"slot_town_export_good"),
+##                                       (party_get_slot,reg(6),reg(9),"slot_town_import_good"),
 ##                                       (ge,reg(5),1),
 ##                                       (ge,reg(6),1),
 ##                                       (str_store_item_name,1,reg(5)),
@@ -31793,7 +31793,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##
 ##  [anyone,"goods_merchant_town_info", [
 ##                                       (store_encountered_party,reg(9)),
-##                                       (party_get_slot,reg(5),reg(9),slot_town_export_good),
+##                                       (party_get_slot,reg(5),reg(9),"slot_town_export_good"),
 ##                                       (ge,reg(5),1),
 ##                                       (str_store_item_name,1,reg(5)),
 ##                                       ],
@@ -31801,7 +31801,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##
 ##  [anyone,"goods_merchant_town_info", [
 ##                                       (store_encountered_party,reg(9)),
-##                                       (party_get_slot,reg(6),reg(9),slot_town_import_good),
+##                                       (party_get_slot,reg(6),reg(9),"slot_town_import_good"),
 ##                                       (ge,reg(6),1),
 ##                                       (str_store_item_name,2,reg(6)),
 ##                                       ],
@@ -32143,7 +32143,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
   [anyone,"arena_master_spar_start_it_up", [], "Here you go then. Good luck.", "close_window",
    [
-     (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+     (party_get_slot, ":arena_scene", "$current_town", "slot_town_arena"),
      (modify_visitors_at_site, ":arena_scene"),
      (reset_visitors),
      (try_for_range,":num",1,33),
@@ -32166,7 +32166,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
     (assign, "$last_training_fight_town", "$current_town"),
     (store_current_hours,"$training_fight_time"),
     (assign, "$g_mt_mode", abm_training),
-    (party_get_slot, ":scene","$current_town",slot_town_arena),
+    (party_get_slot, ":scene","$current_town","slot_town_arena"),
     (modify_visitors_at_site,":scene"),
     (reset_visitors),
     (store_random_in_range, "$g_player_entry_point", 32, 40),
@@ -32210,18 +32210,18 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 # "That was exciting wasn't it? Nothing like a good fight to get the blood flowing.", "arena_master_pre_talk",[(assign,"$waiting_for_arena_fight_result",0)]],
 
 ##  [anyone,"arena_master_melee", [], "The next arena fight will start in a while. Hurry up if you want to take part in it.", "arena_master_melee_talk",[
-##    (party_get_slot, ":arena_cur_tier","$current_town",slot_town_arena_melee_cur_tier),
+##    (party_get_slot, ":arena_cur_tier","$current_town","slot_town_arena_melee_cur_tier"),
 ##    (try_begin), #reg3 = num teams, reg4 = team size
 ##      (eq, ":arena_cur_tier", 0),
-##      (party_get_slot, "$_num_teams","$current_town",slot_town_arena_melee_1_num_teams),
-##      (party_get_slot, "$_team_size","$current_town",slot_town_arena_melee_1_team_size),
+##      (party_get_slot, "$_num_teams","$current_town","slot_town_arena_melee_1_num_teams"),
+##      (party_get_slot, "$_team_size","$current_town","slot_town_arena_melee_1_team_size"),
 ##    (else_try),
 ##      (eq, ":arena_cur_tier", 1),
-##      (party_get_slot, "$_num_teams","$current_town",slot_town_arena_melee_2_num_teams),
-##      (party_get_slot, "$_team_size","$current_town",slot_town_arena_melee_2_team_size),
+##      (party_get_slot, "$_num_teams","$current_town","slot_town_arena_melee_2_num_teams"),
+##      (party_get_slot, "$_team_size","$current_town","slot_town_arena_melee_2_team_size"),
 ##    (else_try),
-##      (party_get_slot, "$_num_teams","$current_town",slot_town_arena_melee_3_num_teams),
-##      (party_get_slot, "$_team_size","$current_town",slot_town_arena_melee_3_team_size),
+##      (party_get_slot, "$_num_teams","$current_town","slot_town_arena_melee_3_num_teams"),
+##      (party_get_slot, "$_team_size","$current_town","slot_town_arena_melee_3_team_size"),
 ##    (try_end),
 ##   ]],
 ##  [anyone|plyr,"arena_master_melee_talk", [], "I want to join the next fight", "arena_master_next_melee_join",[(assign,"$arena_join_or_watch",0)]],
@@ -32232,7 +32232,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##  [anyone,"arena_master_next_melee_join", [
 ##    (assign,"$arena_bet_amount"),
 ##    (assign,"$arena_bet_team",0),
-##    (party_get_slot, ":player_odds", "$g_encountered_party", slot_town_player_odds),
+##    (party_get_slot, ":player_odds", "$g_encountered_party", "slot_town_player_odds"),
 ##    (store_div, ":divider", ":player_odds", 20),
 ##    (store_mul, ":odds_simple", ":divider", 20),
 ##    (val_sub, ":odds_simple", ":player_odds"),
@@ -32285,7 +32285,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##   "arena_master_start_fight",[(assign,"$arena_bet_team",3)]],
 ##  [anyone,"arena_master_bet_placed", [], "That's good. Let me record that. If you win, you'll get {reg5} scillingas.", "arena_master_start_fight",
 ##   [(store_mul,"$arena_win_amount", "$arena_bet_amount", "$_num_teams"),
-##    (party_get_slot, ":player_odds", "$g_encountered_party", slot_town_player_odds),
+##    (party_get_slot, ":player_odds", "$g_encountered_party", "slot_town_player_odds"),
 ##    (val_sub, "$arena_win_amount", "$arena_bet_amount"),
 ##    (val_mul, "$arena_win_amount", ":player_odds"),
 ##    (val_div, "$arena_win_amount", 1000),
@@ -32298,7 +32298,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##  [anyone,"arena_master_start_fight", [], "Very well. The fight starts in a moment. Good luck.", "close_window",
 ##   [
 ##    (store_encountered_party,"$current_town"),
-##    (party_get_slot, ":arena_scene","$current_town",slot_town_arena),
+##    (party_get_slot, ":arena_scene","$current_town","slot_town_arena"),
 ##    (modify_visitors_at_site,":arena_scene"),
 ##    (reset_visitors),
 ##
@@ -32378,14 +32378,14 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##    (assign, "$arena_winner_team", -1),
 ##    (assign, "$waiting_for_arena_fight_result", 1),
 ##    (assign, "$g_mt_mode", abm_fight),
-##    (party_get_slot, reg(6),"$current_town",slot_town_arena_melee_cur_tier),
+##    (party_get_slot, reg(6),"$current_town","slot_town_arena_melee_cur_tier"),
 ##    (val_add,reg(6),1),
 ##    (val_mod,reg(6),3),
-##    (party_set_slot, "$current_town",slot_town_arena_melee_cur_tier, reg(6)),
+##    (party_set_slot, "$current_town","slot_town_arena_melee_cur_tier", reg(6)),
 ###    (set_jump_mission,"mt_arena_melee_fight"),
-##    (party_get_slot, ":arena_mission_template", "$current_town", slot_town_arena_template),
+##    (party_get_slot, ":arena_mission_template", "$current_town", "slot_town_arena_template"),
 ##    (set_jump_mission, ":arena_mission_template"),
-##    (party_get_slot, reg(7), "$current_town", slot_town_arena),
+##    (party_get_slot, reg(7), "$current_town", "slot_town_arena"),
 ##    (jump_to_scene, reg(7)),
 ##    ]],
 
@@ -32488,7 +32488,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 # Bandits
 ##  [party_tpl|LazyFlag("pt_mountain_bandits"),"start", [(this_or_next|eq, "$g_encountered_party_template", "pt_mountain_bandits"),(eq, "$g_encountered_party_template", "pt_forest_bandits"),
 ##                                           (eq,"$talk_context",tc_party_encounter),
-##                                           (party_get_slot,":protected_until_hours", "$g_encountered_party",slot_party_ignore_player_until),
+##                                           (party_get_slot,":protected_until_hours", "$g_encountered_party","slot_party_ignore_player_until"),
 ##                                           (store_current_hours,":cur_hours"),
 ##                                           (store_sub, ":protection_remaining",":protected_until_hours",":cur_hours"),
 ##                                           (ge, ":protection_remaining", 0)], "What do you want?\
@@ -32499,7 +32499,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ## I want to see that purse full next time I see you.", "close_window",[(assign, "$g_leave_encounter",1)]],
 ##  [anyone|plyr,"bandit_paid_talk", [], "No. It's your turn to pay me this time.", "bandit_paid_talk_2b",[]],
 ##  [anyone,"bandit_paid_talk_2b", [], "What nonsense are you talking about? You want trouble? You got it.", "close_window",[
-##       (party_set_slot,"$g_encountered_party",slot_party_ignore_player_until,0),
+##       (party_set_slot,"$g_encountered_party","slot_party_ignore_player_until",0),
 ##       (party_ignore_player, "$g_encountered_party", 0),
 ##    ]],
 
@@ -32598,7 +32598,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone,"bandit_barter_3a", [], "Heh, that wasn't so hard, was it? All right, we'll let you go now. Be off.", "close_window",[
     (store_current_hours,":protected_until"),
     (val_add, ":protected_until", 72),
-    (party_set_slot,"$g_encountered_party",slot_party_ignore_player_until,":protected_until"),
+    (party_set_slot,"$g_encountered_party","slot_party_ignore_player_until",":protected_until"),
     (party_ignore_player, "$g_encountered_party", 72),
     (assign, "$g_leave_encounter",1)
     ]],
@@ -32613,7 +32613,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
     (val_max, ":bandit_relation", -100),
     (set_relation, "fac_player_faction", "$g_encountered_party_faction", ":bandit_relation"),
     (party_ignore_player, "$g_encountered_party", 0),
-    (party_set_slot,"$g_encountered_party",slot_party_ignore_player_until, 0),
+    (party_set_slot,"$g_encountered_party","slot_party_ignore_player_until", 0),
     ]],
   
   [anyone,"bandit_attack", [
@@ -33081,7 +33081,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
       # free up the deceased's fief
       (try_for_range, ":fief", centers_begin, centers_end),
-        (party_get_slot, ":lord", ":fief", slot_town_lord),
+        (party_get_slot, ":lord", ":fief", "slot_town_lord"),
         (eq, ":lord", "$g_talk_troop"),
         (call_script, "script_give_center_to_faction", ":fief", ":fief_faction"),
       (try_end),
@@ -33101,7 +33101,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone,"prisoner_chat_2", [], "No, I swear I won't.", "close_window",[]],
 
 
-  [anyone,"start", [(party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+  [anyone,"start", [(party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
                     (this_or_next|is_between,"$g_talk_troop",weapon_merchants_begin,weapon_merchants_end),
                     (this_or_next|is_between,"$g_talk_troop",armor_merchants_begin, armor_merchants_end),
                     (             is_between,"$g_talk_troop",horse_merchants_begin, horse_merchants_end),
@@ -33128,7 +33128,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone|plyr,"town_merchant_talk", [], "Tell me. What are people talking about these days?", "merchant_gossip",[]],
 ##chief rumores
   [anyone|plyr,"town_merchant_talk", [(eq, "$rumors_inquired", 0)], "Hey. What rumors are people talking?", "merchant_gossip",[(assign, "$rumors_inquired", 1)]],
-  [anyone,"merchant_gossip", [(neg|party_slot_ge, "$current_town", slot_center_player_relation, -5)], "I don't know anything that would be of interest to you.", "town_merchant_talk",[]],
+  [anyone,"merchant_gossip", [(neg|party_slot_ge, "$current_town", "slot_center_player_relation", -5)], "I don't know anything that would be of interest to you.", "town_merchant_talk",[]],
   [anyone,"merchant_gossip", [(store_mul, ":rumor_id", "$current_town", 197),
                                      (val_add,  ":rumor_id", "$g_talk_agent"),
                                      (call_script, "script_get_rumor_to_s61", ":rumor_id"),
@@ -33147,7 +33147,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   
   [anyone,"start", [(eq, "$talk_context", 0),
                     (is_between,"$g_talk_troop",walkers_begin, walkers_end),
-                    (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+                    (party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
                      ], "My {lord/lady}?", "town_dweller_talk",[(assign, "$welfare_inquired",0),(assign, "$rumors_inquired",0),(assign, "$info_inquired",0)]],
 
   [anyone,"start", [(eq, "$talk_context", 0),
@@ -33304,25 +33304,25 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone,"town_dweller_begging", [(eq, reg2, 2),], "Here you are, now get out of my way!", "close_window",[(agent_set_slot,"$g_talk_agent",slot_agent_already_begg,1),(store_random_in_range, ":gold", 0, 30),(troop_add_gold,0,":gold"),(val_sub, "$player_right_to_rule", 30),]],
   [anyone,"town_dweller_begging", [(eq, reg2, 3),], "GET OUT OF MY WAY!", "close_window",[(agent_set_slot,"$g_talk_agent",slot_agent_already_begg,1),(val_sub, "$player_right_to_rule", 30),]],
 #entretenimiento bardo acaba chief
-  [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", slot_party_type, spt_village),
+  [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", "slot_party_type", spt_village),
                                      (eq, "$info_inquired", 0)], "What can you tell me about this village?", "town_dweller_ask_info",[(assign, "$info_inquired", 1)]],
-  [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", slot_party_type, spt_town),
+  [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", "slot_party_type", spt_town),
                                      (eq, "$info_inquired", 0)], "What can you tell me about this town?", "town_dweller_ask_info",[(assign, "$info_inquired", 1)]],
 
 									 
   [anyone,"town_dweller_ask_info", [(str_store_party_name, s5, "$current_town"),
                                     (assign, reg4, 0),
                                     (try_begin),
-                                      (party_slot_eq, "$current_town", slot_party_type, spt_town),
+                                      (party_slot_eq, "$current_town", "slot_party_type", spt_town),
                                       (assign, reg4, 1),
                                     (try_end),
                                     (str_store_string, s6, "@This is the {reg4?town:village} of {s5}, {sir/madam}."),
                                     (str_clear, s10),
                                     (try_begin),
-                                      (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+                                      (party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
                                       (str_store_string, s10, "@{s6} Our {reg4?town:village} and the surrounding lands belong to you of course, my {lord/lady}."),
                                     (else_try),
-                                      (party_get_slot, ":town_lord", "$current_town", slot_town_lord),
+                                      (party_get_slot, ":town_lord", "$current_town", "slot_town_lord"),
                                       (ge, ":town_lord", 0),
                                       (str_store_troop_name, s7, ":town_lord"),
                                       (store_troop_faction, ":town_lord_faction", ":town_lord"),
@@ -33333,7 +33333,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
                                     (assign, ":number_of_goods", 0),
                                     (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),
                                       #(store_sub, ":cur_good_slot", ":cur_good", trade_goods_begin),
-                                      #(val_add, ":cur_good_slot", slot_town_trade_good_productions_begin),
+                                      #(val_add, ":cur_good_slot", "slot_town_trade_good_productions_begin"),
                                       #(party_get_slot, ":production", "$g_encountered_party", ":cur_good_slot"),
 
                                       (call_script, "script_center_get_production", "$g_encountered_party", ":cur_good"),
@@ -33363,16 +33363,16 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
                                     ],
    "{s10} {s11}", "close_window",[]],
 
-  [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", slot_party_type, spt_village),
+  [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", "slot_party_type", spt_village),
                                      (eq, "$welfare_inquired", 0)], "How is life here?", "town_dweller_ask_situation",[(assign, "$welfare_inquired", 1)]],
-  [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", slot_party_type, spt_town),
+  [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", "slot_party_type", spt_town),
                                      (eq, "$welfare_inquired", 0)], "How is life here?", "town_dweller_ask_situation",[(assign, "$welfare_inquired", 1)]],
 
 
   [anyone,"town_dweller_ask_situation", [(call_script, "script_agent_get_town_walker_details", "$g_talk_agent"),
                                          (assign, ":walker_type", reg0),
                                          (eq, ":walker_type", walkert_needs_money),
-                                         (party_slot_eq, "$current_town", slot_party_type, spt_village)],
+                                         (party_slot_eq, "$current_town", "slot_party_type", spt_village)],
    "Disaster has struck my family, {sir/madam}. We have no land of our own, and the others have no money to pay for our labor, or even to help us. My poor children lie at home hungry and sick. I don't know what we'll do.", "town_dweller_poor",[]],
 
   [anyone,"town_dweller_ask_situation", [(call_script, "script_agent_get_town_walker_details", "$g_talk_agent"),
@@ -33407,10 +33407,10 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
                                          ],
    "Thank you for your kindness {sir/madam}. With your help our lives will be better. I will pray for you everyday.", "close_window",[]],
 
-  [anyone,"town_dweller_ask_situation", [(neg|party_slot_ge, "$current_town", slot_town_prosperity, 30)],
+  [anyone,"town_dweller_ask_situation", [(neg|party_slot_ge, "$current_town", "slot_town_prosperity", 30)],
    "Times are hard, {sir/madam}. We work hard all day and yet we go to sleep hungry most nights.", "town_dweller_talk",[]],
   
-  [anyone,"town_dweller_ask_situation", [(neg|party_slot_ge, "$current_town", slot_town_prosperity, 70)],
+  [anyone,"town_dweller_ask_situation", [(neg|party_slot_ge, "$current_town", "slot_town_prosperity", 70)],
    "Times are hard, {sir/madam}. But we must count our blessings.", "town_dweller_talk",[]],
   [anyone,"town_dweller_ask_situation", [],
    "We are not doing too badly {sir/madam}. We must count our blessings.", "town_dweller_talk",[]],
@@ -33427,15 +33427,15 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
    
   [anyone|plyr,"town_dweller_talk", [(eq, "$rumors_inquired", 0)], "What is the latest rumor around here?", "town_dweller_ask_rumor",[(assign, "$rumors_inquired", 1)]],
 #diploamcy chief
-#  [anyone,"town_dweller_ask_rumor", [(neg|party_slot_ge, "$current_town", slot_center_player_relation, -5)], "I don't know anything that would be of interest to you.", "town_dweller_talk",[]],
+#  [anyone,"town_dweller_ask_rumor", [(neg|party_slot_ge, "$current_town", "slot_center_player_relation", -5)], "I don't know anything that would be of interest to you.", "town_dweller_talk",[]],
   ##diplomacy start+ The player's persuasive abilities can coax a rumor from the less friendly.
   ##OLD:
-  #[anyone,"town_dweller_ask_rumor", [(neg|party_slot_ge, "$current_town", slot_center_player_relation, -5)], "I don't know anything that would be of interest to you.", "town_dweller_talk",[]],
+  #[anyone,"town_dweller_ask_rumor", [(neg|party_slot_ge, "$current_town", "slot_center_player_relation", -5)], "I don't know anything that would be of interest to you.", "town_dweller_talk",[]],
   ##NEW:
   [anyone,"town_dweller_ask_rumor", [
   (store_skill_level, reg0, "skl_persuasion", "trp_player"),
   (store_sub, reg0, -5, reg0),
-  (neg|party_slot_ge, "$current_town", slot_center_player_relation, reg0),
+  (neg|party_slot_ge, "$current_town", "slot_center_player_relation", reg0),
   ],
   "I don't know anything that would be of interest to you.", "town_dweller_talk",[]],
   ##diplomacy end+ chief
@@ -33451,7 +33451,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
   [anyone,"start", [(eq, "$talk_context", 0),
                     (is_between,"$g_talk_troop",regular_troops_begin, regular_troops_end),
-                    (party_slot_eq,"$current_town",slot_town_lord, "trp_player"),
+                    (party_slot_eq,"$current_town","slot_town_lord", "trp_player"),
                      ], "Yes {sir/madam}?", "player_castle_guard_talk",[]],
   [anyone|plyr,"player_castle_guard_talk", [], "How goes the watch, soldier?", "player_castle_guard_talk_2",[]],
 #anadido para sacerdotes chief en player lair
@@ -33504,7 +33504,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   [anyone,"start", [(eq, "$talk_context", tc_court_talk),
                     (is_between,"$g_talk_troop",regular_troops_begin, regular_troops_end),
                     (is_between,"$g_encountered_party_faction",kingdoms_begin, kingdoms_end),
-                    (party_slot_eq,"$current_town",slot_town_lord, "trp_player"),
+                    (party_slot_eq,"$current_town","slot_town_lord", "trp_player"),
                      ], "Your orders, {my lord/my lady}?", "hall_guard_talk",[]],
 
   [anyone,"start", [(eq, "$talk_context", tc_court_talk),
@@ -33735,7 +33735,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
   [anyone,"arena_master_spar_start_it_up2", [], "Here you go then. Good luck.", "close_window",
    [
-     (party_get_slot, ":arena_scene", "p_town_1", slot_town_arena),
+     (party_get_slot, ":arena_scene", "p_town_1", "slot_town_arena"),
      (modify_visitors_at_site, ":arena_scene"),
      (reset_visitors),
      (try_for_range,":num",1,33),
@@ -33766,7 +33766,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
    
   [anyone,"member_check_leadership", [
-                       #(assign, ":slot", slot_center_mercenary_troop_amount),
+                       #(assign, ":slot", "slot_center_mercenary_troop_amount"),
                         (call_script, "script_check_for_patrols"),
                         (assign, ":num_patrols", reg0),
                         (assign, ":max_amount", 4), #max chief 4 partidas de apoyo.
@@ -33776,7 +33776,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 ##                        (val_add, ":max_amount",":renown"),
 ##
 ##                        (try_for_range,":num",walled_centers_begin,walled_centers_end),
-##                          (party_slot_eq, ":num", slot_town_lord, "trp_player"),
+##                          (party_slot_eq, ":num", "slot_town_lord", "trp_player"),
 ##                          (val_add,":max_amount",1),
 ##                        (try_end),
 
@@ -33792,7 +33792,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
                                              # (party_add_members, reg0, ":soldier",1),
                                              (party_add_leader, "$g_encountered_party", "$g_talk_troop"),
                                              (party_set_ai_behavior, "$g_encountered_party", ai_bhvr_hold),
-                                             (party_set_slot, "$g_encountered_party", slot_party_type, spt_companion_raider),
+                                             (party_set_slot, "$g_encountered_party", "slot_party_type", spt_companion_raider),
                                              (party_set_faction, "$g_encountered_party", "fac_player_supporters_faction"),
                                              #we use our small party string
                                              (try_begin),
@@ -33895,7 +33895,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
      (is_between, ":party_no", towns_begin, towns_end),
 
      (this_or_next|eq, "$temp", spai_patrolling_around_center),          #patrol around any center
-     (neg|party_slot_eq, ":party_no", slot_party_type, spt_village),  #for holding
+     (neg|party_slot_eq, ":party_no", "slot_party_type", spt_village),  #for holding
 
      (str_store_party_name, s1, ":party_no")],
    "{s1}", "mate_give_order_details_done",
@@ -34011,7 +34011,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
        (call_script, "script_lord_comment_to_s43", "$g_talk_troop", "str_lord_challenged_default"),
 	 
 ##Floris - Bugfix for DPLMC patrols 
-       (party_slot_eq, "$g_encountered_party", slot_party_type, spt_patrol),
+       (party_slot_eq, "$g_encountered_party", "slot_party_type", spt_patrol),
 	   (store_relation,":rel", "$g_encountered_party_faction","fac_player_supporters_faction"),
 		(try_begin),
 		  (gt, ":rel", 0),
@@ -34171,12 +34171,12 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   (assign, ":poorer_centers", 0),
   (assign, ":richer_centers", 0),
   
-  (party_get_slot, ":wealthiest_center_wealth", "$g_encountered_party", slot_town_prosperity),
-  (party_get_slot, ":mayor_center_wealth", "$g_encountered_party", slot_town_prosperity),
+  (party_get_slot, ":wealthiest_center_wealth", "$g_encountered_party", "slot_town_prosperity"),
+  (party_get_slot, ":mayor_center_wealth", "$g_encountered_party", "slot_town_prosperity"),
   
   (try_for_range, ":other_center", towns_begin, towns_end),
 	(neq, ":other_center", "$g_encountered_party"),
-	(party_get_slot, ":other_center_wealth", ":other_center", slot_town_prosperity),
+	(party_get_slot, ":other_center_wealth", ":other_center", "slot_town_prosperity"),
 	(try_begin),
 		(gt, ":other_center_wealth", ":wealthiest_center_wealth"),
 		(val_add, ":richer_centers", 1),
@@ -34264,7 +34264,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   (assign, ":richer_centers", 0),
   
   (try_for_range, ":town", towns_begin, towns_end),
-	(party_set_slot, ":town", slot_party_temp_slot_1, 0),
+	(party_set_slot, ":town", "slot_party_temp_slot_1", 0),
   (try_end),
   
   (try_for_range, ":village", villages_begin, villages_end),
@@ -34273,14 +34273,14 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 		(call_script, "script_center_get_production", ":village", ":item_kind_id"),
 		(val_add, ":village_good_production", reg0),
 	(try_end),
-	(party_get_slot, ":market_town", ":village", slot_village_market_town),
-	(party_get_slot, ":market_center_production", ":market_town", slot_party_temp_slot_1),
+	(party_get_slot, ":market_town", ":village", "slot_village_market_town"),
+	(party_get_slot, ":market_center_production", ":market_town", "slot_party_temp_slot_1"),
 	(val_add, ":market_center_production", ":village_good_production"),
-	(party_set_slot, ":market_town", slot_party_temp_slot_1, ":market_center_production"),
+	(party_set_slot, ":market_town", "slot_party_temp_slot_1", ":market_center_production"),
   (try_end),
 
 
-  (party_get_slot, ":mayor_town_production", "$g_encountered_party", slot_party_temp_slot_1),
+  (party_get_slot, ":mayor_town_production", "$g_encountered_party", "slot_party_temp_slot_1"),
   (assign, ":wealthiest_town_production", ":mayor_town_production"),
   
   (try_begin),
@@ -34293,7 +34293,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   
   (try_for_range, ":other_center", towns_begin, towns_end),
 	(neq, ":other_center", "$g_encountered_party"),
-	(party_get_slot, ":other_town_production", ":other_center", slot_party_temp_slot_1),
+	(party_get_slot, ":other_town_production", ":other_center", "slot_party_temp_slot_1"),
 
 	(try_begin),
 		(ge, "$cheat_mode", 1),
@@ -34331,7 +34331,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   (assign, ":richer_centers", 0),
   
   (try_for_range, ":town", towns_begin, towns_end),
-	(party_set_slot, ":town", slot_party_temp_slot_1, 0),
+	(party_set_slot, ":town", "slot_party_temp_slot_1", 0),
   (try_end),
   
   (try_for_range, ":log_entry_iterator", 0, "$num_log_entries"),
@@ -34347,12 +34347,12 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 	(is_between, ":origin", towns_begin, towns_end), #exclude village trading here
 	
     (troop_get_slot, ":destination",    "trp_log_array_troop_object",          ":log_entry_no"),
-	(party_get_slot, ":num_visits", ":destination", slot_party_temp_slot_1),
+	(party_get_slot, ":num_visits", ":destination", "slot_party_temp_slot_1"),
 	(val_add, ":num_visits", 1),
-	(party_set_slot, ":destination", slot_party_temp_slot_1, ":num_visits"),
+	(party_set_slot, ":destination", "slot_party_temp_slot_1", ":num_visits"),
   (try_end),
 
-  (party_get_slot, ":mayor_town_production", "$g_encountered_party", slot_party_temp_slot_1),
+  (party_get_slot, ":mayor_town_production", "$g_encountered_party", "slot_party_temp_slot_1"),
   (assign, ":wealthiest_town_production", ":mayor_town_production"),
   
   (try_begin),
@@ -34365,7 +34365,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   
   (try_for_range, ":other_center", towns_begin, towns_end),
 	(neq, ":other_center", "$g_encountered_party"),
-	(party_get_slot, ":other_town_production", ":other_center", slot_party_temp_slot_1),
+	(party_get_slot, ":other_town_production", ":other_center", "slot_party_temp_slot_1"),
 
 	(try_begin),
 		(ge, "$cheat_mode", 1),
@@ -34403,7 +34403,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   (assign, ":richer_centers", 0),
   
   (try_for_range, ":town", towns_begin, towns_end),
-	(party_set_slot, ":town", slot_party_temp_slot_1, 0),
+	(party_set_slot, ":town", "slot_party_temp_slot_1", 0),
   (try_end),
   
   (try_for_range, ":log_entry_iterator", 0, "$num_log_entries"),
@@ -34420,20 +34420,20 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 
 	(try_begin),
 		(is_between, ":destination", towns_begin, towns_end),
-		(party_get_slot, ":num_attacks", ":destination", slot_party_temp_slot_1),
+		(party_get_slot, ":num_attacks", ":destination", "slot_party_temp_slot_1"),
 		(val_add, ":num_attacks", 1),
-		(party_set_slot, ":destination", slot_party_temp_slot_1, ":num_attacks"),
+		(party_set_slot, ":destination", "slot_party_temp_slot_1", ":num_attacks"),
 	(try_end),
 	
 	(try_begin),
 		(is_between, ":origin", towns_begin, towns_end),
-		(party_get_slot, ":num_attacks", ":origin", slot_party_temp_slot_1),
+		(party_get_slot, ":num_attacks", ":origin", "slot_party_temp_slot_1"),
 		(val_add, ":num_attacks", 1),
-		(party_set_slot, ":origin", slot_party_temp_slot_1, ":num_attacks"),
+		(party_set_slot, ":origin", "slot_party_temp_slot_1", ":num_attacks"),
 	(try_end),
   (try_end),
 
-  (party_get_slot, ":mayor_town_production", "$g_encountered_party", slot_party_temp_slot_1),
+  (party_get_slot, ":mayor_town_production", "$g_encountered_party", "slot_party_temp_slot_1"),
   (assign, ":wealthiest_town_production", ":mayor_town_production"),
   
   (try_begin),
@@ -34446,7 +34446,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
   
   (try_for_range, ":other_center", towns_begin, towns_end),
 	(neq, ":other_center", "$g_encountered_party"),
-	(party_get_slot, ":other_town_production", ":other_center", slot_party_temp_slot_1),
+	(party_get_slot, ":other_town_production", ":other_center", "slot_party_temp_slot_1"),
 
 	(try_begin),
 		(ge, "$cheat_mode", 1),
@@ -34483,7 +34483,7 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
 #  [anyone,"free", [], "NO MATCHING SENTENCE!", "close_window",[]],
 # Reinforcements chief########
 ##  [party_tpl|LazyFlag("pt_reinforcements"),"start", [(eq,"$talk_context",tc_party_encounter),
-##                                         (party_get_slot, ":ai_object", "$g_encountered_party", slot_party_ai_object),
+##                                         (party_get_slot, ":ai_object", "$g_encountered_party", "slot_party_ai_object"),
 ##                                         (str_store_party_name,s21,":ai_object"),
 ##                                         (str_store_party_name, s20, "$g_encountered_party")],
 ##   "Who are you? We are {20}.\ We are headed to {s21}", "reinforcements_intro",[]],

@@ -213,7 +213,7 @@ simple_triggers = [
         #fix for hiding test_scene in older savegames
         (disable_party, "p_test_scene"),
         #fix for correcting town_1 siege type
-        (party_set_slot, "p_town_1", slot_center_siege_with_belfry, 0),
+        (party_set_slot, "p_town_1", "slot_center_siege_with_belfry", 0),
         #fix for hiding player_faction notes
         (faction_set_note_available, "fac_player_faction", 0),
         #fix for hiding faction 0 notes
@@ -846,8 +846,8 @@ simple_triggers = [
   
   (try_begin),
         (this_or_next|eq, "$g_player_is_captive", 1),
-        (this_or_next|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
-        (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+        (this_or_next|party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
+        (party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
 
         # (gt,"$g_work_for_village_ongoing",1),        
                (gt,"$g_work_for_village_ongoing",0),    #MOTO chief avoid      successful conclusion
@@ -923,7 +923,7 @@ simple_triggers = [
 			(call_script,"script_add_wagon_inventory"),
 		(try_end),
 		(assign, "$g_player_icon_state", pis_camping),
-		(party_set_slot,"p_main_party",slot_party_entrenched,0),
+		(party_set_slot,"p_main_party","slot_party_entrenched",0),
 		(assign,"$g_camp_mode", 1),
 		(rest_for_hours,":time_after_battle",0,1),
 		(assign,"$bury_dead",0),
@@ -935,7 +935,7 @@ simple_triggers = [
 			(assign, ":funeral_pyre", reg0),
 			(store_current_hours,":cur_hour"),
 			(val_add,":cur_hour",8),
-			(party_set_slot, ":funeral_pyre", slot_village_smoke_added, ":cur_hour"),
+			(party_set_slot, ":funeral_pyre", "slot_village_smoke_added", ":cur_hour"),
 			(party_add_particle_system, ":funeral_pyre", "psys_map_village_fire"),
 			(party_add_particle_system, ":funeral_pyre", "psys_map_village_fire_smoke"),
 		(try_end),
@@ -945,7 +945,7 @@ simple_triggers = [
   (3, [	(store_random_party_of_template,":party_no","pt_funeral_pyre"),
 		(gt,":party_no",0),
 		(store_current_hours,":cur_hour"),
-		(party_get_slot,":end_hour",":party_no",slot_village_smoke_added),
+		(party_get_slot,":end_hour",":party_no","slot_village_smoke_added"),
 		(gt,":cur_hour",":end_hour"),
 		(party_clear_particle_systems, ":party_no"),
 		(party_clear,":party_no"),
@@ -955,7 +955,7 @@ simple_triggers = [
 	
 #TEMPERED       chief  #########################  CHECK FOR ENTRENCHMENT FINISHED  ##############################
 
-  (0, [	(party_get_slot,":entrenched","p_main_party",slot_party_entrenched),
+  (0, [	(party_get_slot,":entrenched","p_main_party","slot_party_entrenched"),
 		(eq,"$g_camp_mode", 1),
 		(eq,":entrenched",-1),
 		(store_current_hours,":cur_hour"),
@@ -964,20 +964,20 @@ simple_triggers = [
 			(set_spawn_radius,0),
 			(spawn_around_party,"p_main_party","pt_entrench"),
 			(assign,"$current_camp_party",reg0),
-			(party_set_slot,"$current_camp_party",slot_village_state,1),
-			(party_set_slot,"$current_camp_party",slot_party_type,spt_entrenchment),
-			(party_set_slot,"p_main_party",slot_party_entrenched,1),
+			(party_set_slot,"$current_camp_party","slot_village_state",1),
+			(party_set_slot,"$current_camp_party","slot_party_type",spt_entrenchment),
+			(party_set_slot,"p_main_party","slot_party_entrenched",1),
 			(display_message,"@_Camp defenses have been completed."),
 			(assign,"$entrench_time",0),
 			(jump_to_menu,"mnu_camp"),
 		(try_end),
        ]),
 #TEMPERED                     ########################      CHECK FOR SIEGE CAMP COMPLETE  OR OUT OF RANGE   ##################################
-	(0,	[	(party_slot_eq,"p_main_party",slot_party_siege_camp,-1),
+	(0,	[	(party_slot_eq,"p_main_party","slot_party_siege_camp",-1),
 			(store_current_hours,":cur_hour"),
 			(try_begin),
 				(lt, "$g_player_besiege_town", 1),
-				(party_set_slot,"p_main_party",slot_party_siege_camp,0),
+				(party_set_slot,"p_main_party","slot_party_siege_camp",0),
 				(assign,"$entrench_time",0),
 			(else_try),				
 				(gt, "$g_player_besiege_town", 0),
@@ -985,26 +985,26 @@ simple_triggers = [
 				(try_begin),
 					(le,":distance",3),
 					(ge,":cur_hour","$entrench_time"),
-					(party_set_slot,"p_main_party",slot_party_siege_camp,1),
+					(party_set_slot,"p_main_party","slot_party_siege_camp",1),
 					(assign,"$entrench_time",0),
 				(else_try),
 					(gt,":distance",3),
-					(party_set_slot,"p_main_party",slot_party_siege_camp,0),
+					(party_set_slot,"p_main_party","slot_party_siege_camp",0),
 					(display_message,"@ Your siege camp was destroyed while you were away!"),
 					(assign,"$entrench_time",0),
 				(try_end),
 			(try_end),
 		]),
 #TEMPERED CHECK FOR SIEGE CAMP OUT OF RANGE OR ABANDONED		
-	(1,	[	(party_slot_eq,"p_main_party",slot_party_siege_camp,1),
+	(1,	[	(party_slot_eq,"p_main_party","slot_party_siege_camp",1),
 			(try_begin),
 				(lt, "$g_player_besiege_town", 1),
-				(party_set_slot,"p_main_party",slot_party_siege_camp,0),
+				(party_set_slot,"p_main_party","slot_party_siege_camp",0),
 			(else_try),				
 				(gt, "$g_player_besiege_town", 0),
 				(store_distance_to_party_from_party, ":distance", "$g_player_besiege_town", "p_main_party"),
 				(gt,":distance",3),
-				(party_set_slot,"p_main_party",slot_party_siege_camp,0),
+				(party_set_slot,"p_main_party","slot_party_siege_camp",0),
 				(display_message,"@ Your siege camp was destroyed while you were away!"),
 			(try_end),
 		]),
@@ -1014,28 +1014,28 @@ simple_triggers = [
   (0, [ (eq,"$g_player_icon_state",pis_normal),
 		(eq, "$g_camp_mode", 0),#not camping
 		(try_begin),
-			(party_slot_eq,"p_main_party",slot_party_entrenched,1), #entrenched			
-			(party_set_slot,"p_main_party",slot_party_entrenched,0), #not entrenched
+			(party_slot_eq,"p_main_party","slot_party_entrenched",1), #entrenched			
+			(party_set_slot,"p_main_party","slot_party_entrenched",0), #not entrenched
 			#try_begin),#gdw trying to solve compilation error 1 try_end missing"
-				#(party_slot_eq,"$current_camp_party",slot_village_state,1),#Tempered check to see if player just left entrenchment
-				(party_set_slot,"$current_camp_party",slot_village_state,2),
+				#(party_slot_eq,"$current_camp_party","slot_village_state",1),#Tempered check to see if player just left entrenchment
+				(party_set_slot,"$current_camp_party","slot_village_state",2),
 				(store_current_hours,":cur_hour"),
 				(val_add,":cur_hour",72),
-				(party_set_slot,"$current_camp_party",slot_village_smoke_added,":cur_hour"),
+				(party_set_slot,"$current_camp_party","slot_village_smoke_added",":cur_hour"),
 				(party_add_particle_system, "$current_camp_party", "psys_map_village_fire_smoke"),
 			#try_end),
 		(else_try),
-			(party_slot_eq,"p_main_party",slot_party_entrenched,-1), #working on entrenchment
-			(party_set_slot,"p_main_party",slot_party_entrenched,0), #not entrenched
+			(party_slot_eq,"p_main_party","slot_party_entrenched",-1), #working on entrenchment
+			(party_set_slot,"p_main_party","slot_party_entrenched",0), #not entrenched
 		(try_end),	
 		(assign,"$current_camp_party",-1),
        ]),
 #TEMPERED                    ##########################         Deteriorate abandoned entrenchments    ##########################
 
   (3, [ (try_for_parties,":current_party"),
-			(party_slot_eq,":current_party",slot_party_type,spt_entrenchment),
-			(party_slot_eq,":current_party",slot_village_state,2),
-			(party_get_slot,":end_hour",":current_party",slot_village_smoke_added),
+			(party_slot_eq,":current_party","slot_party_type",spt_entrenchment),
+			(party_slot_eq,":current_party","slot_village_state",2),
+			(party_get_slot,":end_hour",":current_party","slot_village_smoke_added"),
 			(store_current_hours,":cur_hour"),
 			(gt,":cur_hour",":end_hour"),
 			(party_clear_particle_systems, ":current_party"),
@@ -1053,9 +1053,9 @@ simple_triggers = [
 			(gt,"$attack_party_question",0),
 			(assign,":party_no","$attack_party_question"),
 			(store_troop_gold,":cur_wealth","trp_player"),
-			(party_get_slot,":target_party",":party_no",slot_message_target),
-			(party_get_slot,":target_party_2",":party_no",slot_message_target_2),
-			(party_get_slot, ":party_type",":target_party_2",slot_party_type),
+			(party_get_slot,":target_party",":party_no","slot_message_target"),
+			(party_get_slot,":target_party_2",":party_no","slot_message_target_2"),
+			(party_get_slot, ":party_type",":target_party_2","slot_party_type"),
 			(party_stack_get_troop_id, ":leader",":target_party",0),
 			(assign,":ai_state",spai_engaging_army),
 			(assign,"$attack_party_answer",5),
@@ -1076,13 +1076,13 @@ simple_triggers = [
 				(ge,":cur_wealth","$bribe_amount"),
 				(troop_remove_gold,"trp_player","$bribe_amount"),
 				(troop_add_gold,":leader","$bribe_amount"),
-				(party_set_slot,  ":target_party", slot_party_commander_party,-1),
+				(party_set_slot,  ":target_party", "slot_party_commander_party",-1),
 				(call_script,"script_party_set_ai_state",":target_party",":ai_state",":target_party_2"),
-				(party_set_slot, ":target_party", slot_party_follow_me, 0),
+				(party_set_slot, ":target_party", "slot_party_follow_me", 0),
 				(party_set_flags, ":target_party", pf_default_behavior, 1),
 				(store_current_hours,":cur_hour"),
 				(store_add,":end_time",":cur_hour",24),				
-				(party_set_slot,":target_party",slot_party_hired,":end_time"),				
+				(party_set_slot,":target_party","slot_party_hired",":end_time"),				
 			(else_try),
 				(lt,":cur_wealth","$bribe_amount"),			
 				(party_stack_get_troop_id, ":leader", ":target_party", 0),
@@ -1132,8 +1132,8 @@ simple_triggers = [
 
   (3,  
    [ 	(le,"$wagon_attached",0),
-		(party_get_slot,":party_no","p_main_party",slot_party_loot_wagon),
-		(party_get_slot,":town_no","p_main_party",slot_loot_wagon_target),
+		(party_get_slot,":party_no","p_main_party","slot_party_loot_wagon"),
+		(party_get_slot,":town_no","p_main_party","slot_loot_wagon_target"),
 		(try_begin),
 			(party_is_active,":party_no"),
 			(party_is_in_town,":party_no",":town_no"),
@@ -1149,13 +1149,13 @@ simple_triggers = [
  
   (1.5,  
    [ 	(store_random_party_of_template,":spy_party_id","pt_spy_party"),
-		(party_get_slot,":cur_center",":spy_party_id",slot_spy_target_town),
+		(party_get_slot,":cur_center",":spy_party_id","slot_spy_target_town"),
 		(gt,":cur_center",0),
 		(try_begin),
 			(party_is_in_town,":spy_party_id",":cur_center"),
 			(str_store_party_name,s5,":cur_center"),
 			(store_current_hours,":cur_hour"),
-			(party_set_slot,":cur_center",slot_spy_in_town,":cur_hour"),
+			(party_set_slot,":cur_center","slot_spy_in_town",":cur_hour"),
 			(remove_party,":spy_party_id"),
 			(add_party_note_from_sreg,":cur_center",2,"str_spy_infiltrating",0),
 			(display_message,"str_spy_infiltrating"),
@@ -1172,9 +1172,9 @@ simple_triggers = [
 			(gt,":cur_hour",18),
 			(try_for_parties,":party_no"),
 				(neq,":party_no","p_main_party"),
-				(party_get_slot,":hire_time_end",":party_no",slot_party_hired),
+				(party_get_slot,":hire_time_end",":party_no","slot_party_hired"),
 				(try_begin),
-					(party_slot_eq,":party_no",slot_party_type,spt_kingdom_hero_party),
+					(party_slot_eq,":party_no","slot_party_type",spt_kingdom_hero_party),
 					(party_stack_get_troop_id, ":leader", ":party_no", 0),					
 					(troop_get_slot,":duel_challenger_expire",":leader",slot_troop_duel_challenger),
 					(troop_get_slot,":duel_challenged_expire",":leader",slot_troop_duel_challenged),
@@ -1190,7 +1190,7 @@ simple_triggers = [
 								(is_between, ":attached_to_party", centers_begin, centers_end),
 								(party_detach, ":party_no"),
 							(try_end),
-							(party_get_slot,":duel_location",":party_no",slot_message_target_2),
+							(party_get_slot,":duel_location",":party_no","slot_message_target_2"),
 							(party_get_position,pos1,":duel_location"),
 							(map_get_land_position_around_position,pos2,pos1,1),
 							(party_set_ai_behavior,":party_no",ai_bhvr_travel_to_point), 
@@ -1200,14 +1200,14 @@ simple_triggers = [
 							(this_or_next|eq,":cur_behavior",ai_bhvr_travel_to_party),
 							(eq,":cur_behavior",ai_bhvr_attack_party),
 							(troop_set_slot,":leader",slot_troop_duel_challenger,-1),
-							(party_set_slot,":party_no",slot_message_target_2,-1),
+							(party_set_slot,":party_no","slot_message_target_2",-1),
 							(str_store_troop_name,s1,":leader"),
 							(display_message,"@ Your duel with {s1} was canceled due to unforseen circumstances."),
 						(else_try),
 							(lt,":duel_challenger_expire",":cur_hour"),
 							(gt,":in_battle",0),
 							(troop_set_slot,":leader",slot_troop_duel_challenger,-1),
-							(party_set_slot,":party_no",slot_message_target_2,-1),
+							(party_set_slot,":party_no","slot_message_target_2",-1),
 							(str_store_troop_name,s1,":leader"),
 							(display_message,"@ Your duel with {s1} was canceled due to unforseen circumstances."),
 						(else_try),
@@ -1221,7 +1221,7 @@ simple_triggers = [
 							(assign,":ai_object",reg0),
 							(call_script,"script_party_set_ai_state",":party_no",spai_retreating_to_center,":ai_object"),
 							(troop_set_slot, ":leader", slot_troop_duel_challenger, -1),
-							(party_set_slot,":party_no",slot_message_target_2,-1),
+							(party_set_slot,":party_no","slot_message_target_2",-1),
 							(str_store_troop_name,s1,":leader"),
 							(dialog_box,"str_missed_duel"),
 							(call_script, "script_objectionable_action", tmt_aristocratic, "str_missed_duel_npc"),
@@ -1230,7 +1230,7 @@ simple_triggers = [
 						(troop_slot_ge,":leader",slot_troop_duel_challenged,1),
 						(try_begin),
 							(gt,":duel_challenged_expire",":cur_hour"),
-							(party_get_slot,":duel_location",":party_no",slot_message_target_2),
+							(party_get_slot,":duel_location",":party_no","slot_message_target_2"),
 							(party_get_position,pos1,":duel_location"),
 							(map_get_land_position_around_position,pos2,pos1,1),
 							(party_set_ai_behavior,":party_no",ai_bhvr_travel_to_point), 
@@ -1240,14 +1240,14 @@ simple_triggers = [
 							(this_or_next|eq,":cur_behavior",ai_bhvr_travel_to_party),
 							(eq,":cur_behavior",ai_bhvr_attack_party),
 							(troop_set_slot,":leader",slot_troop_duel_challenged,-1),
-							(party_set_slot,":party_no",slot_message_target_2,-1),
+							(party_set_slot,":party_no","slot_message_target_2",-1),
 							(str_store_troop_name,s1,":leader"),
 							(display_message,"@ Your duel with {s1} was canceled due to unforseen circumstances."),
 						(else_try),
 							(lt,":duel_challenged_expire",":cur_hour"),
 							(gt,":in_battle",0),
 							(troop_set_slot,":leader",slot_troop_duel_challenged,-1),
-							(party_set_slot,":party_no",slot_message_target_2,-1),
+							(party_set_slot,":party_no","slot_message_target_2",-1),
 							(str_store_troop_name,s1,":leader"),
 							(display_message,"@ Your duel with {s1} was canceled due to unforseen circumstances."),
 						(else_try),
@@ -1261,7 +1261,7 @@ simple_triggers = [
 							(assign,":ai_object",reg0),
 							(call_script,"script_party_set_ai_state",":party_no",spai_retreating_to_center,":ai_object"),
 							(troop_set_slot, ":leader", slot_troop_duel_challenged, -1),
-							(party_set_slot,":party_no",slot_message_target_2,-1),
+							(party_set_slot,":party_no","slot_message_target_2",-1),
 							(str_store_troop_name,s1,":leader"),
 							(dialog_box,"str_missed_duel"),
 							(call_script, "script_objectionable_action", tmt_aristocratic, "str_missed_duel_npc"),
@@ -1277,7 +1277,7 @@ simple_triggers = [
 					(call_script,"script_party_set_ai_state",":party_no",spai_retreating_to_center,":ai_object"),
 					(str_store_party_name,s1,":party_no"),
 					(display_message,"@ Your contract with {s1} has expired."),
-					(party_set_slot,":party_no",slot_party_hired,-1),
+					(party_set_slot,":party_no","slot_party_hired",-1),
 				(try_end),
 			(try_end),
 			(str_clear,s1),
@@ -1293,7 +1293,7 @@ simple_triggers = [
 				
 				(str_clear,s5),				
 				(store_current_hours,":cur_hour"),
-				(party_get_slot,":spy_days",":cur_center",slot_spy_in_town),
+				(party_get_slot,":spy_days",":cur_center","slot_spy_in_town"),
 				(store_faction_of_party,":cur_center_fac",":cur_center"),
 				(store_sub,":total_time",":cur_hour",":spy_days"),
 				(try_begin),
@@ -1302,23 +1302,23 @@ simple_triggers = [
 				(try_end),
 				(store_div,":days",":total_time",24),
 				(assign,reg5,":days"),
-				(party_get_slot,":spy_mission",":cur_center",slot_spy_sabotage),
-				(party_get_slot,":poison_count",":cur_center",slot_well_poisoned),
-				(party_get_slot,":spies_deployed","p_main_party",slot_spies_deployed),
+				(party_get_slot,":spy_mission",":cur_center","slot_spy_sabotage"),
+				(party_get_slot,":poison_count",":cur_center","slot_well_poisoned"),
+				(party_get_slot,":spies_deployed","p_main_party","slot_spies_deployed"),
 				(assign,":kill_modified",0),
 				(assign,":total_relation",0),
 					(try_begin),
 						(ge,":poison_count",1),
 						(call_script,"script_poison_well",":cur_center"),
-						(party_set_slot,":cur_center",slot_well_poisoned,0),
+						(party_set_slot,":cur_center","slot_well_poisoned",0),
 					(try_end),
 					(try_begin),
 						(ge,":spy_days",1),
 						#(assign,reg5,":days"),
 						(str_store_party_name,s5,":cur_center"),
-						(party_get_slot,":p_type",":cur_center",slot_party_type),
+						(party_get_slot,":p_type",":cur_center","slot_party_type"),
 						(store_relation,":cur_relation","fac_player_faction",":cur_center_fac"),						
-						(party_get_slot,":center_relation",":cur_center",slot_center_player_relation),
+						(party_get_slot,":center_relation",":cur_center","slot_center_player_relation"),
 						(store_random_in_range,":kill_chance",5,300),
 						(store_add,":total_relation",":center_relation",":cur_relation"),
 							(try_begin),
@@ -1339,11 +1339,11 @@ simple_triggers = [
 						(store_add,":kill_modified",":kill_chance",":total_relation"),
 							(try_begin),
 								(le,":kill_modified",15),
-								(party_set_slot,":cur_center",slot_spy_in_town,0),
-								(party_set_slot,":cur_center",slot_spy_sabotage,0),
+								(party_set_slot,":cur_center","slot_spy_in_town",0),
+								(party_set_slot,":cur_center","slot_spy_sabotage",0),
 								(val_sub,":spies_deployed",1),
-								(party_set_slot,"p_main_party",slot_spies_deployed,":spies_deployed"),
-								(party_get_slot, ":lord_troop_id", ":cur_center", slot_town_lord),
+								(party_set_slot,"p_main_party","slot_spies_deployed",":spies_deployed"),
+								(party_get_slot, ":lord_troop_id", ":cur_center", "slot_town_lord"),
 								(call_script, "script_change_player_relation_with_troop", ":lord_troop_id", -3),
 								(call_script, "script_change_player_relation_with_center", ":cur_center", -5),
 								(dialog_box,"str_spy_captured"),
@@ -1361,13 +1361,13 @@ simple_triggers = [
 											(try_begin),
 												(eq,":spy_mission",1), #Tempered poison well
 												(call_script,"script_poison_well",":cur_center"),
-												(party_set_slot,":cur_center",slot_spy_sabotage,0),
-												(party_set_slot,":cur_center",slot_well_poisoned,1),
+												(party_set_slot,":cur_center","slot_spy_sabotage",0),
+												(party_set_slot,":cur_center","slot_well_poisoned",1),
 												(display_message,"@Your spy in {s5} has successfully poisoned the well."),
 											(else_try),
 												(eq,":spy_mission",2), #Tempered poison food
 												(call_script,"script_poison_food",":cur_center"),
-												(party_set_slot,":cur_center",slot_spy_sabotage,0),
+												(party_set_slot,":cur_center","slot_spy_sabotage",0),
 													(try_begin),
 														(le,":p_type",3),
 														(display_message,"@Rats have infested the food stocks in {s5}."),
@@ -1378,7 +1378,7 @@ simple_triggers = [
 											(else_try),
 												(eq,":spy_mission",3), #Tempered cause unrest
 												(call_script,"script_unrest_sabotage",":cur_center"),
-												(party_set_slot,":cur_center",slot_spy_sabotage,0),
+												(party_set_slot,":cur_center","slot_spy_sabotage",0),
 													(try_begin),
 														(eq,":p_type",3),
 														(display_message,"@Civil unrest in {s5} is having an adverse effect on the town economy."),
@@ -1388,7 +1388,7 @@ simple_triggers = [
 													(try_end),
 											(else_try),
 												(eq,":spy_mission",4), #Tempered RESCUE PRISONER SPY MISSION
-												(party_set_slot,":cur_center",slot_spy_sabotage,0),
+												(party_set_slot,":cur_center","slot_spy_sabotage",0),
 											(try_end),
 									(try_end),
 								
@@ -1546,10 +1546,10 @@ simple_triggers = [
            (val_mul, ":stack_size", ":rand_no"),
            (val_div, ":stack_size", 100),
 #TEMPERED chief ADD WEALTH FOR SALE OF PRISONERS, 20GP PER PRISONER
-			(party_get_slot, ":cur_wealth", ":center_no", slot_town_wealth),
+			(party_get_slot, ":cur_wealth", ":center_no", "slot_town_wealth"),
 			(store_mul,":prisoner_sales",":stack_size",20),
 			(val_add,":cur_wealth",":prisoner_sales"),
-			(party_set_slot, ":center_no", slot_town_wealth, ":cur_wealth"),
+			(party_set_slot, ":center_no", "slot_town_wealth", ":cur_wealth"),
 #TEMPERED CHANGES END
            (party_remove_prisoners, ":center_no", ":stack_troop", ":stack_size"),
          (try_end),
@@ -1571,14 +1571,14 @@ simple_triggers = [
 	   
        (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
          #If non-player center, adding income to wealth
-         (neg|party_slot_eq, ":center_no", slot_town_lord, "trp_player"), #center does not belong to player.
-         (party_slot_ge, ":center_no", slot_town_lord, 1), #center belongs to someone.
-         (party_get_slot, ":cur_wealth", ":center_no", slot_town_wealth),
-         (party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+         (neg|party_slot_eq, ":center_no", "slot_town_lord", "trp_player"), #center does not belong to player.
+         (party_slot_ge, ":center_no", "slot_town_lord", 1), #center belongs to someone.
+         (party_get_slot, ":cur_wealth", ":center_no", "slot_town_wealth"),
+         (party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
          (store_mul, ":added_wealth", ":prosperity", 20), #chief cambia
          (val_add, ":added_wealth", 2000), #chief cambia
          (try_begin),
-           (party_slot_eq, ":center_no", slot_party_type, spt_town),
+           (party_slot_eq, ":center_no", "slot_party_type", spt_town),
            (val_mul, ":added_wealth", 3),
            (val_div, ":added_wealth", 2),
          (try_end),
@@ -1586,7 +1586,7 @@ simple_triggers = [
          (call_script, "script_calculate_weekly_party_wage", ":center_no"),
          (val_sub, ":cur_wealth", reg0),
          (val_max, ":cur_wealth", 0),
-         (party_set_slot, ":center_no", slot_town_wealth, ":cur_wealth"),
+         (party_set_slot, ":center_no", "slot_town_wealth", ":cur_wealth"),
        (try_end),
     ]),
 
@@ -1605,8 +1605,8 @@ simple_triggers = [
 
        (assign, ":doit", 1),
        (try_begin),
-         (this_or_next | party_slot_eq, ":cur_attached_party", slot_center_blockaded, 1),    #center blockaded (by player) OR
-         (party_slot_ge, ":cur_attached_party", slot_center_is_besieged_by, 1), #center besieged by someone else
+         (this_or_next | party_slot_eq, ":cur_attached_party", "slot_center_blockaded", 1),    #center blockaded (by player) OR
+         (party_slot_ge, ":cur_attached_party", "slot_center_is_besieged_by", 1), #center besieged by someone else
          (assign, ":doit", 0),
        (try_end),
        (eq, ":doit", 1),
@@ -1646,13 +1646,13 @@ simple_triggers = [
      (try_end),
        
      (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-       (neg|party_slot_eq, ":center_no", slot_town_lord, "trp_player"), #center does not belong to player.
-       (party_slot_ge, ":center_no", slot_town_lord, 1), #center belongs to someone.       
+       (neg|party_slot_eq, ":center_no", "slot_town_lord", "trp_player"), #center does not belong to player.
+       (party_slot_ge, ":center_no", "slot_town_lord", 1), #center belongs to someone.       
 #siege warfare chief cambia
        (assign, ":doit", 1),
        (try_begin),
-         (this_or_next | party_slot_eq, ":center_no", slot_center_blockaded, 1),    #center blockaded (by player) OR
-         (party_slot_ge, ":center_no", slot_center_is_besieged_by, 1), #center besieged by someone else
+         (this_or_next | party_slot_eq, ":center_no", "slot_center_blockaded", 1),    #center blockaded (by player) OR
+         (party_slot_ge, ":center_no", "slot_center_is_besieged_by", 1), #center besieged by someone else
          (assign, ":doit", 0),
        (try_end),
        (eq, ":doit", 1),
@@ -1682,13 +1682,13 @@ simple_triggers = [
        (try_end),
        
        (try_for_range, ":unused", 0, ":num_hiring_rounds"),          
-         (party_get_slot, ":cur_wealth", ":center_no", slot_town_wealth),
+         (party_get_slot, ":cur_wealth", ":center_no", "slot_town_wealth"),
          (assign, ":hiring_budget", ":cur_wealth"),
          (val_div, ":hiring_budget", 2),
          (gt, ":hiring_budget", ":reinforcement_cost"),       
          (call_script, "script_cf_reinforce_party", ":center_no"),       
          (val_sub, ":cur_wealth", ":reinforcement_cost"),
-         (party_set_slot, ":center_no", slot_town_wealth, ":cur_wealth"),
+         (party_set_slot, ":center_no", "slot_town_wealth", ":cur_wealth"),
        (try_end),  
      (try_end),
 
@@ -1701,7 +1701,7 @@ simple_triggers = [
 	   
        (call_script, "script_get_center_ideal_prosperity", ":center_no"),
        (assign, ":ideal_prosperity", reg0),
-       (party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),       
+       (party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),       
        (try_begin),
 	     (eq, ":random", 0), #with 3% probability it will gain +10/-10 prosperity even it has higher prosperity than its ideal prosperity.
          (try_begin),
@@ -1733,7 +1733,7 @@ simple_triggers = [
    # [#(try_for_range, ":center_no", centers_begin, centers_end),
     #  (call_script, "script_get_center_ideal_prosperity", ":center_no"),
     #  (assign, ":ideal_prosperity", reg0),
-    #  (party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+    #  (party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
     #  (try_begin),
     #    (gt, ":prosperity", ":ideal_prosperity"),
     #    (call_script, "script_change_center_prosperity", ":center_no", -1),
@@ -1760,7 +1760,7 @@ simple_triggers = [
     (try_begin),
       (neg|map_free),
       (ge, "$g_last_rest_center", 0),
-      (this_or_next|party_slot_eq, "$g_last_rest_center", slot_center_has_manor, 1),
+      (this_or_next|party_slot_eq, "$g_last_rest_center", "slot_center_has_manor", 1),
       (is_between, "$g_last_rest_center", walled_centers_begin, walled_centers_end),
       (assign, ":resting_at_manor_or_walled_center", 1),
     (try_end),
@@ -1808,11 +1808,11 @@ simple_triggers = [
 # 		# (eq, reg0, 0),
 
 # 		# (try_begin),
-# 			# (party_slot_eq, ":acting_village", slot_center_original_faction, ":target_faction"),
+# 			# (party_slot_eq, ":acting_village", "slot_center_original_faction", ":target_faction"),
 			
 # 			# (call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
 # 		# (else_try),
-# 			# (party_slot_eq, ":acting_village", slot_center_ex_faction, ":target_faction"),
+# 			# (party_slot_eq, ":acting_village", "slot_center_ex_faction", ":target_faction"),
 			
 # 			# (call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
 			
@@ -1950,7 +1950,7 @@ simple_triggers = [
        (try_end),
        
        (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),         
-         (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
+         (party_get_slot, ":center_lord", ":center_no", "slot_town_lord"),
          (neq, ":center_lord", "trp_player"),#notforplayer
          
          (assign, ":xp_gain", 4100), #xp gain in two days of period for each center, average : 3000.
@@ -2170,13 +2170,13 @@ simple_triggers = [
 			 ##OLD:
           #(assign, ":fief_found", -1),
           #(try_for_range, ":center", centers_begin, centers_end),
-          #  (party_slot_eq, ":center", slot_town_lord, ":troop_no"),
+          #  (party_slot_eq, ":center", "slot_town_lord", ":troop_no"),
           #  (assign, ":fief_found", ":center"),
           #(try_end),
 			 ##NEW:
           (assign, ":fief_found", centers_end),
           (try_for_range, ":center", centers_begin, ":fief_found"),
-            (party_slot_eq, ":center", slot_town_lord, ":troop_no"),
+            (party_slot_eq, ":center", "slot_town_lord", ":troop_no"),
             (assign, ":fief_found", ":center"),#<- should break the loop
           (try_end),
 			 (try_begin),
@@ -2347,7 +2347,7 @@ simple_triggers = [
 #        (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
 #        (try_begin),
 #          (gt, ":party_no", 0),
-#          (party_get_slot, ":commander_party", ":party_no", slot_party_commander_party),
+#          (party_get_slot, ":commander_party", ":party_no", "slot_party_commander_party"),
 #          (ge, ":commander_party", 0),
 #          (store_faction_of_party, ":faction_no", ":party_no"),
 #          (faction_get_slot, ":faction_marshall", ":faction_no", slot_faction_marshall),
@@ -2366,8 +2366,8 @@ simple_triggers = [
 #          (store_troop_faction, ":troop_faction", ":troop_no"),
 #          (eq, ":troop_faction", "fac_player_supporters_faction"),
 #          (neg|troop_slot_eq, ":troop_no", slot_troop_player_order_state, spai_undefined),
-#          (party_get_slot, ":party_ai_state", ":party_no", slot_party_ai_state),
-#          (party_get_slot, ":party_ai_object", ":party_no", slot_party_ai_object),
+#          (party_get_slot, ":party_ai_state", ":party_no", "slot_party_ai_state"),
+#          (party_get_slot, ":party_ai_object", ":party_no", "slot_party_ai_object"),
 #          #Check if party is following player orders
 #          (try_begin),
 #            (troop_slot_eq, ":troop_no", slot_troop_player_order_state, ":party_ai_state"),
@@ -2416,12 +2416,12 @@ simple_triggers = [
 	  ##diplomacy end+
      (store_current_hours, ":cur_hours"),
       (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-        (party_get_slot, ":besieger_party", ":center_no", slot_center_is_besieged_by),
+        (party_get_slot, ":besieger_party", ":center_no", "slot_center_is_besieged_by"),
         (gt, ":besieger_party", 0),
         (party_is_active, ":besieger_party"),
         (store_faction_of_party, ":besieger_faction", ":besieger_party"),
-        (party_slot_ge, ":center_no", slot_center_is_besieged_by, 1),
-        (party_get_slot, ":siege_begin_hours", ":center_no", slot_center_siege_begin_hours),
+        (party_slot_ge, ":center_no", "slot_center_is_besieged_by", 1),
+        (party_get_slot, ":siege_begin_hours", ":center_no", "slot_center_siege_begin_hours"),
         (store_sub, ":siege_begin_hours", ":cur_hours", ":siege_begin_hours"),
         (assign, ":launch_attack", 0),
         (assign, ":call_attack_back", 0),
@@ -2438,16 +2438,16 @@ simple_triggers = [
           (eq, ":troop_faction_no", ":besieger_faction"),
           (assign, ":continue", 0),
           (try_begin),
-            (party_slot_eq, ":party_no", slot_party_ai_state, spai_besieging_center),
-            (party_slot_eq, ":party_no", slot_party_ai_object, ":center_no"),
+            (party_slot_eq, ":party_no", "slot_party_ai_state", spai_besieging_center),
+            (party_slot_eq, ":party_no", "slot_party_ai_object", ":center_no"),
             (assign, ":continue", 1),
           (else_try),
-            (party_slot_eq, ":party_no", slot_party_ai_state, spai_accompanying_army),
-            (party_get_slot, ":commander_party", ":party_no", slot_party_ai_object),
+            (party_slot_eq, ":party_no", "slot_party_ai_state", spai_accompanying_army),
+            (party_get_slot, ":commander_party", ":party_no", "slot_party_ai_object"),
             (gt, ":commander_party", 0),
             (party_is_active, ":commander_party"),
-            (party_slot_eq, ":commander_party", slot_party_ai_state, spai_besieging_center),
-            (party_slot_eq, ":commander_party", slot_party_ai_object, ":center_no"),
+            (party_slot_eq, ":commander_party", "slot_party_ai_state", spai_besieging_center),
+            (party_slot_eq, ":commander_party", "slot_party_ai_object", ":center_no"),
             (assign, ":continue", 1),
           (try_end),
           (eq, ":continue", 1),
@@ -2492,7 +2492,7 @@ simple_triggers = [
            (val_add, ":defender_strength", reg0),
             (val_mul, ":attacker_strength", 2), #double the power of attackers if the player is in the campaign
           (try_end),
-          (party_get_slot, ":siege_hardness", ":center_no", slot_center_siege_hardness),
+          (party_get_slot, ":siege_hardness", ":center_no", "slot_center_siege_hardness"),
           (val_add, ":siege_hardness", 100),
           (val_mul, ":defender_strength", ":siege_hardness"),
           (val_div, ":defender_strength", 100),
@@ -2544,13 +2544,13 @@ simple_triggers = [
             (gt, ":party_no", 0),
             (party_is_active, ":party_no"),
 			
-            (party_slot_eq, ":party_no", slot_party_ai_state, spai_besieging_center),
-            (party_slot_eq, ":party_no", slot_party_ai_object, ":center_no"),
-            (party_slot_eq, ":party_no", slot_party_ai_substate, 1),
+            (party_slot_eq, ":party_no", "slot_party_ai_state", spai_besieging_center),
+            (party_slot_eq, ":party_no", "slot_party_ai_object", ":center_no"),
+            (party_slot_eq, ":party_no", "slot_party_ai_substate", 1),
             (call_script, "script_party_set_ai_state", ":party_no", spai_undefined, -1),
             (call_script, "script_party_set_ai_state", ":party_no", spai_besieging_center, ":center_no"),
             #resetting siege begin time if at least 1 party retreats
-            (party_set_slot, ":center_no", slot_center_siege_begin_hours, ":cur_hours"),
+            (party_set_slot, ":center_no", "slot_center_siege_begin_hours", ":cur_hours"),
           (try_end),
         (try_end),
       (try_end),
@@ -2623,7 +2623,7 @@ simple_triggers = [
 		
 		(val_add, "$total_vassal_days_on_campaign", 1),
 		
-	    (party_slot_eq, ":active_npc_party", slot_party_ai_state, spai_accompanying_army),
+	    (party_slot_eq, ":active_npc_party", "slot_party_ai_state", spai_accompanying_army),
 		(val_add, "$total_vassal_days_responding_to_campaign", 1),
 		
 	   
@@ -2645,12 +2645,12 @@ simple_triggers = [
     ]),
 
   #Refreshing village defenders
-  #Clearing slot_village_player_can_not_steal_cattle flags
+  #Clearing "slot_village_player_can_not_steal_cattle" flags
    (48,
    [
       (try_for_range, ":village_no", villages_begin, villages_end),
         (call_script, "script_refresh_village_defenders", ":village_no"),
-        (party_set_slot, ":village_no", slot_village_player_can_not_steal_cattle, 0),
+        (party_set_slot, ":village_no", "slot_village_player_can_not_steal_cattle", 0),
       (try_end),
     ]),
 
@@ -2659,9 +2659,9 @@ simple_triggers = [
    [
        (try_for_range, ":village_no", centers_begin, centers_end),
 	  (neg|is_between, ":village_no", castles_begin, castles_end),
-      (party_get_slot, ":num_cattle", ":village_no", slot_center_head_cattle),
-      (party_get_slot, ":num_sheep", ":village_no", slot_center_head_sheep),
-      (party_get_slot, ":num_acres", ":village_no", slot_center_acres_pasture),
+      (party_get_slot, ":num_cattle", ":village_no", "slot_center_head_cattle"),
+      (party_get_slot, ":num_sheep", ":village_no", "slot_center_head_sheep"),
+      (party_get_slot, ":num_acres", ":village_no", "slot_center_acres_pasture"),
 	  (val_max, ":num_acres", 1),
 	  
 	  (store_mul, ":grazing_capacity", ":num_cattle", 400),
@@ -2680,8 +2680,8 @@ simple_triggers = [
 		   #(store_distance_to_party_from_party, ":dist", "p_main_party", ":village_no"),
 		   #(this_or_next|lt, ":dist", 30),
 	          (gt, "$g_player_chamberlain", 0),
-		   (party_slot_eq, ":village_no", slot_town_lord, "trp_player"),
-		   (party_get_slot, reg4, ":village_no", slot_center_head_cattle),
+		   (party_slot_eq, ":village_no", "slot_town_lord", "trp_player"),
+		   (party_get_slot, reg4, ":village_no", "slot_center_head_cattle"),
 		   (val_sub, reg4, ":num_cattle"),
 		   (gt, reg4, 0),
 		   (str_store_party_name_link, s4, ":village_no"),
@@ -2738,8 +2738,8 @@ simple_triggers = [
          (try_end),		
        (try_end),
 
-       (party_set_slot, ":village_no", slot_center_head_cattle, ":num_cattle"),
-       (party_set_slot, ":village_no", slot_center_head_sheep, ":num_sheep"),	  	  	  
+       (party_set_slot, ":village_no", "slot_center_head_cattle", ":num_cattle"),
+       (party_set_slot, ":village_no", "slot_center_head_sheep", ":num_sheep"),	  	  	  
      (try_end),
     ]),
 
@@ -2749,17 +2749,17 @@ simple_triggers = [
       #Adding earnings to town lords' wealths.
       #Moved to troop does business
       #(try_for_range, ":center_no", centers_begin, centers_end),
-      #  (party_get_slot, ":town_lord", ":center_no", slot_town_lord),
+      #  (party_get_slot, ":town_lord", ":center_no", "slot_town_lord"),
       #  (neq, ":town_lord", "trp_player"),
       #  (is_between, ":town_lord", active_npcs_begin, active_npcs_end),
-      #  (party_get_slot, ":accumulated_rents", ":center_no", slot_center_accumulated_rents),
-      #  (party_get_slot, ":accumulated_tariffs", ":center_no", slot_center_accumulated_tariffs),
+      #  (party_get_slot, ":accumulated_rents", ":center_no", "slot_center_accumulated_rents"),
+      #  (party_get_slot, ":accumulated_tariffs", ":center_no", "slot_center_accumulated_tariffs"),
       #  (troop_get_slot, ":troop_wealth", ":town_lord", slot_troop_wealth),
       #  (val_add, ":troop_wealth", ":accumulated_rents"),
       #  (val_add, ":troop_wealth", ":accumulated_tariffs"),
       #  (troop_set_slot, ":town_lord", slot_troop_wealth, ":troop_wealth"),				
-      #  (party_set_slot, ":center_no", slot_center_accumulated_rents, 0),
-      #  (party_set_slot, ":center_no", slot_center_accumulated_tariffs, 0),
+      #  (party_set_slot, ":center_no", "slot_center_accumulated_rents", 0),
+      #  (party_set_slot, ":center_no", "slot_center_accumulated_tariffs", 0),
       #  (try_begin),
       #    (eq, "$cheat_mode", 1),
       #    (assign, reg1, ":troop_wealth"),
@@ -2770,45 +2770,45 @@ simple_triggers = [
 	  #Collect taxes for another week
       (try_for_range, ":center_no", centers_begin, centers_end),
         (try_begin),
-          (party_slot_ge, ":center_no", slot_town_lord, 0), #unassigned centers do not accumulate rents	  
+          (party_slot_ge, ":center_no", "slot_town_lord", 0), #unassigned centers do not accumulate rents	  
         
-          (party_get_slot, ":accumulated_rents", ":center_no", slot_center_accumulated_rents),		  
+          (party_get_slot, ":accumulated_rents", ":center_no", "slot_center_accumulated_rents"),		  
 		
           (assign, ":cur_rents", 0),
           (try_begin),
-            (party_slot_eq, ":center_no", slot_party_type, spt_village),
+            (party_slot_eq, ":center_no", "slot_party_type", spt_village),
             (try_begin),
-              (party_slot_eq, ":center_no", slot_village_state, svs_normal),
+              (party_slot_eq, ":center_no", "slot_village_state", svs_normal),
               (assign, ":cur_rents", 1200),
             (try_end),
           (else_try),
-            (party_slot_eq, ":center_no", slot_party_type, spt_castle),
+            (party_slot_eq, ":center_no", "slot_party_type", spt_castle),
             (assign, ":cur_rents", 1200),
           (else_try),  
-            (party_slot_eq, ":center_no", slot_party_type, spt_town),
+            (party_slot_eq, ":center_no", "slot_party_type", spt_town),
             (assign, ":cur_rents", 2400),
           (try_end),
 		
-          (party_get_slot, ":prosperity", ":center_no", slot_town_prosperity), #prosperty changes between 0..100     
+          (party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"), #prosperty changes between 0..100     
           (store_add, ":multiplier", 20, ":prosperity"), #multiplier changes between 20..120
 #TAXES begin chief SoD
 		(try_begin),
-			(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+			(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
 			(val_add, ":multiplier", "$g_sod_tax"),
 			(try_begin),
 							 (this_or_next|eq, "$g_sod_faith", 4),
 							 (eq, "$g_pueblos_religion", 4),
 			(lt, ":multiplier", 0),
 			(assign, ":multiplier", 0),
-			(party_get_slot, ":faith", ":center_no", slot_center_sod_local_faith),
+			(party_get_slot, ":faith", ":center_no", "slot_center_sod_local_faith"),
 			(val_div, ":faith", 10),
 			(val_add, ":multiplier", ":faith"),
 			(else_try),
 							 (this_or_next|eq, "$g_sod_faith", 3),
-							 (party_slot_eq, ":center_no", slot_center_religion_pagan, 1),
+							 (party_slot_eq, ":center_no", "slot_center_religion_pagan", 1),
 			(lt, ":multiplier", 0),
 			(assign, ":multiplier", 0),
-			(party_get_slot, ":faith", ":center_no", slot_center_sod_local_faith),
+			(party_get_slot, ":faith", ":center_no", "slot_center_sod_local_faith"),
 			(val_mul, ":faith", -1),
 			(val_div, ":faith", 10),
 			(val_add, ":multiplier", ":faith"),
@@ -2823,18 +2823,18 @@ simple_triggers = [
 				(assign, ":cur_rents", 0),
 			(try_end),
 		(try_begin),
-			(party_slot_eq, ":center_no", slot_party_type, spt_castle),
+			(party_slot_eq, ":center_no", "slot_party_type", spt_castle),
 			(val_sub, ":cur_rents", -260),# Removed to make castle income better TML. F123 - Submod -> 1.41 was at +250?gdwfrom-250Why not just add this?gdwval_add
 #SoD Buildings Begin
 			(try_begin),
-				(party_slot_eq, ":center_no", slot_center_has_blacksmith, 1),
+				(party_slot_eq, ":center_no", "slot_center_has_blacksmith", 1),
 				(val_add, ":cur_rents", 150),# Increased blacksmith bonus to 100 TML. up from 50 F123 - Submod -> 1.41#gdw120 for quikr invest recovery
 			(try_end),
 #SDO BUILDINGS END
 		(try_end),
 #sod chief acaba rentas          
           (try_begin),
-            (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+            (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
             
             (options_get_campaign_ai, ":reduce_campaign_ai"),
             (try_begin),
@@ -2856,7 +2856,7 @@ simple_triggers = [
           (try_begin),    
             (str_store_party_name, s6, ":center_no"),
              
-            (party_get_slot, ":tax_rate", ":center_no", slot_center_taxation),
+            (party_get_slot, ":tax_rate", ":center_no", "slot_center_taxation"),
             (neq, ":tax_rate", 0),
             (store_div, ":rent_change", ":accumulated_rents", 100),
             (val_mul, ":rent_change", ":tax_rate"),
@@ -2890,7 +2890,7 @@ simple_triggers = [
               (try_begin),
                 (this_or_next|is_between, ":center_no", villages_begin, villages_end),
                 (is_between, ":center_no", towns_begin, towns_end),
-                (party_get_slot, ":center_relation", ":center_no", slot_center_player_relation),
+                (party_get_slot, ":center_relation", ":center_no", "slot_center_player_relation"),
   
                 (try_begin), #debug
                   (eq, "$cheat_mode", 1),
@@ -2902,9 +2902,9 @@ simple_triggers = [
                 (store_random_in_range, ":random",-100, 0),
                 (gt, ":random", ":center_relation"),           
                 
-                (neg|party_slot_eq, ":center_no", slot_village_infested_by_bandits, "trp_peasant_woman"),
+                (neg|party_slot_eq, ":center_no", "slot_village_infested_by_bandits", "trp_peasant_woman"),
                 (display_message, "@Riot in {s6}!"),
-                (party_set_slot, ":center_no", slot_village_infested_by_bandits, "trp_peasant_woman"), #trp_peasant_woman used to simulate riot
+                (party_set_slot, ":center_no", "slot_village_infested_by_bandits", "trp_peasant_woman"), #trp_peasant_woman used to simulate riot
                 (call_script, "script_change_center_prosperity", ":center_no", -1),     
                 (call_script, "script_add_notification_menu", "mnu_dplmc_notification_riot", ":center_no", 0),         
   
@@ -2938,59 +2938,59 @@ simple_triggers = [
           (try_end),
           
           (try_begin), #no taxes for infested villages and towns 
-            (party_slot_ge, ":center_no", slot_village_infested_by_bandits, 1),
+            (party_slot_ge, ":center_no", "slot_village_infested_by_bandits", 1),
             (assign,":accumulated_rents", 0),
           (try_end),
         ##diplomacy chief end
 
-          (party_set_slot, ":center_no", slot_center_accumulated_rents, ":accumulated_rents"),
+          (party_set_slot, ":center_no", "slot_center_accumulated_rents", ":accumulated_rents"),
 #TAXES begin
 		(try_begin),
-		(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-		(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
-		(party_get_slot, ":cur_relation", ":center_no", slot_center_player_relation),
+		(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
+		(party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
+		(party_get_slot, ":cur_relation", ":center_no", "slot_center_player_relation"),
 		(try_begin),
 			(eq, "$g_sod_tax", -80),
 			(val_add, ":prosperity", 3),
-			(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),
+			(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),
 			(val_add, ":cur_relation", 3),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		(else_try),
 			(eq, "$g_sod_tax", -30),
 			(val_add, ":prosperity", 2),
-			(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),
+			(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),
 			(val_add, ":cur_relation", 2),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		(else_try),
 		(eq, "$g_sod_tax", -50),
 			(val_add, ":prosperity", 1),
-			(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),
+			(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),
 			(val_add, ":cur_relation", 1),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		(else_try),
 		(eq, "$g_sod_tax", -50),
 			(val_add, ":prosperity", 0),
-			(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),
+			(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),
 			(val_add, ":cur_relation", 0),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		(else_try),
 		(eq, "$g_sod_tax", -50),
 			(val_add, ":prosperity", -1),
-			(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),
+			(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),
 			(val_add, ":cur_relation", -1),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		(else_try),
 		(eq, "$g_sod_tax", 30),
 			(val_add, ":prosperity", -2),
-			(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),
+			(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),
 			(val_add, ":cur_relation", -2),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		(else_try),
 		(eq, "$g_sod_tax", 80),
 			(val_add, ":prosperity", -5),
-			(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),
+			(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),
 			(val_add, ":cur_relation", -5),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		(try_end),
 		(try_end),
 		
@@ -2999,12 +2999,12 @@ simple_triggers = [
         
 		(try_begin),
 		  (is_between, ":center_no", villages_begin, villages_end),
-		  (party_get_slot, ":bound_castle", ":center_no", slot_village_bound_center),
-		  (party_slot_ge, ":bound_castle", slot_town_lord, 0), #unassigned centers do not accumulate rents	  
+		  (party_get_slot, ":bound_castle", ":center_no", "slot_village_bound_center"),
+		  (party_slot_ge, ":bound_castle", "slot_town_lord", 0), #unassigned centers do not accumulate rents	  
 		  (is_between, ":bound_castle", castles_begin, castles_end),
-		  (party_get_slot, ":accumulated_rents", ":bound_castle", slot_center_accumulated_rents), #castle's accumulated rents
+		  (party_get_slot, ":accumulated_rents", ":bound_castle", "slot_center_accumulated_rents"), #castle's accumulated rents
 		  (val_add, ":accumulated_rents", ":cur_rents"), #add village's rent to castle rents
-		  (party_set_slot, ":bound_castle", slot_center_accumulated_rents, ":accumulated_rents"),
+		  (party_set_slot, ":bound_castle", "slot_center_accumulated_rents", ":accumulated_rents"),
 		(try_end),		
       (try_end),
     ]),
@@ -3375,8 +3375,8 @@ simple_triggers = [
          (try_end),
          
          (try_begin),
-           (this_or_next|party_slot_eq, ":destination", slot_party_type, spt_town),
-           (party_slot_eq, ":destination", slot_party_type, spt_castle),
+           (this_or_next|party_slot_eq, ":destination", "slot_party_type", spt_town),
+           (party_slot_eq, ":destination", "slot_party_type", spt_castle),
            (store_faction_of_party, ":troop_faction_no", ":troop_party_no"),
            (store_faction_of_party, ":destination_faction_no", ":destination"),
            (eq, ":troop_faction_no", ":destination_faction_no"),
@@ -3416,11 +3416,11 @@ simple_triggers = [
 
        (call_script, "script_randomly_make_prisoner_heroes_escape_from_party", "p_main_party", ":escape_chance"),
        (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-##         (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+##         (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
          (assign, ":escape_chance", 15),
          (val_sub, ":escape_chance", ":escape_chance_reduction"),
          (try_begin),
-           (party_slot_eq, ":center_no", slot_center_has_prisoner_tower, 1),
+           (party_slot_eq, ":center_no", "slot_center_has_prisoner_tower", 1),
            (assign, ":escape_chance", 5),
            (val_sub, ":escape_chance", ":escape_chance_reduction"),
          (try_end),
@@ -3437,9 +3437,9 @@ simple_triggers = [
 #      (eq, "$g_center_taken_by_player_faction", -1),
 #      (store_faction_of_party, ":center_faction", ":center_no"),
 #      (eq, ":center_faction", "fac_player_supporters_faction"),
-#      (this_or_next|party_slot_eq, ":center_no", slot_town_lord, stl_reserved_for_player),
-#      (this_or_next|party_slot_eq, ":center_no", slot_town_lord, stl_unassigned),
-#      (party_slot_eq, ":center_no", slot_town_lord, stl_rejected_by_player),
+#      (this_or_next|party_slot_eq, ":center_no", "slot_town_lord", stl_reserved_for_player),
+#      (this_or_next|party_slot_eq, ":center_no", "slot_town_lord", stl_unassigned),
+#      (party_slot_eq, ":center_no", "slot_town_lord", stl_rejected_by_player),
 #      (assign, "$g_center_taken_by_player_faction", ":center_no"),
 #    (try_end),
 #    (faction_get_slot, ":leader", "fac_player_supporters_faction", slot_faction_leader),
@@ -3525,27 +3525,27 @@ simple_triggers = [
        #unaltered block begin
        (try_for_range, ":center_no", castles_begin, castles_end),
 #siege warfare chief cambia
-         (party_slot_eq, ":center_no", slot_center_blockaded, 0),    #center not blockaded (by player) AND
-         (neg|party_slot_ge, ":center_no", slot_center_is_besieged_by, 1), #center not besieged by someone else
+         (party_slot_eq, ":center_no", "slot_center_blockaded", 0),    #center not blockaded (by player) AND
+         (neg|party_slot_ge, ":center_no", "slot_center_is_besieged_by", 1), #center not besieged by someone else
 #siege warfare		 
-         (party_get_slot, ":center_food_store", ":center_no", slot_party_food_store),
+         (party_get_slot, ":center_food_store", ":center_no", "slot_party_food_store"),
          (val_add, ":center_food_store", 100),
          (call_script, "script_center_get_food_store_limit", ":center_no"),
          (assign, ":food_store_limit", reg0),
          (val_min, ":center_food_store", ":food_store_limit"),
-         (party_set_slot, ":center_no", slot_party_food_store, ":center_food_store"),
+         (party_set_slot, ":center_no", "slot_party_food_store", ":center_food_store"),
        (try_end),
        #unaltered block end
    (else_try),
        ##NEW: chief
        (try_for_range, ":village_no", villages_begin, villages_end),
-          (neg|party_slot_ge, ":village_no", slot_center_is_besieged_by, 0),
-          (party_slot_eq, ":village_no", slot_village_state, svs_normal),
-          (party_get_slot, ":center_no", ":village_no", slot_village_bound_center),
+          (neg|party_slot_ge, ":village_no", "slot_center_is_besieged_by", 0),
+          (party_slot_eq, ":village_no", "slot_village_state", svs_normal),
+          (party_get_slot, ":center_no", ":village_no", "slot_village_bound_center"),
           (is_between, ":center_no", castles_begin, castles_end),
-          (neg|party_slot_ge, ":center_no", slot_center_is_besieged_by, 0),
-          (party_get_slot, ":center_food_store", ":center_no", slot_party_food_store),
-          (party_get_slot, reg0, ":village_no", slot_town_prosperity),
+          (neg|party_slot_ge, ":center_no", "slot_center_is_besieged_by", 0),
+          (party_get_slot, ":center_food_store", ":center_no", "slot_party_food_store"),
+          (party_get_slot, reg0, ":village_no", "slot_town_prosperity"),
           (val_add, reg0, 75),
           (val_mul, reg0, 100),#base addition is 100
           (val_add, reg0, 62),
@@ -3554,7 +3554,7 @@ simple_triggers = [
           (call_script, "script_center_get_food_store_limit", ":center_no"),
           (assign, ":food_store_limit", reg0),
           (val_min, ":center_food_store", ":food_store_limit"),
-          (party_set_slot, ":center_no", slot_party_food_store, ":center_food_store"),
+          (party_set_slot, ":center_no", "slot_party_food_store", ":center_food_store"),
        (try_end),
    (try_end),
 #chief acaba
@@ -3564,18 +3564,18 @@ simple_triggers = [
  (24,
   [
   (party_is_active, "$g_encountered_party"),
-  (party_slot_eq,"$g_encountered_party",slot_town_port, 1),
+  (party_slot_eq,"$g_encountered_party","slot_town_port", 1),
   (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
 #siege warfare chief cambia
-         (party_slot_eq, ":center_no", slot_center_blockaded, 0),    #center not blockaded (by player) AND
-         (neg|party_slot_ge, ":center_no", slot_center_is_besieged_by, 1), #center not besieged by someone else
+         (party_slot_eq, ":center_no", "slot_center_blockaded", 0),    #center not blockaded (by player) AND
+         (neg|party_slot_ge, ":center_no", "slot_center_is_besieged_by", 1), #center not besieged by someone else
 #siege warfare		 
-         (party_get_slot, ":center_food_store", ":center_no", slot_party_food_store),
+         (party_get_slot, ":center_food_store", ":center_no", "slot_party_food_store"),
          (val_add, ":center_food_store", 100),
          (call_script, "script_center_get_food_store_limit", ":center_no"),
          (assign, ":food_store_limit", reg0),
          (val_min, ":center_food_store", ":food_store_limit"),
-         (party_set_slot, ":center_no", slot_party_food_store, ":center_food_store"),
+         (party_set_slot, ":center_no", "slot_party_food_store", ":center_food_store"),
        (try_end),
     ]),
 
@@ -3588,14 +3588,14 @@ simple_triggers = [
 ##         (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
 ##         (troop_get_slot, ":cur_party", ":cur_troop", slot_troop_leaded_party),
 ##         (ge, ":cur_party", 0),
-##         (call_script, "script_party_calculate_strength", ":cur_party", 0), #will update slot_party_cached_strength
+##         (call_script, "script_party_calculate_strength", ":cur_party", 0), #will update "slot_party_cached_strength"
 ##       (try_end),
 ##    ]),
 ##  
 ##  (6,
 ##   [
 ##       (try_for_range, ":cur_center", walled_centers_begin, walled_centers_end),
-##         (call_script, "script_party_calculate_strength", ":cur_center", 0), #will update slot_party_cached_strength
+##         (call_script, "script_party_calculate_strength", ":cur_center", 0), #will update "slot_party_cached_strength"
 ##       (try_end),
 ##    ]),
 
@@ -3616,11 +3616,11 @@ simple_triggers = [
 ##           (store_relation, ":rel", ":army_faction", ":center_faction"),
 ##           (try_begin),
 ##             (gt, ":rel", 10),
-##             (party_get_slot, ":str", ":cur_troop_party", slot_party_cached_strength),
+##             (party_get_slot, ":str", ":cur_troop_party", "slot_party_cached_strength"),
 ##             (val_add, ":friend_strength", ":str"),
 ##           (try_end),
 ##         (try_end),
-##         (party_set_slot, ":cur_center", slot_party_nearby_friend_strength, ":friend_strength"),
+##         (party_set_slot, ":cur_center", "slot_party_nearby_friend_strength", ":friend_strength"),
 ##       (try_end),
 ##    ]),
 
@@ -3652,7 +3652,7 @@ simple_triggers = [
 			 
 			 
              (store_faction_of_party, ":party_faction", ":cur_party"),
-             (party_get_slot, ":commander_party", ":cur_party", slot_party_commander_party),
+             (party_get_slot, ":commander_party", ":cur_party", "slot_party_commander_party"),
              (faction_get_slot, ":faction_marshall", ":party_faction", slot_faction_marshall),
              (neq, ":faction_marshall", ":cur_troop"),
              (assign, ":continue", 1),
@@ -3667,7 +3667,7 @@ simple_triggers = [
              (assign, ":done", 0),
              (try_for_range, ":cur_center", walled_centers_begin, walled_centers_end),
                (eq, ":done", 0),
-               (party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
+               (party_slot_eq, ":cur_center", "slot_center_is_besieged_by", -1),
                (store_faction_of_party, ":center_faction", ":cur_center"),
                (store_relation, ":cur_relation", ":center_faction", ":party_faction"),
                (gt, ":cur_relation", 0),
@@ -3728,10 +3728,10 @@ simple_triggers = [
        (val_min, ":player_alarm", 100),
        (faction_set_slot, ":cur_faction", slot_faction_player_alarm, ":player_alarm"),
        (try_begin),
-         (neg|party_slot_ge, ":cur_center", slot_center_last_player_alarm_hour, ":hour_limit"),
+         (neg|party_slot_ge, ":cur_center", "slot_center_last_player_alarm_hour", ":hour_limit"),
          (str_store_party_name_link, s1, ":cur_center"),
          (display_message, "@Your party is spotted by {s1}."),
-         (party_set_slot, ":cur_center", slot_center_last_player_alarm_hour, ":cur_hours"),
+         (party_set_slot, ":cur_center", "slot_center_last_player_alarm_hour", ":cur_hours"),
        (try_end),
      (try_end),
     ]),
@@ -3960,7 +3960,7 @@ simple_triggers = [
     (eq, reg0, 0),#no prisoners offered
     (assign, ":end_cond", walled_centers_end),
     (try_for_range, ":center_no", walled_centers_begin, ":end_cond"),
-      (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+      (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
       (call_script, "script_offer_ransom_amount_to_player_for_prisoners_in_party", ":center_no"),
       (eq, reg0, 1),#a prisoner is offered
       (assign, ":end_cond", 0),#break
@@ -3971,7 +3971,7 @@ simple_triggers = [
   (72,
    [(assign, "$g_ransom_offer_rejected", 0),
     (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-      (party_get_slot, ":town_lord", ":center_no", slot_town_lord),
+      (party_get_slot, ":town_lord", ":center_no", "slot_town_lord"),
       (gt, ":town_lord", 0),
       (party_get_num_prisoner_stacks, ":num_stacks", ":center_no"),
       (try_for_range_backwards, ":i_stack", 0, ":num_stacks"),
@@ -4034,14 +4034,14 @@ simple_triggers = [
   # Setting random walker types
   (36,
    [(try_for_range, ":center_no", centers_begin, centers_end),
-#      (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_town),
-#      (             party_slot_eq, ":center_no", slot_party_type, spt_village),
+#      (this_or_next|party_slot_eq, ":center_no", "slot_party_type", spt_town),
+#      (             party_slot_eq, ":center_no", "slot_party_type", spt_village),
       (call_script, "script_center_remove_walker_type_from_walkers", ":center_no", walkert_needs_money),
       (call_script, "script_center_remove_walker_type_from_walkers", ":center_no", walkert_needs_money_helped),
       (store_random_in_range, ":rand", 0, 100),
       (try_begin),
         (lt, ":rand", 70),
-        (neg|party_slot_ge, ":center_no", slot_town_prosperity, 60),
+        (neg|party_slot_ge, ":center_no", "slot_town_prosperity", 60),
         (call_script, "script_cf_center_get_free_walker", ":center_no"),
         (call_script, "script_center_set_walker_to_type", ":center_no", reg0, walkert_needs_money),
       (try_end),
@@ -4051,22 +4051,22 @@ simple_triggers = [
   # Checking center upgrades
   (12,#"mill"
    [(try_for_range, ":center_no", centers_begin, centers_end),
-      (party_get_slot, ":cur_improvement", ":center_no", slot_center_current_improvement),
+      (party_get_slot, ":cur_improvement", ":center_no", "slot_center_current_improvement"),
       (gt, ":cur_improvement", 0),
-      (party_get_slot, ":cur_improvement_end_time", ":center_no", slot_center_improvement_end_hour),
+      (party_get_slot, ":cur_improvement_end_time", ":center_no", "slot_center_improvement_end_hour"),
       (store_current_hours, ":cur_hours"),
       (ge, ":cur_hours", ":cur_improvement_end_time"),
       (party_set_slot, ":center_no", ":cur_improvement", 1),
-      (party_set_slot, ":center_no", slot_center_current_improvement, 0),
+      (party_set_slot, ":center_no", "slot_center_current_improvement", 0),
       (call_script, "script_get_improvement_details", ":cur_improvement"),
       (try_begin),
-        (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+        (party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
         (str_store_party_name, s4, ":center_no"),
         (display_log_message, "@Building of {s0} in {s4} has been completed.", color_quest_and_faction_news),
       (try_end),
       (try_begin),
         (is_between, ":center_no", villages_begin, villages_end),
-        (eq, ":cur_improvement", slot_center_has_fish_pond),
+        (eq, ":cur_improvement", "slot_center_has_fish_pond"),
        (call_script, "script_change_center_prosperity", ":center_no", 5),
       (try_end),
     (try_end),
@@ -4075,9 +4075,9 @@ simple_triggers = [
   # Adding bandits to towns and villages
   (24, [
     (try_for_range, ":center_no", centers_begin, centers_end),
-      (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_town),
-      (party_slot_eq, ":center_no", slot_party_type, spt_village),
-      (party_get_slot, ":has_bandits", ":center_no", slot_center_has_bandits),
+      (this_or_next|party_slot_eq, ":center_no", "slot_party_type", spt_town),
+      (party_slot_eq, ":center_no", "slot_party_type", spt_village),
+      (party_get_slot, ":has_bandits", ":center_no", "slot_center_has_bandits"),
       (try_begin),
         (le, ":has_bandits", 0),
         (assign, ":continue", 0),
@@ -4103,7 +4103,7 @@ simple_triggers = [
           (else_try),
             (assign, ":bandit_troop", "trp_forest_bandit"),
           (try_end),
-          (party_set_slot, ":center_no", slot_center_has_bandits, ":bandit_troop"),
+          (party_set_slot, ":center_no", "slot_center_has_bandits", ":bandit_troop"),
           (try_begin),
             (eq, "$cheat_mode", 1),
             (str_store_party_name, s1, ":center_no"),
@@ -4114,12 +4114,12 @@ simple_triggers = [
         (try_begin),
           (assign, ":random_chance", 40),
           (try_begin),
-            (party_slot_eq, ":center_no", slot_party_type, spt_town),
+            (party_slot_eq, ":center_no", "slot_party_type", spt_town),
             (assign, ":random_chance", 20),
           (try_end),
           (store_random_in_range, ":random_no", 0, 100),
           (lt, ":random_no", ":random_chance"),
-          (party_set_slot, ":center_no", slot_center_has_bandits, 0),
+          (party_set_slot, ":center_no", "slot_center_has_bandits", 0),
           (try_begin),
             (eq, "$cheat_mode", 1),
             (str_store_party_name, s1, ":center_no"),
@@ -4149,7 +4149,7 @@ simple_triggers = [
 #    (assign, ":done", 0),
 #    (try_for_range, ":center_no", centers_begin, centers_end),
 #      (eq, ":done", 0),
-#      (party_slot_eq, ":center_no", slot_town_lord, stl_reserved_for_player),
+#      (party_slot_eq, ":center_no", "slot_town_lord", stl_reserved_for_player),
 #      (assign, "$g_center_to_give_to_player", ":center_no"),
  #     (try_begin),
   #      (eq, "$g_center_to_give_to_player", "$g_castle_requested_by_player"),
@@ -4166,7 +4166,7 @@ simple_triggers = [
     #  (assign, ":done", 1),
     #(else_try),
     #  (eq, ":center_no", "$g_castle_requested_by_player"),
-    #  (party_slot_ge, ":center_no", slot_town_lord, active_npcs_begin),
+    #  (party_slot_ge, ":center_no", "slot_town_lord", active_npcs_begin),
     #  (assign, "$g_castle_requested_by_player", 0),
     #  (store_faction_of_party, ":faction", ":center_no"),
     #  (eq, ":faction", "$players_kingdom"),
@@ -4187,10 +4187,10 @@ simple_triggers = [
     (is_currently_night),
 #    (ge, "$g_last_rest_center", 0),
     (is_between, "$g_last_rest_center", centers_begin, centers_end),
-    (neg|party_slot_eq, "$g_last_rest_center", slot_town_lord, "trp_player"),
+    (neg|party_slot_eq, "$g_last_rest_center", "slot_town_lord", "trp_player"),
 
 ##diplomacy chief begin
-    (party_get_slot, ":town_lord", "$g_last_rest_center", slot_town_lord),
+    (party_get_slot, ":town_lord", "$g_last_rest_center", "slot_town_lord"),
     (assign, reg0, 0),
     (try_begin),
       (is_between, ":town_lord", lords_begin, kingdom_ladies_end),
@@ -4245,7 +4245,7 @@ simple_triggers = [
       (store_faction_of_party, ":party_faction", ":cur_party"),
       (is_between, ":party_faction", kingdoms_begin, kingdoms_end),
       (this_or_next|is_between, ":cur_party", centers_begin, centers_end),
-		(party_slot_eq, ":cur_party", slot_party_type, spt_kingdom_hero_party),
+		(party_slot_eq, ":cur_party", "slot_party_type", spt_kingdom_hero_party),
       (faction_get_slot, ":kingdom_num_parties", ":party_faction", slot_faction_number_of_parties),
       (val_add, ":kingdom_num_parties", 1),
       (faction_set_slot, ":party_faction", slot_faction_number_of_parties, ":kingdom_num_parties"), 
@@ -4274,7 +4274,7 @@ simple_triggers = [
         (try_for_parties, ":cur_party"),
           (store_faction_of_party, ":party_faction", ":cur_party"),
           (eq, ":party_faction", ":cur_kingdom"),
-          (party_get_slot, ":home_center", ":cur_party", slot_party_home_center),
+          (party_get_slot, ":home_center", ":cur_party", "slot_party_home_center"),
           (store_faction_of_party, ":home_center_faction", ":home_center"),
           (party_set_faction, ":cur_party", ":home_center_faction"),
         (try_end),
@@ -4330,7 +4330,7 @@ simple_triggers = [
      (try_begin), #The old court has been lost
      ##diplomacy chief begin
        (is_between, "$g_player_court", centers_begin, centers_end),
-       (party_slot_eq, "$g_player_court", slot_village_infested_by_bandits, "trp_peasant_woman"),
+       (party_slot_eq, "$g_player_court", "slot_village_infested_by_bandits", "trp_peasant_woman"),
        (call_script, "script_add_notification_menu", "mnu_notification_court_lost", 0, 0),
      (else_try),
      ##diplomacy chief end
@@ -4495,7 +4495,7 @@ simple_triggers = [
 
 # Removing cattle herds if they are way out of range
   (24, [(try_for_parties, ":cur_party"), ##gdw12
-          (party_slot_eq, ":cur_party", slot_party_type, spt_cattle_herd1),
+          (party_slot_eq, ":cur_party", "slot_party_type", spt_cattle_herd1),
           (store_distance_to_party_from_party, ":dist",":cur_party", "p_main_party"),
           (try_begin),
             (gt, ":dist", 30),
@@ -4509,7 +4509,7 @@ simple_triggers = [
             (end_try),
           (else_try),
             (gt, ":dist", 10),
-            (party_set_slot, ":cur_party", slot_cattle_driven_by_player, 0),
+            (party_set_slot, ":cur_party", "slot_cattle_driven_by_player", 0),
             (party_set_ai_behavior, ":cur_party", ai_bhvr_hold),
           (try_end),
         (try_end),
@@ -4523,12 +4523,12 @@ simple_triggers = [
 # School chief cambia a 7x24
   (7 * 24,
    [(try_for_range, ":cur_village", villages_begin, villages_end),
-      (party_slot_eq, ":cur_village", slot_town_lord, "trp_player"),
-      (party_slot_eq, ":cur_village", slot_center_has_school, 1),
-      (party_get_slot, ":cur_relation", ":cur_village", slot_center_player_relation),
+      (party_slot_eq, ":cur_village", "slot_town_lord", "trp_player"),
+      (party_slot_eq, ":cur_village", "slot_center_has_school", 1),
+      (party_get_slot, ":cur_relation", ":cur_village", "slot_center_player_relation"),
       (val_add, ":cur_relation", 1),
       (val_min, ":cur_relation", 100),
-      (party_set_slot, ":cur_village", slot_center_player_relation, ":cur_relation"),
+      (party_set_slot, ":cur_village", "slot_center_player_relation", ":cur_relation"),
     (try_end),
     ]),
 
@@ -4636,12 +4636,12 @@ simple_triggers = [
      (ge, ":level", 8),
      (assign, ":cur_target_amount", 2),
      (try_for_range, ":cur_center", centers_begin, centers_end),
-       (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+       (party_slot_eq, ":cur_center", "slot_town_lord", "trp_player"),
        (try_begin),
-         (party_slot_eq, ":cur_center", slot_party_type, spt_town),
+         (party_slot_eq, ":cur_center", "slot_party_type", spt_town),
          (val_add, ":cur_target_amount", 3),
        (else_try),
-         (party_slot_eq, ":cur_center", slot_party_type, spt_castle),
+         (party_slot_eq, ":cur_center", "slot_party_type", spt_castle),
          (val_add, ":cur_target_amount", 1),
        (else_try),
          (val_add, ":cur_target_amount", 1),
@@ -4817,14 +4817,14 @@ simple_triggers = [
 		 (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
          (ge, ":party_no", 1),
 		 (party_is_active, ":party_no"),
-         (party_slot_eq, ":party_no", slot_party_following_player, 1),
+         (party_slot_eq, ":party_no", "slot_party_following_player", 1),
          (store_current_hours, ":cur_time"),
-         (neg|party_slot_ge, ":party_no", slot_party_follow_player_until_time, ":cur_time"),
-         (party_set_slot, ":party_no", slot_party_commander_party, -1),
-         (party_set_slot, ":party_no", slot_party_following_player, 0),
+         (neg|party_slot_ge, ":party_no", "slot_party_follow_player_until_time", ":cur_time"),
+         (party_set_slot, ":party_no", "slot_party_commander_party", -1),
+         (party_set_slot, ":party_no", "slot_party_following_player", 0),
          (assign,  ":dont_follow_period", 200),
          (store_add, ":dont_follow_time", ":cur_time", ":dont_follow_period"),
-         (party_set_slot, ":party_no", slot_party_dont_follow_player_until_time,  ":dont_follow_time"),
+         (party_set_slot, ":party_no", "slot_party_dont_follow_player_until_time",  ":dont_follow_time"),
        (try_end),
     ]),
 
@@ -4955,7 +4955,7 @@ simple_triggers = [
        (else_try),
          #Continue collecting taxes
          (assign, ":max_collected_tax", "$qst_collect_taxes_hourly_income"),
-         (party_get_slot, ":prosperity", "$g_encountered_party", slot_town_prosperity),
+         (party_get_slot, ":prosperity", "$g_encountered_party", "slot_town_prosperity"),
          (store_add, ":multiplier", 30, ":prosperity"),
          (val_mul, ":max_collected_tax", ":multiplier"),
          (val_div, ":max_collected_tax", 80),#Prosperity of 50 gives the default values
@@ -5054,7 +5054,7 @@ simple_triggers = [
           (party_get_cur_town, ":cur_center_no", ":party_no"),
         (try_end),
         (this_or_next|neg|is_between, ":cur_center_no", centers_begin, centers_end),
-        (party_slot_eq, ":cur_center_no", slot_town_lord, ":troop_no"),
+        (party_slot_eq, ":cur_center_no", "slot_town_lord", ":troop_no"),
     
         #checking if the party is away from his original faction parties
         (assign, ":end_cond", active_npcs_end),
@@ -5279,13 +5279,13 @@ simple_triggers = [
      (is_between, "$next_center_will_be_fired", villages_begin, villages_end),
      ##diplomacy end
      (assign, ":village_no", "$next_center_will_be_fired"),
-     (party_get_slot, ":is_there_already_fire", ":village_no", slot_village_smoke_added),
+     (party_get_slot, ":is_there_already_fire", ":village_no", "slot_village_smoke_added"),
      (eq, ":is_there_already_fire", 0),
 	 
 	 
      (try_begin),
-       (party_get_slot, ":bound_center", ":village_no", slot_village_bound_center),  
-       (party_get_slot, ":last_nearby_fire_time", ":bound_center", slot_town_last_nearby_fire_time),
+       (party_get_slot, ":bound_center", ":village_no", "slot_village_bound_center"),  
+       (party_get_slot, ":last_nearby_fire_time", ":bound_center", "slot_town_last_nearby_fire_time"),
        (store_current_hours, ":cur_hours"),
 	   
 	   (try_begin),
@@ -5295,7 +5295,7 @@ simple_triggers = [
 		(str_store_party_name, s4, ":village_no"),
 		(str_store_party_name, s5, ":bound_center"),
 		(store_current_hours, reg3),
-        (party_get_slot, reg4, ":bound_center", slot_town_last_nearby_fire_time),
+        (party_get_slot, reg4, ":bound_center", "slot_town_last_nearby_fire_time"),
 		(display_message, "@{!}DEBUG - Checking fire at {s4} for {s5} - current time {reg3}, last nearby fire {reg4}"),
 	   (try_end),
 	   
@@ -5336,16 +5336,16 @@ simple_triggers = [
 ##   (troop_set_slot, "trp_npcengineer", slot_troop_town_with_contacts, "p_town_20"), #durquba
    
    #this to correct linen production at villages of durquba 
-   (party_set_slot, "p_village_93", slot_center_linen_looms, 0), #mazigh
-   (party_set_slot, "p_village_94", slot_center_linen_looms, 0), #sekhtem
-   (party_set_slot, "p_village_95", slot_center_linen_looms, 0), #qalyut
-   (party_set_slot, "p_village_96", slot_center_linen_looms, 0), #tilimsal
-   (party_set_slot, "p_village_97", slot_center_linen_looms, 0), #shibal zumr
-   (party_set_slot, "p_village_102", slot_center_linen_looms, 0), #tamnuh
-   (party_set_slot, "p_village_109", slot_center_linen_looms, 0), #habba
+   (party_set_slot, "p_village_93", "slot_center_linen_looms", 0), #mazigh
+   (party_set_slot, "p_village_94", "slot_center_linen_looms", 0), #sekhtem
+   (party_set_slot, "p_village_95", "slot_center_linen_looms", 0), #qalyut
+   (party_set_slot, "p_village_96", "slot_center_linen_looms", 0), #tilimsal
+   (party_set_slot, "p_village_97", "slot_center_linen_looms", 0), #shibal zumr
+   (party_set_slot, "p_village_102", "slot_center_linen_looms", 0), #tamnuh
+   (party_set_slot, "p_village_109", "slot_center_linen_looms", 0), #habba
 
-   (party_set_slot, "p_village_67", slot_center_fishing_fleet, 0), #Tebandra
-   (party_set_slot, "p_village_5", slot_center_fishing_fleet, 15), #Kulum
+   (party_set_slot, "p_village_67", "slot_center_fishing_fleet", 0), #Tebandra
+   (party_set_slot, "p_village_5", "slot_center_fishing_fleet", 15), #Kulum
    
    
    #The following scripts are to end quests which should have cancelled, but did not because of a bug
@@ -5434,7 +5434,7 @@ simple_triggers = [
 ##  (0.2, #Every 0.2 game hours will the game check if there are any reinforcements in the centers.
 ##[
 ##(try_for_parties, ":party_no"), 
-##(party_slot_eq, ":party_no", slot_party_type, spt_reinforcement_party), #Find parties of the type spt_reinforcement_party
+##(party_slot_eq, ":party_no", "slot_party_type", spt_reinforcement_party), #Find parties of the type spt_reinforcement_party
 ##(party_is_in_any_town, ":party_no"), # Is the party in any town?
 ##(party_get_cur_town, ":cur_center", ":party_no"), #What town are they in?
 ###(call_script, "script_party_add_party_companions", ":cur_center", ":party_no"), #Add the party to the center, which is infact a party ;)
@@ -5718,11 +5718,11 @@ simple_triggers = [
   (3,
    [
     (try_for_parties, ":spouse_party"),  
-      (party_slot_eq, ":spouse_party", slot_party_type, dplmc_spt_spouse),
+      (party_slot_eq, ":spouse_party", "slot_party_type", dplmc_spt_spouse),
       
       (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
-      (party_get_slot, ":spouse_target", ":spouse_party", slot_party_orders_object),
-      (party_get_slot, ":home_center", ":spouse_party", slot_party_home_center),
+      (party_get_slot, ":spouse_target", ":spouse_party", "slot_party_orders_object"),
+      (party_get_slot, ":home_center", ":spouse_party", "slot_party_home_center"),
       (store_distance_to_party_from_party, ":distance", ":spouse_party", ":spouse_target"),
 
       #Moving spouse to home village
@@ -5736,19 +5736,19 @@ simple_triggers = [
         (else_try),
           (try_begin),
             (is_between, ":spouse_target", villages_begin, villages_end),
-            (party_get_slot,":cur_merchant",":spouse_target", slot_town_elder),
+            (party_get_slot,":cur_merchant",":spouse_target", "slot_town_elder"),
           (else_try), 
-            (party_get_slot,":cur_merchant",":spouse_target", slot_town_merchant), 
+            (party_get_slot,":cur_merchant",":spouse_target", "slot_town_merchant"), 
           (try_end),
           (troop_get_slot, ":amount", ":player_spouse", slot_troop_mission_diplomacy),
           (troop_remove_items, ":cur_merchant", "itm_bread", ":amount"),        
           (party_set_ai_behavior, ":spouse_party", ai_bhvr_travel_to_party),
           (try_begin),
             (gt, "$g_player_court", 0),
-            (party_set_slot, ":spouse_party", slot_party_ai_object, "$g_player_court"),
+            (party_set_slot, ":spouse_party", "slot_party_ai_object", "$g_player_court"),
             (party_set_ai_object, ":spouse_party", "$g_player_court"), 
           (else_try),
-            (party_set_slot, ":spouse_party", slot_party_ai_object, ":home_center"),
+            (party_set_slot, ":spouse_party", "slot_party_ai_object", ":home_center"),
             (party_set_ai_object, ":spouse_party", ":home_center"), 
           (try_end),
             
@@ -5770,10 +5770,10 @@ simple_triggers = [
   (options_get_campaign_ai, ":reduce_campaign_ai"),#store for use below
   ##nested diplomacy end+
   (try_for_parties, ":party_no"),
-    (party_slot_eq,":party_no", slot_party_type, dplmc_spt_gift_caravan),
+    (party_slot_eq,":party_no", "slot_party_type", dplmc_spt_gift_caravan),
     (party_is_active, ":party_no"),
-    (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
-    (party_get_slot, ":target_troop", ":party_no", slot_party_orders_object),
+    (party_get_slot, ":target_party", ":party_no", "slot_party_ai_object"),
+    (party_get_slot, ":target_troop", ":party_no", "slot_party_orders_object"),
      
     (try_begin),
       (party_is_active, ":target_party"),
@@ -5791,7 +5791,7 @@ simple_triggers = [
       (try_begin),
         (le, ":distance_to_target", 1),
   
-        (party_get_slot, ":gift", ":party_no", slot_party_mission_diplomacy),
+        (party_get_slot, ":gift", ":party_no", "slot_party_mission_diplomacy"),
         (str_store_item_name, s12, ":gift"),
         
         (try_begin),
@@ -5839,21 +5839,21 @@ simple_triggers = [
           (else_try),
             (eq, ":gift", "itm_smoked_fish"),
             (try_begin),
-              (party_slot_eq, ":target_party", slot_party_type, spt_village),
+              (party_slot_eq, ":target_party", "slot_party_type", spt_village),
               (val_add, ":relation_boost", 1),
             (try_end),
           (else_try),
             (eq, ":gift", "itm_cheese"),
             (val_add, ":relation_boost", 1),
             (try_begin),
-              (party_slot_eq, ":target_party", slot_party_type, spt_village),
+              (party_slot_eq, ":target_party", "slot_party_type", spt_village),
               (val_add, ":relation_boost", 1),
             (try_end),    
           (else_try),
             (eq, ":gift", "itm_honey"),
             (val_add, ":relation_boost", 2),    
             (try_begin),
-              (party_slot_eq, ":target_party", slot_party_type, spt_village),
+              (party_slot_eq, ":target_party", "slot_party_type", spt_village),
               (val_add, ":relation_boost", 2),
             (try_end),                      
           (try_end),  
@@ -5869,7 +5869,7 @@ simple_triggers = [
 		#Determine the gold cost of the gifts.
 		(store_item_value, ":gift_value", ":gift"),
 		#Determine how many copies of the gift are used
-		(party_get_slot, ":gift_value_factor", ":party_no", slot_party_mission_parameter_1),
+		(party_get_slot, ":gift_value_factor", ":party_no", "slot_party_mission_parameter_1"),
 		(try_begin),
 			#This should only fail if the game was saved using an old version while
 			#a caravan was en route.
@@ -5892,14 +5892,14 @@ simple_triggers = [
 		(assign, ":gift_value_factor", 100),
 
 		#(store_sub, ":gift_slot_no", ":gift", trade_goods_begin),
-		#(val_add, ":gift_slot_no", slot_town_trade_good_prices_begin),
+		#(val_add, ":gift_slot_no", "slot_town_trade_good_prices_begin"),
 
 		(try_begin),
 			#Gift isn't a trade good: this should never happen
 			(neg|is_between, ":gift", trade_goods_begin, trade_goods_end),
 			(try_begin),
 				(this_or_next|gt, ":target_troop", 0),
-					(party_slot_eq, ":target_party", slot_party_type, spt_town),
+					(party_slot_eq, ":target_party", "slot_party_type", spt_town),
 				(assign, ":gift_value_factor", 115),
 			(else_try),
 				(assign, ":gift_value_factor", 130),
@@ -5923,7 +5923,7 @@ simple_triggers = [
 				(val_add, ":faction_price_factor", reg0),
 				(val_add, ":faction_markets", 1),
 
-				(party_slot_eq, ":center_no", slot_town_lord, ":target_troop"),
+				(party_slot_eq, ":center_no", "slot_town_lord", ":target_troop"),
 				(val_add, ":personal_price_factor", reg0),
 				(val_add, ":personal_markets", 1),
 			(try_end),
@@ -5932,17 +5932,17 @@ simple_triggers = [
 				(eq, ":personal_markets", 0),
 				(try_for_range, ":center_no", villages_begin, villages_end),
 					(try_begin),
-						(party_slot_eq, ":center_no", slot_town_lord, ":target_troop"),
+						(party_slot_eq, ":center_no", "slot_town_lord", ":target_troop"),
 						(call_script, "script_dplmc_get_item_buy_price_factor", ":gift", ":center_no", -2, -2),
 						(val_add, ":faction_markets", reg0),
 						(val_add, ":personal_markets", 1),
 					(try_end),
 					#Check for castles (deliberately allow multiple-counting)
 					(try_begin),
-						(party_get_slot, reg1, ":center_no", slot_village_bound_center),
+						(party_get_slot, reg1, ":center_no", "slot_village_bound_center"),
 						(gt, reg1, 0),
-						(party_slot_eq, reg1, slot_party_type, spt_castle),
-						(party_slot_eq, reg1, slot_town_lord, ":target_troop"),
+						(party_slot_eq, reg1, "slot_party_type", spt_castle),
+						(party_slot_eq, reg1, "slot_town_lord", ":target_troop"),
 						(call_script, "script_dplmc_get_item_buy_price_factor", ":gift", ":center_no", -2, -2),
 						(val_add, ":faction_markets", reg0),
 						(val_add, ":personal_markets", 1),
@@ -6055,10 +6055,10 @@ simple_triggers = [
  (0.5,
  [
   (try_for_parties, ":party_no"),
-    (party_slot_eq,":party_no", slot_party_type, spt_messenger),
+    (party_slot_eq,":party_no", "slot_party_type", spt_messenger),
 
-    (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
-    (party_get_slot, ":orders_object", ":party_no", slot_party_orders_object),
+    (party_get_slot, ":target_party", ":party_no", "slot_party_ai_object"),
+    (party_get_slot, ":orders_object", ":party_no", "slot_party_orders_object"),
     
     (try_begin),
       (party_is_active, ":target_party"),
@@ -6077,13 +6077,13 @@ simple_triggers = [
     
         (try_begin), # returning to p_main_party
           (eq, ":target_party", "p_main_party"),
-          (party_get_slot, ":party_leader", ":party_no", slot_party_orders_object), 
-          (party_get_slot, ":success", ":party_no", slot_party_mission_diplomacy),
+          (party_get_slot, ":party_leader", ":party_no", "slot_party_orders_object"), 
+          (party_get_slot, ":success", ":party_no", "slot_party_mission_diplomacy"),
           (call_script, "script_add_notification_menu", "mnu_dplmc_messenger", ":party_leader", ":success"),   
           (remove_party, ":party_no"),
         (else_try), # patrols
-          (party_slot_eq, ":target_party", slot_party_type, spt_patrol),
-          (party_get_slot, ":message", ":party_no", slot_party_mission_diplomacy),
+          (party_slot_eq, ":target_party", "slot_party_type", spt_patrol),
+          (party_get_slot, ":message", ":party_no", "slot_party_mission_diplomacy"),
 
           (try_begin),
             (eq, ":message", spai_undefined),
@@ -6094,8 +6094,8 @@ simple_triggers = [
             (party_set_name, ":target_party", "@Transfer to {s6}"),
             (party_set_ai_behavior, ":target_party", ai_bhvr_travel_to_party), 
             (party_set_ai_object, ":target_party", ":orders_object"),
-            (party_set_slot, ":target_party", slot_party_ai_object, ":orders_object"),
-            (party_set_slot, ":target_party", slot_party_ai_state, spai_retreating_to_center),                       
+            (party_set_slot, ":target_party", "slot_party_ai_object", ":orders_object"),
+            (party_set_slot, ":target_party", "slot_party_ai_state", spai_retreating_to_center),                       
             (party_set_aggressiveness, ":target_party", 0),
             (party_set_courage, ":target_party", 3),
             (party_set_ai_initiative, ":target_party", 100),
@@ -6104,8 +6104,8 @@ simple_triggers = [
             (party_set_name, ":target_party", "@{s6} patrol"),
             (party_set_ai_behavior, ":target_party", ai_bhvr_travel_to_party),
             (party_set_ai_object, ":target_party", ":orders_object"),
-            (party_set_slot, ":target_party", slot_party_ai_object, ":orders_object"),
-            (party_set_slot, ":target_party", slot_party_orders_type, ":message"),
+            (party_set_slot, ":target_party", "slot_party_ai_object", ":orders_object"),
+            (party_set_slot, ":target_party", "slot_party_orders_type", ":message"),
           (try_end),
 
           (remove_party, ":party_no"),
@@ -6119,16 +6119,16 @@ simple_triggers = [
             (assign, "$g_talk_troop", ":party_leader"), #debug
           (try_end),
           
-          (party_get_slot, ":message", ":party_no", slot_party_mission_diplomacy),
+          (party_get_slot, ":message", ":party_no", "slot_party_mission_diplomacy"),
           (assign, ":success", 0),
           (try_begin),
-            (party_set_slot, ":target_party", slot_party_commander_party, "p_main_party"),
+            (party_set_slot, ":target_party", "slot_party_commander_party", "p_main_party"),
           	(store_current_hours, ":hours"),
-          	(party_set_slot, ":target_party", slot_party_following_orders_of_troop, "trp_kingdom_heroes_including_player_begin"),
-          	(party_set_slot, ":target_party", slot_party_orders_object, ":orders_object"),
-          	(party_set_slot, ":target_party", slot_party_orders_type, ":message"),
+          	(party_set_slot, ":target_party", "slot_party_following_orders_of_troop", "trp_kingdom_heroes_including_player_begin"),
+          	(party_set_slot, ":target_party", "slot_party_orders_object", ":orders_object"),
+          	(party_set_slot, ":target_party", "slot_party_orders_type", ":message"),
           	
-          	(party_set_slot, ":target_party", slot_party_orders_time, ":hours"),
+          	(party_set_slot, ":target_party", "slot_party_orders_time", ":hours"),
             (call_script, "script_npc_decision_checklist_party_ai", ":party_leader"), #This handles AI for both marshal and other parties		
   
   
@@ -6147,9 +6147,9 @@ simple_triggers = [
           
           (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party), 
           (party_set_ai_object, ":party_no", "p_main_party"),  
-          (party_set_slot, ":party_no", slot_party_ai_object, "p_main_party"),
-          (party_set_slot, ":party_no", slot_party_orders_object, ":party_leader"), 
-          (party_set_slot, ":party_no", slot_party_mission_diplomacy, ":success"),
+          (party_set_slot, ":party_no", "slot_party_ai_object", "p_main_party"),
+          (party_set_slot, ":party_no", "slot_party_orders_object", ":party_leader"), 
+          (party_set_slot, ":party_no", "slot_party_mission_diplomacy", ":success"),
         (try_end),
       (try_end),
     (else_try),
@@ -6394,7 +6394,7 @@ simple_triggers = [
     (assign, ":has_walled_center", 0),
     (assign, ":has_fief", 0),
     (try_for_range, ":center_no", centers_begin, centers_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),    
       (try_begin),
         (is_between, ":center_no", walled_centers_begin, walled_centers_end),
@@ -6455,11 +6455,11 @@ simple_triggers = [
 		(eq, reg0, 0),
 
 		(try_begin),
-			(party_slot_eq, ":acting_village", slot_center_original_faction, ":target_faction"),
+			(party_slot_eq, ":acting_village", "slot_center_original_faction", ":target_faction"),
 			
 			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
 		(else_try),
-			(party_slot_eq, ":acting_village", slot_center_ex_faction, ":target_faction"),
+			(party_slot_eq, ":acting_village", "slot_center_ex_faction", ":target_faction"),
 			
 			(call_script, "script_add_notification_menu", "mnu_notification_border_incident", ":acting_village", -1),
 			
@@ -6479,11 +6479,11 @@ simple_triggers = [
             # # (is_between, ":party", centers_begin, centers_end),
             # # (store_faction_of_party, ":party_faction", ":party"),
             # # (eq, ":party_faction", ":faction2"),
-            # # (party_slot_eq, ":faction1", ":party", slot_center_original_faction),
+            # # (party_slot_eq, ":faction1", ":party", "slot_center_original_faction"),
           # (try_for_range, ":center", centers_begin, centers_end),	#lose attitude for each center faction2 has taken from faction1
             # (store_faction_of_party, ":center_faction", ":center"),
             # (eq, ":center_faction", ":faction2"),
-            # (party_slot_eq, ":center", slot_center_original_faction, ":faction1"),
+            # (party_slot_eq, ":center", "slot_center_original_faction", ":faction1"),
 			# #MOTO ay Dios mio end
             # (val_sub, ":attitude_change", 1), #less attitude
           # (try_end),
@@ -6511,13 +6511,13 @@ simple_triggers = [
 (24 * 7,
 	[
 	(try_for_range, ":center_no", centers_begin, centers_end),
-		(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-		(this_or_next|party_slot_eq, ":center_no", slot_center_has_temple1, 1),
-		(this_or_next|party_slot_eq, ":center_no", slot_center_has_temple2, 1),
-		(this_or_next|party_slot_eq, ":center_no", slot_center_has_temple3, 1),
-		(this_or_next|party_slot_eq, ":center_no", slot_center_has_temple5, 1),
-		(party_slot_eq, ":center_no", slot_center_has_chapel5, 1),
-		(party_get_slot, ":faith", ":center_no", slot_center_sod_local_faith),
+		(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
+		(this_or_next|party_slot_eq, ":center_no", "slot_center_has_temple1", 1),
+		(this_or_next|party_slot_eq, ":center_no", "slot_center_has_temple2", 1),
+		(this_or_next|party_slot_eq, ":center_no", "slot_center_has_temple3", 1),
+		(this_or_next|party_slot_eq, ":center_no", "slot_center_has_temple5", 1),
+		(party_slot_eq, ":center_no", "slot_center_has_chapel5", 1),
+		(party_get_slot, ":faith", ":center_no", "slot_center_sod_local_faith"),
     (try_begin),
 		(eq, "$g_sod_faith", 4),                                                        
 		(val_add, ":faith", 7),#gdw was5
@@ -6528,12 +6528,12 @@ simple_triggers = [
     (assign,reg1,":faith"),
 	(try_end),
 
-    		(party_set_slot, ":center_no", slot_center_sod_local_faith, ":faith"),
+    		(party_set_slot, ":center_no", "slot_center_sod_local_faith", ":faith"),
 		(val_add, "$g_sod_global_faith", 5),
-			(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-			(party_get_slot, ":cur_relation", ":center_no", slot_center_player_relation),
+			(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
+			(party_get_slot, ":cur_relation", ":center_no", "slot_center_player_relation"),
 			(val_add, ":cur_relation", 1),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		# DEBUG REMOVE ME
 (display_message, "@Faith change of {reg1}"),#gdwaddedbackin due to bugs
 	(try_end),
@@ -6544,8 +6544,8 @@ simple_triggers = [
 	[
 	
 	(try_for_range, ":center_no", centers_begin, centers_end),
-		(party_slot_eq, ":center_no", slot_center_has_shrine5, 1),
-		(party_get_slot, ":faith", ":center_no", slot_center_sod_local_faith),
+		(party_slot_eq, ":center_no", "slot_center_has_shrine5", 1),
+		(party_get_slot, ":faith", ":center_no", "slot_center_sod_local_faith"),
     (try_begin),
 		(eq, "$g_sod_faith", 4),                                                        
 		(val_add, ":faith", 7),#gdw was5
@@ -6554,12 +6554,12 @@ simple_triggers = [
 			(eq, "$g_sod_faith", 3),
 		(val_add, ":faith", -7),#gdw was5
 	(try_end),
-		(party_set_slot, ":center_no", slot_center_sod_local_faith, ":faith"),
+		(party_set_slot, ":center_no", "slot_center_sod_local_faith", ":faith"),
 		(val_add, "$g_sod_global_faith", 3),
-			(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-			(party_get_slot, ":cur_relation", ":center_no", slot_center_player_relation),
+			(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
+			(party_get_slot, ":cur_relation", ":center_no", "slot_center_player_relation"),
 			(val_add, ":cur_relation", 1),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		# DEBUG REMOVE ME
 (display_message, "@New cult place is working"),#addedbackin due to report bug gdw
 	(try_end),
@@ -6570,10 +6570,10 @@ simple_triggers = [
 	[
 	
 	(try_for_range, ":center_no", centers_begin, centers_end),		
-		(this_or_next|party_slot_eq, ":center_no", slot_center_has_monastery1, 1),
-		(this_or_next|party_slot_eq, ":center_no", slot_center_has_monastery2, 1),
-		(party_slot_eq, ":center_no", slot_center_has_monastery3, 1),
-		(party_get_slot, ":faith", ":center_no", slot_center_sod_local_faith),
+		(this_or_next|party_slot_eq, ":center_no", "slot_center_has_monastery1", 1),
+		(this_or_next|party_slot_eq, ":center_no", "slot_center_has_monastery2", 1),
+		(party_slot_eq, ":center_no", "slot_center_has_monastery3", 1),
+		(party_get_slot, ":faith", ":center_no", "slot_center_sod_local_faith"),
     (try_begin),
 		(eq, "$g_sod_faith", 4),                                                        
 		(val_add, ":faith", 7),#gdw was5
@@ -6582,15 +6582,15 @@ simple_triggers = [
 			(eq, "$g_sod_faith", 3),
 		(val_add, ":faith", -7),#gdw was5
 	(try_end),
-		(party_set_slot, ":center_no", slot_center_sod_local_faith, ":faith"),
+		(party_set_slot, ":center_no", "slot_center_sod_local_faith", ":faith"),
 		(val_add, "$g_sod_global_faith", 2),
-		(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+		(party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
 		(val_add, ":prosperity", 3),
-		(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),	
-			(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-			(party_get_slot, ":cur_relation", ":center_no", slot_center_player_relation),
+		(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),	
+			(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
+			(party_get_slot, ":cur_relation", ":center_no", "slot_center_player_relation"),
 			(val_add, ":cur_relation", 1),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 			# DEBUG REMOVE ME
 		(display_message, "@New cult place is working."),#addedbackin due to report bug gdw
 	(try_end),
@@ -6600,21 +6600,21 @@ simple_triggers = [
 (24 * 7,
 	[
 	#(try_for_range, ":cur_village", villages_begin, villages_end),
-   #   (party_slot_eq, ":cur_village", slot_town_lord, "trp_player"),
-   #   (party_slot_eq, ":cur_village", slot_center_has_school, 1),
-   #   (party_get_slot, ":cur_relation", ":cur_village", slot_center_player_relation),
+   #   (party_slot_eq, ":cur_village", "slot_town_lord", "trp_player"),
+   #   (party_slot_eq, ":cur_village", "slot_center_has_school", 1),
+   #   (party_get_slot, ":cur_relation", ":cur_village", "slot_center_player_relation"),
    #   (val_add, ":cur_relation", 1),
    #   (val_min, ":cur_relation", 100),
-   ##   (party_set_slot, ":cur_village", slot_center_player_relation, ":cur_relation"),
+   ##   (party_set_slot, ":cur_village", "slot_center_player_relation", ":cur_relation"),
     #(try_end),
     #]),
 	(try_for_range, ":center_no", centers_begin, centers_end),		
-		(party_slot_eq, ":center_no", slot_center_has_university, 1),
-    (party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+		(party_slot_eq, ":center_no", "slot_center_has_university", 1),
+    (party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
     (val_add, ":prosperity", 2),#gdw5
-    (party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),  
-#		(party_get_slot, ":center_lord", ":center_no", slot_town_lord),
-	#	(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+    (party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),  
+#		(party_get_slot, ":center_lord", ":center_no", "slot_town_lord"),
+	#	(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
 		(call_script, "script_change_troop_renown", "trp_player", 10),
 			# DEBUG REMOVE ME#gdw10
 		(display_message, "@Library improved your renown."),
@@ -6628,10 +6628,10 @@ simple_triggers = [
 	
 	(try_for_range, ":center_no", centers_begin, centers_end),		
 
-		(party_slot_eq, ":center_no", slot_center_has_guild, 1),
-		(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+		(party_slot_eq, ":center_no", "slot_center_has_guild", 1),
+		(party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
 		(val_add, ":prosperity", 7),#gdw5
-		(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),	
+		(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),	
 		# DEBUG REMOVE ME
 		(display_message, "@Merchants guild add prosperity to your town/s."),
 	(try_end),
@@ -6643,10 +6643,10 @@ simple_triggers = [
 	
 	(try_for_range, ":center_no", centers_begin, centers_end),		
 
-		(party_slot_eq, ":center_no", slot_center_has_temple1, 1),
-		(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+		(party_slot_eq, ":center_no", "slot_center_has_temple1", 1),
+		(party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
 		(val_add, ":prosperity", 3),#gdw2
-		(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),	
+		(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),	
 		# DEBUG REMOVE ME
 		(display_message, "@Monasteries add prosperity to your town/s."),
 	(try_end),
@@ -6657,10 +6657,10 @@ simple_triggers = [
 	
 	(try_for_range, ":center_no", centers_begin, centers_end),		
 
-		(party_slot_eq, ":center_no", slot_center_has_temple2, 1),
-		(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+		(party_slot_eq, ":center_no", "slot_center_has_temple2", 1),
+		(party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
 		(val_add, ":prosperity", 3),#gdw2
-		(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),	
+		(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),	
 		# DEBUG REMOVE ME
 		(display_message, "@Sacred Forest add prosperity to your town/s."),
 	(try_end),
@@ -6671,10 +6671,10 @@ simple_triggers = [
 	
 	(try_for_range, ":center_no", centers_begin, centers_end),		
 
-		(party_slot_eq, ":center_no", slot_center_has_temple3, 1),
-		(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+		(party_slot_eq, ":center_no", "slot_center_has_temple3", 1),
+		(party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
 		(val_add, ":prosperity", 3),#gdw2
-		(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),	
+		(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),	
 		# DEBUG REMOVE ME
 		(display_message, "@Woden's temple add prosperity to your town/s."),
 	(try_end),
@@ -6685,10 +6685,10 @@ simple_triggers = [
 	
 	(try_for_range, ":center_no", centers_begin, centers_end),		
 
-		(party_slot_eq, ":center_no", slot_center_has_temple5, 1),
-		(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+		(party_slot_eq, ":center_no", "slot_center_has_temple5", 1),
+		(party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
 		(val_add, ":prosperity", 3),#gdw2
-		(party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),	
+		(party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),	
 		# DEBUG REMOVE ME
 		(display_message, "@Monasteries add prosperity to your town/s."),
 	(try_end),
@@ -6698,9 +6698,9 @@ simple_triggers = [
 (24 * 7,
 	[
 	(try_for_range, ":center_no", centers_begin, centers_end),
-			(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-			(party_get_slot, ":cur_relation", ":center_no", slot_center_player_relation),
-			(party_get_slot, ":cur_faith", ":center_no", slot_center_sod_local_faith),
+			(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
+			(party_get_slot, ":cur_relation", ":center_no", "slot_center_player_relation"),
+			(party_get_slot, ":cur_faith", ":center_no", "slot_center_sod_local_faith"),
 
     (try_begin),
 		 (this_or_next|eq, "$g_sod_faith", 1),##if player christian, divide faith level by 30. If they're pagain, this will give a # between -1.5 to -4.5
@@ -6715,7 +6715,7 @@ simple_triggers = [
 			(val_div, ":cur_faith", 30),##gdw was 20
 	(try_end),
 			(val_add, ":cur_relation", ":cur_faith"),
-			(party_set_slot, ":center_no", slot_center_player_relation, ":cur_relation"),
+			(party_set_slot, ":center_no", "slot_center_player_relation", ":cur_relation"),
 		# DEBUG REMOVE ME
 	(display_message, "@FAITH RELATION: Your faith change your relation with centers."),
 	(try_end),
@@ -6726,8 +6726,8 @@ simple_triggers = [
 (90,
 	[
 	(try_for_range, ":center_no", centers_begin, centers_end),
-        (party_slot_eq, ":center_no", slot_town_sacked, 1),
-		(party_set_slot, ":center_no", slot_town_sacked, 0),
+        (party_slot_eq, ":center_no", "slot_town_sacked", 1),
+		(party_set_slot, ":center_no", "slot_town_sacked", 0),
 	(try_end),
 ]),  
 
@@ -6739,15 +6739,15 @@ simple_triggers = [
 	[
      
           (eq, "$g_savegames_necesario", 0),    
-      (party_set_slot,"p_castle_23", slot_center_siege_with_ram,      0),
-      (party_set_slot,"p_castle_38", slot_center_siege_with_ram,      0),
-      (party_set_slot,"p_castle_42", slot_center_siege_with_ram,      1),
-      (party_set_slot,"p_town_30", slot_center_siege_with_ram,      0),
-      (party_set_slot,"p_town_36", slot_center_siege_with_ram,      0),
-      (party_set_slot,"p_town_40", slot_center_siege_with_ram,      0),
-      (party_set_slot,"p_town_32", slot_center_siege_with_belfry, 0),
-      (party_set_slot,"p_town_27", slot_center_siege_with_belfry, 0),
-      (party_set_slot,"p_town_13", slot_center_siege_with_belfry, 0),
+      (party_set_slot,"p_castle_23", "slot_center_siege_with_ram",      0),
+      (party_set_slot,"p_castle_38", "slot_center_siege_with_ram",      0),
+      (party_set_slot,"p_castle_42", "slot_center_siege_with_ram",      1),
+      (party_set_slot,"p_town_30", "slot_center_siege_with_ram",      0),
+      (party_set_slot,"p_town_36", "slot_center_siege_with_ram",      0),
+      (party_set_slot,"p_town_40", "slot_center_siege_with_ram",      0),
+      (party_set_slot,"p_town_32", "slot_center_siege_with_belfry", 0),
+      (party_set_slot,"p_town_27", "slot_center_siege_with_belfry", 0),
+      (party_set_slot,"p_town_13", "slot_center_siege_with_belfry", 0),
 
           (assign, "$g_savegames_necesario", 1),    
 
@@ -6757,76 +6757,76 @@ simple_triggers = [
 ##(assign, "$g_sod_faith", 1),           
 ##(assign, "$g_pueblos_religion", 0),
 ##(assign, "$g_sod_global_faith", 0),
-##      (party_set_slot,"p_town_8",slot_center_religion_pagan, 1),                 ##Set grantebrydge como pagana
-##      (party_set_slot,"p_town_11",slot_center_religion_pagan, 1),                 ##Set Aegelesburh como pagana
-##      (party_set_slot,"p_town_18",slot_center_religion_pagan, 1),                 ##Set Searoburh como pagana
-##      (party_set_slot,"p_town_23",slot_center_religion_pagan, 1),                 ##Set Licidfelth como pagana
-##      (party_set_slot,"p_town_24",slot_center_religion_pagan, 1),                 ##Set Linnuis como pagana
+##      (party_set_slot,"p_town_8","slot_center_religion_pagan", 1),                 ##Set grantebrydge como pagana
+##      (party_set_slot,"p_town_11","slot_center_religion_pagan", 1),                 ##Set Aegelesburh como pagana
+##      (party_set_slot,"p_town_18","slot_center_religion_pagan", 1),                 ##Set Searoburh como pagana
+##      (party_set_slot,"p_town_23","slot_center_religion_pagan", 1),                 ##Set Licidfelth como pagana
+##      (party_set_slot,"p_town_24","slot_center_religion_pagan", 1),                 ##Set Linnuis como pagana
 ##
-##      (party_set_slot,"p_village_1",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_2",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_4",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_8",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_10",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_14",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_74",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_51",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_16",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_41",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_49",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_12",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_21",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_76",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_87",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_75",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_38",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_88",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_89",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_44",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_93",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_52",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_98",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_17",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_48",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_36",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_67",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_103",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_129",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_122",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_55",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_54",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_124",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_42",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_90",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_91",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_151",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_95",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_99",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_20",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_3",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_28",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_47",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
-##      (party_set_slot,"p_village_46",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_1","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_2","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_4","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_8","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_10","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_14","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_74","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_51","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_16","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_41","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_49","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_12","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_21","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_76","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_87","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_75","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_38","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_88","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_89","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_44","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_93","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_52","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_98","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_17","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_48","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_36","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_67","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_103","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_129","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_122","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_55","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_54","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_124","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_42","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_90","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_91","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_151","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_95","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_99","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_20","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_3","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_28","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_47","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_46","slot_center_religion_pagan", 1),                 ##Set aldea como pagana
 ##
 ##
 ####	(try_for_range, ":center_no", centers_begin, centers_end),
-####		(neg|party_slot_eq, ":center_no", slot_party_type, spt_castle),
+####		(neg|party_slot_eq, ":center_no", "slot_party_type", spt_castle),
 ####		(store_random_in_range, ":rand", -50, 50),	
-####		(party_set_slot, ":center_no", slot_center_sod_local_faith, ":rand"),
+####		(party_set_slot, ":center_no", "slot_center_sod_local_faith", ":rand"),
 ####	(try_end),
 ###gente cristiana
 ##	(try_for_range, ":center_no", centers_begin, centers_end),
-##        (neg|party_slot_ge, ":center_no", slot_center_religion_pagan, 1), #skip villages which are pagan.
-##		(neg|party_slot_eq, ":center_no", slot_party_type, spt_castle),
+##        (neg|party_slot_ge, ":center_no", "slot_center_religion_pagan", 1), #skip villages which are pagan.
+##		(neg|party_slot_eq, ":center_no", "slot_party_type", spt_castle),
 ##		(assign, "$g_pueblos_religion", 4),	
 ##		(store_random_in_range, ":rand", 30, 90),	
-##		(party_set_slot, ":center_no", slot_center_sod_local_faith, ":rand"),
+##		(party_set_slot, ":center_no", "slot_center_sod_local_faith", ":rand"),
 ##	(try_end),
 ##	(try_for_range, ":center_no", centers_begin, centers_end),
-##		(neg|party_slot_eq, ":center_no", slot_party_type, spt_castle),
-##        (party_slot_eq, ":center_no", slot_center_religion_pagan, 1), #anade fe a paganos
+##		(neg|party_slot_eq, ":center_no", "slot_party_type", spt_castle),
+##        (party_slot_eq, ":center_no", "slot_center_religion_pagan", 1), #anade fe a paganos
 ##		(store_random_in_range, ":rand", -90, -30),	
-##		(party_set_slot, ":center_no", slot_center_sod_local_faith, ":rand"),
+##		(party_set_slot, ":center_no", "slot_center_sod_local_faith", ":rand"),
 ##	(try_end),
 ##	(try_end),
 #chief acaba sod
@@ -6836,8 +6836,8 @@ simple_triggers = [
 ##	[
 ##	
 ##	(try_for_range, ":center_no", centers_begin, centers_end),
-##		(party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-##		(party_get_slot, ":cur_faith", ":center_no", slot_center_sod_local_faith),
+##		(party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
+##		(party_get_slot, ":cur_faith", ":center_no", "slot_center_sod_local_faith"),
 ##		(val_sub, ":cur_faith", 2),
 ##			(try_begin),
 ##				(gt, ":cur_faith", 100),
@@ -6846,7 +6846,7 @@ simple_triggers = [
 ##				(lt, ":cur_faith", -100),
 ##				(assign, ":cur_faith", -100),
 ##			(try_end),
-##		(party_set_slot, ":center_no", slot_center_sod_local_faith, ":cur_faith"),
+##		(party_set_slot, ":center_no", "slot_center_sod_local_faith", ":cur_faith"),
 ##		# DEBUG REMOVE ME
 ##		(display_message, "@FAITH RELATION: if a center have diferent religion to you, you lose relation."),
 ##	(try_end),	
@@ -7172,7 +7172,7 @@ simple_triggers = [
          (neq, "$freelancer_state", 1), #+freelancer chief #brytenwalda chief
    (assign, ":has_fief1", 0),
     (try_for_range, ":center_no", centers_begin, centers_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),
       (assign, ":has_fief1", 1),
     (try_end),
@@ -7289,7 +7289,7 @@ simple_triggers = [
 	[
    (assign, ":has_fief1", 0),
     (try_for_range, ":center_no", towns_begin, towns_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),
       (assign, ":has_fief1", 1),
     (try_end),
@@ -7413,7 +7413,7 @@ simple_triggers = [
  (store_party_size_wo_prisoners, reg0, "p_main_party"),
  (try_begin),
      (lt, reg0, 2),
-     (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, 0),
+     (party_set_slot, "p_main_party", "slot_party_unrested_morale_penalty", 0),
  (else_try),
      (is_currently_night),
      (try_begin),
@@ -7424,57 +7424,57 @@ simple_triggers = [
          (neq, "$g_player_icon_state", pis_ship),
          (neq, "$g_player_besiege_town", "$g_encountered_party"),
          (neq, "$g_player_is_captive", 1),
-         (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),##get last morale penalty
+         (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),##get last morale penalty
          (val_add, reg0, 3),##gdw was 1
-         (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, reg0),
+         (party_set_slot, "p_main_party", "slot_party_unrested_morale_penalty", reg0),
          (display_message, "@Your troops lose 3 morale from no night rest. morale_modifier_weariness={reg0}."),
          #(assign, ":lose_morale", reg0),
          #(call_script, "script_change_player_party_morale", -3),
      (try_end),
  (else_try),
      (neq, "$rest_up", 0),##means rested in town
-     (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),
+     (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
      
      #(try_begin),##if 4 and up, don't assign further penalty gdw
      (assign, reg1, 6),
      (try_begin),##does this apply only to state where in town or in camp
        (ge, "$g_last_rest_center", 0),
-       (party_slot_eq, "$g_last_rest_center", slot_party_type, spt_town),
+       (party_slot_eq, "$g_last_rest_center", "slot_party_type", spt_town),
        (val_add, reg1, 2),##gdw this was 1
      (try_end),
      (val_sub, reg0, reg1),
-     (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, reg0),
+     (party_set_slot, "p_main_party", "slot_party_unrested_morale_penalty", reg0),
      #(call_script, "script_change_player_party_morale", reg1),
      #(try_end),
      (display_message, "@Your troops feel refreshed from the center rest 8. morale_modifier_weariness={reg0}"),
      (assign, "$rest_up", 0),
   (else_try),##camping?
      (is_currently_night),
-     (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),
+     (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
      (val_sub, reg0, 4),#camp less restful
      # (val_max, reg0,0),
-     (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, reg0),
+     (party_set_slot, "p_main_party", "slot_party_unrested_morale_penalty", reg0),
      #(call_script, "script_change_player_party_morale", 4),
      (display_message, "@Your troops troops gain morale from night rest. morale_modifier_weariness={reg0}."),
   (else_try),##day resting
      (eq, "$g_player_icon_state", pis_camping),
-     (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),
+     (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
      #(val_max, reg0,0),##test gdw delte this
      (val_sub, reg0, 2),#camp less restful
      # (val_max, reg0,0),
-     (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, reg0),
+     (party_set_slot, "p_main_party", "slot_party_unrested_morale_penalty", reg0),
      (display_message, "@Your troops troops gain morale from day rest. morale_modifier_weariness={reg0}."),
      #(call_script, "script_change_player_party_morale", 2),
   (else_try),
       (eq, "$g_battle_weary",1),
-      (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),
+      (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
      #(val_max, reg0,0),##test gdw delte this
       (val_sub, reg0, 9),#camp less restful
      # (val_max, reg0,0),
-      (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, reg0),
+      (party_set_slot, "p_main_party", "slot_party_unrested_morale_penalty", reg0),
       (assign, "$g_battle_weary",0),
   (else_try),
-      (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),
+      (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
       (try_begin),
       (eq, "$cheat_mode", 1),
       (display_message, "@end of script morale_modifier_weariness={reg0}"),
@@ -7482,12 +7482,12 @@ simple_triggers = [
   (try_end),
 
  (try_begin),##gdw new script
-    (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),
+    (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
     (gt, reg0,46),
     (assign, "$g_encumbrance_penalty", 3),
     (display_message, "@encumbrancelevel 3 fromnorest."),
  (else_try),
-    (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),
+    (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
     (le, reg0,46),
     (gt, reg0,20),
     (assign, "$g_encumbrance_penalty", 2),
@@ -7497,7 +7497,7 @@ simple_triggers = [
     (try_end),
  (else_try),
 
-    (party_get_slot, reg0, "p_main_party", slot_party_unrested_morale_penalty),
+    (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
     (le, reg0,20),
     #(le, reg0,18),
     (assign, "$g_encumbrance_penalty", 1),
@@ -7514,43 +7514,43 @@ simple_triggers = [
     (1,
     [
       (try_for_parties, ":party_no"),
-        (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
+        (party_slot_eq, ":party_no", "slot_party_type", spt_kingdom_hero_party),
         (store_faction_of_party, ":party_faction", ":party_no"),
         (try_begin), ## follow
-          (party_slot_eq, ":party_no", slot_party_ai_state, spai_accompanying_army),
-          (party_get_slot, ":dest_ai_party", ":party_no", slot_party_ai_object),
+          (party_slot_eq, ":party_no", "slot_party_ai_state", spai_accompanying_army),
+          (party_get_slot, ":dest_ai_party", ":party_no", "slot_party_ai_object"),
           (gt, ":dest_ai_party", -1),
           (party_is_active, ":dest_ai_party"),
           (try_begin), # skip player's party
             (eq, ":dest_ai_party", "p_main_party"),
           (else_try),
-            (party_set_slot, ":party_no", slot_party_blind_to_other_parties, 1),
+            (party_set_slot, ":party_no", "slot_party_blind_to_other_parties", 1),
             (try_begin),
               (party_get_battle_opponent, ":opponent_party", ":dest_ai_party"),
               (store_distance_to_party_from_party, ":dist", ":party_no", ":dest_ai_party"),
               (gt, ":opponent_party", -1),
               (le, ":dist", 5),
-              (party_set_slot, ":party_no", slot_party_blind_to_other_parties, 0),
+              (party_set_slot, ":party_no", "slot_party_blind_to_other_parties", 0),
             (try_end),
           (try_end),
         (else_try), ## besiege
-          (party_slot_eq, ":party_no", slot_party_ai_state, spai_besieging_center),
-          (party_get_slot, ":ai_object", ":party_no", slot_party_ai_object),
+          (party_slot_eq, ":party_no", "slot_party_ai_state", spai_besieging_center),
+          (party_get_slot, ":ai_object", ":party_no", "slot_party_ai_object"),
           (gt, ":ai_object", -1),
-          (party_set_slot, ":party_no", slot_party_blind_to_other_parties, 1),
+          (party_set_slot, ":party_no", "slot_party_blind_to_other_parties", 1),
           (try_for_parties, ":party_no_2"),
             (neq, ":party_no_2", ":party_no"),
             (store_distance_to_party_from_party, ":dist_2", ":party_no", ":party_no_2"),
             (le, ":dist_2", 5),
-            (party_slot_eq, ":party_no_2", slot_party_type, spt_kingdom_hero_party),
+            (party_slot_eq, ":party_no_2", "slot_party_type", spt_kingdom_hero_party),
             (store_faction_of_party, ":party_faction_2", ":party_no_2"),
             (eq, ":party_faction_2", ":party_faction"),
             (party_get_battle_opponent, ":opponent_party_2", ":party_no_2"),
             (gt, ":opponent_party_2", -1),
-            (party_set_slot, ":party_no", slot_party_blind_to_other_parties, 0),
+            (party_set_slot, ":party_no", "slot_party_blind_to_other_parties", 0),
           (try_end),
         (else_try),
-          (party_set_slot, ":party_no", slot_party_blind_to_other_parties, 0),
+          (party_set_slot, ":party_no", "slot_party_blind_to_other_parties", 0),
         (try_end),
       (try_end),
     ]),
@@ -7583,7 +7583,7 @@ simple_triggers = [
                 # check if it has a walled center
                 (assign, ":num_walled_centers", 0),
                 (try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
-                    (party_slot_eq, ":walled_center", slot_town_lord, ":cur_troop"),
+                    (party_slot_eq, ":walled_center", "slot_town_lord", ":cur_troop"),
                     (val_add, ":num_walled_centers", 1),
                 (try_end),
                 (gt, ":num_walled_centers", 0),
@@ -7956,7 +7956,7 @@ simple_triggers = [
 			(try_begin),
 				(neq, ":cur_icon", "icon_ship"),
 				(neq, ":cur_icon", "icon_castle_snow_a"),
-				(party_set_slot, ":cur_party", slot_party_save_icon, ":cur_icon"),
+				(party_set_slot, ":cur_party", "slot_party_save_icon", ":cur_icon"),
 				(try_begin),
 					(neq, ":cur_template", "pt_deer_herd"),
 					(neq, ":cur_template", "pt_boar_herd"),
@@ -7989,7 +7989,7 @@ simple_triggers = [
 				(party_set_icon, ":cur_party", "icon_gray_knight"),
 				(party_set_flags, ":cur_party", pf_is_ship, 0),
 			(else_try),
-				(party_get_slot, ":new_icon", ":cur_party", slot_party_save_icon),
+				(party_get_slot, ":new_icon", ":cur_party", "slot_party_save_icon"),
 				(party_set_icon, ":cur_party", ":new_icon"),
 			(try_end),
 		# (else_try),
@@ -8055,7 +8055,7 @@ simple_triggers = [
   	(24, #Floris Seafaring Wilderness Check
 	[
 		(try_for_parties, ":party_no"),
-		    (party_slot_eq, ":party_no", slot_party_type, spt_ship),
+		    (party_slot_eq, ":party_no", "slot_party_type", spt_ship),
 			(party_slot_eq, ":party_no", slot_ship_center, ship_wild_no_guard),
 			(party_get_slot, ":timer", ":party_no", slot_ship_time),
 			(store_current_hours, ":cur_time"),
@@ -8132,8 +8132,8 @@ simple_triggers = [
          (party_get_cur_town, ":destination", ":troop_party_no"),
          (is_between, ":destination", centers_begin, centers_end),
          
-         (this_or_next|party_slot_eq, ":destination", slot_party_type, spt_town),
-         (party_slot_eq, ":destination", slot_party_type, spt_castle),
+         (this_or_next|party_slot_eq, ":destination", "slot_party_type", spt_town),
+         (party_slot_eq, ":destination", "slot_party_type", spt_castle),
          (store_faction_of_party, ":troop_faction_no", ":troop_party_no"),
          (store_faction_of_party, ":destination_faction_no", ":destination"),
          (eq, ":troop_faction_no", ":destination_faction_no"),
@@ -8149,7 +8149,7 @@ simple_triggers = [
   (24,  # mercenarios se les escapan prisioneros
    [
     (try_for_parties, ":party_no"),
-          (party_slot_eq, ":party_no",slot_party_type, spt_companion_raider),
+          (party_slot_eq, ":party_no","slot_party_type", spt_companion_raider),
             (party_get_num_prisoner_stacks, ":num_stacks", ":party_no"),
             (try_for_range_backwards, ":troop_iterator", 0, ":num_stacks"),
               (party_prisoner_stack_get_troop_id, ":cur_troop_id", ":party_no", ":troop_iterator"),
@@ -8164,7 +8164,7 @@ simple_triggers = [
 ##  (120,  # walled centers sell prisoners CC
 ##   [
 ##      (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
-##        (party_get_slot, ":town_lord", ":center_no", slot_town_lord),
+##        (party_get_slot, ":town_lord", ":center_no", "slot_town_lord"),
 ##        (gt, ":town_lord", "trp_player"), #center does not belong to player.
 ##        (neg|is_between, ":town_lord", companions_begin, companions_end), # not companions
 ##        # processing ransom
@@ -8181,9 +8181,9 @@ simple_triggers = [
 ##        (try_end),
 ##        (call_script, "script_calculate_ransom_for_party", "p_temp_party"),
 ##        (assign, ":total_ransom_cost", reg0),
-##        (party_get_slot, ":cur_wealth", ":center_no", slot_town_wealth),
+##        (party_get_slot, ":cur_wealth", ":center_no", "slot_town_wealth"),
 ##        (val_add, ":cur_wealth", ":total_ransom_cost"),
-##        (party_set_slot, ":center_no", slot_town_wealth, ":cur_wealth"),
+##        (party_set_slot, ":center_no", "slot_town_wealth", ":cur_wealth"),
 ##        ## upgrade after processing ransom
 ##        (store_mul, ":xp_gain", ":total_ransom_cost", 5),
 ##        #(party_upgrade_with_xp, ":center_no", ":xp_gain"),

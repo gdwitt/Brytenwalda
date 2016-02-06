@@ -198,7 +198,7 @@ scripts = [
         (faction_get_slot, ":tier_3_troop", ":town_faction", slot_faction_tier_3_troop),
         (faction_get_slot, ":tier_4_troop", ":town_faction", slot_faction_tier_4_troop),
 
-        (party_get_slot, ":town_scene", "$current_town", slot_town_center),
+        (party_get_slot, ":town_scene", "$current_town", "slot_town_center"),
         (modify_visitors_at_site, ":town_scene"),
         (reset_visitors),
 
@@ -206,7 +206,7 @@ scripts = [
         (try_begin),
             (try_for_range, ":unused_temp", 1, 5),
                 (try_for_range, ":walker_no", 0, num_town_walkers),
-                    (store_add, ":troop_slot", slot_center_walker_0_troop, ":walker_no"),
+                    (store_add, ":troop_slot", "slot_center_walker_0_troop", ":walker_no"),
                     (party_get_slot, ":walker_troop_id", "$current_town", ":troop_slot"),
                     (gt, ":walker_troop_id", 0),
                     (store_add, ":entry_no", town_walker_entries_start, ":walker_no"),

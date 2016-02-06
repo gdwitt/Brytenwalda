@@ -71,8 +71,8 @@ common_weapon_use = (
             (eq, ":team", ":player_team"),
             (agent_get_division, ":class", ":agent"),
             (team_get_weapon_usage_order, ":weapon_order", ":team", ":class"),
-           
-            (store_add, ":ordered_class", ":class", slot_party_cabadrin_order_d0),
+
+            (store_add, ":ordered_class", ":class", "slot_party_cabadrin_orders_begin"),
             (party_get_slot, ":caba_order_index", "p_main_party", ":ordered_class"),
             (store_div, ":caba_order", ":caba_order_index", 100),
             (val_mul, ":caba_order", 100),
@@ -1858,7 +1858,7 @@ order_skirmish_triggers = [
     (0, 0, 1, [(key_clicked, key_for_skirmish)], [(call_script, "script_order_skirmish_begin_end")]),
     (0.5, 0, 0, [(call_script, "script_cf_order_skirmish_check")], [(call_script, "script_order_skirmish_skirmish")]),
     (ti_before_mission_start, 0, ti_once, [], [
-        (try_for_range, ":i", slot_party_cabadrin_order_d0, slot_party_cabadrin_order_d8 + 1),
+        (try_for_range, ":i", "slot_party_cabadrin_orders_begin", "slot_party_cabadrin_orders_end"),
            (party_set_slot, "p_main_party", ":i", 33), #0?
         (try_end),
     ]),
@@ -2234,7 +2234,7 @@ common_battle_tab_press = (
     #diplomacy chief acaba
 #TEMPERED CHANGES FOR ENTRENCHMENT 
     (else_try),
-        (party_get_slot,":entrenched","p_main_party",slot_party_entrenched),
+        (party_get_slot,":entrenched","p_main_party","slot_party_entrenched"),
         (ge,":entrenched",1),
         (display_message,"str_can_not_retreat"),
 #TEMPERED CHANGES END
@@ -2671,7 +2671,7 @@ common_siege_refill_ammo = (
 ##      (agent_is_defender, ":cur_agent"),
     #Tempered added for siege camps chief
       (try_begin),
-        (party_slot_eq,"p_main_party",slot_party_siege_camp,1),
+        (party_slot_eq,"p_main_party","slot_party_siege_camp",1),
         (agent_refill_ammo, ":cur_agent"),
       (else_try),
         (agent_get_team, ":agent_team", ":cur_agent"),
@@ -3202,7 +3202,7 @@ resta_fatigue,
        (try_end),
        (assign, "$g_mt_mode", abm_visit),
        (set_jump_mission, "mt_arena_melee_fight"),
-       (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+       (party_get_slot, ":arena_scene", "$current_town", "slot_town_arena"),
        (modify_visitors_at_site, ":arena_scene"),
        (reset_visitors),
        (set_visitor, 35, "trp_veteran_fighter"),

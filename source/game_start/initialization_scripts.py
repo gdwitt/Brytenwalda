@@ -763,83 +763,83 @@ scripts = [
         (assign, "$g_sod_faith", 0),
         (assign, "$g_pueblos_religion", 0),
         (assign, "$g_sod_global_faith", 0),
-        (party_set_slot, "p_town_8", slot_center_religion_pagan, 1),  # grantebrydge
-        (party_set_slot, "p_town_11", slot_center_religion_pagan, 1),  # Aegelesburh
-        (party_set_slot, "p_town_18", slot_center_religion_pagan, 1),  # Searoburh
-        (party_set_slot, "p_town_23", slot_center_religion_pagan, 1),  # Licidfelth
-        (party_set_slot, "p_town_24", slot_center_religion_pagan, 1),  # Linnuis
+        (party_set_slot, "p_town_8", "slot_center_religion_pagan", 1),  # grantebrydge
+        (party_set_slot, "p_town_11", "slot_center_religion_pagan", 1),  # Aegelesburh
+        (party_set_slot, "p_town_18", "slot_center_religion_pagan", 1),  # Searoburh
+        (party_set_slot, "p_town_23", "slot_center_religion_pagan", 1),  # Licidfelth
+        (party_set_slot, "p_town_24", "slot_center_religion_pagan", 1),  # Linnuis
 
-        (party_set_slot, "p_village_1", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_2", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_4", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_8", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_10", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_14", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_74", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_51", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_16", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_41", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_49", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_12", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_21", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_76", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_87", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_75", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_38", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_88", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_89", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_44", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_93", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_52", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_98", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_17", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_48", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_36", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_67", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_103", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_129", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_122", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_55", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_54", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_124", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_42", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_90", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_91", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_151", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_95", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_99", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_20", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_3", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_28", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_47", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_46", slot_center_religion_pagan, 1),
+        (party_set_slot, "p_village_1", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_2", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_4", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_8", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_10", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_14", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_74", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_51", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_16", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_41", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_49", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_12", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_21", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_76", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_87", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_75", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_38", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_88", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_89", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_44", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_93", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_52", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_98", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_17", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_48", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_36", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_67", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_103", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_129", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_122", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_55", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_54", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_124", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_42", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_90", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_91", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_151", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_95", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_99", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_20", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_3", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_28", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_47", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_46", "slot_center_religion_pagan", 1),
 
-        (party_set_slot, "p_village_170", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_71", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_116", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_57", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_20", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_99", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_43", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_21", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_16", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_38", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_65", slot_center_religion_pagan, 1),
-        (party_set_slot, "p_village_35", slot_center_religion_pagan, 1),
+        (party_set_slot, "p_village_170", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_71", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_116", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_57", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_20", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_99", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_43", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_21", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_16", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_38", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_65", "slot_center_religion_pagan", 1),
+        (party_set_slot, "p_village_35", "slot_center_religion_pagan", 1),
 
         #gente cristiana
         (try_for_range, ":center_no", centers_begin, centers_end),
-            (neg|party_slot_ge, ":center_no", slot_center_religion_pagan, 1),  #skip villages which are pagan.
-            (neg|party_slot_eq, ":center_no", slot_party_type, spt_castle),
+            (neg|party_slot_ge, ":center_no", "slot_center_religion_pagan", 1),  #skip villages which are pagan.
+            (neg|party_slot_eq, ":center_no", "slot_party_type", spt_castle),
             (assign, "$g_pueblos_religion", 4),
             (store_random_in_range, ":rand", 30, 90),
-            (party_set_slot, ":center_no", slot_center_sod_local_faith, ":rand"),
+            (party_set_slot, ":center_no", "slot_center_sod_local_faith", ":rand"),
         (try_end),
             (try_for_range, ":center_no", centers_begin, centers_end),
-            (neg|party_slot_eq, ":center_no", slot_party_type, spt_castle),
-            (party_slot_eq, ":center_no", slot_center_religion_pagan, 1),  #anade fe a las villas paganas
+            (neg|party_slot_eq, ":center_no", "slot_party_type", spt_castle),
+            (party_slot_eq, ":center_no", "slot_center_religion_pagan", 1),  #anade fe a las villas paganas
             (store_random_in_range, ":rand", -90, -30),
-            (party_set_slot, ":center_no", slot_center_sod_local_faith, ":rand"),
+            (party_set_slot, ":center_no", "slot_center_sod_local_faith", ":rand"),
         (try_end),
     ]),
 
@@ -1865,30 +1865,30 @@ scripts = [
         (try_for_range, ":center_no", centers_begin, centers_end),
             (store_faction_of_party, ":original_faction", ":center_no"),
             (faction_get_slot, ":culture", ":original_faction", slot_faction_culture),
-            (party_set_slot, ":center_no", slot_center_culture, ":culture"),
-            (party_set_slot, ":center_no", slot_center_original_faction, ":original_faction"),
-            (party_set_slot, ":center_no", slot_center_ex_faction, ":original_faction"),
+            (party_set_slot, ":center_no", "slot_center_culture", ":culture"),
+            (party_set_slot, ":center_no", "slot_center_original_faction", ":original_faction"),
+            (party_set_slot, ":center_no", "slot_center_ex_faction", ":original_faction"),
         (try_end),
 
         # set territorial disputes
-        (party_set_slot, "p_castle_10", slot_center_ex_faction, "fac_kingdom_5"),  # gewissae quiere Hlew ceaster de suth seaxna
-        (party_set_slot, "p_castle_37", slot_center_ex_faction, "fac_kingdom_5"),  # gewissae quiere caer baddan de Hwice
-        (party_set_slot, "p_castle_30", slot_center_ex_faction, "fac_kingdom_5"),  # gewissae quiere caer durnac de Dumnonia
-        (party_set_slot, "p_town_16", slot_center_ex_faction, "fac_kingdom_9"),  # Mierce quiere Dorce Ceaster de gewissae
-        (party_set_slot, "p_town_10", slot_center_ex_faction, "fac_kingdom_9"),  #Mierce quiere Eorfewic de Bernaccia
-        (party_set_slot, "p_town_23", slot_center_ex_faction, "fac_kingdom_13"),  #Bernacia quiere Licidfeld de Mierce
-        (party_set_slot, "p_town_24", slot_center_ex_faction, "fac_kingdom_13"),  #Bernaccia quiere Linnuis de Lindisware
-        (party_set_slot, "p_castle_61", slot_center_ex_faction, "fac_kingdom_13"),  #Bernaccia quiere Din Baer de Goddodin
-        (party_set_slot, "p_castle_48",  slot_center_ex_faction, "fac_kingdom_18"),  #Alt Clut atacara reghed
-        (party_set_slot, "p_town_34",  slot_center_ex_faction, "fac_kingdom_19"),  #Dal Riata quiere Dun Duirn de los pictos
-        (party_set_slot, "p_castle_50",  slot_center_ex_faction, "fac_kingdom_20"),  #pictos atacaran a dal riata
-        (party_set_slot, "p_castle_43",  slot_center_ex_faction, "fac_kingdom_20"),  #pictos atacaran a alt cult
-        (party_set_slot, "p_castle_24",  slot_center_ex_faction, "fac_kingdom_28"),  #Desmumu quiere Ard de Laigin
-        (party_set_slot, "p_town_40",  slot_center_ex_faction, "fac_kingdom_29"),  #Ulaid quiere Emain Mancha de Airgialla
-        (party_set_slot, "p_castle_72",  slot_center_ex_faction, "fac_kingdom_30"),  #Ui Neill quiere Sebuirge de Dal Riata
-        (party_set_slot, "p_castle_74",  slot_center_ex_faction, "fac_kingdom_30"),  #Ui Neill quiere Magh rath de Ulaid
-        (party_set_slot, "p_castle_17",  slot_center_ex_faction, "fac_kingdom_11"),  #Pengwern quiere Caer Legionis de Crafu
-        (party_set_slot, "p_castle_33",  slot_center_ex_faction, "fac_kingdom_4"),  #Anglia quiere Ligor Ceaster de Mercia
+        (party_set_slot, "p_castle_10", "slot_center_ex_faction", "fac_kingdom_5"),  # gewissae quiere Hlew ceaster de suth seaxna
+        (party_set_slot, "p_castle_37", "slot_center_ex_faction", "fac_kingdom_5"),  # gewissae quiere caer baddan de Hwice
+        (party_set_slot, "p_castle_30", "slot_center_ex_faction", "fac_kingdom_5"),  # gewissae quiere caer durnac de Dumnonia
+        (party_set_slot, "p_town_16", "slot_center_ex_faction", "fac_kingdom_9"),  # Mierce quiere Dorce Ceaster de gewissae
+        (party_set_slot, "p_town_10", "slot_center_ex_faction", "fac_kingdom_9"),  #Mierce quiere Eorfewic de Bernaccia
+        (party_set_slot, "p_town_23", "slot_center_ex_faction", "fac_kingdom_13"),  #Bernacia quiere Licidfeld de Mierce
+        (party_set_slot, "p_town_24", "slot_center_ex_faction", "fac_kingdom_13"),  #Bernaccia quiere Linnuis de Lindisware
+        (party_set_slot, "p_castle_61", "slot_center_ex_faction", "fac_kingdom_13"),  #Bernaccia quiere Din Baer de Goddodin
+        (party_set_slot, "p_castle_48",  "slot_center_ex_faction", "fac_kingdom_18"),  #Alt Clut atacara reghed
+        (party_set_slot, "p_town_34",  "slot_center_ex_faction", "fac_kingdom_19"),  #Dal Riata quiere Dun Duirn de los pictos
+        (party_set_slot, "p_castle_50",  "slot_center_ex_faction", "fac_kingdom_20"),  #pictos atacaran a dal riata
+        (party_set_slot, "p_castle_43",  "slot_center_ex_faction", "fac_kingdom_20"),  #pictos atacaran a alt cult
+        (party_set_slot, "p_castle_24",  "slot_center_ex_faction", "fac_kingdom_28"),  #Desmumu quiere Ard de Laigin
+        (party_set_slot, "p_town_40",  "slot_center_ex_faction", "fac_kingdom_29"),  #Ulaid quiere Emain Mancha de Airgialla
+        (party_set_slot, "p_castle_72",  "slot_center_ex_faction", "fac_kingdom_30"),  #Ui Neill quiere Sebuirge de Dal Riata
+        (party_set_slot, "p_castle_74",  "slot_center_ex_faction", "fac_kingdom_30"),  #Ui Neill quiere Magh rath de Ulaid
+        (party_set_slot, "p_castle_17",  "slot_center_ex_faction", "fac_kingdom_11"),  #Pengwern quiere Caer Legionis de Crafu
+        (party_set_slot, "p_castle_33",  "slot_center_ex_faction", "fac_kingdom_4"),  #Anglia quiere Ligor Ceaster de Mercia
 
         # todo: what this does?
         # they seem to depend on which faction has which town
@@ -2404,14 +2404,14 @@ scripts = [
         (item_set_slot, "itm_grain", slot_item_urban_demand, 20),
         (item_set_slot, "itm_grain", slot_item_rural_demand, 20),
         (item_set_slot, "itm_grain", slot_item_desert_demand, 20),
-        (item_set_slot, "itm_grain", slot_item_production_slot, slot_center_acres_grain),
+        (item_set_slot, "itm_grain", slot_item_production_slot, "slot_center_acres_grain"),
         (item_set_slot, "itm_grain", slot_item_production_string, "str_acres_grain"),
         (item_set_slot, "itm_grain", slot_item_base_price, 20),  #chief cambia
 
         (item_set_slot, "itm_bread", slot_item_urban_demand, 20),
         (item_set_slot, "itm_bread", slot_item_rural_demand, 30),
         (item_set_slot, "itm_bread", slot_item_desert_demand, 30),
-        (item_set_slot, "itm_bread", slot_item_production_slot, slot_center_mills),
+        (item_set_slot, "itm_bread", slot_item_production_slot, "slot_center_mills"),
         (item_set_slot, "itm_bread", slot_item_production_string, "str_mills"),
         (item_set_slot, "itm_bread", slot_item_primary_raw_material, "itm_grain"),
         (item_set_slot, "itm_bread", slot_item_input_number, 2),
@@ -2423,7 +2423,7 @@ scripts = [
         (item_set_slot, "itm_ale", slot_item_urban_demand, 15),
         (item_set_slot, "itm_ale", slot_item_rural_demand, 25),
         (item_set_slot, "itm_ale", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_ale", slot_item_production_slot, slot_center_breweries),
+        (item_set_slot, "itm_ale", slot_item_production_slot, "slot_center_breweries"),
         (item_set_slot, "itm_ale", slot_item_production_string, "str_breweries"),
         (item_set_slot, "itm_ale", slot_item_base_price, 100),
         (item_set_slot, "itm_ale", slot_item_primary_raw_material, "itm_grain"),
@@ -2436,7 +2436,7 @@ scripts = [
         (item_set_slot, "itm_wine", slot_item_urban_demand, 35),
         (item_set_slot, "itm_wine", slot_item_rural_demand, 10),
         (item_set_slot, "itm_wine", slot_item_desert_demand, 25),
-        (item_set_slot, "itm_wine", slot_item_production_slot, slot_center_wine_presses),
+        (item_set_slot, "itm_wine", slot_item_production_slot, "slot_center_wine_presses"),
         (item_set_slot, "itm_wine", slot_item_production_string, "str_presses"),
         (item_set_slot, "itm_wine", slot_item_primary_raw_material, "itm_raw_grapes"),#What happened to base price here?gdw
         (item_set_slot, "itm_wine", slot_item_input_number, 1),  #chief cambia
@@ -2448,7 +2448,7 @@ scripts = [
         (item_set_slot, "itm_mead", slot_item_urban_demand, 25),
         (item_set_slot, "itm_mead", slot_item_rural_demand, 20),
         (item_set_slot, "itm_mead", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_mead", slot_item_production_slot, slot_center_breweries),
+        (item_set_slot, "itm_mead", slot_item_production_slot, "slot_center_breweries"),
         (item_set_slot, "itm_mead", slot_item_production_string, "str_presses"),
         (item_set_slot, "itm_mead", slot_item_base_price, 120),
         (item_set_slot, "itm_mead", slot_item_primary_raw_material, "itm_honey"),
@@ -2461,7 +2461,7 @@ scripts = [
         (item_set_slot, "itm_raw_grapes", slot_item_urban_demand, 13),
         (item_set_slot, "itm_raw_grapes", slot_item_rural_demand, 0),
         (item_set_slot, "itm_raw_grapes", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_raw_grapes", slot_item_production_slot, slot_center_acres_vineyard),
+        (item_set_slot, "itm_raw_grapes", slot_item_production_slot, "slot_center_acres_vineyard"),
         (item_set_slot, "itm_raw_grapes", slot_item_production_string, "str_acres_orchard"),
         (item_set_slot, "itm_raw_grapes", slot_item_is_raw_material_only_for, "itm_wine"),
         (item_set_slot, "itm_raw_grapes", slot_item_base_price, 125),  #chief cambia
@@ -2469,50 +2469,50 @@ scripts = [
         (item_set_slot, "itm_apples", slot_item_urban_demand, 9),
         (item_set_slot, "itm_apples", slot_item_rural_demand, 5),
         (item_set_slot, "itm_apples", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_apples", slot_item_production_slot, slot_center_acres_vineyard),
+        (item_set_slot, "itm_apples", slot_item_production_slot, "slot_center_acres_vineyard"),
         (item_set_slot, "itm_apples", slot_item_production_string, "str_acres_orchard"),
         (item_set_slot, "itm_apples", slot_item_base_price, 50),  #chief cambia
 
         (item_set_slot, "itm_smoked_fish", slot_item_urban_demand, 13),
         (item_set_slot, "itm_smoked_fish", slot_item_rural_demand, 18),
         (item_set_slot, "itm_smoked_fish", slot_item_desert_demand, 16),
-        (item_set_slot, "itm_smoked_fish", slot_item_production_slot, slot_center_fishing_fleet),
+        (item_set_slot, "itm_smoked_fish", slot_item_production_slot, "slot_center_fishing_fleet"),
         (item_set_slot, "itm_smoked_fish", slot_item_production_string, "str_boats"),
 
         (item_set_slot, "itm_salt", slot_item_urban_demand, 6),
         (item_set_slot, "itm_salt", slot_item_rural_demand, 3),
         (item_set_slot, "itm_salt", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_salt", slot_item_production_slot, slot_center_salt_pans),
+        (item_set_slot, "itm_salt", slot_item_production_slot, "slot_center_salt_pans"),
         (item_set_slot, "itm_salt", slot_item_production_string, "str_pans"),
 
         (item_set_slot, "itm_dried_meat", slot_item_urban_demand, 10),
         (item_set_slot, "itm_dried_meat", slot_item_rural_demand, 10),
         (item_set_slot, "itm_dried_meat", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_dried_meat", slot_item_production_slot, slot_center_head_cattle),
+        (item_set_slot, "itm_dried_meat", slot_item_production_slot, "slot_center_head_cattle"),
         (item_set_slot, "itm_dried_meat", slot_item_production_string, "str_head_cattle"),
 
         (item_set_slot, "itm_cattle_meat", slot_item_urban_demand, 16),
         (item_set_slot, "itm_cattle_meat", slot_item_rural_demand, 5),
         (item_set_slot, "itm_cattle_meat", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_cattle_meat", slot_item_production_slot, slot_center_head_cattle),
+        (item_set_slot, "itm_cattle_meat", slot_item_production_slot, "slot_center_head_cattle"),
         (item_set_slot, "itm_cattle_meat", slot_item_production_string, "str_head_cattle"),
 
         (item_set_slot, "itm_cheese", slot_item_urban_demand, 15),
         (item_set_slot, "itm_cheese", slot_item_rural_demand, 15),
         (item_set_slot, "itm_cheese", slot_item_desert_demand, 10),
-        (item_set_slot, "itm_cheese", slot_item_production_slot, slot_center_head_cattle),
+        (item_set_slot, "itm_cheese", slot_item_production_slot, "slot_center_head_cattle"),
         (item_set_slot, "itm_cheese", slot_item_production_string, "str_head_cattle"),
 
         (item_set_slot, "itm_butter", slot_item_urban_demand, 10),
         (item_set_slot, "itm_butter", slot_item_rural_demand, 5),
         (item_set_slot, "itm_butter", slot_item_desert_demand, 2),
-        (item_set_slot, "itm_butter", slot_item_production_slot, slot_center_head_cattle),
+        (item_set_slot, "itm_butter", slot_item_production_slot, "slot_center_head_cattle"),
         (item_set_slot, "itm_butter", slot_item_production_string, "str_head_cattle"),
 
         (item_set_slot, "itm_leatherwork", slot_item_urban_demand, 20),
         (item_set_slot, "itm_leatherwork", slot_item_rural_demand, 10),
         (item_set_slot, "itm_leatherwork", slot_item_desert_demand, 10),
-        (item_set_slot, "itm_leatherwork", slot_item_production_slot, slot_center_tanneries),
+        (item_set_slot, "itm_leatherwork", slot_item_production_slot, "slot_center_tanneries"),
         (item_set_slot, "itm_leatherwork", slot_item_production_string, "str_tanneries"),
         (item_set_slot, "itm_leatherwork", slot_item_primary_raw_material, "itm_raw_leather"),
         (item_set_slot, "itm_leatherwork", slot_item_input_number, 3),
@@ -2524,7 +2524,7 @@ scripts = [
         (item_set_slot, "itm_raw_leather", slot_item_urban_demand, 8),
         (item_set_slot, "itm_raw_leather", slot_item_rural_demand, 0),
         (item_set_slot, "itm_raw_leather", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_raw_leather", slot_item_production_slot, slot_center_head_cattle),
+        (item_set_slot, "itm_raw_leather", slot_item_production_slot, "slot_center_head_cattle"),
         (item_set_slot, "itm_raw_leather", slot_item_production_string, "str_head_cattle"),
         (item_set_slot, "itm_raw_leather", slot_item_is_raw_material_only_for, "itm_leatherwork"),
         (item_set_slot, "itm_raw_leather", slot_item_base_price, 275),  #chief cambia
@@ -2532,13 +2532,13 @@ scripts = [
         (item_set_slot, "itm_sausages", slot_item_urban_demand, 7),
         (item_set_slot, "itm_sausages", slot_item_rural_demand, 10),
         (item_set_slot, "itm_sausages", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_sausages", slot_item_production_slot, slot_center_head_sheep),
+        (item_set_slot, "itm_sausages", slot_item_production_slot, "slot_center_head_sheep"),
         (item_set_slot, "itm_sausages", slot_item_production_string, "str_head_sheep"),
 
         (item_set_slot, "itm_wool", slot_item_urban_demand, 0),
         (item_set_slot, "itm_wool", slot_item_rural_demand, 0),
         (item_set_slot, "itm_wool", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_wool", slot_item_production_slot, slot_center_head_sheep),
+        (item_set_slot, "itm_wool", slot_item_production_slot, "slot_center_head_sheep"),
         (item_set_slot, "itm_wool", slot_item_production_string, "str_head_sheep"),
         (item_set_slot, "itm_wool", slot_item_is_raw_material_only_for, "itm_wool_cloth"),
         (item_set_slot, "itm_wool", slot_item_base_price, 225),  #chief cambia
@@ -2546,7 +2546,7 @@ scripts = [
         (item_set_slot, "itm_wool_cloth", slot_item_urban_demand, 16),
         (item_set_slot, "itm_wool_cloth", slot_item_rural_demand, 23),
         (item_set_slot, "itm_wool_cloth", slot_item_desert_demand, 5),
-        (item_set_slot, "itm_wool_cloth", slot_item_production_slot, slot_center_wool_looms),
+        (item_set_slot, "itm_wool_cloth", slot_item_production_slot, "slot_center_wool_looms"),
         (item_set_slot, "itm_wool_cloth", slot_item_production_string, "str_looms"),
         (item_set_slot, "itm_wool_cloth", slot_item_primary_raw_material, "itm_wool"),
         (item_set_slot, "itm_wool_cloth", slot_item_input_number, 1),
@@ -2558,7 +2558,7 @@ scripts = [
         (item_set_slot, "itm_raw_flax", slot_item_urban_demand, 0),
         (item_set_slot, "itm_raw_flax", slot_item_rural_demand, 0),
         (item_set_slot, "itm_raw_flax", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_raw_flax", slot_item_production_slot, slot_center_acres_flax),
+        (item_set_slot, "itm_raw_flax", slot_item_production_slot, "slot_center_acres_flax"),
         (item_set_slot, "itm_raw_flax", slot_item_production_string, "str_acres_flax"),
         (item_set_slot, "itm_raw_flax", slot_item_is_raw_material_only_for, "itm_linen"),
         (item_set_slot, "itm_raw_flax", slot_item_base_price, 200),  #chief cambiado
@@ -2566,7 +2566,7 @@ scripts = [
         (item_set_slot, "itm_linen", slot_item_urban_demand, 22),
         (item_set_slot, "itm_linen", slot_item_rural_demand, 12),
         (item_set_slot, "itm_linen", slot_item_desert_demand, 15),
-        (item_set_slot, "itm_linen", slot_item_production_slot, slot_center_linen_looms),
+        (item_set_slot, "itm_linen", slot_item_production_slot, "slot_center_linen_looms"),
         (item_set_slot, "itm_linen", slot_item_production_string, "str_looms"),
         (item_set_slot, "itm_linen", slot_item_primary_raw_material, "itm_raw_flax"),
         (item_set_slot, "itm_linen", slot_item_input_number, 2),
@@ -2578,7 +2578,7 @@ scripts = [
         (item_set_slot, "itm_iron", slot_item_urban_demand, 0),
         (item_set_slot, "itm_iron", slot_item_rural_demand, 0),
         (item_set_slot, "itm_iron", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_iron", slot_item_production_slot, slot_center_iron_deposits),
+        (item_set_slot, "itm_iron", slot_item_production_slot, "slot_center_iron_deposits"),
         (item_set_slot, "itm_iron", slot_item_production_string, "str_deposits"),
         (item_set_slot, "itm_iron", slot_item_is_raw_material_only_for, "itm_tools"),
         (item_set_slot, "itm_iron", slot_item_base_price, 200),  #chief cambia
@@ -2586,19 +2586,19 @@ scripts = [
         (item_set_slot, "itm_silver", slot_item_urban_demand, 0),
         (item_set_slot, "itm_silver", slot_item_rural_demand, 0),
         (item_set_slot, "itm_silver", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_silver", slot_item_production_slot, slot_center_iron_deposits),
+        (item_set_slot, "itm_silver", slot_item_production_slot, "slot_center_iron_deposits"),
         (item_set_slot, "itm_silver", slot_item_production_string, "str_deposits"),
         #stone
         (item_set_slot, "itm_mineral", slot_item_urban_demand, 0),
         (item_set_slot, "itm_mineral", slot_item_rural_demand, 0),
         (item_set_slot, "itm_mineral", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_mineral", slot_item_production_slot, slot_center_iron_deposits),
+        (item_set_slot, "itm_mineral", slot_item_production_slot, "slot_center_iron_deposits"),
         (item_set_slot, "itm_mineral", slot_item_production_string, "str_deposits"),
 
         (item_set_slot, "itm_tools", slot_item_urban_demand, 24),
         (item_set_slot, "itm_tools", slot_item_rural_demand, 14),
         (item_set_slot, "itm_tools", slot_item_desert_demand, 7),
-        (item_set_slot, "itm_tools", slot_item_production_slot, slot_center_smithies),
+        (item_set_slot, "itm_tools", slot_item_production_slot, "slot_center_smithies"),
         (item_set_slot, "itm_tools", slot_item_production_string, "str_smithies"),
         (item_set_slot, "itm_tools", slot_item_primary_raw_material, "itm_iron"),
         (item_set_slot, "itm_tools", slot_item_input_number, 2),
@@ -2610,13 +2610,13 @@ scripts = [
         (item_set_slot, "itm_pottery", slot_item_urban_demand, 15),
         (item_set_slot, "itm_pottery", slot_item_rural_demand, 5),
         (item_set_slot, "itm_pottery", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_pottery", slot_item_production_slot, slot_center_pottery_kilns),
+        (item_set_slot, "itm_pottery", slot_item_production_slot, "slot_center_pottery_kilns"),
         (item_set_slot, "itm_pottery", slot_item_production_string, "str_kilns"),
 
         (item_set_slot, "itm_oil", slot_item_urban_demand, 20),
         (item_set_slot, "itm_oil", slot_item_rural_demand, 15),
         (item_set_slot, "itm_oil", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_oil", slot_item_production_slot, slot_center_olive_presses),
+        (item_set_slot, "itm_oil", slot_item_production_slot, "slot_center_olive_presses"),
         (item_set_slot, "itm_oil", slot_item_production_string, "str_presses"),
         (item_set_slot, "itm_oil", slot_item_primary_raw_material, "itm_raw_olives"),
         (item_set_slot, "itm_oil", slot_item_input_number, 5),
@@ -2628,7 +2628,7 @@ scripts = [
         (item_set_slot, "itm_raw_olives", slot_item_urban_demand, 9),
         (item_set_slot, "itm_raw_olives", slot_item_rural_demand, 0),
         (item_set_slot, "itm_raw_olives", slot_item_desert_demand, 0),
-        (item_set_slot, "itm_raw_olives", slot_item_production_slot, slot_center_acres_olives),
+        (item_set_slot, "itm_raw_olives", slot_item_production_slot, "slot_center_acres_olives"),
         (item_set_slot, "itm_raw_olives", slot_item_production_string, "str_olive_groves"),
         (item_set_slot, "itm_raw_olives", slot_item_is_raw_material_only_for, "itm_oil"),
         (item_set_slot, "itm_raw_olives", slot_item_base_price, 150),  #chief cambia
@@ -2636,7 +2636,7 @@ scripts = [
         (item_set_slot, "itm_velvet", slot_item_urban_demand, 10),
         (item_set_slot, "itm_velvet", slot_item_rural_demand, 0),
         (item_set_slot, "itm_velvet", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_velvet", slot_item_production_slot, slot_center_silk_looms),
+        (item_set_slot, "itm_velvet", slot_item_production_slot, "slot_center_silk_looms"),
         (item_set_slot, "itm_velvet", slot_item_production_string, "str_looms"),
         (item_set_slot, "itm_velvet", slot_item_primary_raw_material, "itm_wool"),
         (item_set_slot, "itm_velvet", slot_item_input_number, 2),
@@ -2648,7 +2648,7 @@ scripts = [
 
         (item_set_slot, "itm_rare_fabric", slot_item_urban_demand, 0),
         (item_set_slot, "itm_rare_fabric", slot_item_rural_demand, 0),
-        (item_set_slot, "itm_rare_fabric", slot_item_production_slot, slot_center_silk_farms),
+        (item_set_slot, "itm_rare_fabric", slot_item_production_slot, "slot_center_silk_farms"),
         (item_set_slot, "itm_rare_fabric", slot_item_production_string, "str_deposits"),
 
         (item_set_slot, "itm_raw_dyes", slot_item_urban_demand, 25),
@@ -2665,25 +2665,25 @@ scripts = [
         (item_set_slot, "itm_furs", slot_item_urban_demand, 15),
         (item_set_slot, "itm_furs", slot_item_rural_demand, 5),
         (item_set_slot, "itm_furs", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_furs", slot_item_production_slot, slot_center_fur_traps),
+        (item_set_slot, "itm_furs", slot_item_production_slot, "slot_center_fur_traps"),
         (item_set_slot, "itm_furs", slot_item_production_string, "str_traps"),
 
         (item_set_slot, "itm_honey", slot_item_urban_demand, 12),
         (item_set_slot, "itm_honey", slot_item_rural_demand, 3),
         (item_set_slot, "itm_honey", slot_item_desert_demand, -1),
-        (item_set_slot, "itm_honey", slot_item_production_slot, slot_center_apiaries),
+        (item_set_slot, "itm_honey", slot_item_production_slot, "slot_center_apiaries"),
         (item_set_slot, "itm_honey", slot_item_production_string, "str_hives"),
 
         (item_set_slot, "itm_cabbages", slot_item_urban_demand, 12),
         (item_set_slot, "itm_cabbages", slot_item_rural_demand, 7),
         (item_set_slot, "itm_cabbages", slot_item_desert_demand, 7),
-        (item_set_slot, "itm_cabbages", slot_item_production_slot, slot_center_household_gardens),
+        (item_set_slot, "itm_cabbages", slot_item_production_slot, "slot_center_household_gardens"),
         (item_set_slot, "itm_cabbages", slot_item_production_string, "str_gardens"),
 
         ##      (item_set_slot, "itm_silver", slot_item_urban_demand, 7),
         ##      (item_set_slot, "itm_silver", slot_item_rural_demand, 7),
         ##      (item_set_slot, "itm_silver", slot_item_desert_demand, 7),
-        ##      (item_set_slot, "itm_silver", slot_item_production_slot, slot_center_household_gardens),
+        ##      (item_set_slot, "itm_silver", slot_item_production_slot, "slot_center_household_gardens"),
         ##      (item_set_slot, "itm_silver", slot_item_production_string, "str_acres_oasis"),
 
         (item_set_slot, "itm_chicken", slot_item_urban_demand, 30),
@@ -2709,299 +2709,299 @@ scripts = [
     ]),
 
     ("initialize_town_arena_info", [
-        (party_set_slot,"p_town_1", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_1", slot_town_arena_melee_1_team_size,  1),
-        (party_set_slot,"p_town_1", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_1", slot_town_arena_melee_2_team_size,  1),
-        (party_set_slot,"p_town_1", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_1", slot_town_arena_melee_3_team_size,  1),
+        (party_set_slot,"p_town_1", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_1", "slot_town_arena_melee_1_team_size",  1),
+        (party_set_slot,"p_town_1", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_1", "slot_town_arena_melee_2_team_size",  1),
+        (party_set_slot,"p_town_1", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_1", "slot_town_arena_melee_3_team_size",  1),
 
-        (party_set_slot,"p_town_2", slot_town_arena_melee_1_num_teams,  4),
-        (party_set_slot,"p_town_2", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_2", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_2", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_2", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_2", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_2", "slot_town_arena_melee_1_num_teams",  4),
+        (party_set_slot,"p_town_2", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_2", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_2", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_2", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_2", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_3", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_3", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_3", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_3", slot_town_arena_melee_2_team_size,  8),
-        (party_set_slot,"p_town_3", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_3", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_3", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_3", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_3", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_3", "slot_town_arena_melee_2_team_size",  8),
+        (party_set_slot,"p_town_3", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_3", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_4", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_4", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_4", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_4", slot_town_arena_melee_2_team_size,  8),
-        (party_set_slot,"p_town_4", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_4", slot_town_arena_melee_3_team_size,  5),
+        (party_set_slot,"p_town_4", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_4", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_4", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_4", "slot_town_arena_melee_2_team_size",  8),
+        (party_set_slot,"p_town_4", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_4", "slot_town_arena_melee_3_team_size",  5),
 
-        (party_set_slot,"p_town_5", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_5", slot_town_arena_melee_1_team_size,  3),
-        (party_set_slot,"p_town_5", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_5", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_5", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_5", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_5", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_5", "slot_town_arena_melee_1_team_size",  3),
+        (party_set_slot,"p_town_5", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_5", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_5", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_5", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_6", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_6", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_6", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_6", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_6", slot_town_arena_melee_3_num_teams,  3),
-        (party_set_slot,"p_town_6", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_6", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_6", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_6", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_6", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_6", "slot_town_arena_melee_3_num_teams",  3),
+        (party_set_slot,"p_town_6", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_7", slot_town_arena_melee_1_num_teams,  4),
-        (party_set_slot,"p_town_7", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_7", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_7", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_7", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_7", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_7", "slot_town_arena_melee_1_num_teams",  4),
+        (party_set_slot,"p_town_7", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_7", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_7", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_7", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_7", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_8", slot_town_arena_melee_1_num_teams,  3),
-        (party_set_slot,"p_town_8", slot_town_arena_melee_1_team_size,  1),
-        (party_set_slot,"p_town_8", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_8", slot_town_arena_melee_2_team_size,  3),
-        (party_set_slot,"p_town_8", slot_town_arena_melee_3_num_teams,  3),
-        (party_set_slot,"p_town_8", slot_town_arena_melee_3_team_size,  7),
+        (party_set_slot,"p_town_8", "slot_town_arena_melee_1_num_teams",  3),
+        (party_set_slot,"p_town_8", "slot_town_arena_melee_1_team_size",  1),
+        (party_set_slot,"p_town_8", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_8", "slot_town_arena_melee_2_team_size",  3),
+        (party_set_slot,"p_town_8", "slot_town_arena_melee_3_num_teams",  3),
+        (party_set_slot,"p_town_8", "slot_town_arena_melee_3_team_size",  7),
 
-        (party_set_slot,"p_town_9", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_9", slot_town_arena_melee_1_team_size,  2),
-        (party_set_slot,"p_town_9", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_9", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_9", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_9", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_9", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_9", "slot_town_arena_melee_1_team_size",  2),
+        (party_set_slot,"p_town_9", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_9", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_9", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_9", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_10", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_10", slot_town_arena_melee_1_team_size,  3),
-        (party_set_slot,"p_town_10", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_10", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_10", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_10", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_10", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_10", "slot_town_arena_melee_1_team_size",  3),
+        (party_set_slot,"p_town_10", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_10", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_10", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_10", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_11", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_11", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_11", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_11", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_11", slot_town_arena_melee_3_num_teams,  3),
-        (party_set_slot,"p_town_11", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_11", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_11", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_11", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_11", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_11", "slot_town_arena_melee_3_num_teams",  3),
+        (party_set_slot,"p_town_11", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_12", slot_town_arena_melee_1_num_teams,  3),
-        (party_set_slot,"p_town_12", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_12", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_12", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_12", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_12", slot_town_arena_melee_3_team_size,  5),
+        (party_set_slot,"p_town_12", "slot_town_arena_melee_1_num_teams",  3),
+        (party_set_slot,"p_town_12", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_12", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_12", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_12", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_12", "slot_town_arena_melee_3_team_size",  5),
 
-        (party_set_slot,"p_town_13", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_13", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_13", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_13", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_13", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_13", slot_town_arena_melee_3_team_size,  7),
+        (party_set_slot,"p_town_13", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_13", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_13", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_13", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_13", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_13", "slot_town_arena_melee_3_team_size",  7),
 
-        (party_set_slot,"p_town_14", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_14", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_14", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_14", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_14", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_14", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_14", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_14", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_14", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_14", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_14", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_14", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_15", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_15", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_15", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_15", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_15", slot_town_arena_melee_3_num_teams,  3),
-        (party_set_slot,"p_town_15", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_15", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_15", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_15", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_15", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_15", "slot_town_arena_melee_3_num_teams",  3),
+        (party_set_slot,"p_town_15", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_16", slot_town_arena_melee_1_num_teams,  3),
-        (party_set_slot,"p_town_16", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_16", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_16", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_16", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_16", slot_town_arena_melee_3_team_size,  5),
+        (party_set_slot,"p_town_16", "slot_town_arena_melee_1_num_teams",  3),
+        (party_set_slot,"p_town_16", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_16", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_16", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_16", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_16", "slot_town_arena_melee_3_team_size",  5),
 
-        (party_set_slot,"p_town_17", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_17", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_17", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_17", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_17", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_17", slot_town_arena_melee_3_team_size,  7),
+        (party_set_slot,"p_town_17", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_17", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_17", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_17", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_17", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_17", "slot_town_arena_melee_3_team_size",  7),
 
-        (party_set_slot,"p_town_18", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_18", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_18", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_18", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_18", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_18", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_18", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_18", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_18", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_18", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_18", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_18", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_19", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_19", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_19", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_19", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_19", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_19", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_19", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_19", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_19", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_19", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_19", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_19", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_20", slot_town_arena_melee_1_num_teams,  4),
-        (party_set_slot,"p_town_20", slot_town_arena_melee_1_team_size,  2),
-        (party_set_slot,"p_town_20", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_20", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_20", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_20", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_20", "slot_town_arena_melee_1_num_teams",  4),
+        (party_set_slot,"p_town_20", "slot_town_arena_melee_1_team_size",  2),
+        (party_set_slot,"p_town_20", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_20", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_20", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_20", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_21", slot_town_arena_melee_1_num_teams,  3),
-        (party_set_slot,"p_town_21", slot_town_arena_melee_1_team_size,  3),
-        (party_set_slot,"p_town_21", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_21", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_21", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_21", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_21", "slot_town_arena_melee_1_num_teams",  3),
+        (party_set_slot,"p_town_21", "slot_town_arena_melee_1_team_size",  3),
+        (party_set_slot,"p_town_21", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_21", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_21", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_21", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_22", slot_town_arena_melee_1_num_teams,  4),
-        (party_set_slot,"p_town_22", slot_town_arena_melee_1_team_size,  3),
-        (party_set_slot,"p_town_22", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_22", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_22", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_22", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_22", "slot_town_arena_melee_1_num_teams",  4),
+        (party_set_slot,"p_town_22", "slot_town_arena_melee_1_team_size",  3),
+        (party_set_slot,"p_town_22", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_22", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_22", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_22", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_23", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_23", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_23", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_23", slot_town_arena_melee_2_team_size,  8),
-        (party_set_slot,"p_town_23", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_23", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_23", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_23", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_23", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_23", "slot_town_arena_melee_2_team_size",  8),
+        (party_set_slot,"p_town_23", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_23", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_24", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_24", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_24", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_24", slot_town_arena_melee_2_team_size,  8),
-        (party_set_slot,"p_town_24", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_24", slot_town_arena_melee_3_team_size,  5),
+        (party_set_slot,"p_town_24", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_24", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_24", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_24", "slot_town_arena_melee_2_team_size",  8),
+        (party_set_slot,"p_town_24", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_24", "slot_town_arena_melee_3_team_size",  5),
 
-        (party_set_slot,"p_town_25", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_25", slot_town_arena_melee_1_team_size,  3),
-        (party_set_slot,"p_town_25", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_25", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_25", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_25", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_25", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_25", "slot_town_arena_melee_1_team_size",  3),
+        (party_set_slot,"p_town_25", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_25", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_25", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_25", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_26", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_26", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_26", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_26", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_26", slot_town_arena_melee_3_num_teams,  3),
-        (party_set_slot,"p_town_26", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_26", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_26", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_26", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_26", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_26", "slot_town_arena_melee_3_num_teams",  3),
+        (party_set_slot,"p_town_26", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_27", slot_town_arena_melee_1_num_teams,  4),
-        (party_set_slot,"p_town_27", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_27", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_27", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_27", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_27", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_27", "slot_town_arena_melee_1_num_teams",  4),
+        (party_set_slot,"p_town_27", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_27", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_27", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_27", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_27", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_28", slot_town_arena_melee_1_num_teams,  3),
-        (party_set_slot,"p_town_28", slot_town_arena_melee_1_team_size,  1),
-        (party_set_slot,"p_town_28", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_28", slot_town_arena_melee_2_team_size,  3),
-        (party_set_slot,"p_town_28", slot_town_arena_melee_3_num_teams,  3),
-        (party_set_slot,"p_town_28", slot_town_arena_melee_3_team_size,  7),
+        (party_set_slot,"p_town_28", "slot_town_arena_melee_1_num_teams",  3),
+        (party_set_slot,"p_town_28", "slot_town_arena_melee_1_team_size",  1),
+        (party_set_slot,"p_town_28", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_28", "slot_town_arena_melee_2_team_size",  3),
+        (party_set_slot,"p_town_28", "slot_town_arena_melee_3_num_teams",  3),
+        (party_set_slot,"p_town_28", "slot_town_arena_melee_3_team_size",  7),
 
-        (party_set_slot,"p_town_29", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_29", slot_town_arena_melee_1_team_size,  2),
-        (party_set_slot,"p_town_29", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_29", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_29", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_29", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_29", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_29", "slot_town_arena_melee_1_team_size",  2),
+        (party_set_slot,"p_town_29", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_29", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_29", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_29", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_30", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_30", slot_town_arena_melee_1_team_size,  3),
-        (party_set_slot,"p_town_30", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_30", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_30", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_30", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_30", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_30", "slot_town_arena_melee_1_team_size",  3),
+        (party_set_slot,"p_town_30", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_30", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_30", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_30", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_31", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_31", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_31", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_31", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_31", slot_town_arena_melee_3_num_teams,  3),
-        (party_set_slot,"p_town_31", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_31", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_31", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_31", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_31", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_31", "slot_town_arena_melee_3_num_teams",  3),
+        (party_set_slot,"p_town_31", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_32", slot_town_arena_melee_1_num_teams,  3),
-        (party_set_slot,"p_town_32", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_32", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_32", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_32", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_32", slot_town_arena_melee_3_team_size,  5),
+        (party_set_slot,"p_town_32", "slot_town_arena_melee_1_num_teams",  3),
+        (party_set_slot,"p_town_32", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_32", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_32", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_32", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_32", "slot_town_arena_melee_3_team_size",  5),
 
-        (party_set_slot,"p_town_33", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_33", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_33", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_33", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_33", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_33", slot_town_arena_melee_3_team_size,  7),
+        (party_set_slot,"p_town_33", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_33", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_33", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_33", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_33", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_33", "slot_town_arena_melee_3_team_size",  7),
 
-        (party_set_slot,"p_town_34", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_34", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_34", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_34", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_34", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_34", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_34", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_34", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_34", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_34", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_34", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_34", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_35", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_35", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_35", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_35", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_35", slot_town_arena_melee_3_num_teams,  3),
-        (party_set_slot,"p_town_35", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_35", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_35", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_35", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_35", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_35", "slot_town_arena_melee_3_num_teams",  3),
+        (party_set_slot,"p_town_35", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_36", slot_town_arena_melee_1_num_teams,  3),
-        (party_set_slot,"p_town_36", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_36", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_36", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_36", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_36", slot_town_arena_melee_3_team_size,  5),
+        (party_set_slot,"p_town_36", "slot_town_arena_melee_1_num_teams",  3),
+        (party_set_slot,"p_town_36", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_36", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_36", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_36", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_36", "slot_town_arena_melee_3_team_size",  5),
 
-        (party_set_slot,"p_town_37", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_37", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_37", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_37", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_37", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_37", slot_town_arena_melee_3_team_size,  7),
+        (party_set_slot,"p_town_37", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_37", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_37", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_37", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_37", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_37", "slot_town_arena_melee_3_team_size",  7),
 
-        (party_set_slot,"p_town_38", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_38", slot_town_arena_melee_1_team_size,  4),
-        (party_set_slot,"p_town_38", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_38", slot_town_arena_melee_2_team_size,  5),
-        (party_set_slot,"p_town_38", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_38", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_38", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_38", "slot_town_arena_melee_1_team_size",  4),
+        (party_set_slot,"p_town_38", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_38", "slot_town_arena_melee_2_team_size",  5),
+        (party_set_slot,"p_town_38", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_38", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_39", slot_town_arena_melee_1_num_teams,  2),
-        (party_set_slot,"p_town_39", slot_town_arena_melee_1_team_size,  8),
-        (party_set_slot,"p_town_39", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_39", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_39", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_39", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_39", "slot_town_arena_melee_1_num_teams",  2),
+        (party_set_slot,"p_town_39", "slot_town_arena_melee_1_team_size",  8),
+        (party_set_slot,"p_town_39", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_39", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_39", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_39", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_40", slot_town_arena_melee_1_num_teams,  4),
-        (party_set_slot,"p_town_40", slot_town_arena_melee_1_team_size,  2),
-        (party_set_slot,"p_town_40", slot_town_arena_melee_2_num_teams,  4),
-        (party_set_slot,"p_town_40", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_40", slot_town_arena_melee_3_num_teams,  4),
-        (party_set_slot,"p_town_40", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_40", "slot_town_arena_melee_1_num_teams",  4),
+        (party_set_slot,"p_town_40", "slot_town_arena_melee_1_team_size",  2),
+        (party_set_slot,"p_town_40", "slot_town_arena_melee_2_num_teams",  4),
+        (party_set_slot,"p_town_40", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_40", "slot_town_arena_melee_3_num_teams",  4),
+        (party_set_slot,"p_town_40", "slot_town_arena_melee_3_team_size",  6),
 
-        (party_set_slot,"p_town_41", slot_town_arena_melee_1_num_teams,  3),
-        (party_set_slot,"p_town_41", slot_town_arena_melee_1_team_size,  3),
-        (party_set_slot,"p_town_41", slot_town_arena_melee_2_num_teams,  2),
-        (party_set_slot,"p_town_41", slot_town_arena_melee_2_team_size,  6),
-        (party_set_slot,"p_town_41", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_41", slot_town_arena_melee_3_team_size,  8),
+        (party_set_slot,"p_town_41", "slot_town_arena_melee_1_num_teams",  3),
+        (party_set_slot,"p_town_41", "slot_town_arena_melee_1_team_size",  3),
+        (party_set_slot,"p_town_41", "slot_town_arena_melee_2_num_teams",  2),
+        (party_set_slot,"p_town_41", "slot_town_arena_melee_2_team_size",  6),
+        (party_set_slot,"p_town_41", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_41", "slot_town_arena_melee_3_team_size",  8),
 
-        (party_set_slot,"p_town_42", slot_town_arena_melee_1_num_teams,  4),
-        (party_set_slot,"p_town_42", slot_town_arena_melee_1_team_size,  3),
-        (party_set_slot,"p_town_42", slot_town_arena_melee_2_num_teams,  3),
-        (party_set_slot,"p_town_42", slot_town_arena_melee_2_team_size,  4),
-        (party_set_slot,"p_town_42", slot_town_arena_melee_3_num_teams,  2),
-        (party_set_slot,"p_town_42", slot_town_arena_melee_3_team_size,  6),
+        (party_set_slot,"p_town_42", "slot_town_arena_melee_1_num_teams",  4),
+        (party_set_slot,"p_town_42", "slot_town_arena_melee_1_team_size",  3),
+        (party_set_slot,"p_town_42", "slot_town_arena_melee_2_num_teams",  3),
+        (party_set_slot,"p_town_42", "slot_town_arena_melee_2_team_size",  4),
+        (party_set_slot,"p_town_42", "slot_town_arena_melee_3_num_teams",  2),
+        (party_set_slot,"p_town_42", "slot_town_arena_melee_3_team_size",  6),
     ]),
 
     ("initialize_banner_info", [
@@ -3216,489 +3216,489 @@ scripts = [
         #All towns produce tools, pottery, and wool cloth for sale in countryside
         (try_for_range, ":town_no", towns_begin, towns_end),
             (store_random_in_range, ":random_average_20_variation_10", 10, 31),  #10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 or 30
-            (party_set_slot, ":town_no", slot_center_wool_looms, ":random_average_20_variation_10"),
+            (party_set_slot, ":town_no", "slot_center_wool_looms", ":random_average_20_variation_10"),
 
             (store_random_in_range, ":random_average_2_variation_1", 1, 4),  #1, 2 or 3
-            (party_set_slot, ":town_no", slot_center_breweries, ":random_average_2_variation_1"),
+            (party_set_slot, ":town_no", "slot_center_breweries", ":random_average_2_variation_1"),
 
             (store_random_in_range, ":random_average_5_variation_3", 3, 9),  #2, 3, 4,5,6,7 or 8
-            (party_set_slot, ":town_no", slot_center_pottery_kilns, ":random_average_5_variation_3"),
+            (party_set_slot, ":town_no", "slot_center_pottery_kilns", ":random_average_5_variation_3"),
 
             (store_random_in_range, ":random_average_15_variation_9", 6, 25),  #6,7,8,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23 or 24
-            (party_set_slot, ":town_no", slot_center_smithies, ":random_average_15_variation_9"),
+            (party_set_slot, ":town_no", "slot_center_smithies", ":random_average_15_variation_9"),
 
             (store_random_in_range, ":random_average_5_variation_3", 3, 9),  #2, 3, 4,5,6,7 or 8
-            (party_set_slot, ":town_no", slot_center_mills, ":random_average_5_variation_3"),
+            (party_set_slot, ":town_no", "slot_center_mills", ":random_average_5_variation_3"),
 
             (store_random_in_range, ":random_average_2_variation_1", 1, 4),  #1, 2 or 3
-            (party_set_slot, ":town_no", slot_center_tanneries, ":random_average_2_variation_1"),
+            (party_set_slot, ":town_no", "slot_center_tanneries", ":random_average_2_variation_1"),
 
             (store_random_in_range, ":random_average_1_variation_1", 0, 3),  #0,1 or 2
-            (party_set_slot, ":town_no", slot_center_wine_presses, ":random_average_1_variation_1"),
+            (party_set_slot, ":town_no", "slot_center_wine_presses", ":random_average_1_variation_1"),
 
             (store_random_in_range, ":random_average_2_variation_1", 1, 4),  #1, 2 or 3
-            (party_set_slot, ":town_no", slot_center_olive_presses, ":random_average_2_variation_1"),
+            (party_set_slot, ":town_no", "slot_center_olive_presses", ":random_average_2_variation_1"),
 
             (store_random_in_range, ":random_average_1000_variation_1000", 0, 2001),  #0..2000
-            (party_set_slot, ":town_no", slot_center_acres_grain, ":random_average_1000_variation_1000"),  #0..2000
+            (party_set_slot, ":town_no", "slot_center_acres_grain", ":random_average_1000_variation_1000"),  #0..2000
 
             (store_random_in_range, ":random_average_1000_variation_1000", 0, 2001),  #0..2000
-            (party_set_slot, ":town_no", slot_center_acres_vineyard, ":random_average_1000_variation_1000"),  #0..2000
+            (party_set_slot, ":town_no", "slot_center_acres_vineyard", ":random_average_1000_variation_1000"),  #0..2000
         (try_end),
       
         #chief anadido industria
-        (party_set_slot, "p_town_1", slot_center_olive_presses, 1),    #Suno
-        (party_set_slot, "p_town_1", slot_center_silk_looms, 10),        #Jelkaka
-        (party_set_slot, "p_town_1", slot_center_wine_presses, 4),    #narra
-        (party_set_slot, "p_town_1", slot_center_fishing_fleet, 25),    #Tihr
+        (party_set_slot, "p_town_1", "slot_center_olive_presses", 1),    #Suno
+        (party_set_slot, "p_town_1", "slot_center_silk_looms", 10),        #Jelkaka
+        (party_set_slot, "p_town_1", "slot_center_wine_presses", 4),    #narra
+        (party_set_slot, "p_town_1", "slot_center_fishing_fleet", 25),    #Tihr
         ##
-        (party_set_slot, "p_town_2", slot_center_silk_looms, 20),        #Jelkaka
-        (party_set_slot, "p_town_2", slot_center_fishing_fleet, 25),    #Tihr
-        (party_set_slot, "p_town_2", slot_center_wine_presses, 1),    #narra
-        (party_set_slot, "p_town_2", slot_center_smithies, 18),        #Khudan
+        (party_set_slot, "p_town_2", "slot_center_silk_looms", 20),        #Jelkaka
+        (party_set_slot, "p_town_2", "slot_center_fishing_fleet", 25),    #Tihr
+        (party_set_slot, "p_town_2", "slot_center_wine_presses", 1),    #narra
+        (party_set_slot, "p_town_2", "slot_center_smithies", 18),        #Khudan
         ##
-        (party_set_slot, "p_town_3", slot_center_mills, 15),            #Uxkhal
-        (party_set_slot, "p_town_3", slot_center_wool_looms, 15),        #Reyvadin
-        (party_set_slot, "p_town_3", slot_center_fishing_fleet, 25),    #Tihr
+        (party_set_slot, "p_town_3", "slot_center_mills", 15),            #Uxkhal
+        (party_set_slot, "p_town_3", "slot_center_wool_looms", 15),        #Reyvadin
+        (party_set_slot, "p_town_3", "slot_center_fishing_fleet", 25),    #Tihr
         ##
-        (party_set_slot, "p_town_4", slot_center_pottery_kilns, 10),
-        (party_set_slot, "p_town_4", slot_center_breweries, 35),
-        (party_set_slot, "p_town_4", slot_center_smithies, 18),        #Khudan
+        (party_set_slot, "p_town_4", "slot_center_pottery_kilns", 10),
+        (party_set_slot, "p_town_4", "slot_center_breweries", 35),
+        (party_set_slot, "p_town_4", "slot_center_smithies", 18),        #Khudan
 
-        (party_set_slot, "p_town_5", slot_center_pottery_kilns, 12),
-        (party_set_slot, "p_town_5", slot_center_breweries, 25),
-        (party_set_slot, "p_town_5", slot_center_smithies, 8),        #Khudan
-        (party_set_slot, "p_town_5", slot_center_fishing_fleet, 25),    #Tihr
+        (party_set_slot, "p_town_5", "slot_center_pottery_kilns", 12),
+        (party_set_slot, "p_town_5", "slot_center_breweries", 25),
+        (party_set_slot, "p_town_5", "slot_center_smithies", 8),        #Khudan
+        (party_set_slot, "p_town_5", "slot_center_fishing_fleet", 25),    #Tihr
         ##
-        (party_set_slot, "p_town_20", slot_center_tanneries, 5),        #Darquba
-        (party_set_slot, "p_town_20", slot_center_wool_looms, 31),        #Reyvadin
+        (party_set_slot, "p_town_20", "slot_center_tanneries", 5),        #Darquba
+        (party_set_slot, "p_town_20", "slot_center_wool_looms", 31),        #Reyvadin
 
-        (party_set_slot, "p_town_7", slot_center_mills, 15),            #Uxkhal
-        (party_set_slot, "p_town_7", slot_center_pottery_kilns, 15),
+        (party_set_slot, "p_town_7", "slot_center_mills", 15),            #Uxkhal
+        (party_set_slot, "p_town_7", "slot_center_pottery_kilns", 15),
 
         ##
-        (party_set_slot, "p_town_8", slot_center_silk_looms, 10),        #Jelkaka
-        (party_set_slot, "p_town_8", slot_center_pottery_kilns, 8),
-        (party_set_slot, "p_town_8", slot_center_breweries, 2),
+        (party_set_slot, "p_town_8", "slot_center_silk_looms", 10),        #Jelkaka
+        (party_set_slot, "p_town_8", "slot_center_pottery_kilns", 8),
+        (party_set_slot, "p_town_8", "slot_center_breweries", 2),
         ##
-        (party_set_slot, "p_town_9", slot_center_breweries, 6),
-        (party_set_slot, "p_town_9", slot_center_fishing_fleet, 5),    #Khudan
+        (party_set_slot, "p_town_9", "slot_center_breweries", 6),
+        (party_set_slot, "p_town_9", "slot_center_fishing_fleet", 5),    #Khudan
         ##
-        (party_set_slot, "p_town_10", slot_center_tanneries, 15),        #Shariz
-        (party_set_slot, "p_town_10", slot_center_wool_looms, 25),        #Reyvadin
-        (party_set_slot, "p_town_10", slot_center_fishing_fleet, 25),    #Tihr
+        (party_set_slot, "p_town_10", "slot_center_tanneries", 15),        #Shariz
+        (party_set_slot, "p_town_10", "slot_center_wool_looms", 25),        #Reyvadin
+        (party_set_slot, "p_town_10", "slot_center_fishing_fleet", 25),    #Tihr
         ##
-        (party_set_slot, "p_town_11", slot_center_smithies, 19),       #Curaw
-        (party_set_slot, "p_town_11", slot_center_pottery_kilns, 10),
-        (party_set_slot, "p_town_11", slot_center_breweries, 30),
-        (party_set_slot, "p_town_11", slot_center_fishing_fleet, 10),    #Khudan
+        (party_set_slot, "p_town_11", "slot_center_smithies", 19),       #Curaw
+        (party_set_slot, "p_town_11", "slot_center_pottery_kilns", 10),
+        (party_set_slot, "p_town_11", "slot_center_breweries", 30),
+        (party_set_slot, "p_town_11", "slot_center_fishing_fleet", 10),    #Khudan
         ##
-        (party_set_slot, "p_town_12", slot_center_silk_looms, 20),        #Jelkaka
-        (party_set_slot, "p_town_12", slot_center_fishing_fleet, 25),    #Wercheg
+        (party_set_slot, "p_town_12", "slot_center_silk_looms", 20),        #Jelkaka
+        (party_set_slot, "p_town_12", "slot_center_fishing_fleet", 25),    #Wercheg
         ##
-        (party_set_slot, "p_town_13", slot_center_breweries, 6),
-        (party_set_slot, "p_town_13", slot_center_fishing_fleet, 50),    #Rivacheg
+        (party_set_slot, "p_town_13", "slot_center_breweries", 6),
+        (party_set_slot, "p_town_13", "slot_center_fishing_fleet", 50),    #Rivacheg
         ##
-        (party_set_slot, "p_town_14", slot_center_silk_looms, 20),        #Jelkaka
-        (party_set_slot, "p_town_14", slot_center_pottery_kilns, 18),
+        (party_set_slot, "p_town_14", "slot_center_silk_looms", 20),        #Jelkaka
+        (party_set_slot, "p_town_14", "slot_center_pottery_kilns", 18),
         ##
-        (party_set_slot, "p_town_15", slot_center_smithies, 20),        #Yalen
-        (party_set_slot, "p_town_15", slot_center_pottery_kilns, 8),
-        (party_set_slot, "p_town_15", slot_center_breweries, 25),
-        (party_set_slot, "p_town_15", slot_center_fishing_fleet, 25),    #Yalen
+        (party_set_slot, "p_town_15", "slot_center_smithies", 20),        #Yalen
+        (party_set_slot, "p_town_15", "slot_center_pottery_kilns", 8),
+        (party_set_slot, "p_town_15", "slot_center_breweries", 25),
+        (party_set_slot, "p_town_15", "slot_center_fishing_fleet", 25),    #Yalen
 
-        (party_set_slot, "p_town_16", slot_center_smithies, 30),        #Dhirim
-        (party_set_slot, "p_town_16", slot_center_breweries, 5),
-        (party_set_slot, "p_town_16", slot_center_tanneries, 4),        #Dhirim
+        (party_set_slot, "p_town_16", "slot_center_smithies", 30),        #Dhirim
+        (party_set_slot, "p_town_16", "slot_center_breweries", 5),
+        (party_set_slot, "p_town_16", "slot_center_tanneries", 4),        #Dhirim
 
-        (party_set_slot, "p_town_17", slot_center_olive_presses, 15),    #Suno
-        (party_set_slot, "p_town_17", slot_center_fishing_fleet, 25),    #Tihr
+        (party_set_slot, "p_town_17", "slot_center_olive_presses", 15),    #Suno
+        (party_set_slot, "p_town_17", "slot_center_fishing_fleet", 25),    #Tihr
 
-        (party_set_slot, "p_town_18", slot_center_smithies, 25),        #Yalen
-        (party_set_slot, "p_town_18", slot_center_breweries, 5),
-        (party_set_slot, "p_town_18", slot_center_tanneries, 4),
+        (party_set_slot, "p_town_18", "slot_center_smithies", 25),        #Yalen
+        (party_set_slot, "p_town_18", "slot_center_breweries", 5),
+        (party_set_slot, "p_town_18", "slot_center_tanneries", 4),
 
-        (party_set_slot, "p_town_19", slot_center_breweries, 5),
+        (party_set_slot, "p_town_19", "slot_center_breweries", 5),
 
-        (party_set_slot, "p_town_20", slot_center_tanneries, 5),        #Darquba
-        (party_set_slot, "p_town_20", slot_center_wool_looms, 31),        #Reyvadin
+        (party_set_slot, "p_town_20", "slot_center_tanneries", 5),        #Darquba
+        (party_set_slot, "p_town_20", "slot_center_wool_looms", 31),        #Reyvadin
 
-        (party_set_slot, "p_town_21", slot_center_breweries, 5),
+        (party_set_slot, "p_town_21", "slot_center_breweries", 5),
 
-        (party_set_slot, "p_town_22", slot_center_breweries, 6),
+        (party_set_slot, "p_town_22", "slot_center_breweries", 6),
 
-        (party_set_slot, "p_town_23", slot_center_smithies, 20),        #Yalen
-        (party_set_slot, "p_town_23", slot_center_pottery_kilns, 8),
-        (party_set_slot, "p_town_23", slot_center_breweries, 25),
+        (party_set_slot, "p_town_23", "slot_center_smithies", 20),        #Yalen
+        (party_set_slot, "p_town_23", "slot_center_pottery_kilns", 8),
+        (party_set_slot, "p_town_23", "slot_center_breweries", 25),
 
-        (party_set_slot, "p_town_24", slot_center_pottery_kilns, 15),
-        (party_set_slot, "p_town_24", slot_center_fishing_fleet, 25),    #Tihr
+        (party_set_slot, "p_town_24", "slot_center_pottery_kilns", 15),
+        (party_set_slot, "p_town_24", "slot_center_fishing_fleet", 25),    #Tihr
 
-        (party_set_slot, "p_town_25", slot_center_breweries, 6),
-        (party_set_slot, "p_town_25", slot_center_fishing_fleet, 30),    #Jelkala
+        (party_set_slot, "p_town_25", "slot_center_breweries", 6),
+        (party_set_slot, "p_town_25", "slot_center_fishing_fleet", 30),    #Jelkala
 
-        (party_set_slot, "p_town_26", slot_center_breweries, 6),
-        (party_set_slot, "p_town_26", slot_center_fishing_fleet, 10),    #Praven
+        (party_set_slot, "p_town_26", "slot_center_breweries", 6),
+        (party_set_slot, "p_town_26", "slot_center_fishing_fleet", 10),    #Praven
 
-        (party_set_slot, "p_town_27", slot_center_mills, 15),            #Uxkhal
-        (party_set_slot, "p_town_27", slot_center_tanneries, 4),        #Shariz
-        (party_set_slot, "p_town_27", slot_center_wool_looms, 31),        #Reyvadin
+        (party_set_slot, "p_town_27", "slot_center_mills", 15),            #Uxkhal
+        (party_set_slot, "p_town_27", "slot_center_tanneries", 4),        #Shariz
+        (party_set_slot, "p_town_27", "slot_center_wool_looms", 31),        #Reyvadin
 
-        (party_set_slot, "p_town_28", slot_center_smithies, 25),        #Reyvadin
-        (party_set_slot, "p_town_28", slot_center_pottery_kilns, 18),
-        (party_set_slot, "p_town_28", slot_center_breweries, 15),
+        (party_set_slot, "p_town_28", "slot_center_smithies", 25),        #Reyvadin
+        (party_set_slot, "p_town_28", "slot_center_pottery_kilns", 18),
+        (party_set_slot, "p_town_28", "slot_center_breweries", 15),
 
-        (party_set_slot, "p_town_29", slot_center_breweries, 6),
-        (party_set_slot, "p_town_29", slot_center_fishing_fleet, 5),    #Khudan
+        (party_set_slot, "p_town_29", "slot_center_breweries", 6),
+        (party_set_slot, "p_town_29", "slot_center_fishing_fleet", 5),    #Khudan
 
-        (party_set_slot, "p_town_30", slot_center_linen_looms, 25),        #Sargoth
-        (party_set_slot, "p_town_30", slot_center_fishing_fleet, 30),    #Rivacheg
-        (party_set_slot, "p_town_30", slot_center_breweries, 5),
+        (party_set_slot, "p_town_30", "slot_center_linen_looms", 25),        #Sargoth
+        (party_set_slot, "p_town_30", "slot_center_fishing_fleet", 30),    #Rivacheg
+        (party_set_slot, "p_town_30", "slot_center_breweries", 5),
 
-        (party_set_slot, "p_town_31", slot_center_linen_looms, 15),        #Sargoth
-        (party_set_slot, "p_town_31", slot_center_breweries, 15),
+        (party_set_slot, "p_town_31", "slot_center_linen_looms", 15),        #Sargoth
+        (party_set_slot, "p_town_31", "slot_center_breweries", 15),
 
-        (party_set_slot, "p_town_32", slot_center_linen_looms, 20),        #Sargoth
-        (party_set_slot, "p_town_32", slot_center_breweries, 9),
-        (party_set_slot, "p_town_32", slot_center_fishing_fleet, 40),    #Rivacheg
+        (party_set_slot, "p_town_32", "slot_center_linen_looms", 20),        #Sargoth
+        (party_set_slot, "p_town_32", "slot_center_breweries", 9),
+        (party_set_slot, "p_town_32", "slot_center_fishing_fleet", 40),    #Rivacheg
 
-        (party_set_slot, "p_town_33", slot_center_linen_looms, 5),        #Sargoth
-        (party_set_slot, "p_town_33", slot_center_breweries, 17),
+        (party_set_slot, "p_town_33", "slot_center_linen_looms", 5),        #Sargoth
+        (party_set_slot, "p_town_33", "slot_center_breweries", 17),
 
-        (party_set_slot, "p_town_34", slot_center_tanneries, 2),        #Shariz
-        (party_set_slot, "p_town_34", slot_center_wool_looms, 39),        #Reyvadin
+        (party_set_slot, "p_town_34", "slot_center_tanneries", 2),        #Shariz
+        (party_set_slot, "p_town_34", "slot_center_wool_looms", 39),        #Reyvadin
 
-        (party_set_slot, "p_town_35", slot_center_linen_looms, 25),        #Sargoth
-        (party_set_slot, "p_town_35", slot_center_breweries, 5),
+        (party_set_slot, "p_town_35", "slot_center_linen_looms", 25),        #Sargoth
+        (party_set_slot, "p_town_35", "slot_center_breweries", 5),
 
-        (party_set_slot, "p_town_36", slot_center_linen_looms, 15),        #Sargoth
-        (party_set_slot, "p_town_36", slot_center_breweries, 15),
+        (party_set_slot, "p_town_36", "slot_center_linen_looms", 15),        #Sargoth
+        (party_set_slot, "p_town_36", "slot_center_breweries", 15),
 
-        (party_set_slot, "p_town_37", slot_center_tanneries, 4),        #Shariz
-        (party_set_slot, "p_town_37", slot_center_wool_looms, 40),        #Ichamur
+        (party_set_slot, "p_town_37", "slot_center_tanneries", 4),        #Shariz
+        (party_set_slot, "p_town_37", "slot_center_wool_looms", 40),        #Ichamur
 
-        (party_set_slot, "p_town_38", slot_center_wool_looms, 35),        #narra
-        (party_set_slot, "p_town_38", slot_center_tanneries, 5),        #Shariz
+        (party_set_slot, "p_town_38", "slot_center_wool_looms", 35),        #narra
+        (party_set_slot, "p_town_38", "slot_center_tanneries", 5),        #Shariz
 
-        (party_set_slot, "p_town_39", slot_center_tanneries, 5),        #Shariz
-        (party_set_slot, "p_town_39", slot_center_wool_looms, 35),        #Reyvadin
-        (party_set_slot, "p_town_39", slot_center_fishing_fleet, 5),    #Shariz
+        (party_set_slot, "p_town_39", "slot_center_tanneries", 5),        #Shariz
+        (party_set_slot, "p_town_39", "slot_center_wool_looms", 35),        #Reyvadin
+        (party_set_slot, "p_town_39", "slot_center_fishing_fleet", 5),    #Shariz
 
-        (party_set_slot, "p_town_40", slot_center_linen_looms, 17),        #Sargoth
-        (party_set_slot, "p_town_40", slot_center_breweries, 6),
+        (party_set_slot, "p_town_40", "slot_center_linen_looms", 17),        #Sargoth
+        (party_set_slot, "p_town_40", "slot_center_breweries", 6),
 
-        (party_set_slot, "p_town_41", slot_center_breweries, 1),        #Ahmerrad
+        (party_set_slot, "p_town_41", "slot_center_breweries", 1),        #Ahmerrad
 
-        (party_set_slot, "p_town_42", slot_center_tanneries, 5),        #Bariyye
-        (party_set_slot, "p_town_42", slot_center_wine_presses, 4),    #narra
+        (party_set_slot, "p_town_42", "slot_center_tanneries", 5),        #Bariyye
+        (party_set_slot, "p_town_42", "slot_center_wine_presses", 4),    #narra
 
 
     
         (try_for_range, ":village_no", villages_begin, villages_end),
             (store_random_in_range, ":random_cattle", 20, 100),
-            (party_set_slot, ":village_no", slot_center_head_cattle, ":random_cattle"),
+            (party_set_slot, ":village_no", "slot_center_head_cattle", ":random_cattle"),
 
             (store_random_in_range, ":random_sheep", 40, 200),
-            (party_set_slot, ":village_no", slot_center_head_sheep, ":random_sheep"),
+            (party_set_slot, ":village_no", "slot_center_head_sheep", ":random_sheep"),
 
             # grain production
             (store_random_in_range, ":random_value_between_0_and_40000", 0, 40000),
             (store_random_in_range, ":random_value_between_0_and_average_20000", 0, ":random_value_between_0_and_40000"),
-            (party_set_slot, ":village_no", slot_center_acres_grain, ":random_value_between_0_and_average_20000"),  #average : 10000, min : 0, max : 40000
+            (party_set_slot, ":village_no", "slot_center_acres_grain", ":random_value_between_0_and_average_20000"),  #average : 10000, min : 0, max : 40000
 
             # grape production
             (store_random_in_range, ":random_value_between_0_and_2000", 0, 2000),
             (store_random_in_range, ":random_value_between_0_and_average_1000", 0, ":random_value_between_0_and_2000"),
             (val_div, ":random_value_between_0_and_average_1000", 5),
-            (party_set_slot, ":village_no", slot_center_acres_vineyard, ":random_value_between_0_and_average_1000"),  #average : 500, min : 0, max : 2000
+            (party_set_slot, ":village_no", "slot_center_acres_vineyard", ":random_value_between_0_and_average_1000"),  #average : 500, min : 0, max : 2000
 
             # honey production
             (store_random_in_range, ":random_value_between_0_and_3", 0, 3),
-            (party_set_slot, ":village_no", slot_center_apiaries, ":random_value_between_0_and_3"),
+            (party_set_slot, ":village_no", "slot_center_apiaries", ":random_value_between_0_and_3"),
 
             # cabbage and fruit production
             (store_random_in_range, ":random_value_between_0_and_5", 0, 5),
-            (party_set_slot, ":village_no", slot_center_household_gardens, ":random_value_between_0_and_5"),
+            (party_set_slot, ":village_no", "slot_center_household_gardens", ":random_value_between_0_and_5"),
 
             # bread production
             (store_random_in_range, ":random_value_between_0_and_3", 0, 3),
-            (party_set_slot, ":village_no", slot_center_mills, ":random_value_between_0_and_3"),
+            (party_set_slot, ":village_no", "slot_center_mills", ":random_value_between_0_and_3"),
 
             # pottery production
             (store_random_in_range, ":random_value_between_0_and_5", 0, 5),
-            (party_set_slot, ":village_no", slot_center_pottery_kilns, ":random_value_between_0_and_5"),
+            (party_set_slot, ":village_no", "slot_center_pottery_kilns", ":random_value_between_0_and_5"),
 
             (try_begin),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_1"),  #Sargoth, flax
-                (party_set_slot, ":village_no", slot_center_acres_olives, 1000),
-                (party_set_slot, ":village_no", slot_center_acres_vineyard, 2000),
-                (party_set_slot, ":village_no", slot_center_household_gardens, 10),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_1"),  #Sargoth, flax
+                (party_set_slot, ":village_no", "slot_center_acres_olives", 1000),
+                (party_set_slot, ":village_no", "slot_center_acres_vineyard", 2000),
+                (party_set_slot, ":village_no", "slot_center_household_gardens", 10),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_2"),  #Wercheg
-                (party_set_slot, ":village_no", slot_center_silk_farms, 2),
-                (party_set_slot, ":village_no", slot_center_head_cattle, 200),  #leather
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_2"),  #Wercheg
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 2),
+                (party_set_slot, ":village_no", "slot_center_head_cattle", 200),  #leather
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_3"),  #veluca
-                (party_set_slot, ":village_no", slot_center_head_cattle, 200),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_3"),  #veluca
+                (party_set_slot, ":village_no", "slot_center_head_cattle", 200),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_4"),  #suno
-                (party_set_slot, ":village_no", slot_center_acres_grain, 12000),
-                (party_set_slot, ":village_no", slot_center_salt_pans, 1),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 12),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_4"),  #suno
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 12000),
+                (party_set_slot, ":village_no", "slot_center_salt_pans", 1),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 12),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_5"),  #jelkala
-                (party_set_slot, ":village_no", slot_center_acres_grain, 10000),
-                (party_set_slot, ":village_no", slot_center_salt_pans, 3),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 12),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_5"),  #jelkala
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 10000),
+                (party_set_slot, ":village_no", "slot_center_salt_pans", 3),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 12),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_6"),  #praven
-                (party_set_slot, ":village_no", slot_center_acres_grain, 6000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 3),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 170),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 12),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_6"),  #praven
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 6000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 3),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 170),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 12),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_7"),  #uxkhal
-                (party_set_slot, ":village_no", slot_center_head_sheep, 450),
-                (party_set_slot, ":village_no", slot_center_head_cattle, 100),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 10000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_7"),  #uxkhal
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 450),
+                (party_set_slot, ":village_no", "slot_center_head_cattle", 100),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 10000),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_8"),  #reyvadin
-                (party_set_slot, ":village_no", slot_center_acres_grain, 8000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 2000),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 12),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_8"),  #reyvadin
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 8000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 2000),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 12),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_9"),  #khudan
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 40),
-                (party_set_slot, ":village_no", slot_center_apiaries, 4),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_9"),  #khudan
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 40),
+                (party_set_slot, ":village_no", "slot_center_apiaries", 4),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_10"),  #tulga
-                (party_set_slot, ":village_no", slot_center_acres_grain, 5000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 1),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 450),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 20),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_10"),  #tulga
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 5000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 1),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 450),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 20),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_11"),  #curaw
-                (party_set_slot, ":village_no", slot_center_acres_grain, 12000),
-                (party_set_slot, ":village_no", slot_center_salt_pans, 1),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 12),
-                # (party_set_slot, ":village_no", slot_center_acres_olives, 0),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_11"),  #curaw
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 12000),
+                (party_set_slot, ":village_no", "slot_center_salt_pans", 1),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 12),
+                # (party_set_slot, ":village_no", "slot_center_acres_olives", 0),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_12"),  #rivacheg
-                (party_set_slot, ":village_no", slot_center_head_cattle, 75),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 5000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 4),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 150),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 10),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_12"),  #rivacheg
+                (party_set_slot, ":village_no", "slot_center_head_cattle", 75),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 5000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 4),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 150),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 10),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_13"),  #Wercheg
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 47),
-                (party_set_slot, ":village_no", slot_center_apiaries, 3),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_13"),  #Wercheg
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 47),
+                (party_set_slot, ":village_no", "slot_center_apiaries", 3),
 
             #14Halmar has a salt pan nearby
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_14"),  #Halmar
-                (party_set_slot, ":village_no", slot_center_acres_grain, 8000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 4000),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 2),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_14"),  #Halmar
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 8000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 4000),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 2),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_15"),  #yalen
-                (party_set_slot, ":village_no", slot_center_acres_grain, 7000),
-                (party_set_slot, ":village_no", slot_center_salt_pans, 12),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 10),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_15"),  #yalen
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 7000),
+                (party_set_slot, ":village_no", "slot_center_salt_pans", 12),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 10),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_16"),  #dhirim
-                (party_set_slot, ":village_no", slot_center_apiaries, 1),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 2000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_16"),  #dhirim
+                (party_set_slot, ":village_no", "slot_center_apiaries", 1),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 2000),
             #17 Ichamur
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_17"),  #ichamur
-                (party_set_slot, ":village_no", slot_center_acres_grain, 9000),
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 24),
-                (party_set_slot, ":village_no", slot_center_acres_vineyard, 1000),
-                (party_set_slot, ":village_no", slot_center_acres_olives, 4000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_17"),  #ichamur
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 9000),
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 24),
+                (party_set_slot, ":village_no", "slot_center_acres_vineyard", 1000),
+                (party_set_slot, ":village_no", "slot_center_acres_olives", 4000),
 
             #18 Narra
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_18"),  #narra
-                (party_set_slot, ":village_no", slot_center_acres_flax, 2000),
-                (party_set_slot, ":village_no", slot_center_apiaries, 1),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_18"),  #narra
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 2000),
+                (party_set_slot, ":village_no", "slot_center_apiaries", 1),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_19"),  #
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 15),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 10),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 1000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 2000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_19"),  #
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 15),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 10),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 1000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 2000),
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_20"),  #
-                (party_set_slot, ":village_no", slot_center_acres_grain, 2000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 3),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 170),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 12),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_20"),  #
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 2000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 3),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 170),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 12),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_21"),  #Ahmerrad -- hillside
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 10),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 150),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 4000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 4000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_21"),  #Ahmerrad -- hillside
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 10),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 150),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 4000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 4000),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_22"),  #Bariyye -- deep desert
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 52),
-                (party_set_slot, ":village_no", slot_center_apiaries, 1),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_22"),  #Bariyye -- deep desert
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 52),
+                (party_set_slot, ":village_no", "slot_center_apiaries", 1),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_23"),  #veluca
-                (party_set_slot, ":village_no", slot_center_acres_grain, 10000),
-                (party_set_slot, ":village_no", slot_center_salt_pans, 8),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 2),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_23"),  #veluca
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 10000),
+                (party_set_slot, ":village_no", "slot_center_salt_pans", 8),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 2),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_24"),  #suno
-                (party_set_slot, ":village_no", slot_center_head_sheep, 550),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_24"),  #suno
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 550),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_25"),  #jelkala
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 37),
-                (party_set_slot, ":village_no", slot_center_apiaries, 5),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_25"),  #jelkala
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 37),
+                (party_set_slot, ":village_no", "slot_center_apiaries", 5),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_26"),  #praven
-                (party_set_slot, ":village_no", slot_center_acres_grain, 15000),
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 42),
-                (party_set_slot, ":village_no", slot_center_apiaries, 4),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_26"),  #praven
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 15000),
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 42),
+                (party_set_slot, ":village_no", "slot_center_apiaries", 4),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_27"),  #uxkhal
-                (party_set_slot, ":village_no", slot_center_acres_grain, 15000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 1),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 150),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 10),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_27"),  #uxkhal
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 15000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 1),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 150),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 10),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_28"),  #reyvadin
-                (party_set_slot, ":village_no", slot_center_head_cattle, 100),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 10000),
-                (party_set_slot, ":village_no", slot_center_salt_pans, 8),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 10),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_28"),  #reyvadin
+                (party_set_slot, ":village_no", "slot_center_head_cattle", 100),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 10000),
+                (party_set_slot, ":village_no", "slot_center_salt_pans", 8),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 10),
 
             (else_try),
-            (party_slot_eq, ":village_no", slot_village_market_town, "p_town_29"),  #khudan
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 47),
-                (party_set_slot, ":village_no", slot_center_apiaries, 3),
+            (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_29"),  #khudan
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 47),
+                (party_set_slot, ":village_no", "slot_center_apiaries", 3),
 
             (else_try),
-            (party_slot_eq, ":village_no", slot_village_market_town, "p_town_30"),  #tulga
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 10),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 150),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 4000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 4000),
+            (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_30"),  #tulga
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 10),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 150),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 4000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 4000),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_31"),  #curaw
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 6),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 50),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 2000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 9000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_31"),  #curaw
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 6),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 50),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 2000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 9000),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_32"),  #rivacheg
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 5),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 40),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 4000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 6000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_32"),  #rivacheg
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 5),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 40),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 4000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 6000),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_33"),  #Wercheg
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 10),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 150),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 4000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 4000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_33"),  #Wercheg
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 10),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 150),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 4000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 4000),
 
                 #14Halmar has a salt pan nearby
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_34"),  #Halmar
-                (party_set_slot, ":village_no", slot_center_acres_grain, 7000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 3),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 250),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 20),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_34"),  #Halmar
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 7000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 3),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 250),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 20),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_35"),  #yalen
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 10),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 120),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 4000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 5000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_35"),  #yalen
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 10),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 120),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 4000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 5000),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_36"),  #dhirim
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 7),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 5000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 5000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_36"),  #dhirim
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 7),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 5000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 5000),
 
                 #17 Ichamur
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_37"),  #ichamur
-                (party_set_slot, ":village_no", slot_center_acres_grain, 2000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 3),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 250),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 50),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_37"),  #ichamur
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 2000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 3),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 250),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 50),
 
                 #18 Narra
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_38"),  #narra
-                (party_set_slot, ":village_no", slot_center_acres_grain, 7000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 3),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 250),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 20),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_38"),  #narra
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 7000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 3),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 250),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 20),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_39"),  #
-                (party_set_slot, ":village_no", slot_center_acres_grain, 7000),
-                (party_set_slot, ":village_no", slot_center_fur_traps, 3),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 250),
-                (party_set_slot, ":village_no", slot_center_silk_farms, 20),
-                (party_set_slot, ":village_no", slot_center_head_cattle, 30),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_39"),  #
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 7000),
+                (party_set_slot, ":village_no", "slot_center_fur_traps", 3),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 250),
+                (party_set_slot, ":village_no", "slot_center_silk_farms", 20),
+                (party_set_slot, ":village_no", "slot_center_head_cattle", 30),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_40"),  #
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 10),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 150),
-                (party_set_slot, ":village_no", slot_center_acres_grain, 4000),
-                (party_set_slot, ":village_no", slot_center_acres_flax, 4000),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_40"),  #
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 10),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 150),
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 4000),
+                (party_set_slot, ":village_no", "slot_center_acres_flax", 4000),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_41"),  #Ahmerrad -- hillside
-                (party_set_slot, ":village_no", slot_center_acres_grain, 9000),
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 28),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 50),
-                (party_set_slot, ":village_no", slot_center_head_cattle, 30),
-                (party_set_slot, ":village_no", slot_center_salt_pans, 8),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_41"),  #Ahmerrad -- hillside
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 9000),
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 28),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 50),
+                (party_set_slot, ":village_no", "slot_center_head_cattle", 30),
+                (party_set_slot, ":village_no", "slot_center_salt_pans", 8),
 
             (else_try),
-                (party_slot_eq, ":village_no", slot_village_market_town, "p_town_42"),  #Bariyye -- deep desert
-                (party_set_slot, ":village_no", slot_center_acres_grain, 5000),
-                (party_set_slot, ":village_no", slot_center_acres_vineyard, 2000),
-                (party_set_slot, ":village_no", slot_center_iron_deposits, 10),
-                (party_set_slot, ":village_no", slot_center_head_sheep, 50),
-                (party_set_slot, ":village_no", slot_center_head_cattle, 30),
+                (party_slot_eq, ":village_no", "slot_village_market_town", "p_town_42"),  #Bariyye -- deep desert
+                (party_set_slot, ":village_no", "slot_center_acres_grain", 5000),
+                (party_set_slot, ":village_no", "slot_center_acres_vineyard", 2000),
+                (party_set_slot, ":village_no", "slot_center_iron_deposits", 10),
+                (party_set_slot, ":village_no", "slot_center_head_sheep", 50),
+                (party_set_slot, ":village_no", "slot_center_head_cattle", 30),
             (try_end),
         (try_end),
       
         #determining village productions which are bounded by castle by nearby village productions which are bounded by a town.
         (try_for_range, ":village_no", villages_begin, villages_end),
-            (party_get_slot, ":bound_center", ":village_no", slot_village_bound_center),
+            (party_get_slot, ":bound_center", ":village_no", "slot_village_bound_center"),
             (is_between, ":bound_center", castles_begin, castles_end),
 
-            (try_for_range, ":cur_production_source", slot_production_sources_begin, slot_production_sources_end),
+            (try_for_range, ":cur_production_source", "slot_production_sources_begin", "slot_production_sources_end"),
 
                 (assign, ":total_averaged_production", 0),
                 (try_for_range, ":effected_village_no", villages_begin, villages_end),
-                    (party_get_slot, ":bound_center", ":effected_village_no", slot_village_bound_center),
+                    (party_get_slot, ":bound_center", ":effected_village_no", "slot_village_bound_center"),
                     (is_between, ":bound_center", towns_begin, towns_end),
 
                     (store_distance_to_party_from_party, ":dist", ":village_no", ":effected_village_no"),
@@ -3716,49 +3716,49 @@ scripts = [
             (try_end),
         (try_end),
 
-        (party_set_slot, "p_village_40", slot_center_fishing_fleet, 15),  #Yaragar
-        (party_set_slot, "p_village_64", slot_center_fishing_fleet, 15),  #Azgad
-        (party_set_slot, "p_village_12", slot_center_fishing_fleet, 15),  #Haen
-        (party_set_slot, "p_village_4", slot_center_fishing_fleet, 15),  #Buvran
+        (party_set_slot, "p_village_40", "slot_center_fishing_fleet", 15),  #Yaragar
+        (party_set_slot, "p_village_64", "slot_center_fishing_fleet", 15),  #Azgad
+        (party_set_slot, "p_village_12", "slot_center_fishing_fleet", 15),  #Haen
+        (party_set_slot, "p_village_4", "slot_center_fishing_fleet", 15),  #Buvran
 
-        (party_set_slot, "p_village_51", slot_center_fishing_fleet, 15),  #Uslum
-        (party_set_slot, "p_village_63", slot_center_fishing_fleet, 15),  #Bazeck
-        (party_set_slot, "p_village_56", slot_center_fishing_fleet, 15),  #Ilvia
-        (party_set_slot, "p_village_58", slot_center_fishing_fleet, 15),  #Glunmar
+        (party_set_slot, "p_village_51", "slot_center_fishing_fleet", 15),  #Uslum
+        (party_set_slot, "p_village_63", "slot_center_fishing_fleet", 15),  #Bazeck
+        (party_set_slot, "p_village_56", "slot_center_fishing_fleet", 15),  #Ilvia
+        (party_set_slot, "p_village_58", "slot_center_fishing_fleet", 15),  #Glunmar
 
-        (party_set_slot, "p_village_86", slot_center_fishing_fleet, 20),  #Ruvar
-        (party_set_slot, "p_village_35", slot_center_fishing_fleet, 15),  #Ambean
-        (party_set_slot, "p_village_44", slot_center_fishing_fleet, 15),  #Feacharin
+        (party_set_slot, "p_village_86", "slot_center_fishing_fleet", 20),  #Ruvar
+        (party_set_slot, "p_village_35", "slot_center_fishing_fleet", 15),  #Ambean
+        (party_set_slot, "p_village_44", "slot_center_fishing_fleet", 15),  #Feacharin
 
-        (party_set_slot, "p_village_28", slot_center_fishing_fleet, 15),  #Epeshe
-        (party_set_slot, "p_village_83", slot_center_fishing_fleet, 15),  #Tismirr
+        (party_set_slot, "p_village_28", "slot_center_fishing_fleet", 15),  #Epeshe
+        (party_set_slot, "p_village_83", "slot_center_fishing_fleet", 15),  #Tismirr
 
-        (party_set_slot, "p_village_139", slot_center_fishing_fleet, 15),  #Jelbegi
-        (party_set_slot, "p_village_143", slot_center_fishing_fleet, 15),  #Fenada
+        (party_set_slot, "p_village_139", "slot_center_fishing_fleet", 15),  #Jelbegi
+        (party_set_slot, "p_village_143", "slot_center_fishing_fleet", 15),  #Fenada
 
-        (party_set_slot, "p_village_7", slot_center_fishing_fleet, 15),  #Fisdnar
-        (party_set_slot, "p_village_71", slot_center_fishing_fleet, 15),  #Tebandra
-        (party_set_slot, "p_village_211", slot_center_fishing_fleet, 15),  #Ibdeles
-        (party_set_slot, "p_village_193", slot_center_fishing_fleet, 15),  #Kwynn
+        (party_set_slot, "p_village_7", "slot_center_fishing_fleet", 15),  #Fisdnar
+        (party_set_slot, "p_village_71", "slot_center_fishing_fleet", 15),  #Tebandra
+        (party_set_slot, "p_village_211", "slot_center_fishing_fleet", 15),  #Ibdeles
+        (party_set_slot, "p_village_193", "slot_center_fishing_fleet", 15),  #Kwynn
 
-        (party_set_slot, "p_village_192", slot_center_fishing_fleet, 25),  #Rizi - Estuary
-        (party_set_slot, "p_village_136", slot_center_fishing_fleet, 15),  #Istiniar
+        (party_set_slot, "p_village_192", "slot_center_fishing_fleet", 25),  #Rizi - Estuary
+        (party_set_slot, "p_village_136", "slot_center_fishing_fleet", 15),  #Istiniar
 
-        (party_set_slot, "p_village_118", slot_center_fishing_fleet, 15),  #Odasan
-        (party_set_slot, "p_village_110", slot_center_fishing_fleet, 15),  #Ismirala
-        (party_set_slot, "p_village_189", slot_center_fishing_fleet, 15),  #Udiniad
+        (party_set_slot, "p_village_118", "slot_center_fishing_fleet", 15),  #Odasan
+        (party_set_slot, "p_village_110", "slot_center_fishing_fleet", 15),  #Ismirala
+        (party_set_slot, "p_village_189", "slot_center_fishing_fleet", 15),  #Udiniad
 
-        (party_set_slot, "p_village_200", slot_center_fishing_fleet, 15),  #Jamiche
-        (party_set_slot, "p_village_171", slot_center_fishing_fleet, 15),  #Jamiche
+        (party_set_slot, "p_village_200", "slot_center_fishing_fleet", 15),  #Jamiche
+        (party_set_slot, "p_village_171", "slot_center_fishing_fleet", 15),  #Jamiche
 
-        (party_set_slot, "p_village_39", slot_center_fishing_fleet, 20),  #Ulburban
-        (party_set_slot, "p_village_137", slot_center_fishing_fleet, 15),  #Pagundur
-        (party_set_slot, "p_village_179", slot_center_fishing_fleet, 15),  #Jayek
+        (party_set_slot, "p_village_39", "slot_center_fishing_fleet", 20),  #Ulburban
+        (party_set_slot, "p_village_137", "slot_center_fishing_fleet", 15),  #Pagundur
+        (party_set_slot, "p_village_179", "slot_center_fishing_fleet", 15),  #Jayek
 
         # Initialize pastureland
         (try_for_range, ":center", centers_begin, centers_end),
-            (party_get_slot, ":head_cattle", ":center", slot_center_head_cattle),
-            (party_get_slot, ":head_sheep", ":center", slot_center_head_sheep),
+            (party_get_slot, ":head_cattle", ":center", "slot_center_head_cattle"),
+            (party_get_slot, ":head_sheep", ":center", "slot_center_head_sheep"),
             (store_mul, ":num_acres", ":head_cattle", 4),
             (val_add, ":num_acres", ":head_sheep"),
             (val_add, ":num_acres", ":head_sheep"),
@@ -3767,7 +3767,7 @@ scripts = [
             (store_random_in_range, ":random", 60, 150),
             (val_mul, ":num_acres", ":random"),
             (val_div, ":num_acres", 100),
-            (party_set_slot, ":center", slot_center_acres_pasture, ":num_acres"),
+            (party_set_slot, ":center", "slot_center_acres_pasture", ":num_acres"),
         (try_end),
 
         # Initialize prices based on production, etc
@@ -3783,7 +3783,7 @@ scripts = [
             (assign, ":prosperity", reg0),
             (val_add, ":prosperity", ":random_prosperity_adder"),
             (val_clamp, ":prosperity", 0, 100),
-            (party_set_slot, ":center_no", slot_town_prosperity, ":prosperity"),
+            (party_set_slot, ":center_no", "slot_town_prosperity", ":prosperity"),
         (try_end),
         (call_script, "script_calculate_castle_prosperities_by_using_its_villages"),
     ]),

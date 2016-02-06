@@ -34,7 +34,7 @@ scripts = [
           (is_between, ":center_no", villages_begin, villages_end),
 
           (store_sub, ":cur_good_price_slot", ":cur_good", trade_goods_begin),
-          (val_add, ":cur_good_price_slot", slot_town_trade_good_prices_begin),
+          (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
           (party_get_slot, ":cur_price", ":center_no", ":cur_good_price_slot"),
 
           (try_begin),
@@ -55,7 +55,7 @@ scripts = [
           (is_between, ":center_no", villages_begin, villages_end),
 
           (store_sub, ":cur_good_price_slot", ":cur_good", trade_goods_begin),
-          (val_add, ":cur_good_price_slot", slot_town_trade_good_prices_begin),
+          (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
           (party_get_slot, ":cur_price", ":center_no", ":cur_good_price_slot"),
 
           (val_mul, ":cur_price", 1000),
@@ -75,7 +75,7 @@ scripts = [
       (store_script_param, ":center_no", 1),
       (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),
         (store_sub, ":cur_good_price_slot", ":cur_good", trade_goods_begin),
-        (val_add, ":cur_good_price_slot", slot_town_trade_good_prices_begin),
+        (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
         (party_get_slot, ":cur_price", ":center_no", ":cur_good_price_slot"),
         
         (call_script, "script_center_get_production", ":center_no", ":cur_good"),
@@ -141,14 +141,14 @@ scripts = [
             (item_get_slot, ":raw_material", ":cur_good", slot_item_primary_raw_material),
             (neq, ":raw_material", 0),
             (store_sub, ":raw_material_price_slot", ":raw_material", trade_goods_begin),
-            (val_add, ":raw_material_price_slot", slot_town_trade_good_prices_begin),
+            (val_add, ":raw_material_price_slot", "slot_town_trade_good_prices_begin"),
 
             (party_get_slot, ":total_raw_material_price", ":center_no", ":raw_material_price_slot"),
             (val_mul, ":total_raw_material_price", 3),
             (assign, ":number_of_centers", 3),
 
             (try_for_range, ":village_no", villages_begin, villages_end),
-              (party_slot_eq, ":village_no", slot_village_bound_center, ":center_no"),
+              (party_slot_eq, ":village_no", "slot_village_bound_center", ":center_no"),
               (party_get_slot, ":raw_material_price", ":village_no", ":raw_material_price_slot"),
               (val_add, ":total_raw_material_price", ":raw_material_price"),
               (val_add, ":number_of_centers", 1),
@@ -181,94 +181,94 @@ scripts = [
         #Grain products
         (try_begin),
             (eq, ":cur_good", "itm_bread"), #Demand = 3000 across Calradia
-            (party_get_slot, ":base_production", ":center_no", slot_center_mills),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_mills"),
             (val_mul, ":base_production", 20), #one mills per village, five mills per town = 160 mills 
         (else_try),
             (eq, ":cur_good", "itm_grain"), #Demand =  3200+, 1600 to mills, 1500 on its own, extra to breweries
-            (party_get_slot, ":base_production", ":center_no", slot_center_acres_grain),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_acres_grain"),
             (val_div, ":base_production", 125), #10000 acres is the average across Calradia, extra in Swadia, less in snows and steppes, a bit from towns 
         (else_try),
             (eq, ":cur_good", "itm_ale"), #
-            (party_get_slot, ":base_production", ":center_no", slot_center_breweries),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_breweries"),
             (val_mul, ":base_production", 25), 
         (else_try),
             (eq, ":cur_good", "itm_mead"), #
-            (party_get_slot, ":base_production", ":center_no", slot_center_breweries),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_breweries"),
             (val_mul, ":base_production", 20), 
 
         (else_try),
             (eq, ":cur_good", "itm_smoked_fish"), #Demand = 20
-            (party_get_slot, ":base_production", ":center_no", slot_center_fishing_fleet),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_fishing_fleet"),
             (val_mul, ":base_production", 4), #was originally 5
         (else_try),
             (eq, ":cur_good", "itm_salt"), 
-            (party_get_slot, ":base_production", ":center_no", slot_center_salt_pans),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_salt_pans"),
             (val_mul, ":base_production", 35),
 
         #Cattle products    
         (else_try),
             (eq, ":cur_good", "itm_cattle_meat"), #Demand = 5
-            (party_get_slot, ":base_production", ":center_no", slot_center_head_cattle),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_head_cattle"),
             (val_div, ":base_production", 4), #was 9
         (else_try),
             (eq, ":cur_good", "itm_dried_meat"), #Demand = 15
-            (party_get_slot, ":base_production", ":center_no", slot_center_head_cattle),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_head_cattle"),
             (val_div, ":base_production", 2), #was 3
         (else_try),
             (eq, ":cur_good", "itm_cheese"),      #Demand = 10
-            (party_get_slot, ":base_production", ":center_no", slot_center_head_cattle),
-            (party_get_slot, ":sheep_addition", ":center_no", slot_center_head_sheep),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_head_cattle"),
+            (party_get_slot, ":sheep_addition", ":center_no", "slot_center_head_sheep"),
             (val_div, ":sheep_addition", 2),
             (val_add, ":base_production", ":sheep_addition"),
-            (party_get_slot, ":gardens", ":center_no", slot_center_household_gardens),
+            (party_get_slot, ":gardens", ":center_no", "slot_center_household_gardens"),
             (val_mul, ":base_production", ":gardens"),
             (val_div, ":base_production", 10), 
         (else_try),
             (eq, ":cur_good", "itm_butter"),      #Demand = 2
-            (party_get_slot, ":base_production", ":center_no", slot_center_head_cattle),
-            (party_get_slot, ":gardens", ":center_no", slot_center_household_gardens),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_head_cattle"),
+            (party_get_slot, ":gardens", ":center_no", "slot_center_household_gardens"),
             (val_mul, ":base_production", ":gardens"),
             (val_div, ":base_production", 15),
             
         (else_try),
             (eq, ":cur_good", "itm_raw_leather"),      #Demand = ??
-            (party_get_slot, ":base_production", ":center_no", slot_center_head_cattle),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_head_cattle"),
             (val_div, ":base_production", 6),
-            (party_get_slot, ":sheep_addition", ":center_no", slot_center_head_sheep),
+            (party_get_slot, ":sheep_addition", ":center_no", "slot_center_head_sheep"),
             (val_div, ":sheep_addition", 12),
             (val_add, ":base_production", ":sheep_addition"),
             
         (else_try),
             (eq, ":cur_good", "itm_leatherwork"),      #Demand = ??
-            (party_get_slot, ":base_production", ":center_no", slot_center_tanneries),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_tanneries"),
             (val_mul, ":base_production", 20),
             
 
         (else_try),
             (eq, ":cur_good", "itm_honey"),      #Demand = 5
-            (party_get_slot, ":base_production", ":center_no", slot_center_apiaries),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_apiaries"),
             (val_mul, ":base_production", 6),
         (else_try),
             (eq, ":cur_good", "itm_cabbages"),      #Demand = 7
-            (party_get_slot, ":base_production", ":center_no", slot_center_household_gardens),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_household_gardens"),
             (val_mul, ":base_production", 10),
         (else_try),
             (eq, ":cur_good", "itm_apples"),      #Demand = 7
-            (party_get_slot, ":base_production", ":center_no", slot_center_household_gardens),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_household_gardens"),
             (val_mul, ":base_production", 10),
             
         #Sheep products    
         (else_try),
             (eq, ":cur_good", "itm_sausages"),      #Demand = 5
-            (party_get_slot, ":base_production", ":center_no", slot_center_head_sheep), #average of 90 sheep
+            (party_get_slot, ":base_production", ":center_no", "slot_center_head_sheep"), #average of 90 sheep
             (val_div, ":base_production", 15),
         (else_try),
             (eq, ":cur_good", "itm_wool"),      #(Demand = 0, but 15 averaged out perhaps)
-            (party_get_slot, ":base_production", ":center_no", slot_center_head_sheep), #average of 90 sheep
+            (party_get_slot, ":base_production", ":center_no", "slot_center_head_sheep"), #average of 90 sheep
             (val_div, ":base_production", 5),
         (else_try),
             (eq, ":cur_good", "itm_wool_cloth"),      #(Demand = 1500 across Calradia)
-            (party_get_slot, ":base_production", ":center_no", slot_center_wool_looms),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_wool_looms"),
             (val_mul, ":base_production", 5), #300 across Calradia
         (else_try),
             (this_or_next|eq, ":cur_good", "itm_pork"),      
@@ -281,78 +281,78 @@ scripts = [
             (try_end),
         (else_try),
             (eq, ":cur_good", "itm_iron"),      #Demand = 5, one supplies three smithies
-            (party_get_slot, ":base_production", ":center_no", slot_center_iron_deposits),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_iron_deposits"),
             (val_mul, ":base_production", 10),
         (else_try), #silver
             (eq, ":cur_good", "itm_silver"),      #Demand = 5, one supplies three smithies
-            (party_get_slot, ":base_production", ":center_no", slot_center_iron_deposits),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_iron_deposits"),
             (val_mul, ":base_production", 10),
         (else_try),
             (eq, ":cur_good", "itm_mineral"),      #Demand = 5, one supplies three smithies
-            (party_get_slot, ":base_production", ":center_no", slot_center_iron_deposits),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_iron_deposits"),
             (val_mul, ":base_production", 10),
         (else_try),
             (eq, ":cur_good", "itm_tools"),      #Demand = 560 across Calradia
-            (party_get_slot, ":base_production", ":center_no", slot_center_smithies),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_smithies"),
             (val_mul, ":base_production", 3),
 
         #Other artisanal goods    
         (else_try),
             (eq, ":cur_good", "itm_pottery"), #560 is total demand     
-            (party_get_slot, ":base_production", ":center_no", slot_center_pottery_kilns),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_pottery_kilns"),
             (val_mul, ":base_production", 5),
 
         (else_try),
             (eq, ":cur_good", "itm_raw_grapes"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_acres_vineyard),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_acres_vineyard"),
             (val_div, ":base_production", 100),
         (else_try),
             (eq, ":cur_good", "itm_wine"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_wine_presses),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_wine_presses"),
             (val_mul, ":base_production", 10), #chief cambiado
             
             
         (else_try),
             (eq, ":cur_good", "itm_raw_olives"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_acres_olives),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_acres_olives"),
             (val_div, ":base_production", 150),
         (else_try),
             (eq, ":cur_good", "itm_oil"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_olive_presses),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_olive_presses"),
             (val_mul, ":base_production", 12),
             
         #Flax and linen    
         (else_try),
             (eq, ":cur_good", "itm_linen"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_linen_looms),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_linen_looms"),
             (val_mul, ":base_production", 5),
         (else_try),
             (eq, ":cur_good", "itm_raw_flax"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_acres_flax),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_acres_flax"),
             (val_div, ":base_production", 80),
             
 
         (else_try),
             (eq, ":cur_good", "itm_velvet"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_silk_looms),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_silk_looms"),
             (val_mul, ":base_production", 5),
         (else_try), #tile
             (eq, ":cur_good", "itm_rare_fabric"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_silk_farms),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_silk_farms"),
             (val_div, ":base_production", 20),
         (else_try),
             (eq, ":cur_good", "itm_raw_dyes"),      
-            (party_get_slot, ":base_production", ":center_no", slot_center_kirmiz_farms),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_kirmiz_farms"),
             (val_div, ":base_production", 20),
 
 ##            
 ##        (else_try),
 ##            (eq, ":cur_good", "itm_silver"),      
-##            (party_get_slot, ":base_production", ":center_no", slot_center_acres_dates),
+##            (party_get_slot, ":base_production", ":center_no", "slot_center_acres_dates"),
 ##            (val_div, ":base_production", 120),
         (else_try),
             (eq, ":cur_good", "itm_furs"),      #Demand = 90 across Calradia
-            (party_get_slot, ":base_production", ":center_no", slot_center_fur_traps),
+            (party_get_slot, ":base_production", ":center_no", "slot_center_fur_traps"),
             (val_mul, ":base_production", 25),
         (else_try),
             (eq, ":cur_good", "itm_spice"),
@@ -442,15 +442,15 @@ scripts = [
         #Increase both positive and negative production by the center's prosperity
         #Richer towns have more people and consume more, but also produce more 
         (try_begin),
-            (party_get_slot, ":prosperity_plus_75", ":center_no", slot_town_prosperity),
+            (party_get_slot, ":prosperity_plus_75", ":center_no", "slot_town_prosperity"),
             (val_add, ":prosperity_plus_75", 75),
             (val_mul, ":modified_production", ":prosperity_plus_75"),
             (val_div, ":modified_production", 125),
         (try_end),
   
         (try_begin),
-            (this_or_next|party_slot_eq, ":center_no", slot_village_state, svs_being_raided),
-                (party_slot_eq, ":center_no", slot_village_state, svs_looted),
+            (this_or_next|party_slot_eq, ":center_no", "slot_village_state", svs_being_raided),
+                (party_slot_eq, ":center_no", "slot_village_state", svs_looted),
             (assign, ":modified_production", 0),    
         (try_end),
  
@@ -483,61 +483,61 @@ scripts = [
         (assign, ":raw_material_consumption", 0),
         (try_begin),
             (eq, ":cur_good", "itm_grain"),
-            (party_get_slot, ":grain_for_bread", ":center_no", slot_center_mills),
+            (party_get_slot, ":grain_for_bread", ":center_no", "slot_center_mills"),
             (val_mul, ":grain_for_bread", 20),
             
-            (party_get_slot, ":grain_for_ale", ":center_no", slot_center_breweries),
+            (party_get_slot, ":grain_for_ale", ":center_no", "slot_center_breweries"),
             (val_mul, ":grain_for_ale", 5),
             
             (store_add, ":raw_material_consumption", ":grain_for_bread", ":grain_for_ale"),
             
         (else_try),    
             (eq, ":cur_good", "itm_iron"),
-            (party_get_slot, ":raw_material_consumption", ":center_no", slot_center_smithies),
+            (party_get_slot, ":raw_material_consumption", ":center_no", "slot_center_smithies"),
             (val_mul, ":raw_material_consumption", 3),
             
         (else_try),    
             (eq, ":cur_good", "itm_wool"),
-            (party_get_slot, ":raw_material_consumption", ":center_no", slot_center_wool_looms),
+            (party_get_slot, ":raw_material_consumption", ":center_no", "slot_center_wool_looms"),
             (val_mul, ":raw_material_consumption", 5),
 
         (else_try),    
             (eq, ":cur_good", "itm_raw_flax"),
-            (party_get_slot, ":raw_material_consumption", ":center_no", slot_center_linen_looms),
+            (party_get_slot, ":raw_material_consumption", ":center_no", "slot_center_linen_looms"),
             (val_mul, ":raw_material_consumption", 5),
 
         (else_try),    
             (eq, ":cur_good", "itm_raw_leather"),
-            (party_get_slot, ":raw_material_consumption", ":center_no", slot_center_tanneries),
+            (party_get_slot, ":raw_material_consumption", ":center_no", "slot_center_tanneries"),
             (val_mul, ":raw_material_consumption", 20),
 
         (else_try),    
             (eq, ":cur_good", "itm_raw_grapes"),
-            (party_get_slot, ":raw_material_consumption", ":center_no", slot_center_wine_presses),
+            (party_get_slot, ":raw_material_consumption", ":center_no", "slot_center_wine_presses"),
             (val_mul, ":raw_material_consumption", 30),
 
         (else_try),    
             (eq, ":cur_good", "itm_raw_olives"),
-            (party_get_slot, ":raw_material_consumption", ":center_no", slot_center_olive_presses),
+            (party_get_slot, ":raw_material_consumption", ":center_no", "slot_center_olive_presses"),
             (val_mul, ":raw_material_consumption", 12),
 
             
         (else_try),    
             (eq, ":cur_good", "itm_raw_dyes"),
-            (party_get_slot, ":raw_material_consumption", ":center_no", slot_center_silk_looms),
+            (party_get_slot, ":raw_material_consumption", ":center_no", "slot_center_silk_looms"),
             (val_mul, ":raw_material_consumption", 1),
         (else_try),    
             (eq, ":cur_good", "itm_rare_fabric"),
-            (party_get_slot, ":raw_material_consumption", ":center_no", slot_center_silk_looms),
+            (party_get_slot, ":raw_material_consumption", ":center_no", "slot_center_silk_looms"),
             (val_mul, ":raw_material_consumption", 5),
             
 
         (else_try),    
             (eq, ":cur_good", "itm_salt"),
-            (party_get_slot, ":salt_for_beef", ":center_no", slot_center_head_cattle),
+            (party_get_slot, ":salt_for_beef", ":center_no", "slot_center_head_cattle"),
             (val_div, ":salt_for_beef", 10),
             
-            (party_get_slot, ":salt_for_fish", ":center_no", slot_center_fishing_fleet),
+            (party_get_slot, ":salt_for_fish", ":center_no", "slot_center_fishing_fleet"),
             (val_div, ":salt_for_fish", 5),
             
             (store_add, ":raw_material_consumption", ":salt_for_beef", ":salt_for_fish"),
@@ -545,7 +545,7 @@ scripts = [
         
         (try_begin), #Reduce consumption of raw materials if their cost is high
             (gt, ":raw_material_consumption", 0),
-            (store_sub, ":item_to_price_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
+            (store_sub, ":item_to_price_slot", "slot_town_trade_good_prices_begin", trade_goods_begin),
             (store_add, ":cur_good_price_slot", ":cur_good", ":item_to_price_slot"),
             (party_get_slot, ":cur_center_price", ":center_no", ":cur_good_price_slot"),
             ##diplomacy start+ chief
@@ -559,7 +559,7 @@ scripts = [
         
         (store_add, ":modified_consumption", ":consumer_consumption", ":raw_material_consumption"),
         (try_begin),
-            (party_get_slot, ":prosperity_plus_75", ":center_no", slot_town_prosperity),
+            (party_get_slot, ":prosperity_plus_75", ":center_no", "slot_town_prosperity"),
             (val_add, ":prosperity_plus_75", 75),
             (val_mul, ":modified_consumption", ":prosperity_plus_75"),
             (val_div, ":modified_consumption", 125),
@@ -594,7 +594,7 @@ scripts = [
             # High-demand items like grain tend to have much more dramatic price differentiation,
             # so they yield substantially higher results than low-demand items
             (store_sub, ":cur_good_price_slot", ":cur_good", trade_goods_begin),
-            (val_add, ":cur_good_price_slot", slot_town_trade_good_prices_begin),
+            (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
             (party_get_slot, ":price", ":center_no", ":cur_good_price_slot"),
 
             # (store_sub, ":price_differential", ":price", 950),       #MOTO chief adjust game prosperity levels
@@ -630,7 +630,7 @@ scripts = [
         (gt, ":production", 0), # let's take -20 as the zero production rate, although in actuality production can go lower, representing increased demand
     
         (store_sub, ":input_good_price_slot", ":input_item_no", trade_goods_begin),
-        (val_add, ":input_good_price_slot", slot_town_trade_good_prices_begin),
+        (val_add, ":input_good_price_slot", "slot_town_trade_good_prices_begin"),
         (party_get_slot, ":input_price", ":center", ":input_good_price_slot"),
     
         (try_begin),
@@ -639,7 +639,7 @@ scripts = [
           (val_mul, ":input_price", 4),
           (assign, ":number_of_villages", 4),
           (try_for_range, ":village_no", villages_begin, villages_end),
-            (party_slot_eq, ":village_no", slot_village_bound_center, ":center"),
+            (party_slot_eq, ":village_no", "slot_village_bound_center", ":center"),
             (party_get_slot, ":input_price_at_village", ":village_no", ":input_good_price_slot"),
             (val_add, ":input_price", ":input_price_at_village"),
             (val_add, ":number_of_villages", 1),

@@ -1,15 +1,14 @@
 from source.header_operations import *
 from source.header_common import *
 
-from source.module_constants import slot_village_state, slot_village_infested_by_bandits, \
-    slot_quest_target_center, slot_village_number_of_cattle
+from source.module_constants import slot_quest_target_center
 
 
 menus = [
 
     ("buy_cattle", 0, "I want to buy some cattle.", "none", [
-        (party_slot_eq, "$current_town", slot_village_state, 0),
-        (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+        (party_slot_eq, "$current_town", "slot_village_state", 0),
+        (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
 
         # don't allow buying cattle when cattle quest is active.
         (assign, ":quest_village", 0),
@@ -30,7 +29,7 @@ menus = [
      "you want to buy?", "none", [
         (set_background_mesh, "mesh_pic_cattle"),
 
-        (party_get_slot, reg5, "$g_encountered_party", slot_village_number_of_cattle),
+        (party_get_slot, reg5, "$g_encountered_party", "slot_village_number_of_cattle"),
         (gt, reg5, 0),
         (store_item_value, ":cattle_cost", "itm_cattle_meat"),
         (call_script, "script_game_get_item_buy_price_factor", "itm_cattle_meat"),
@@ -41,7 +40,7 @@ menus = [
      ], [
 
         ("cattle_ok", [
-            (party_get_slot, ":num_cattle", "$g_encountered_party", slot_village_number_of_cattle),
+            (party_get_slot, ":num_cattle", "$g_encountered_party", "slot_village_number_of_cattle"),
             (ge, ":num_cattle", 1),
             (store_troop_gold, ":gold", "trp_player"),
             (ge, ":gold", "$temp"),
@@ -50,7 +49,7 @@ menus = [
         ]),
 
         ("cattle_ok2", [
-            (party_get_slot, ":num_cattle", "$g_encountered_party", slot_village_number_of_cattle),
+            (party_get_slot, ":num_cattle", "$g_encountered_party", "slot_village_number_of_cattle"),
             (ge, ":num_cattle", 5),
             (store_troop_gold, ":gold", "trp_player"),
             (store_mul, ":cost", "$temp", 5),

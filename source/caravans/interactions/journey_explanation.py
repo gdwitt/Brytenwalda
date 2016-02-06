@@ -3,20 +3,18 @@ from source.header_common import s11, s12, s14, s15
 
 from source.header_dialogs import anyone
 
-from source.module_constants import slot_party_last_traded_center, \
-    slot_party_ai_object, slot_town_trade_good_prices_begin, trade_goods_begin, \
-    trade_goods_end
+from source.module_constants import trade_goods_begin, trade_goods_end
 
 
 dialogs = [
     [anyone, "merchant_trip_explanation", [
-        (party_get_slot, ":origin", "$g_encountered_party", slot_party_last_traded_center),
-        (party_get_slot, ":destination", "$g_encountered_party", slot_party_ai_object),
+        (party_get_slot, ":origin", "$g_encountered_party", "slot_party_last_traded_center"),
+        (party_get_slot, ":destination", "$g_encountered_party", "slot_party_ai_object"),
         (str_store_party_name, s11, ":origin"),
         (str_store_party_name, s12, ":destination"),
 
         (str_store_string, s14, "str___we_believe_that_there_is_money_to_be_made_selling_"),
-        (store_sub, ":item_to_price_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
+        (store_sub, ":item_to_price_slot", "slot_town_trade_good_prices_begin", trade_goods_begin),
 
         (assign, ":at_least_one_item_found", 0),
         (try_for_range, ":cur_goods", trade_goods_begin, trade_goods_end),

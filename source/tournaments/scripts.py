@@ -11,30 +11,30 @@ scripts = [
          (store_script_param_1, ":center_no"),
          (try_begin),
             (is_between, ":center_no", towns_begin, towns_end),
-            (party_set_slot, ":center_no", slot_town_has_tournament, 2),
+            (party_set_slot, ":center_no", "slot_town_has_tournament", 2),
          (try_end),
      ]),
 
     ("end_feast_tournament", [
         (store_script_param_1, ":center_no"),
-        (party_set_slot, ":center_no", slot_town_has_tournament, 0),
+        (party_set_slot, ":center_no", "slot_town_has_tournament", 0),
     ]),
 
     ("initialize_tournaments",
      [
         (try_for_range, ":town_no", towns_begin, towns_end),
-            (party_set_slot, ":town_no", slot_town_tournament_max_teams, 4),
-            (party_set_slot, ":town_no", slot_town_tournament_max_team_size, 8),
+            (party_set_slot, ":town_no", "slot_town_tournament_max_teams", 4),
+            (party_set_slot, ":town_no", "slot_town_tournament_max_team_size", 8),
 
             # first tournaments
             (store_random_in_range, ":rand", 0, 100),
             (lt, ":rand", 20),
             (store_random_in_range, ":random_days", 12, 15),
-            (party_set_slot, ":town_no", slot_town_has_tournament, ":random_days"),
+            (party_set_slot, ":town_no", "slot_town_has_tournament", ":random_days"),
         (try_end),
 
         # this town is different for whatever reason.
-        (party_set_slot, "p_town_6", slot_town_tournament_max_team_size, 2),
+        (party_set_slot, "p_town_6", "slot_town_tournament_max_team_size", 2),
      ]),
 
   # script_fill_tournament_participants_troop
@@ -169,9 +169,9 @@ scripts = [
     [
         (call_script, "script_get_num_tournament_participants"),
         (assign, ":num_participants", reg0),
-        (party_get_slot, ":town_max_teams", "$current_town", slot_town_tournament_max_teams),
+        (party_get_slot, ":town_max_teams", "$current_town", "slot_town_tournament_max_teams"),
         (val_add, ":town_max_teams", 1),
-        (party_get_slot, ":town_max_team_size", "$current_town", slot_town_tournament_max_team_size),
+        (party_get_slot, ":town_max_team_size", "$current_town", "slot_town_tournament_max_team_size"),
         (val_add, ":town_max_team_size", 1),
         (assign, ":max_teams", ":num_participants"),
         (val_min, ":max_teams", ":town_max_teams"),
@@ -359,7 +359,7 @@ scripts = [
   # Output: reg0 = win_amount_with_100_denars
   ("get_win_amount_for_tournament_bet",
     [
-        (party_get_slot, ":player_odds", "$current_town", slot_town_player_odds),
+        (party_get_slot, ":player_odds", "$current_town", "slot_town_player_odds"),
         (try_begin),
           (eq, "$g_tournament_cur_tier", 0),
           (assign, ":win_amount", 120),

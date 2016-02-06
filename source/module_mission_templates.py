@@ -231,7 +231,7 @@ mission_templates = [
 		  (agent_set_scripted_destination, ":agent", pos4),
 		(try_end),
 		
-		(party_get_slot, ":tavernkeeper", "$g_encountered_party", slot_town_tavernkeeper),
+		(party_get_slot, ":tavernkeeper", "$g_encountered_party", "slot_town_tavernkeeper"),
 		(start_mission_conversation, ":tavernkeeper"),	 
 	  ]),
 
@@ -273,7 +273,7 @@ mission_templates = [
 		(neq, ":wielded_item", "itm_throwing_axes_melee"),
       ], 
       [
-		(party_get_slot, ":tavernkeeper", "$g_encountered_party", slot_town_tavernkeeper),
+		(party_get_slot, ":tavernkeeper", "$g_encountered_party", "slot_town_tavernkeeper"),
 		(start_mission_conversation, ":tavernkeeper"),	 
 	  ]),
 	  	  	  
@@ -454,7 +454,7 @@ mission_templates = [
      (0, 0, ti_once, 
      [], 
      [
-       (party_slot_eq, "$current_town", slot_party_type, spt_town),
+       (party_slot_eq, "$current_town", "slot_party_type", spt_town),
        (call_script, "script_town_init_doors", 0),
        (try_begin),
          (eq, "$town_nighttime", 0),
@@ -944,7 +944,7 @@ mission_templates = [
        [
          (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
          (set_party_battle_mode),
-         (party_slot_eq, "$current_town", slot_party_type, spt_town),
+         (party_slot_eq, "$current_town", "slot_party_type", spt_town),
          (call_script, "script_town_init_doors", 0),
         ]),
 
@@ -6312,7 +6312,7 @@ common_battle_tab_press,
         (assign, ":num_guards", 5),
         
         (try_begin),
-          (party_get_slot, ":last_nearby_fire_time", "$current_town", slot_town_last_nearby_fire_time),                          
+          (party_get_slot, ":last_nearby_fire_time", "$current_town", "slot_town_last_nearby_fire_time"),                          
           (store_current_hours, ":cur_time"),
           (store_add, ":fire_finish_time", ":last_nearby_fire_time", 4),                          
           (is_between, ":cur_time", ":fire_finish_time", ":last_nearby_fire_time"),
@@ -6329,7 +6329,7 @@ common_battle_tab_press,
           (eq, "$talk_context", tc_prison_break),
           (entry_point_get_position, pos0, 7), 
         (else_try),          
-          (party_slot_eq, "$current_town", slot_party_type, spt_town),
+          (party_slot_eq, "$current_town", "slot_party_type", spt_town),
           (entry_point_get_position, pos0, 0), 
         (else_try),  
           (entry_point_get_position, pos0, 1), 
@@ -6607,7 +6607,7 @@ common_battle_tab_press,
        (eq,":answer",0),
        (assign, "$g_mt_mode", abm_visit),
        (set_jump_mission, "mt_arena_melee_fight"),
-       (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+       (party_get_slot, ":arena_scene", "$current_town", "slot_town_arena"),
        (modify_visitors_at_site, ":arena_scene"),
        (reset_visitors),
        (set_visitor, 35, "trp_veteran_fighter"),
@@ -6660,7 +6660,7 @@ common_battle_tab_press,
        (try_end),
        (assign, "$g_mt_mode", abm_visit),
        (set_jump_mission, "mt_arena_melee_fight"),
-       (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+       (party_get_slot, ":arena_scene", "$current_town", "slot_town_arena"),
        (modify_visitors_at_site, ":arena_scene"),
        (reset_visitors),
        (set_visitor, 35, "trp_veteran_fighter"),
@@ -13589,7 +13589,7 @@ torneo_aumenta_dano, #dunde torneo chief
       common_battle_order_panel,
       common_battle_order_panel_tick,
 
-	(60,0,0,[(party_get_slot,":entrenched","p_main_party",slot_party_entrenched),
+	(60,0,0,[(party_get_slot,":entrenched","p_main_party","slot_party_entrenched"),
 					(ge,":entrenched",1),
 					(ge,"$camp_supply",1),
 					], 
@@ -13995,7 +13995,7 @@ torneo_aumenta_dano, #dunde torneo chief
 
         (0, 0, ti_once, [], 
           [
-            (party_slot_eq, "$current_town", slot_party_type, spt_town),
+            (party_slot_eq, "$current_town", "slot_party_type", spt_town),
             (call_script, "script_town_init_doors", 0),
             (try_begin),
               (eq, "$town_nighttime", 0),
@@ -14143,7 +14143,7 @@ torneo_aumenta_dano, #dunde torneo chief
 
         (0, 0, ti_once, [], 
           [
-            (party_slot_eq, "$current_town", slot_party_type, spt_town),
+            (party_slot_eq, "$current_town", "slot_party_type", spt_town),
             (call_script, "script_town_init_doors", 0),
             (try_begin),
               (eq, "$town_nighttime", 0),

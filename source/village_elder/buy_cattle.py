@@ -3,8 +3,6 @@ from source.header_common import reg0, reg5, reg6
 
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_village_number_of_cattle
-
 
 _NUMBER = {
     1: "One.",
@@ -17,7 +15,7 @@ _NUMBER = {
 
 def _buy_cattle_dialog(cattle_number):
     return [anyone | plyr, "village_elder_buy_cattle_2", [
-        (party_get_slot, ":num_cattle", "$g_encountered_party", slot_village_number_of_cattle),
+        (party_get_slot, ":num_cattle", "$g_encountered_party", "slot_village_number_of_cattle"),
         (ge, ":num_cattle", cattle_number),
         (store_troop_gold, ":gold", "trp_player"),
         (store_mul, ":cost", "$temp", cattle_number),
@@ -30,7 +28,7 @@ def _buy_cattle_dialog(cattle_number):
 dialogs = [
 
     [anyone, "village_elder_buy_cattle", [
-        (party_get_slot, reg5, "$g_encountered_party", slot_village_number_of_cattle),
+        (party_get_slot, reg5, "$g_encountered_party", "slot_village_number_of_cattle"),
         (gt, reg5, 0),
         (store_item_value, ":cattle_cost", "itm_cattle_meat"),
         (call_script, "script_game_get_item_buy_price_factor", "itm_cattle_meat"),

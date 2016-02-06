@@ -3,8 +3,7 @@ from source.header_common import *
 
 from source.header_game_menus import mnf_disable_all_keys
 
-from source.module_constants import logent_player_stole_cattles_from_village, ACHIEVEMENT_GOT_MILK, \
-    slot_village_number_of_cattle, slot_town_lord, slot_village_player_can_not_steal_cattle
+from source.module_constants import logent_player_stole_cattles_from_village, ACHIEVEMENT_GOT_MILK
 
 
 menus = [
@@ -49,7 +48,7 @@ menus = [
         (store_random_in_range, ":heads_stolen", 0, ":max_value"),
 
         # avoids the player repeating this action every second
-        (party_set_slot, "$current_town", slot_village_player_can_not_steal_cattle, 1),
+        (party_set_slot, "$current_town", "slot_village_player_can_not_steal_cattle", 1),
 
         (try_begin),
             (le, ":heads_stolen", 0),
@@ -61,7 +60,7 @@ menus = [
             (store_sub, reg12, ":heads_stolen", 1),
 
             (try_begin),
-                (party_get_slot, ":lord", "$current_town", slot_town_lord),
+                (party_get_slot, ":lord", "$current_town", "slot_town_lord"),
                 (gt, ":lord", 0),
                 (call_script, "script_change_player_relation_with_troop", ":lord", -25),
                 (call_script, "script_add_log_entry", logent_player_stole_cattles_from_village, "trp_player",  "$current_town", ":lord", "$g_encountered_party_faction"),
@@ -82,9 +81,9 @@ menus = [
             (call_script, "script_create_cattle_herd1", "$current_town", ":heads_stolen"),
 
             # remove cattle from village
-            (party_get_slot, ":num_cattle", "$current_town", slot_village_number_of_cattle),
+            (party_get_slot, ":num_cattle", "$current_town", "slot_village_number_of_cattle"),
             (val_sub, ":num_cattle", ":heads_stolen"),
-            (party_set_slot, "$current_town", slot_village_number_of_cattle, ":num_cattle"),
+            (party_set_slot, "$current_town", "slot_village_number_of_cattle", ":num_cattle"),
         (try_end),
         ], [
         ("continue", [], "Continue...", [(change_screen_return)])
@@ -108,7 +107,7 @@ scripts = [
         (store_add, ":num_men_effect", reg0, 10),
         (val_div, ":num_men_effect", 10),
         (val_add, ":can_steal", ":num_men_effect"),
-        (party_get_slot, ":num_cattle", ":village_no", slot_village_number_of_cattle),
+        (party_get_slot, ":num_cattle", ":village_no", "slot_village_number_of_cattle"),
         (val_min, ":can_steal", ":num_cattle"),
 
         (assign, reg0, ":can_steal"),

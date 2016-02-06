@@ -89,9 +89,9 @@ menus = [
         (try_begin),
             (this_or_next|eq, "$g_sod_faith", 1),
             (eq, "$g_sod_faith", 4),
-            (party_get_slot, ":faith", "$current_town", slot_center_sod_local_faith),
+            (party_get_slot, ":faith", "$current_town", "slot_center_sod_local_faith"),
             (try_begin),
-                (party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
+                (party_slot_eq, "$current_town", "slot_center_religion_pagan", 1),
                 (str_store_string, s15, "@ ...(Pagan Village) Your faith is hated among the population..."),
             (else_try),
                 (lt, ":faith", 30),
@@ -113,24 +113,24 @@ menus = [
         (try_begin),
             (this_or_next|eq, "$g_sod_faith", 2),
             (eq, "$g_sod_faith", 3),
-            (party_get_slot, ":faith", "$current_town", slot_center_sod_local_faith),
+            (party_get_slot, ":faith", "$current_town", "slot_center_sod_local_faith"),
             (try_begin),
-                (neg|party_slot_ge, "$current_town", slot_center_religion_pagan, 1),
+                (neg|party_slot_ge, "$current_town", "slot_center_religion_pagan", 1),
                 (str_store_string, s15, "@ ...(Christian Village) Your faith is hated among the population..."),
             (else_try),
-                (party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
+                (party_slot_eq, "$current_town", "slot_center_religion_pagan", 1),
                 (lt, ":faith", 30),
                 (str_store_string, s15, "@ ...(Pagan Village) Your faith is liked here..."),
             (else_try),
-                (party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
+                (party_slot_eq, "$current_town", "slot_center_religion_pagan", 1),
                 (lt, ":faith", 50),
                 (str_store_string, s15, "@ ...(Pagan Village) Your faith is accepted here..."),
             (else_try),
-                (party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
+                (party_slot_eq, "$current_town", "slot_center_religion_pagan", 1),
                 (lt, ":faith", 80),
                 (str_store_string, s15, "@ ...(Pagan Village) Your faith is dominant here..."),
             (else_try),
-                (party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
+                (party_slot_eq, "$current_town", "slot_center_religion_pagan", 1),
                 (lt, ":faith", 101),
                 (str_store_string, s15, "@ ...(Pagan Village) This village is a bastion of Your faith..."),
             (else_try),
@@ -142,11 +142,11 @@ menus = [
         (str_clear, s10),
         (str_clear, s12),
         (try_begin),
-            (neg | party_slot_eq, "$current_town", slot_village_state, svs_looted),
+            (neg | party_slot_eq, "$current_town", "slot_village_state", svs_looted),
 
             # str_ of property uses s60 as village name
             (str_store_party_name, s60, "$current_town"),
-            (party_get_slot, ":prosperity", "$current_town", slot_town_prosperity),
+            (party_get_slot, ":prosperity", "$current_town", "slot_town_prosperity"),
 
             (try_begin),
                 (eq, "$cheat_mode", 1),
@@ -173,10 +173,10 @@ menus = [
         (try_end),
 
         # owner -> s11
-        (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
+        (party_get_slot, ":center_lord", "$current_town", "slot_town_lord"),
         (str_clear, s11),
         (try_begin),
-            (party_slot_eq, "$current_town", slot_village_state, svs_looted),
+            (party_slot_eq, "$current_town", "slot_village_state", svs_looted),
         (else_try),
             (eq, ":center_lord", "trp_player"),
             (str_store_string, s11, "@ This village and the surrounding lands belong to you."),
@@ -194,8 +194,8 @@ menus = [
         # relation with player -> s7
         (str_clear, s7),
         (try_begin),
-            (neg | party_slot_eq, "$current_town", slot_village_state, svs_looted),
-            (party_get_slot, ":center_relation", "$current_town", slot_center_player_relation),
+            (neg | party_slot_eq, "$current_town", "slot_village_state", svs_looted),
+            (party_get_slot, ":center_relation", "$current_town", "slot_center_player_relation"),
             (call_script, "script_describe_center_relation_to_s3", ":center_relation"),
             (assign, reg9, ":center_relation"),
             (str_store_string, s7, "@{!} {s3} ({reg9})."),
@@ -204,8 +204,8 @@ menus = [
         # village is infested -> s6
         (str_clear, s6),
         (try_begin),
-            (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-            (party_get_slot, ":bandit_troop", "$current_town", slot_village_infested_by_bandits),
+            (party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
+            (party_get_slot, ":bandit_troop", "$current_town", "slot_village_infested_by_bandits"),
             (store_character_level, ":player_level", "trp_player"),
 
             (store_add, "$qst_eliminate_bandits_infesting_village_num_bandits", ":player_level", 20),
@@ -250,7 +250,7 @@ menus = [
 
         # village is pillaged -> s6
         (else_try),
-            (party_slot_eq, "$current_town", slot_village_state, svs_looted),
+            (party_slot_eq, "$current_town", "slot_village_state", svs_looted),
             (str_store_string, s6, "@ The village has been pillaged. A handful of souls scatter as you pass through the burnt out houses."),
 
             (try_begin),
@@ -262,7 +262,7 @@ menus = [
 
         # village is being raided -> s6
         (else_try),
-            (party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
+            (party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
             (str_store_string, s6, "@ The village is being raided."),
 
         # nothing special happening
@@ -289,7 +289,7 @@ menus = [
             (assign, "$g_player_raid_complete", 0),
             (jump_to_menu, "mnu_village_loot_complete"),
         (else_try),
-            (party_get_slot, ":raider_party", "$current_town", slot_village_raided_by),
+            (party_get_slot, ":raider_party", "$current_town", "slot_village_raided_by"),
             (gt, ":raider_party", 0),
         (try_end),
 
@@ -311,25 +311,25 @@ menus = [
         (try_end),
         ], [
         ("village_manage", [
-            (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
-            (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
-            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-            (party_slot_eq, "$current_town", slot_town_lord, "trp_player")
+            (neg|party_slot_eq, "$current_town", "slot_village_state", svs_looted),
+            (neg|party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
+            (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
+            (party_slot_eq, "$current_town", "slot_town_lord", "trp_player")
             ], "Manage this village.", [
                 (assign, "$g_next_menu", "mnu_village"),
                 (jump_to_menu, "mnu_center_manage"),
         ]),
 
         ("Meet_with_village_elder", [
-            (party_slot_eq, "$current_town", slot_village_state, 0),
-            (neg | party_slot_eq, "$current_town", slot_village_state, svs_looted),
-            (neg | party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
-            (neg | party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            (party_slot_eq, "$current_town", "slot_village_state", 0),
+            (neg | party_slot_eq, "$current_town", "slot_village_state", svs_looted),
+            (neg | party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
+            (neg | party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
             ], "Meet with the elder.", [
                 (try_begin),
                     (call_script, "script_cf_enter_center_location_bandit_check"),
                 (else_try),
-                    (party_get_slot, ":conversation_troop", "$current_town", slot_town_elder),
+                    (party_get_slot, ":conversation_troop", "$current_town", "slot_town_elder"),
                     (call_script, "script_setup_troop_meeting", ":conversation_troop", -1),
                 (try_end),
         ]),
@@ -354,23 +354,23 @@ menus = [
         ]),
 
         ("village_center", [
-            (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
-            (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
-            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1)
+            (neg|party_slot_eq, "$current_town", "slot_village_state", svs_looted),
+            (neg|party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
+            (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1)
         ], "Go to the village center.", [
             (try_begin),
                 (call_script, "script_cf_enter_center_location_bandit_check"),
             (else_try),
-                (party_get_slot, ":village_scene", "$current_town", slot_castle_exterior),
+                (party_get_slot, ":village_scene", "$current_town", "slot_castle_exterior"),
                 (modify_visitors_at_site,":village_scene"),
                 (reset_visitors),
-                (party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
+                (party_get_slot, ":village_elder_troop", "$current_town","slot_town_elder"),
                 (set_visitor, 11, ":village_elder_troop"),
 
                 (try_begin),
                     (gt, "$g_player_chamberlain", 0),
                     (call_script, "script_dplmc_appoint_chamberlain"),
-                    (party_get_slot, ":town_lord", "$current_town", slot_town_lord),
+                    (party_get_slot, ":town_lord", "$current_town", "slot_town_lord"),
                     (eq, ":town_lord", "trp_player"),
                     (set_visitor, 9, "$g_player_chamberlain"),
                 (try_end),
@@ -401,32 +401,32 @@ menus = [
             ], "Door to the village center."),
 
         ("village_buy_food", [
-            (party_slot_eq, "$current_town", slot_village_state, 0),
-            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            (party_slot_eq, "$current_town", "slot_village_state", 0),
+            (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
             ], "Buy supplies from the peasants.", [
                 (try_begin),
                     (call_script, "script_cf_enter_center_location_bandit_check"),
                 (else_try),
-                    (party_get_slot, ":merchant_troop", "$current_town", slot_town_elder),
+                    (party_get_slot, ":merchant_troop", "$current_town", "slot_town_elder"),
                     (change_screen_trade, ":merchant_troop"),
                 (try_end),
             ]),
 
         # -> buy_cattle.py
         ("village_buy_cattle", [
-            (party_slot_eq, "$current_town", slot_village_state, 0),
-            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            (party_slot_eq, "$current_town", "slot_village_state", 0),
+            (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
             ], "Buy cattle.", [
             (jump_to_menu,"mnu_buy_cattle")
         ]),
 
         ("village_attack_bandits", [
-            (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-            (neg|party_slot_eq, "$current_town", slot_village_infested_by_bandits, "trp_peasant_woman"),
+            (party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
+            (neg|party_slot_eq, "$current_town", "slot_village_infested_by_bandits", "trp_peasant_woman"),
             ], "Attack the bandits.", [
 
-            (party_get_slot, ":bandit_troop", "$current_town", slot_village_infested_by_bandits),
-            (party_get_slot, ":scene_to_use", "$current_town", slot_castle_exterior),
+            (party_get_slot, ":bandit_troop", "$current_town", "slot_village_infested_by_bandits"),
+            (party_get_slot, ":scene_to_use", "$current_town", "slot_castle_exterior"),
 
             (modify_visitors_at_site,":scene_to_use"),
             (reset_visitors),
@@ -448,8 +448,8 @@ menus = [
         ]),
 
         ("village_wait", [
-            (party_slot_eq, "$current_town", slot_center_has_manor, 1),
-            (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+            (party_slot_eq, "$current_town", "slot_center_has_manor", 1),
+            (party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
             ], "Rest here for some time.", [
 
             (assign,"$auto_enter_town", "$current_town"),
@@ -470,17 +470,17 @@ menus = [
         ]),
 
         ("village_guest_wait", [
-            (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
-            (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
-            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            (neg|party_slot_eq, "$current_town", "slot_village_state", svs_looted),
+            (neg|party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
+            (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
             (assign,":continue",0),
             (try_begin),
                 (ge, "$commoner_trust", 60),
                 (assign,":continue", 1),
             (try_end),
             (try_begin),
-                (party_slot_eq, "$current_town", slot_center_has_manor, 1),
-                (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+                (party_slot_eq, "$current_town", "slot_center_has_manor", 1),
+                (party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
                 (assign, ":continue", 0),
             (try_end),
             (eq, ":continue", 1),
@@ -493,7 +493,7 @@ menus = [
         ]),
 
         ("dplmc_village_counter_insurgency", [
-            (party_slot_eq, "$current_town", slot_village_infested_by_bandits, "trp_peasant_woman"),
+            (party_slot_eq, "$current_town", "slot_village_infested_by_bandits", "trp_peasant_woman"),
             ], "Counter the insurgency.", [
 
             (store_random_in_range, ":enmity", -10, -5),
@@ -504,7 +504,7 @@ menus = [
             (assign, "$g_battle_result", 0),
             (assign, "$g_village_raid_evil", 1), #check
             (set_jump_mission,"mt_village_raid"),
-            (party_get_slot, ":scene_to_use", "$current_town", slot_castle_exterior),
+            (party_get_slot, ":scene_to_use", "$current_town", "slot_castle_exterior"),
             (jump_to_scene, ":scene_to_use"),
             (assign, "$g_next_menu", "mnu_dplmc_village_riot_result"),
 
@@ -514,14 +514,14 @@ menus = [
         ]),
 
         ("dplmc_village_negotiate",[
-            (party_slot_eq, "$current_town", slot_village_infested_by_bandits, "trp_peasant_woman"),
+            (party_slot_eq, "$current_town", "slot_village_infested_by_bandits", "trp_peasant_woman"),
             ], "Begin negotiations.", [
             (jump_to_menu, "mnu_dplmc_riot_negotiate"),
         ]),
 
         ("collect_taxes_qst", [
-            (party_slot_eq, "$current_town", slot_village_state, 0),
-            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            (party_slot_eq, "$current_town", "slot_village_state", 0),
+            (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
             (check_quest_active, "qst_collect_taxes"),
             (quest_get_slot, ":quest_giver_troop", "qst_collect_taxes", slot_quest_giver_troop),
             (quest_slot_eq, "qst_collect_taxes", slot_quest_target_center, "$current_town"),
@@ -533,7 +533,7 @@ menus = [
         ]),
 
         ("train_peasants_against_bandits_qst", [
-            (party_slot_eq, "$current_town", slot_village_state, 0),
+            (party_slot_eq, "$current_town", "slot_village_state", 0),
             (check_quest_active, "qst_train_peasants_against_bandits"),
             (neg|check_quest_concluded, "qst_train_peasants_against_bandits"),
             (quest_slot_eq, "qst_train_peasants_against_bandits", slot_quest_target_center, "$current_town"),
@@ -543,8 +543,8 @@ menus = [
 
         # -> hostile_actions.py
         ("village_hostile_action", [
-            (party_slot_eq, "$current_town", slot_village_state, 0),
-            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            (party_slot_eq, "$current_town", "slot_village_state", 0),
+            (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
             (neq, "$players_kingdom", "$g_encountered_party_faction"),
             ], "Take a hostile action.", [
             (jump_to_menu,"mnu_village_hostile_action")
@@ -556,9 +556,9 @@ menus = [
             (jump_to_menu,"mnu_center_reports")]),
 
         ("village_perform_basic_work", [
-            (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
-            (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
-            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            (neg|party_slot_eq, "$current_town", "slot_village_state", svs_looted),
+            (neg|party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
+            (neg|party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
             # todo: remove this freelancer thing
             (neq, "$freelancer_state", 1), #+freelancer chief #prevents player freelancer brytenwalda
             ], "Perform some very basic work for the village (be farmer).", [
@@ -593,10 +593,10 @@ menus = [
             (eq, "$g_player_is_captive", 1), #motomataru chief repara
                   (str_store_string,s3,"@ You've been carried off as prisoner. You stop your work."),
               (else_try),
-                (party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
+                (party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
             (str_store_string,s3,"@ The village is being raided. You stop your work."),
         (else_try),
-            (party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+            (party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
             (str_store_string,s3,"@ The village is being infested by bandits. You stop your work."),
         (else_try),
             (store_random_in_range,reg1,10,30),
@@ -633,8 +633,8 @@ menus = [
       "Continue",[
         (try_begin), #motomataru chief repara
                   (this_or_next|eq, "$g_player_is_captive", 1),
-                  (this_or_next|party_slot_eq, "$current_town",      slot_village_state, svs_being_raided),
-                  (party_slot_ge, "$current_town",      slot_village_infested_by_bandits, 1),
+                  (this_or_next|party_slot_eq, "$current_town",      "slot_village_state", svs_being_raided),
+                  (party_slot_ge, "$current_town",      "slot_village_infested_by_bandits", 1),
                   (change_screen_return),
               (else_try),
                   (jump_to_menu,"mnu_village"),
@@ -690,8 +690,8 @@ scripts = [
     ("update_volunteer_troops_in_village", [
         (store_script_param, ":center_no", 1),
 
-        (party_get_slot, ":player_relation", ":center_no", slot_center_player_relation),
-        (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
+        (party_get_slot, ":player_relation", ":center_no", "slot_center_player_relation"),
+        (party_get_slot, ":center_culture", ":center_no", "slot_center_culture"),
         (faction_get_slot, ":troop_type", ":center_culture", slot_faction_tier_1_troop),
 
         (store_div, ":tier_upgrades", ":player_relation", 10),
@@ -700,7 +700,7 @@ scripts = [
         # multiplier to max recruits
         (assign, ":percent", 100),
         (try_begin), #-40% if not owner
-            (neg|party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
+            (neg|party_slot_eq, ":center_no", "slot_town_lord", "trp_player"),
             (val_sub, ":percent", 40),
         (try_end),
         (try_begin), #1%/3 renown
@@ -751,19 +751,19 @@ scripts = [
 
         (store_random_in_range, ":recruits", 0, ":max_recruits"),
 
-        (party_set_slot, "p_village_8", slot_center_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
-        (party_set_slot, "p_village_14", slot_center_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
-        (party_set_slot, "p_village_56", slot_center_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
-        (party_set_slot, "p_village_74", slot_center_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
-        (party_set_slot, "p_village_86", slot_center_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_8", "slot_center_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_14", "slot_center_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_56", "slot_center_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_74", "slot_center_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_86", "slot_center_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
 
-        (party_set_slot, ":center_no", slot_center_volunteer_troop_type, ":troop_type"),
-        (party_set_slot, ":center_no", slot_center_volunteer_troop_amount, ":recruits"),
+        (party_set_slot, ":center_no", "slot_center_volunteer_troop_type", ":troop_type"),
+        (party_set_slot, ":center_no", "slot_center_volunteer_troop_amount", ":recruits"),
      ]),
 
     ("update_npc_volunteer_troops_in_village", [
         (store_script_param, ":center_no", 1),
-        (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
+        (party_get_slot, ":center_culture", ":center_no", "slot_center_culture"),
         (faction_get_slot, ":troop_type", ":center_culture", slot_faction_tier_1_troop),
 
         upgrade_tier(5),
@@ -778,14 +778,14 @@ scripts = [
 
         (store_random_in_range, ":recruits", 0, ":max_recruits"),
 
-        (party_set_slot, "p_village_8", slot_center_npc_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
-        (party_set_slot, "p_village_14", slot_center_npc_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
-        (party_set_slot, "p_village_56", slot_center_npc_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
-        (party_set_slot, "p_village_74", slot_center_npc_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
-        (party_set_slot, "p_village_86", slot_center_npc_volunteer_troop_type, "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_8", "slot_center_npc_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_14", "slot_center_npc_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_56", "slot_center_npc_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_74", "slot_center_npc_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
+        (party_set_slot, "p_village_86", "slot_center_npc_volunteer_troop_type", "trp_fresna_recruit"), #anadido en aldea reclutar frisios chief
 
-        (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_type, ":troop_type"),
-        (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_amount, ":recruits"),
+        (party_set_slot, ":center_no", "slot_center_npc_volunteer_troop_type", ":troop_type"),
+        (party_set_slot, ":center_no", "slot_center_npc_volunteer_troop_amount", ":recruits"),
     ]),
 
     # -> bandits_infestation.py
@@ -802,7 +802,7 @@ scripts = [
                     (lt, ":cur_state", 4),
                     (quest_set_slot, "qst_eliminate_bandits_infesting_village", slot_quest_current_state, ":cur_state"),
                 (else_try),
-                    (party_set_slot, ":village_no", slot_village_infested_by_bandits, 0),
+                    (party_set_slot, ":village_no", "slot_village_infested_by_bandits", 0),
                     (call_script, "script_abort_quest", "qst_eliminate_bandits_infesting_village", 2),
                 (try_end),
             (else_try),
@@ -816,12 +816,12 @@ scripts = [
                     (lt, ":cur_state", 4),
                     (quest_set_slot, "qst_deal_with_bandits_at_lords_village", slot_quest_current_state, ":cur_state"),
                 (else_try),
-                    (party_set_slot, ":village_no", slot_village_infested_by_bandits, 0),
+                    (party_set_slot, ":village_no", "slot_village_infested_by_bandits", 0),
                     (call_script, "script_abort_quest", "qst_deal_with_bandits_at_lords_village", 2),
                 (try_end),
             (else_try),
                 # starts a new quest with a chance
-                (party_set_slot, ":village_no", slot_village_infested_by_bandits, 0),
+                (party_set_slot, ":village_no", "slot_village_infested_by_bandits", 0),
                 (assign, ":continue", 1),
 
                 # don't start when collect taxes or train peasants is activated here.
@@ -853,7 +853,7 @@ scripts = [
                     (assign, ":bandit_troop", "trp_forest_bandit"),
                 (try_end),
 
-                (party_set_slot, ":village_no", slot_village_infested_by_bandits, ":bandit_troop"),
+                (party_set_slot, ":village_no", "slot_village_infested_by_bandits", ":bandit_troop"),
                 #Reduce prosperity of the village by 3: reduce to -1
                 (call_script, "script_change_center_prosperity", ":village_no", -1),
 

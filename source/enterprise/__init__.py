@@ -15,10 +15,10 @@ simple_triggers = [
     (24,
      [
       (try_for_range, ":town", towns_begin, towns_end),
-        (party_get_slot, ":days_to_completion", ":town", slot_center_player_enterprise_days_until_complete),
+        (party_get_slot, ":days_to_completion", ":town", "slot_center_player_enterprise_days_until_complete"),
         (ge, ":days_to_completion", 1),
         (val_sub, ":days_to_completion", 1),
-        (party_set_slot, ":town", slot_center_player_enterprise_days_until_complete, ":days_to_completion"),
+        (party_set_slot, ":town", "slot_center_player_enterprise_days_until_complete", ":days_to_completion"),
       (try_end),
      ]),
 ]
@@ -87,7 +87,7 @@ scripts = [
       (item_get_slot, ":base_price", ":item_type", slot_item_base_price),
 
       (store_sub, ":cur_good_price_slot", ":item_type", trade_goods_begin),
-      (val_add, ":cur_good_price_slot", slot_town_trade_good_prices_begin),
+      (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
       (party_get_slot, ":cur_price_modifier", ":center", ":cur_good_price_slot"),
 
       # todo: multiply two prices and divide by 1000? why?
@@ -101,7 +101,7 @@ scripts = [
       (item_get_slot, ":primary_raw_material", ":item_type", slot_item_primary_raw_material),
       (item_get_slot, ":base_price", ":primary_raw_material", slot_item_base_price),
       (store_sub, ":cur_good_price_slot", ":primary_raw_material", trade_goods_begin),
-      (val_add, ":cur_good_price_slot", slot_town_trade_good_prices_begin),
+      (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
       (party_get_slot, ":cur_price_modifier", ":center", ":cur_good_price_slot"),
       (store_mul, ":cost_per_primary_input", ":base_price", ":cur_price_modifier"),
       (val_div, ":cost_per_primary_input", 1150),
@@ -120,7 +120,7 @@ scripts = [
         (item_get_slot, ":secondary_raw_material", ":item_type", slot_item_secondary_raw_material),
         (item_get_slot, ":base_price", ":secondary_raw_material", slot_item_base_price),
         (store_sub, ":cur_good_price_slot", ":secondary_raw_material", trade_goods_begin),
-        (val_add, ":cur_good_price_slot", slot_town_trade_good_prices_begin),
+        (val_add, ":cur_good_price_slot", "slot_town_trade_good_prices_begin"),
         (party_get_slot, ":cur_price_modifier", ":center", ":cur_good_price_slot"),
         (store_mul, ":cost_per_secondary_input", ":base_price", ":cur_price_modifier"),
         (try_begin),
@@ -153,8 +153,8 @@ scripts = [
 town_menu_options = [
     ("town_enterprise",
       [
-        (party_slot_eq, "$current_town", slot_party_type, spt_town),
-        (party_get_slot, ":item_produced", "$current_town", slot_center_player_enterprise),
+        (party_slot_eq, "$current_town", "slot_party_type", spt_town),
+        (party_get_slot, ":item_produced", "$current_town", "slot_center_player_enterprise"),
         (gt, ":item_produced", 1),
         (eq, "$entry_to_town_forbidden", 0),
 
@@ -166,7 +166,7 @@ town_menu_options = [
       [
         (store_sub, ":town_order", "$current_town", towns_begin),
         (store_add, ":master_craftsman", "trp_town_1_master_craftsman", ":town_order"),
-        (party_get_slot, ":item_produced", "$current_town", slot_center_player_enterprise),
+        (party_get_slot, ":item_produced", "$current_town", "slot_center_player_enterprise"),
 
         (assign, ":enterprise_scene", "scn_enterprise_mill"),
         (try_begin),
@@ -240,9 +240,9 @@ budget_report_statement_block = StatementBlock(
     # creates space for printing enterprise information
     (try_for_range, ":center_no", centers_begin, centers_end),
         (try_begin),
-          (party_get_slot, ":product_type", ":center_no", slot_center_player_enterprise),
+          (party_get_slot, ":product_type", ":center_no", "slot_center_player_enterprise"),
           (gt, ":product_type", 1),
-          (neg|party_slot_ge, ":center_no", slot_center_player_enterprise_days_until_complete, 1),
+          (neg|party_slot_ge, ":center_no", "slot_center_player_enterprise_days_until_complete", 1),
           (store_add, ":cur_y", 27),
         (try_end),
     (try_end),
@@ -250,9 +250,9 @@ budget_report_statement_block = StatementBlock(
     # computes and prints information
     (try_for_range, ":center_no", centers_begin, centers_end),
         (try_begin),
-          (party_get_slot, ":product_type", ":center_no", slot_center_player_enterprise),
+          (party_get_slot, ":product_type", ":center_no", "slot_center_player_enterprise"),
           (gt, ":product_type", 1),
-          (neg|party_slot_ge, ":center_no", slot_center_player_enterprise_days_until_complete, 1),
+          (neg|party_slot_ge, ":center_no", "slot_center_player_enterprise_days_until_complete", 1),
 
           (call_script, "script_process_player_enterprise", ":product_type", ":center_no"),
           (assign, ":net_profit", reg0),
@@ -270,7 +270,7 @@ budget_report_statement_block = StatementBlock(
           (assign, ":qnt_stored", 0),
 
           (try_begin),
-            (party_slot_eq, ":center_no", slot_center_player_enterprise_production_order, 1),
+            (party_slot_eq, ":center_no", "slot_center_player_enterprise_production_order", 1),
             # orders are to store production; fulfill them by storing the maximum
             # possible.
 
@@ -374,7 +374,7 @@ budget_report_statement_block = StatementBlock(
 
             # (virtually) sell products to market
             (store_sub, ":item_slot_no", ":product_type", trade_goods_begin),
-            (val_add, ":item_slot_no", slot_town_trade_good_prices_begin),
+            (val_add, ":item_slot_no", "slot_town_trade_good_prices_begin"),
             (party_get_slot, ":multiplier", ":center_no", ":item_slot_no"),
 
             # todo: this can lead to a negative multiplier, which is forbidden.
@@ -389,7 +389,7 @@ budget_report_statement_block = StatementBlock(
 
                 (item_get_slot, ":raw_material", ":product_type", slot_item_primary_raw_material),
                 (store_sub, ":item_slot_no", ":raw_material", trade_goods_begin),
-                (val_add, ":item_slot_no", slot_town_trade_good_prices_begin),
+                (val_add, ":item_slot_no", "slot_town_trade_good_prices_begin"),
                 (party_get_slot, ":multiplier", ":center_no", ":item_slot_no"),
 
                 # todo: this can lead to a negative multiplier, which is forbidden.
@@ -404,7 +404,7 @@ budget_report_statement_block = StatementBlock(
 
                 (item_get_slot, ":2ary_raw_material", ":product_type", slot_item_secondary_raw_material),
                 (store_sub, ":item_slot_no", ":2ary_raw_material", trade_goods_begin),
-                (val_add, ":item_slot_no", slot_town_trade_good_prices_begin),
+                (val_add, ":item_slot_no", "slot_town_trade_good_prices_begin"),
                 (party_get_slot, ":multiplier", ":center_no", ":item_slot_no"),
 
                 # todo: this can lead to a negative multiplier, which is forbidden.
@@ -467,8 +467,8 @@ dialogs = [
      ]],
 
     [anyone, "mayor_investment_possible", [
-        (party_slot_ge, "$g_encountered_party", slot_center_player_enterprise, 1),
-        (party_get_slot, ":item_produced", "$g_encountered_party", slot_center_player_enterprise),
+        (party_slot_ge, "$g_encountered_party", "slot_center_player_enterprise", 1),
+        (party_get_slot, ":item_produced", "$g_encountered_party", "slot_center_player_enterprise"),
         (call_script, "script_get_enterprise_name", ":item_produced"),
         (str_store_string, s4, reg0),
     ], "You already operate a {s4} here. There probably aren't enough skilled tradesmen to start a second enterprise.", "mayor_pretalk",[
@@ -486,12 +486,12 @@ dialogs = [
     ],
 
     [anyone,"mayor_investment_possible", [
-        (party_slot_eq, "$g_encountered_party", slot_town_lord, "trp_player"),
+        (party_slot_eq, "$g_encountered_party", "slot_town_lord", "trp_player"),
     ], "Of course, {sir/my lady}. You are the lord of this town, and no one is going to stop you.", "mayor_investment_advice",[
      ]],
 
     [anyone,"mayor_investment_possible", [
-        (party_get_slot, ":town_liege", "$g_encountered_party", slot_town_lord),
+        (party_get_slot, ":town_liege", "$g_encountered_party", "slot_town_lord"),
         (is_between, ":town_liege", active_npcs_begin, active_npcs_end),
         (call_script, "script_troop_get_relation_with_troop", "trp_player", ":town_liege"),
         (assign, ":relation", reg0),
@@ -509,7 +509,7 @@ dialogs = [
           (neq, "$g_encountered_party", "$g_starting_town"),
           (val_add, ":required_relation", 1),
         (try_end),
-        (neg|party_slot_ge, "$current_town", slot_center_player_relation, ":required_relation"),
+        (neg|party_slot_ge, "$current_town", "slot_center_player_relation", ":required_relation"),
     ], "Well... To be honest, I think that we in the guild would like to know you a little better. "
        "We can be very particular about outsiders coming in here and buying land.", "mayor_pretalk", []
      ],
@@ -619,8 +619,8 @@ dialogs = [
     (ge, ":player_gold","$enterprise_cost"),
   ], "Yes. Here is money for the land.", "mayor_investment_purchase", [
 
-      (party_set_slot, "$g_encountered_party", slot_center_player_enterprise, "$enterprise_production"),
-      (party_set_slot, "$g_encountered_party", slot_center_player_enterprise_days_until_complete, 7),
+      (party_set_slot, "$g_encountered_party", "slot_center_player_enterprise", "$enterprise_production"),
+      (party_set_slot, "$g_encountered_party", "slot_center_player_enterprise_days_until_complete", 7),
 
       (troop_remove_gold, "trp_player", "$enterprise_cost"),
       (store_sub, ":current_town_order", "$current_town", towns_begin),
@@ -675,7 +675,7 @@ dialogs += [
 
   [anyone|auto_proceed,"start", [
   (is_between,"$g_talk_troop","trp_town_1_master_craftsman", "trp_zendar_chest"),
-  (party_get_slot, ":days_until_complete", "$g_encountered_party", slot_center_player_enterprise_days_until_complete),
+  (party_get_slot, ":days_until_complete", "$g_encountered_party", "slot_center_player_enterprise_days_until_complete"),
   (ge, ":days_until_complete", 2),
   (assign, reg4, ":days_until_complete"),
   ],
@@ -703,23 +703,23 @@ dialogs += [
    ]],
 
   [anyone|plyr,"master_craftsman_talk", [
-  (party_slot_eq, "$g_encountered_party", slot_center_player_enterprise_production_order, 1),
+  (party_slot_eq, "$g_encountered_party", "slot_center_player_enterprise_production_order", 1),
   ],
    "I'd like you to sell goods as they are produced.", "master_craftsman_pretalk",[
-  (party_set_slot, "$g_encountered_party", slot_center_player_enterprise_production_order, 0),
+  (party_set_slot, "$g_encountered_party", "slot_center_player_enterprise_production_order", 0),
    ]],
 
   [anyone|plyr,"master_craftsman_talk", [
-  (party_slot_eq, "$g_encountered_party", slot_center_player_enterprise_production_order, 0),
+  (party_slot_eq, "$g_encountered_party", "slot_center_player_enterprise_production_order", 0),
   ],
    "I'd like you to keep all goods in the warehouse until I arrive.", "master_craftsman_pretalk",[
-  (party_set_slot, "$g_encountered_party", slot_center_player_enterprise_production_order, 1),
+  (party_set_slot, "$g_encountered_party", "slot_center_player_enterprise_production_order", 1),
    ]],
 
   [anyone,"master_craftsman_accounts", [
   ], "We currently produce {s3} worth {reg1} scillingas each week, while the quantity of {s4} needed to manufacture it costs {reg2}, and labor and upkeep are {reg3}.{s9} This means that we theoretically make a {s12} of {reg0} scillingas a week, assuming that we have no raw materials in the inventories, and that we sell directly to the market.", "master_craftsman_pretalk",
   [
-    (party_get_slot, ":item_produced", "$g_encountered_party", slot_center_player_enterprise),
+    (party_get_slot, ":item_produced", "$g_encountered_party", "slot_center_player_enterprise"),
     (call_script, "script_process_player_enterprise", ":item_produced", "$g_encountered_party"),
 
     (try_begin),
@@ -757,7 +757,7 @@ dialogs += [
   ], "It will no longer be possible for me to continue operating this enterprise.", "master_craftsman_auction_price",[]],
 
   [anyone,"master_craftsman_auction_price", [
-  (party_get_slot, ":item_produced", "$g_encountered_party", slot_center_player_enterprise),
+  (party_get_slot, ":item_produced", "$g_encountered_party", "slot_center_player_enterprise"),
   (item_get_slot, ":base_price",":item_produced", slot_item_base_price),
   (item_get_slot, ":number_runs", ":item_produced", slot_item_output_per_run),
   (store_mul, "$liquidation_price", ":base_price", ":number_runs"),
@@ -777,7 +777,7 @@ dialogs += [
 #		(try_end),
 
         (store_sub, ":item_slot_no", ":item_in_slot", trade_goods_begin),
-        (val_add, ":item_slot_no", slot_town_trade_good_prices_begin),
+        (val_add, ":item_slot_no", "slot_town_trade_good_prices_begin"),
         (party_get_slot, ":index", "$g_encountered_party", ":item_slot_no"),
 		(val_mul, ":price_for_inventory_item", ":index"),
 		(val_div, ":price_for_inventory_item", 1200),
@@ -794,8 +794,8 @@ dialogs += [
   ], "That sounds reasonable. Please proceed with the sale.", "master_craftsman_liquidation",[
   (troop_add_gold, "trp_player", "$liquidation_price"),
   (troop_clear_inventory, "$g_talk_troop"),
-  (party_set_slot, "$g_encountered_party", slot_center_player_enterprise, 0),
-  (party_set_slot, "$g_encountered_party", slot_center_player_enterprise_production_order, 0),
+  (party_set_slot, "$g_encountered_party", "slot_center_player_enterprise", 0),
+  (party_set_slot, "$g_encountered_party", "slot_center_player_enterprise_production_order", 0),
 
   ]],
 

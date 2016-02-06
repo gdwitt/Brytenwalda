@@ -13,7 +13,7 @@ _start_dialogs = [
     [anyone, "start", [
         (is_between, "$g_talk_troop", village_elders_begin, village_elders_end),
         (eq, "$g_talk_troop_met", 0),
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        (party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
         (str_store_party_name, s9, "$current_town")
     ], "Welcome to {s9}, my {lord/lady}. We were rejoiced by the news that "
        "you are the new {lord/lady} of our humble village. I am the village "
@@ -31,7 +31,7 @@ _start_dialogs = [
 
     [anyone, "start", [
         (is_between, "$g_talk_troop", village_elders_begin, village_elders_end),
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player")
+        (party_slot_eq, "$current_town", "slot_town_lord", "trp_player")
     ], "{My lord/My lady}, you honour our humble village with your presence.",
      "village_elder_talk", []
      ],
@@ -79,8 +79,8 @@ _talk_dialogs = [
 
     # -> _trade_dialogs
     [anyone | plyr, "village_elder_talk", [
-        (party_slot_eq, "$current_town", slot_village_state, 0),
-        (party_slot_lt, "$current_town", slot_village_infested_by_bandits, 1)
+        (party_slot_eq, "$current_town", "slot_village_state", 0),
+        (party_slot_lt, "$current_town", "slot_village_infested_by_bandits", 1)
         ],
      "I want to buy some supplies. I will pay with gold.",
      "village_elder_trade_begin", []
@@ -115,8 +115,8 @@ _trade_dialogs = [
 
     # -> `buy_cattle.py`
     [anyone | plyr, "village_elder_trade_talk", [
-        (party_slot_eq, "$current_town", slot_village_state, 0),
-        (party_slot_lt, "$current_town", slot_village_infested_by_bandits, 1),
+        (party_slot_eq, "$current_town", "slot_village_state", 0),
+        (party_slot_lt, "$current_town", "slot_village_infested_by_bandits", 1),
 
         # can't trade cattle when there is a mission to buy them.
         (assign, ":quest_village", 0),

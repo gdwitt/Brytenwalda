@@ -35,7 +35,7 @@ dialogs = [
         (neq, ":center", "$g_player_court"),
         (store_faction_of_party, ":center_faction", ":center"),
         (eq, ":center_faction", "fac_player_supporters_faction"),
-        (neg | party_slot_ge, ":center", slot_town_lord, active_npcs_begin),  # ie, owned by player or unassigned
+        (neg | party_slot_ge, ":center", "slot_town_lord", active_npcs_begin),  # ie, owned by player or unassigned
         (str_store_party_name, s11, ":center"),
         ], "{s11}", "dplmc_minister_persuade_lord_faction_ask", [
         (store_repeat_object, "$diplomacy_var2"),

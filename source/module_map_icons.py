@@ -3,7 +3,7 @@ from header_operations import *
 from header_triggers import ti_on_init_map_icon
 from header_map_icons import mcn_no_shadow
 
-from module_constants import slot_town_lord
+#from module_constants import "slot_town_lord"
 
 
 ####################################################################################################################
@@ -95,7 +95,7 @@ map_icons = [
      (ti_on_init_map_icon,
       [
         (store_trigger_param_1, ":party_no"),
-        (party_get_slot, ":leader_troop", ":party_no", slot_town_lord),
+        (party_get_slot, ":leader_troop", ":party_no", "slot_town_lord"),
         (try_begin),
           (ge, ":leader_troop", 0),
           (cur_map_icon_set_tableau_material, "tableau_custom_banner_square", ":leader_troop"),
@@ -107,7 +107,7 @@ map_icons = [
      (ti_on_init_map_icon,
       [
         (store_trigger_param_1, ":party_no"),
-        (party_get_slot, ":leader_troop", ":party_no", slot_town_lord),
+        (party_get_slot, ":leader_troop", ":party_no", "slot_town_lord"),
         (try_begin),
           (ge, ":leader_troop", 0),
           (cur_map_icon_set_tableau_material, "tableau_custom_banner_short", ":leader_troop"),
@@ -119,7 +119,7 @@ map_icons = [
      (ti_on_init_map_icon,
       [
         (store_trigger_param_1, ":party_no"),
-        (party_get_slot, ":leader_troop", ":party_no", slot_town_lord),
+        (party_get_slot, ":leader_troop", ":party_no", "slot_town_lord"),
         (try_begin),
           (ge, ":leader_troop", 0),
           (cur_map_icon_set_tableau_material, "tableau_custom_banner_tall", ":leader_troop"),

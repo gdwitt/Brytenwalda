@@ -3,8 +3,7 @@ from source.header_common import *
 
 from source.header_items import max_inventory_items, num_equipment_kinds
 
-from source.module_constants import slot_town_lord, slot_center_player_relation, \
-    slot_town_elder, tmt_humanitarian, logent_village_extorted
+from source.module_constants import tmt_humanitarian, logent_village_extorted
 
 
 menus = [
@@ -36,17 +35,17 @@ menus = [
         (try_begin),
             (lt, ":player_party_size", 20),
             (ge, ":villagers_party_size", 40),
-            (neg|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+            (neg|party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
             (jump_to_menu, "mnu_village_start_attack"),
         (try_end),
         ], [
 
         ("take_supplies", [], "Take the supplies.", [
             (try_begin),
-                (party_slot_ge, "$current_town", slot_center_player_relation, -55),
+                (party_slot_ge, "$current_town", "slot_center_player_relation", -55),
                 (store_faction_of_party, ":faction_no", "$current_town"),
                 (try_begin),
-                    (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+                    (party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
                     (call_script, "script_change_player_relation_with_center", "$current_town", -5),
                     (call_script, "script_change_player_relation_with_faction", ":faction_no", -20),
                 (else_try),
@@ -56,12 +55,12 @@ menus = [
             (try_end),
 
             (try_begin),
-                (party_get_slot, ":village_lord", "$current_town", slot_town_lord),
+                (party_get_slot, ":village_lord", "$current_town", "slot_town_lord"),
                 (gt, ":village_lord", 1),
                 (call_script, "script_change_player_relation_with_troop", ":village_lord", -15),
             (try_end),
 
-            (party_get_slot, ":merchant_troop", "$current_town", slot_town_elder),
+            (party_get_slot, ":merchant_troop", "$current_town", "slot_town_elder"),
             (party_get_skill_level, ":player_party_looting", "p_main_party", "skl_looting"),
 
             (val_mul, ":player_party_looting", 3),

@@ -24,7 +24,7 @@ _start_dialogs = [
     [anyone, "start", [
         (eq, "$talk_context", tc_party_encounter),
         (eq, "$g_encountered_party_type", spt_kingdom_caravan),
-        (party_slot_ge, "$g_encountered_party", slot_party_last_toll_paid_hours, "$g_current_hours"),
+        (party_slot_ge, "$g_encountered_party", "slot_party_last_toll_paid_hours", "$g_current_hours"),
     ], "What do you want? We paid our toll to you less than three days ago.",
      "merchant_talk", []],
 
@@ -32,7 +32,7 @@ _start_dialogs = [
     [anyone, "start", [
         (eq, "$talk_context", tc_party_encounter),
         (eq, "$g_encountered_party_type", spt_kingdom_caravan),
-        (party_slot_ge, "$g_encountered_party", slot_party_last_toll_paid_hours, "$g_current_hours"),
+        (party_slot_ge, "$g_encountered_party", "slot_party_last_toll_paid_hours", "$g_current_hours"),
     ], "What do you want? We paid our toll to you less than three days ago.",
      "merchant_talk", []],
 
@@ -67,7 +67,7 @@ _start_dialogs = [
     # catch all cases
     # todo: does this ever happen?
     [anyone, "start", [
-        (party_slot_eq, "$g_encountered_party", slot_party_type, spt_kingdom_caravan),
+        (party_slot_eq, "$g_encountered_party", "slot_party_type", spt_kingdom_caravan),
         (this_or_next | eq, "$talk_context", tc_party_encounter),
         (eq, "$talk_context", 0)
         ], "Yes? What do you want?", "merchant_talk", []
@@ -107,7 +107,7 @@ _talk_dialogs = [
     # demand something
     [anyone | plyr, "merchant_talk", [
         (eq, "$talk_context", tc_party_encounter),
-        (party_slot_lt, "$g_encountered_party", slot_party_last_toll_paid_hours, "$g_current_hours")
+        (party_slot_lt, "$g_encountered_party", "slot_party_last_toll_paid_hours", "$g_current_hours")
         ], "I demand something from you!", "merchant_demand", []
      ],
 

@@ -106,6 +106,10 @@ class Compiler(object):
                             (variable, self._current_statement_name))
         tag, variable_name = variable.split("_", 1) # splits on first occurrence
 
+        # slots are not transformed into tags via binary operators; they are integers
+        if tag == 'slot':
+            return self.index(variable_name, tag)
+
         try:
             tag_index = objects.TAG_TO_TAG_ID[tag]
         except KeyError:
@@ -351,11 +355,22 @@ class Compiler(object):
         with open(self._log_dir + '/' + 'unused_entities.txt', 'wb') as f:
             f.write(result.replace('\n', '\r\n'))
 
+        result = ''
+        for slot in objects.Slot.objects.values():
+            result += '%s %d\n' % (slot.no_tag_id, slot.index)
+
+        with open(self._log_dir + '/' + 'slots.txt', 'wb') as f:
+            f.write(result.replace('\n', '\r\n'))
+
     def compile(self, types=()):
         if not types:
             types = objects.ALL_TYPES
 
         for object_type in types:
+            if object_type == objects.Slot:
+                # slots are not exported
+                continue
+
             logging.info('Compiling "%s"' % object_type.__name__)
 
             if objects.HEADERS[object_type]:

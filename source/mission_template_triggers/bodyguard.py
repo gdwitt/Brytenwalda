@@ -48,7 +48,7 @@ bodyguard_triggers = [
         (assign, ":entry_point", 0),
         (assign, ":mission_tpl", 0),
         (try_begin),
-            (party_slot_eq, "$current_town", slot_party_type, spt_village),
+            (party_slot_eq, "$current_town", "slot_party_type", spt_village),
             (assign, ":entry_point", 11), #Village Elder's Entry
             (assign, ":mission_tpl", "mt_village_center"),
         (else_try),
@@ -57,7 +57,7 @@ bodyguard_triggers = [
             (eq, "$talk_context", tc_town_talk),
             (assign, ":entry_point", 24), #Prison Guard's Entry
             (try_begin),
-                (party_slot_eq, "$current_town", slot_party_type, spt_castle),
+                (party_slot_eq, "$current_town", "slot_party_type", spt_castle),
                 (assign, ":mission_tpl", "mt_castle_visit"),
             (else_try),
                 (assign, ":mission_tpl", "mt_town_center"),

@@ -1,8 +1,7 @@
 from source.header_operations import *
 from source.header_common import *
 
-from source.module_constants import slot_town_lord, slot_village_raided_by, \
-    slot_center_volunteer_troop_type, centers_begin, centers_end, logent_village_extorted
+from source.module_constants import centers_begin, centers_end, logent_village_extorted
 
 
 menus = [
@@ -15,12 +14,12 @@ menus = [
         (try_begin),
             (lt, ":player_party_size", 50),
             (ge, ":villagers_party_size", 40),
-            (neg|party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+            (neg|party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
             (jump_to_menu, "mnu_village_start_attack"),
         (try_end),
 
         (party_get_free_prisoners_capacity, ":prisoner_capacity", "p_main_party"),
-        (party_get_slot, ":lord", "$current_town", slot_town_lord),
+        (party_get_slot, ":lord", "$current_town", "slot_town_lord"),
 
         (call_script, "script_get_max_skill_of_player_party", "skl_looting"),
         (assign, ":looting_lvl", reg0),
@@ -28,7 +27,7 @@ menus = [
         (try_begin),
             (gt, ":prisoner_capacity", 0),
 
-            (party_get_slot, ":mod_troop", "$current_town", slot_center_volunteer_troop_type),
+            (party_get_slot, ":mod_troop", "$current_town", "slot_center_volunteer_troop_type"),
             # todo: make max prisoners depend on village population
 
             # prisoners = min[U(0, 20) + 2*looting, capacity]
@@ -142,7 +141,7 @@ menus = [
             (try_end),
 
             (call_script, "script_add_log_entry", logent_village_extorted, "trp_player",  "$current_town", ":lord", "$g_encountered_party_faction"),
-            (party_set_slot, "$current_town", slot_village_raided_by, -1),
+            (party_set_slot, "$current_town", "slot_village_raided_by", -1),
             (change_screen_return),
         ]),
 

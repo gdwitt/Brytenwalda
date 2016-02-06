@@ -160,7 +160,7 @@ triggers = [
 ##		(gt,":rebel_village",0),
 ##		(lt,":revolt_chance",0),
 ##		(party_set_faction, ":rebel_village", "fac_peasant_rebels"),
-##		(party_set_slot, ":rebel_village", slot_town_lord, stl_unassigned),
+##		(party_set_slot, ":rebel_village", "slot_town_lord", stl_unassigned),
 ##		(display_message,"@ A village has rebeled against your rule."),			
 ##	]),
 	
@@ -1831,9 +1831,9 @@ triggers = [
         (eq, "$freelancer_state", 1),
 		#collected nearby enemies->detach (post-battle)
 		(try_begin), 
-			(party_slot_ge, "p_freelancer_party_backup", slot_party_last_in_combat, 1),
+			(party_slot_ge, "p_freelancer_party_backup", "slot_party_last_in_combat", 1),
 			(map_free),
-			(party_set_slot, "p_freelancer_party_backup", slot_party_last_in_combat, 0),
+			(party_set_slot, "p_freelancer_party_backup", "slot_party_last_in_combat", 0),
 			(party_get_num_attached_parties, ":num_attached", "p_main_party"),
 			(try_for_range_backwards, ":i", 0, ":num_attached"),
 				(party_get_attached_party_with_rank, ":party", "p_main_party", ":i"),
@@ -1951,7 +1951,7 @@ triggers = [
 #############script refuerzos ciudades chief#############
 ##(72, 0, 0.0, [], [  ## establece el spawn de refuerzos cada 72 horas, cambiar a nuestro gusto
 ##                     (try_for_range, ":center", walled_centers_begin, walled_centers_end),
-##                     (party_get_slot, ":besieged", ":center", slot_center_is_besieged_by),
+##                     (party_get_slot, ":besieged", ":center", "slot_center_is_besieged_by"),
 ##                         (neg|ge, ":besieged", 0), #Town/castle is under siege jump out
 ##                         (store_faction_of_party, ":faction", ":center"),
 ##                         (party_get_num_companions, ":garrison", ":center"),
@@ -1960,11 +1960,11 @@ triggers = [
 ##                         (faction_get_slot, ":party_template_c", ":faction", slot_faction_reinforcements_c),
 ##                         (assign, ":party_template", 0),
 ##                         (try_begin),
-##                             (party_slot_eq, ":center", slot_party_type, spt_town),
+##                             (party_slot_eq, ":center", "slot_party_type", spt_town),
 ##                             (lt, ":garrison", 170),            ## cuando la guarnicion sea menor, vendran refuerzos a la ciudad
 ##                             (assign, ":party_template", "pt_reinforcements"),
 ##                         (else_try),
-##                             (party_slot_eq, ":center", slot_party_type, spt_castle),
+##                             (party_slot_eq, ":center", "slot_party_type", spt_castle),
 ##                             (lt, ":garrison", 80),            ## cuando la guarnicion sea menor, vendran refuerzos al castillo
 ##                             (assign, ":party_template", "pt_reinforcements"),
 ##                         (try_end),
@@ -1972,10 +1972,10 @@ triggers = [
 ##                             (gt, ":party_template", 0),
 ##                             (try_for_range, ":village_reinforcements", villages_begin, villages_end),
 ##                                 (try_begin),
-##                                     (party_slot_eq, ":center", slot_party_type, spt_castle),  ## para castillos
-##                                     (party_slot_eq, ":village_reinforcements", slot_village_bound_center, ":center"),
-##                                     (party_slot_eq, ":village_reinforcements", slot_village_state, svs_normal), ## si la villa es atacada no genera refuerzos
-##                                     (neg|party_slot_eq, ":center", slot_town_lord, "trp_player"),  ## si no pertenece al jugador
+##                                     (party_slot_eq, ":center", "slot_party_type", spt_castle),  ## para castillos
+##                                     (party_slot_eq, ":village_reinforcements", "slot_village_bound_center", ":center"),
+##                                     (party_slot_eq, ":village_reinforcements", "slot_village_state", svs_normal), ## si la villa es atacada no genera refuerzos
+##                                     (neg|party_slot_eq, ":center", "slot_town_lord", "trp_player"),  ## si no pertenece al jugador
 ##                                     (spawn_around_party, ":village_reinforcements", ":party_template"),
 ##                                     (assign, ":result", reg0),
 ##                                     (store_random_in_range, ":rand", 0, 100),
@@ -1990,18 +1990,18 @@ triggers = [
 ##                                         (party_add_template, ":result", ":party_template_c"),
 ##                                     (try_end),
 ##                                     (party_set_faction, ":result", ":faction"),
-##                                     (party_set_slot, ":result", slot_party_type, spt_reinforcement_party),
-##                                     (party_set_slot, ":result", slot_party_ai_object, ":center"),
+##                                     (party_set_slot, ":result", "slot_party_type", spt_reinforcement_party),
+##                                     (party_set_slot, ":result", "slot_party_ai_object", ":center"),
 ##                                     (str_store_party_name, s14, ":village_reinforcements"),
 ##                                     (party_set_name, ":result", "@Reinforcements from {s14}"),
 ##                                     (party_set_ai_behavior,":result",ai_bhvr_travel_to_party),
 ##                                     (party_set_ai_object,":result", ":center"),
 ##                                     (party_set_flags, ":result", pf_default_behavior, 1),
 ##                                 (else_try),        
-##                                     (party_slot_eq, ":center", slot_party_type, spt_town), ## para ciudades
-##                                     (party_slot_eq, ":village_reinforcements", slot_village_bound_center, ":center"),
-##                                     (party_slot_eq, ":village_reinforcements", slot_village_state, svs_normal), ## si la villa es atacada no genera refuerzos
-##                                     (neg|party_slot_eq, ":center", slot_town_lord, "trp_player"), ## si no pertenece al jugador
+##                                     (party_slot_eq, ":center", "slot_party_type", spt_town), ## para ciudades
+##                                     (party_slot_eq, ":village_reinforcements", "slot_village_bound_center", ":center"),
+##                                     (party_slot_eq, ":village_reinforcements", "slot_village_state", svs_normal), ## si la villa es atacada no genera refuerzos
+##                                     (neg|party_slot_eq, ":center", "slot_town_lord", "trp_player"), ## si no pertenece al jugador
 ##                                     (spawn_around_party, ":village_reinforcements", ":party_template"),
 ##                                     (assign, ":result", reg0),
 ##                                     (store_random_in_range, ":rand", 0, 100),
@@ -2016,8 +2016,8 @@ triggers = [
 ##                                         (party_add_template, ":result", ":party_template_c"),
 ##                                     (try_end),
 ##                                     (party_set_faction, ":result", ":faction"),
-##                                     (party_set_slot, ":result", slot_party_type, spt_reinforcement_party),
-##                                     (party_set_slot, ":result", slot_party_ai_object, ":center"),
+##                                     (party_set_slot, ":result", "slot_party_type", spt_reinforcement_party),
+##                                     (party_set_slot, ":result", "slot_party_ai_object", ":center"),
 ##                                     (str_store_party_name, s14, ":village_reinforcements"),
 ##                                     (party_set_name, ":result", "@Reinforcements of {s14}"),
 ##                                     (party_set_ai_behavior,":result",ai_bhvr_travel_to_party),
@@ -2035,7 +2035,7 @@ triggers = [
    [
     (assign, ":has_fief", 0),
     (try_for_range, ":center_no", centers_begin, centers_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),
       (assign, ":has_fief", 1),
     (try_end),
@@ -2069,7 +2069,7 @@ triggers = [
    [
    (assign, ":has_fief", 0),
     (try_for_range, ":center_no", towns_begin, towns_end),
-      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (party_get_slot,  ":lord_troop_id", ":center_no", "slot_town_lord"),
       (eq, ":lord_troop_id", "trp_player"),
       (assign, ":has_fief", 1),
     (try_end),

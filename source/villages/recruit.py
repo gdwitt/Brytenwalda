@@ -1,9 +1,7 @@
 from source.header_operations import *
 from source.header_common import *
 
-from source.module_constants import slot_village_state, slot_village_infested_by_bandits, \
-    slot_center_volunteer_troop_amount, slot_center_volunteer_troop_type, \
-    slot_center_player_relation, svs_looted, svs_being_raided
+from source.module_constants import svs_looted, svs_being_raided
 
 
 menus = [
@@ -29,7 +27,7 @@ menus = [
         ("continue", [
             (lt, reg0, 1),
             ], "[Leave]", [
-            (party_set_slot, "$current_town", slot_center_volunteer_troop_amount, -1),
+            (party_set_slot, "$current_town", "slot_center_volunteer_troop_amount", -1),
                 (jump_to_menu, "mnu_village"),
         ]),
 
@@ -72,12 +70,12 @@ scripts = [
         (store_script_param, ":min_relation", 1),
         (store_script_param, ":min_faction_relation", 2),
 
-        (neg | party_slot_eq, "$current_town", slot_village_state, svs_looted),
-        (neg | party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
-        (neg | party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+        (neg | party_slot_eq, "$current_town", "slot_village_state", svs_looted),
+        (neg | party_slot_eq, "$current_town", "slot_village_state", svs_being_raided),
+        (neg | party_slot_ge, "$current_town", "slot_village_infested_by_bandits", 1),
 
         (store_faction_of_party, ":village_faction", "$current_town"),
-        (party_get_slot, ":center_relation", "$current_town", slot_center_player_relation),
+        (party_get_slot, ":center_relation", "$current_town", "slot_center_player_relation"),
         (store_relation, ":village_faction_relation", ":village_faction", "fac_player_faction"),
 
         (ge, ":center_relation", ":min_relation"),
@@ -97,8 +95,8 @@ scripts = [
             (display_message, "str_relationfaction_conditions_met"),
         (try_end),
 
-        (party_slot_ge, "$current_town", slot_center_volunteer_troop_amount, 1),
-        (party_slot_ge, "$current_town", slot_center_volunteer_troop_type, 1),
+        (party_slot_ge, "$current_town", "slot_center_volunteer_troop_amount", 1),
+        (party_slot_ge, "$current_town", "slot_center_volunteer_troop_type", 1),
 
         (try_begin),
             (eq, "$cheat_mode", 1),
@@ -124,8 +122,8 @@ scripts = [
     ("compute_village_recruits", [
         (store_script_param, ":cost_per_recruit", 1),
 
-        (party_get_slot, ":troop_type", "$current_town", slot_center_volunteer_troop_type),
-        (party_get_slot, ":recruits", "$current_town", slot_center_volunteer_troop_amount),
+        (party_get_slot, ":troop_type", "$current_town", "slot_center_volunteer_troop_type"),
+        (party_get_slot, ":recruits", "$current_town", "slot_center_volunteer_troop_amount"),
         (party_get_free_companions_capacity, ":capacity", "p_main_party"),
 
         # recruits += persuasion
@@ -155,7 +153,7 @@ scripts = [
 
     # cost_per_recruit -> reg0
     ("cost_per_village_recruit", [
-        (party_get_slot, ":troop_id", "$current_town", slot_center_volunteer_troop_type),
+        (party_get_slot, ":troop_id", "$current_town", "slot_center_volunteer_troop_type"),
         (store_character_level, ":troop_level", ":troop_id"),
         (try_begin),
             (is_between, ":troop_level", 0, 16),
@@ -201,7 +199,7 @@ scripts = [
         (party_add_members, "p_main_party", ":troop_type", ":amount"),
 
         (store_sub, ":recruits_left", ":recruits", ":amount"),
-        (party_set_slot, "$current_town", slot_center_volunteer_troop_amount, ":recruits_left"),
+        (party_set_slot, "$current_town", "slot_center_volunteer_troop_amount", ":recruits_left"),
 
         (store_mul, ":cost", ":amount", ":cost_per_recruit"),
         (troop_remove_gold, "trp_player", ":cost"),

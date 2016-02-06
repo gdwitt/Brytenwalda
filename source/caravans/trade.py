@@ -11,7 +11,7 @@ simple_triggers = [
   (8, [
        (try_for_parties, ":party_no"),
          # It is a land trader and it is in town.
-         (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_caravan),
+         (party_slot_eq, ":party_no", "slot_party_type", spt_kingdom_caravan),
          (party_is_in_any_town, ":party_no"),
 
          (store_faction_of_party, ":merchant_faction", ":party_no"),
@@ -27,7 +27,7 @@ simple_triggers = [
            (assign, ":tariff_succeed_limit", 45),
            (try_begin),
              # player tariffs depend on difficulty.
-             (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+             (party_slot_eq, ":cur_center", "slot_town_lord", "trp_player"),
 
              (options_get_campaign_ai, ":reduce_campaign_ai"),
              (try_begin),
@@ -54,7 +54,7 @@ simple_triggers = [
            (assign, ":can_leave", 1),
            (try_begin),
              (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
-             (neg|party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
+             (neg|party_slot_eq, ":cur_center", "slot_center_is_besieged_by", -1),
              (assign, ":can_leave", 0),
            (try_end),
            (eq, ":can_leave", 1),
@@ -62,9 +62,9 @@ simple_triggers = [
            # only trade if it is in correct state and town.
            (assign, ":do_trade", 0),
            (try_begin),
-             (party_get_slot, ":cur_ai_state", ":party_no", slot_party_ai_state),
+             (party_get_slot, ":cur_ai_state", ":party_no", "slot_party_ai_state"),
              (eq, ":cur_ai_state", spai_trading_with_town),
-             (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
+             (party_get_slot, ":cur_ai_object", ":party_no", "slot_party_ai_object"),
              (eq, ":cur_center", ":cur_ai_object"),
              (assign, ":do_trade", 1),
            (try_end),
@@ -97,17 +97,17 @@ simple_triggers = [
            (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
            (party_set_ai_object, ":party_no", ":target_center"),
            (party_set_flags, ":party_no", pf_default_behavior, 0),
-           (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
-           (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
+           (party_set_slot, ":party_no", "slot_party_ai_state", spai_trading_with_town),
+           (party_set_slot, ":party_no", "slot_party_ai_object", ":target_center"),
 
         (else_try),
          # todo: refactor this part as it is an almost copy of the previous try.
-         (party_slot_eq, ":party_no", slot_party_type, spt_merchant_caravan),
+         (party_slot_eq, ":party_no", "slot_party_type", spt_merchant_caravan),
          (get_party_ai_object, ":object_town", ":party_no"),
-         (party_slot_ge, ":object_town", slot_town_is_coastal, 1),
+         (party_slot_ge, ":object_town", "slot_town_is_coastal", 1),
          (store_distance_to_party_from_party, ":dist", ":party_no", ":object_town"),
          (party_get_position, pos0, ":object_town"),
-         (party_get_slot, ":radius", ":object_town", slot_town_is_coastal),
+         (party_get_slot, ":radius", ":object_town", "slot_town_is_coastal"),
          (val_add, ":radius", 3),
          (lt, ":dist", ":radius"),
          (assign, ":cur_center", ":object_town"),
@@ -120,7 +120,7 @@ simple_triggers = [
            (store_random_in_range, ":random_no", 0, 100),
 
            (try_begin),
-             (party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
+             (party_slot_eq, ":cur_center", "slot_town_lord", "trp_player"),
 
              (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
              (try_begin),
@@ -142,16 +142,16 @@ simple_triggers = [
            (assign, ":can_leave", 1),
            (try_begin),
              (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
-             (neg|party_slot_eq, ":cur_center", slot_center_is_besieged_by, -1),
+             (neg|party_slot_eq, ":cur_center", "slot_center_is_besieged_by", -1),
              (assign, ":can_leave", 0),
            (try_end),
            (eq, ":can_leave", 1),
 
            (assign, ":do_trade", 0),
            (try_begin),
-             (party_get_slot, ":cur_ai_state", ":party_no", slot_party_ai_state),
+             (party_get_slot, ":cur_ai_state", ":party_no", "slot_party_ai_state"),
              (eq, ":cur_ai_state", spai_trading_with_town),
-             (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
+             (party_get_slot, ":cur_ai_object", ":party_no", "slot_party_ai_object"),
              (eq, ":cur_center", ":cur_ai_object"),
              (assign, ":do_trade", 1),
            (try_end),
@@ -169,7 +169,7 @@ simple_triggers = [
            (is_between, ":target_center", towns_begin, towns_end),
            (store_distance_to_party_from_party, ":target_dist", ":party_no", ":target_center"),
            (party_get_position, pos0, ":target_center"),
-           (party_get_slot, ":radius", ":target_center", slot_town_is_coastal),
+           (party_get_slot, ":radius", ":target_center", "slot_town_is_coastal"),
            (map_get_water_position_around_position, pos1, pos0, ":radius"),
            (val_add, ":radius", 2),
            (gt, ":target_dist", ":radius"), #was 5 #Ensures that they aren't already at the target party...just a redundancy check, as there is with caravans
@@ -185,8 +185,8 @@ simple_triggers = [
            # (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
            (party_set_ai_object, ":party_no", ":target_center"),
            (party_set_flags, ":party_no", pf_default_behavior, 0),
-           (party_set_slot, ":party_no", slot_party_ai_state, spai_trading_with_town),
-           (party_set_slot, ":party_no", slot_party_ai_object, ":target_center"),
+           (party_set_slot, ":party_no", "slot_party_ai_state", spai_trading_with_town),
+           (party_set_slot, ":party_no", "slot_party_ai_object", ":target_center"),
          (try_end),
         (try_end),
        (try_end),
@@ -213,9 +213,9 @@ scripts = [
 
       (assign, ":result", -1),
       (assign, ":best_town_score", 0),
-      (store_sub, ":item_to_price_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
+      (store_sub, ":item_to_price_slot", "slot_town_trade_good_prices_begin", trade_goods_begin),
 
-      (try_for_range, ":cur_slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
+      (try_for_range, ":cur_slot", "slot_town_trade_routes_begin", "slot_town_trade_routes_end"),
         (party_get_slot, ":cur_town", ":town_no", ":cur_slot"),
         (gt, ":cur_town", 0),
 
@@ -268,7 +268,7 @@ scripts = [
       (store_script_param_1, ":party_no"),
       (store_script_param_2, ":center_no"),
 
-      (party_get_slot, ":origin", ":party_no", slot_party_last_traded_center),
+      (party_get_slot, ":origin", ":party_no", "slot_party_last_traded_center"),
 
       # logging
       (try_begin),
@@ -291,8 +291,8 @@ scripts = [
       (assign, reg1, ":total_change"),
 
       ### Add tariffs to the town
-      (party_get_slot, ":accumulated_tariffs", ":center_no", slot_center_accumulated_tariffs),
-      (party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
+      (party_get_slot, ":accumulated_tariffs", ":center_no", "slot_center_accumulated_tariffs"),
+      (party_get_slot, ":prosperity", ":center_no", "slot_town_prosperity"),
 
       (assign, ":tariffs_generated", ":total_change"),
       (val_mul, ":tariffs_generated", ":prosperity"),
@@ -319,12 +319,12 @@ scripts = [
         (ge, ":origin", 0),
         (this_or_next|is_between, ":origin", towns_begin, towns_end),
         (this_or_next|is_between, ":origin", villages_begin, villages_end),
-        (this_or_next|party_slot_eq, ":origin", slot_party_type, spt_town),
-        (party_slot_eq, ":origin", slot_party_type, spt_village),
+        (this_or_next|party_slot_eq, ":origin", "slot_party_type", spt_town),
+        (party_slot_eq, ":origin", "slot_party_type", spt_village),
 
         # give half the tariffs to the origin
         (ge, ":tariffs_generated", 0),
-        (party_get_slot, ":origin_accumulated_tariffs", ":origin", slot_center_accumulated_tariffs),
+        (party_get_slot, ":origin_accumulated_tariffs", ":origin", "slot_center_accumulated_tariffs"),
         (store_div, ":origin_tariffs_generated", ":tariffs_generated", 2),
         (val_sub, ":tariffs_generated", ":origin_tariffs_generated"),
 
@@ -346,7 +346,7 @@ scripts = [
         (val_div, ":origin_tariffs_generated", 10),
         # now we have the final value of origin_tariffs_generated
         (val_add, ":origin_accumulated_tariffs", ":origin_tariffs_generated"),
-        (party_set_slot, ":origin", slot_center_accumulated_tariffs, ":origin_accumulated_tariffs"),
+        (party_set_slot, ":origin", "slot_center_accumulated_tariffs", ":origin_accumulated_tariffs"),
 
         #print economic debug message if enabled
         (try_begin),
@@ -371,7 +371,7 @@ scripts = [
       (val_add, ":tariffs_generated", 5),
       (val_div, ":tariffs_generated", 10), #10 for caravans, 20 for villages
       (val_add, ":accumulated_tariffs", ":tariffs_generated"),
-      (party_set_slot, ":center_no", slot_center_accumulated_tariffs, ":accumulated_tariffs"),
+      (party_set_slot, ":center_no", "slot_center_accumulated_tariffs", ":accumulated_tariffs"),
 
       (try_begin),
         (ge, "$cheat_mode", 3),
@@ -392,8 +392,8 @@ scripts = [
         (ge, ":origin", 0),
         (this_or_next|is_between, ":origin", towns_begin, towns_end),
         (this_or_next|is_between, ":origin", villages_begin, villages_end),
-        (this_or_next|party_slot_eq, ":origin", slot_party_type, spt_town),
-            (party_slot_eq, ":origin", slot_party_type, spt_village),
+        (this_or_next|party_slot_eq, ":origin", "slot_party_type", spt_town),
+            (party_slot_eq, ":origin", "slot_party_type", spt_village),
 
         (ge, ":tariffs_generated", 0),
         # 50% chance
@@ -426,12 +426,12 @@ scripts = [
 
         (assign, ":result", -1),
         (assign, ":best_town_score", 0),
-        (store_sub, ":item_to_price_slot", slot_town_trade_good_prices_begin, trade_goods_begin),
+        (store_sub, ":item_to_price_slot", "slot_town_trade_good_prices_begin", trade_goods_begin),
 
-        (try_for_range, ":cur_slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
+        (try_for_range, ":cur_slot", "slot_town_trade_routes_begin", "slot_town_trade_routes_end"),
           (party_get_slot, ":cur_town", ":town_no", ":cur_slot"),
           (gt, ":cur_town", 0),
-          (party_slot_ge, ":cur_town", slot_town_is_coastal, 1), #Seatrade
+          (party_slot_ge, ":cur_town", "slot_town_is_coastal", 1), #Seatrade
 
           (store_faction_of_party, ":cur_faction", ":cur_town"),
           (store_relation, ":reln", ":cur_faction", ":faction_no"),
@@ -478,7 +478,7 @@ scripts = [
         (assign, reg0, ":result"),
 
         #      (store_current_hours, ":hour"),
-        #      (party_set_slot, ":result", slot_town_caravan_last_visit, ":hour"),
+        #      (party_set_slot, ":result", "slot_town_caravan_last_visit", ":hour"),
 
         # (try_begin),
         ###(eq, "$cheat_mode", 1),

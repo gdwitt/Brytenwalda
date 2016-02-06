@@ -558,7 +558,7 @@ scripts = [
             (store_faction_of_party, ":faction_no", ":cur_center"),
             (this_or_next|eq, ":faction_no", ":kingdom_a"),
             (eq, ":faction_no", ":kingdom_b"),
-            (party_get_slot, ":besieger_party", ":cur_center", slot_center_is_besieged_by),
+            (party_get_slot, ":besieger_party", ":cur_center", "slot_center_is_besieged_by"),
             (ge, ":besieger_party", 0), #town is under siege
             (party_is_active, ":besieger_party"),
             (store_faction_of_party, ":besieger_party_faction_no", ":besieger_party"),

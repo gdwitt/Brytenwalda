@@ -79,7 +79,7 @@ scripts = [
         (troop_set_slot, "trp_global_value", slot_gloval_max_flame_slot, 40),
 
         (try_for_range, ":center_no", centers_begin, centers_end),
-            (party_set_slot, ":center_no", slot_town_sacked, 0),
+            (party_set_slot, ":center_no", "slot_town_sacked", 0),
         (try_end),
 
         # wound system
@@ -100,9 +100,9 @@ scripts = [
         (party_set_name, "p_main_party", s5),
         (call_script, "script_update_party_creation_random_limits"),
         (assign, "$g_player_party_icon", -1),
-        (party_set_slot, "p_main_party", slot_party_loot_wagon, -1),  # stores party id of loot wagon
-        (party_set_slot, "p_main_party", slot_party_wagon_leader, -1),  # stores the troop id of the wagon leader
-        (party_set_slot, "p_main_party", slot_loot_wagon_target, 1),
+        (party_set_slot, "p_main_party", "slot_party_loot_wagon", -1),  # stores party id of loot wagon
+        (party_set_slot, "p_main_party", "slot_party_wagon_leader", -1),  # stores the troop id of the wagon leader
+        (party_set_slot, "p_main_party", "slot_loot_wagon_target", 1),
 
         (try_for_range, ":npc", 0, kingdom_ladies_end),
             (this_or_next|eq, ":npc", "trp_player"),
@@ -187,16 +187,16 @@ scripts = [
         # Initial prices of goods
         (try_for_range, ":item_no", trade_goods_begin, trade_goods_end),
             (store_sub, ":offset", ":item_no", trade_goods_begin),
-            (val_add, ":offset", slot_town_trade_good_prices_begin),
+            (val_add, ":offset", "slot_town_trade_good_prices_begin"),
             (try_for_range, ":center_no", centers_begin, centers_end),
                 (party_set_slot, ":center_no", ":offset", average_price_factor),
             (try_end),
         (try_end),
 
         (try_for_range, ":center_no", centers_begin, centers_end),
-            (party_set_slot, ":center_no", slot_center_last_spotted_enemy, -1),
-            (party_set_slot, ":center_no", slot_center_is_besieged_by, -1),
-            (party_set_slot, ":center_no", slot_center_last_taken_by_troop, -1),
+            (party_set_slot, ":center_no", "slot_center_last_spotted_enemy", -1),
+            (party_set_slot, ":center_no", "slot_center_is_besieged_by", -1),
+            (party_set_slot, ":center_no", "slot_center_last_taken_by_troop", -1),
         (try_end),
 
         (call_script, "script_initialize_trade_routes"),
@@ -210,20 +210,20 @@ scripts = [
             (assign, ":min_dist", 999999),
             (assign, ":min_dist_village", -1),
             (try_for_range, ":cur_village", villages_begin, villages_end),
-                (neg|party_slot_ge, ":cur_village", slot_village_bound_center, 1), #skip villages which are already bound.
+                (neg|party_slot_ge, ":cur_village", "slot_village_bound_center", 1), #skip villages which are already bound.
                 (store_distance_to_party_from_party, ":cur_dist", ":cur_village", ":cur_center"),
                 (lt, ":cur_dist", ":min_dist"),
                 (assign, ":min_dist", ":cur_dist"),
                 (assign, ":min_dist_village", ":cur_village"),
             (try_end),
-            (party_set_slot, ":min_dist_village", slot_village_bound_center, ":cur_center"),
+            (party_set_slot, ":min_dist_village", "slot_village_bound_center", ":cur_center"),
             (store_faction_of_party, ":town_faction", ":cur_center"),
             (call_script, "script_give_center_to_faction_aux", ":min_dist_village", ":town_faction"),
         (try_end),
 
         # pass 2: Give other villages to closest town.
         (try_for_range, ":cur_village", villages_begin, villages_end),
-            (neg|party_slot_ge, ":cur_village", slot_village_bound_center, 1), #skip villages which are already bound.
+            (neg|party_slot_ge, ":cur_village", "slot_village_bound_center", 1), #skip villages which are already bound.
             (assign, ":min_dist", 999999),
             (assign, ":min_dist_town", -1),
             (try_for_range, ":cur_town", towns_begin, towns_end),
@@ -232,7 +232,7 @@ scripts = [
                 (assign, ":min_dist", ":cur_dist"),
                 (assign, ":min_dist_town", ":cur_town"),
             (try_end),
-            (party_set_slot, ":cur_village", slot_village_bound_center, ":min_dist_town"),
+            (party_set_slot, ":cur_village", "slot_village_bound_center", ":min_dist_town"),
             (store_faction_of_party, ":town_faction", ":min_dist_town"),
             (call_script, "script_give_center_to_faction_aux", ":cur_village", ":town_faction"),
         (try_end),
@@ -240,53 +240,53 @@ scripts = [
         # Assign npcs and buildings to towns
         (try_for_range, ":town_no", towns_begin, towns_end),
             (store_sub, ":offset", ":town_no", towns_begin),
-            (party_set_slot, ":town_no", slot_party_type, spt_town),
+            (party_set_slot, ":town_no", "slot_party_type", spt_town),
             (store_add, ":cur_object_no", "scn_town_1_center", ":offset"),
-            (party_set_slot, ":town_no", slot_town_center, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_center", ":cur_object_no"),
             (store_add, ":cur_object_no", "scn_town_1_castle", ":offset"),
-            (party_set_slot, ":town_no", slot_town_castle, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_castle", ":cur_object_no"),
             (store_add, ":cur_object_no", "scn_town_1_prison", ":offset"),
-            (party_set_slot, ":town_no", slot_town_prison, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_prison", ":cur_object_no"),
             (store_add, ":cur_object_no", "scn_town_1_walls", ":offset"),
-            (party_set_slot, ":town_no", slot_town_walls, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_walls", ":cur_object_no"),
             (store_add, ":cur_object_no", "scn_town_1_tavern", ":offset"),
-            (party_set_slot, ":town_no", slot_town_tavern, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_tavern", ":cur_object_no"),
             (store_add, ":cur_object_no", "scn_town_1_store", ":offset"),
-            (party_set_slot, ":town_no", slot_town_store, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_store", ":cur_object_no"),
             (store_add, ":cur_object_no", "scn_town_1_arena", ":offset"),
-            (party_set_slot, ":town_no", slot_town_arena, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_arena", ":cur_object_no"),
             (store_add, ":cur_object_no", "scn_town_1_alley", ":offset"),
-            (party_set_slot, ":town_no", slot_town_alley, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_alley", ":cur_object_no"),
             (store_add, ":cur_object_no", "trp_town_1_mayor", ":offset"),
-            (party_set_slot, ":town_no", slot_town_elder, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_elder", ":cur_object_no"),
             (store_add, ":cur_object_no", "trp_town_1_tavernkeeper", ":offset"),
-            (party_set_slot, ":town_no", slot_town_tavernkeeper, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_tavernkeeper", ":cur_object_no"),
             (store_add, ":cur_object_no", "trp_town_1_weaponsmith", ":offset"),
-            (party_set_slot, ":town_no", slot_town_weaponsmith, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_weaponsmith", ":cur_object_no"),
             (store_add, ":cur_object_no", "trp_town_1_armorer", ":offset"),
-            (party_set_slot, ":town_no", slot_town_armorer, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_armorer", ":cur_object_no"),
             (store_add, ":cur_object_no", "trp_town_1_merchant", ":offset"),
-            (party_set_slot, ":town_no", slot_town_merchant, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_merchant", ":cur_object_no"),
             (store_add, ":cur_object_no", "trp_town_1_horse_merchant", ":offset"),
-            (party_set_slot, ":town_no", slot_town_horse_merchant, ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_horse_merchant", ":cur_object_no"),
             (store_add, ":cur_object_no", "scn_town_1_center", ":offset"),
-            (party_set_slot, ":town_no", slot_town_center, ":cur_object_no"),
-            (party_set_slot, ":town_no", slot_town_reinforcement_party_template, "pt_center_reinforcements"),
+            (party_set_slot, ":town_no", "slot_town_center", ":cur_object_no"),
+            (party_set_slot, ":town_no", "slot_town_reinforcement_party_template", "pt_center_reinforcements"),
         (try_end),
 
         # Ports
-        # (party_set_slot, "p_town_6", slot_town_port, 1),  # alt cult
-        (party_set_slot, "p_town_2", slot_town_port, 1),  # Seals-ey
-        (party_set_slot, "p_town_7", slot_town_port, 1),  # Caer Liwelydd
-        (party_set_slot, "p_town_13", slot_town_port, 1),  # Caer Segeint
-        (party_set_slot, "p_town_17", slot_town_port, 1),   # Caer Uisc
-        # (party_set_slot, "p_town_19", slot_town_port, 1),  # Dun At
-        (party_set_slot, "p_town_27", slot_town_port, 1),  # Bebbanburh
-        (party_set_slot, "p_town_32", slot_town_port, 1),  # Dun Keltair
-        (party_set_slot, "p_town_33", slot_town_port, 1),  # Aileach
-        (party_set_slot, "p_town_37", slot_town_port, 1),  # Duin Foither
-        # (party_set_slot, "p_town_42", slot_town_port, 1),  # Din Cado
-        (party_set_slot, "p_castle_42", slot_town_port, 1),  # Caer Manaw
+        # (party_set_slot, "p_town_6", "slot_town_port", 1),  # alt cult
+        (party_set_slot, "p_town_2", "slot_town_port", 1),  # Seals-ey
+        (party_set_slot, "p_town_7", "slot_town_port", 1),  # Caer Liwelydd
+        (party_set_slot, "p_town_13", "slot_town_port", 1),  # Caer Segeint
+        (party_set_slot, "p_town_17", "slot_town_port", 1),   # Caer Uisc
+        # (party_set_slot, "p_town_19", "slot_town_port", 1),  # Dun At
+        (party_set_slot, "p_town_27", "slot_town_port", 1),  # Bebbanburh
+        (party_set_slot, "p_town_32", "slot_town_port", 1),  # Dun Keltair
+        (party_set_slot, "p_town_33", "slot_town_port", 1),  # Aileach
+        (party_set_slot, "p_town_37", "slot_town_port", 1),  # Duin Foither
+        # (party_set_slot, "p_town_42", "slot_town_port", 1),  # Din Cado
+        (party_set_slot, "p_castle_42", "slot_town_port", 1),  # Caer Manaw
 
         # Castles
         (try_for_range, ":castle_no", castles_begin, castles_end),
@@ -294,53 +294,53 @@ scripts = [
             (val_mul, ":offset", 3),
 
             (store_add, ":exterior_scene_no", "scn_castle_1_exterior", ":offset"),
-            (party_set_slot, ":castle_no", slot_castle_exterior, ":exterior_scene_no"),
+            (party_set_slot, ":castle_no", "slot_castle_exterior", ":exterior_scene_no"),
             (store_add, ":interior_scene_no", "scn_castle_1_interior", ":offset"),
-            (party_set_slot, ":castle_no", slot_town_castle, ":interior_scene_no"),
+            (party_set_slot, ":castle_no", "slot_town_castle", ":interior_scene_no"),
             (store_add, ":interior_scene_no", "scn_castle_1_prison", ":offset"),
-            (party_set_slot, ":castle_no", slot_town_prison, ":interior_scene_no"),
+            (party_set_slot, ":castle_no", "slot_town_prison", ":interior_scene_no"),
 
-            (party_set_slot, ":castle_no", slot_town_reinforcement_party_template, "pt_center_reinforcements"),
-            (party_set_slot, ":castle_no", slot_party_type, spt_castle),
-            (party_set_slot, ":castle_no", slot_center_is_besieged_by, -1),
+            (party_set_slot, ":castle_no", "slot_town_reinforcement_party_template", "pt_center_reinforcements"),
+            (party_set_slot, ":castle_no", "slot_party_type", spt_castle),
+            (party_set_slot, ":castle_no", "slot_center_is_besieged_by", -1),
         (try_end),
 
         # Set which castles need to be attacked with siege towers.
-        #(party_set_slot, "p_town_19", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_town_30", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_town_32", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_town_36", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_town_40", slot_center_siege_with_belfry, 1),
-        (party_set_slot, "p_castle_9", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_castle_13", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_castle_27", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_castle_49", slot_center_siege_with_belfry, 1),
-        (party_set_slot, "p_castle_59", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_castle_69", slot_center_siege_with_belfry, 1),
-        #(party_set_slot, "p_castle_72", slot_center_siege_with_belfry, 1),
+        #(party_set_slot, "p_town_19", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_town_30", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_town_32", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_town_36", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_town_40", "slot_center_siege_with_belfry", 1),
+        (party_set_slot, "p_castle_9", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_castle_13", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_castle_27", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_castle_49", "slot_center_siege_with_belfry", 1),
+        (party_set_slot, "p_castle_59", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_castle_69", "slot_center_siege_with_belfry", 1),
+        #(party_set_slot, "p_castle_72", "slot_center_siege_with_belfry", 1),
 
-        (party_set_slot, "p_castle_21", slot_center_siege_with_ram, 1),
-        #(party_set_slot, "p_castle_23", slot_center_siege_with_ram, 1),
-        #(party_set_slot, "p_castle_38", slot_center_siege_with_ram, 1),
-        (party_set_slot, "p_castle_42", slot_center_siege_with_ram, 1),
-        (party_set_slot, "p_castle_60", slot_center_siege_with_ram, 1),
-        (party_set_slot, "p_castle_61", slot_center_siege_with_ram, 1),
-        #(party_set_slot, "p_town_30", slot_center_siege_with_ram,      1),
-        #(party_set_slot, "p_town_36", slot_center_siege_with_ram,      1),
-        #(party_set_slot, "p_town_40", slot_center_siege_with_ram,      1),
+        (party_set_slot, "p_castle_21", "slot_center_siege_with_ram", 1),
+        #(party_set_slot, "p_castle_23", "slot_center_siege_with_ram", 1),
+        #(party_set_slot, "p_castle_38", "slot_center_siege_with_ram", 1),
+        (party_set_slot, "p_castle_42", "slot_center_siege_with_ram", 1),
+        (party_set_slot, "p_castle_60", "slot_center_siege_with_ram", 1),
+        (party_set_slot, "p_castle_61", "slot_center_siege_with_ram", 1),
+        #(party_set_slot, "p_town_30", "slot_center_siege_with_ram",      1),
+        #(party_set_slot, "p_town_36", "slot_center_siege_with_ram",      1),
+        #(party_set_slot, "p_town_40", "slot_center_siege_with_ram",      1),
 
         # Villages characters
         (try_for_range, ":village_no", villages_begin, villages_end),
             (store_sub, ":offset", ":village_no", villages_begin),
 
             (store_add, ":exterior_scene_no", "scn_village_1", ":offset"),
-            (party_set_slot, ":village_no", slot_castle_exterior, ":exterior_scene_no"),
+            (party_set_slot, ":village_no", "slot_castle_exterior", ":exterior_scene_no"),
 
             (store_add, ":store_troop_no", "trp_village_1_elder", ":offset"),
-            (party_set_slot, ":village_no", slot_town_elder, ":store_troop_no"),
+            (party_set_slot, ":village_no", "slot_town_elder", ":store_troop_no"),
 
-            (party_set_slot, ":village_no", slot_party_type, spt_village),
-            (party_set_slot, ":village_no", slot_village_raided_by, -1),
+            (party_set_slot, ":village_no", "slot_party_type", spt_village),
+            (party_set_slot, ":village_no", "slot_village_raided_by", -1),
 
             (call_script, "script_refresh_village_defenders", ":village_no"),
             (call_script, "script_refresh_village_defenders", ":village_no"),
@@ -467,11 +467,11 @@ scripts = [
                 (is_between, ":center_no", towns_begin, towns_end),
                 (val_mul, ":initial_wealth", 2),
             (try_end),
-            (party_set_slot, ":center_no", slot_town_wealth, ":initial_wealth"),
+            (party_set_slot, ":center_no", "slot_town_wealth", ":initial_wealth"),
 
             (assign, ":garrison_strength", 15),
             (try_begin),
-                (party_slot_eq, ":center_no", slot_party_type, spt_town),
+                (party_slot_eq, ":center_no", "slot_party_type", spt_town),
                 (assign, ":garrison_strength", 40),
             (try_end),
 
@@ -502,17 +502,17 @@ scripts = [
             (call_script, "script_center_get_food_store_limit", ":center_no"),
             (assign, ":food_store_limit", reg0),
             (val_div, ":food_store_limit", 2),
-            (party_set_slot, ":center_no", slot_party_food_store, ":food_store_limit"),
+            (party_set_slot, ":center_no", "slot_party_food_store", ":food_store_limit"),
 
             # create lord parties
-            (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
+            (party_get_slot, ":center_lord", ":center_no", "slot_town_lord"),
             (ge, ":center_lord", 1),
             (troop_slot_eq, ":center_lord", slot_troop_leaded_party, 0),
             (assign, "$g_there_is_no_avaliable_centers", 0),
             (call_script, "script_create_kingdom_hero_party", ":center_lord", ":center_no"),
             (assign, ":lords_party", "$pout_party"),
             (party_attach_to_party, ":lords_party", ":center_no"),
-            (party_set_slot, ":center_no", slot_town_player_odds, 1000),
+            (party_set_slot, ":center_no", "slot_town_player_odds", 1000),
         (try_end),
 
         # initial relations
@@ -604,16 +604,12 @@ scripts = [
             (call_script, "script_faction_recalculate_strength", ":faction_no"),
         (try_end),
 
-        (party_set_slot, "p_main_party", slot_party_unrested_morale_penalty, 0),
+        (party_set_slot, "p_main_party", "slot_party_unrested_morale_penalty", 0),
         (call_script, "script_get_player_party_morale_values"),
         (party_set_morale, "p_main_party", reg0),
 
         (call_script, "script_initialize_acres"),
 
-        # todo: this should not be needed, but issue #6 makes it required.
-        (try_for_range, ":cur_center", centers_begin, centers_end),
-            (party_set_slot, ":cur_center", slot_spy_in_town, 0),
-        (try_end),
         (assign, "$is_game_start", 0),
     ]),
 ]

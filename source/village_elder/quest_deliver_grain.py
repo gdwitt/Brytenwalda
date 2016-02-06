@@ -3,7 +3,7 @@ from source.header_common import *
 
 from source.header_dialogs import anyone, plyr
 from source.module_constants import villages_begin, villages_end, \
-    slot_town_prosperity, slot_quest_target_center, slot_quest_target_amount, \
+    slot_quest_target_center, slot_quest_target_amount, \
     slot_troop_does_not_give_quest, logent_helped_peasants
 
 from source.statement import StatementBlock
@@ -15,7 +15,7 @@ quest_block = StatementBlock(
         (is_between, ":giver_center_no", villages_begin, villages_end),
         (call_script, "script_get_troop_item_amount", ":giver_troop", "itm_grain"),
         (eq, reg0, 0),
-        (neg | party_slot_ge, ":giver_center_no", slot_town_prosperity, 40),
+        (neg | party_slot_ge, ":giver_center_no", "slot_town_prosperity", 40),
         (assign, ":quest_target_center", ":giver_center_no"),
         (store_random_in_range, ":quest_target_amount", 4, 8),
         (assign, ":quest_expiration_days", 30),
