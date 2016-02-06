@@ -33299,10 +33299,10 @@ Take a look around, the merchants always have good quality goods here.", "mayor_
      ]],
 # Ryan END  
 #entretenimiento chief bardo
-     [anyone|plyr,"town_dweller_talk", [(neg|agent_slot_eq,"$g_talk_agent",slot_agent_already_begg,1),], "Could you give me a few coins?", "town_dweller_begging",[(store_random_in_range, reg2, 1,4),(call_script, "script_change_troop_renown", "trp_player", -3),]],
-  [anyone,"town_dweller_begging", [(eq, reg2, 1),], "Take this, poor soul.", "close_window",[(agent_set_slot,"$g_talk_agent",slot_agent_already_begg,1),(store_random_in_range, ":gold", 0, 50),(troop_add_gold,0,":gold"),(val_sub, "$player_right_to_rule", 30),]],
-  [anyone,"town_dweller_begging", [(eq, reg2, 2),], "Here you are, now get out of my way!", "close_window",[(agent_set_slot,"$g_talk_agent",slot_agent_already_begg,1),(store_random_in_range, ":gold", 0, 30),(troop_add_gold,0,":gold"),(val_sub, "$player_right_to_rule", 30),]],
-  [anyone,"town_dweller_begging", [(eq, reg2, 3),], "GET OUT OF MY WAY!", "close_window",[(agent_set_slot,"$g_talk_agent",slot_agent_already_begg,1),(val_sub, "$player_right_to_rule", 30),]],
+     [anyone|plyr,"town_dweller_talk", [(neg|agent_slot_eq,"$g_talk_agent","slot_agent_already_begg",1),], "Could you give me a few coins?", "town_dweller_begging",[(store_random_in_range, reg2, 1,4),(call_script, "script_change_troop_renown", "trp_player", -3),]],
+  [anyone,"town_dweller_begging", [(eq, reg2, 1),], "Take this, poor soul.", "close_window",[(agent_set_slot,"$g_talk_agent","slot_agent_already_begg",1),(store_random_in_range, ":gold", 0, 50),(troop_add_gold,0,":gold"),(val_sub, "$player_right_to_rule", 30),]],
+  [anyone,"town_dweller_begging", [(eq, reg2, 2),], "Here you are, now get out of my way!", "close_window",[(agent_set_slot,"$g_talk_agent","slot_agent_already_begg",1),(store_random_in_range, ":gold", 0, 30),(troop_add_gold,0,":gold"),(val_sub, "$player_right_to_rule", 30),]],
+  [anyone,"town_dweller_begging", [(eq, reg2, 3),], "GET OUT OF MY WAY!", "close_window",[(agent_set_slot,"$g_talk_agent","slot_agent_already_begg",1),(val_sub, "$player_right_to_rule", 30),]],
 #entretenimiento bardo acaba chief
   [anyone|plyr,"town_dweller_talk", [(party_slot_eq, "$current_town", "slot_party_type", spt_village),
                                      (eq, "$info_inquired", 0)], "What can you tell me about this village?", "town_dweller_ask_info",[(assign, "$info_inquired", 1)]],

@@ -1470,10 +1470,10 @@ presentations = [
 ##              (player_get_team_no, ":my_team_no", ":my_player_no"),
 ##
 ##        (try_begin), #chief capitan
-##          (player_get_slot, ":basic_dinero", ":my_player_no", slot_agent_dinerotropas),
+##          (player_get_slot, ":basic_dinero", ":my_player_no", "slot_agent_dinerotropas"),
 ##             (try_begin), #chief capitan
 ##                  (eq, ":basic_dinero", 2),
-##                  (player_set_slot, ":my_player_no", slot_agent_dinerotropas, 0),
+##                  (player_set_slot, ":my_player_no", "slot_agent_dinerotropas", 0),
 ##	    (else_try),
 ##                     (eq, ":basic_dinero", 1),
 ##                  (try_begin), #chief capitan
@@ -1490,7 +1490,7 @@ presentations = [
 ##                   (try_end), #chief capitan acaba
 ##                 (assign, ":player_gold", ":gold_addition"),
 ##                 (player_set_gold, ":my_player_no", ":player_gold", multi_max_gold_that_can_be_stored),
-##                 (player_set_slot, ":my_player_no", slot_agent_dinerotropas, 2),
+##                 (player_set_slot, ":my_player_no", "slot_agent_dinerotropas", 2),
 ##   	  (else_try),
 ##               (eq, ":basic_dinero", 0),
 ##                (try_begin), #chief capitan
@@ -1507,7 +1507,7 @@ presentations = [
 ##                  (try_end), #chief capitan acaba
 ##             (val_add, ":player_gold", ":gold_addition"),
 ##             (player_set_gold, ":my_player_no", ":player_gold", multi_max_gold_that_can_be_stored),
-##            (player_set_slot, ":my_player_no", slot_agent_dinerotropas, 1),
+##            (player_set_slot, ":my_player_no", "slot_agent_dinerotropas", 1),
 ####         (try_end), #chief capitan acaba
 ##     (try_end), #chief capitan acaba
 ##   (try_end), #chief capitan acaba
@@ -6247,7 +6247,7 @@ presentations = [
 		(agent_is_alive, ":agent"),
 ##	    (eq, ":agent", ":my_agent"),
                     #(get_player_agent_no, ":player_agent"),
-                (agent_get_slot, ":basic_stamina", ":agent", slot_agent_fatiga),
+                (agent_get_slot, ":basic_stamina", ":agent", "slot_agent_fatiga"),
                 (val_mul,":basic_stamina",52),
                 (position_set_x,pos1,":basic_stamina"),
                 (position_set_y,pos1,360),
@@ -6270,7 +6270,7 @@ presentations = [
 	    (agent_is_human, ":agent"),
 		(agent_is_alive, ":agent"),
 	#    (eq, ":agent", ":my_agent"),
-                (agent_get_slot, ":basic_stamina", ":agent", slot_agent_fatiga),
+                (agent_get_slot, ":basic_stamina", ":agent", "slot_agent_fatiga"),
                 (try_begin),
         (gt, ":basic_stamina", 1),
         (val_mul,":basic_stamina",52),

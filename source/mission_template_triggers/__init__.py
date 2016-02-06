@@ -54,16 +54,16 @@ common_weapon_use = (
         (agent_is_alive, ":agent"),
         (agent_is_human, ":agent"),
             (neq, ":agent", ":player"), #fix motomataru chief
-        (agent_get_slot, ":swap_timer", ":agent", slot_agent_weapon_swap),
+        (agent_get_slot, ":swap_timer", ":agent", "slot_agent_weapon_swap"),
         (try_begin), #Begin Timer - Only swap weapon once every 24 seconds
             (is_between, ":swap_timer", 1, 12),
             (val_add, ":swap_timer", 1),
-            (agent_set_slot, ":agent", slot_agent_weapon_swap, ":swap_timer"),
+            (agent_set_slot, ":agent", "slot_agent_weapon_swap", ":swap_timer"),
         (else_try),
             (gt, ":swap_timer", 11),
-            (agent_set_slot, ":agent", slot_agent_weapon_swap, 0),
+            (agent_set_slot, ":agent", "slot_agent_weapon_swap", 0),
         (try_end),
-        (agent_slot_eq, ":agent", slot_agent_weapon_swap, 0), #End Timer - Only swap weapon once every 24 seconds
+        (agent_slot_eq, ":agent", "slot_agent_weapon_swap", 0), #End Timer - Only swap weapon once every 24 seconds
         (assign, ":caba_order", 3), # -For Caba'drin Orders
         (assign, ":weapon_order", 0),
         (try_begin),
@@ -84,7 +84,7 @@ common_weapon_use = (
         (eq, ":caba_order", 3), # For Caba'drin orders; no active weapon order
         (neq, ":weapon_order", wordr_use_blunt_weapons), #Not ordered to use blunts
         (try_begin),
-            (agent_get_slot, ":lance", ":agent", slot_agent_lance),
+            (agent_get_slot, ":lance", ":agent", "slot_agent_lance"),
             (gt, ":lance", 0),  # Lancer?
      # Get wielded item.
             (agent_get_wielded_item, ":wielded", ":agent", 0),
@@ -92,10 +92,10 @@ common_weapon_use = (
             (agent_get_horse, ":horse", ":agent"),
             (try_begin),
                 (le, ":horse", 0), # Isn't riding a horse.
-                (agent_set_slot, ":agent", slot_agent_lance, 0), # No longer a lancer
+                (agent_set_slot, ":agent", "slot_agent_lance", 0), # No longer a lancer
                 (eq, ":wielded", ":lance"), # Still using lance?
                 (call_script, "script_weapon_use_backup_weapon", ":agent"), # Then equip a close weapon
-                (agent_set_slot, ":agent", slot_agent_weapon_swap, 1), #Swap timer
+                (agent_set_slot, ":agent", "slot_agent_weapon_swap", 1), #Swap timer
             (else_try),
      # Still mounted
                 (agent_get_position, pos1, ":agent"), # Find distance of nearest 3 enemies
@@ -109,15 +109,15 @@ common_weapon_use = (
                     (gt, ":combat", 3), # Agent currently in combat? ...avoids switching before contact
                     (eq, ":wielded", ":lance"), # Still using lance?
                     (call_script, "script_weapon_use_backup_weapon", ":agent"), # Then equip a close weapon
-                    (agent_set_slot, ":agent", slot_agent_weapon_swap, 1), #Swap timer
+                    (agent_set_slot, ":agent", "slot_agent_weapon_swap", 1), #Swap timer
                 (else_try),
                     (neq, ":wielded", ":lance"), # Enemies farther than 5 meters and/or not fighting, and not using lance?
                     (agent_set_wielded_item, ":agent", ":lance"), # Then equip it!
-                    (agent_set_slot, ":agent", slot_agent_weapon_swap, 1), #Swap timer
+                    (agent_set_slot, ":agent", "slot_agent_weapon_swap", 1), #Swap timer
                 (try_end),
             (try_end),
         (else_try),
-            (agent_get_slot, ":spear", ":agent", slot_agent_spear),   
+            (agent_get_slot, ":spear", ":agent", "slot_agent_spear"),
             (gt, ":spear", 0), # Spear-Unit?
 
             # Motomataru formation exclusion TODO revamp with slot when implemented
@@ -147,11 +147,11 @@ common_weapon_use = (
                 (gt, ":combat", 3), # Agent currently in combat? ...avoids switching before contact
                 (eq, ":wielded", ":spear"), # Still using spear?
                 (call_script, "script_weapon_use_backup_weapon", ":agent"), # Then equip a close weapon
-                (agent_set_slot, ":agent", slot_agent_weapon_swap, 1), #Swap timer
+                (agent_set_slot, ":agent", "slot_agent_weapon_swap", 1), #Swap timer
             (else_try),
                 (neq, ":wielded", ":spear"), # Enemies farther than 5 meters and/or not fighting, and not using spear?
                 (agent_set_wielded_item, ":agent", ":spear"), # Then equip it! 
-                (agent_set_slot, ":agent", slot_agent_weapon_swap, 1), #Swap timer               
+                (agent_set_slot, ":agent", "slot_agent_weapon_swap", 1), #Swap timer
             (try_end),
         (try_end),
     (try_end),
@@ -230,7 +230,7 @@ common_play_instrument = (0, 0, 2, [(game_key_clicked, gk_defend)],
 ##    (agent_get_troop_id, ":attacker_troop", ":attacker"),
 ##    (assign, ":dodged", 0),
 ##    (agent_set_no_death_knock_down_only, ":agent", 1), #disable death
-##    (agent_set_slot, ":agent", slot_agent_avoid, 0),#clear this value now.
+##    (agent_set_slot, ":agent", "slot_agent_avoid", 0),#clear this value now.
 ##    
 ##    #HUMANS
 ##    (try_begin),
@@ -281,19 +281,19 @@ common_play_instrument = (0, 0, 2, [(game_key_clicked, gk_defend)],
 ##    (try_begin),
 ##        (eq, ":dodged", 1),
 ##        (store_agent_hit_points, ":hp", ":agent", 1), #store current hp
-##        (agent_set_slot, ":agent", slot_agent_avoid, ":hp"), #inside slot
+##        (agent_set_slot, ":agent", "slot_agent_avoid", ":hp"), #inside slot
 ##    (else_try),
 ##        (eq, ":dodged", 2),
 ##        (store_agent_hit_points, ":hp", ":agent", 1), #store current hp
-##        (agent_set_slot, ":agent", slot_agent_avoid, ":hp"), #inside slot            
+##        (agent_set_slot, ":agent", "slot_agent_avoid", ":hp"), #inside slot
 ##    (else_try),
 ##        (store_agent_hit_points, ":hp", ":agent", 1), #store current hp
 ##        (val_sub, ":hp", ":damage"),    
 ##        (try_begin),
 ##            (gt, ":hp", 0),
-##            (agent_set_slot, ":agent", slot_agent_avoid, ":hp"), #set Agent not to die
+##            (agent_set_slot, ":agent", "slot_agent_avoid", ":hp"), #set Agent not to die
 ##        (else_try),
-##            (agent_set_slot, ":agent", slot_agent_avoid, 0),
+##            (agent_set_slot, ":agent", "slot_agent_avoid", 0),
 ##            (agent_set_no_death_knock_down_only, ":agent", 0), #enable death, Agent is now dead.
 ##        (try_end),
 ##    (try_end),
@@ -385,7 +385,7 @@ custom_commander_horse_speed = (
         (store_sub, ":speed_factor", 120, ":lost_hp"),
       (try_end),
       ## horse charging
-      (agent_get_slot, ":horse_stamina", ":agent_no", slot_agent_horse_stamina),
+      (agent_get_slot, ":horse_stamina", ":agent_no", "slot_agent_horse_stamina"),
       (agent_get_troop_id, ":agent_troop", ":agent_no"),
       (store_skill_level, ":skl_level", skl_riding, ":agent_troop"),
       (try_begin),
@@ -395,50 +395,50 @@ custom_commander_horse_speed = (
           (val_sub, ":horse_stamina", 20),
           (val_add, ":horse_stamina", ":skl_level"),
           (val_max, ":horse_stamina", 0),
-          (agent_set_slot, ":agent_no", slot_agent_horse_stamina, ":horse_stamina"),
+          (agent_set_slot, ":agent_no", "slot_agent_horse_stamina", ":horse_stamina"),
           (try_begin),
             (le, ":horse_stamina", 0),
-            (agent_set_slot, ":agent_no", slot_agent_horse_is_charging, 0),
+            (agent_set_slot, ":agent_no", "slot_agent_horse_is_charging", 0),
           (else_try),
-            (agent_set_slot, ":agent_no", slot_agent_horse_is_charging, 1),
+            (agent_set_slot, ":agent_no", "slot_agent_horse_is_charging", 1),
           (try_end),
         (else_try),
-          (agent_set_slot, ":agent_no", slot_agent_horse_is_charging, 0),
+          (agent_set_slot, ":agent_no", "slot_agent_horse_is_charging", 0),
           (val_add, ":horse_stamina", 3),
           (store_div, ":half_skl_level", ":skl_level", 3),
           (val_add, ":horse_stamina", ":half_skl_level"),
           (val_min, ":horse_stamina", ":horse_hp"),
-          (agent_set_slot, ":agent_no", slot_agent_horse_stamina, ":horse_stamina"),
+          (agent_set_slot, ":agent_no", "slot_agent_horse_stamina", ":horse_stamina"),
         (try_end),
         #(assign, reg1, ":horse_stamina"),
         #(display_message, "@Horse Stamina: {reg1}/100"),
       (else_try),
         (try_begin),
-          (agent_slot_eq, ":agent_no", slot_agent_horse_is_charging, 0),
+          (agent_slot_eq, ":agent_no", "slot_agent_horse_is_charging", 0),
           (try_begin),
             (lt, ":horse_stamina", ":horse_hp"),
             (val_add, ":horse_stamina", 6),
             (val_min, ":horse_stamina", ":horse_hp"),
-            (agent_set_slot, ":agent_no", slot_agent_horse_stamina, ":horse_stamina"),
+            (agent_set_slot, ":agent_no", "slot_agent_horse_stamina", ":horse_stamina"),
             (store_div, ":half_horse_hp", ":horse_hp", 2),
             (store_random_in_range, ":r", ":half_horse_hp", ":horse_hp"),
             (gt, ":horse_stamina", ":r"),
-            (agent_set_slot, ":agent_no", slot_agent_horse_is_charging, 1),
+            (agent_set_slot, ":agent_no", "slot_agent_horse_is_charging", 1),
           (try_end),
         (else_try),
-          (agent_slot_eq, ":agent_no", slot_agent_horse_is_charging, 1),
+          (agent_slot_eq, ":agent_no", "slot_agent_horse_is_charging", 1),
           (try_begin),
             (gt, ":horse_stamina", 0),
             (val_sub, ":horse_stamina", 10),
             (val_max, ":horse_stamina", 0),
-            (agent_set_slot, ":agent_no", slot_agent_horse_stamina, ":horse_stamina"),
+            (agent_set_slot, ":agent_no", "slot_agent_horse_stamina", ":horse_stamina"),
             (le, ":horse_stamina", 0),
-            (agent_set_slot, ":agent_no", slot_agent_horse_is_charging, 0),
+            (agent_set_slot, ":agent_no", "slot_agent_horse_is_charging", 0),
           (try_end),
         (try_end),
       (try_end),
       (try_begin),
-        (agent_slot_eq, ":agent_no", slot_agent_horse_is_charging, 1),
+        (agent_slot_eq, ":agent_no", "slot_agent_horse_is_charging", 1),
         (store_add, ":speed_multi", ":skl_level", 5),
         (val_mul, ":speed_multi", ":speed_multi"),
         (val_div, ":speed_multi", 4),
@@ -603,11 +603,11 @@ custom_commander_critical_strike =(
 ##        (assign,"$spear_in_position",0),
 ##        (assign,"$setting_use_spearwall",1),
 ##        (try_for_agents,":agent"),
-##          (agent_set_slot,":agent",slot_agent_spearwall,0),
-##          (agent_set_slot,":agent",slot_agent_x,0),
-##          (agent_set_slot,":agent",slot_agent_y,0),
-##          (agent_set_slot,":agent",slot_agent_z,0),
-##          (agent_set_slot,":agent",slot_agent_speed,0),
+##          (agent_set_slot,":agent","slot_agent_spearwall",0),
+##          (agent_set_slot,":agent","slot_agent_x",0),
+##          (agent_set_slot,":agent","slot_agent_y",0),
+##          (agent_set_slot,":agent","slot_agent_z",0),
+##          (agent_set_slot,":agent","slot_agent_speed",0),
 ##        (try_end),
 ##        ])
 ##
@@ -615,9 +615,9 @@ custom_commander_critical_strike =(
 ##        (set_fixed_point_multiplier, 100),
 ##        (try_for_agents,":agent"),
 ##          (agent_is_alive,":agent"),
-##          (agent_get_slot,":oldagentx",":agent",slot_agent_x),
-##          (agent_get_slot,":oldagenty",":agent",slot_agent_y),
-##          (agent_get_slot,":oldagentz",":agent",slot_agent_z),
+##          (agent_get_slot,":oldagentx",":agent","slot_agent_x"),
+##          (agent_get_slot,":oldagenty",":agent","slot_agent_y"),
+##          (agent_get_slot,":oldagentz",":agent","slot_agent_z"),
 ##          (agent_get_position, pos1, ":agent"),
 ##          (position_get_x,":agentx",pos1),
 ##          (position_get_y,":agenty",pos1),
@@ -629,10 +629,10 @@ custom_commander_critical_strike =(
 ##          (position_set_y,pos1,":agenty"),
 ##          (position_set_z,pos1,":agentz"),
 ##          (get_distance_between_positions,":speed",pos1,pos2),
-##          (agent_set_slot,":agent",slot_agent_x,":agentx"),
-##          (agent_set_slot,":agent",slot_agent_y,":agenty"),
-##          (agent_set_slot,":agent",slot_agent_z,":agentz"),
-##          (agent_set_slot,":agent",slot_agent_speed,":speed"),
+##          (agent_set_slot,":agent","slot_agent_x",":agentx"),
+##          (agent_set_slot,":agent","slot_agent_y",":agenty"),
+##          (agent_set_slot,":agent","slot_agent_z",":agentz"),
+##          (agent_set_slot,":agent","slot_agent_speed",":speed"),
 ##        (try_end),
 ##        ])
 ##
@@ -654,10 +654,10 @@ custom_commander_critical_strike =(
 ##        (try_for_agents,":agent"),
 ##          (agent_get_horse,":horse",":agent"),
 ##          (neg|gt,":horse",0),
-##          (agent_get_slot,":speartimer",":agent",slot_agent_spearwall),
+##          (agent_get_slot,":speartimer",":agent","slot_agent_spearwall"),
 ##          (lt,":speartimer",10),
 ##          (val_add,":speartimer",2),
-##          (agent_set_slot,":agent",slot_agent_spearwall,":speartimer"),
+##          (agent_set_slot,":agent","slot_agent_spearwall",":speartimer"),
 ##        (try_end),
 ##        ])
 ##
@@ -676,7 +676,7 @@ custom_commander_critical_strike =(
 ##           (agent_is_human,":agent"),
 ##           (agent_get_horse,":horse",":agent"),
 ##           (neg|gt,":horse",0),
-##           (agent_get_slot,":speartimer",":agent",slot_agent_spearwall),
+##           (agent_get_slot,":speartimer",":agent","slot_agent_spearwall"),
 ##           (ge,":speartimer",10),
 ##           (agent_get_simple_behavior,":state",":agent"),
 ##           (agent_get_team,":team1",":agent"),
@@ -834,7 +834,7 @@ custom_commander_critical_strike =(
 ##              (get_distance_between_positions,":dist",pos1,pos2),
 ##              (lt,":dist","$spear_dist"),
 ##              (neg|position_is_behind_position,pos2,pos1),
-##              (agent_get_slot,":speed",":possible_victim",slot_agent_speed),
+##              (agent_get_slot,":speed",":possible_victim","slot_agent_speed"),
 ##              (ge,":speed",120), # Remember to change this if the timing on speed checks changes
 ##              (assign,":victim",":possible_victim"),
 ##           (try_end),
@@ -849,7 +849,7 @@ custom_commander_critical_strike =(
 ###           (val_sub,":speed",15),
 ##           (val_sub,":hp",":speed"),
 ##           (val_max,":hp",0),
-##           (agent_set_slot,":agent",slot_agent_spearwall,0),
+##           (agent_set_slot,":agent","slot_agent_spearwall",0),
 ##           (agent_get_horse,":playerhorse",":player"),           
 ##           (agent_set_hit_points,":victim",":hp",0),
 ##           (agent_deliver_damage_to_agent,":victim",":victim"),
@@ -876,7 +876,7 @@ custom_commander_critical_strike =(
 ##spearwall_trigger_8 = (0.1, 0, 0, [(eq,"$spear_in_position",1)], [
 ##        (get_player_agent_no,":player"),
 ##        (agent_is_alive,":player"),
-##        (agent_get_slot,":speartimer",":player",slot_agent_spearwall),
+##        (agent_get_slot,":speartimer",":player","slot_agent_spearwall"),
 ##        (ge,":speartimer",10),
 ##        (assign,":victim",-1),
 ##        (agent_get_position,pos1,":player"),
@@ -890,7 +890,7 @@ custom_commander_critical_strike =(
 ##           (get_distance_between_positions,":dist",pos1,pos2),
 ##           (lt,":dist","$spear_dist"),
 ##           (neg|position_is_behind_position,pos2,pos1),
-##           (agent_get_slot,":speed",":possible_victim",slot_agent_speed),
+##           (agent_get_slot,":speed",":possible_victim","slot_agent_speed"),
 ##           (ge,":speed",120), # Remember to change this if the timing on speed checks changes
 ##           (assign,":victim",":possible_victim"),
 ##        (try_end),
@@ -905,7 +905,7 @@ custom_commander_critical_strike =(
 ##        (val_max,":hp",0),
 ##        (agent_set_hit_points,":victim",":hp",0),
 ##        (agent_deliver_damage_to_agent,":victim",":victim"),
-##        (agent_set_slot,":player",slot_agent_spearwall,0),
+##        (agent_set_slot,":player","slot_agent_spearwall",0),
 ##        (store_agent_hit_points,":hp",":victim",1),
 ##        (val_sub,":oldhp",":hp"),
 ##        (assign,reg1,":oldhp"),
@@ -1085,8 +1085,8 @@ sistema_fatiga = (ti_on_agent_spawn, 0, 0, [(eq, "$sp_fatigas", 1),#start up the
         (val_add, ":basic_stamina", ":fatigue"), #obtenemos total fatigue min 60 max 141
         (val_mul, ":basic_stamina", 5), #obtenemos total fatigue min 90 max 210#was 3/2gdw
         (val_div, ":basic_stamina", 3), #obtenemos total fatigue min 90 max 210#gdw from X1.5 to X2 this was too much not sure if changed this
-        (agent_set_slot, ":agent_no", slot_agent_fatiga_inicial, ":basic_stamina"), #se la aplicamos al agente
-        (agent_set_slot, ":agent_no", slot_agent_fatiga, ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga_inicial", ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga", ":basic_stamina"), #se la aplicamos al agente
 
         (start_presentation, "prsnt_staminabar"),
        # (try_begin),
@@ -1120,15 +1120,15 @@ suma_fatigue = (5, 0, 0, [(eq, "$sp_fatigas", 1),(is_presentation_active, "prsnt
     (try_for_agents, ":agent_no"),
         (agent_is_alive,":agent_no"), #  test for alive players.
       (agent_is_human, ":agent_no"),
-        (agent_get_slot, ":basic_stamina", ":agent_no", slot_agent_fatiga),
-        (agent_get_slot, ":basic_stamina_i", ":agent_no", slot_agent_fatiga_inicial),
+        (agent_get_slot, ":basic_stamina", ":agent_no", "slot_agent_fatiga"),
+        (agent_get_slot, ":basic_stamina_i", ":agent_no", "slot_agent_fatiga_inicial"),
         (lt, ":basic_stamina", ":basic_stamina_i"),
 
           (agent_get_troop_id, ":troop", ":agent_no"),
         (store_skill_level, ":fatigue",  "skl_athletics", ":troop"),
         (val_add, ":fatigue", 1), #suma agilidad un punto#gdwput to 2 then returned  to 1 too big a change
         (val_add, ":basic_stamina", ":fatigue"), #suma agilidad cada dos segundos
-        (agent_set_slot, ":agent_no", slot_agent_fatiga, ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga", ":basic_stamina"), #se la aplicamos al agente
        # (try_begin), #text for testing
        #     (eq, ":agent_no", ":player_agent"),
        #     (assign, reg1, ":basic_stamina"),
@@ -1227,11 +1227,11 @@ resta_fatigue_porcorrer = (8, 0, 0, [(eq, "$sp_fatigas", 1), #F123 - 1.41 -> Sub
                 (val_add, ":stamina_coste", 1), #un escudo de 70-90 cm es bastante pesado, en torno a 4-6 kg.
             (try_end),
    
-        (agent_get_slot, ":basic_stamina", ":player", slot_agent_fatiga),
+        (agent_get_slot, ":basic_stamina", ":player", "slot_agent_fatiga"),
         (val_sub, ":basic_stamina", ":stamina_coste"), #maximo 8 para un hombre totalmente equipado, y minimo 1 para un picto desnudo
 
         (val_max, ":basic_stamina", 1), #siempre va a restar un minimo de 1
-        (agent_set_slot, ":player", slot_agent_fatiga, ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":player", "slot_agent_fatiga", ":basic_stamina"), #se la aplicamos al agente
 
         (try_begin), 
 
@@ -1282,14 +1282,14 @@ resta_fatigue = (ti_on_agent_hit, 0, 0, [(eq, "$sp_fatigas", 1),],[
    #        (is_between, ":wielded", "itm_shieldtarcza19", "itm_norman_shield_1"),
    #        (val_add, ":stamina_cost", 1), #pierde fatiga cada golpe.
     #   (try_end),
-           (agent_get_slot, ":dealer_stamina", ":dealer_agent", slot_agent_fatiga),
+           (agent_get_slot, ":dealer_stamina", ":dealer_agent", "slot_agent_fatiga"),
         (val_sub, ":dealer_stamina", ":stamina_cost"),
         (val_max, ":dealer_stamina", 1),
-        (agent_set_slot, ":dealer_agent", slot_agent_fatiga, ":dealer_stamina"), #se la aplicamos al agente
-        (agent_get_slot, ":inflicted_stamina", ":inflicted_agent", slot_agent_fatiga),
+        (agent_set_slot, ":dealer_agent", "slot_agent_fatiga", ":dealer_stamina"), #se la aplicamos al agente
+        (agent_get_slot, ":inflicted_stamina", ":inflicted_agent", "slot_agent_fatiga"),
         (val_sub, ":inflicted_stamina", ":stamina_cost"),
         (val_max, ":inflicted_stamina", 1),
-        (agent_set_slot, ":inflicted_agent", slot_agent_fatiga, ":inflicted_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":inflicted_agent", "slot_agent_fatiga", ":inflicted_stamina"), #se la aplicamos al agente
 
       # (try_begin),
       #      (eq, ":dealer_agent", ":player_agent"),
@@ -1302,8 +1302,8 @@ resta_fatigue = (ti_on_agent_hit, 0, 0, [(eq, "$sp_fatigas", 1),],[
       #  (try_end),
     (try_end),
 
-    (agent_get_slot, ":basic_stamina", ":dealer_agent", slot_agent_fatiga),
-    (agent_get_slot, ":basic_stamina_i", ":dealer_agent", slot_agent_fatiga_inicial),
+    (agent_get_slot, ":basic_stamina", ":dealer_agent", "slot_agent_fatiga"),
+    (agent_get_slot, ":basic_stamina_i", ":dealer_agent", "slot_agent_fatiga_inicial"),
     (store_div, ":qua_stamina_i", ":basic_stamina_i", 4),
   #  (store_div, ":half_stamina_i", ":basic_stamina_i", 2),
 
@@ -2161,8 +2161,8 @@ rider_damage = [
 #          (troop_is_mounted, ":troop"),   
           (assign, ":agent_horse", 0),
           (agent_get_horse, ":agent_horse", ":agent"),
-          (agent_set_slot, ":agent", slot_agent_horse, ":agent_horse"),
-          (agent_set_slot, ":agent", slot_agent_got_damage, 0),    # reset variable at battle start
+          (agent_set_slot, ":agent", "slot_agent_horse", ":agent_horse"),
+          (agent_set_slot, ":agent", "slot_agent_got_damage", 0),    # reset variable at battle start
 #          (val_add, "$ridernum", 1),
         (try_end),
 #        (display_message,"@debug-horse1"),
@@ -2177,13 +2177,13 @@ rider_damage = [
         (try_for_agents, ":agent"),
           (agent_is_alive, ":agent"),
           (agent_is_human,":agent"),
-          (agent_slot_eq, ":agent", slot_agent_got_damage, 0),   # agent haven't got damage
+          (agent_slot_eq, ":agent", "slot_agent_got_damage", 0),   # agent haven't got damage
 #          (agent_get_troop_id, ":troop", ":agent"),
 #          (troop_is_mounted, ":troop"),
           (assign, ":agent_horse", 0),
           (agent_get_horse, ":agent_horse", ":agent"),
           (le, ":agent_horse", 0),              # agent doesn't have horse
-          (agent_get_slot, ":agent_horse", ":agent", slot_agent_horse),
+          (agent_get_slot, ":agent_horse", ":agent", "slot_agent_horse"),
           (gt, ":agent_horse", 0),            # but he had horse at battle start
           (neg|agent_is_human,":agent_horse"),     
           (neg|agent_is_alive, ":agent_horse"),            # and his horse is dead
@@ -2195,7 +2195,7 @@ rider_damage = [
           (store_div, ":hp_low", ":agent_hp", 3),
           (store_random_in_range, ":damage", ":hp_low", ":hp_high"),      # damage is 33%~50% of current agent HP.
           (agent_deliver_damage_to_agent, ":agent", ":agent", ":damage"),     # deal damage to agent
-          (agent_set_slot, ":agent", slot_agent_got_damage, 1),     # agent have got damage
+          (agent_set_slot, ":agent", "slot_agent_got_damage", 1),     # agent have got damage
 #          (val_sub, "$ridernum", 1),
           #(display_message,"@debug-horse2"),    # I inserted debug message, but this message doesn't shown and agent haven't got damage
         (try_end),
@@ -2436,7 +2436,7 @@ common_siege_ai_trigger_init_after_2_secs = (
   0, 2, ti_once, [],
   [
     (try_for_agents, ":agent_no"),
-      (agent_set_slot, ":agent_no", slot_agent_is_not_reinforcement, 1),
+      (agent_set_slot, ":agent_no", "slot_agent_is_not_reinforcement", 1),
     (try_end),
     ])
 
@@ -3269,7 +3269,7 @@ resta_fatigue,
        (try_for_agents, ":agent_no"),
          (agent_is_human, ":agent_no"),
          (agent_is_alive, ":agent_no"),
-         (agent_slot_eq, ":agent_no", slot_agent_arena_team_set, 0),
+         (agent_slot_eq, ":agent_no", "slot_agent_arena_team_set", 0),
          (agent_get_team, ":team_no", ":agent_no"),
          (is_between, ":team_no", 0 ,7),
          (try_begin),
@@ -3285,7 +3285,7 @@ resta_fatigue,
              (agent_is_human, ":other_agent_no"),
              (agent_is_alive, ":other_agent_no"),
              (neq, ":agent_no", ":player_agent"),
-             (agent_slot_eq, ":other_agent_no", slot_agent_arena_team_set, 1),
+             (agent_slot_eq, ":other_agent_no", "slot_agent_arena_team_set", 1),
              (agent_get_team, ":other_agent_team", ":other_agent_no"),
              (troop_get_slot, ":count", "trp_temp_array_a", ":other_agent_team"),
              (val_add, ":count", 1),
@@ -3305,7 +3305,7 @@ resta_fatigue,
            (try_end),
            (agent_set_team, ":agent_no", ":selected_team"),
          (try_end),
-         (agent_set_slot, ":agent_no", slot_agent_arena_team_set, 1),
+         (agent_set_slot, ":agent_no", "slot_agent_arena_team_set", 1),
          (try_begin),
            (neq, ":agent_no", ":player_agent"),
            (val_add, "$g_arena_training_num_agents_spawned", 1),

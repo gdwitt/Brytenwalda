@@ -605,7 +605,7 @@ coop_mission_templates = [
           #check this script for changes, currently only sets multiplayer_ready_for_spawning_agent
           # (call_script, "script_multiplayer_server_on_agent_spawn_common", ":agent_no"),
           (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
-          (agent_set_slot, ":agent_no", slot_agent_coop_spawn_party, "$coop_agent_party"), #store party of agent
+          (agent_set_slot, ":agent_no", "slot_agent_coop_spawn_party", "$coop_agent_party"), #store party of agent
 
           (call_script, "script_coop_equip_player_agent", ":agent_no"), #ITEM BUG WORKAROUND
         (try_end),
@@ -1210,10 +1210,10 @@ coop_mission_templates = [
            #check this script for changes, currently only sets g_multiplayer_ready_for_spawning_agent
           # (call_script, "script_multiplayer_server_on_agent_spawn_common", ":agent_no"),
           (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
-          (agent_set_slot, ":agent_no", slot_agent_coop_spawn_party, "$coop_agent_party"), #store party of agent
+          (agent_set_slot, ":agent_no", "slot_agent_coop_spawn_party", "$coop_agent_party"), #store party of agent
           (call_script, "script_coop_equip_player_agent", ":agent_no"), #ITEM BUG WORKAROUND
         (try_end),
-        (agent_set_slot, ":agent_no", slot_agent_coop_banner, "$coop_agent_banner"), #store banner of agent for clients too
+        (agent_set_slot, ":agent_no", "slot_agent_coop_banner", "$coop_agent_banner"), #store banner of agent for clients too
 
         (try_begin),
           (agent_is_human, ":agent_no"),
@@ -1343,7 +1343,7 @@ coop_mission_templates = [
             (agent_get_team ,":cur_team", ":cur_agent"),
             (agent_get_troop_id, ":agent_troop_id", ":cur_agent"),
             #replace troop in temp spawn party
-            (agent_get_slot, ":agent_party",":cur_agent", slot_agent_coop_spawn_party),
+            (agent_get_slot, ":agent_party",":cur_agent", "slot_agent_coop_spawn_party"),
             (party_add_members, ":agent_party", ":agent_troop_id", 1),
 
             (try_begin), #save health for round 2
@@ -1456,7 +1456,7 @@ coop_mission_templates = [
             (this_or_next|eq, "$belfry_positioned", 2),#if belfry is almost positioned
             (ge, ":agent_group", 0),#player commanded
             (eq, ":agent_team", "$attacker_team"),
-            (agent_slot_eq,":cur_agent",slot_agent_target_x_pos, 0),
+            (agent_slot_eq,":cur_agent","slot_agent_target_x_pos", 0),
             (agent_clear_scripted_mode, ":cur_agent"),
           (try_end),
 

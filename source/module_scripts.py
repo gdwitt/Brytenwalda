@@ -19313,8 +19313,8 @@ scripts = [
   #      (assign, ":ally_power", reg0),
   #      (assign, ":enemy_power", reg1),
   #      
-  #      (agent_set_slot, ":agent_no", slot_agent_initial_ally_power, ":ally_power"),
-  #      (agent_set_slot, ":agent_no", slot_agent_initial_enemy_power, ":enemy_power"),
+  #      (agent_set_slot, ":agent_no", "slot_agent_initial_ally_power", ":ally_power"),
+  #      (agent_set_slot, ":agent_no", "slot_agent_initial_enemy_power", ":enemy_power"),
   #    (try_end),
   #]),
 
@@ -19330,7 +19330,7 @@ scripts = [
       (try_end),
 
       (try_for_agents, ":cur_agent"),
-        (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 0), #initially nobody is running away.
+        (agent_set_slot, ":cur_agent",  "slot_agent_is_running_away", 0), #initially nobody is running away.
       (try_end),
       (assign, "$g_fire_arrow_mode_enemy", 1), #fire arrow chief
   ]),
@@ -19347,7 +19347,7 @@ scripts = [
       (try_end),
 
       (try_for_agents, ":cur_agent"),
-        (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 0), #initially nobody is running away.
+        (agent_set_slot, ":cur_agent",  "slot_agent_is_running_away", 0), #initially nobody is running away.
       (try_end),
   ]),
   # script_battle_tactic_init_aux
@@ -19460,7 +19460,7 @@ scripts = [
           (try_end),
 
           (eq, ":is_centered_agent_ally", ":is_agent_ally"), #if centered agent and other agent is at same team then continue.
-          (agent_get_slot, ":agent_is_running_away_or_not", ":agent_no", slot_agent_is_running_away),
+          (agent_get_slot, ":agent_is_running_away_or_not", ":agent_no", "slot_agent_is_running_away"),
 
           (try_begin),
             (eq, ":agent_no", ":player_agent"),
@@ -19526,13 +19526,13 @@ scripts = [
             (neq, ":agent_is_running_away_or_not", 1),
             (val_mul, ":agent_delta_courage_score", 1),
             (try_begin), # centered agent not running away cannot take positive courage score from one another agent not running away.
-              (agent_get_slot, ":agent_is_running_away_or_not", ":centered_agent_no", slot_agent_is_running_away),
+              (agent_get_slot, ":agent_is_running_away_or_not", ":centered_agent_no", "slot_agent_is_running_away"),
               (eq, ":agent_is_running_away_or_not", 0),
               (val_mul, ":agent_delta_courage_score", 0),
             (try_end),
           (else_try),
             (try_begin), 
-              (agent_get_slot, ":agent_is_running_away_or_not", ":agent_no", slot_agent_is_running_away),
+              (agent_get_slot, ":agent_is_running_away_or_not", ":agent_no", "slot_agent_is_running_away"),
               (eq, ":agent_is_running_away_or_not", 0),
               (val_mul, ":agent_delta_courage_score", -2), # running away agent fears not running away agent more.
             (else_try),
@@ -19549,85 +19549,85 @@ scripts = [
             (ge, ":agent_delta_courage_score", 0),
             (try_begin),
               (lt, ":dist", 2000), #0-20 meter
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 50),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 4000), #21-40 meter
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 40),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
            (else_try),
               (lt, ":dist", 7000), #41-70 meter
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 30),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 11000), #71-110 meter
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 20),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),      
               (lt, ":dist", 16000), # 111-160 meter, assumed that eye can see agents friendly at most 160 meters far while fighting. 
                                     # this is more than below limit (108 meters) because we hear that allies come from further.
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 10),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (try_end),      
           (else_try),                                               # negative effect of running agent on other ally agents are lower then positive effects above, to avoid starting  
             (try_begin),                                            # run away of all agents at a moment. I want to see agents running away one by one during battle, not all together.
               (lt, ":dist", 200), #1-2 meter,                       # this would create better game play.
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 15),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 400), #3-4 meter, 
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 13),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 600), #5-6 meter
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 11),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 800), #7-8 meter
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 9),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 1200), #9-12 meters
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 7),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 2400), #13-24 meters
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 5),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 4800), #25-48 meters
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 3),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (else_try),
               (lt, ":dist", 9600), #49-98 meters, assumed that eye can see agents running away at most 98 meters far while fighting.
-              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", slot_agent_courage_score),
+              (agent_get_slot, ":agent_courage_score", ":centered_agent_no", "slot_agent_courage_score"),
               (val_mul, ":agent_delta_courage_score", 1),
               (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-              (agent_set_slot, ":centered_agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+              (agent_set_slot, ":centered_agent_no", "slot_agent_courage_score", ":agent_courage_score"),
             (try_end),      
           (try_end),
         (try_end),            
@@ -19700,7 +19700,7 @@ scripts = [
               (assign, ":agent_delta_courage_score", -15), #chief cambiado
             (try_end),
 
-            (agent_get_slot, ":dead_agent_was_running_away_or_not", ":dead_agent_no",  slot_agent_is_running_away), #look dead agent was running away or not. 
+            (agent_get_slot, ":dead_agent_was_running_away_or_not", ":dead_agent_no",  "slot_agent_is_running_away"), #look dead agent was running away or not.
             (try_begin),
               (eq, ":dead_agent_was_running_away_or_not", 1),      
               (val_div, ":agent_delta_courage_score", 3),  # if killed agent was running away his negative effect on ally courage scores become very less. This added because
@@ -19711,84 +19711,84 @@ scripts = [
 
           (try_begin),
             (eq, ":killer_agent_no", ":agent_no"),
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 20),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (try_end),
         
           (try_begin),
             (lt, ":dist", 100), #0-1 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 150),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 200), #2 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 120),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 300), #3 meter
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 100),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 400), #4 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 90),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 600), #5-6 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 80),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 800), #7-8 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 70),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 1000), #9-10 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 60),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 1500), #11-15 meter
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 50),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 2500), #16-25 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 40),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 4000), #26-40 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 30),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 6500), #41-65 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 20),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 10000), #61-100 meters
-            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", "slot_agent_courage_score"),
             (val_mul, ":agent_delta_courage_score", 10),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":agent_courage_score"),
           (try_end),
         (try_end),
       (try_end),
@@ -19813,17 +19813,17 @@ scripts = [
         (assign, ":force_retreat", 1),
       (try_end),
 
-      (agent_get_slot, ":is_cur_agent_running_away", ":cur_agent", slot_agent_is_running_away),
+      (agent_get_slot, ":is_cur_agent_running_away", ":cur_agent", "slot_agent_is_running_away"),
       (try_begin),
         (eq, ":is_cur_agent_running_away", 0),
         (try_begin),
           (eq, ":force_retreat", 1),
           (agent_clear_scripted_mode, ":cur_agent"),	#handle scripted mode troops - motomataru
           (agent_start_running_away, ":cur_agent"),
-          (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 1),
+          (agent_set_slot, ":cur_agent",  "slot_agent_is_running_away", 1),
         (else_try),
           (ge, ":mission_time", 180), #first 45 seconds anyone does not run away whatever happens. Chief cambia a 180 segundos
-          (agent_get_slot, ":agent_courage_score", ":cur_agent",  slot_agent_courage_score),
+          (agent_get_slot, ":agent_courage_score", ":cur_agent",  "slot_agent_courage_score"),
           (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),
           (val_mul, ":agent_hit_points", 5), #chief cambiado
           ## CC chief
@@ -19852,11 +19852,11 @@ scripts = [
                                 
           (agent_clear_scripted_mode, ":cur_agent"),	#handle scripted mode troops - motomataru chief
           (agent_start_running_away, ":cur_agent"),
-          (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 1),
+          (agent_set_slot, ":cur_agent",  "slot_agent_is_running_away", 1),
         (try_end),
       (else_try),
         (neq, ":force_retreat", 1),
-        (agent_get_slot, ":agent_courage_score", ":cur_agent",  slot_agent_courage_score),
+        (agent_get_slot, ":agent_courage_score", ":cur_agent",  "slot_agent_courage_score"),
         (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),      
         (val_mul, ":agent_hit_points", 5), #chief cambia
 ##CC chief
@@ -19880,7 +19880,7 @@ scripts = [
         (store_sub, ":stop_running_away_courage_score_limit", 3200, ":agent_hit_points"),  #chief cambia
         (ge, ":agent_courage_score", ":stop_running_away_courage_score_limit"), #if (courage score > 3700 - agent hit points) and (agent is running away) then stop running away, average hit points : 50, average running away limit = 1700
         (agent_stop_running_away, ":cur_agent"),
-        (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 0),
+        (agent_set_slot, ":cur_agent",  "slot_agent_is_running_away", 0),
       (try_end),      
   ]), #ozan
   
@@ -20778,7 +20778,7 @@ scripts = [
         (try_for_agents, ":cur_agent"),
           (agent_is_human, ":cur_agent"),
           (agent_is_alive, ":cur_agent"),
-          (agent_set_slot, ":cur_agent", slot_agent_is_alive_before_retreat, 1),#needed for simulation
+          (agent_set_slot, ":cur_agent", "slot_agent_is_alive_before_retreat", 1),#needed for simulation
 
           (agent_get_troop_id, ":cur_troop", ":cur_agent"),
           (store_character_level, ":cur_level", ":cur_troop"),
@@ -20892,8 +20892,8 @@ scripts = [
       (try_for_agents, ":cur_agent"),
         (neq, ":player_agent", ":cur_agent"),
         (agent_is_human, ":cur_agent"),
-        #do not check agent_is_alive, check slot_agent_is_alive_before_retreat instead, so that dead agents can still hit enemies
-        (agent_slot_eq, ":cur_agent", slot_agent_is_alive_before_retreat, 1),
+        #do not check agent_is_alive, check "slot_agent_is_alive_before_retreat" instead, so that dead agents can still hit enemies
+        (agent_slot_eq, ":cur_agent", "slot_agent_is_alive_before_retreat", 1),
         (try_begin),
           (agent_is_ally, ":cur_agent"),
           (assign, ":cur_agents_side", 0),
@@ -23232,9 +23232,9 @@ scripts = [
         (agent_is_alive, ":cur_agent"),
         (agent_is_human, ":cur_agent"),
         (try_begin),
-          (agent_get_slot, ":x_pos", ":cur_agent", slot_agent_target_x_pos),
+          (agent_get_slot, ":x_pos", ":cur_agent", "slot_agent_target_x_pos"),
           (neq, ":x_pos", 0),
-          (agent_get_slot, ":y_pos", ":cur_agent", slot_agent_target_y_pos),
+          (agent_get_slot, ":y_pos", ":cur_agent", "slot_agent_target_y_pos"),
           (try_begin),
             (eq, ":x_pos", -600),
             (try_begin),
@@ -23421,15 +23421,15 @@ scripts = [
 ##   [
 ##     (try_for_agents, ":agent_no"),
 ##       (agent_is_alive, ":agent_no"),
-##       (agent_slot_eq, ":agent_no", slot_agent_is_not_reinforcement, 0),
+##       (agent_slot_eq, ":agent_no", "slot_agent_is_not_reinforcement", 0),
 ##       (agent_is_defender, ":agent_no"),
 ##       (agent_get_class, ":agent_class", ":agent_no"),
 ##       (agent_get_troop_id, ":agent_troop", ":agent_no"),
 ##       (eq, ":agent_class", grc_archers),
 ##       (try_begin),
-##         (agent_slot_eq, ":agent_no", slot_agent_target_entry_point, 0),
+##         (agent_slot_eq, ":agent_no", "slot_agent_target_entry_point", 0),
 ##         (store_random_in_range, ":random_entry_point", 40, 44),
-##         (agent_set_slot, ":agent_no", slot_agent_target_entry_point, ":random_entry_point"),
+##         (agent_set_slot, ":agent_no", "slot_agent_target_entry_point", ":random_entry_point"),
 ##       (try_end),
 ##       (try_begin),
 ##         (agent_get_position, pos0, ":agent_no"),
@@ -23437,8 +23437,8 @@ scripts = [
 ##         (get_distance_between_positions, ":dist", pos0, pos1),
 ##         (lt, ":dist", 300),
 ##         (agent_clear_scripted_mode, ":agent_no"),
-##         (agent_set_slot, ":agent_no", slot_agent_is_in_scripted_mode, 0),
-##         (agent_set_slot, ":agent_no", slot_agent_is_not_reinforcement, 1),
+##         (agent_set_slot, ":agent_no", "slot_agent_is_in_scripted_mode", 0),
+##         (agent_set_slot, ":agent_no", "slot_agent_is_not_reinforcement", 1),
 ##         (str_store_troop_name, s1, ":agent_troop"),
 ##         (assign, reg0, ":agent_no"),
 ###         (display_message, "@{s1} ({reg0}) reached pos"),
@@ -23449,18 +23449,18 @@ scripts = [
 ##         (eq, ":agent_sb", aisb_go_to_pos),#scripted mode
 ##         (eq, ":agent_cs", 7), # 7 = no visible targets (state for ranged units)
 ##         (try_begin),
-##           (agent_slot_eq, ":agent_no", slot_agent_is_in_scripted_mode, 0),
+##           (agent_slot_eq, ":agent_no", "slot_agent_is_in_scripted_mode", 0),
 ##           (agent_set_scripted_destination, ":agent_no", pos1, 0),
-##           (agent_set_slot, ":agent_no", slot_agent_is_in_scripted_mode, 1),
+##           (agent_set_slot, ":agent_no", "slot_agent_is_in_scripted_mode", 1),
 ##           (str_store_troop_name, s1, ":agent_troop"),
 ##           (assign, reg0, ":agent_no"),
 ###           (display_message, "@{s1} ({reg0}) moving to pos"),
 ##         (try_end),
 ##       (else_try),
 ##         (try_begin),
-##           (agent_slot_eq, ":agent_no", slot_agent_is_in_scripted_mode, 1),
+##           (agent_slot_eq, ":agent_no", "slot_agent_is_in_scripted_mode", 1),
 ##           (agent_clear_scripted_mode, ":agent_no"),
-##           (agent_set_slot, ":agent_no", slot_agent_is_in_scripted_mode, 0),
+##           (agent_set_slot, ":agent_no", "slot_agent_is_in_scripted_mode", 0),
 ##           (str_store_troop_name, s1, ":agent_troop"),
 ##           (assign, reg0, ":agent_no"),
 ###           (display_message, "@{s1} ({reg0}) seeing target or changed mode"),
@@ -23474,7 +23474,7 @@ scripts = [
    [
      (try_for_agents, ":agent_no"),
        (agent_is_alive, ":agent_no"),
-       (agent_slot_eq, ":agent_no", slot_agent_is_not_reinforcement, 0), #Note: could be changed from eq 0 to lt 1 to fix an issue if there was one here.
+       (agent_slot_eq, ":agent_no", "slot_agent_is_not_reinforcement", 0), #Note: could be changed from eq 0 to lt 1 to fix an issue if there was one here.
        (agent_is_defender, ":agent_no"),
        (agent_get_class, ":agent_class", ":agent_no"),
      #  (agent_get_troop_id, ":agent_troop", ":agent_no"),
@@ -23510,9 +23510,9 @@ scripts = [
                #End of additional code for PoP 3.4
                      
        (try_begin),
-         (agent_slot_eq, ":agent_no", slot_agent_target_entry_point, 0),
+         (agent_slot_eq, ":agent_no", "slot_agent_target_entry_point", 0),
          (store_random_in_range, ":random_entry_point", 40, 44),
-         (agent_set_slot, ":agent_no", slot_agent_target_entry_point, ":random_entry_point"),
+         (agent_set_slot, ":agent_no", "slot_agent_target_entry_point", ":random_entry_point"),
 
        (try_end),
 
@@ -23523,8 +23523,8 @@ scripts = [
          (get_distance_between_positions, ":dist", pos0, pos1),
          (lt, ":dist", 300),
          (agent_clear_scripted_mode, ":agent_no"),
-         (agent_set_slot, ":agent_no", slot_agent_is_in_scripted_mode, 0),
-         (agent_set_slot, ":agent_no", slot_agent_is_not_reinforcement, 1),
+         (agent_set_slot, ":agent_no", "slot_agent_is_in_scripted_mode", 0),
+         (agent_set_slot, ":agent_no", "slot_agent_is_not_reinforcement", 1),
 
        (else_try),
 
@@ -23537,17 +23537,17 @@ scripts = [
          #(eq, ":agent_cs", 7), # 7 = no visible targets (state for ranged units) <-- commented out because this seems to not be the right value ... Abhuva PoP 3.303
 
          (try_begin),
-           (agent_slot_eq, ":agent_no", slot_agent_is_in_scripted_mode, 0),
+           (agent_slot_eq, ":agent_no", "slot_agent_is_in_scripted_mode", 0),
            (agent_set_scripted_destination, ":agent_no", pos1, 0),
-           (agent_set_slot, ":agent_no", slot_agent_is_in_scripted_mode, 1),     
+           (agent_set_slot, ":agent_no", "slot_agent_is_in_scripted_mode", 1),
          (try_end),
 
    (else_try),
 
          (try_begin),
-             (agent_slot_eq, ":agent_no", slot_agent_is_in_scripted_mode, 1),
+             (agent_slot_eq, ":agent_no", "slot_agent_is_in_scripted_mode", 1),
              (agent_clear_scripted_mode, ":agent_no"),
-             (agent_set_slot, ":agent_no", slot_agent_is_in_scripted_mode, 0),
+             (agent_set_slot, ":agent_no", "slot_agent_is_in_scripted_mode", 0),
           (try_end),
 
        (try_end),
@@ -24696,7 +24696,7 @@ scripts = [
          (try_begin),
            (this_or_next|eq, "$g_multiplayer_game_type", multiplayer_game_type_coop_battle),
            (eq, "$g_multiplayer_game_type", multiplayer_game_type_coop_siege),
-           (agent_get_slot, ":agent_banner",":agent_no", slot_agent_coop_banner), 
+           (agent_get_slot, ":agent_banner",":agent_no", "slot_agent_coop_banner"),
            (try_begin),
               (gt, ":agent_banner", 0),
               (assign, ":banner_mesh", ":agent_banner"),	
@@ -25754,7 +25754,7 @@ scripts = [
        #count routed agents in player party, ally parties and enemy parties
        (try_begin),
          (agent_is_routed, ":cur_agent"),
-         (agent_get_slot, ":agent_was_running_away", ":cur_agent", slot_agent_is_running_away),
+         (agent_get_slot, ":agent_was_running_away", ":cur_agent", "slot_agent_is_running_away"),
          (eq, ":agent_was_running_away", 1),
          (try_begin),
            (agent_get_troop_id, ":routed_ag_troop_id", ":cur_agent"),
@@ -37772,16 +37772,16 @@ scripts = [
         (assign, ":best_position", -1),
         
         (try_begin),        
-          (neg|agent_slot_eq, ":agent", slot_agent_is_running_away, 0), #if agent is running away
-          (agent_get_slot, ":target_entry_point_plus_one",  ":agent", slot_agent_is_running_away),
+          (neg|agent_slot_eq, ":agent", "slot_agent_is_running_away", 0), #if agent is running away
+          (agent_get_slot, ":target_entry_point_plus_one",  ":agent", "slot_agent_is_running_away"),
           (store_sub, ":target_entry_point", ":target_entry_point_plus_one", 1),
           (entry_point_get_position, pos6, ":target_entry_point"),
           (get_distance_between_positions, ":agent_distance_to_target", pos6, pos4),
           (lt, ":agent_distance_to_target", 100),
-          (agent_set_slot, ":agent", slot_agent_is_running_away, 0),
+          (agent_set_slot, ":agent", "slot_agent_is_running_away", 0),
         (try_end),
 			
-        (agent_slot_eq, ":agent", slot_agent_is_running_away, 0), #if agent is not already running away
+        (agent_slot_eq, ":agent", "slot_agent_is_running_away", 0), #if agent is not already running away
         
         (try_begin), #stand in place
           (get_distance_between_positions, ":distance", pos4, pos5),
@@ -37822,7 +37822,7 @@ scripts = [
             (agent_set_speed_limit, ":agent", 10),
             (agent_set_scripted_destination, ":agent", pos6),
             (store_add, ":best_position_plus_one", ":best_position", 1),
-            (agent_set_slot, ":agent", slot_agent_is_running_away, ":best_position_plus_one"),
+            (agent_set_slot, ":agent", "slot_agent_is_running_away", ":best_position_plus_one"),
           (try_end),
         (try_end),
 	  (try_end),
@@ -40459,7 +40459,7 @@ scripts = [
 #           (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
 #           (val_add, ":slot_no", bmm_item_1),
 #           (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
-#           (agent_set_slot, ":attacker_agent_no", slot_agent_flail_using, 1),
+#           (agent_set_slot, ":attacker_agent_no", "slot_agent_flail_using", 1),
 #           (agent_get_bone_position,pos1,":attacker_agent_no",hb_item_r, 1),
 #           (play_sound_at_position, "snd_chain", pos1),
 #         (try_end),
@@ -42431,10 +42431,10 @@ scripts = [
         (try_for_agents,":agent_id"),
             (agent_is_alive,":agent_id"),
             (store_agent_hit_points,":current_hp",":agent_id",absolute),
-            (agent_get_slot,":old_hp",":agent_id",slot_agent_hp),
+            (agent_get_slot,":old_hp",":agent_id","slot_agent_hp"),
             (try_begin),
                 (gt,":old_hp",":current_hp"),   # Damage taken
-                (agent_set_slot,":agent_id",slot_agent_hp,":current_hp"),
+                (agent_set_slot,":agent_id","slot_agent_hp",":current_hp"),
                 (store_sub,":new_rate",":old_hp",":current_hp"),
                 (gt,":new_rate",dmg_threshold),
                
@@ -42459,12 +42459,12 @@ scripts = [
 ##                (display_message,"@damage reduced to {reg1}"),
 ##                #debug end
                
-                (agent_get_slot,":old_rate",":agent_id",slot_agent_rate),
+                (agent_get_slot,":old_rate",":agent_id","slot_agent_rate"),
                 (val_add,":new_rate",":old_rate"),
-                (agent_set_slot,":agent_id",slot_agent_rate,":new_rate"),
+                (agent_set_slot,":agent_id","slot_agent_rate",":new_rate"),
             (else_try),
                 (eq,":old_hp",0),   # Init agent
-                (agent_set_slot,":agent_id",slot_agent_hp,":current_hp"),
+                (agent_set_slot,":agent_id","slot_agent_hp",":current_hp"),
             (try_end),
         (try_end),
     ]),
@@ -42473,9 +42473,9 @@ scripts = [
     [
         (try_for_agents,":agent_id"),
             (agent_is_alive,":agent_id"),
-            (agent_get_slot,":rate",":agent_id",slot_agent_rate),
+            (agent_get_slot,":rate",":agent_id","slot_agent_rate"),
             (gt,":rate",0),
-            (agent_get_slot,":blood",":agent_id",slot_agent_bleed),
+            (agent_get_slot,":blood",":agent_id","slot_agent_bleed"),
             (val_add,":blood",":rate"),
             (store_div,":hp_loss",":blood",blood_per_hp),
             (try_begin),
@@ -42512,10 +42512,10 @@ scripts = [
                 # (try_begin),
                     # (gt,":hp",0),
                     (agent_set_hit_points,":agent_id",":hp",absolute),
-                    (agent_set_slot,":agent_id",slot_agent_hp,":hp"),
+                    (agent_set_slot,":agent_id","slot_agent_hp",":hp"),
                     (store_mul,":tmp",":hp_loss",blood_per_hp),
                     (val_sub,":blood",":tmp"),
-                    (agent_set_slot,":agent_id",slot_agent_bleed,":blood"),
+                    (agent_set_slot,":agent_id","slot_agent_bleed",":blood"),
                 # (else_try),    MOTO avoid masses of damage delivered messages, esp after player death
                     # (call_script,"script_get_enemy_agent",":agent_id"),
                     # (agent_deliver_damage_to_agent,reg0,":agent_id"),
@@ -42526,7 +42526,7 @@ scripts = [
                     (set_show_messages, 1),
                 (try_end),
             (else_try),
-                (agent_set_slot,":agent_id",slot_agent_bleed,":blood"),
+                (agent_set_slot,":agent_id","slot_agent_bleed",":blood"),
             (try_end),
         (try_end),
     ]),
@@ -43728,9 +43728,9 @@ scripts = [
         (agent_is_alive, ":cur_agent"),
         (agent_is_human, ":cur_agent"),
         (try_begin),
-          (agent_get_slot, ":x_pos", ":cur_agent", slot_agent_target_x_pos),
+          (agent_get_slot, ":x_pos", ":cur_agent", "slot_agent_target_x_pos"),
           (neq, ":x_pos", 0),
-          (agent_get_slot, ":y_pos", ":cur_agent", slot_agent_target_y_pos),
+          (agent_get_slot, ":y_pos", ":cur_agent", "slot_agent_target_y_pos"),
           (try_begin),
             (eq, ":x_pos", -600),
             (try_begin),
@@ -44784,7 +44784,7 @@ scripts = [
             (agent_get_division, ":class", ":agent"),
             (class_is_listening_order, ":team", ":class"), #Is the agent's division selected?
             (try_begin),
-                (agent_slot_eq, ":agent", slot_agent_is_running_away, 0), #Is not routing or ordered to retreat         
+                (agent_slot_eq, ":agent", "slot_agent_is_running_away", 0), #Is not routing or ordered to retreat
                 (agent_stop_running_away, ":agent"),
             (try_end),
         (try_end), #Agent loop
@@ -44815,7 +44815,7 @@ scripts = [
         (agent_is_non_player, ":agent"),
         (agent_get_team, ":team", ":agent"),
         (eq, ":team", ":playerteam"), #On Player's side?
-        (agent_slot_eq, ":agent", slot_agent_is_running_away, 0), #Is not routing or ordered to retreat
+        (agent_slot_eq, ":agent", "slot_agent_is_running_away", 0), #Is not routing or ordered to retreat
         (agent_get_division, ":class", ":agent"),
         (store_add, ":ordered_class", ":class", "slot_party_cabadrin_orders_begin"),
         (party_slot_ge, "p_main_party", ":ordered_class", 100), #Division is skirmishing
@@ -44913,7 +44913,7 @@ scripts = [
             (neg|troop_is_guarantee_ranged, ":troop"), # Not a horsearcher/skirmisher
             (try_begin),
                 (eq, ":wielded_type", itp_type_polearm), # Is it a polearm?
-                (agent_set_slot, ":agent", slot_agent_lance, ":wielded"),
+                (agent_set_slot, ":agent", "slot_agent_lance", ":wielded"),
             (else_try),   
           # Force the NPC to wield a polearm, but this will only happen if they
           # actually have a polearm equipped.  Otherwise this does nothing.
@@ -44925,7 +44925,7 @@ scripts = [
                     (eq, ":weapontype", itp_type_polearm),  # Is it a spear?
                     (agent_has_item_equipped, ":agent", ":item"),
                     (agent_set_wielded_item, ":agent", ":item"),
-                    (agent_set_slot, ":agent", slot_agent_lance, ":item"), #Mark 'lancer'
+                    (agent_set_slot, ":agent", "slot_agent_lance", ":item"), #Mark 'lancer'
                     (assign, ":cap", 0), #loop Break
                 (try_end),
             (try_end),
@@ -44934,8 +44934,8 @@ scripts = [
 (neg|troop_is_guarantee_ranged, ":troop"), #ADD THIS para que tropas a distancia den prioridad a sus armas sobre lanzas
             (try_begin),
                 (eq, ":wielded_type", itp_type_polearm),  # Is it a polearm?
-                                # (agent_set_slot, ":agent", slot_agent_spear,      ":item"), #Mark spearmen
-                      (agent_set_slot, ":agent", slot_agent_spear,      ":wielded"), #Mark spearmen MOTO fix
+                                # (agent_set_slot, ":agent", "slot_agent_spear",      ":item"), #Mark spearmen
+                      (agent_set_slot, ":agent", "slot_agent_spear",      ":wielded"), #Mark spearmen MOTO fix
             (else_try), #Check if there's a spear equipped, if not wielded
                 (troop_get_inventory_capacity,":cap",":troop"),
                 (try_for_range, ":i", 0, ":cap"),#not sure if reg. troops have equipped items (slots < 10), but w/e
@@ -44944,7 +44944,7 @@ scripts = [
                     (item_get_type, ":weapontype", ":item"),
                     (eq, ":weapontype", itp_type_polearm),  # Is it a spear?
                     (agent_has_item_equipped, ":agent", ":item"),
-                    (agent_set_slot, ":agent", slot_agent_spear, ":item"), #Mark spearmen
+                    (agent_set_slot, ":agent", "slot_agent_spear", ":item"), #Mark spearmen
                     (assign, ":cap", 0), #loop Break
                 (try_end),
             (try_end),
@@ -50667,7 +50667,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (agent_get_horse, ":horse_agent", ":player_agent"),
     (try_begin),
       (ge, ":horse_agent", 0),
-      (agent_get_slot, ":horse_stamina", ":player_agent", slot_agent_horse_stamina),
+      (agent_get_slot, ":horse_stamina", ":player_agent", "slot_agent_horse_stamina"),
       (store_agent_hit_points, ":horse_hp", ":horse_agent"),
       (assign, reg1, ":horse_stamina"),
       (assign, reg2, ":horse_hp"),
@@ -51309,7 +51309,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                           (agent_is_human, ":enemy_agent"),
                           (agent_get_group, ":enemy_agent_nearest_infantry_team", ":enemy_agent"),
                           (teams_are_enemies, ":enemy_agent_nearest_infantry_team", ":team_no"),
-                          (agent_slot_eq, ":enemy_agent", slot_agent_is_running_away, 0),
+                          (agent_slot_eq, ":enemy_agent", "slot_agent_is_running_away", 0),
                           
                           (try_begin),
                               (eq, ":enemy_agent_nearest_infantry", -1),
@@ -51922,7 +51922,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_begin),
 			(ge, ":team_leader", 0),
 			(agent_is_alive, ":team_leader"),
-			(agent_slot_eq, ":team_leader", slot_agent_is_running_away, 0),
+			(agent_slot_eq, ":team_leader", "slot_agent_is_running_away", 0),
 			(try_begin),
 				(le, ":num_infantry", 0),
 				(try_begin),
@@ -51943,7 +51943,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					
 					(agent_clear_scripted_mode, ":team_leader"),
 					(agent_start_running_away, ":team_leader"),
-					(agent_set_slot, ":team_leader",  slot_agent_is_running_away, 1),
+					(agent_set_slot, ":team_leader",  "slot_agent_is_running_away", 1),
 				(else_try),
 					(eq, ":archer_order", mordr_charge),
 					(agent_clear_scripted_mode, ":team_leader"),
@@ -52135,7 +52135,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_for_agents,":cur_agent"),
 	    (try_begin),
 			(this_or_next|agent_is_wounded, ":cur_agent"),
-			(this_or_next|agent_slot_eq, ":cur_agent", slot_agent_is_running_away, 1),
+			(this_or_next|agent_slot_eq, ":cur_agent", "slot_agent_is_running_away", 1),
 			(neg|agent_is_alive, ":cur_agent"),
 			(val_add, ":num_casualties", 1),
 		(try_end),
@@ -52636,9 +52636,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					(this_or_next|eq, ":column", 1),
 					(ge, ":column", ":square_dimension"),
 					(call_script, "script_equip_best_melee_weapon", ":agent", 0, 0, ":fire_order"),
-					(agent_set_slot, ":agent", slot_agent_inside_formation, 0),
+					(agent_set_slot, ":agent", "slot_agent_inside_formation", 0),
 				(else_try),
-					(agent_get_slot, ":closest_enemy", ":agent", slot_agent_nearest_enemy_agent),
+					(agent_get_slot, ":closest_enemy", ":agent", "slot_agent_nearest_enemy_agent"),
 					(try_begin),
 						(neq, ":closest_enemy", -1),
 						(agent_get_position, pos0, ":closest_enemy"),
@@ -52648,7 +52648,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					(else_try),
 						(call_script, "script_equip_best_melee_weapon", ":agent", 0, 1, ":fire_order"),
 					(try_end),
-					(agent_set_slot, ":agent", slot_agent_inside_formation, 1),
+					(agent_set_slot, ":agent", "slot_agent_inside_formation", 1),
 					(agent_set_defend_action, ":agent", -2, ":reform_interval_thousandths"),
 				(try_end),
 			(try_end),
@@ -52731,9 +52731,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 						(this_or_next|eq, ":column", 1),
 						(ge, ":column", ":rank_dimension"),
 						(call_script, "script_equip_best_melee_weapon", ":agent", 0, 0, ":fire_order"),
-						(agent_set_slot, ":agent", slot_agent_inside_formation, 0),
+						(agent_set_slot, ":agent", "slot_agent_inside_formation", 0),
 					(else_try),
-						(agent_get_slot, ":closest_enemy", ":agent", slot_agent_nearest_enemy_agent),
+						(agent_get_slot, ":closest_enemy", ":agent", "slot_agent_nearest_enemy_agent"),
 						(try_begin),
 							(neq, ":closest_enemy", -1),
 							(agent_get_position, pos0, ":closest_enemy"),
@@ -52743,7 +52743,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 						(else_try),
 							(call_script, "script_equip_best_melee_weapon", ":agent", 0, 1, ":fire_order"),
 						(try_end),
-						(agent_set_slot, ":agent", slot_agent_inside_formation, 1),
+						(agent_set_slot, ":agent", "slot_agent_inside_formation", 1),
 						(agent_set_defend_action, ":agent", -2, ":reform_interval_thousandths"),
 					(try_end),
 				(try_end),
@@ -52825,9 +52825,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					(try_begin),
 						(eq, ":rank", 1),
 						(call_script, "script_equip_best_melee_weapon", ":agent", 0, 0, ":fire_order"),
-						(agent_set_slot, ":agent", slot_agent_inside_formation, 0),
+						(agent_set_slot, ":agent", "slot_agent_inside_formation", 0),
 					(else_try),
-						(agent_get_slot, ":closest_enemy", ":agent", slot_agent_nearest_enemy_agent),
+						(agent_get_slot, ":closest_enemy", ":agent", "slot_agent_nearest_enemy_agent"),
 						(try_begin),
 							(neq, ":closest_enemy", -1),
 							(agent_get_position, pos0, ":closest_enemy"),
@@ -52837,7 +52837,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 						(else_try),
 							(call_script, "script_equip_best_melee_weapon", ":agent", 0, 1, ":fire_order"),
 						(try_end),
-						(agent_set_slot, ":agent", slot_agent_inside_formation, 1),
+						(agent_set_slot, ":agent", "slot_agent_inside_formation", 1),
 						(agent_set_defend_action, ":agent", -2, ":reform_interval_thousandths"),
 					(try_end),
 				(try_end),
@@ -52928,7 +52928,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					(eq, ":weapon_order", wordr_use_any_weapon),
 					(ge, ":weapon_length", ":min_len"),	#avoid reequipping agents that are already in formation
 					(eq, ":min_len_non_shielded", -1),	#haven't looped through agents at least once since rank 2
-					(agent_get_slot, ":closest_enemy", ":agent", slot_agent_nearest_enemy_agent),
+					(agent_get_slot, ":closest_enemy", ":agent", "slot_agent_nearest_enemy_agent"),
 					(try_begin),
 						(neq, ":closest_enemy", -1),
 						(agent_get_position, pos0, ":closest_enemy"),
@@ -52938,7 +52938,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					(else_try),
 						(call_script, "script_equip_best_melee_weapon", ":agent", 0, 1, ":fire_order"),
 					(try_end),
-					(agent_set_slot, ":agent", slot_agent_inside_formation, 1),
+					(agent_set_slot, ":agent", "slot_agent_inside_formation", 1),
 					(agent_set_defend_action, ":agent", -2, ":reform_interval_thousandths"),
 					(agent_get_wielded_item, ":agent_weapon", ":agent", 0),
 					(try_begin),
@@ -52973,7 +52973,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					(eq, ":weapon_order", wordr_use_any_weapon),
 					(eq, ":rank", 1),
 					(call_script, "script_equip_best_melee_weapon", ":agent", 1, 0, ":fire_order"),	#best weapon, force shield
-					(agent_set_slot, ":agent", slot_agent_inside_formation, 0),
+					(agent_set_slot, ":agent", "slot_agent_inside_formation", 0),
 				(try_end),
 				(try_begin),
 					(eq, ":form_left", 1),
@@ -53296,9 +53296,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	#Housekeeping
 	(try_begin),
 		(eq, ":rank", 1),
-		(agent_set_slot, ":agent", slot_agent_in_first_rank, 1),
+		(agent_set_slot, ":agent", "slot_agent_in_first_rank", 1),
      	(else_try),
-		(agent_set_slot, ":agent", slot_agent_in_first_rank, 0),
+		(agent_set_slot, ":agent", "slot_agent_in_first_rank", 0),
 	(try_end),
   ]),
 
@@ -53464,8 +53464,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(agent_clear_scripted_mode, ":agent"),
 			#(call_script, "script_switch_from_noswing_weapons", ":agent"),
 			(agent_set_speed_limit, ":agent", 100),
-			(agent_set_slot, ":agent", slot_agent_in_first_rank, 0),
-			(agent_set_slot, ":agent", slot_agent_inside_formation, 0),
+			(agent_set_slot, ":agent", "slot_agent_in_first_rank", 0),
+			(agent_set_slot, ":agent", "slot_agent_inside_formation", 0),
 		(try_end),
 		
 		(try_begin),
@@ -53662,7 +53662,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(eq, ":team", ":fteam"),
 	(agent_is_alive, ":agent"),
 	(agent_is_human, ":agent"),
-	(agent_slot_eq, ":agent", slot_agent_is_running_away, 0),
+	(agent_slot_eq, ":agent", "slot_agent_is_running_away", 0),
   ]),
 
 # #Player team formations functions
@@ -54196,7 +54196,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   ("agent_fix_division",
    [
     (store_script_param_1, ":agent"),	
-	(agent_set_slot, ":agent", slot_agent_new_division, -1),	
+	(agent_set_slot, ":agent", "slot_agent_new_division", -1),
 	(get_player_agent_no, ":player"),	#after_mission_start triggers are called after spawn, so globals can't be used yet
 	
 	(try_begin),
@@ -54220,7 +54220,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(agent_get_division, ":division", ":agent"),
 		(neq, ":division", ":target_division"),
 		(agent_set_division, ":agent", ":target_division"),
-		(agent_set_slot, ":agent", slot_agent_new_division, ":target_division"),
+		(agent_set_slot, ":agent", "slot_agent_new_division", ":target_division"),
 	(try_end),
    ]),
   
@@ -54410,7 +54410,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_for_agents, ":cur_agent"),
 		(agent_is_alive, ":cur_agent"),      
 		(agent_is_human, ":cur_agent"), 
-		(agent_slot_eq, ":cur_agent", slot_agent_is_running_away, 0),
+		(agent_slot_eq, ":cur_agent", "slot_agent_is_running_away", 0),
 		(agent_get_group, ":bgteam", ":cur_agent"),
 		(agent_get_division, ":bgdivision", ":cur_agent"),
 		(agent_get_class, ":agent_class", ":cur_agent"),
@@ -54421,13 +54421,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(team_get_slot, ":bgtype", ":bgteam", ":slot"),
 			(this_or_next|eq, ":bgtype", sdt_cavalry),	#but still assigned to horsed division
 			(eq, ":bgtype", sdt_harcher),
-			(agent_set_slot, ":cur_agent", slot_agent_new_division, grc_infantry),	#reassign to general infantry division
+			(agent_set_slot, ":cur_agent", "slot_agent_new_division", grc_infantry),	#reassign to general infantry division
 			(agent_set_division, ":cur_agent", grc_infantry),			
 		(else_try),	#Maintain any changed divisions (apparently agents get switched back)
                         (agent_is_non_player, ":cur_agent"),
-			(agent_slot_ge, ":cur_agent", slot_agent_new_division, 0),
-			(neg|agent_slot_eq, ":cur_agent", slot_agent_new_division, ":bgdivision"),
-			(agent_get_slot, ":bgdivision", ":cur_agent", slot_agent_new_division),
+			(agent_slot_ge, ":cur_agent", "slot_agent_new_division", 0),
+			(neg|agent_slot_eq, ":cur_agent", "slot_agent_new_division", ":bgdivision"),
+			(agent_get_slot, ":bgdivision", ":cur_agent", "slot_agent_new_division"),
 			(agent_set_division, ":cur_agent", ":bgdivision"),
 		(try_end),
 		(agent_get_troop_id, ":cur_troop", ":cur_agent"),
@@ -54582,7 +54582,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(team_set_slot, ":bgteam", ":slot", ":value"),
 			
 			(try_begin),	#Division First Rank Weapon Length
-				(agent_slot_ge, ":cur_agent", slot_agent_in_first_rank, 1),
+				(agent_slot_ge, ":cur_agent", "slot_agent_in_first_rank", 1),
 				(store_add, ":slot", slot_team_d0_front_weapon_length, ":bgdivision"),
 				(team_get_slot, ":value", ":bgteam", ":slot"),
 				(val_add, ":value", ":cur_weapon_length"),
@@ -54624,7 +54624,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_end),
 		
 		#find nearest enemy agent
-		(agent_set_slot, ":cur_agent", slot_agent_nearest_enemy_agent, -1),
+		(agent_set_slot, ":cur_agent", "slot_agent_nearest_enemy_agent", -1),
         (try_begin),
                   (eq, "$formation_no_nearest_agent", 0),
                   (try_for_agents, ":enemy_agent"),
@@ -54632,12 +54632,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                       (agent_is_human, ":enemy_agent"),
                       (agent_get_group, ":enemy_team_no", ":enemy_agent"),
                       (teams_are_enemies, ":enemy_team_no", ":bgteam"),
-                      (agent_slot_eq, ":enemy_agent", slot_agent_is_running_away, 0),
+                      (agent_slot_eq, ":enemy_agent", "slot_agent_is_running_away", 0),
                       
                       (try_begin),
-                          (agent_get_slot, ":closest_enemy", ":cur_agent", slot_agent_nearest_enemy_agent),
+                          (agent_get_slot, ":closest_enemy", ":cur_agent", "slot_agent_nearest_enemy_agent"),
                           (eq, ":closest_enemy", -1),
-                          (agent_set_slot, ":cur_agent", slot_agent_nearest_enemy_agent, ":enemy_agent"),
+                          (agent_set_slot, ":cur_agent", "slot_agent_nearest_enemy_agent", ":enemy_agent"),
                           
                       (else_try),
                           (agent_get_position, pos0, ":enemy_agent"),
@@ -54645,14 +54645,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                           (agent_get_position, pos0, ":closest_enemy"),
                           (get_distance_between_positions, ":old_distance", pos0, pos1),
                           (lt, ":new_distance", ":old_distance"),
-                          (agent_set_slot, ":cur_agent", slot_agent_nearest_enemy_agent, ":enemy_agent"),
+                          (agent_set_slot, ":cur_agent", "slot_agent_nearest_enemy_agent", ":enemy_agent"),
                       (try_end),
                   (try_end),
 		(try_end),
 		
 		#exploit closest agent data
 		(try_begin),
-			(agent_get_slot, ":closest_enemy", ":cur_agent", slot_agent_nearest_enemy_agent),
+			(agent_get_slot, ":closest_enemy", ":cur_agent", "slot_agent_nearest_enemy_agent"),
 			(neq, ":closest_enemy", -1),
 			(agent_get_position, pos0, ":closest_enemy"),
 			(get_distance_between_positions, ":closest_distance", pos0, pos1),
@@ -55532,11 +55532,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # (agent_get_team, ":target_team", ":agent"),
         #  (eq, ":target_team", ":wielder_team"),
          #(neq,":agent",":player_agent"),
-         #(agent_set_slot,":agent", slot_agent_has_been_healed, 0), #chief
+         #(agent_set_slot,":agent", "slot_agent_has_been_healed", 0), #chief
          # (agent_get_position,pos4,":agent"),
          # (get_distance_between_positions,":dist",pos6,pos4),
          # (le,":dist",3500),
-         #(agent_get_slot, ":healed", ":agent", slot_agent_has_been_healed),
+         #(agent_get_slot, ":healed", ":agent", "slot_agent_has_been_healed"),
         # (eq, ":healed", 0),
          (store_agent_hit_points, ":cur_hp",":agent",0),
          # (assign, reg1, ":cur_hp"), 
@@ -55550,7 +55550,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (assign, ":cur_hit_points",reg2),
       (display_message,"@{!}DEBUG wounded troop recovers 15 hitpoints to total {reg2}",0x6495ed),
       (agent_play_sound, ":agent", "snd_man_victory"),
-              # (agent_set_slot,":agent", slot_agent_has_been_healed, 1),
+              # (agent_set_slot,":agent", "slot_agent_has_been_healed", 1),
               # (val_add, ":heal_count", 1),
          #(display_message, "@You heal."),
     # (store_script_param, ":agent", 1),

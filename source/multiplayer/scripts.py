@@ -1528,7 +1528,7 @@ scripts = [
   ("multiplayer_server_on_agent_spawn_common",
    [
      (store_script_param, ":agent_no", 1),
-     (agent_set_slot, ":agent_no", slot_agent_in_duel_with, -1),
+     (agent_set_slot, ":agent_no", "slot_agent_in_duel_with", -1),
      (try_begin),
        (agent_is_non_player, ":agent_no"),
        (assign, "$g_multiplayer_ready_for_spawning_agent", 1),
@@ -2604,8 +2604,8 @@ scripts = [
 ####          (try_begin), #stamina bar, fatiga fatigue system chief para darles fatiga a los bots cuando player toma control
 ##        (assign, ":basic_stamina",70),
 ##        (val_add, ":basic_stamina", 5), #obtenemos total fatigue min 60 max 141
-##        (agent_set_slot, ":cur_agent", slot_agent_fatiga_inicial, ":basic_stamina"), #se la aplicamos al agente
-##       (agent_set_slot, ":cur_agent", slot_agent_fatiga, ":basic_stamina"), #se la aplicamos al agente
+##        (agent_set_slot, ":cur_agent", "slot_agent_fatiga_inicial", ":basic_stamina"), #se la aplicamos al agente
+##       (agent_set_slot, ":cur_agent", "slot_agent_fatiga", ":basic_stamina"), #se la aplicamos al agente
 ####      (try_end),
 
         (ge, ":bot_score", ":max_bot_score"),
@@ -3615,8 +3615,8 @@ scripts = [
           (le, ":agent_dist_sq", 49),
           #allow duelists to receive new offers
           (this_or_next|agent_check_offer_from_agent, ":player_agent_no", ":value"),
-          (agent_slot_eq, ":player_agent_no", slot_agent_in_duel_with, -1),
-          (neg|agent_slot_eq, ":player_agent_no", slot_agent_in_duel_with, ":value"), #don't allow spamming duel offers during countdown
+          (agent_slot_eq, ":player_agent_no", "slot_agent_in_duel_with", -1),
+          (neg|agent_slot_eq, ":player_agent_no", "slot_agent_in_duel_with", ":value"), #don't allow spamming duel offers during countdown
       #condition checks are done
           (try_begin),
             #accepting a duel
@@ -3703,11 +3703,11 @@ scripts = [
 			  (agent_get_team, ":target_team", ":agent"),
 			   (eq, ":target_team", ":wielder_team"),
 			   #(neq,":agent",":player_agent"),
-                   (agent_set_slot,":agent", slot_agent_has_been_healed, 0), #chief
+                   (agent_set_slot,":agent", "slot_agent_has_been_healed", 0), #chief
 			   (agent_get_position,pos4,":agent"),
 			   (get_distance_between_positions,":dist",pos6,pos4),
 			   (le,":dist",3500),
-			   (agent_get_slot, ":healed", ":agent", slot_agent_has_been_healed),
+			   (agent_get_slot, ":healed", ":agent", "slot_agent_has_been_healed"),
 			   (eq, ":healed", 0),
                           (store_agent_hit_points, ":cur_hp",":agent",0),
                           (try_begin),
@@ -3716,7 +3716,7 @@ scripts = [
                               (val_add,":cur_hit_points",15),
                               (agent_set_hit_points,":agent",":cur_hit_points",1),
 
-                              (agent_set_slot,":agent", slot_agent_has_been_healed, 1),
+                              (agent_set_slot,":agent", "slot_agent_has_been_healed", 1),
                               (val_add, ":heal_count", 1),
 		              (display_message, "@You heal."),
 			  (end_try),
@@ -3738,12 +3738,12 @@ scripts = [
 			   (agent_is_alive,":agent"),
 			  (agent_get_team, ":target_team", ":agent"),
 			   (eq, ":target_team", ":wielder_team"),
-                   (agent_set_slot,":agent", slot_agent_has_been_healed, 0), #chief
+                   (agent_set_slot,":agent", "slot_agent_has_been_healed", 0), #chief
 			   #(neq,":agent",":player_agent"),
 			   (agent_get_position,pos4,":agent"),
 			   (get_distance_between_positions,":dist",pos6,pos4),
 			   (le,":dist",1500),
-			   (agent_get_slot, ":healed", ":agent", slot_agent_has_been_healed),
+			   (agent_get_slot, ":healed", ":agent", "slot_agent_has_been_healed"),
 			   (eq, ":healed", 0),
                           (store_agent_hit_points, ":cur_hp",":agent",0),
                           (try_begin),
@@ -3752,7 +3752,7 @@ scripts = [
                               (val_add,":cur_hit_points",30),
                               (agent_set_hit_points,":agent",":cur_hit_points",1),
 
-                              (agent_set_slot,":agent", slot_agent_has_been_healed, 1),
+                              (agent_set_slot,":agent", "slot_agent_has_been_healed", 1),
                               (val_add, ":heal_count", 1),
 		              (display_message, "@You heal."),
 			  (end_try),
@@ -4364,10 +4364,10 @@ scripts = [
             (display_message, "str_a_duel_between_you_and_s0_will_start_in_3_seconds"),
             (assign, "$g_multiplayer_duel_start_time", ":mission_timer"),
             (start_presentation, "prsnt_multiplayer_duel_start_counter"),
-            (agent_set_slot, ":player_agent", slot_agent_in_duel_with, ":value"),
-            (agent_set_slot, ":value", slot_agent_in_duel_with, ":player_agent"),
-            (agent_set_slot, ":player_agent", slot_agent_duel_start_time, ":mission_timer"),
-            (agent_set_slot, ":value", slot_agent_duel_start_time, ":mission_timer"),
+            (agent_set_slot, ":player_agent", "slot_agent_in_duel_with", ":value"),
+            (agent_set_slot, ":value", "slot_agent_in_duel_with", ":player_agent"),
+            (agent_set_slot, ":player_agent", "slot_agent_duel_start_time", ":mission_timer"),
+            (agent_set_slot, ":value", "slot_agent_duel_start_time", ":mission_timer"),
             (agent_clear_relations_with_agents, ":player_agent"),
             (agent_clear_relations_with_agents, ":value"),
 ##            (agent_add_relation_with_agent, ":player_agent", ":value", -1),
@@ -4389,7 +4389,7 @@ scripts = [
           (try_begin),
             (get_player_agent_no, ":player_agent"),
             (agent_is_active, ":player_agent"),
-            (agent_set_slot, ":player_agent", slot_agent_in_duel_with, -1),
+            (agent_set_slot, ":player_agent", "slot_agent_in_duel_with", -1),
             (agent_clear_relations_with_agents, ":player_agent"),
           (try_end),
         (else_try),
@@ -4440,7 +4440,7 @@ scripts = [
           (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
           (val_add, ":slot_no", bmm_item_1),
           (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
-          (agent_set_slot, ":agent_no", slot_agent_flail_using, 1),
+          (agent_set_slot, ":agent_no", "slot_agent_flail_using", 1),
           # (agent_get_bone_position,pos1,":attacker_agent_no",hb_item_r, 1),
           # (play_sound_at_position, "snd_chain", pos1),
           (agent_play_sound, ":attacker_agent_no", "snd_chain"),
@@ -4515,11 +4515,11 @@ scripts = [
      (store_script_param, ":agent_no", 1),
      (store_script_param, ":agent_no_offerer", 2),
      (try_begin),
-       (agent_slot_ge, ":agent_no", slot_agent_in_duel_with, 0),
-       (agent_get_slot, ":ex_duelist", ":agent_no", slot_agent_in_duel_with),
+       (agent_slot_ge, ":agent_no", "slot_agent_in_duel_with", 0),
+       (agent_get_slot, ":ex_duelist", ":agent_no", "slot_agent_in_duel_with"),
        (agent_is_active, ":ex_duelist"),
        (agent_clear_relations_with_agents, ":ex_duelist"),
-       (agent_set_slot, ":ex_duelist", slot_agent_in_duel_with, -1),
+       (agent_set_slot, ":ex_duelist", "slot_agent_in_duel_with", -1),
        (agent_get_player_id, ":player_no", ":ex_duelist"),
        (try_begin),
          (player_is_active, ":player_no"), #might be AI
@@ -4529,11 +4529,11 @@ scripts = [
        (try_end),
      (try_end),
      (try_begin),
-       (agent_slot_ge, ":agent_no_offerer", slot_agent_in_duel_with, 0),
-       (agent_get_slot, ":ex_duelist", ":agent_no_offerer", slot_agent_in_duel_with),
+       (agent_slot_ge, ":agent_no_offerer", "slot_agent_in_duel_with", 0),
+       (agent_get_slot, ":ex_duelist", ":agent_no_offerer", "slot_agent_in_duel_with"),
        (agent_is_active, ":ex_duelist"),
        (agent_clear_relations_with_agents, ":ex_duelist"),
-       (agent_set_slot, ":ex_duelist", slot_agent_in_duel_with, -1),
+       (agent_set_slot, ":ex_duelist", "slot_agent_in_duel_with", -1),
        (try_begin),
          (player_is_active, ":player_no"), #might be AI
          (multiplayer_send_int_to_player, ":player_no", multiplayer_event_cancel_duel, ":agent_no_offerer"),
@@ -4541,8 +4541,8 @@ scripts = [
          (agent_force_rethink, ":ex_duelist"),
        (try_end),
      (try_end),
-     (agent_set_slot, ":agent_no", slot_agent_in_duel_with, ":agent_no_offerer"),
-     (agent_set_slot, ":agent_no_offerer", slot_agent_in_duel_with, ":agent_no"),
+     (agent_set_slot, ":agent_no", "slot_agent_in_duel_with", ":agent_no_offerer"),
+     (agent_set_slot, ":agent_no_offerer", "slot_agent_in_duel_with", ":agent_no"),
      (agent_clear_relations_with_agents, ":agent_no"),
      (agent_clear_relations_with_agents, ":agent_no_offerer"),
 #     (agent_add_relation_with_agent, ":agent_no", ":agent_no_offerer", -1),
@@ -4555,7 +4555,7 @@ scripts = [
      (else_try),
        (agent_force_rethink, ":agent_no"),
      (try_end),
-     (agent_set_slot, ":agent_no", slot_agent_duel_start_time, ":mission_timer"),
+     (agent_set_slot, ":agent_no", "slot_agent_duel_start_time", ":mission_timer"),
      (agent_get_player_id, ":agent_no_offerer_player", ":agent_no_offerer"),
      (try_begin),
        (player_is_active, ":agent_no_offerer_player"), #might be AI
@@ -4563,7 +4563,7 @@ scripts = [
      (else_try),
        (agent_force_rethink, ":agent_no_offerer"),
      (try_end),
-     (agent_set_slot, ":agent_no_offerer", slot_agent_duel_start_time, ":mission_timer"),
+     (agent_set_slot, ":agent_no_offerer", "slot_agent_duel_start_time", ":mission_timer"),
      ]),
 
   # script_game_get_multiplayer_server_option_for_mission_template
@@ -5035,9 +5035,9 @@ scripts = [
      (get_player_agent_no, ":player_agent_no"),
      (try_begin),
        (agent_is_active, ":player_agent_no"),
-       (this_or_next|agent_slot_eq, ":player_agent_no", slot_agent_in_duel_with, -1),
+       (this_or_next|agent_slot_eq, ":player_agent_no", "slot_agent_in_duel_with", -1),
        (agent_check_offer_from_agent, ":player_agent_no", ":agent_no"),
-       (neg|agent_slot_eq, ":player_agent_no", slot_agent_in_duel_with, ":agent_no"), #don't allow spamming duel offers during countdown
+       (neg|agent_slot_eq, ":player_agent_no", "slot_agent_in_duel_with", ":agent_no"), #don't allow spamming duel offers during countdown
      (multiplayer_send_int_to_server, multiplayer_event_offer_duel, ":agent_no"),
        (agent_get_player_id, ":player_no", ":agent_no"),
        (try_begin),

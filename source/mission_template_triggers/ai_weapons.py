@@ -63,7 +63,7 @@ common_ai_order_toggle = (ti_on_order_issued, 0, 0, [
             (agent_set_wielded_item, ":agent_no", ":swap_no", 0),
             # (store_mission_timer_a, ":timer_a"),
             # (val_add, ":timer_a", 1000),
-            # (agent_set_slot, ":agent_no", slot_agent_last_weapon_toggled, ":timer_a"),
+            # (agent_set_slot, ":agent_no", "slot_agent_last_weapon_toggled", ":timer_a"),
         (else_try),
             (eq, ":order_no", mordr_use_blunt_weapons),
             # switching to blunt modes only
@@ -193,7 +193,7 @@ common_ai_random_toggle = (1, 0, 0, [], [
 
         (store_mission_timer_a, ":timer_a"),
         # check timing
-        (agent_get_slot, ":last_switched", ":agent_no", slot_agent_last_weapon_toggled),
+        (agent_get_slot, ":last_switched", ":agent_no", "slot_agent_last_weapon_toggled"),
         (lt, ":last_switched", ":timer_a"),
 
         (store_sub, ":wpt", ":itp", 2),
@@ -208,7 +208,7 @@ common_ai_random_toggle = (1, 0, 0, [], [
 
         # store timing
         (store_add, ":last_switched", ":timer_a", ":prof"),
-        (agent_set_slot, ":agent_no", slot_agent_last_weapon_toggled, ":last_switched"),
+        (agent_set_slot, ":agent_no", "slot_agent_last_weapon_toggled", ":last_switched"),
 
         # actual switching
         (agent_unequip_item, ":agent_no", ":item_no"),

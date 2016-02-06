@@ -262,7 +262,7 @@ presentations = [
             (str_clear, s7),
 
             (try_for_agents, ":agent_no"),
-                (agent_set_slot, ":agent_no", slot_agent_map_overlay_id, 0),
+                (agent_set_slot, ":agent_no", "slot_agent_map_overlay_id", 0),
             (try_end),
 
             (get_player_agent_no, ":player_agent"),
@@ -948,7 +948,7 @@ presentations = [
                 (gt, ":cur_time", 200),
                 (game_key_clicked, gk_view_orders),
                 (try_for_agents, ":cur_agent"),
-                    (agent_set_slot, ":cur_agent", slot_agent_map_overlay_id, 0),
+                    (agent_set_slot, ":cur_agent", "slot_agent_map_overlay_id", 0),
                 (try_end),
                 (presentation_set_duration, 0),
             (try_end),
@@ -1092,7 +1092,7 @@ scripts = [
             (agent_is_human, ":cur_agent"),
             (agent_get_division, ":agent_division", ":cur_agent"),
             (agent_get_party_id, ":agent_party", ":cur_agent"),
-            (agent_get_slot, ":agent_overlay", ":cur_agent", slot_agent_map_overlay_id),
+            (agent_get_slot, ":agent_overlay", ":cur_agent", "slot_agent_map_overlay_id"),
             (try_begin),
                 (eq, ":agent_party", "p_main_party"),
                 (try_begin),
@@ -1317,7 +1317,7 @@ scripts = [
   # Output: none
   ("update_agent_position_on_map",
    [(store_script_param_1, ":agent_no"),
-    (agent_get_slot, ":agent_overlay", ":agent_no", slot_agent_map_overlay_id),
+    (agent_get_slot, ":agent_overlay", ":agent_no", "slot_agent_map_overlay_id"),
 
     (get_player_agent_no, ":player_agent"),
     (try_begin),
@@ -1336,7 +1336,7 @@ scripts = [
         (overlay_set_size, reg1, pos1),
       (try_end),
       (overlay_set_alpha, reg1, 0x88),
-      (agent_set_slot, ":agent_no", slot_agent_map_overlay_id, reg1),
+      (agent_set_slot, ":agent_no", "slot_agent_map_overlay_id", reg1),
       (assign, ":agent_overlay", reg1),
     (try_end),
 

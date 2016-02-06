@@ -18,7 +18,7 @@ sp_shield_bash_1 = (
        (get_player_agent_no, ":agent"),
       (agent_is_active, ":agent"),
       (agent_is_alive, ":agent"),
-      (neg|agent_slot_ge, ":agent", sp_agent_shield_bash_timer, 1), #Less than.
+      (neg|agent_slot_ge, ":agent", "slot_agent_shield_bash_timer", 1), #Less than.
       (agent_get_wielded_item, ":item", ":agent", 1), #Offhand.
       (gt, ":item", 0),
       (item_get_type, ":type", ":item"),
@@ -27,7 +27,7 @@ sp_shield_bash_1 = (
       (eq, ":action", 2), #Blocking.
       (agent_get_horse, ":horse", ":agent"),
       (eq, ":horse", -1), #No horse.
-      (agent_set_slot, ":agent", sp_agent_shield_bash_timer, 15), #tiempo ampliado chief entre cada shield bash
+      (agent_set_slot, ":agent", "slot_agent_shield_bash_timer", 15), #tiempo ampliado chief entre cada shield bash
       (agent_set_animation, ":agent", "anim_shield_bash"),
 
       #MOTO just use $character_gender
@@ -81,10 +81,10 @@ sp_shield_bash_2 = (
        (get_player_agent_no, ":agent"),
       (agent_is_active, ":agent"),
       (agent_is_alive, ":agent"),
-      (agent_get_slot, ":timer", ":agent", sp_agent_shield_bash_timer),
+      (agent_get_slot, ":timer", ":agent", "slot_agent_shield_bash_timer"),
       (val_sub, ":timer", 1),
       (val_max, ":timer", 0),
-      (agent_set_slot, ":agent", sp_agent_shield_bash_timer, ":timer"),
+      (agent_set_slot, ":agent", "slot_agent_shield_bash_timer", ":timer"),
    ])
 sp_shield_bash_3 = (
    0.25, 0, 0, [(eq, "$sp_shield_bash_ai", 1)],
@@ -95,8 +95,8 @@ sp_shield_bash_3 = (
           (agent_is_alive, ":agent"),
          (agent_is_human, ":agent"),
          (try_begin),
-             (neg|agent_slot_ge, ":agent", sp_agent_shield_bash_timer, 1), #Less than.
-            (agent_slot_eq, ":agent", slot_agent_is_running_away, 0), #Isn't routing.
+             (neg|agent_slot_ge, ":agent", "slot_agent_shield_bash_timer", 1), #Less than.
+            (agent_slot_eq, ":agent", "slot_agent_is_running_away", 0), #Isn't routing.
              (agent_get_wielded_item, ":item", ":agent", 1), #Offhand.
             (gt, ":item", 0),
              (item_get_type, ":type", ":item"),
@@ -126,7 +126,7 @@ sp_shield_bash_3 = (
             (agent_get_horse, ":horse", ":victim"),
             (eq, ":horse", -1),
             (store_random_in_range, ":rand", 145, 156), #ampliado chief
-             (agent_set_slot, ":agent", sp_agent_shield_bash_timer, ":rand"), #20 is 20*0.25=5seconds.
+             (agent_set_slot, ":agent", "slot_agent_shield_bash_timer", ":rand"), #20 is 20*0.25=5seconds.
             (agent_set_animation, ":agent", "anim_shield_bash"),
 
             #MOTO just use $character_gender
@@ -159,9 +159,9 @@ sp_shield_bash_3 = (
                 (agent_set_animation, ":victim", "anim_shield_strike"),
             (try_end),
          (try_end),
-         (agent_get_slot, ":timer", ":agent", sp_agent_shield_bash_timer),
+         (agent_get_slot, ":timer", ":agent", "slot_agent_shield_bash_timer"),
          (val_sub, ":timer", 1),
          (val_max, ":timer", 0),
-         (agent_set_slot, ":agent", sp_agent_shield_bash_timer, ":timer"),
+         (agent_set_slot, ":agent", "slot_agent_shield_bash_timer", ":timer"),
       (try_end),
 ])

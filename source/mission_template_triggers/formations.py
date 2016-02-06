@@ -953,7 +953,7 @@ AI_triggers = [
 
     (0, 0, ti_once, [(gt, "$last_player_trigger", Far_Away)], [    #delay 'til AFTER Formations trigger fires
         (try_for_agents, ":cur_agent"),
-            (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 0),
+            (agent_set_slot, ":cur_agent",  "slot_agent_is_running_away", 0),
         (try_end),
         (set_fixed_point_multiplier, 100),
         # (call_script, "script_store_battlegroup_data"),    done in formations trigger

@@ -1496,7 +1496,7 @@ coop_scripts = [
           (eq, "$coop_disable_inventory", 0),#inventory access is optional
           (agent_get_player_id,":player_no",":player_agent"),#only let troops from main party use box
           (agent_get_troop_id,":player_troop", ":player_agent"),
-          (agent_get_slot, ":player_agent_party",":player_agent", slot_agent_coop_spawn_party), #SP party
+          (agent_get_slot, ":player_agent_party",":player_agent", "slot_agent_coop_spawn_party"), #SP party
           (eq, ":player_agent_party", "$coop_main_party_spawn"),
           (troop_is_hero, ":player_troop"),
           
@@ -1912,9 +1912,9 @@ coop_scripts = [
           # (agent_get_group, ":agent_group", ":cur_agent"),
           # (eq, ":agent_group", -1),#not player commanded
           (try_begin),
-            (agent_get_slot, ":x_pos", ":cur_agent", slot_agent_target_x_pos),
+            (agent_get_slot, ":x_pos", ":cur_agent", "slot_agent_target_x_pos"),
             (neq, ":x_pos", 0),
-            (agent_get_slot, ":y_pos", ":cur_agent", slot_agent_target_y_pos),
+            (agent_get_slot, ":y_pos", ":cur_agent", "slot_agent_target_y_pos"),
             (val_add, ":belfry_num_men", 1),
             (init_position, pos41),
             (position_move_x, pos41, ":x_pos"),
@@ -1947,7 +1947,7 @@ coop_scripts = [
             (agent_is_alive, ":cur_agent"),
             (agent_get_team, ":cur_agent_team", ":cur_agent"),
             (eq, "$attacker_team", ":cur_agent_team"),
-            (agent_get_slot, ":x_pos", ":cur_agent", slot_agent_target_x_pos),
+            (agent_get_slot, ":x_pos", ":cur_agent", "slot_agent_target_x_pos"),
             (eq, ":x_pos", 0),
             (assign, ":y_pos", 0),
             (store_random_in_range, ":side", 0, 2),
@@ -1958,8 +1958,8 @@ coop_scripts = [
               (assign, ":x_pos", 400),
             (try_end),
             (val_add, ":belfry_num_men", 1),
-            (agent_set_slot, ":cur_agent", slot_agent_target_x_pos, ":x_pos"),
-            (agent_set_slot, ":cur_agent", slot_agent_target_y_pos, ":y_pos"),
+            (agent_set_slot, ":cur_agent", "slot_agent_target_x_pos", ":x_pos"),
+            (agent_set_slot, ":cur_agent", "slot_agent_target_y_pos", ":y_pos"),
           (try_end),
       (try_end),
     # (else_try), #we already clear scripted in mission template
@@ -2112,7 +2112,7 @@ coop_scripts = [
         (agent_is_human, ":agent_no"),
         (agent_get_team, ":agent_team", ":agent_no"),
         (eq, ":agent_team", ":team"),
-        (agent_get_slot, ":x_pos", ":agent_no", slot_agent_target_x_pos), #if agent is not pushing belfry
+        (agent_get_slot, ":x_pos", ":agent_no", "slot_agent_target_x_pos"), #if agent is not pushing belfry
         (eq, ":x_pos", 0),
         # (agent_get_group, ":agent_group", ":agent_no"),
         # (eq, ":agent_group", -1),
@@ -2152,7 +2152,7 @@ coop_scripts = [
       (troop_get_slot, ":troop_class", ":agent_troop", slot_troop_current_rumor), #use to store class in MP (so we dont affect ai classes too)
       # (troop_get_class, ":troop_class", ":agent_troop"),
       (agent_get_class, ":agent_class", ":agent_no"),
-      (agent_get_slot, ":agent_party_no",":agent_no", slot_agent_coop_spawn_party),# coop party
+      (agent_get_slot, ":agent_party_no",":agent_no", "slot_agent_coop_spawn_party"),# coop party
       (agent_get_group, ":agent_group", ":agent_no"),
 
       (assign, ":leader_player", -1),
@@ -2165,7 +2165,7 @@ coop_scripts = [
         (player_get_agent_id, ":player_agent", ":cur_player"),
         (ge, ":player_agent", 0),
         (agent_is_alive, ":player_agent"),
-        (agent_get_slot, ":player_party_no",":player_agent", slot_agent_coop_spawn_party),# coop party
+        (agent_get_slot, ":player_party_no",":player_agent", "slot_agent_coop_spawn_party"),# coop party
 
         (try_begin),#check if players party is garrison commander party
           (eq, ":agent_party_no", "$coop_garrison_party"), #if bot is part of garrison
@@ -2264,7 +2264,7 @@ coop_scripts = [
           (player_get_agent_id, ":player_agent", ":cur_player"),
           (ge, ":player_agent", 0),
           (agent_is_alive, ":player_agent"),
-          (agent_get_slot, ":player_party_no",":player_agent", slot_agent_coop_spawn_party),# coop party
+          (agent_get_slot, ":player_party_no",":player_agent", "slot_agent_coop_spawn_party"),# coop party
           (try_begin),#check if players party is garrison commander party
             (eq, ":agent_party_no", "$coop_garrison_party"), #if bot is part of garrison
             (eq, ":player_party_no", "$coop_garrison_commander_party"), #and player is commander of garrison
@@ -2423,8 +2423,8 @@ coop_scripts = [
 
 #only server continue
       (multiplayer_is_server),
-      (agent_get_slot, ":killer_agent_party",":killer_agent_no", slot_agent_coop_spawn_party), #slot_agent_coop_spawn_party = SP party
-      (agent_get_slot, ":dead_agent_party",":dead_agent_no", slot_agent_coop_spawn_party), #slot_agent_coop_spawn_party = SP party
+      (agent_get_slot, ":killer_agent_party",":killer_agent_no", "slot_agent_coop_spawn_party"), #"slot_agent_coop_spawn_party" = SP party
+      (agent_get_slot, ":dead_agent_party",":dead_agent_no", "slot_agent_coop_spawn_party"), #"slot_agent_coop_spawn_party" = SP party
 
       (try_begin),
         (eq, ":dead_agent_team", 0),

@@ -4,8 +4,6 @@ from header_items import *
 from header_item_modifiers import *
 from header_triggers import ti_on_missile_hit, ti_on_weapon_attack, ti_on_init_item
 
-from module_constants import slot_agent_flail_using
-
 ####################################################################################################################
 # Each item record contains the following fields:
 # 1) Item id: used for referencing items in other files.
@@ -2263,7 +2261,7 @@ items = [
           (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
           (val_add, ":slot_no", bmm_item_1),
           (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
-          (agent_set_slot, ":attacker_agent_no", slot_agent_flail_using, 1),
+          (agent_set_slot, ":attacker_agent_no", "slot_agent_flail_using", 1),
           (agent_play_sound, ":attacker_agent_no", "snd_draw_flail"),
      (try_end),
   ])]],
@@ -2282,7 +2280,7 @@ items = [
       (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
       (val_add, ":slot_no", bmm_item_1),
       (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
-      (agent_set_slot, ":attacker_agent_no", slot_agent_flail_using, 1),
+      (agent_set_slot, ":attacker_agent_no", "slot_agent_flail_using", 1),
       (agent_play_sound, ":attacker_agent_no", "snd_draw_flail"),
     (try_end)]),
   #[(ti_on_weapon_attack, [(play_sound,"snd_chain"),
@@ -2301,7 +2299,7 @@ items = [
           (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
           (val_add, ":slot_no", bmm_item_1),
           (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
-          (agent_set_slot, ":attacker_agent_no", slot_agent_flail_using, 1),
+          (agent_set_slot, ":attacker_agent_no", "slot_agent_flail_using", 1),
           (agent_play_sound, ":attacker_agent_no", "snd_draw_flail"),
      (try_end),
   ])]],
@@ -2320,7 +2318,7 @@ items = [
       (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
       (val_add, ":slot_no", bmm_item_1),
       (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
-      (agent_set_slot, ":attacker_agent_no", slot_agent_flail_using, 1),
+      (agent_set_slot, ":attacker_agent_no", "slot_agent_flail_using", 1),
       (agent_play_sound, ":attacker_agent_no", "snd_draw_flail"),
     (try_end)]),
   #[(ti_on_weapon_attack, [(play_sound,"snd_chain"),
@@ -2341,7 +2339,7 @@ items = [
           (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
           (val_add, ":slot_no", bmm_item_1),
           (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
-          (agent_set_slot, ":attacker_agent_no", slot_agent_flail_using, 1),
+          (agent_set_slot, ":attacker_agent_no", "slot_agent_flail_using", 1),
           (agent_play_sound, ":attacker_agent_no", "snd_chain"),
      (try_end),
   ])]],
@@ -2352,7 +2350,7 @@ items = [
  #          (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
  #          (val_add, ":slot_no", bmm_item_1),
  #          (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
- #          (agent_set_slot, ":agent_no", slot_agent_flail_using, 1),
+ #          (agent_set_slot, ":agent_no", "slot_agent_flail_using", 1),
  #          # (agent_get_bone_position,pos1,":attacker_agent_no",hb_item_r, 1),
  #          # (play_sound_at_position, "snd_chain", pos1),
  #          (agent_play_sound, ":attacker_agent_no", "snd_chain"),
@@ -2383,7 +2381,7 @@ items = [
         (agent_get_wielded_item_slot_no, ":slot_no", ":attacker_agent_no"),
         (val_add, ":slot_no", bmm_item_1),
         (agent_body_meta_mesh_set_vertex_keys_time_point, ":attacker_agent_no", ":slot_no", 10),
-        (agent_set_slot, ":attacker_agent_no", slot_agent_flail_using, 1),
+        (agent_set_slot, ":attacker_agent_no", "slot_agent_flail_using", 1),
         (agent_play_sound, ":attacker_agent_no", "snd_draw_flail"),
     (try_end)]),
   #[(ti_on_weapon_attack, [(play_sound,"snd_chain"),

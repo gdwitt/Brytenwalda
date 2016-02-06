@@ -6,54 +6,7 @@ from header_triggers import key_z, key_t, key_o, key_f7, key_n
 # just define it here rather than copying it across each file, so
 # that it will be easy to change it if you need to.
 
-########################################################
-##  AGENT SLOTS            #############################
-########################################################
-
-
-
-# slot_agent_target_entry_point     = 0 #duplicate, chief motomataru pone off
-slot_agent_target_x_pos = 1
-slot_agent_target_y_pos = 2
-slot_agent_is_alive_before_retreat = 3
-slot_agent_is_in_scripted_mode = 4
-slot_agent_is_not_reinforcement = 5
-slot_agent_tournament_point = 6
-slot_agent_arena_team_set = 7
-slot_agent_spawn_entry_point = 8
-slot_agent_target_prop_instance = 9
-slot_agent_map_overlay_id = 10
-slot_agent_target_entry_point = 11
-# slot_agent_initial_ally_power     = 12
-# slot_agent_initial_enemy_power    = 13
-# slot_agent_enemy_threat           = 14
-slot_agent_is_running_away = 15
-slot_agent_courage_score = 16
-# slot_agent_is_respawn_as_bot      = 17
-slot_agent_cur_animation = 18
-slot_agent_next_action_time = 19
-# slot_agent_state                  = 20
-slot_agent_in_duel_with = 21
-slot_agent_duel_start_time = 22
-# slot_agent_on_ship				  = 23 #for KLABAUTERMANN only Phaiak chief sea battles
-
-# slot_agent_walker_occupation      = 25
-
-
-# COOP chief #########################################################
-slot_agent_coop_spawn_party = 26
-slot_agent_coop_banner = 27
-##################################################################
-
-# chief uso de la lance y spear en las unidades y caida de caballo
-# slot_agent_lance = 241 duplicate
-# slot_agent_spear = 242 duplicate
-slot_agent_horse = 28
-slot_agent_got_damage = 29
-
-# caba'drin chief slot para jinete sin caballo
-# slot_agent_horse_rider = 30
-slot_agent_last_weapon_toggled = 31  # Somebody's Alternate Weapon Modes
+################## Agent constants ##################
 
 # chief ordenes caba'drin
 ranged = 0
@@ -67,34 +20,6 @@ key_for_onehand = key_z
 key_for_bothhands = key_t
 key_for_ranged = key_n
 key_for_shield = key_o
-# key_for_polearms  = key_p#gdw
-# chief ordenes acaba
-# caba'drin chief fuerza uso de lanzas, spears an arcos a caballo
-slot_agent_weapon_swap = 31  # I think that should be the first available agent slot...or whatever it is
-slot_agent_lance = 32
-slot_agent_spear = 33
-# slot_agent_horsebow = 34
-# cabadrin chief acaba
-# xenoargh chief criticos
-# slot_agent_avoid      = 35
-# slot_agent_volley_fire	= 36	(see below)
-
-## from flail osp packgdw
-slot_agent_flail_using = 102
-
-##Spear Bracing Kit by The Mercenary
-# slot_agent_spearwall = 37
-# slot_agent_x = 38
-# slot_agent_y = 39
-# slot_agent_z = 40
-# slot_agent_speed = 41
-# slot_troop_horse = 179
-
-### constants amarillo sangre se gradua por puntos blood loss ###
-# Agent slots, make sure these slots are not used for something else
-slot_agent_bleed = 42
-slot_agent_rate = 43  # rate of blood loss
-slot_agent_hp = 44
 
 # Bleeding
 blood_per_hp = 600
@@ -117,45 +42,7 @@ entertainment_complex = 2
 entertainment_lordly = 3
 entertainment_royal = 4
 entertainment_speech = 5
-slot_agent_already_begg = 45
 ###bardo chief entretenimiento acabo
-
-# motomataru agent slots 46-49 (see below)
-sp_agent_shield_bash_timer = 51
-# fatiga chief
-slot_agent_fatiga = 52
-slot_agent_fatiga_inicial = 53
-### aoe
-slot_agent_has_been_healed = 54
-slot_agent_dinerotropas = 55
-
-# # agent slots  ##adjusted +20 for pbod and formations agent slots
-# slot_agent_refill_ammo_times      = 46
-# slot_agent_backup_hp              = 47 ## CC 1.322: these four lines are disabled
-# slot_agent_banner_id              = 48 # Floris: But apparently I needed to enable this line anyway.
-# slot_agent_banner_instance_no     = 49 # Floris: and this line too!
-# slot_agent_spawned                = 50 ##
-# slot_agent_hp_bar_overlay_id      = 51
-# slot_agent_hp_bar_bg_overlay_id   = 52
-
-# slot_agent_cur_weapon_1           = 53
-# slot_agent_cur_weapon_2           = 54
-# slot_agent_cur_weapon_3           = 55
-# slot_agent_cur_weapon_4           = 56
-
-# the following applied only to infantry in formation
-slot_agent_in_first_rank = 46
-slot_agent_inside_formation = 47
-slot_agent_nearest_enemy_agent = 48
-slot_agent_new_division = 49
-# horse speed
-slot_agent_horse_stamina = 50
-slot_agent_horse_is_charging = 51
-
-###caba'drin chief volley
-slot_agent_volley_fire = 36
-slot_team_d0_order_volley = 302  # plus 8 more for the other divisions
-###caba'drin acaba chief
 
 ########################################################
 ##  FACTION SLOTS          #############################
@@ -897,6 +784,7 @@ rpw_shield_bash_timer = 50
 ########################################################
 
 slot_team_flag_situation = 0
+slot_team_d0_order_volley = 302  # plus 8 more for the other divisions
 # AI and volley 1-310 (see below)
 
 # Rebellion changes end

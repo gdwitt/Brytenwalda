@@ -11976,7 +11976,7 @@ The attackers attempted to sweep the decks free of the enemy without damaging th
         (agent_is_active, ":player_agent"),
         (agent_is_alive,":player_agent"), #  test for alive players.
        (agent_is_human, ":player_agent"),
-        (agent_get_slot, ":basic_stamina", ":player_agent", slot_agent_fatiga),
+        (agent_get_slot, ":basic_stamina", ":player_agent", "slot_agent_fatiga"),
         (val_mul,":basic_stamina",52),
         (position_set_x,pos1,":basic_stamina"),
         (position_set_y,pos1,360),
@@ -11995,7 +11995,7 @@ The attackers attempted to sweep the decks free of the enemy without damaging th
         (agent_is_active, ":player_agent"),
         (agent_is_alive,":player_agent"), #  test for alive players.
        (agent_is_human, ":player_agent"),
-        (agent_get_slot, ":basic_stamina", ":player_agent", slot_agent_fatiga),
+        (agent_get_slot, ":basic_stamina", ":player_agent", "slot_agent_fatiga"),
         (try_begin),
         (gt, ":basic_stamina", 1),
         (val_mul,":basic_stamina",52),

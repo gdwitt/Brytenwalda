@@ -22,7 +22,7 @@ order_volley_triggers = [
 
         (try_for_agents, ":agent"),
             (agent_is_non_player, ":agent"),
-            (agent_slot_ge, ":agent", slot_agent_volley_fire, 1),
+            (agent_slot_ge, ":agent", "slot_agent_volley_fire", 1),
             (agent_get_ammo, ":ammo", ":agent", 1),
             (gt, ":ammo", 0),
 
@@ -31,7 +31,7 @@ order_volley_triggers = [
             (store_add, ":slot", slot_team_d0_order_volley, ":division"),
             (team_get_slot, ":volley_counter", ":team", ":slot"),
 
-            (agent_get_slot, ":volley_wpn_type", ":agent", slot_agent_volley_fire),
+            (agent_get_slot, ":volley_wpn_type", ":agent", "slot_agent_volley_fire"),
             (try_begin),
                 (eq, ":volley_wpn_type", itp_type_bow),
                 (assign, ":delay", 3),
@@ -152,8 +152,8 @@ scripts = [
              (store_add, ":class_ordered", slot_team_d0_order_volley, ":class"),
              (team_set_slot, ":team", ":class_ordered", 0),
              (try_begin),
-                (agent_slot_ge, ":agent", slot_agent_volley_fire, 1),
-                (agent_set_slot, ":agent", slot_agent_volley_fire, 0),
+                (agent_slot_ge, ":agent", "slot_agent_volley_fire", 1),
+                (agent_set_slot, ":agent", "slot_agent_volley_fire", 0),
                 (agent_set_attack_action, ":agent", 0, 0), #Release (if holding)
              (try_end),
              (str_store_string, s1, "@end volley"),
@@ -217,7 +217,7 @@ scripts = [
                     (try_end),
                 (try_end),
             (try_end),
-            (agent_set_slot, ":agent", slot_agent_volley_fire, ":volley_wpn_type"),
+            (agent_set_slot, ":agent", "slot_agent_volley_fire", ":volley_wpn_type"),
          (try_end), #Volley End or Begin
      (try_end), #Agent loop
 

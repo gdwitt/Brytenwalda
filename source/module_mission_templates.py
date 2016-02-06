@@ -1268,7 +1268,7 @@ mission_templates = [
          #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
          #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
          #min starting : 3600, max starting  : 9600, average starting : 7200
-         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":initial_courage_score"),
          ]),
 
       common_battle_init_banner,
@@ -1598,7 +1598,7 @@ mission_templates = [
 ##     (agent_is_alive, ":rider"),
 ##     (agent_is_non_player, ":rider"),
 ##     
-##     (agent_set_slot, ":horse", slot_agent_horse_rider, ":rider"),
+##     (agent_set_slot, ":horse", "slot_agent_horse_rider", ":rider"),
 ##   ]),
 ##   
 ##
@@ -1606,7 +1606,7 @@ mission_templates = [
 ##   [
 ##    (store_trigger_param_1, ":dead_horse"),
 ##     
-##     (agent_get_slot, ":rider", ":dead_horse", slot_agent_horse_rider),
+##     (agent_get_slot, ":rider", ":dead_horse", "slot_agent_horse_rider"),
 ##     (agent_is_active, ":rider"),
 ##     # (agent_is_alive, ":rider"),
 ##     (agent_is_non_player, ":rider"),
@@ -1630,7 +1630,7 @@ mission_templates = [
 					(try_for_agents, ":agent_no"),
 						(agent_is_active, ":agent_no"),
 						(agent_is_alive, ":agent_no"),
-						(agent_slot_eq, ":agent_no", slot_agent_flail_using, 1),
+						(agent_slot_eq, ":agent_no", "slot_agent_flail_using", 1),
 						(agent_get_wielded_item, ":wielded_weapon", ":agent_no", 0),
 						(try_begin),
 							(this_or_next|eq, ":wielded_weapon", "itm_flail1_blunt"),
@@ -1655,10 +1655,10 @@ mission_templates = [
 								(agent_body_meta_mesh_set_vertex_keys_time_point, ":agent_no", ":slot_no", ":vertex_animation_time"),
 							(else_try),
 								(agent_body_meta_mesh_set_vertex_keys_time_point, ":agent_no", ":slot_no", 65),
-								(agent_set_slot, ":agent_no", slot_agent_flail_using, 0),
+								(agent_set_slot, ":agent_no", "slot_agent_flail_using", 0),
 							(try_end),
 						(else_try),
-							(agent_set_slot, ":agent_no", slot_agent_flail_using, 0),
+							(agent_set_slot, ":agent_no", "slot_agent_flail_using", 0),
 						(try_end),
 					(try_end),
 				]),
@@ -1771,7 +1771,7 @@ mission_templates = [
          #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
          #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
          #min starting : 3600, max starting  : 9600, average starting : 7200
-         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":initial_courage_score"),
          ]),
 		  	  
       common_battle_init_banner,
@@ -1947,7 +1947,7 @@ mission_templates = [
 ##     (agent_is_alive, ":rider"),
 ##     (agent_is_non_player, ":rider"),
 ##     
-##     (agent_set_slot, ":horse", slot_agent_horse_rider, ":rider"),
+##     (agent_set_slot, ":horse", "slot_agent_horse_rider", ":rider"),
 ##   ]),
 ##   
 ##
@@ -1955,7 +1955,7 @@ mission_templates = [
 ##   [
 ##    (store_trigger_param_1, ":dead_horse"),
 ##     
-##     (agent_get_slot, ":rider", ":dead_horse", slot_agent_horse_rider),
+##     (agent_get_slot, ":rider", ":dead_horse", "slot_agent_horse_rider"),
 ##     (agent_is_active, ":rider"),
 ##     # (agent_is_alive, ":rider"),
 ##     (agent_is_non_player, ":rider"),
@@ -2054,7 +2054,7 @@ mission_templates = [
          #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
          #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
          #min starting : 3600, max starting  : 9600, average starting : 7200
-         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":initial_courage_score"),
          ]),
   
       common_battle_init_banner,
@@ -2236,7 +2236,7 @@ mission_templates = [
 ##     (agent_is_alive, ":rider"),
 ##     (agent_is_non_player, ":rider"),
 ##     
-##     (agent_set_slot, ":horse", slot_agent_horse_rider, ":rider"),
+##     (agent_set_slot, ":horse", "slot_agent_horse_rider", ":rider"),
 ##   ]),
 ##   
 ##
@@ -2244,7 +2244,7 @@ mission_templates = [
 ##   [
 ##    (store_trigger_param_1, ":dead_horse"),
 ##     
-##     (agent_get_slot, ":rider", ":dead_horse", slot_agent_horse_rider),
+##     (agent_get_slot, ":rider", ":dead_horse", "slot_agent_horse_rider"),
 ##     (agent_is_active, ":rider"),
 ##     # (agent_is_alive, ":rider"),
 ##     (agent_is_non_player, ":rider"),
@@ -2428,7 +2428,7 @@ mission_templates = [
 ##		 (agent_get_troop_id,":troop_id",":agent_no"),
 ##		 (try_begin),
 ##			(is_between,":troop_id",dungeon_prisoners_begin,dungeon_prisoners_end),
-##			(agent_set_slot,":agent_no",slot_agent_tournament_point,0),#using slot to store if agent has been talked to or not in dialogs.py
+##			(agent_set_slot,":agent_no","slot_agent_tournament_point",0),#using slot to store if agent has been talked to or not in dialogs.py
 ##		 (try_end),
 ##         ]),
 		 
@@ -2779,7 +2779,7 @@ mission_templates = [
 ##		 (agent_get_troop_id,":troop_id",":agent_no"),
 ##		 (try_begin),
 ##			(is_between,":troop_id",dungeon_prisoners_begin,dungeon_prisoners_end),
-##			(agent_set_slot,":agent_no",slot_agent_tournament_point,0),#using slot to store if agent has been talked to or not in dialogs.py
+##			(agent_set_slot,":agent_no","slot_agent_tournament_point",0),#using slot to store if agent has been talked to or not in dialogs.py
 ##		 (try_end),
 ##         ]),
 		 
@@ -3628,7 +3628,7 @@ mission_templates = [
          (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
          (val_add, ":initial_courage_score", ":morale_effect_on_courage"), 
          
-         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":initial_courage_score"),
          ]),
 ###corage acaba
       (ti_tab_pressed, 0, 0, [],
@@ -3764,7 +3764,7 @@ mission_templates = [
          (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
          (val_add, ":initial_courage_score", ":morale_effect_on_courage"), 
          
-         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
+         (agent_set_slot, ":agent_no", "slot_agent_courage_score", ":initial_courage_score"),
          ]),
 ###corage acaba
       (ti_tab_pressed, 0, 0, [],
@@ -7518,14 +7518,14 @@ torneo_aumenta_dano, #dunde torneo chief
              (store_random_in_range, ":random_no", 0, 3),
              (try_begin),
                (eq, ":random_no", 0),
-               (agent_set_slot, ":agent_no", slot_agent_cur_animation, "anim_wedding_guest_notr"),
+               (agent_set_slot, ":agent_no", "slot_agent_cur_animation", "anim_wedding_guest_notr"),
                (agent_set_animation, ":agent_no", "anim_wedding_guest_notr"),
              (else_try),
-               (agent_set_slot, ":agent_no", slot_agent_cur_animation, "anim_wedding_guest"),
+               (agent_set_slot, ":agent_no", "slot_agent_cur_animation", "anim_wedding_guest"),
                (agent_set_animation, ":agent_no", "anim_wedding_guest"),
              (try_end),
            (else_try), #female
-             (agent_set_slot, ":agent_no", slot_agent_cur_animation, "anim_wedding_guest_woman"),
+             (agent_set_slot, ":agent_no", "slot_agent_cur_animation", "anim_wedding_guest_woman"),
              (agent_set_animation, ":agent_no", "anim_wedding_guest_woman"),
            (try_end),
            (store_random_in_range, ":progress", 0, 100),
@@ -7548,7 +7548,7 @@ torneo_aumenta_dano, #dunde torneo chief
            (else_try),
              (eq, ":troop_no", "$g_wedding_bishop_troop"),
            (else_try),
-             (agent_get_slot, ":cur_animation", ":agent_no", slot_agent_cur_animation),
+             (agent_get_slot, ":cur_animation", ":agent_no", "slot_agent_cur_animation"),
              (agent_set_animation, ":agent_no", ":cur_animation"),
            (try_end),
          (try_end),
@@ -7850,7 +7850,7 @@ torneo_aumenta_dano, #dunde torneo chief
          (agent_set_no_death_knock_down_only, ":agent_no", 1),
          (agent_set_invulnerable_shield, ":agent_no", 1),
          (agent_get_position, pos1, ":agent_no"),
-         (agent_set_slot, ":agent_no", slot_agent_spawn_entry_point, -1),
+         (agent_set_slot, ":agent_no", "slot_agent_spawn_entry_point", -1),
          (get_player_agent_no, ":player_agent"),
          (try_begin),
            (eq, ":agent_no", ":player_agent"),
@@ -7860,7 +7860,7 @@ torneo_aumenta_dano, #dunde torneo chief
            (entry_point_get_position, pos2, ":cur_entry_point"),
            (get_sq_distance_between_positions, ":dist", pos1, pos2),
            (lt, ":dist", 100), #10 cm
-           (agent_set_slot, ":agent_no", slot_agent_spawn_entry_point, ":cur_entry_point"),
+           (agent_set_slot, ":agent_no", "slot_agent_spawn_entry_point", ":cur_entry_point"),
          (try_end),
          (agent_get_troop_id, ":cur_agent_troop", ":agent_no"),
          (try_begin),
@@ -7878,12 +7878,12 @@ torneo_aumenta_dano, #dunde torneo chief
              (assign, ":shortest_dist", ":cur_dist"),
              (assign, ":best_instance", ":spr_instance"),
            (try_end),
-           (agent_set_slot, ":agent_no", slot_agent_target_prop_instance, ":best_instance"),
+           (agent_set_slot, ":agent_no", "slot_agent_target_prop_instance", ":best_instance"),
          (else_try),
            (this_or_next|eq, ":cur_agent_troop", "trp_tutorial_rider_1"),
            (eq, ":cur_agent_troop", "trp_tutorial_rider_2"),
-           (agent_set_slot, ":agent_no", slot_agent_target_entry_point, 48),
-           (agent_set_slot, ":agent_no", slot_agent_target_prop_instance, -1),
+           (agent_set_slot, ":agent_no", "slot_agent_target_entry_point", 48),
+           (agent_set_slot, ":agent_no", "slot_agent_target_prop_instance", -1),
            (entry_point_get_position, pos1, 48),
            (agent_set_scripted_destination, ":agent_no", pos1),
          (try_end),
@@ -8115,16 +8115,16 @@ torneo_aumenta_dano, #dunde torneo chief
              (neq, ":cur_wielded_item", "itm_practice_bow"),
              (agent_set_wielded_item, ":cur_agent", "itm_practice_bow"),
            (else_try),
-             (agent_get_slot, ":look_spr", ":cur_agent", slot_agent_target_prop_instance),
+             (agent_get_slot, ":look_spr", ":cur_agent", "slot_agent_target_prop_instance"),
              (prop_instance_get_position, pos1, ":look_spr"),
              (position_move_z, pos1, 10),
              (agent_set_look_target_position, ":cur_agent", pos1),
              (try_begin),
-               (neg|agent_slot_ge, ":cur_agent", slot_agent_next_action_time, ":cur_time"),
+               (neg|agent_slot_ge, ":cur_agent", "slot_agent_next_action_time", ":cur_time"),
                (agent_set_attack_action, ":cur_agent", 0),
                (store_random_in_range, ":next_action_time", 3, 13),
                (val_add, ":next_action_time", ":cur_time"),
-               (agent_set_slot, ":cur_agent", slot_agent_next_action_time, ":next_action_time"),
+               (agent_set_slot, ":cur_agent", "slot_agent_next_action_time", ":next_action_time"),
              (try_end),
            (try_end),
          (try_end),
@@ -8137,7 +8137,7 @@ torneo_aumenta_dano, #dunde torneo chief
            (agent_get_troop_id, ":cur_agent_troop", ":cur_agent"),
            (this_or_next|eq, ":cur_agent_troop", "trp_tutorial_rider_1"),
            (eq, ":cur_agent_troop", "trp_tutorial_rider_2"),
-           (agent_get_slot, ":target_entry_point", ":cur_agent", slot_agent_target_entry_point),
+           (agent_get_slot, ":target_entry_point", ":cur_agent", "slot_agent_target_entry_point"),
            (entry_point_get_position, pos1, ":target_entry_point"),
            (agent_get_position, pos2, ":cur_agent"),
            (get_sq_distance_between_positions, ":cur_dist", pos1, pos2),
@@ -8148,7 +8148,7 @@ torneo_aumenta_dano, #dunde torneo chief
                (gt, ":target_entry_point", 57), #last entry point
                (assign, ":target_entry_point", 48), #first entry point
              (try_end),
-             (agent_set_slot, ":cur_agent", slot_agent_target_entry_point, ":target_entry_point"),
+             (agent_set_slot, ":cur_agent", "slot_agent_target_entry_point", ":target_entry_point"),
              (entry_point_get_position, pos1, ":target_entry_point"),
              (agent_set_scripted_destination, ":cur_agent", pos1),
            (try_end),
@@ -8164,7 +8164,7 @@ torneo_aumenta_dano, #dunde torneo chief
                (assign, ":best_instance", -1),
                (try_for_range, ":cur_instance", 0, ":num_instances"),
                  (scene_prop_get_instance, ":spr_instance", "spr_archery_target_with_hit_a", ":cur_instance"),
-                 (neg|agent_slot_eq, ":cur_agent", slot_agent_target_prop_instance, ":spr_instance"),
+                 (neg|agent_slot_eq, ":cur_agent", "slot_agent_target_prop_instance", ":spr_instance"),
                  (prop_instance_get_position, pos1, ":spr_instance"),
                  (position_is_behind_position, pos2, pos1), #target is facing towards us
                  (get_sq_distance_between_positions, ":cur_dist", pos1, pos2),
@@ -8182,10 +8182,10 @@ torneo_aumenta_dano, #dunde torneo chief
                  (copy_position, pos1, pos4),
                  (agent_set_look_target_position, ":cur_agent", pos1),
                  (lt, ":shortest_dist", 22500), #15 meters
-                 (agent_set_slot, ":cur_agent", slot_agent_target_prop_instance, ":best_instance"),
+                 (agent_set_slot, ":cur_agent", "slot_agent_target_prop_instance", ":best_instance"),
                  (agent_set_attack_action, ":cur_agent", 0),
                (else_try),
-                 (agent_get_slot, ":last_instance", ":cur_agent", slot_agent_target_prop_instance),
+                 (agent_get_slot, ":last_instance", ":cur_agent", "slot_agent_target_prop_instance"),
                  (ge, ":last_instance", 0),
                  (prop_instance_get_position, pos1, ":last_instance"),
                  (get_sq_distance_between_positions, ":cur_dist", pos1, pos2),
@@ -8210,7 +8210,7 @@ torneo_aumenta_dano, #dunde torneo chief
                (assign, ":best_instance", -1),
                (try_for_range, ":cur_instance", 0, ":num_instances"),
                  (scene_prop_get_instance, ":spr_instance", "spr_dummy_a_undestructable", ":cur_instance"),
-                 (neg|agent_slot_eq, ":cur_agent", slot_agent_target_prop_instance, ":spr_instance"),
+                 (neg|agent_slot_eq, ":cur_agent", "slot_agent_target_prop_instance", ":spr_instance"),
                  (prop_instance_get_position, pos1, ":spr_instance"),
                  (get_sq_distance_between_positions, ":cur_dist", pos1, pos2),
                  (lt, ":cur_dist", ":shortest_dist"),
@@ -8245,9 +8245,9 @@ torneo_aumenta_dano, #dunde torneo chief
                  (this_or_next|lt, ":shortest_dist", 900), #3 meters
                  (lt, ":local_y", 100), #1 meter
                  (agent_set_attack_action, ":cur_agent", 0, 0), #release
-                 (agent_set_slot, ":cur_agent", slot_agent_target_prop_instance, ":best_instance"),
+                 (agent_set_slot, ":cur_agent", "slot_agent_target_prop_instance", ":best_instance"),
                (else_try),
-                 (agent_get_slot, ":last_instance", ":cur_agent", slot_agent_target_prop_instance),
+                 (agent_get_slot, ":last_instance", ":cur_agent", "slot_agent_target_prop_instance"),
                  (ge, ":last_instance", 0),
                  (prop_instance_get_position, pos1, ":last_instance"),
                  (get_sq_distance_between_positions, ":cur_dist", pos1, pos2),
@@ -8285,15 +8285,15 @@ torneo_aumenta_dano, #dunde torneo chief
              (neq, ":cur_wielded_item", "itm_practice_bow"),
              (agent_set_wielded_item, ":cur_agent", "itm_practice_bow"),
            (else_try),
-             (agent_get_slot, ":look_spr", ":cur_agent", slot_agent_target_prop_instance),
+             (agent_get_slot, ":look_spr", ":cur_agent", "slot_agent_target_prop_instance"),
              (prop_instance_get_position, pos1, ":look_spr"),
              (agent_set_look_target_position, ":cur_agent", pos1),
              (try_begin),
-               (neg|agent_slot_ge, ":cur_agent", slot_agent_next_action_time, ":cur_time"),
+               (neg|agent_slot_ge, ":cur_agent", "slot_agent_next_action_time", ":cur_time"),
                (agent_set_attack_action, ":cur_agent", 0),
                (store_random_in_range, ":next_action_time", 3, 13),
                (val_add, ":next_action_time", ":cur_time"),
-               (agent_set_slot, ":cur_agent", slot_agent_next_action_time, ":next_action_time"),
+               (agent_set_slot, ":cur_agent", "slot_agent_next_action_time", ":next_action_time"),
              (try_end),
            (try_end),
          (try_end),
@@ -8685,7 +8685,7 @@ torneo_aumenta_dano, #dunde torneo chief
                (this_or_next|eq, ":cur_agent_troop", "trp_tutorial_fighter_3"),
                (eq, ":cur_agent_troop", "trp_tutorial_fighter_4"),
                (agent_set_team, ":cur_agent", 7),
-               (agent_get_slot, ":spawn_point", ":cur_agent", slot_agent_spawn_entry_point),
+               (agent_get_slot, ":spawn_point", ":cur_agent", "slot_agent_spawn_entry_point"),
                (entry_point_get_position, pos1, ":spawn_point"),
                (agent_set_scripted_destination, ":cur_agent", pos1),
                (agent_force_rethink, ":cur_agent"),
@@ -8828,7 +8828,7 @@ torneo_aumenta_dano, #dunde torneo chief
                (this_or_next|eq, ":cur_agent_troop", "trp_tutorial_fighter_3"),
                (eq, ":cur_agent_troop", "trp_tutorial_fighter_4"),
                (agent_set_team, ":cur_agent", 7),
-               (agent_get_slot, ":spawn_point", ":cur_agent", slot_agent_spawn_entry_point),
+               (agent_get_slot, ":spawn_point", ":cur_agent", "slot_agent_spawn_entry_point"),
                (entry_point_get_position, pos1, ":spawn_point"),
                (agent_set_scripted_destination, ":cur_agent", pos1),
                (agent_force_rethink, ":cur_agent"),
@@ -8973,7 +8973,7 @@ torneo_aumenta_dano, #dunde torneo chief
                (this_or_next|eq, ":cur_agent_troop", "trp_tutorial_fighter_3"),
                (eq, ":cur_agent_troop", "trp_tutorial_fighter_4"),
                (agent_set_team, ":cur_agent", 7),
-               (agent_get_slot, ":spawn_point", ":cur_agent", slot_agent_spawn_entry_point),
+               (agent_get_slot, ":spawn_point", ":cur_agent", "slot_agent_spawn_entry_point"),
                (entry_point_get_position, pos1, ":spawn_point"),
                (agent_set_scripted_destination, ":cur_agent", pos1),
                (agent_force_rethink, ":cur_agent"),
@@ -9096,7 +9096,7 @@ torneo_aumenta_dano, #dunde torneo chief
                (this_or_next|eq, ":cur_agent_troop", "trp_tutorial_fighter_3"),
                (eq, ":cur_agent_troop", "trp_tutorial_fighter_4"),
                (agent_set_team, ":cur_agent", 7),
-               (agent_get_slot, ":spawn_point", ":cur_agent", slot_agent_spawn_entry_point),
+               (agent_get_slot, ":spawn_point", ":cur_agent", "slot_agent_spawn_entry_point"),
                (entry_point_get_position, pos1, ":spawn_point"),
                (agent_set_scripted_destination, ":cur_agent", pos1),
                (agent_force_rethink, ":cur_agent"),
@@ -9265,7 +9265,7 @@ torneo_aumenta_dano, #dunde torneo chief
                  (entry_point_get_position, pos1, 31),
                  (agent_set_scripted_destination, ":cur_agent", pos1),
                (else_try),
-                 (agent_get_slot, ":spawn_point", ":cur_agent", slot_agent_spawn_entry_point),
+                 (agent_get_slot, ":spawn_point", ":cur_agent", "slot_agent_spawn_entry_point"),
                  (entry_point_get_position, pos1, ":spawn_point"),
                  (agent_set_scripted_destination, ":cur_agent", pos1),
                (try_end),
@@ -13234,7 +13234,7 @@ torneo_aumenta_dano, #dunde torneo chief
 			#average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
 			#morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
 			#min starting : 3600, max starting  : 9600, average starting : 7200
-			(agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
+			(agent_set_slot, ":agent_no", "slot_agent_courage_score", ":initial_courage_score"),
 		 (try_end),#Tempered added to remove invalid party bug from horse spawns		
          ]),		
 		

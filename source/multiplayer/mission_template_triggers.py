@@ -83,8 +83,8 @@ sistema_fatiga_multi = (ti_on_agent_spawn, 0, 0, [
         (store_agent_hit_points,":cur_agent_hp",":agent_no", 1), # stores the hp value of the alive and human players.
         (assign, ":basic_stamina",":cur_agent_hp"),
         (val_add, ":basic_stamina", 20), #obtenemos total fatigue min 60 max 141
-        (agent_set_slot, ":agent_no", slot_agent_fatiga_inicial, ":basic_stamina"), #se la aplicamos al agente
-        (agent_set_slot, ":agent_no", slot_agent_fatiga, ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga_inicial", ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga", ":basic_stamina"), #se la aplicamos al agente
 
            (start_presentation, "prsnt_staminabar_multi"),
         #    (try_end),
@@ -125,12 +125,12 @@ suma_fatigue_multi = (4, 0, 0, [(is_presentation_active, "prsnt_staminabar_multi
       (agent_is_human, ":agent_no"),
 ##            (try_begin),
 ##        (is_presentation_active, "prsnt_staminabar_multi"),
-        (agent_get_slot, ":basic_stamina", ":agent_no", slot_agent_fatiga),
-        (agent_get_slot, ":basic_stamina_i", ":agent_no", slot_agent_fatiga_inicial),
+        (agent_get_slot, ":basic_stamina", ":agent_no", "slot_agent_fatiga"),
+        (agent_get_slot, ":basic_stamina_i", ":agent_no", "slot_agent_fatiga_inicial"),
         (lt, ":basic_stamina", ":basic_stamina_i"),
 
         (val_add, ":basic_stamina", 6), #siempre va a sumar un minimo de 1
-        (agent_set_slot, ":agent_no", slot_agent_fatiga, ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga", ":basic_stamina"), #se la aplicamos al agente
 ##            (else_try),
 ##           (start_presentation, "prsnt_staminabar_multi"),
 ##    (try_end),
@@ -146,8 +146,8 @@ fatigue_bots_multi = (30, 0, 0, [
       (agent_is_human, ":agent_no"),
         (assign, ":basic_stamina",70),
         (val_add, ":basic_stamina", 5), #obtenemos total fatigue min 60 max 141
-        (agent_set_slot, ":agent_no", slot_agent_fatiga_inicial, ":basic_stamina"), #se la aplicamos al agente
-       (agent_set_slot, ":agent_no", slot_agent_fatiga, ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga_inicial", ":basic_stamina"), #se la aplicamos al agente
+       (agent_set_slot, ":agent_no", "slot_agent_fatiga", ":basic_stamina"), #se la aplicamos al agente
     (try_end),
     ])
 
@@ -239,7 +239,7 @@ resta_fatigue_porcorrer_multi = (4, 0, 0, [         (is_presentation_active, "pr
         (game_key_clicked, gk_jump),#por saltar
          (val_add, ":stamina_coste", 4),
             (try_end),
-                (agent_get_slot, ":basic_stamina", ":agent_no", slot_agent_fatiga),
+                (agent_get_slot, ":basic_stamina", ":agent_no", "slot_agent_fatiga"),
 
             (try_begin),
         (le, ":basic_stamina", 4),
@@ -254,7 +254,7 @@ resta_fatigue_porcorrer_multi = (4, 0, 0, [         (is_presentation_active, "pr
         (val_sub, ":basic_stamina", ":stamina_coste"), #maximo 10 para un hombre totalmente equipado, y minimo 1 para un picto desnudo
 
         (val_max, ":basic_stamina", 1), #siempre va a restar un minimo de 1
-        (agent_set_slot, ":agent_no", slot_agent_fatiga, ":basic_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga", ":basic_stamina"), #se la aplicamos al agente
 #    (try_end),
 # (try_end),
 
@@ -301,17 +301,17 @@ resta_fatigue_multi= (1, 0, 0, [      (is_presentation_active, "prsnt_staminabar
 ##            (is_between, ":wielded", "itm_shieldtarcza19", "itm_norman_shield_1"),
 ##            (val_add, ":stamina_cost", 1), #pierde fatiga cada golpe.
 ##        (try_end),
-        (agent_get_slot, ":inflicted_stamina", ":agent_no", slot_agent_fatiga),
+        (agent_get_slot, ":inflicted_stamina", ":agent_no", "slot_agent_fatiga"),
         (val_sub, ":inflicted_stamina", ":stamina_cost"),
         (val_max, ":inflicted_stamina", 1),
-        (agent_set_slot, ":agent_no", slot_agent_fatiga, ":inflicted_stamina"), #se la aplicamos al agente
+        (agent_set_slot, ":agent_no", "slot_agent_fatiga", ":inflicted_stamina"), #se la aplicamos al agente
 
     (try_end),
 
 ##    (store_trigger_param_3, ":damage"),
 ##   (gt, ":damage", 0),
 
-    (agent_get_slot, ":basic_stamina", ":agent_no", slot_agent_fatiga),
+    (agent_get_slot, ":basic_stamina", ":agent_no", "slot_agent_fatiga"),
 
     (try_begin),
 ##        (le, ":basic_stamina", 10), #animacion y sonido aplicados en correr ya
@@ -438,12 +438,12 @@ hunt_taunting = (0, 0, 60, [(key_clicked, key_u)], # o pressed?
               (agent_is_alive,":agent"),
               (agent_get_team, ":target_team", ":agent"),
               (eq, ":target_team", ":wielder_team"),
-                   (agent_set_slot,":agent", slot_agent_has_been_healed, 0), #chief
+                   (agent_set_slot,":agent", "slot_agent_has_been_healed", 0), #chief
               #(neq,":agent",":player_agent"),
               (agent_get_position,pos4,":agent"),
               (get_distance_between_positions,":dist",pos6,pos4),
               (le,":dist",3500),
-              (agent_get_slot, ":healed", ":agent", slot_agent_has_been_healed),
+              (agent_get_slot, ":healed", ":agent", "slot_agent_has_been_healed"),
               (eq, ":healed", 0),
                           (store_agent_hit_points, ":cur_hp",":agent",0),
                           (try_begin),
@@ -452,7 +452,7 @@ hunt_taunting = (0, 0, 60, [(key_clicked, key_u)], # o pressed?
                               (val_add,":cur_hit_points",6),
                               (agent_set_hit_points,":agent",":cur_hit_points",1),
 
-                              (agent_set_slot,":agent", slot_agent_has_been_healed, 1),
+                              (agent_set_slot,":agent", "slot_agent_has_been_healed", 1),
                               (val_add, ":heal_count", 1),
 ##                (agent_get_player_id,":player",":agent"), #msg para heal #puesto off para no saturar de mensajes
 ##                     (multiplayer_send_2_int_to_server,multiplayer_event_message_server, 6, ":player"), ### 1 ist the number of healing
@@ -578,11 +578,11 @@ banner_heal_multi = (0, 0, 60, [(key_clicked, key_j)], # o pressed?
               (agent_get_team, ":target_team", ":agent"),
               (eq, ":target_team", ":wielder_team"),
               #(neq,":agent",":player_agent"),
-                   (agent_set_slot,":agent", slot_agent_has_been_healed, 0), #chief
+                   (agent_set_slot,":agent", "slot_agent_has_been_healed", 0), #chief
               (agent_get_position,pos4,":agent"),
               (get_distance_between_positions,":dist",pos6,pos4),
               (le,":dist",1500),
-              (agent_get_slot, ":healed", ":agent", slot_agent_has_been_healed),
+              (agent_get_slot, ":healed", ":agent", "slot_agent_has_been_healed"),
               (eq, ":healed", 0),
                           (store_agent_hit_points, ":cur_hp",":agent",0),
                           (try_begin),
@@ -591,7 +591,7 @@ banner_heal_multi = (0, 0, 60, [(key_clicked, key_j)], # o pressed?
                               (val_add,":cur_hit_points",20),
                               (agent_set_hit_points,":agent",":cur_hit_points",1),
 
-                              (agent_set_slot,":agent", slot_agent_has_been_healed, 1),
+                              (agent_set_slot,":agent", "slot_agent_has_been_healed", 1),
                               (val_add, ":heal_count", 1),
 ##                (agent_get_player_id,":player",":agent"), #msg para heal #puesto off chief para no saturar
 ##                     (multiplayer_send_2_int_to_server,multiplayer_event_message_server, 7, ":player"), ### 1 ist the number of healing
@@ -1155,7 +1155,7 @@ multiplayer_server_spawn_bots2 = (
           (multiplayer_get_my_troop, ":troop_no"),
         (player_get_team_no, ":player_team_no", ":player"),
 
-          (player_get_slot, ":basic_dinero", ":player", slot_agent_dinerotropas),
+          (player_get_slot, ":basic_dinero", ":player", "slot_agent_dinerotropas"),
              (try_begin), #chief capitan
                   (eq, ":basic_dinero", 1),
 
@@ -1174,7 +1174,7 @@ multiplayer_server_spawn_bots2 = (
              (assign, ":player_gold", ":per_round_gold_addition"),
                 (try_end), #chief capitan acaba
            (player_set_gold, ":player", ":player_gold", multi_max_gold_that_can_be_stored),
-                 (player_set_slot, ":player", slot_agent_dinerotropas, 0),
+                 (player_set_slot, ":player", "slot_agent_dinerotropas", 0),
                 (try_end), #chief capitan acaba
 
           (player_get_gold, ":player_gold", ":player"), #chief capitan
@@ -1251,8 +1251,8 @@ multiplayer_server_spawn_bots2 = (
 
 
        (assign, ":unidad_cost", 50), #chief capitan
-                # (player_set_slot, ":player_no", slot_agent_dinerotropas, ":player_gold"),
-        # (player_slot_ge, ":player_no", slot_agent_dinerotropas, 250),
+                # (player_set_slot, ":player_no", "slot_agent_dinerotropas", ":player_gold"),
+        # (player_slot_ge, ":player_no", "slot_agent_dinerotropas", 250),
 
       (try_begin),
         (eq, ":selected_team", 0),
