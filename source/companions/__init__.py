@@ -78,7 +78,7 @@ triggers = [
                     # todo: this is related to spy missions; move it to another trigger.
                     # return npc after spy mission
                     (troop_slot_eq, ":npc", slot_troop_current_mission, dplmc_npc_mission_spy_request),
-                    (troop_slot_ge, ":npc", dplmc_slot_troop_mission_diplomacy, 1),
+                    (troop_slot_ge, ":npc", slot_troop_mission_diplomacy, 1),
 
                     # trp_merc_infantryt5 is the troop for failed spy missions
                     (troop_set_slot, "trp_merc_infantryt5", slot_troop_mission_object, ":npc"),

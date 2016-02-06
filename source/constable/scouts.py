@@ -8,7 +8,7 @@ from source.header_troops import *
 from source.header_skills import *
 from source.lazy_flag import LazyFlag
 from source.module_constants import slot_party_type, spt_scout, slot_party_home_center, \
-    slot_party_ai_object, slot_party_orders_object, dplmc_slot_party_mission_diplomacy, \
+    slot_party_ai_object, slot_party_orders_object, slot_party_mission_diplomacy, \
     kingdoms_begin, kingdoms_end, walled_centers_begin, walled_centers_end, \
     towns_begin, towns_end, castles_begin, castles_end, slot_party_food_store
 
@@ -131,19 +131,19 @@ simple_triggers = [
                 # spy arrived after successful mission
                 (eq, ":target_party", "p_main_party"),
 
-                (party_get_slot, ":mission_target", ":party_no", dplmc_slot_party_mission_diplomacy),
+                (party_get_slot, ":mission_target", ":party_no", slot_party_mission_diplomacy),
                 (call_script, "script_add_notification_menu", "mnu_dplmc_scout", ":mission_target", 0),
 
                 (remove_party, ":party_no"),
             (else_try),
                 (neq, ":target_party", "p_main_party"),
-                (party_get_slot, ":hours", ":party_no", dplmc_slot_party_mission_diplomacy),
+                (party_get_slot, ":hours", ":party_no", slot_party_mission_diplomacy),
 
                 (try_begin),
                     (le, ":hours", 100),
                     (disable_party, ":party_no"),
                     (val_add, ":hours", 1),
-                    (party_set_slot, ":party_no", dplmc_slot_party_mission_diplomacy, ":hours"),
+                    (party_set_slot, ":party_no", slot_party_mission_diplomacy, ":hours"),
 
                     (try_begin),
                         # spy was caught
@@ -161,7 +161,7 @@ simple_triggers = [
                     (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
                     (party_set_ai_object, ":party_no", "p_main_party"),
                     (party_set_slot, ":party_no", slot_party_ai_object, "p_main_party"),
-                    (party_set_slot, ":party_no", dplmc_slot_party_mission_diplomacy, ":target_party"),
+                    (party_set_slot, ":party_no", slot_party_mission_diplomacy, ":target_party"),
                 (try_end),
             (try_end),
         (try_end),

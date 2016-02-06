@@ -3140,11 +3140,11 @@ presentations = [
        		##nested diplomacy start+ insert g_presentation_obj_5, g_presentation_obj_6 and increment others
 		
 		##Moved up here from below
-        (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
-        (faction_get_slot, ":aristocratcy", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
-        (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
-        (faction_get_slot, ":quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
-		(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", dplmc_slot_faction_quality),#<- dplmc+ added
+        (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+        (faction_get_slot, ":aristocratcy", "fac_player_supporters_faction", slot_faction_aristocracy),
+        (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+        (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
+		(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_quality),#<- dplmc+ added
 
         # done
         (create_game_button_overlay, "$g_presentation_obj_12", "@Done"),#<- dplmc+ changed obj_10 to obj_12
@@ -3191,11 +3191,11 @@ presentations = [
 		(create_text_overlay, "$g_presentation_obj_10", "@Mercantilistic policies maximize exports while minimizing imports, and increase government regulation of industry."),#<-dplmc+ added
         
 		##Moved earlier
-        #(faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
-        #(faction_get_slot, ":aristocratcy", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
-        #(faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
-        #(faction_get_slot, ":quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
-		#(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", dplmc_slot_faction_quality),#<- dplmc+ added		
+        #(faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
+        #(faction_get_slot, ":aristocratcy", "fac_player_supporters_faction", slot_faction_aristocracy),
+        #(faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
+        #(faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
+		#(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_quality),#<- dplmc+ added
 
         (overlay_set_val, "$g_presentation_obj_sliders_1", ":centralization"),
         (overlay_set_val, "$g_presentation_obj_sliders_2", ":aristocratcy"),
@@ -3294,29 +3294,29 @@ presentations = [
 		#Added new option, so had to increment some sliders
         (try_begin),
           (eq, ":object", "$g_presentation_obj_sliders_1"),
-          (faction_set_slot,  "fac_player_supporters_faction", dplmc_slot_faction_centralization, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_centralization, ":value"),
           (val_add, ":value", "str_dplmc_neither_centralize_nor_decentralized"),
           (overlay_set_text, "$g_presentation_obj_sliders_6", ":value"),#dplmc+ incremented "sliders"
         (else_try),          
           (eq, ":object", "$g_presentation_obj_sliders_2"),
-          (faction_set_slot,  "fac_player_supporters_faction", dplmc_slot_faction_aristocracy, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_aristocracy, ":value"),
           (val_add, ":value", "str_dplmc_neither_aristocratic_nor_plutocratic"),
           (overlay_set_text, "$g_presentation_obj_sliders_7", ":value"),#dplmc+ incremented "sliders"
         (else_try),          
           (eq, ":object", "$g_presentation_obj_sliders_3"),
-          (faction_set_slot,  "fac_player_supporters_faction", dplmc_slot_faction_serfdom, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_serfdom, ":value"),
           (val_add, ":value", "str_dplmc_mixture_serfs"),
           (overlay_set_text, "$g_presentation_obj_sliders_8", ":value"),#dplmc+ incremented "sliders"
         (else_try),          
           (eq, ":object", "$g_presentation_obj_sliders_4"),
-          (faction_set_slot,  "fac_player_supporters_faction", dplmc_slot_faction_quality, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_quality, ":value"),
           (val_add, ":value", "str_dplmc_mediocre_quality"),
           (overlay_set_text, "$g_presentation_obj_sliders_9", ":value"),#dplmc+ incremented "sliders"
 		#Finished incremented sliders.
 		(else_try),
 		  #dplmc+ new option: mercantilism
 		  (eq, ":object", "$g_presentation_obj_sliders_5"),
-          (faction_set_slot,  "fac_player_supporters_faction", dplmc_slot_faction_mercantilism, ":value"),
+          (faction_set_slot,  "fac_player_supporters_faction", slot_faction_mercantilism, ":value"),
           (val_add, ":value", "str_dplmc_neither_mercantilist_nor_laissez_faire"),
           (overlay_set_text, "$g_presentation_obj_sliders_10", ":value"),
 		#Change variable associated with "Done" button.
@@ -5249,7 +5249,7 @@ presentations = [
         (assign, ":patrol_troop", 0),
         (try_begin),
           (party_slot_eq, ":party_no",slot_party_type, spt_patrol),
-          (party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),          
+          (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
           (assign, ":patrol_troop", 1),
         (try_end),
         (this_or_next|eq, ":patrol_troop", 1),
@@ -5309,7 +5309,7 @@ presentations = [
         ##diplomacy chief begin
         (try_begin),
           (neg|is_between, ":center_no", castles_begin, castles_end), 
-          (party_get_slot, ":tax_rate", ":center_no", dplmc_slot_center_taxation),
+          (party_get_slot, ":tax_rate", ":center_no", slot_center_taxation),
           (neq, ":tax_rate", 0),
           (call_script, "script_dplmc_describe_tax_rate_to_s50", ":tax_rate"),
           (str_store_string, s0, "@{s0} ({s50})"),
@@ -5417,20 +5417,20 @@ presentations = [
         (try_begin),
           (faction_slot_eq, "fac_player_supporters_faction", slot_faction_state, sfs_active),
           (try_begin),
-            (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+            (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
             (neq, ":centralization", 0),
             (val_mul, ":centralization", 5),
             (val_add, ":percent", ":centralization"),
           (try_end),
           (try_begin),
-            (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
+            (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
             (neq, ":serfdom", 0),
             (val_mul, ":serfdom", 3),
             (val_add, ":percent", ":serfdom"),
           (try_end),
         (else_try),
           (gt, "$players_kingdom", 0),  
-          (faction_get_slot, ":centralization", "$players_kingdom", dplmc_slot_faction_centralization),
+          (faction_get_slot, ":centralization", "$players_kingdom", slot_faction_centralization),
           (neq, ":centralization", 0),
           (val_mul, ":centralization", -5),
           (val_add, ":percent", ":centralization"),          
@@ -5509,7 +5509,7 @@ presentations = [
         (assign, ":patrol_troop", 0),
         (try_begin),
           (party_slot_eq, ":party_no",slot_party_type, spt_patrol),
-           (party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),         
+           (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
           (assign, ":patrol_troop", 1),
         (try_end),
         (this_or_next|eq, ":patrol_troop", 1),
@@ -5746,14 +5746,14 @@ presentations = [
                        
               ##Floris + diplomacy begin
             (try_begin),           
-                (party_get_slot, ":tax_rate", ":center_no", dplmc_slot_center_taxation),
+                (party_get_slot, ":tax_rate", ":center_no", slot_center_taxation),
                 (neq, ":tax_rate", 0),
                 (store_div, ":rent_change", ":base_rent", 100),
                 (val_mul, ":rent_change", ":tax_rate"),
                 (val_add, ":cur_rents", ":rent_change"),
             (try_end),
             (try_begin),
-                (faction_get_slot, ":aristocracy", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
+                (faction_get_slot, ":aristocracy", "fac_player_supporters_faction", slot_faction_aristocracy),
                 (neq, ":aristocracy", 0),
                 (val_mul, ":aristocracy", 5), #10
                 (store_div, ":rent_change", ":base_rent", 100),
@@ -5761,7 +5761,7 @@ presentations = [
                 (val_add, ":cur_rents", ":rent_change"),
             (try_end),
             (try_begin),
-                (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+                (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
                 (neq, ":centralization", 0),
                 (val_mul, ":centralization", 10), #20
                 (store_div, ":rent_change", ":base_rent", 100),
@@ -5769,7 +5769,7 @@ presentations = [
                 (val_add, ":cur_rents", ":rent_change"),
             (try_end),
             (try_begin),
-                (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
+                (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
                 (neq, ":serfdom", 0),
                 (val_mul, ":serfdom", 2), #5
                 (store_div, ":rent_change", ":base_rent", 100),

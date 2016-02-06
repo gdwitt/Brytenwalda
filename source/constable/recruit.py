@@ -10,9 +10,9 @@ from source.lazy_flag import LazyFlag
 from source.statement import StatementBlock
 
 from source.module_constants import slot_party_type, spt_town, dplmc_spt_recruiter, \
-    dplmc_slot_party_recruiter_origin, kingdoms_begin, kingdoms_end, \
-    dplmc_slot_party_recruiter_needed_recruits, dplmc_slot_party_recruiter_needed_recruits_faction, \
-    npc_kingdoms_begin, npc_kingdoms_end, dplmc_slot_village_reserved_by_recruiter, \
+    slot_party_recruiter_origin, kingdoms_begin, kingdoms_end, \
+    slot_party_recruiter_needed_recruits, slot_party_recruiter_needed_recruits_faction, \
+    npc_kingdoms_begin, npc_kingdoms_end, slot_village_reserved_by_recruiter, \
     slot_center_volunteer_troop_amount, slot_center_volunteer_troop_type, \
     slot_center_player_relation, slot_center_original_faction, slot_village_state, \
     svs_looted, svs_being_raided, slot_village_infested_by_bandits, slot_party_ai_object, \
@@ -89,7 +89,7 @@ dialogs = [
 
         (try_for_parties, ":party_no"),
             (party_slot_eq, ":party_no", slot_party_type, dplmc_spt_recruiter),
-            (party_slot_eq, ":party_no", dplmc_slot_party_recruiter_origin, "$current_town"),
+            (party_slot_eq, ":party_no", slot_party_recruiter_origin, "$current_town"),
             (val_add, ":recruiter_amount", 1),
         (try_end),
 
@@ -111,7 +111,7 @@ dialogs = [
 
         (try_for_parties, ":party_no"),
             (party_slot_eq, ":party_no", slot_party_type, dplmc_spt_recruiter),
-            (party_slot_eq, ":party_no", dplmc_slot_party_recruiter_origin, "$current_town"),
+            (party_slot_eq, ":party_no", slot_party_recruiter_origin, "$current_town"),
             (val_add, ":recruiter_amount", 1),
         (try_end),
         (lt, ":recruiter_amount", ":max_recruiters"),
@@ -191,8 +191,8 @@ dialogs += [
     ],
    
     ['trp_recruiter', "dplmc_recruiter_talk_2", [
-        (party_get_slot, reg1, "$g_encountered_party", dplmc_slot_party_recruiter_needed_recruits),
-        (party_get_slot, ":recruit_faction", "$g_encountered_party", dplmc_slot_party_recruiter_needed_recruits_faction),
+        (party_get_slot, reg1, "$g_encountered_party", slot_party_recruiter_needed_recruits),
+        (party_get_slot, ":recruit_faction", "$g_encountered_party", slot_party_recruiter_needed_recruits_faction),
 
         (store_sub, ":offset", ":recruit_faction", "fac_kingdom_1"),
         (val_add, ":offset", "str_kingdom_1_adjective"),
@@ -224,7 +224,7 @@ dialogs += [
     ]],
  
     ['trp_recruiter', "dplmc_recruiter_talk_4", [
-        (party_set_slot, "$g_encountered_party", dplmc_slot_party_recruiter_needed_recruits_faction, "$temp")
+        (party_set_slot, "$g_encountered_party", slot_party_recruiter_needed_recruits_faction, "$temp")
         ], "Sure, {reg65?madame:sir}. I will. Anything else you want?", "dplmc_recruiter_talk", []
     ],
 ]
@@ -245,10 +245,10 @@ scripts = [
         (assign, ":spawned_party", reg0),
         (party_set_ai_behavior, ":spawned_party", ai_bhvr_hold),
         (party_set_slot, ":spawned_party", slot_party_type, dplmc_spt_recruiter),
-        (party_set_slot, ":spawned_party", dplmc_slot_party_recruiter_needed_recruits, ":number_of_recruits"),
-        (party_set_slot, ":spawned_party", dplmc_slot_party_recruiter_needed_recruits_faction, ":faction_of_recruits"),
+        (party_set_slot, ":spawned_party", slot_party_recruiter_needed_recruits, ":number_of_recruits"),
+        (party_set_slot, ":spawned_party", slot_party_recruiter_needed_recruits_faction, ":faction_of_recruits"),
 
-        (party_set_slot, ":spawned_party", dplmc_slot_party_recruiter_origin, "$current_town"),
+        (party_set_slot, ":spawned_party", slot_party_recruiter_origin, "$current_town"),
         (assign, ":faction", "$players_kingdom"),
         (party_set_faction, ":spawned_party", ":faction"),
     ]),
@@ -276,8 +276,8 @@ consequences_battle_lost = StatementBlock(
             (str_store_string, s10, "@ near {s10}"),
         (try_end),
 
-        (party_get_slot, reg10, ":root_defeated_party", dplmc_slot_party_recruiter_needed_recruits),
-        (party_get_slot, ":party_origin", ":root_defeated_party", dplmc_slot_party_recruiter_origin),
+        (party_get_slot, reg10, ":root_defeated_party", slot_party_recruiter_needed_recruits),
+        (party_get_slot, ":party_origin", ":root_defeated_party", slot_party_recruiter_origin),
         (str_store_party_name_link, s13, ":party_origin"),
         (display_log_message, "@Your recruiter who was commissioned to recruit {reg10} recruits "
                               "to {s13} has been defeated{s10}!", 0xFF0000),
@@ -290,7 +290,7 @@ simple_triggers = [
         (try_for_parties, ":party_no"),
             (party_slot_eq, ":party_no", slot_party_type, dplmc_spt_recruiter),
 
-            (party_get_slot, ":needed", ":party_no", dplmc_slot_party_recruiter_needed_recruits),
+            (party_get_slot, ":needed", ":party_no", slot_party_recruiter_needed_recruits),
 
             (party_get_num_companion_stacks, ":stacks", ":party_no"),
             (assign, ":destruction", 1),
@@ -306,7 +306,7 @@ simple_triggers = [
                 (party_get_battle_opponent, ":opponent", ":party_no"),
                 (lt, ":opponent", 0),
                 (eq, ":destruction", 1),
-                (party_get_slot, ":party_origin", ":party_no", dplmc_slot_party_recruiter_origin),
+                (party_get_slot, ":party_origin", ":party_no", slot_party_recruiter_origin),
                 (str_store_party_name_link, s13, ":party_origin"),
                 (assign, reg10, ":needed"),
                 (display_log_message, "@Your recruiter who was commissioned to recruit {reg10} "
@@ -319,7 +319,7 @@ simple_triggers = [
 
             # todo: vanished why?
             (try_begin),
-                (party_get_slot, ":party_origin", ":party_no", dplmc_slot_party_recruiter_origin),
+                (party_get_slot, ":party_origin", ":party_no", slot_party_recruiter_origin),
                 (store_faction_of_party, ":origin_faction", ":party_origin"),
                 (neq, ":origin_faction", "$players_kingdom"),
                 (str_store_party_name_link, s13, ":party_origin"),
@@ -335,7 +335,7 @@ simple_triggers = [
             (party_get_num_companions, ":amount", ":party_no"),
             (val_sub, ":amount", 1),  # the recruiter himself doesn't count.
 
-            (party_get_slot, ":recruit_faction", ":party_no", dplmc_slot_party_recruiter_needed_recruits_faction),
+            (party_get_slot, ":recruit_faction", ":party_no", slot_party_recruiter_needed_recruits_faction),
 
             # If the recruiter has less troops than player ordered, new village will be set as target.
             # todo: why is this outside the try_begin?
@@ -347,7 +347,7 @@ simple_triggers = [
                 (try_begin),
                     (neq, ":previous_behavior", ai_bhvr_hold),
                     (neq, ":previous_target", -1),
-                    (party_set_slot, ":previous_target", dplmc_slot_village_reserved_by_recruiter, 0),
+                    (party_set_slot, ":previous_target", slot_village_reserved_by_recruiter, 0),
                 (try_end),
 
                 (assign, ":min_distance", 999999),
@@ -358,7 +358,7 @@ simple_triggers = [
 
                     recruiter_village_conditions,
 
-                    (neg | party_slot_eq, ":village", dplmc_slot_village_reserved_by_recruiter, 1),
+                    (neg | party_slot_eq, ":village", slot_village_reserved_by_recruiter, 1),
                     (assign, ":min_distance", ":distance"),
                     (assign, ":closest_village", ":village"),
                 (try_end),
@@ -368,7 +368,7 @@ simple_triggers = [
                 (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
                 (party_set_ai_object, ":party_no", ":closest_village"),
                 (party_set_slot, ":party_no", slot_party_ai_object, ":closest_village"),
-                (party_set_slot, ":closest_village", dplmc_slot_village_reserved_by_recruiter, 1),
+                (party_set_slot, ":closest_village", slot_village_reserved_by_recruiter, 1),
             (try_end),
 
             # conditi
@@ -405,7 +405,7 @@ simple_triggers = [
                     (party_set_ai_behavior, ":party_no", ai_bhvr_hold),
 
                     # make village non-reserved so party does not return here.
-                    (party_set_slot, ":village", dplmc_slot_village_reserved_by_recruiter, 0),
+                    (party_set_slot, ":village", slot_village_reserved_by_recruiter, 0),
                 (else_try),
                     (le, ":volunteers_in_village", ":still_needed"),
                     (gt, ":volunteers_in_village", 0),
@@ -414,14 +414,14 @@ simple_triggers = [
 
                     (party_add_members, ":party_no", ":village_volunteer_type", ":volunteers_in_village"),
                     (party_set_ai_behavior, ":party_no", ai_bhvr_hold),
-                    (party_set_slot, ":village", dplmc_slot_village_reserved_by_recruiter, 0),
+                    (party_set_slot, ":village", slot_village_reserved_by_recruiter, 0),
                 (else_try),
                     (le, ":volunteers_in_village", 0),
                     (party_set_ai_behavior, ":party_no", ai_bhvr_hold),
-                    (party_set_slot, ":village", dplmc_slot_village_reserved_by_recruiter, 0),
+                    (party_set_slot, ":village", slot_village_reserved_by_recruiter, 0),
                 (else_try),
                     (display_message, "@ERROR IN THE RECRUITER KIT SIMPLE TRIGGERS!", 0xFF2222),
-                    (party_set_slot, ":village", dplmc_slot_village_reserved_by_recruiter, 0),
+                    (party_set_slot, ":village", slot_village_reserved_by_recruiter, 0),
                 (try_end),
             (try_end),
         (try_end),
@@ -432,11 +432,11 @@ simple_triggers = [
 
             (party_get_num_companions, ":amount", ":p_recruiter"),
             (val_sub, ":amount", 1),  # the recruiter himself doesn't count
-            (party_get_slot, ":needed", ":p_recruiter", dplmc_slot_party_recruiter_needed_recruits),
+            (party_get_slot, ":needed", ":p_recruiter", slot_party_recruiter_needed_recruits),
             (eq, ":amount", ":needed"),
 
             # set to travel back to town
-            (party_get_slot, ":party_origin", ":p_recruiter", dplmc_slot_party_recruiter_origin),
+            (party_get_slot, ":party_origin", ":p_recruiter", slot_party_recruiter_origin),
             (try_begin),
                 (neg|party_slot_eq, ":p_recruiter", slot_party_ai_object, ":party_origin"),
                 (party_set_slot, ":p_recruiter", slot_party_ai_object, ":party_origin"),
@@ -465,10 +465,10 @@ simple_triggers = [
         (try_end),
     ]),
 
-    # updates the dplmc_slot_village_reserved_by_recruiter
+    # updates the slot_village_reserved_by_recruiter
     (12, [
         (try_for_range, ":village", villages_begin, villages_end),
-            (party_set_slot, ":village", dplmc_slot_village_reserved_by_recruiter, 0),
+            (party_set_slot, ":village", slot_village_reserved_by_recruiter, 0),
         (try_end),
     ]),
 ]

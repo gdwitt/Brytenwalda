@@ -2048,13 +2048,13 @@ scripts = [
           ##diplomacy chief  begin
           (assign, ":defender_percent", 100),
           (try_begin),
-            (faction_get_slot, ":serfdom", ":defender_faction", dplmc_slot_faction_serfdom),
+            (faction_get_slot, ":serfdom", ":defender_faction", slot_faction_serfdom),
             (neq, ":serfdom", 0),
             (val_mul, ":serfdom", -2),
             (val_add, ":defender_percent", ":serfdom"),         
           (try_end),
           (try_begin),
-            (faction_get_slot, ":quality", ":defender_faction", dplmc_slot_faction_quality),
+            (faction_get_slot, ":quality", ":defender_faction", slot_faction_quality),
             (neq, ":quality", 0),
             (val_mul, ":quality", 4),
             (val_add, ":defender_percent", ":quality"),
@@ -2064,13 +2064,13 @@ scripts = [
           
           (assign, ":attacker_percent", 100),
           (try_begin),
-            (faction_get_slot, ":serfdom", ":attacker_faction", dplmc_slot_faction_serfdom),
+            (faction_get_slot, ":serfdom", ":attacker_faction", slot_faction_serfdom),
             (neq, ":serfdom", 0),
             (val_mul, ":serfdom", -2),
             (val_add, ":attacker_percent", ":serfdom"), 
           (try_end),
           (try_begin),
-            (faction_get_slot, ":quality", ":attacker_faction", dplmc_slot_faction_quality),
+            (faction_get_slot, ":quality", ":attacker_faction", slot_faction_quality),
             (neq, ":quality", 0),
             (val_mul, ":quality", 4),
             (val_add, ":attacker_percent", ":quality"),
@@ -2159,7 +2159,7 @@ scripts = [
           (else_try),
             (str_store_party_name, s13, ":target_party"),
           (end_try),        
-          (party_get_slot, ":gift", ":root_defeated_party", dplmc_slot_party_mission_diplomacy),
+          (party_get_slot, ":gift", ":root_defeated_party", slot_party_mission_diplomacy),
           (str_store_item_name, s12, ":gift"),
           (display_log_message, "@Your caravan sending {s12} to {s13} has been defeated {s10}!", 0xFF0000), #chief moficiado diplomacy
         (try_end),
@@ -3535,7 +3535,7 @@ scripts = [
       (try_end),
 	  ##diplomacy start+ chief
 	  #If the player leads a kingdom, take into account centralization.
-	  (faction_get_slot, ":centralization", "$players_kingdom", dplmc_slot_faction_centralization),
+	  (faction_get_slot, ":centralization", "$players_kingdom", slot_faction_centralization),
 	  (try_begin),
 		  (neq, ":centralization", 0),
 
@@ -5233,7 +5233,7 @@ scripts = [
 #tempered cambia acbaa chief
           ##diplomacy begin
           (try_begin),
-            (faction_get_slot, ":centralization", ":faction_id", dplmc_slot_faction_centralization),
+            (faction_get_slot, ":centralization", ":faction_id", slot_faction_centralization),
             (neq, ":centralization", 0),
 			##diplomacy start+ Apply constraint
 			(val_clamp, ":centralization", ":policy_min", ":policy_max"),
@@ -5244,7 +5244,7 @@ scripts = [
 
         (else_try),
           (try_begin),
-            (faction_get_slot, ":centralization", ":faction_id", dplmc_slot_faction_centralization),
+            (faction_get_slot, ":centralization", ":faction_id", slot_faction_centralization),
             (neq, ":centralization", 0),
 			##diplomacy start+ Apply constraint
 			(val_clamp, ":centralization", ":policy_min", ":policy_max"),
@@ -5253,7 +5253,7 @@ scripts = [
             (val_add, ":percent", ":centralization"),
           (try_end),
           (try_begin),
-            (faction_get_slot, ":aristocraty", ":faction_id", dplmc_slot_faction_aristocracy),
+            (faction_get_slot, ":aristocraty", ":faction_id", slot_faction_aristocracy),
             (neq, ":aristocraty", 0),
 			##diplomacy start+ Apply constraint
 			(val_clamp, ":aristocraty", ":policy_min", ":policy_max"),
@@ -5262,7 +5262,7 @@ scripts = [
             (val_add, ":percent", ":aristocraty"),
           (try_end),
           (try_begin),
-            (faction_get_slot, ":quality", ":faction_id", dplmc_slot_faction_quality),
+            (faction_get_slot, ":quality", ":faction_id", slot_faction_quality),
             (neq, ":quality", 0),
 			##diplomacy start+ Apply constraint
 			(val_clamp, ":quality", ":policy_min", ":policy_max"),
@@ -5275,7 +5275,7 @@ scripts = [
         (try_end),
         ##diplomacy begin chief
         (try_begin),
-          (faction_get_slot, ":serfdom", ":faction_id", dplmc_slot_faction_serfdom),
+          (faction_get_slot, ":serfdom", ":faction_id", slot_faction_serfdom),
           (neq, ":serfdom", 0),
 		  ##diplomacy start+ Apply constraint
 		  (val_clamp, ":serfdom", ":policy_min", ":policy_max"),
@@ -12770,7 +12770,7 @@ scripts = [
       (store_script_param_1, ":center_no"),
       (store_script_param_2, ":faction_no"),
       ##diplomacy chief begin
-      (party_set_slot, ":center_no", dplmc_slot_center_taxation, 0),
+      (party_set_slot, ":center_no", slot_center_taxation, 0),
       (try_begin),
         (party_slot_eq, ":center_no", slot_village_infested_by_bandits, "trp_peasant_woman"),
         (party_set_slot, ":center_no", slot_village_infested_by_bandits, 0),
@@ -13196,7 +13196,7 @@ scripts = [
       (store_script_param, ":lord_troop_id", 2), #-1 only in the case of a player deferring ownership of a center
       (store_script_param, ":add_garrison", 3),
       ##diplomacy chief begin
-      (party_set_slot, ":center_no", dplmc_slot_center_taxation, 0),
+      (party_set_slot, ":center_no", slot_center_taxation, 0),
       (try_begin),
         (party_slot_eq, ":center_no", slot_village_infested_by_bandits, "trp_peasant_woman"),
         (party_set_slot, ":center_no", slot_village_infested_by_bandits, 0),
@@ -13933,7 +13933,7 @@ scripts = [
 	  #in autocalc battles)
 	  (try_begin),
 		(is_between, ":party_faction", kingdoms_begin, kingdoms_end),
-		(faction_get_slot, ":dplmc_quality", ":party_faction", dplmc_slot_faction_quality),
+		(faction_get_slot, ":dplmc_quality", ":party_faction", slot_faction_quality),
 		(val_clamp, ":dplmc_quality", -3, 4),
 		(val_add, ":rand", ":dplmc_quality"),
 		(val_clamp, ":rand", 0, 101),
@@ -14848,8 +14848,8 @@ scripts = [
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,":center_no",centro_bloqueado, 0),               
-       (party_set_slot,":center_no",centro_bloqueado_puerto, 0),
+       (party_set_slot,":center_no", slot_center_blockaded, 0),
+       (party_set_slot,":center_no", slot_center_port_blockaded, 0),
          #siege warfare acaba
       (try_end),
       (try_begin),
@@ -16571,7 +16571,7 @@ scripts = [
 				##diplomacy start+ chief
 		#Replace number required for quorum, altering it based on the centralization
 		#value.  Do the same for the minimum time left on the agenda.
-		(faction_get_slot, ":centralization", ":faction_no", dplmc_slot_faction_centralization),
+		(faction_get_slot, ":centralization", ":faction_no", slot_faction_centralization),
 		(val_clamp, ":centralization", -3, 4),
 		(try_begin),
 			#Disable this for now, since NPC kingdoms set their policies randomly.
@@ -16586,7 +16586,7 @@ scripts = [
 				#and/or village elders into the faction issue system is something to consider
 				#for the future.
 				(ge, ":number_required_for_quorum", 16),
-				(faction_get_slot, ":aristocracy", ":faction_no", dplmc_slot_faction_aristocracy),
+				(faction_get_slot, ":aristocracy", ":faction_no", slot_faction_aristocracy),
 				(lt, ":aristocracy", 0),
 				(val_clamp, ":aristocracy", -3, 4),
 				(val_add, ":number_required_for_quorum", ":aristocracy"),
@@ -21025,7 +21025,7 @@ scripts = [
       (try_for_range, ":center_no", centers_begin, centers_end),
         (store_faction_of_party, ":faction_no", ":center_no"),
         (eq, ":faction_no", "fac_player_supporters_faction"),
-        (party_slot_eq, ":center_no", slot_town_claimed_by_player, 0),
+        #(party_slot_eq, ":center_no", slot_town_claimed_by_player, 0),
         (party_get_num_companion_stacks, ":num_stacks", ":center_no"),
         (ge, ":num_stacks", 1), #castle is garrisoned
         (assign, reg1, ":center_no"),
@@ -46649,7 +46649,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (store_faction_of_troop, ":player_faction", "trp_player"),
     (party_set_faction, ":spawned_party", ":player_faction"),
     (party_set_slot, ":spawned_party", slot_party_type, spt_messenger),
-    (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":message"),
+    (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":message"),
     (party_set_slot, ":spawned_party", slot_party_home_center, "$current_town"),
     
     (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),     
@@ -46677,7 +46677,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (party_add_members, ":spawned_party", "trp_dplmc_messenger", 1),
     (party_set_faction, ":spawned_party", "fac_player_faction"),
     (party_set_slot, ":spawned_party", slot_party_type, spt_messenger),
-    (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":message"),
+    (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":message"),
     (party_set_slot, ":spawned_party", slot_party_home_center, "$current_town"),
     
     (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),     
@@ -46748,7 +46748,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (spawn_around_party, "$current_town", "pt_dplmc_gift_caravan"),
     (assign,":spawned_party",reg0),
     (party_set_slot, ":spawned_party", slot_party_type, dplmc_spt_gift_caravan),
-    (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":gift"),
+    (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":gift"),
     (party_set_slot, ":spawned_party",  slot_party_orders_object,  ":target_troop"),
 
     (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),
@@ -46756,7 +46756,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (party_set_slot, ":spawned_party", slot_party_ai_object, ":target_party"),
     (party_stack_get_troop_id, ":caravan_master", ":spawned_party", 0),
     (troop_set_slot, ":caravan_master", slot_troop_leaded_party, ":spawned_party"),
-    (party_set_slot, ":spawned_party", dplmc_slot_party_mission_parameter_1, ":original_amount"),
+    (party_set_slot, ":spawned_party", slot_party_mission_parameter_1, ":original_amount"),
     ]),
     
   ("dplmc_send_gift_to_center",
@@ -46802,7 +46802,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (spawn_around_party, "$current_town", "pt_dplmc_gift_caravan"),
     (assign,":spawned_party",reg0),
     (party_set_slot, ":spawned_party", slot_party_type, dplmc_spt_gift_caravan),
-    (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":gift"),
+    (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":gift"),
     (party_set_slot, ":spawned_party",  slot_party_orders_object, 0),
 
     (party_set_ai_behavior, ":spawned_party", ai_bhvr_travel_to_party),
@@ -46811,7 +46811,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (party_stack_get_troop_id, ":caravan_master", ":spawned_party", 0),
     (troop_set_slot, ":caravan_master", slot_troop_leaded_party, ":spawned_party"),
     (troop_set_slot, ":caravan_master", slot_troop_leaded_party, ":spawned_party"),
-    (party_set_slot, ":spawned_party", dplmc_slot_party_mission_parameter_1, ":original_amount"),
+    (party_set_slot, ":spawned_party", slot_party_mission_parameter_1, ":original_amount"),
     ]),
     
   ("dplmc_troop_political_notes_to_s47",
@@ -46952,13 +46952,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_for_range, ":kingdom", npc_kingdoms_begin, npc_kingdoms_end),    
       (try_begin),
         (store_random_in_range, ":random", -3, 4),
-        (faction_set_slot, ":kingdom", dplmc_slot_faction_centralization, ":random"),  
+        (faction_set_slot, ":kingdom", slot_faction_centralization, ":random"),
         (store_random_in_range, ":random", -3, 4),
-        (faction_set_slot, ":kingdom", dplmc_slot_faction_aristocracy, ":random"),  
+        (faction_set_slot, ":kingdom", slot_faction_aristocracy, ":random"),
         (store_random_in_range, ":random", -3, 4),
-        (faction_set_slot, ":kingdom", dplmc_slot_faction_quality, ":random"),  
+        (faction_set_slot, ":kingdom", slot_faction_quality, ":random"),
         (store_random_in_range, ":random", -3, 4),
-        (faction_set_slot, ":kingdom", dplmc_slot_faction_serfdom, ":random"),  
+        (faction_set_slot, ":kingdom", slot_faction_serfdom, ":random"),
       (try_end),
     (try_end),
   ]),
@@ -47058,7 +47058,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(assign, ":push_reg1", reg1),#revert register value at end of script
 	
 	(faction_get_slot, ":faction_liege", ":faction_no", slot_faction_leader),
-	(faction_get_slot, reg0, ":faction_no", dplmc_slot_faction_centralization),
+	(faction_get_slot, reg0, ":faction_no", slot_faction_centralization),
 	(val_clamp, reg0, -3, 4),
 	(val_mul, reg0, -5),
 	(try_begin),		

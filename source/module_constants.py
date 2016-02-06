@@ -382,17 +382,17 @@ sfai_feast = 6  # can be feast, wedding, or major tournament
 # Social events are a generic aristocratic gathering. Tournaments take place if they are in a town, and hunts take place if they are at a castle.
 # Weddings will take place at social events between betrothed couples if they have been engaged for at least a month, if the lady's guardian is the town lord, and if both bride and groom are present
 
-dplmc_slot_faction_policy_time = 110
-dplmc_slot_faction_centralization = 111
-dplmc_slot_faction_aristocracy = 112
-dplmc_slot_faction_serfdom = 113
-dplmc_slot_faction_quality = 114
-dplmc_slot_faction_patrol_time = 115
+slot_faction_policy_time = 110
+slot_faction_centralization = 111
+slot_faction_aristocracy = 112
+slot_faction_serfdom = 113
+slot_faction_quality = 114
+slot_faction_patrol_time = 115
 
-# dplmc_slot_faction_attitude                   = 116	MOTO not used
-# dplmc_slot_faction_attitude_begin             = 240	MOTO duplicates script_npc_decision_checklist_peace_or_war
+# slot_faction_attitude                   = 116	MOTO not used
+# slot_faction_attitude_begin             = 240	MOTO duplicates script_npc_decision_checklist_peace_or_war
 ##diplomacy start+ add faction slots for additional policies
-dplmc_slot_faction_mercantilism = 117  # + mercantilism / - free trade
+slot_faction_mercantilism = 117  # + mercantilism / - free trade
 
 # Other slots
 # use faction slots to remember information between battles
@@ -484,8 +484,8 @@ slot_town_horse_merchant = 24
 slot_town_elder = 25
 slot_center_player_relation = 26
 ##gdw from floris: diplomacy start+ This range doesn't need to be exhaustive (e.g. the seneschal isn't included), but it should be continuous
-# dplmc_slot_town_merchants_begin = slot_town_tavernkeeper
-# dplmc_slot_town_merchants_end = slot_town_elder + 1
+# slot_town_merchants_begin = slot_town_tavernkeeper
+# slot_town_merchants_end = slot_town_elder + 1
 ##diplomacy end+
 
 slot_center_siege_with_belfry = 27
@@ -780,13 +780,13 @@ slot_production_sources_end = 233
 
 # SoD Faith chief y edificios
 slot_center_sod_local_faith = 237
-center_religion_pagana = 238
+slot_center_religion_pagan = 238
 # chief acaba
 
 slot_town_last_nearby_fire_time = 239
 slot_town_port = 240  # town has port
 slot_town_is_coastal = 241  # town is reachable by sea trade
-slot_saqueo_state = 242  # town was sacked
+slot_town_sacked = 242  # town was sacked
 slot_town_lord_old = 243  # MOTO tested in game_menus but never set...
 
 # slot_town_trade_good_prices_begin            = slot_town_trade_good_productions_begin + num_trade_goods + 1
@@ -832,8 +832,8 @@ slot_troop_poisoned = 170  # indicates that the troop has been poisoned by the p
 # tempered chief acaba
 
 ####Siege warfare chief
-centro_bloqueado = 400
-centro_bloqueado_puerto = 401
+slot_center_blockaded = 400
+slot_center_port_blockaded = 401
 slot_center_siege_with_ram = 402
 
 # dplmc party slots 403-421 (below)
@@ -844,15 +844,15 @@ slot_center_siege_with_ram = 402
 
 ##diplomacy begin
 # recruiter kit begin
-dplmc_slot_party_recruiter_needed_recruits = 233  # Amount of recruits the employer ordered.
-dplmc_slot_party_recruiter_origin = 234  # Walled center from where the recruiter was hired.
-dplmc_slot_village_reserved_by_recruiter = 235  # This prevents recruiters from going to villages targeted by other recruiters.
-dplmc_slot_party_recruiter_needed_recruits_faction = 236  # Alkhadias Master, you forgot this one from the PM you sent me :D
+slot_party_recruiter_needed_recruits = 233  # Amount of recruits the employer ordered.
+slot_party_recruiter_origin = 234  # Walled center from where the recruiter was hired.
+slot_village_reserved_by_recruiter = 235  # This prevents recruiters from going to villages targeted by other recruiters.
+slot_party_recruiter_needed_recruits_faction = 236  # Alkhadias Master, you forgot this one from the PM you sent me :D
 dplmc_spt_recruiter = 12
 ##diplomacy start+ Re-use those slots for other party types#gdw floris origin and paramter 2
-# dplmc_slot_party_origin = dplmc_slot_party_recruiter_origin
-dplmc_slot_party_mission_parameter_1 = dplmc_slot_party_recruiter_needed_recruits
-# dplmc_slot_party_mission_parameter_2 = dplmc_slot_party_recruiter_needed_recruits_faction
+# slot_party_origin = slot_party_recruiter_origin
+slot_party_mission_parameter_1 = slot_party_recruiter_needed_recruits
+# slot_party_mission_parameter_2 = slot_party_recruiter_needed_recruits_faction
 ##diplomacy end+
 
 
@@ -939,7 +939,7 @@ slot_party_cabadrin_order_d8 = slot_town_arena_melee_cur_tier
 # At start of battle initialized at 33
 
 
-dplmc_slot_party_mission_diplomacy = 300
+slot_party_mission_diplomacy = 300
 
 
 slot_party_orig_morale = slot_party_ai_rationale
@@ -957,17 +957,17 @@ slot_town_bank_assets = 500
 slot_town_bank_debt = 501
 slot_town_bank_deadline = 502
 
-dplmc_slot_center_taxation = 400
-dplmc_slot_village_trade_last_returned_from_market = 405  # overlapped with dplmc_slot_town_trade_route_last_arrival_1
+slot_center_taxation = 400
+slot_village_trade_last_returned_from_market = 405  # overlapped with slot_town_trade_route_last_arrival_1
 
-dplmc_slot_village_trade_last_arrived_to_market = 408  # overlaps with dplmc_slot_town_trade_route_last_arrival_2
+slot_village_trade_last_arrived_to_market = 408  # overlaps with slot_town_trade_route_last_arrival_2
 
-dplmc_slot_town_trade_route_last_arrival_1 = 407
-# ... dplmc_slot_town_trade_route_last_arrival_i ...
-dplmc_slot_town_trade_route_last_arrival_15 = dplmc_slot_town_trade_route_last_arrival_1 + 14
+slot_town_trade_route_last_arrival_1 = 407
+# ... slot_town_trade_route_last_arrival_i ...
+slot_town_trade_route_last_arrival_15 = slot_town_trade_route_last_arrival_1 + 14
 
-dplmc_slot_town_trade_route_last_arrivals_begin = dplmc_slot_town_trade_route_last_arrival_1
-dplmc_slot_town_trade_route_last_arrivals_end = dplmc_slot_town_trade_route_last_arrival_15 + 1
+slot_town_trade_route_last_arrivals_begin = slot_town_trade_route_last_arrival_1
+slot_town_trade_route_last_arrivals_end = slot_town_trade_route_last_arrival_15 + 1
 
 # seafare of Duh chief
 slot_town_has_ship = 490
@@ -1055,9 +1055,9 @@ slot_troop_betrothed = 34  # Obviously superseded once slot_troop_spouse is fill
 # slot_troop_son                 = 34
 # slot_troop_sibling             = 35
 ##diplomacy start+#gdw florisNOTE TO MODDERS: There is code that depends on these slots appearing in the correct order and being continuous.
-# dplmc_slot_troop_relatives_begin = slot_troop_spouse
-# dplmc_slot_troop_relatives_end   = slot_troop_betrothed
-# dplmc_slot_troop_relatives_including_betrothed_end = slot_troop_betrothed + 1
+# slot_troop_relatives_begin = slot_troop_spouse
+# slot_troop_relatives_end   = slot_troop_betrothed
+# slot_troop_relatives_including_betrothed_end = slot_troop_betrothed + 1
 ##diplomacy end+
 slot_troop_love_interest_1 = 35  # each unmarried lord has three love interests
 slot_troop_love_interest_2 = 36
@@ -1109,7 +1109,7 @@ slot_troop_change_to_faction = 55
 # The value should be one more than the actual number of center points, because it makes
 # it obvious when the slot has not been initialized.  (It also so happens that we often
 # add 1 to the value anyway to avoid division by 0, so this can be convenient.)
-# dplmc_slot_troop_center_points_plus_one = 56
+# slot_troop_center_points_plus_one = 56
 ##diplomacy end+
 # slot_troop_readiness_to_join_army     = 57 #possibly deprecate
 # slot_troop_readiness_to_follow_orders = 58 #possibly deprecate
@@ -2266,18 +2266,18 @@ dplmc_npc_mission_defensive_request = 16
 dplmc_npc_mission_trade_request = 17
 dplmc_npc_mission_nonaggression_request = 18
 dplmc_npc_mission_persuasion = 19
-dplmc_slot_troop_mission_diplomacy = 163
-dplmc_slot_troop_mission_diplomacy2 = 164
-dplmc_slot_troop_political_stance = 165  # dplmc+ deprecated, see note below
+slot_troop_mission_diplomacy = 163
+slot_troop_mission_diplomacy2 = 164
+slot_troop_political_stance = 165  # dplmc+ deprecated, see note below
 ##diplomacy start+
-# Though you may assume otherwise from the name,  dplmc_slot_troop_political_stance is
+# Though you may assume otherwise from the name,  slot_troop_political_stance is
 # actually used as a temporary slot (it's overwritten every time you start a conversation
 # with your chancellor about who supports whom, and in Diplomacy 3.3.2 it isn't used
 # elsewhere).
 #   I'm giving it a new name to reflect its use, to avoid confusion.
-# dplmc_slot_troop_temp_slot                    = 165 #replaces dplmc_slot_troop_political_stance
+# slot_troop_temp_slot                    = 165 #replaces slot_troop_political_stance
 ##diplomacy end+
-dplmc_slot_troop_affiliated = 166  ##notes: 0 is default, 1 is asked; on newer games 3 is affiliated and 4 is betrayed
+slot_troop_affiliated = 166  ##notes: 0 is default, 1 is asked; on newer games 3 is affiliated and 4 is betrayed
 # gdw floris begin
 
 # For $g_dplmc_terrain_advantage

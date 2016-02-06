@@ -140,8 +140,8 @@ dialogs += [
             (eq, "$g_initiative_selected", dplmc_npc_mission_gift_horses_request),
             (call_script, "script_dplmc_withdraw_from_treasury", "$diplomacy_var"),
         (try_end),
-        (troop_set_slot, "$g_emissary_selected", dplmc_slot_troop_mission_diplomacy, "$diplomacy_var"),
-        (troop_set_slot, "$g_emissary_selected", dplmc_slot_troop_mission_diplomacy2, "$diplomacy_var2"),
+        (troop_set_slot, "$g_emissary_selected", slot_troop_mission_diplomacy, "$diplomacy_var"),
+        (troop_set_slot, "$g_emissary_selected", slot_troop_mission_diplomacy2, "$diplomacy_var2"),
 
         (remove_member_from_party, "$g_emissary_selected", "p_main_party"),
     ]],

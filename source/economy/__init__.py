@@ -57,7 +57,7 @@ scripts = [
       (this_or_next|party_slot_eq, ":origin", villages_begin, villages_end),
          (is_between, ":origin", villages_begin, villages_end),
          (store_current_hours, ":cur_hours"),
-         (party_set_slot, ":origin", dplmc_slot_village_trade_last_arrived_to_market, ":cur_hours"),
+         (party_set_slot, ":origin", slot_village_trade_last_arrived_to_market, ":cur_hours"),
       (try_end),
       (try_begin),
          (ge, ":origin", centers_begin),
@@ -67,15 +67,15 @@ scripts = [
          (try_for_range, ":trade_route_slot", slot_town_trade_routes_begin, slot_town_trade_routes_end),
             (party_slot_eq,  ":center_no", ":trade_route_slot", ":origin"),
             (store_sub, ":trade_route_arrival_slot", ":trade_route_slot", slot_town_trade_routes_begin),
-            (val_add, ":trade_route_arrival_slot", dplmc_slot_town_trade_route_last_arrivals_begin),
-            (is_between, ":trade_route_arrival_slot", dplmc_slot_town_trade_route_last_arrivals_begin, dplmc_slot_town_trade_route_last_arrivals_end),#this will always be true unless a modder increased the number of trade route slots without increasing the number of last arrival slots
+            (val_add, ":trade_route_arrival_slot", slot_town_trade_route_last_arrivals_begin),
+            (is_between, ":trade_route_arrival_slot", slot_town_trade_route_last_arrivals_begin, slot_town_trade_route_last_arrivals_end),#this will always be true unless a modder increased the number of trade route slots without increasing the number of last arrival slots
             (party_set_slot, ":center_no", ":trade_route_arrival_slot", ":cur_hours"),
          (try_end),
          (else_try),
             (this_or_next|party_slot_eq, ":center_no", slot_party_type, spt_village),
                (is_between, ":center_no", villages_begin, villages_end),
          (store_current_hours, ":cur_hours"),
-         (party_set_slot, ":center_no", dplmc_slot_village_trade_last_returned_from_market, ":cur_hours"),
+         (party_set_slot, ":center_no", slot_village_trade_last_returned_from_market, ":cur_hours"),
       (try_end),
       ##diplomacy end+
 
@@ -178,7 +178,7 @@ simple_triggers = [
          (assign, ":can_leave", 1),
          (try_begin),
            (is_between, ":cur_center", walled_centers_begin, walled_centers_end),
-           (this_or_next|party_slot_eq, ":cur_center", centro_bloqueado, 1),  # center blockaded (by player) OR
+           (this_or_next | party_slot_eq, ":cur_center", slot_center_blockaded, 1),  # center blockaded (by player) OR
            (party_slot_ge, ":cur_center", slot_center_is_besieged_by, 1), # center besieged by someone else siege warfare
            (assign, ":can_leave", 0),
          (try_end),

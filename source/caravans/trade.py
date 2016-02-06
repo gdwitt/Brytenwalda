@@ -330,7 +330,7 @@ scripts = [
 
         # apply plutocracy/aristocracy modifier and trade treaty boost
         (store_faction_of_party, ":origin_faction", ":center_no"),
-        (faction_get_slot, ":aristocracy", ":origin_faction", dplmc_slot_faction_aristocracy),
+        (faction_get_slot, ":aristocracy", ":origin_faction", slot_faction_aristocracy),
         (val_mul, ":aristocracy", -5),
         (store_add, ":origin_percent", ":percent", ":aristocracy"),
         # Otg = :origin_tariffs_generated, Op = :origin_percent
@@ -359,7 +359,7 @@ scripts = [
       (try_end),
 
       #For this town: apply the faction plutocracy/aristocracy modifier
-      (faction_get_slot, ":aristocracy", ":center_faction", dplmc_slot_faction_aristocracy),
+      (faction_get_slot, ":aristocracy", ":center_faction", slot_faction_aristocracy),
       (val_mul, ":aristocracy", -5),
       (val_add, ":percent", ":aristocracy"),
       (val_mul, ":tariffs_generated", ":percent"),

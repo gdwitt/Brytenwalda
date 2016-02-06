@@ -6,7 +6,7 @@ from source.header_parties import ai_bhvr_travel_to_party
 
 from source.module_constants import towns_begin, castles_end, \
     slot_party_ai_object, slot_party_home_center, \
-    slot_party_ai_state, slot_party_type, spt_patrol, dplmc_slot_party_mission_diplomacy, \
+    slot_party_ai_state, slot_party_type, spt_patrol, slot_party_mission_diplomacy, \
     spai_retreating_to_center
 
 
@@ -152,7 +152,7 @@ scripts = [
         (party_set_faction, ":spawned_party", ":faction"),
         (party_set_slot, ":spawned_party", slot_party_type, spt_patrol),
         (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
-        (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":order_troop"),
+        (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":order_troop"),
         (str_store_party_name, s5, ":target_party"),
         (party_set_name, ":spawned_party", "@Transfer to {s5}"),
 

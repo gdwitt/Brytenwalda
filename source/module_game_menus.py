@@ -8295,7 +8295,7 @@ game_menus = game_start.first_menus + [
     "none",
     [
 (try_begin),
-        (party_slot_eq, "$g_encountered_party", slot_saqueo_state, 1),
+        (party_slot_eq, "$g_encountered_party", slot_town_sacked, 1),
           (jump_to_menu, "mnu_saqueo_loot_continue"),
       (try_end),
         ],
@@ -9136,7 +9136,7 @@ game_menus = game_start.first_menus + [
 
 #chief anade saqueo
           (try_begin),
-        (party_slot_eq, "$g_encountered_party", slot_saqueo_state, 1),
+        (party_slot_eq, "$g_encountered_party", slot_town_sacked, 1),
           (jump_to_menu, "mnu_saqueo_loot_continue"),
         (else_try), 
 #chief saqueo acaba
@@ -9546,8 +9546,8 @@ game_menus = game_start.first_menus + [
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_blockaded, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 0),
          #siege warfare acaba
          (jump_to_menu, "mnu_castle_besiege"),
          ]),
@@ -10199,8 +10199,8 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_blockaded, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 0),
          #siege warfare acaba
 
           (assign, "$g_next_menu", "mnu_castle_taken"), 
@@ -10227,8 +10227,8 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_blockaded, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 0),
          #siege warfare acaba
           (jump_to_menu, "mnu_total_defeat"),
         (try_end),
@@ -10512,8 +10512,8 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_blockaded, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 0),
          #siege warfare acaba
          (change_screen_return)]),
     ]
@@ -11071,7 +11071,7 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
        "Your men have worked hard and the circunvalation is done (Order close it).", [
         #Reduce prosperity of the center by 3
         (call_script, "script_change_center_prosperity", "$g_encountered_party", -3),
-      (party_set_slot,"$g_encountered_party",centro_bloqueado, 1),               
+      (party_set_slot,"$g_encountered_party", slot_center_blockaded, 1),
        (assign, "$g_siege_circunvalation", 2),
            (jump_to_menu,"mnu_siege_plan")]),
 #####circunvalacion acaba
@@ -11292,8 +11292,8 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_blockaded, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 0),
          #siege warfare acaba
          (change_screen_return)]),
     ]
@@ -11663,8 +11663,8 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_blockaded, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 0),
          #siege warfare acaba
          (change_screen_return)]),
 
@@ -12364,7 +12364,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
            ("back_to_siege",[],"Close port.",
        [
           (call_script, "script_change_center_prosperity", "$g_encountered_party", -2),
-            (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 1),
+            (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 1),
           (assign, "$g_close_port", 2),
            (jump_to_menu,"mnu_siege_plan"),
         ]),
@@ -12397,7 +12397,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         [("back_to_siege",[],"Close port.",
        [
           (call_script, "script_change_center_prosperity", "$g_encountered_party", -2),
-            (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 1),
+            (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 1),
           (assign, "$g_close_port", 2),
  
            (jump_to_menu,"mnu_siege_plan"),
@@ -12466,7 +12466,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         [("back_to_siege",[],"Close port.",
        [
           (call_script, "script_change_center_prosperity", "$g_encountered_party", -2),
-            (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 1),
+            (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 1),
           (assign, "$g_close_port", 2),
            (jump_to_menu,"mnu_siege_plan"),
         ]),
@@ -12481,7 +12481,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         [("back_to_siege",[],"Close port.",
        [
           (call_script, "script_change_center_prosperity", "$g_encountered_party", -2),
-            (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 1),
+            (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 1),
           (assign, "$g_close_port", 2),
  
 ##  (store_script_param, ":party_no",1),
@@ -12538,7 +12538,7 @@ A man breathes deeply. 'Do you smell that?', he asks, 'That is the scent of glor
         [("back_to_siege",[],"Close port.",
        [
           (call_script, "script_change_center_prosperity", "$g_encountered_party", -2),
-            (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 1),
+            (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 1),
           (assign, "$g_close_port", 2),
            (jump_to_menu,"mnu_siege_plan"),
         ]),
@@ -13628,7 +13628,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
          (assign,"$g_player_besiege_town", -1),
 		 (party_set_slot,"p_main_party",slot_party_siege_camp,0),  #Tempered chief added for siege camp		 
-      (party_set_slot,"$g_encountered_party",slot_saqueo_state,1), #ciudad saqueda
+         (party_set_slot,"$g_encountered_party",slot_town_sacked,1),
          #siege warfare chief
          (assign, "$g_empieza_asedio", 0),
          (assign, "$g_siege_circunvalation", 0),
@@ -13641,8 +13641,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_blockaded, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 0),
          #siege warfare acab
      ##diplomacy chief begin
         #Reduce prosperity of the center by 5
@@ -14569,7 +14569,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
                              (party_slot_eq, "$g_encountered_party", slot_center_has_temple2, 0),
                                   ],
-		"Build a celtic sacred forest (Conversion Factor).",[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_temple2),
+		"Build a celtic sacred forest (Conversion Factor).",[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_temple2),
         (jump_to_menu, "mnu_center_improve"), ]),
     
     ("center_build_sod3",[(eq, reg6, 0),
@@ -14577,7 +14577,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
                              (party_slot_eq, "$g_encountered_party", slot_center_has_temple3, 0),
                                   ],
-		"Build a temple to Woden (Conversion Factor).",[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_temple3),
+		"Build a temple to Woden (Conversion Factor).",[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_temple3),
         (jump_to_menu, "mnu_center_improve"), ]),
 	("center_build_sod5",[(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 4),
@@ -14607,14 +14607,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
                              (party_slot_eq, "$g_encountered_party", slot_center_has_monastery2, 0),
                                   ],
-		"Build a temple of The Old Celtic Gods (Conversion Factor).",[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_monastery2),
+		"Build a temple of The Old Celtic Gods (Conversion Factor).",[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_monastery2),
         (jump_to_menu, "mnu_center_improve"), ]),
 	("center_build_sod18",[(eq, reg6, 0),
 							 (eq, "$g_sod_faith", 3),
                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
                              (party_slot_eq, "$g_encountered_party", slot_center_has_monastery3, 0),
                                   ],
-		"Build a shrine to Germanic Gods (Conversion Factor).",[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_monastery3),
+		"Build a shrine to Germanic Gods (Conversion Factor).",[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_monastery3),
         (jump_to_menu, "mnu_center_improve"), ]),
 	("center_build_sod41",[(eq, reg6, 0),
 							 
@@ -14793,7 +14793,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     [    
 #chief anade saqueo
           (try_begin),
-        (party_slot_eq, "$g_encountered_party", slot_saqueo_state, 1),
+          (party_slot_eq, "$g_encountered_party", slot_town_sacked, 1),
           (jump_to_menu, "mnu_saqueo_loot_continue"),
         (else_try),
 #chief saqueo acaba
@@ -14909,7 +14909,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 							 (eq, "$g_sod_faith", 4),
                   		(party_get_slot, ":faith", "$current_town", slot_center_sod_local_faith),
 			(try_begin),
-			(party_slot_eq, "$current_town", center_religion_pagana, 1),
+			(party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
 ##				(lt, ":faith", -80),
 				(str_store_string, s15, "@ ...(Pagan Town) Your faith is hated among the population..."),
 			(else_try),
@@ -14945,7 +14945,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                 
                   		(party_get_slot, ":faith", "$current_town", slot_center_sod_local_faith),
 			(try_begin),
-        (neg|party_slot_ge, "$current_town", center_religion_pagana, 1), #skip villages which are pagan.
+        (neg|party_slot_ge, "$current_town", slot_center_religion_pagan, 1), #skip villages which are pagan.
 ##				(lt, ":faith", -80),
 				(str_store_string, s15, "@ ...(Christian Town) Your faith is hated among population..."),
 ##			(else_try),
@@ -14955,23 +14955,23 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##				(lt, ":faith", -30),
 ##				(str_store_string, s15, "@ ...(Pagan) Your faith is accepted here..."),
 			(else_try),
-			(party_slot_eq, "$current_town", center_religion_pagana, 1),
+			(party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
                   (lt, ":faith", 0),
 				(str_store_string, s15, "@ ...(Pagan Town) Your faith is tolerated here..."),
 			(else_try),
-			(party_slot_eq, "$current_town", center_religion_pagana, 1),
+			(party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
 				(lt, ":faith", 30),
 				(str_store_string, s15, "@ ...(Pagan Town) Your faith is liked here..."),
 			(else_try),
-			(party_slot_eq, "$current_town", center_religion_pagana, 1),
+			(party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
 				(lt, ":faith", 50),
 				(str_store_string, s15, "@ ...(Pagan Town) Your faith is accepted here..."),
 			(else_try),
-			(party_slot_eq, "$current_town", center_religion_pagana, 1),
+			(party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
 				(lt, ":faith", 80),
 				(str_store_string, s15, "@ ...(Pagan Town) Your faith is dominant here..."),
 			(else_try),
-			(party_slot_eq, "$current_town", center_religion_pagana, 1),
+			(party_slot_eq, "$current_town", slot_center_religion_pagan, 1),
 				(lt, ":faith", 101),
 				(str_store_string, s15, "@ ...(Pagan Town) This village is a bastion of Your faith..."),
 			(else_try),
@@ -22048,7 +22048,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (party_clear, "$g_encountered_party"),
         (str_store_party_name, s3, "$g_encountered_party"),
         
-      (party_set_slot,"$g_encountered_party",slot_saqueo_state,1), #ciudad saqueda
+        (party_set_slot,"$g_encountered_party",slot_town_sacked,1),
         #Reduce prosperity of the center by 5
   		 (try_begin),
   		   (store_random_in_range, ":random", 2000, 8000), 
@@ -22083,7 +22083,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -8),
       (try_end),
          (change_screen_return),
@@ -22096,7 +22096,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -8),
       (try_end),
          (change_screen_return),
@@ -22109,7 +22109,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -8),
       (try_end),
          (change_screen_return),
@@ -22120,7 +22120,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -8),
       (try_end),
 
@@ -27219,8 +27219,8 @@ To which one of the more smart alec lieutenants retorts that this was hardly lik
          (assign, "$g_mantlets_1", 0),
          (assign, "$g_enemigo_quema_comida", 0),
          (assign, "$g_cabezas_dentro", 0),
-       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_blockaded, 0),
+       (party_set_slot,"$g_encountered_party", slot_center_port_blockaded, 0),
          #siege warfare acaba
 	   (change_screen_return),
         ]
@@ -30578,7 +30578,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -8),
       (try_end),
                   (change_screen_return),
@@ -30590,7 +30590,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -8),
       (try_end),
 	    (change_screen_return),
@@ -30606,7 +30606,7 @@ Another man comes forward. A hulking great bearded warrior of a man who makes gi
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", 4),
       (try_end),
 		(else_try),
@@ -30770,7 +30770,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 2), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -4),
       (try_end),
           (call_script, "script_change_player_relation_with_faction", "fac_kingdom_1", -4), #la q designemos
@@ -30785,7 +30785,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", 1),
       (try_end),
 	(change_screen_return),
@@ -30808,7 +30808,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", -10), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", 1),
       (try_end),
           (change_screen_return),
@@ -30820,7 +30820,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 8), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -2),
       (try_end),
 	(change_screen_return),
@@ -30832,7 +30832,7 @@ Then the woman in rags scream and says 'No please my great king, let the other w
           (call_script, "script_change_player_relation_with_faction", "fac_pagans", 4), #la q designemos		  
   #reduce relacion con cada centro chief
       (try_for_range, ":center", centers_begin, centers_end),
-  (neg|party_slot_ge, ":center", center_religion_pagana, 1),
+  (neg|party_slot_ge, ":center", slot_center_religion_pagan, 1),
   (call_script, "script_change_player_relation_with_center", ":center", -1),
       (try_end),
 	(change_screen_return),

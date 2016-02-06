@@ -79,7 +79,7 @@ scripts = [
         (troop_set_slot, "trp_global_value", slot_gloval_max_flame_slot, 40),
 
         (try_for_range, ":center_no", centers_begin, centers_end),
-            (party_set_slot, ":center_no", slot_saqueo_state, 0),
+            (party_set_slot, ":center_no", slot_town_sacked, 0),
         (try_end),
 
         # wound system

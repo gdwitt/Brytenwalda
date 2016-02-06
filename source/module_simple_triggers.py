@@ -1605,7 +1605,7 @@ simple_triggers = [
 
        (assign, ":doit", 1),
        (try_begin),
-         (this_or_next|party_slot_eq, ":cur_attached_party", centro_bloqueado, 1),    #center blockaded (by player) OR
+         (this_or_next | party_slot_eq, ":cur_attached_party", slot_center_blockaded, 1),    #center blockaded (by player) OR
          (party_slot_ge, ":cur_attached_party", slot_center_is_besieged_by, 1), #center besieged by someone else
          (assign, ":doit", 0),
        (try_end),
@@ -1651,7 +1651,7 @@ simple_triggers = [
 #siege warfare chief cambia
        (assign, ":doit", 1),
        (try_begin),
-         (this_or_next|party_slot_eq, ":center_no", centro_bloqueado, 1),    #center blockaded (by player) OR
+         (this_or_next | party_slot_eq, ":center_no", slot_center_blockaded, 1),    #center blockaded (by player) OR
          (party_slot_ge, ":center_no", slot_center_is_besieged_by, 1), #center besieged by someone else
          (assign, ":doit", 0),
        (try_end),
@@ -2805,7 +2805,7 @@ simple_triggers = [
 			(val_add, ":multiplier", ":faith"),
 			(else_try),
 							 (this_or_next|eq, "$g_sod_faith", 3),
-							 (party_slot_eq, ":center_no", center_religion_pagana, 1),
+							 (party_slot_eq, ":center_no", slot_center_religion_pagan, 1),
 			(lt, ":multiplier", 0),
 			(assign, ":multiplier", 0),
 			(party_get_slot, ":faith", ":center_no", slot_center_sod_local_faith),
@@ -2856,7 +2856,7 @@ simple_triggers = [
           (try_begin),    
             (str_store_party_name, s6, ":center_no"),
              
-            (party_get_slot, ":tax_rate", ":center_no", dplmc_slot_center_taxation),
+            (party_get_slot, ":tax_rate", ":center_no", slot_center_taxation),
             (neq, ":tax_rate", 0),
             (store_div, ":rent_change", ":accumulated_rents", 100),
             (val_mul, ":rent_change", ":tax_rate"),
@@ -3525,7 +3525,7 @@ simple_triggers = [
        #unaltered block begin
        (try_for_range, ":center_no", castles_begin, castles_end),
 #siege warfare chief cambia
-         (party_slot_eq, ":center_no", centro_bloqueado, 0),    #center not blockaded (by player) AND
+         (party_slot_eq, ":center_no", slot_center_blockaded, 0),    #center not blockaded (by player) AND
          (neg|party_slot_ge, ":center_no", slot_center_is_besieged_by, 1), #center not besieged by someone else
 #siege warfare		 
          (party_get_slot, ":center_food_store", ":center_no", slot_party_food_store),
@@ -3567,7 +3567,7 @@ simple_triggers = [
   (party_slot_eq,"$g_encountered_party",slot_town_port, 1),
   (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
 #siege warfare chief cambia
-         (party_slot_eq, ":center_no", centro_bloqueado, 0),    #center not blockaded (by player) AND
+         (party_slot_eq, ":center_no", slot_center_blockaded, 0),    #center not blockaded (by player) AND
          (neg|party_slot_ge, ":center_no", slot_center_is_besieged_by, 1), #center not besieged by someone else
 #siege warfare		 
          (party_get_slot, ":center_food_store", ":center_no", slot_party_food_store),
@@ -5415,7 +5415,7 @@ simple_triggers = [
   # (24*7,
    # [
 ##       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-##       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),               
+##       (party_set_slot,"$g_encountered_party",centro_port_blockaded, 0),
 # ]),
   # (24,
    # []),
@@ -5740,7 +5740,7 @@ simple_triggers = [
           (else_try), 
             (party_get_slot,":cur_merchant",":spouse_target", slot_town_merchant), 
           (try_end),
-          (troop_get_slot, ":amount", ":player_spouse", dplmc_slot_troop_mission_diplomacy),
+          (troop_get_slot, ":amount", ":player_spouse", slot_troop_mission_diplomacy),
           (troop_remove_items, ":cur_merchant", "itm_bread", ":amount"),        
           (party_set_ai_behavior, ":spouse_party", ai_bhvr_travel_to_party),
           (try_begin),
@@ -5791,7 +5791,7 @@ simple_triggers = [
       (try_begin),
         (le, ":distance_to_target", 1),
   
-        (party_get_slot, ":gift", ":party_no", dplmc_slot_party_mission_diplomacy),
+        (party_get_slot, ":gift", ":party_no", slot_party_mission_diplomacy),
         (str_store_item_name, s12, ":gift"),
         
         (try_begin),
@@ -5869,7 +5869,7 @@ simple_triggers = [
 		#Determine the gold cost of the gifts.
 		(store_item_value, ":gift_value", ":gift"),
 		#Determine how many copies of the gift are used
-		(party_get_slot, ":gift_value_factor", ":party_no", dplmc_slot_party_mission_parameter_1),
+		(party_get_slot, ":gift_value_factor", ":party_no", slot_party_mission_parameter_1),
 		(try_begin),
 			#This should only fail if the game was saved using an old version while
 			#a caravan was en route.
@@ -6078,12 +6078,12 @@ simple_triggers = [
         (try_begin), # returning to p_main_party
           (eq, ":target_party", "p_main_party"),
           (party_get_slot, ":party_leader", ":party_no", slot_party_orders_object), 
-          (party_get_slot, ":success", ":party_no", dplmc_slot_party_mission_diplomacy),
+          (party_get_slot, ":success", ":party_no", slot_party_mission_diplomacy),
           (call_script, "script_add_notification_menu", "mnu_dplmc_messenger", ":party_leader", ":success"),   
           (remove_party, ":party_no"),
         (else_try), # patrols
           (party_slot_eq, ":target_party", slot_party_type, spt_patrol),
-          (party_get_slot, ":message", ":party_no", dplmc_slot_party_mission_diplomacy),
+          (party_get_slot, ":message", ":party_no", slot_party_mission_diplomacy),
 
           (try_begin),
             (eq, ":message", spai_undefined),
@@ -6119,7 +6119,7 @@ simple_triggers = [
             (assign, "$g_talk_troop", ":party_leader"), #debug
           (try_end),
           
-          (party_get_slot, ":message", ":party_no", dplmc_slot_party_mission_diplomacy),
+          (party_get_slot, ":message", ":party_no", slot_party_mission_diplomacy),
           (assign, ":success", 0),
           (try_begin),
             (party_set_slot, ":target_party", slot_party_commander_party, "p_main_party"),
@@ -6149,7 +6149,7 @@ simple_triggers = [
           (party_set_ai_object, ":party_no", "p_main_party"),  
           (party_set_slot, ":party_no", slot_party_ai_object, "p_main_party"),
           (party_set_slot, ":party_no", slot_party_orders_object, ":party_leader"), 
-          (party_set_slot, ":party_no", dplmc_slot_party_mission_diplomacy, ":success"),         
+          (party_set_slot, ":party_no", slot_party_mission_diplomacy, ":success"),
         (try_end),
       (try_end),
     (else_try),
@@ -6165,12 +6165,12 @@ simple_triggers = [
   (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),    
     (faction_slot_eq, ":kingdom", slot_faction_state, sfs_active),
     
-    (faction_get_slot, ":centralization", ":kingdom", dplmc_slot_faction_centralization),  
-    (faction_get_slot, ":aristocracy", ":kingdom", dplmc_slot_faction_aristocracy),
-    (faction_get_slot, ":quality", ":kingdom", dplmc_slot_faction_quality),  
-    (faction_get_slot, ":serfdom", ":kingdom", dplmc_slot_faction_serfdom),
+    (faction_get_slot, ":centralization", ":kingdom", slot_faction_centralization),
+    (faction_get_slot, ":aristocracy", ":kingdom", slot_faction_aristocracy),
+    (faction_get_slot, ":quality", ":kingdom", slot_faction_quality),
+    (faction_get_slot, ":serfdom", ":kingdom", slot_faction_serfdom),
   	 ##nested diplomacy start+
-    (faction_get_slot, ":mercantilism", ":kingdom", dplmc_slot_faction_mercantilism),
+    (faction_get_slot, ":mercantilism", ":kingdom", slot_faction_mercantilism),
 	 ##nested diplomacy end+
   
     (try_begin),
@@ -6217,30 +6217,30 @@ simple_triggers = [
           (val_add, ":centralization", ":change"),
           (val_max, ":centralization", -3),
           (val_min, ":centralization", 3),
-          (faction_set_slot, ":kingdom", dplmc_slot_faction_centralization, ":centralization"),  
+          (faction_set_slot, ":kingdom", slot_faction_centralization, ":centralization"),
         (else_try),
           (eq, ":random", 2),
           (val_add, ":aristocracy", ":change"),
           (val_max, ":aristocracy", -3),
           (val_min, ":aristocracy", 3),
-          (faction_set_slot, ":kingdom", dplmc_slot_faction_aristocracy, ":aristocracy"),  
+          (faction_set_slot, ":kingdom", slot_faction_aristocracy, ":aristocracy"),
         (else_try),
           (eq, ":random", 3),
           (val_add, ":quality", ":change"),
           (val_max, ":quality", -3),
           (val_min, ":quality", 3),
-          (faction_set_slot, ":kingdom", dplmc_slot_faction_quality, ":quality"),  
+          (faction_set_slot, ":kingdom", slot_faction_quality, ":quality"),
         (else_try),
           (eq, ":random", 4),
           (val_add, ":serfdom", ":change"),
           (val_max, ":serfdom", -3),
           (val_min, ":serfdom", 3),
-          (faction_set_slot, ":kingdom", dplmc_slot_faction_serfdom, ":serfdom"),  
+          (faction_set_slot, ":kingdom", slot_faction_serfdom, ":serfdom"),
   		  ##nested diplomacy start+
           (eq, ":random", 5),
           (val_add, ":mercantilism", ":change"),
 			 (val_clamp, ":mercantilism", -3, 4),#-3 min, +3 max
-          (faction_set_slot, ":kingdom", dplmc_slot_faction_mercantilism, ":mercantilism"),
+          (faction_set_slot, ":kingdom", slot_faction_mercantilism, ":mercantilism"),
 		  ##nested diplomacy end+
       (try_end),
       (try_end),
@@ -6302,24 +6302,24 @@ simple_triggers = [
                 (troop_slot_eq, ":troop_no", slot_troop_kingsupport_argument, argument_lords),
                 (try_begin),
                   #If more than slightly centralized, or more than slightly balanced against aristocrats  
-                  (this_or_next|neg|faction_slot_ge, ":faction_no", dplmc_slot_faction_aristocracy, -1),
-                     (faction_slot_ge, ":faction_no", dplmc_slot_faction_centralization, 2),
+                  (this_or_next|neg|faction_slot_ge, ":faction_no", slot_faction_aristocracy, -1),
+                     (faction_slot_ge, ":faction_no", slot_faction_centralization, 2),
                   (val_sub, ":promise_mod", 1),
                 (else_try),
                   #If more than slightly decentralized or more than slightly balanced in favor of aristocrats
-                  (this_or_next|faction_slot_ge, ":faction_no", dplmc_slot_faction_aristocracy, 2),
-                  (neg|faction_slot_ge, ":faction_no", dplmc_slot_faction_centralization, -2),
-                  (faction_slot_ge, ":faction_no", dplmc_slot_faction_aristocracy, -1),#redundant
+                  (this_or_next|faction_slot_ge, ":faction_no", slot_faction_aristocracy, 2),
+                  (neg|faction_slot_ge, ":faction_no", slot_faction_centralization, -2),
+                  (faction_slot_ge, ":faction_no", slot_faction_aristocracy, -1),#redundant
                   (val_add, ":promise_mod", 1),
                 (try_end),
              (else_try),
                   #Argument: Commons
                   (troop_slot_eq, ":troop_no", slot_troop_kingsupport_argument, argument_commons),
                   (try_begin),
-                    (faction_slot_ge, ":faction_no", dplmc_slot_faction_serfdom, 2),
+                    (faction_slot_ge, ":faction_no", slot_faction_serfdom, 2),
                     (val_sub, ":promise_mod", 1),
                   (else_try),
-                    (neg|faction_slot_ge, ":faction_no", dplmc_slot_faction_serfdom, 0),
+                    (neg|faction_slot_ge, ":faction_no", slot_faction_serfdom, 0),
                     (store_add, ":local_temp", ":serfdom", ":aristocracy"),
                     (lt, ":local_temp", 0),
                     (val_add, ":promise_mod", 1),
@@ -6329,15 +6329,15 @@ simple_triggers = [
          #Check other broken promises
          (try_begin),
              (troop_slot_eq, ":troop_no", slot_lord_recruitment_argument, argument_lords),
-             (this_or_next|neg|faction_slot_ge, ":faction_no", dplmc_slot_faction_aristocracy, -1),
-                (faction_slot_ge, ":faction_no", dplmc_slot_faction_centralization, 2),
+             (this_or_next|neg|faction_slot_ge, ":faction_no", slot_faction_aristocracy, -1),
+                (faction_slot_ge, ":faction_no", slot_faction_centralization, 2),
              #Lord must actually have cared about argument
              (neg|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_debauched),
              (neg|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_upstanding),
              (val_sub, ":promise_mod", 1),
          (else_try),
              (troop_slot_eq, ":troop_no", slot_lord_recruitment_argument, argument_commons),
-             (faction_slot_ge, ":faction_no", dplmc_slot_faction_serfdom, 2),
+             (faction_slot_ge, ":faction_no", slot_faction_serfdom, 2),
              #Lord must actually have cared about argument
              (neg|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_quarrelsome),
              (neg|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_selfrighteous),
@@ -6497,7 +6497,7 @@ simple_triggers = [
           # (try_end),
         # (try_end),  
         
-        # (store_add, ":faction1_to_faction2_slot", ":faction2", dplmc_slot_faction_attitude_begin),
+        # (store_add, ":faction1_to_faction2_slot", ":faction2", slot_faction_attitude_begin),
         # # (party_set_slot, ":faction1", ":faction1_to_faction2_slot", ":attitude_change"),	MOTO ay Dios mio
         # (val_sub, ":faction1_to_faction2_slot", kingdoms_begin),
         # (faction_set_slot, ":faction1", ":faction1_to_faction2_slot", ":attitude_change"),
@@ -6726,8 +6726,8 @@ simple_triggers = [
 (90,
 	[
 	(try_for_range, ":center_no", centers_begin, centers_end),
-        (party_slot_eq, ":center_no", slot_saqueo_state, 1),
-		(party_set_slot, ":center_no", slot_saqueo_state, 0),
+        (party_slot_eq, ":center_no", slot_town_sacked, 1),
+		(party_set_slot, ":center_no", slot_town_sacked, 0),
 	(try_end),
 ]),  
 
@@ -6757,56 +6757,56 @@ simple_triggers = [
 ##(assign, "$g_sod_faith", 1),           
 ##(assign, "$g_pueblos_religion", 0),
 ##(assign, "$g_sod_global_faith", 0),
-##      (party_set_slot,"p_town_8",center_religion_pagana, 1),                 ##Set grantebrydge como pagana  
-##      (party_set_slot,"p_town_11",center_religion_pagana, 1),                 ##Set Aegelesburh como pagana  
-##      (party_set_slot,"p_town_18",center_religion_pagana, 1),                 ##Set Searoburh como pagana  
-##      (party_set_slot,"p_town_23",center_religion_pagana, 1),                 ##Set Licidfelth como pagana  
-##      (party_set_slot,"p_town_24",center_religion_pagana, 1),                 ##Set Linnuis como pagana  
+##      (party_set_slot,"p_town_8",slot_center_religion_pagan, 1),                 ##Set grantebrydge como pagana
+##      (party_set_slot,"p_town_11",slot_center_religion_pagan, 1),                 ##Set Aegelesburh como pagana
+##      (party_set_slot,"p_town_18",slot_center_religion_pagan, 1),                 ##Set Searoburh como pagana
+##      (party_set_slot,"p_town_23",slot_center_religion_pagan, 1),                 ##Set Licidfelth como pagana
+##      (party_set_slot,"p_town_24",slot_center_religion_pagan, 1),                 ##Set Linnuis como pagana
 ##
-##      (party_set_slot,"p_village_1",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_2",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_4",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_8",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_10",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_14",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_74",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_51",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_16",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_41",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_49",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_12",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_21",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_76",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_87",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_75",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_38",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_88",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_89",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_44",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_93",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_52",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_98",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_17",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_48",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_36",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_67",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_103",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_129",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_122",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_55",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_54",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_124",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_42",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_90",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_91",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_151",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_95",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_99",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_20",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_3",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_28",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_47",center_religion_pagana, 1),                 ##Set aldea como pagana  
-##      (party_set_slot,"p_village_46",center_religion_pagana, 1),                 ##Set aldea como pagana  
+##      (party_set_slot,"p_village_1",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_2",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_4",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_8",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_10",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_14",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_74",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_51",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_16",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_41",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_49",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_12",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_21",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_76",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_87",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_75",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_38",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_88",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_89",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_44",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_93",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_52",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_98",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_17",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_48",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_36",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_67",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_103",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_129",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_122",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_55",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_54",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_124",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_42",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_90",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_91",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_151",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_95",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_99",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_20",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_3",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_28",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_47",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
+##      (party_set_slot,"p_village_46",slot_center_religion_pagan, 1),                 ##Set aldea como pagana
 ##
 ##
 ####	(try_for_range, ":center_no", centers_begin, centers_end),
@@ -6816,7 +6816,7 @@ simple_triggers = [
 ####	(try_end),
 ###gente cristiana
 ##	(try_for_range, ":center_no", centers_begin, centers_end),
-##        (neg|party_slot_ge, ":center_no", center_religion_pagana, 1), #skip villages which are pagan.
+##        (neg|party_slot_ge, ":center_no", slot_center_religion_pagan, 1), #skip villages which are pagan.
 ##		(neg|party_slot_eq, ":center_no", slot_party_type, spt_castle),
 ##		(assign, "$g_pueblos_religion", 4),	
 ##		(store_random_in_range, ":rand", 30, 90),	
@@ -6824,7 +6824,7 @@ simple_triggers = [
 ##	(try_end),
 ##	(try_for_range, ":center_no", centers_begin, centers_end),
 ##		(neg|party_slot_eq, ":center_no", slot_party_type, spt_castle),
-##        (party_slot_eq, ":center_no", center_religion_pagana, 1), #anade fe a paganos
+##        (party_slot_eq, ":center_no", slot_center_religion_pagan, 1), #anade fe a paganos
 ##		(store_random_in_range, ":rand", -90, -30),	
 ##		(party_set_slot, ":center_no", slot_center_sod_local_faith, ":rand"),
 ##	(try_end),

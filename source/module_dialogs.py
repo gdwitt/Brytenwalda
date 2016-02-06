@@ -2879,7 +2879,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [
     (party_slot_eq, "$g_talk_troop_party", slot_party_type, dplmc_spt_gift_caravan), 
     (party_get_slot, ":target_party", "$g_talk_troop_party", slot_party_ai_object),
-    (party_get_slot, ":gift", "$g_talk_troop_party", dplmc_slot_party_mission_diplomacy),
+    (party_get_slot, ":gift", "$g_talk_troop_party", slot_party_mission_diplomacy),
     (str_store_item_name, s12, ":gift"),
     
     (try_begin),
@@ -2933,20 +2933,20 @@ but before burial, you must allow the crows to descend on their breasts and rele
 	(neq, "$players_kingdom", "fac_player_supporters_faction"),
 	(is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
 
-	(faction_get_slot, reg0, "$players_kingdom", dplmc_slot_faction_serfdom),
-	(faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_serfdom,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", slot_faction_serfdom),
+	(faction_set_slot, "fac_player_supporters_faction", slot_faction_serfdom,  reg0),
 
-	(faction_get_slot, reg0, "$players_kingdom", dplmc_slot_faction_centralization),
-	(faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_centralization,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", slot_faction_centralization),
+	(faction_set_slot, "fac_player_supporters_faction", slot_faction_centralization,  reg0),
 
-	(faction_get_slot, reg0, "$players_kingdom", dplmc_slot_faction_quality),
-	(faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_quality,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", slot_faction_quality),
+	(faction_set_slot, "fac_player_supporters_faction", slot_faction_quality,  reg0),
 
-	(faction_get_slot, reg0, "$players_kingdom", dplmc_slot_faction_aristocracy),
-	(faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_aristocracy,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", slot_faction_aristocracy),
+	(faction_set_slot, "fac_player_supporters_faction", slot_faction_aristocracy,  reg0),
 
-	(faction_get_slot, reg0, "$players_kingdom", dplmc_slot_faction_mercantilism),
-	(faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_mercantilism,  reg0),
+	(faction_get_slot, reg0, "$players_kingdom", slot_faction_mercantilism),
+	(faction_set_slot, "fac_player_supporters_faction", slot_faction_mercantilism,  reg0),
 (try_end),
 ##nested diplomacy end+
 ]],
@@ -3059,31 +3059,31 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [
     (str_store_faction_name_link, s10, "$diplomacy_var"),
     (assign, ":string", "str_dplmc_neither_centralize_nor_decentralized"),
-    (faction_get_slot, ":centralization", "$diplomacy_var", dplmc_slot_faction_centralization),
+    (faction_get_slot, ":centralization", "$diplomacy_var", slot_faction_centralization),
     (val_add, ":string", ":centralization"),
     (str_store_string, s4, ":string"),
     (str_store_string, s4, "@The goverment of the {s10} is {s4}."),
 
     (assign, ":string", "str_dplmc_neither_aristocratic_nor_plutocratic"),
-    (faction_get_slot, ":aristocraty", "$diplomacy_var", dplmc_slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "$diplomacy_var", slot_faction_aristocracy),
     (val_add, ":string", ":aristocraty"),
     (str_store_string, s5, ":string"),
     (str_store_string, s5, "@The upper class society is {s5}."),
     
     (assign, ":string", "str_dplmc_mixture_serfs"),
-    (faction_get_slot, ":serfdom", "$diplomacy_var", dplmc_slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "$diplomacy_var", slot_faction_serfdom),
     (val_add, ":string", ":serfdom"),
     (str_store_string, s6, ":string"),
     (str_store_string, s6, "@The people are {s6}."),
     
     (assign, ":string", "str_dplmc_mediocre_quality"),
-    (faction_get_slot, ":quality", "$diplomacy_var", dplmc_slot_faction_quality),
+    (faction_get_slot, ":quality", "$diplomacy_var", slot_faction_quality),
     (val_add, ":string", ":quality"),
     (str_store_string, s7, ":string"),  
     (str_store_string, s7, "@The troops have {s7}."),     
 ##nested diplomacy start+ add mercantilism
 (assign, ":string", "str_dplmc_neither_mercantilist_nor_laissez_faire"),
-(faction_get_slot, ":mercantilism", "$diplomacy_var", dplmc_slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "$diplomacy_var", slot_faction_mercantilism),
 (val_add, ":string", ":mercantilism"),
 (str_store_string, s0, ":string"),
 (str_store_string, s0, "@The government's approach to trade is {s0}."),
@@ -3106,42 +3106,42 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone,"dplmc_chancellor_domestic_policy_ask",[
    (store_current_hours, ":current_hours"),
 ##zParsifal 2011-10-07: Change the policy change interval from always 30 days to (Centralization * 5) + 30 days. chief
-(faction_get_slot, ":policy_time", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+(faction_get_slot, ":policy_time", "fac_player_supporters_faction", slot_faction_centralization),
 (val_mul, ":policy_time", -5),
 (val_add, ":policy_time", 30),
 (val_clamp, ":policy_time", 15, 46),#This line should be unnecessary
 (val_mul, ":policy_time", 24),
 (val_sub, ":current_hours", ":policy_time"),
-    (faction_get_slot, ":policy_time", "fac_player_supporters_faction", dplmc_slot_faction_policy_time),
+    (faction_get_slot, ":policy_time", "fac_player_supporters_faction", slot_faction_policy_time),
     (ge, ":current_hours", ":policy_time"),      
     
     (assign, ":string", "str_dplmc_neither_centralize_nor_decentralized"),
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
     (val_add, ":string", ":centralization"),
     (str_store_string, s4, ":string"),
     (str_store_string, s4, "@Our goverment is {s4}."),
 
     (assign, ":string", "str_dplmc_neither_aristocratic_nor_plutocratic"),
-    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
     (val_add, ":string", ":aristocraty"),
     (str_store_string, s5, ":string"),
     (str_store_string, s5, "@The upper class society is {s5}."),
     
     (assign, ":string", "str_dplmc_mixture_serfs"),
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
     (val_add, ":string", ":serfdom"),
     (str_store_string, s6, ":string"),
     (str_store_string, s6, "@Our people are {s6}."),
     
     (assign, ":string", "str_dplmc_mediocre_quality"),
-    (faction_get_slot, ":quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
+    (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
     (val_add, ":string", ":quality"),
     (str_store_string, s7, ":string"),  
     (str_store_string, s7, "@Our troops have {s7}."),    
 
 ##nested diplomacy start+ add mercantilism
 (assign, ":string", "str_dplmc_neither_mercantilist_nor_laissez_faire"),
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", dplmc_slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
 (val_add, ":string", ":mercantilism"),
 (str_store_string, s0, ":string"),
 (str_store_string, s0, "@Our approach to trade is {s0}."),
@@ -3152,31 +3152,31 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
   [anyone,"dplmc_chancellor_domestic_policy_ask",[ 
     (assign, ":string", "str_dplmc_neither_centralize_nor_decentralized"),
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
     (val_add, ":string", ":centralization"),
     (str_store_string, s4, ":string"),
     (str_store_string, s4, "@Our goverment is {s4}."),
 
     (assign, ":string", "str_dplmc_neither_aristocratic_nor_plutocratic"),
-    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
     (val_add, ":string", ":aristocraty"),
     (str_store_string, s5, ":string"),
     (str_store_string, s5, "@The upper class society is {s5}."),
     
     (assign, ":string", "str_dplmc_mixture_serfs"),
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
     (val_add, ":string", ":serfdom"),
     (str_store_string, s6, ":string"),
     (str_store_string, s6, "@Our people are {s6}."),
     
     (assign, ":string", "str_dplmc_mediocre_quality"),
-    (faction_get_slot, ":quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
+    (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
     (val_add, ":string", ":quality"),
     (str_store_string, s7, ":string"),  
     (str_store_string, s7, "@Our troops have {s7}."),  
 ##nested diplomacy start+ add mercantilism
 (assign, ":string", "str_dplmc_neither_mercantilist_nor_laissez_faire"),
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", dplmc_slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
 (val_add, ":string", ":mercantilism"),
 (str_store_string, s0, ":string"),
 (str_store_string, s0, "@Our approach to trade is {s0}."),
@@ -3189,7 +3189,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 (val_clamp, reg1, 15, 46),#This line should be unnecessary
 (store_mul, ":policy_time", reg1, 24),
 (val_sub, ":current_hours", ":policy_time"),
-    (faction_get_slot, ":policy_time", "fac_player_supporters_faction", dplmc_slot_faction_policy_time),   
+    (faction_get_slot, ":policy_time", "fac_player_supporters_faction", slot_faction_policy_time),
     (store_sub, ":wait_hours" , ":policy_time", ":current_hours"),
     (store_div, ":wait_days", ":wait_hours", 24),
     (store_mod, ":wait_mod", ":wait_hours", 24),
@@ -3207,123 +3207,123 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
     (lt, ":serfdom", 3),
   ],
    "Bring more people into serfdom.", "dplmc_chancellor_domestic_policy_confirm",
    [
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
     (val_add, ":serfdom", 1),
-    (faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_serfdom ,":serfdom"),
+    (faction_set_slot, "fac_player_supporters_faction", slot_faction_serfdom ,":serfdom"),
    ]],   
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
     (gt, ":serfdom", -3),
   ],
    "I want more freedom for the people.", "dplmc_chancellor_domestic_policy_confirm",
    [
-    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
+    (faction_get_slot, ":serfdom", "fac_player_supporters_faction", slot_faction_serfdom),
     (val_sub, ":serfdom", 1),
-    (faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_serfdom ,":serfdom"),
+    (faction_set_slot, "fac_player_supporters_faction", slot_faction_serfdom ,":serfdom"),
    ]], 
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
     (lt, ":centralization", 3),
   ],
    "Let's centralize the decisions.", "dplmc_chancellor_domestic_policy_confirm",
    [
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
     (val_add, ":centralization", 1),
-    (faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_centralization,  ":centralization"),
+    (faction_set_slot, "fac_player_supporters_faction", slot_faction_centralization,  ":centralization"),
    ]],
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+    (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
     (gt, ":centralization", -3),
   ],
    "Grant increased autonomy to local Lords.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+     (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
      (val_sub, ":centralization", 1),
-     (faction_set_slot,  "fac_player_supporters_faction", dplmc_slot_faction_centralization, ":centralization"),
+     (faction_set_slot,  "fac_player_supporters_faction", slot_faction_centralization, ":centralization"),
    ]],   
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
+    (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
     (lt, ":quality", 3),
   ],
    "I prefer quality over quanity.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
+     (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
      (val_add, ":quality", 1),
-     (faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_quality, ":quality"),
+     (faction_set_slot, "fac_player_supporters_faction", slot_faction_quality, ":quality"),
    ]],
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
+    (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
     (gt, ":quality", -3),
   ],
    "I prefer quanity over quality.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
+     (faction_get_slot, ":quality", "fac_player_supporters_faction", slot_faction_quality),
      (val_sub, ":quality", 1),
-     (faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_quality, ":quality"),
+     (faction_set_slot, "fac_player_supporters_faction", slot_faction_quality, ":quality"),
    ]],   
    
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
     (lt, ":aristocraty", 3),
   ],
    "Give the nobles more power.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
+     (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
      (val_add, ":aristocraty", 1),
-     (faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_aristocracy,  ":aristocraty"),
+     (faction_set_slot, "fac_player_supporters_faction", slot_faction_aristocracy,  ":aristocraty"),
    ]],
 
   [anyone|plyr,"dplmc_chancellor_domestic_policy",
   [
-    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
+    (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
     (gt, ":aristocraty", -3),
   ],
    "Give the merchants and trade guilds more power.", "dplmc_chancellor_domestic_policy_confirm",
    [
-     (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
+     (faction_get_slot, ":aristocraty", "fac_player_supporters_faction", slot_faction_aristocracy),
      (val_sub, ":aristocraty", 1),
-     (faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_aristocracy,  ":aristocraty"),
+     (faction_set_slot, "fac_player_supporters_faction", slot_faction_aristocracy,  ":aristocraty"),
    ]],
 
 ##diplomacy start+ add mercantilism
 [anyone|plyr,"dplmc_chancellor_domestic_policy",
 [
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", dplmc_slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
 (lt, ":mercantilism", 3),
 ],
 "Manage the economy more actively to increase production and maximize exports.", "dplmc_chancellor_domestic_policy_confirm",
 [
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", dplmc_slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
 (val_add, ":mercantilism", 1),
-(faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_mercantilism,  ":mercantilism"),
+(faction_set_slot, "fac_player_supporters_faction", slot_faction_mercantilism,  ":mercantilism"),
 ]],
 
 [anyone|plyr,"dplmc_chancellor_domestic_policy",
 [
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", dplmc_slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
 (gt, ":mercantilism", -3),
 ],
 "Reduce the crown's role in managing industry and commerce.", "dplmc_chancellor_domestic_policy_confirm",
 [
-(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", dplmc_slot_faction_mercantilism),
+(faction_get_slot, ":mercantilism", "fac_player_supporters_faction", slot_faction_mercantilism),
 (val_sub, ":mercantilism", 1),
-(faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_mercantilism,  ":mercantilism"),
+(faction_set_slot, "fac_player_supporters_faction", slot_faction_mercantilism,  ":mercantilism"),
 ]],
 ##diplomacy end+
 
@@ -3337,26 +3337,26 @@ but before burial, you must allow the crows to descend on their breasts and rele
 [],
 "I will initiate all necessary steps.", "dplmc_chancellor_pretalk",[
 (store_current_hours, ":current_hours"),
-(faction_set_slot, "fac_player_supporters_faction", dplmc_slot_faction_policy_time, ":current_hours"),
+(faction_set_slot, "fac_player_supporters_faction", slot_faction_policy_time, ":current_hours"),
 ##diplomacy start+
 (try_begin),
 	(neq, "$players_kingdom", "fac_player_supporters_faction"),
 	(is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", dplmc_slot_faction_serfdom),
-	(faction_set_slot, "$players_kingdom", dplmc_slot_faction_serfdom,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_serfdom),
+	(faction_set_slot, "$players_kingdom", slot_faction_serfdom,  reg0),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", dplmc_slot_faction_centralization),
-	(faction_set_slot, "$players_kingdom", dplmc_slot_faction_centralization,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_centralization),
+	(faction_set_slot, "$players_kingdom", slot_faction_centralization,  reg0),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", dplmc_slot_faction_quality),
-	(faction_set_slot, "$players_kingdom", dplmc_slot_faction_quality,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_quality),
+	(faction_set_slot, "$players_kingdom", slot_faction_quality,  reg0),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", dplmc_slot_faction_aristocracy),
-	(faction_set_slot, "$players_kingdom", dplmc_slot_faction_aristocracy,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_aristocracy),
+	(faction_set_slot, "$players_kingdom", slot_faction_aristocracy,  reg0),
 
-	(faction_get_slot, reg0, "fac_player_supporters_faction", dplmc_slot_faction_mercantilism),
-	(faction_set_slot, "$players_kingdom", dplmc_slot_faction_mercantilism,  reg0),
+	(faction_get_slot, reg0, "fac_player_supporters_faction", slot_faction_mercantilism),
+	(faction_set_slot, "$players_kingdom", slot_faction_mercantilism,  reg0),
 (try_end),
 ##diplomacy end+
 ]],
@@ -3439,7 +3439,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (eq, "fac_player_supporters_faction", ":faction_no"),
       (party_stack_get_troop_id, ":party_leader", ":party_no", 0),
       (is_between, ":party_leader", heroes_begin, heroes_end),
-      (troop_set_slot, ":party_leader", dplmc_slot_troop_political_stance, 0),
+      (troop_set_slot, ":party_leader", slot_troop_political_stance, 0),
     (try_end),  
 
     (try_for_parties, ":party_no"),
@@ -3450,9 +3450,9 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (is_between, ":party_leader", heroes_begin, heroes_end),
       (troop_get_slot, ":fav_troop", ":party_leader", slot_troop_stance_on_faction_issue),
       (is_between, ":fav_troop", heroes_begin, heroes_end),
-      (troop_get_slot, ":stance", ":fav_troop", dplmc_slot_troop_political_stance),
+      (troop_get_slot, ":stance", ":fav_troop", slot_troop_political_stance),
       (val_add, ":stance", 1),
-      (troop_set_slot, ":fav_troop", dplmc_slot_troop_political_stance, ":stance"),
+      (troop_set_slot, ":fav_troop", slot_troop_political_stance, ":stance"),
     (try_end),
     
     (assign, ":report", 0),
@@ -3463,7 +3463,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (eq, "fac_player_supporters_faction", ":faction_no"),
       (party_stack_get_troop_id, ":party_leader", ":party_no", 0),
       (is_between, ":party_leader", heroes_begin, heroes_end),
-      (troop_get_slot, ":stance", ":party_leader", dplmc_slot_troop_political_stance),
+      (troop_get_slot, ":stance", ":party_leader", slot_troop_political_stance),
       (try_begin),
         (gt, ":stance", 0),
         (str_store_troop_name, s9, ":party_leader"),
@@ -4675,7 +4675,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (else_try),
       (party_get_slot, ":relation", ":selected_party", slot_center_player_relation),
       (call_script, "script_describe_center_relation_to_s3", ":relation"),
-      (party_get_slot, ":tax_rate", ":selected_party", dplmc_slot_center_taxation),
+      (party_get_slot, ":tax_rate", ":selected_party", slot_center_taxation),
       (call_script, "script_dplmc_describe_tax_rate_to_s50", ":tax_rate"),
       
       (party_get_slot, ":accumulated_rents", ":selected_party", slot_center_accumulated_rents),
@@ -4779,7 +4779,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", dplmc_slot_center_taxation, -50),
+    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, -50),
    ],
    "Very low.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4789,7 +4789,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", dplmc_slot_center_taxation, -25),
+    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, -25),
    ],
    "Low.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4799,7 +4799,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", dplmc_slot_center_taxation, 0),
+    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, 0),
    ],
    "Normal.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4809,7 +4809,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", dplmc_slot_center_taxation, 25),
+    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, 25),
    ],
    "High.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4819,7 +4819,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    
    [anyone|plyr, "dplmc_chamberlain_tax_select_rate",
    [
-    (neg|party_slot_eq, "$diplomacy_var", dplmc_slot_center_taxation, 50),
+    (neg|party_slot_eq, "$diplomacy_var", slot_center_taxation, 50),
    ],
    "Very High.", "dplmc_chamberlain_tax_ask_confirm",
    [
@@ -4844,7 +4844,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    ],
    "Yes.", "dplmc_chamberlain_pretalk",
    [
-    (party_set_slot, "$diplomacy_var", dplmc_slot_center_taxation, "$diplomacy_tax_rate"), 
+    (party_set_slot, "$diplomacy_var", slot_center_taxation, "$diplomacy_tax_rate"),
     (display_message, "@Tax rate for {s6}: {s11}"),
    ]],
    
@@ -5128,7 +5128,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
                              (party_slot_eq, "$diplomacy_var", slot_center_has_temple2, 0),
                                   ],
 		"Build a celtic sacred forest (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_temple2),]
+[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_temple2),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
@@ -5137,7 +5137,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
                              (party_slot_eq, "$diplomacy_var", slot_center_has_temple3, 0),
                                   ],
 		"Build a temple to Woden (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_temple3),]
+[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_temple3),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
@@ -5176,7 +5176,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
                              (party_slot_eq, "$diplomacy_var", slot_center_has_monastery2, 0),
                                   ],
 		"Build a temple of The Old Celtic Gods (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_monastery2),]
+[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_monastery2),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
@@ -5185,7 +5185,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
                              (party_slot_eq, "$diplomacy_var", slot_center_has_monastery3, 0),
                                   ],
 		"Build a shrine to Germanic Gods (Conversion Factor).", "dplmc_chamberlain_manage_fiefs_build_confirm_ask",
-[(party_set_slot,"$g_encountered_party",center_religion_pagana, 1),(assign, "$g_improvement_type", slot_center_has_monastery3),]
+[(party_set_slot,"$g_encountered_party",slot_center_religion_pagan, 1),(assign, "$g_improvement_type", slot_center_has_monastery3),]
    ],   
   [anyone|plyr, "dplmc_chamberlain_manage_fiefs_build_ask2",
 [(eq, reg6, 0),
@@ -5536,7 +5536,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "{!}50.", "dplmc_spouse_talk_buy_food",
    [
     (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse), 
-    (troop_set_slot, ":player_spouse", dplmc_slot_troop_mission_diplomacy, 1),   
+    (troop_set_slot, ":player_spouse", slot_troop_mission_diplomacy, 1),
    ]],
    
    [anyone|plyr, "dplmc_spouse_talk_buy_food_amount",
@@ -5545,7 +5545,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "{!}100.", "dplmc_spouse_talk_buy_food",
    [
     (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse), 
-    (troop_set_slot, ":player_spouse", dplmc_slot_troop_mission_diplomacy, 2),
+    (troop_set_slot, ":player_spouse", slot_troop_mission_diplomacy, 2),
    ]],
    
    [anyone|plyr, "dplmc_spouse_talk_buy_food_amount",
@@ -5554,7 +5554,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "{!}150.", "dplmc_spouse_talk_buy_food",
    [
     (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse), 
-    (troop_set_slot, ":player_spouse", dplmc_slot_troop_mission_diplomacy, 3),
+    (troop_set_slot, ":player_spouse", slot_troop_mission_diplomacy, 3),
    ]],
    
    [anyone|plyr, "dplmc_spouse_talk_buy_food_amount",
@@ -5563,7 +5563,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    "{!}200.", "dplmc_spouse_talk_buy_food",
    [
     (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse), 
-    (troop_set_slot, ":player_spouse", dplmc_slot_troop_mission_diplomacy, 4),
+    (troop_set_slot, ":player_spouse", slot_troop_mission_diplomacy, 4),
    ]],
    
    [anyone|plyr, "dplmc_spouse_talk_buy_food_amount",
@@ -5576,7 +5576,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [  
     (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse), 
     (troop_slot_eq, ":player_spouse", slot_troop_cur_center, "$current_town"), 
-    (troop_get_slot, ":amount", ":player_spouse", dplmc_slot_troop_mission_diplomacy), 
+    (troop_get_slot, ":amount", ":player_spouse", slot_troop_mission_diplomacy),
      
     (assign, ":can_leave", 1),
     (try_begin),
@@ -6185,7 +6185,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 #(eq, "$g_player_affiliated_troop", 0),
 (lt, "$g_player_affiliated_troop", 1),
 ##diplomacy end+
-   (troop_slot_eq, "$g_talk_troop", dplmc_slot_troop_affiliated, 0),
+   (troop_slot_eq, "$g_talk_troop", slot_troop_affiliated, 0),
    (call_script, "script_troop_get_player_relation", "$g_talk_troop"),
    (gt, reg0, 0),
    (call_script, "script_troop_get_family_relation_to_troop", "trp_player", "$g_talk_troop"),
@@ -6365,7 +6365,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
    (try_for_range, ":family_member", lords_begin, kingdom_ladies_end),
     (call_script, "script_dplmc_is_affiliated_family_member", ":family_member"),
     (gt, reg0, 0),
-    (troop_set_slot, ":family_member", dplmc_slot_troop_affiliated, 1),
+    (troop_set_slot, ":family_member", slot_troop_affiliated, 1),
    (try_end),
  ]],
  
@@ -6705,7 +6705,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (str_store_faction_name, s31, ":mission_object"),				 				 
    ],
    "Well, {s21}, at last I've found you. I have returned from my mission to {s31}. They were agreeably surprised.","companion_rejoin_response", [
-    (troop_get_slot, ":dipomacy_var", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+    (troop_get_slot, ":dipomacy_var", "$g_talk_troop", slot_troop_mission_diplomacy),
     (troop_get_slot, ":mission", "$g_talk_troop", slot_troop_current_mission), 
     (try_begin),
       (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object), 
@@ -6843,8 +6843,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (troop_get_slot, ":mission", "$g_talk_troop", slot_troop_current_mission), 
 		  (eq, ":mission", dplmc_npc_mission_prisoner_exchange),
 		  
-      (troop_get_slot, ":enemy_prisoner", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy), 
-      (troop_get_slot, ":own_prisoner", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy2), 
+      (troop_get_slot, ":enemy_prisoner", "$g_talk_troop", slot_troop_mission_diplomacy),
+      (troop_get_slot, ":own_prisoner", "$g_talk_troop", slot_troop_mission_diplomacy2),
       
       (troop_get_slot, ":own_prison", ":enemy_prisoner", slot_troop_prisoner_of_party),
       (troop_get_slot, ":enemy_prison", ":own_prisoner", slot_troop_prisoner_of_party),
@@ -6870,8 +6870,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [anyone|plyr, "dplmc_companion_prisoner_exchange_confirm",
    [],
    "Yes set him free.", "companion_rejoin_response",
-   [  (troop_get_slot, ":enemy_prisoner", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy), 
-      (troop_get_slot, ":own_prisoner", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy2),
+   [  (troop_get_slot, ":enemy_prisoner", "$g_talk_troop", slot_troop_mission_diplomacy),
+      (troop_get_slot, ":own_prisoner", "$g_talk_troop", slot_troop_mission_diplomacy2),
       (call_script, "script_remove_troop_from_prison", ":enemy_prisoner"),
       (call_script, "script_remove_troop_from_prison", ":own_prisoner"), 
       (str_store_troop_name, s7, ":enemy_prisoner"),
@@ -6889,8 +6889,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
    [],
    "No don't set him free.", "companion_rejoin_response",
    [
-      (troop_get_slot, ":enemy_prisoner", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy), 
-      (troop_get_slot, ":own_prisoner", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy2), 
+      (troop_get_slot, ":enemy_prisoner", "$g_talk_troop", slot_troop_mission_diplomacy),
+      (troop_get_slot, ":own_prisoner", "$g_talk_troop", slot_troop_mission_diplomacy2),
       (troop_set_slot, ":own_prisoner", slot_troop_prisoner_of_party, -1),
       (str_store_troop_name, s7, ":own_prisoner"),
       (display_message, "str_dplmc_has_been_set_free"),
@@ -6908,8 +6908,8 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (troop_get_slot, ":mission", "$g_talk_troop", slot_troop_current_mission), 
 		  (eq, ":mission", dplmc_npc_mission_prisoner_exchange),
 		   
-      (troop_get_slot, ":enemy_prisoner", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy), 
-      (troop_get_slot, ":own_prisoner", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy2), 
+      (troop_get_slot, ":enemy_prisoner", "$g_talk_troop", slot_troop_mission_diplomacy),
+      (troop_get_slot, ":own_prisoner", "$g_talk_troop", slot_troop_mission_diplomacy2),
 
       (troop_get_slot, ":string", "$map_talk_troop", slot_troop_honorific),
       (str_store_string, 21, ":string"),
@@ -6929,7 +6929,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (str_store_string, 21, ":string"),
 		  (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
 			(str_store_faction_name, s30, ":mission_object"),		
-			(troop_get_slot, ":target_troop", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+			(troop_get_slot, ":target_troop", "$g_talk_troop", slot_troop_mission_diplomacy),
       (str_store_troop_name, s14, ":target_troop"),	
 	    (troop_set_slot, "$g_talk_troop", slot_troop_intrigue_impatience, 500),
 
@@ -7198,12 +7198,12 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (str_store_string, 21, ":string"),
 		  (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
 			(str_store_faction_name, s31, ":mission_object"),		
-			(troop_get_slot, ":target_troop", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+			(troop_get_slot, ":target_troop", "$g_talk_troop", slot_troop_mission_diplomacy),
       
       (str_store_troop_name, s14, ":target_troop"),			 
                      ],
    "Well, {s21}, at last I've found you. I have returned from my persuasion mission to {s31}. {s14} agreed to join you.","companion_rejoin_response", [ 
-			(troop_get_slot, ":target_troop", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),       
+			(troop_get_slot, ":target_troop", "$g_talk_troop", slot_troop_mission_diplomacy),
       (call_script, "script_change_troop_faction", ":target_troop", "$players_kingdom"),
       
       (store_faction_of_troop, ":target_faction", ":target_troop"),
@@ -7309,7 +7309,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (eq, "$map_talk_troop", "$npc_to_rejoin_party"),
     (troop_get_slot, ":mission", "$g_talk_troop", slot_troop_current_mission),
     (eq, ":mission", dplmc_npc_mission_spy_request),
-    (troop_get_slot, ":emissary_caught", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+    (troop_get_slot, ":emissary_caught", "$g_talk_troop", slot_troop_mission_diplomacy),
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
     (this_or_next|eq, ":emissary_caught", 0),
     (faction_slot_eq, ":mission_object", slot_faction_state, sfs_defeated),
@@ -7327,7 +7327,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
       (troop_get_slot, "$g_talk_troop", "$g_talk_troop", slot_troop_mission_object), #switching npc
       (troop_get_slot, ":mission", "$g_talk_troop", slot_troop_current_mission), 
 		  (eq, ":mission", dplmc_npc_mission_spy_request),      
-      (troop_get_slot, ":emissary_caught", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+      (troop_get_slot, ":emissary_caught", "$g_talk_troop", slot_troop_mission_diplomacy),
       (gt, ":emissary_caught", 0),
 
 		  (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
@@ -7852,7 +7852,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
     (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", "fac_player_supporters_faction", ":mission_object"),
     (ge, reg0, 0),  #player is at peace or truce with the mission_faction
-    (troop_get_slot, ":war_target_faction", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+    (troop_get_slot, ":war_target_faction", "$g_talk_troop", slot_troop_mission_diplomacy),
 ##diplomacy start+ chief
 #The other kingdom will only agree to declare war without asking for money in return
 #if the player's kingdom is also at war with it, or if it is in an alliance with the
@@ -7868,7 +7868,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   ],					
    "{s4} is willing to start a war with {s31}.","companion_rejoin_response", [
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-    (troop_get_slot, ":war_target_faction", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+    (troop_get_slot, ":war_target_faction", "$g_talk_troop", slot_troop_mission_diplomacy),
 #    (call_script, "script_diplomacy_start_war_between_kingdoms",  ":mission_object", ":war_target_faction", 1)
     (call_script, "script_diplomacy_start_war_between_kingdoms",  ":mission_object", ":war_target_faction", logent_faction_declares_war_to_fulfil_pact)	#MOTO chief pass log entries
 					]],
@@ -7885,7 +7885,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
     (call_script, "script_diplomacy_faction_get_diplomatic_status_with_faction", "fac_player_supporters_faction", ":mission_object"),
     (ge, reg0, 0),  #player is at peace or truce with the mission_faction
-    (troop_get_slot, ":war_target_faction", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+    (troop_get_slot, ":war_target_faction", "$g_talk_troop", slot_troop_mission_diplomacy),
     (str_store_faction_name, s31, ":war_target_faction"),
     (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
     (str_store_troop_name, s4, ":emissary_object"),
@@ -7974,7 +7974,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 ##diplomacy start+ actually give gold to other kingdom
 (call_script, "script_dplmc_faction_leader_splits_gold", ":mission_object", ":paid_gold"),
 ##diplomacy end+
-(troop_get_slot, ":war_target_faction", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+(troop_get_slot, ":war_target_faction", "$g_talk_troop", slot_troop_mission_diplomacy),
 #(call_script, "script_diplomacy_start_war_between_kingdoms",  ":mission_object", ":war_target_faction", 1)
 (call_script, "script_diplomacy_start_war_between_kingdoms",  ":mission_object", ":war_target_faction", logent_faction_declares_war_to_fulfil_pact) #MOTO chief pass log entries
 ]],
@@ -7988,7 +7988,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
   [anyone, "dplmc_companion_war_request_response", [
     (troop_slot_eq, "$g_talk_troop", slot_troop_current_mission, dplmc_npc_mission_war_request), 
     (troop_get_slot, ":mission_object", "$g_talk_troop", slot_troop_mission_object),
-    (troop_get_slot, ":war_target_faction", "$g_talk_troop", dplmc_slot_troop_mission_diplomacy),
+    (troop_get_slot, ":war_target_faction", "$g_talk_troop", slot_troop_mission_diplomacy),
     (str_store_faction_name, s31, ":war_target_faction"),
     (faction_get_slot, ":emissary_object", ":mission_object", slot_faction_leader),
     (str_store_troop_name, s4, ":emissary_object"),                   
@@ -9131,7 +9131,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 ##         (assign, "$g_enemigo_quema_comida", 0),
 ##         (assign, "$g_cabezas_dentro", 0),
 ##       (party_set_slot,"$g_encountered_party",centro_bloqueado, 0),               
-##       (party_set_slot,"$g_encountered_party",centro_bloqueado_puerto, 0),
+##       (party_set_slot,"$g_encountered_party",slot_center_port_blockaded, 0),
 ##         #siege warfare acaba
        ]],
   [anyone,"player_tributo3", [],

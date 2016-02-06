@@ -5,7 +5,7 @@ from source.header_dialogs import *
 
 from source.module_constants import walled_centers_begin, walled_centers_end, \
     slot_town_lord, slot_troop_occupation, slto_kingdom_hero, slot_party_type, spt_town, \
-    slot_troop_prisoner_of_party, spt_castle, spt_patrol, dplmc_slot_party_mission_diplomacy, \
+    slot_troop_prisoner_of_party, spt_castle, spt_patrol, slot_party_mission_diplomacy, \
     slot_troop_leaded_party, spt_kingdom_hero_party
 
 
@@ -116,7 +116,7 @@ dialogs += [
                 (try_end),
             (else_try),
                 (party_slot_eq, ":selected_party", slot_party_type, spt_patrol),
-                (party_slot_eq, ":selected_party", dplmc_slot_party_mission_diplomacy, "trp_player"),
+                (party_slot_eq, ":selected_party", slot_party_mission_diplomacy, "trp_player"),
                 (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
                 (try_for_range, ":i_stack", 0, ":num_stacks"),
                     (party_stack_get_size, ":stack_size", ":selected_party", ":i_stack"),

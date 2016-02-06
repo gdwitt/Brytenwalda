@@ -8,7 +8,7 @@ from source.statement import StatementBlock
 
 from source.module_constants import spt_patrol, slot_party_type, slot_party_ai_object, \
     centers_begin, centers_end, slot_party_ai_state, spai_patrolling_around_center, \
-    dplmc_slot_party_mission_diplomacy, spai_retreating_to_center, npc_kingdoms_begin, \
+    slot_party_mission_diplomacy, spai_retreating_to_center, npc_kingdoms_begin, \
     npc_kingdoms_end, towns_begin, towns_end, slot_faction_leader, slot_party_home_center, \
     slot_center_original_faction, slot_faction_reinforcements_a, slot_town_lord, \
     slot_troop_original_faction, slot_faction_reinforcements_b, slot_faction_reinforcements_c
@@ -18,7 +18,7 @@ dialogs = [
 
     [anyone, "start", [
         (party_slot_eq, "$g_encountered_party", slot_party_type, spt_patrol),
-        (party_slot_eq, "$g_encountered_party", dplmc_slot_party_mission_diplomacy, "trp_player"),
+        (party_slot_eq, "$g_encountered_party", slot_party_mission_diplomacy, "trp_player"),
         (party_get_slot, ":target_party", "$g_encountered_party", slot_party_ai_object),
         (str_store_party_name, s6, ":target_party"),
         ], "Greetings, Sire. We are still patrolling {s6}. Do you have new orders?", "patrol_talk", []
@@ -137,7 +137,7 @@ simple_triggers = [
             (eq, ":ai_state", spai_patrolling_around_center),
 
             (try_begin),
-                (party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),
+                (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
                 (assign, ":total_wage", 0),
                 (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
                 (try_for_range, ":i_stack", 0, ":num_stacks"),
@@ -178,7 +178,7 @@ simple_triggers = [
                 (party_slot_eq, ":party_no", slot_party_type, spt_patrol),
                 (store_faction_of_party, ":party_faction", ":party_no"),
                 (eq, ":party_faction", ":kingdom"),
-                (neg | party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),  # not player ordered
+                (neg | party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),  # not player ordered
                 (try_begin),
                     (ge, ":count", ":max_patrols"),
 
@@ -298,7 +298,7 @@ scripts = [
         (party_set_faction, ":spawned_party", ":faction"),
         (party_set_slot, ":spawned_party", slot_party_type, spt_patrol),
         (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
-        (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":order_troop"),
+        (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":order_troop"),
         (str_store_party_name, s5, ":target_party"),
         (party_set_name, ":spawned_party", "@{s5} patrol"),
 
@@ -389,7 +389,7 @@ scripts = [
         (party_set_faction, ":spawned_party", ":faction"),
         (party_set_slot, ":spawned_party", slot_party_type, spt_patrol),
         (party_set_slot, ":spawned_party", slot_party_home_center, ":start_party"),
-        (party_set_slot, ":spawned_party", dplmc_slot_party_mission_diplomacy, ":order_troop"),
+        (party_set_slot, ":spawned_party", slot_party_mission_diplomacy, ":order_troop"),
 
         (str_store_party_name, s5, ":target_party"),
         (party_set_name, ":spawned_party", "@{s5} patrol"),
@@ -406,7 +406,7 @@ scripts = [
 consequences_battle_lost = StatementBlock(
     (try_begin),
         (party_slot_eq, ":root_defeated_party", slot_party_type, spt_patrol),
-        (party_slot_eq, ":root_defeated_party", dplmc_slot_party_mission_diplomacy, "trp_player"),
+        (party_slot_eq, ":root_defeated_party", slot_party_mission_diplomacy, "trp_player"),
         (party_get_slot, ":target_party", ":root_defeated_party", slot_party_ai_object),
         (str_store_party_name, s13, ":target_party"),
         (display_log_message, "@Your soldiers patrolling {s13} have been defeated {s10}!", 0xFF0000),
@@ -416,7 +416,7 @@ consequences_battle_lost = StatementBlock(
 consequences_player_disbands = StatementBlock(
     (try_for_parties, ":party_no"),
         (party_slot_eq,":party_no", slot_party_type, spt_patrol),
-        (party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),
+        (party_slot_eq, ":party_no", slot_party_mission_diplomacy, "trp_player"),
         (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
         (str_store_party_name, s6, ":target_party"),
         (display_log_message, "@Your soldiers patrolling {s6} disbanded because you left the faction!", 0xFF0000),

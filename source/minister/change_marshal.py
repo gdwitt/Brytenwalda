@@ -30,7 +30,7 @@ dialogs = [
     [anyone, "minister_change_marshal", [
         (store_current_hours, ":hours"),
         (val_sub, ":hours", "$g_player_faction_last_marshal_appointment"),
-        (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
+        (faction_get_slot, ":centralization", "fac_player_supporters_faction", slot_faction_centralization),
         (val_clamp, ":centralization", -3, 4),
         (store_mul, ":reset_time", ":centralization", 8),
         (val_add, ":reset_time", 48),
