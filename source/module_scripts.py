@@ -31279,7 +31279,7 @@ scripts = [
 		(troop_set_slot, ":faction_marshal", "slot_troop_controversy", ":controversy"),
 		
 		(try_begin),
-			#(ge, "$cheat_mode", 1),
+			(gt, "$cheat_mode", 1),
 			(str_store_troop_name, s4, ":faction_marshal"),
 			(assign, reg4, ":amount"),
 			(assign, reg5, ":controversy"),
@@ -31300,7 +31300,7 @@ scripts = [
 		(troop_set_slot, ":faction_marshal", "slot_troop_controversy", ":controversy"),
 		
 		(try_begin),
-			#(ge, "$cheat_mode", 1),
+			(gt, "$cheat_mode", 1),
 			(str_store_troop_name, s4, ":faction_marshal"),
 			(assign, reg4, ":amount"),
 			(assign, reg5, ":controversy"),
