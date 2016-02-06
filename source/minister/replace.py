@@ -61,7 +61,7 @@ dialogs = [
 
         # abort all quests on which the troop was being given? todo: confirm what this does.
         (try_for_range, ":minister_quest", all_quests_begin, all_quests_end),
-            (quest_slot_eq, ":minister_quest", slot_quest_giver_troop, "$g_talk_troop"),
+            (quest_slot_eq, ":minister_quest", "slot_quest_giver_troop", "$g_talk_troop"),
             (call_script, "script_abort_quest", ":minister_quest", 0),
         (try_end),
     ]],

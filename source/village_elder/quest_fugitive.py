@@ -3,8 +3,6 @@ from source.header_common import *
 
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_quest_target_center, slot_quest_target_dna
-
 # todo: this quest is set by a lord.
 
 dialogs = [
@@ -12,10 +10,10 @@ dialogs = [
     [anyone | plyr, "village_elder_talk", [
         (check_quest_active, "qst_hunt_down_fugitive"),
         (neg | check_quest_concluded, "qst_hunt_down_fugitive"),
-        (quest_slot_eq, "qst_hunt_down_fugitive", slot_quest_target_center,
+        (quest_slot_eq, "qst_hunt_down_fugitive", "slot_quest_target_center",
          "$current_town"),
         (quest_get_slot, ":quest_target_dna", "qst_hunt_down_fugitive",
-         slot_quest_target_dna),
+         "slot_quest_target_dna"),
         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
         (str_store_string, s4, s50),
     ],
@@ -25,9 +23,9 @@ dialogs = [
     [anyone | plyr, "village_elder_talk", [
         (check_quest_active, "qst_bounty_1"),
         (neg | check_quest_concluded, "qst_bounty_1"),
-        (quest_slot_eq, "qst_bounty_1", slot_quest_target_center, "$current_town"),
+        (quest_slot_eq, "qst_bounty_1", "slot_quest_target_center", "$current_town"),
         (quest_get_slot, ":quest_target_dna", "qst_bounty_1",
-         slot_quest_target_dna),
+         "slot_quest_target_dna"),
         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
         (str_store_string, s4, s50),
     ],
@@ -36,9 +34,9 @@ dialogs = [
     [anyone | plyr, "village_elder_talk", [
         (check_quest_active, "qst_bounty_2"),
         (neg | check_quest_concluded, "qst_bounty_2"),
-        (quest_slot_eq, "qst_bounty_2", slot_quest_target_center, "$current_town"),
+        (quest_slot_eq, "qst_bounty_2", "slot_quest_target_center", "$current_town"),
         (quest_get_slot, ":quest_target_dna", "qst_bounty_2",
-         slot_quest_target_dna),
+         "slot_quest_target_dna"),
         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
         (str_store_string, s4, s50),
     ],
@@ -48,9 +46,9 @@ dialogs = [
     [anyone | plyr, "village_elder_talk", [
         (check_quest_active, "qst_bounty_3"),
         (neg | check_quest_concluded, "qst_bounty_3"),
-        (quest_slot_eq, "qst_bounty_3", slot_quest_target_center, "$current_town"),
+        (quest_slot_eq, "qst_bounty_3", "slot_quest_target_center", "$current_town"),
         (quest_get_slot, ":quest_target_dna", "qst_bounty_3",
-         slot_quest_target_dna),
+         "slot_quest_target_dna"),
         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
         (str_store_string, s4, s50),
     ],
@@ -60,9 +58,9 @@ dialogs = [
     [anyone | plyr, "village_elder_talk", [
         (check_quest_active, "qst_bounty_4"),
         (neg | check_quest_concluded, "qst_bounty_4"),
-        (quest_slot_eq, "qst_bounty_4", slot_quest_target_center, "$current_town"),
+        (quest_slot_eq, "qst_bounty_4", "slot_quest_target_center", "$current_town"),
         (quest_get_slot, ":quest_target_dna", "qst_bounty_4",
-         slot_quest_target_dna),
+         "slot_quest_target_dna"),
         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
         (str_store_string, s4, s50),
     ],
@@ -72,9 +70,9 @@ dialogs = [
     [anyone | plyr, "village_elder_talk", [
         (check_quest_active, "qst_bounty_5"),
         (neg | check_quest_concluded, "qst_bounty_5"),
-        (quest_slot_eq, "qst_bounty_5", slot_quest_target_center, "$current_town"),
+        (quest_slot_eq, "qst_bounty_5", "slot_quest_target_center", "$current_town"),
         (quest_get_slot, ":quest_target_dna", "qst_bounty_5",
-         slot_quest_target_dna),
+         "slot_quest_target_dna"),
         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
         (str_store_string, s4, s50),
     ],
@@ -84,9 +82,9 @@ dialogs = [
     [anyone | plyr, "village_elder_talk", [
         (check_quest_active, "qst_bounty_6"),
         (neg | check_quest_concluded, "qst_bounty_6"),
-        (quest_slot_eq, "qst_bounty_6", slot_quest_target_center, "$current_town"),
+        (quest_slot_eq, "qst_bounty_6", "slot_quest_target_center", "$current_town"),
         (quest_get_slot, ":quest_target_dna", "qst_bounty_6",
-         slot_quest_target_dna),
+         "slot_quest_target_dna"),
         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
         (str_store_string, s4, s50),
     ],

@@ -1,18 +1,15 @@
 from source.header_operations import *
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_quest_current_state
-
-
 dialogs = [
     [anyone | plyr, "village_elder_talk", [
         (eq, "$g_talk_troop", "trp_village_82_elder"),
         (check_quest_active, "qst_oim_dmitriy_gerasim"),
-        (quest_slot_eq, "qst_oim_dmitriy_gerasim", slot_quest_current_state, 0)
+        (quest_slot_eq, "qst_oim_dmitriy_gerasim", "slot_quest_current_state", 0)
     ],
      "I have heard tell that Veracius Evangelic lives here. Where can I find him?",
      "oim_start_quest_trakay_icon", [
-         (quest_set_slot, "qst_oim_dmitriy_gerasim", slot_quest_current_state, 1)
+         (quest_set_slot, "qst_oim_dmitriy_gerasim", "slot_quest_current_state", 1)
      ]],
 
     [anyone | plyr, "village_elder_talk", [

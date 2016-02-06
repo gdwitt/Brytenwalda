@@ -338,40 +338,6 @@ enctype_fighting_against_village_raid = 1
 enctype_catched_during_village_raid = 2
 
 ########################################################
-##  QUEST SLOTS            #############################
-########################################################
-
-slot_quest_target_center = 1
-slot_quest_target_troop = 2
-slot_quest_target_faction = 3
-slot_quest_object_troop = 4
-##slot_quest_target_troop_is_prisoner = 5
-slot_quest_giver_troop = 6
-slot_quest_object_center = 7
-slot_quest_target_party = 8
-slot_quest_target_party_template = 9
-slot_quest_target_amount = 10
-slot_quest_current_state = 11
-slot_quest_giver_center = 12
-slot_quest_target_dna = 13
-slot_quest_target_item = 14
-slot_quest_object_faction = 15
-
-slot_quest_target_state = 16
-slot_quest_object_state = 17
-
-slot_quest_convince_value = 19
-slot_quest_importance = 20
-slot_quest_xp_reward = 21
-slot_quest_gold_reward = 22
-slot_quest_expiration_days = 23
-slot_quest_dont_give_again_period = 24
-slot_quest_dont_give_again_remaining_days = 25
-
-slot_quest_failure_consequence = 26
-# slot_quest_temp_slot      			= 27
-
-########################################################
 ##  PARTY TEMPLATE SLOTS   #############################
 ########################################################
 

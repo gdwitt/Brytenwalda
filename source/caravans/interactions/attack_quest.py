@@ -3,8 +3,7 @@ from source.header_common import s17
 
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_quest_giver_troop, tc_party_encounter, \
-    slot_quest_target_faction
+from source.module_constants import tc_party_encounter
 
 
 dialogs = [
@@ -14,9 +13,9 @@ dialogs = [
         (check_quest_active, "qst_cause_provocation"),
         (neg | check_quest_concluded, "qst_cause_provocation"),
 
-        (quest_slot_eq, "qst_cause_provocation", slot_quest_target_faction, "$g_encountered_party_faction"),
+        (quest_slot_eq, "qst_cause_provocation", "slot_quest_target_faction", "$g_encountered_party_faction"),
 
-        (quest_get_slot, ":giver_troop", "qst_cause_provocation", slot_quest_giver_troop),
+        (quest_get_slot, ":giver_troop", "qst_cause_provocation", "slot_quest_giver_troop"),
         (store_faction_of_troop, ":giver_troop_faction", ":giver_troop"),
 
         (str_store_faction_name, s17, ":giver_troop_faction"),
@@ -25,7 +24,7 @@ dialogs = [
      ],
 
     [anyone, "caravan_start_war_quest_1", [
-        (quest_get_slot, ":giver_troop", "qst_cause_provocation", slot_quest_giver_troop),
+        (quest_get_slot, ":giver_troop", "qst_cause_provocation", "slot_quest_giver_troop"),
         (store_faction_of_troop, ":giver_troop_faction", ":giver_troop"),
         (str_store_faction_name, s17, ":giver_troop_faction"),
     ], "What? What nonsense is this? We are at peace with the {s17}, and are "

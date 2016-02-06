@@ -4,8 +4,6 @@ from source.header_dialogs import anyone, plyr, auto_proceed, party_tpl
 from source.header_parties import pf_default_behavior, ai_bhvr_travel_to_party, \
     ai_bhvr_hold
 
-from source.module_constants import *
-
 from source.lazy_flag import LazyFlag
 
 
@@ -112,12 +110,12 @@ dialogs = [
          (str_store_string, s4,
           "@Pyr the Elder has asked you to deal with the forest bandits north of Llan Forfael"),
          #   #(call_script, "script_start_quest", "qst_deal_with_zamoshie_bandits", "$g_talk_troop"),
-         (start_quest, "qst_deal_with_zamoshie_bandits"), (quest_set_slot, "qst_deal_with_zamoshie_bandits", slot_quest_current_state, 1),
+         (start_quest, "qst_deal_with_zamoshie_bandits"), (quest_set_slot, "qst_deal_with_zamoshie_bandits", "slot_quest_current_state", 1),
          # (set_spawn_radius, 3),
          # (spawn_around_party,"p_village_88","pt_neko"),
          # (assign, ":qst_neko_party", reg0),
-         # (quest_set_slot, "qst_mod_trouble", slot_quest_target_party, ":qst_neko_party"),
-         # #(quest_set_slot, "qst_mod_trouble", slot_quest_xp_reward, 1000),
+         # (quest_set_slot, "qst_mod_trouble", "slot_quest_target_party", ":qst_neko_party"),
+         # #(quest_set_slot, "qst_mod_trouble", "slot_quest_xp_reward", 1000),
          # (party_set_ai_behavior, ":qst_neko_party", ai_bhvr_hold),
          # (party_set_flags, ":qst_neko_party", pf_default_behavior, 0),
          # (party_set_ai_object, ":qst_neko_party", "p_main_party"),
@@ -130,14 +128,14 @@ dialogs = [
          # (remove_troop_from_site,"trp_npcneko","scn_town_41_tavern")
          # (party_set_ai_target_position, "pt_eadfrith", pos0),]],
          (set_spawn_radius, 2),
-         (quest_get_slot, ":quest_target_center", "qst_deal_with_zamoshie_bandits", slot_quest_target_center),
+         (quest_get_slot, ":quest_target_center", "qst_deal_with_zamoshie_bandits", "slot_quest_target_center"),
          (spawn_around_party, ":quest_target_center", "pt_zamoshie_bandits"),
          (assign, ":quest_target_party", reg0),
-         (quest_set_slot, "qst_deal_with_zamoshie_bandits", slot_quest_target_party, ":quest_target_party"),
-         (quest_set_slot, "qst_deal_with_zamoshie_bandits", slot_quest_xp_reward, 600),
-         (quest_set_slot, "qst_deal_with_zamoshie_bandits", slot_quest_gold_reward, 100),
-         (quest_set_slot, "qst_deal_with_zamoshie_bandits", slot_quest_current_state, 0),
-         (quest_set_slot, "qst_deal_with_zamoshie_bandits", slot_quest_giver_troop, "$g_talk_troop"),
+         (quest_set_slot, "qst_deal_with_zamoshie_bandits", "slot_quest_target_party", ":quest_target_party"),
+         (quest_set_slot, "qst_deal_with_zamoshie_bandits", "slot_quest_xp_reward", 600),
+         (quest_set_slot, "qst_deal_with_zamoshie_bandits", "slot_quest_gold_reward", 100),
+         (quest_set_slot, "qst_deal_with_zamoshie_bandits", "slot_quest_current_state", 0),
+         (quest_set_slot, "qst_deal_with_zamoshie_bandits", "slot_quest_giver_troop", "$g_talk_troop"),
          (party_set_ai_behavior, ":quest_target_party", ai_bhvr_hold),
          (party_set_ai_object, ":quest_target_party", "p_main_party"),
 
@@ -190,7 +188,7 @@ dialogs = [
      "to me... And they have asked of me to put an end to this disgraceful "
      "situation.",
      "zamoshien_badits_dialog_prebattle_5", [
-         (quest_set_slot, "qst_deal_with_zamoshie_bandits", slot_quest_current_state, 1),
+         (quest_set_slot, "qst_deal_with_zamoshie_bandits", "slot_quest_current_state", 1),
          (call_script, "script_succeed_quest", "qst_deal_with_zamoshie_bandits")]
      ],
 
@@ -286,13 +284,13 @@ dialogs = [
      "close_window", [
          # code to start quest
 
-         (quest_set_slot, "qst_zamoshie_lower_taxes", slot_quest_target_troop, "trp_knight_15_3"),
-         (quest_set_slot, "qst_zamoshie_lower_taxes", slot_quest_target_party, "trp_knight_15_3"),
-         (quest_set_slot, "qst_zamoshie_lower_taxes", slot_quest_xp_reward, 100),
-         (quest_set_slot, "qst_zamoshie_lower_taxes", slot_quest_gold_reward, 10),
-         (quest_set_slot, "qst_zamoshie_lower_taxes", slot_quest_current_state, 0),
-         (quest_set_slot, "qst_zamoshie_lower_taxes", slot_quest_target_amount, 200),
-         (quest_set_slot, "qst_zamoshie_lower_taxes", slot_quest_giver_troop, "trp_village_66_elder"),
+         (quest_set_slot, "qst_zamoshie_lower_taxes", "slot_quest_target_troop", "trp_knight_15_3"),
+         (quest_set_slot, "qst_zamoshie_lower_taxes", "slot_quest_target_party", "trp_knight_15_3"),
+         (quest_set_slot, "qst_zamoshie_lower_taxes", "slot_quest_xp_reward", 100),
+         (quest_set_slot, "qst_zamoshie_lower_taxes", "slot_quest_gold_reward", 10),
+         (quest_set_slot, "qst_zamoshie_lower_taxes", "slot_quest_current_state", 0),
+         (quest_set_slot, "qst_zamoshie_lower_taxes", "slot_quest_target_amount", 200),
+         (quest_set_slot, "qst_zamoshie_lower_taxes", "slot_quest_giver_troop", "trp_village_66_elder"),
          (str_store_troop_name, s9, "$g_talk_troop"),
          (str_store_troop_name_link, s10, "trp_knight_15_3"),
          (setup_quest_text, "qst_zamoshie_lower_taxes"),
@@ -356,10 +354,10 @@ dialogs += [
      "So be it. I shall deliver you the goods, and perhaps I shall learn a bit about trading myself!",
      "village_elder_talk", [
          # code to start quest deliver goods zamoshie village
-         (quest_set_slot, "qst_oim_bring_goods_zamoshie", slot_quest_xp_reward, 250),
-         # (quest_set_slot, "qst_oim_bring_goods_zamoshie", slot_quest_gold_reward, 50),#gdw gets arrows instead
-         (quest_set_slot, "qst_oim_bring_goods_zamoshie", slot_quest_current_state, 0),
-         (quest_set_slot, "qst_oim_bring_goods_zamoshie", slot_quest_giver_troop, "$g_talk_troop"),
+         (quest_set_slot, "qst_oim_bring_goods_zamoshie", "slot_quest_xp_reward", 250),
+         # (quest_set_slot, "qst_oim_bring_goods_zamoshie", "slot_quest_gold_reward", 50),#gdw gets arrows instead
+         (quest_set_slot, "qst_oim_bring_goods_zamoshie", "slot_quest_current_state", 0),
+         (quest_set_slot, "qst_oim_bring_goods_zamoshie", "slot_quest_giver_troop", "$g_talk_troop"),
          (str_store_troop_name, s9, "$g_talk_troop"),
          (str_store_item_name, s10, "itm_tools"),
          (setup_quest_text, "qst_oim_bring_goods_zamoshie"),

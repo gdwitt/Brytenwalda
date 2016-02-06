@@ -122,7 +122,7 @@ _trade_dialogs = [
         (assign, ":quest_village", 0),
         (try_begin),
             (check_quest_active, "qst_deliver_cattle"),
-            (quest_slot_eq, "qst_deliver_cattle", slot_quest_target_center, "$current_town"),
+            (quest_slot_eq, "qst_deliver_cattle", "slot_quest_target_center", "$current_town"),
             (assign, ":quest_village", 1),
         (try_end),
         (eq, ":quest_village", 0),

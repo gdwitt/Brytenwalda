@@ -5,7 +5,7 @@ from source.header_game_menus import mnf_disable_all_keys
 
 from source.header_items import num_equipment_kinds, max_inventory_items
 
-from source.module_constants import slot_quest_target_center, svs_looted
+from source.module_constants import svs_looted
 
 
 menus = [
@@ -29,13 +29,13 @@ menus = [
             (party_set_slot, "$current_town", "slot_village_recover_progress", 0),
             (try_begin),
                 (check_quest_active, "qst_eliminate_bandits_infesting_village"),
-                (quest_slot_eq, "qst_eliminate_bandits_infesting_village", slot_quest_target_center, "$g_encountered_party"),
+                (quest_slot_eq, "qst_eliminate_bandits_infesting_village", "slot_quest_target_center", "$g_encountered_party"),
                 (call_script, "script_change_player_relation_with_center", "$g_encountered_party", -10),
                 (call_script, "script_fail_quest", "qst_eliminate_bandits_infesting_village"),
                 (call_script, "script_end_quest", "qst_eliminate_bandits_infesting_village"),
             (else_try),
                 (check_quest_active, "qst_deal_with_bandits_at_lords_village"),
-                (quest_slot_eq, "qst_deal_with_bandits_at_lords_village", slot_quest_target_center, "$g_encountered_party"),
+                (quest_slot_eq, "qst_deal_with_bandits_at_lords_village", "slot_quest_target_center", "$g_encountered_party"),
                 (call_script, "script_change_player_relation_with_center", "$g_encountered_party", -8), #chief cambiado
                 (call_script, "script_fail_quest", "qst_deal_with_bandits_at_lords_village"),
                 (call_script, "script_end_quest", "qst_deal_with_bandits_at_lords_village"),
@@ -59,14 +59,14 @@ menus = [
         (call_script, "script_party_give_xp_and_gold", "p_temp_party"),
         (try_begin),
             (check_quest_active, "qst_eliminate_bandits_infesting_village"),
-            (quest_slot_eq, "qst_eliminate_bandits_infesting_village", slot_quest_target_center, "$g_encountered_party"),
+            (quest_slot_eq, "qst_eliminate_bandits_infesting_village", "slot_quest_target_center", "$g_encountered_party"),
             (call_script, "script_end_quest", "qst_eliminate_bandits_infesting_village"),
             # Add quest reward
             (call_script, "script_change_player_relation_with_center", "$g_encountered_party", 6),
             (call_script, "script_change_player_relation_with_faction", "fac_commoners", 5),
         (else_try),
             (check_quest_active, "qst_deal_with_bandits_at_lords_village"),
-            (quest_slot_eq, "qst_deal_with_bandits_at_lords_village", slot_quest_target_center, "$g_encountered_party"),
+            (quest_slot_eq, "qst_deal_with_bandits_at_lords_village", "slot_quest_target_center", "$g_encountered_party"),
             (call_script, "script_succeed_quest", "qst_deal_with_bandits_at_lords_village"),
             (call_script, "script_change_player_relation_with_center", "$g_encountered_party", 6),
             (call_script, "script_change_player_relation_with_faction", "fac_commoners", 4),

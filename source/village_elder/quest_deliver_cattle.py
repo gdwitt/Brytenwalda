@@ -3,8 +3,7 @@ from source.header_common import s2, s3, s4, pos0, pos1, pos2, reg0
 
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_quest_target_center, slot_quest_target_amount, \
-    villages_begin, villages_end, \
+from source.module_constants import villages_begin, villages_end, \
     village_elders_begin, village_elders_end, \
     logent_helped_peasants
 
@@ -33,9 +32,9 @@ dialogs = [
      "Bandits have driven away our cattle. Our pastures are empty. If we had "
      "just a few heads of cattle we could start to raise a herd again.",
      "village_elder_tell_deliver_cattle_mission", [
-         (quest_get_slot, ":quest_target_center", "$random_quest_no", slot_quest_target_center),
+         (quest_get_slot, ":quest_target_center", "$random_quest_no", "slot_quest_target_center"),
          (str_store_party_name_link, s3, ":quest_target_center"),
-         (quest_get_slot, reg0, "$random_quest_no", slot_quest_target_amount),
+         (quest_get_slot, reg0, "$random_quest_no", "slot_quest_target_amount"),
          (setup_quest_text, "$random_quest_no"),
          (str_store_string, s2, "@The elder of the village of {s3} asked you to "
                                 "bring them {reg0} heads of cattle."),
@@ -50,7 +49,7 @@ dialogs = [
      "village_elder_deliver_cattle_mission_reject", []],
 
     [anyone, "village_elder_tell_deliver_cattle_mission_2",
-     [(quest_get_slot, reg0, "$random_quest_no", slot_quest_target_amount)],
+     [(quest_get_slot, reg0, "$random_quest_no", "slot_quest_target_amount")],
      "I think {reg0} heads will suffice for a small herd.",
      "village_elder_tell_deliver_cattle_mission_3", []],
 
@@ -84,7 +83,7 @@ dialogs += [
         (store_partner_quest, ":elder_quest"),
         (eq, ":elder_quest", "qst_deliver_cattle"),
         (check_quest_succeeded, ":elder_quest"),
-        (quest_get_slot, reg0, "qst_deliver_cattle", slot_quest_target_amount)],
+        (quest_get_slot, reg0, "qst_deliver_cattle", "slot_quest_target_amount")],
      "My good {sir/madam}. Our village is grateful for your help. Thanks to "
      "the {reg0} heads of cattle you have brought, we can now raise our own herd.",
      "village_elder_deliver_cattle_thank", [

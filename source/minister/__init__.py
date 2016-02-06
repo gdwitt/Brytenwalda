@@ -68,22 +68,22 @@ dialogs = [
 
         (setup_quest_text, "qst_resolve_dispute"),
 
-        (quest_get_slot, ":lord_1", "qst_resolve_dispute", slot_quest_target_troop),
+        (quest_get_slot, ":lord_1", "qst_resolve_dispute", "slot_quest_target_troop"),
         (str_store_troop_name, s11, ":lord_1"),
 
-        (quest_get_slot, ":lord_2", "qst_resolve_dispute", slot_quest_object_troop),
+        (quest_get_slot, ":lord_2", "qst_resolve_dispute", "slot_quest_object_troop"),
         (str_store_troop_name, s12, ":lord_2"),
 
         (str_store_string, s2, "str_resolve_the_dispute_between_s11_and_s12"),
         (call_script, "script_start_quest", "qst_resolve_dispute", -1),
-        (quest_set_slot, "qst_resolve_dispute", slot_quest_expiration_days, 30),
-        (quest_set_slot, "qst_resolve_dispute", slot_quest_giver_troop, "$g_player_minister"),
-        (quest_set_slot, "qst_resolve_dispute", slot_quest_target_state, 0),
-        (quest_set_slot, "qst_resolve_dispute", slot_quest_object_state, 0),
+        (quest_set_slot, "qst_resolve_dispute", "slot_quest_expiration_days", 30),
+        (quest_set_slot, "qst_resolve_dispute", "slot_quest_giver_troop", "$g_player_minister"),
+        (quest_set_slot, "qst_resolve_dispute", "slot_quest_target_state", 0),
+        (quest_set_slot, "qst_resolve_dispute", "slot_quest_object_state", 0),
 
-        (quest_get_slot, ":lord_1", "qst_resolve_dispute", slot_quest_target_troop),  # this block just to check if the slots work
+        (quest_get_slot, ":lord_1", "qst_resolve_dispute", "slot_quest_target_troop"),  # this block just to check if the slots work
         (str_store_troop_name, s11, ":lord_1"),
-        (quest_get_slot, ":lord_2", "qst_resolve_dispute", slot_quest_object_troop),
+        (quest_get_slot, ":lord_2", "qst_resolve_dispute", "slot_quest_object_troop"),
         (str_store_troop_name, s12, ":lord_2"),
         ], "There is a matter which needs your attention. The quarrel between {s11} and {s12} has esclatated "
            "to a point where it has become unseemly. If you do intervene, you risk offending one of the lords. "
@@ -148,9 +148,9 @@ dialogs = [
     # quest offer gift
     [anyone | plyr, "minister_talk", [
         (check_quest_active, "qst_offer_gift"),
-        (quest_slot_eq, "qst_offer_gift", slot_quest_giver_troop, "$g_talk_troop"),
+        (quest_slot_eq, "qst_offer_gift", "slot_quest_giver_troop", "$g_talk_troop"),
 
-        (quest_get_slot, ":target_troop", "qst_offer_gift", slot_quest_target_troop),
+        (quest_get_slot, ":target_troop", "qst_offer_gift", "slot_quest_target_troop"),
         (str_store_troop_name, s4, ":target_troop"),
         (player_has_item, "itm_furs"),
         (player_has_item, "itm_velvet"),
@@ -158,12 +158,12 @@ dialogs = [
     ]],
 
     [anyone, "offer_gift_quest_complete", [
-        (quest_get_slot, ":target_troop", "qst_offer_gift", slot_quest_target_troop),
+        (quest_get_slot, ":target_troop", "qst_offer_gift", "slot_quest_target_troop"),
         (troop_get_type, reg4, ":target_troop"),
         ], "Ah, let me take those. Hopefully this will mend the quarrel between you two. You may wish to "
            "speak to {reg4?her:him}, and see if I had any success.", "close_window", [
-        (quest_set_slot, "qst_offer_gift", slot_quest_current_state, 2),
-        (quest_set_slot, "qst_offer_gift", slot_quest_expiration_days, 365),
+        (quest_set_slot, "qst_offer_gift", "slot_quest_current_state", 2),
+        (quest_set_slot, "qst_offer_gift", "slot_quest_expiration_days", 365),
         (troop_remove_item, "trp_player", "itm_furs"),
         (troop_remove_item, "trp_player", "itm_velvet"),
         (assign, "$g_leave_encounter", 1),
@@ -173,12 +173,12 @@ dialogs = [
         (assign, "$political_quest_to_cancel", -1),
         (try_begin),
             (check_quest_active, "qst_offer_gift"),
-            (quest_slot_eq, "qst_offer_gift", slot_quest_giver_troop, "$g_talk_troop"),
+            (quest_slot_eq, "qst_offer_gift", "slot_quest_giver_troop", "$g_talk_troop"),
             (assign, "$political_quest_to_cancel", "qst_offer_gift"),
             (str_store_string, s10, "str_offer_gift_description"),
         (else_try),
             (check_quest_active, "qst_resolve_dispute"),
-            (quest_slot_eq, "qst_resolve_dispute", slot_quest_giver_troop, "$g_talk_troop"),
+            (quest_slot_eq, "qst_resolve_dispute", "slot_quest_giver_troop", "$g_talk_troop"),
             (assign, "$political_quest_to_cancel", "qst_resolve_dispute"),
             (str_store_string, s10, "str_resolve_dispute_description"),
         (try_end),

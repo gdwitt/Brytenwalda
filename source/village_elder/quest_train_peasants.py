@@ -3,8 +3,7 @@ from source.header_common import *
 
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import villages_begin, villages_end, \
-    slot_quest_target_center, slot_quest_target_amount
+from source.module_constants import villages_begin, villages_end
 
 from source.statement import StatementBlock
 
@@ -36,9 +35,9 @@ dialogs = [
      "people here could be more than that. We just need an experienced warrior "
      "to teach us how to fight.",
      "village_elder_tell_train_peasants_against_bandits_mission", [
-         (quest_get_slot, ":quest_target_center", "$random_quest_no", slot_quest_target_center),
+         (quest_get_slot, ":quest_target_center", "$random_quest_no", "slot_quest_target_center"),
          (str_store_party_name_link, s13, ":quest_target_center"),
-         (quest_get_slot, reg5, "$random_quest_no", slot_quest_target_amount),
+         (quest_get_slot, reg5, "$random_quest_no", "slot_quest_target_amount"),
          (setup_quest_text, "$random_quest_no"),
          (str_store_string, s2, "@The elder of the village of {s13} asked you to train {reg5} peasants to fight against local bandits."),
      ]],

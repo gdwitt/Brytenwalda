@@ -3,7 +3,6 @@ from source.header_common import *
 
 from source.header_dialogs import anyone, plyr
 from source.module_constants import villages_begin, villages_end, \
-    slot_quest_target_center, slot_quest_target_amount, \
     logent_helped_peasants
 
 from source.statement import StatementBlock
@@ -36,9 +35,9 @@ dialogs = [
      "our fields and then we will have nothing to eat for the coming year. If "
      "you can help us, we would be indebted to you forever.",
      "village_elder_tell_deliver_grain_mission", [
-         (quest_get_slot, ":quest_target_center", "$random_quest_no", slot_quest_target_center),
+         (quest_get_slot, ":quest_target_center", "$random_quest_no", "slot_quest_target_center"),
          (str_store_party_name_link, s3, ":quest_target_center"),
-         (quest_get_slot, reg5, "$random_quest_no", slot_quest_target_amount),
+         (quest_get_slot, reg5, "$random_quest_no", "slot_quest_target_amount"),
          (setup_quest_text, "$random_quest_no"),
          (str_store_string, s2, "@The elder of the village of {s3} asked you "
                                 "to bring them {reg5} packs of grain."),
@@ -53,7 +52,7 @@ dialogs = [
      "village_elder_deliver_grain_mission_reject", []],
 
     [anyone, "village_elder_tell_deliver_grain_mission_2", [
-        (quest_get_slot, reg5, "$random_quest_no", slot_quest_target_amount)],
+        (quest_get_slot, reg5, "$random_quest_no", "slot_quest_target_amount")],
      "I think {reg5} packs of grain will let us start the planting. Hopefully, "
      "we can find charitable people to help us with the rest.",
      "village_elder_tell_deliver_grain_mission_3", []],
@@ -84,7 +83,7 @@ dialogs = [
         (store_partner_quest, ":elder_quest"),
         (eq, ":elder_quest", "qst_deliver_grain"),
         (quest_get_slot, ":quest_target_amount", "qst_deliver_grain",
-         slot_quest_target_amount),
+         "slot_quest_target_amount"),
         (call_script, "script_get_troop_item_amount", "trp_player", "itm_grain"),
         (assign, ":cur_amount", reg0),
         (ge, ":cur_amount", ":quest_target_amount"),
@@ -100,7 +99,7 @@ dialogs = [
      "of {s13} will not forget what you have done for us.",
      "village_elder_deliver_grain_thank_2", [
 
-         (quest_get_slot, ":quest_target_amount", "qst_deliver_grain", slot_quest_target_amount),
+         (quest_get_slot, ":quest_target_amount", "qst_deliver_grain", "slot_quest_target_amount"),
          (troop_remove_items, "trp_player", "itm_grain", ":quest_target_amount"),
          (add_xp_as_reward, 350),  # gdw400
          (call_script, "script_change_center_prosperity", "$current_town", 4),

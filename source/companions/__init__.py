@@ -699,8 +699,8 @@ def _loop_quest_available_companions(*args):
             (assign, ":is_quest_hero", 0),
             (try_for_range, ":i_quest", all_quests_begin, all_quests_end),
                 (check_quest_active, ":i_quest"),
-                (this_or_next|quest_slot_eq, ":i_quest", slot_quest_target_troop, ":stack_troop"),
-                (quest_slot_eq, ":i_quest", slot_quest_object_troop, ":stack_troop"),
+                (this_or_next|quest_slot_eq, ":i_quest", "slot_quest_target_troop", ":stack_troop"),
+                (quest_slot_eq, ":i_quest", "slot_quest_object_troop", ":stack_troop"),
                 (assign, ":is_quest_hero", 1),
                 # todo: it was found: break the loop.
             (try_end),
