@@ -19985,8 +19985,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (eq, "$loot_screen_shown", 1),
 		
         (try_for_range, ":bandit_template", "pt_steppe_bandits", "pt_deserters"),
-          (party_template_slot_eq, ":bandit_template", slot_party_template_lair_party, "$g_encountered_party"),
-          (party_template_set_slot, ":bandit_template", slot_party_template_lair_party, 0),
+          (party_template_slot_eq, ":bandit_template", "slot_party_template_lair_party", "$g_encountered_party"),
+          (party_template_set_slot, ":bandit_template", "slot_party_template_lair_party", 0),
         (try_end),
         
         (try_begin),
@@ -20239,8 +20239,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  "Continue...",
       [      
         (try_for_range, ":bandit_template", "pt_steppe_bandits", "pt_deserters"),
-          (party_template_slot_eq, ":bandit_template", slot_party_template_lair_party, "$g_encountered_party"),
-          (party_template_set_slot, ":bandit_template", slot_party_template_lair_party, 0),
+          (party_template_slot_eq, ":bandit_template", "slot_party_template_lair_party", "$g_encountered_party"),
+          (party_template_set_slot, ":bandit_template", "slot_party_template_lair_party", 0),
         (try_end),
          
         (party_get_template_id, ":template", "$g_encountered_party"),
@@ -20306,8 +20306,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  "Continue...",
       [
         (try_for_range, ":bandit_template", "pt_steppe_bandits", "pt_deserters"),
-          (party_template_slot_eq, ":bandit_template", slot_party_template_lair_party, "$g_encountered_party"),
-          (party_template_set_slot, ":bandit_template", slot_party_template_lair_party, 0),
+          (party_template_slot_eq, ":bandit_template", "slot_party_template_lair_party", "$g_encountered_party"),
+          (party_template_set_slot, ":bandit_template", "slot_party_template_lair_party", 0),
         (try_end),
         
         (try_begin),

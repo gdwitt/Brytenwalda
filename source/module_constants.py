@@ -338,20 +338,6 @@ enctype_fighting_against_village_raid = 1
 enctype_catched_during_village_raid = 2
 
 ########################################################
-##  PARTY TEMPLATE SLOTS   #############################
-########################################################
-
-# Ryan BEGIN
-slot_party_template_num_killed = 1
-
-slot_party_template_lair_type = 3
-slot_party_template_lair_party = 4
-slot_party_template_lair_spawnpoint = 5
-
-# Ryan END
-
-
-########################################################
 ##  SCENE PROP SLOTS       #############################
 ########################################################
 
