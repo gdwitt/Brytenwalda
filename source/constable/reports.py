@@ -4,9 +4,7 @@ from source.header_common import *
 from source.header_dialogs import *
 
 from source.module_constants import walled_centers_begin, walled_centers_end, \
-    slot_troop_occupation, slto_kingdom_hero, spt_town, \
-    slot_troop_prisoner_of_party, spt_castle, spt_patrol, \
-    slot_troop_leaded_party, spt_kingdom_hero_party
+    slto_kingdom_hero, spt_town, spt_castle, spt_patrol, spt_kingdom_hero_party
 
 
 kingdom_option = \
@@ -155,10 +153,10 @@ dialogs += [
 
     [anyone | plyr | repeat_for_troops, "dplmc_constable_status_lord_select", [
         (store_repeat_object, ":troop_no"),
-        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
         (neq, "trp_player", ":troop_no"),
-        (troop_slot_ge, ":troop_no", slot_troop_leaded_party, 0),
-        (neg|troop_slot_ge, ":troop_no", slot_troop_prisoner_of_party, 0),
+        (troop_slot_ge, ":troop_no", "slot_troop_leaded_party", 0),
+        (neg|troop_slot_ge, ":troop_no", "slot_troop_prisoner_of_party", 0),
         (store_troop_faction, ":faction_no", ":troop_no"),
         (eq, ":faction_no", "fac_player_supporters_faction"),
         (str_store_troop_name, s11, ":troop_no"),
@@ -179,7 +177,7 @@ dialogs += [
         (call_script, "script_get_information_about_troops_position", ":selected_troop", 0),
 
         (assign, ":party_size", 0),
-        (troop_get_slot, ":selected_party", ":selected_troop", slot_troop_leaded_party),
+        (troop_get_slot, ":selected_party", ":selected_troop", "slot_troop_leaded_party"),
         (str_store_string, s52, "str_empty_string"),
         (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
 
@@ -208,7 +206,7 @@ dialogs += [
         (call_script, "script_get_information_about_troops_position", ":selected_troop", 0),
 
         (assign, ":party_size", 0),
-        (troop_get_slot, ":selected_party", ":selected_troop", slot_troop_leaded_party),
+        (troop_get_slot, ":selected_party", ":selected_troop", "slot_troop_leaded_party"),
         (str_store_string, s52, "str_empty_string"),
         (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
 
@@ -234,7 +232,7 @@ dialogs += [
         (str_store_troop_name, s60, ":selected_troop"),
 
         (assign, ":party_size", 0),
-        (troop_get_slot, ":selected_party", ":selected_troop", slot_troop_leaded_party),
+        (troop_get_slot, ":selected_party", ":selected_troop", "slot_troop_leaded_party"),
         (str_store_string, s52, "str_empty_string"),
         (party_get_num_companion_stacks, ":num_stacks", ":selected_party"),
 

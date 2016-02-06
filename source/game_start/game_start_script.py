@@ -6,18 +6,18 @@ from ..module_constants import *
 
 scripts = [
     ("game_start", [
-        (troop_set_slot, "trp_hero1", slot_troop_occupation, "trp_briton_cavalry"),
-        (troop_set_slot, "trp_hero2", slot_troop_occupation, "trp_saxon_infantryt5"),
-        (troop_set_slot, "trp_hero3", slot_troop_occupation, "trp_pict_infantryt5"),
-        (troop_set_slot, "trp_hero4", slot_troop_occupation, "trp_engle_infantryt5"),
-        (troop_set_slot, "trp_hero5", slot_troop_occupation, "trp_irish_noblecavalry"),
-        (troop_set_slot, "trp_hero6", slot_troop_occupation, "trp_jute_infantryelitet5"),
-        (troop_set_slot, "trp_hero7", slot_troop_occupation, "trp_sea_raider_leader2"),
-        (troop_set_slot, "trp_hero8", slot_troop_occupation, "trp_looter_leader2"),
-        (troop_set_slot, "trp_hero9", slot_troop_occupation, "trp_slaver_chief"),
-        (troop_set_slot, "trp_hero10", slot_troop_occupation, "trp_fresna_infantryt3"),
-        (troop_set_slot, "trp_hero11", slot_troop_occupation, "trp_mercenary_leader"),
-        (troop_set_slot, "trp_hero12", slot_troop_occupation, "trp_cantaber_iuventus"),
+        (troop_set_slot, "trp_hero1", "slot_troop_occupation", "trp_briton_cavalry"),
+        (troop_set_slot, "trp_hero2", "slot_troop_occupation", "trp_saxon_infantryt5"),
+        (troop_set_slot, "trp_hero3", "slot_troop_occupation", "trp_pict_infantryt5"),
+        (troop_set_slot, "trp_hero4", "slot_troop_occupation", "trp_engle_infantryt5"),
+        (troop_set_slot, "trp_hero5", "slot_troop_occupation", "trp_irish_noblecavalry"),
+        (troop_set_slot, "trp_hero6", "slot_troop_occupation", "trp_jute_infantryelitet5"),
+        (troop_set_slot, "trp_hero7", "slot_troop_occupation", "trp_sea_raider_leader2"),
+        (troop_set_slot, "trp_hero8", "slot_troop_occupation", "trp_looter_leader2"),
+        (troop_set_slot, "trp_hero9", "slot_troop_occupation", "trp_slaver_chief"),
+        (troop_set_slot, "trp_hero10", "slot_troop_occupation", "trp_fresna_infantryt3"),
+        (troop_set_slot, "trp_hero11", "slot_troop_occupation", "trp_mercenary_leader"),
+        (troop_set_slot, "trp_hero12", "slot_troop_occupation", "trp_cantaber_iuventus"),
         (assign, "$g_upgrade_time", 336),  # 2 weeks for 1st upgrade call
 
         (call_script, "script_coop_set_default_admin_settings"),
@@ -93,7 +93,7 @@ scripts = [
 
         (faction_set_slot, "fac_player_supporters_faction", "slot_faction_state", sfs_inactive),
         (assign, "$g_player_luck", 200),
-        (troop_set_slot, "trp_player", slot_troop_occupation, slto_kingdom_hero),
+        (troop_set_slot, "trp_player", "slot_troop_occupation", slto_kingdom_hero),
         (store_random_in_range, ":starting_training_ground", training_grounds_begin, training_grounds_end),
         (party_relocate_near_party, "p_main_party", ":starting_training_ground", 3),
         (str_store_troop_name, s5, "trp_player"),
@@ -107,27 +107,27 @@ scripts = [
         (try_for_range, ":npc", 0, kingdom_ladies_end),
             (this_or_next|eq, ":npc", "trp_player"),
             (is_between, ":npc", active_npcs_begin, kingdom_ladies_end),
-            (troop_set_slot, ":npc", slot_troop_father, -1),
-            (troop_set_slot, ":npc", slot_troop_mother, -1),
-            (troop_set_slot, ":npc", slot_troop_guardian, -1),
-            (troop_set_slot, ":npc", slot_troop_spouse, -1),
-            (troop_set_slot, ":npc", slot_troop_betrothed, -1),
-            (troop_set_slot, ":npc", slot_troop_prisoner_of_party, -1),
-            (troop_set_slot, ":npc", slot_lady_last_suitor, -1),
-            (troop_set_slot, ":npc", slot_troop_stance_on_faction_issue, -1),
+            (troop_set_slot, ":npc", "slot_troop_father", -1),
+            (troop_set_slot, ":npc", "slot_troop_mother", -1),
+            (troop_set_slot, ":npc", "slot_troop_guardian", -1),
+            (troop_set_slot, ":npc", "slot_troop_spouse", -1),
+            (troop_set_slot, ":npc", "slot_troop_betrothed", -1),
+            (troop_set_slot, ":npc", "slot_troop_prisoner_of_party", -1),
+            (troop_set_slot, ":npc", "slot_lady_last_suitor", -1),
+            (troop_set_slot, ":npc", "slot_troop_stance_on_faction_issue", -1),
 
             (store_random_in_range, ":decision_seed", 0, 10000),
-            (troop_set_slot, ":npc", slot_troop_set_decision_seed, ":decision_seed"),    #currently not used
-            (troop_set_slot, ":npc", slot_troop_temp_decision_seed, ":decision_seed"),    #currently not used, holds for at least 24 hours
+            (troop_set_slot, ":npc", "slot_troop_set_decision_seed", ":decision_seed"),    #currently not used
+            (troop_set_slot, ":npc", "slot_troop_temp_decision_seed", ":decision_seed"),    #currently not used, holds for at least 24 hours
         (try_end),
 
         (assign, "$g_lord_long_term_count", 0),
         (call_script, "script_initialize_banner_info"),
         
         (try_for_range, ":cur_troop", active_npcs_begin, kingdom_ladies_end),
-            (troop_set_slot, ":cur_troop", slot_troop_duel_challenger, -1),
-            (troop_set_slot, ":cur_troop", slot_troop_duel_challenged, -1),
-            (troop_set_slot, ":cur_troop", slot_troop_poisoned, -1),
+            (troop_set_slot, ":cur_troop", "slot_troop_duel_challenger", -1),
+            (troop_set_slot, ":cur_troop", "slot_troop_duel_challenged", -1),
+            (troop_set_slot, ":cur_troop", "slot_troop_poisoned", -1),
         (try_end),
 
         # items slots
@@ -373,8 +373,8 @@ scripts = [
 
         # npcs renown
         (try_for_range, ":kingdom_hero", active_npcs_begin, active_npcs_end),
-            (this_or_next|troop_slot_eq, ":kingdom_hero", slot_troop_occupation, slto_kingdom_hero),
-            (troop_slot_eq, ":kingdom_hero", slot_troop_occupation, slto_inactive_pretender),
+            (this_or_next|troop_slot_eq, ":kingdom_hero", "slot_troop_occupation", slto_kingdom_hero),
+            (troop_slot_eq, ":kingdom_hero", "slot_troop_occupation", slto_inactive_pretender),
 
             (store_troop_faction, ":kingdom_hero_faction", ":kingdom_hero"),
             (neg|faction_slot_eq, ":kingdom_hero_faction", "slot_faction_leader", ":kingdom_hero"),
@@ -383,7 +383,7 @@ scripts = [
             (store_mul, ":renown", ":level", ":level"),
             (val_div, ":renown", 4), #for top lord, it is about 400
 
-            (troop_get_slot, ":age", ":kingdom_hero", slot_troop_age),
+            (troop_get_slot, ":age", ":kingdom_hero", "slot_troop_age"),
             (store_mul, ":age_addition", ":age", ":age"),
             (val_div, ":age_addition", 8),
             (val_add, ":renown", ":age_addition"),
@@ -396,7 +396,7 @@ scripts = [
             (try_end),
 
             (val_add, ":renown", ":random_renown"),
-            (troop_set_slot, ":kingdom_hero", slot_troop_renown, ":renown"),
+            (troop_set_slot, ":kingdom_hero", "slot_troop_renown", ":renown"),
         (try_end),
 
         # start random wars
@@ -438,7 +438,7 @@ scripts = [
             (try_begin),
                 (store_troop_faction, ":faction_id", ":troop_id"),
                 (is_between, ":faction_id", kingdoms_begin, kingdoms_end),
-                (troop_set_slot, ":troop_id", slot_troop_original_faction, ":faction_id"),
+                (troop_set_slot, ":troop_id", "slot_troop_original_faction", ":faction_id"),
                 (try_begin),
                     (is_between, ":troop_id", pretenders_begin, pretenders_end),
                     (faction_set_slot, ":faction_id", "slot_faction_has_rebellion_chance", 1),
@@ -457,7 +457,7 @@ scripts = [
                 (faction_slot_eq, ":faction", "slot_faction_leader", ":troop_id"),
                 (assign, ":initial_wealth", 30000),
             (try_end),
-            (troop_set_slot, ":troop_id", slot_troop_wealth, ":initial_wealth"),
+            (troop_set_slot, ":troop_id", "slot_troop_wealth", ":initial_wealth"),
         (try_end),
 
         # Add initial wealth, garrisons and garrison upgrades
@@ -507,7 +507,7 @@ scripts = [
             # create lord parties
             (party_get_slot, ":center_lord", ":center_no", "slot_town_lord"),
             (ge, ":center_lord", 1),
-            (troop_slot_eq, ":center_lord", slot_troop_leaded_party, 0),
+            (troop_slot_eq, ":center_lord", "slot_troop_leaded_party", 0),
             (assign, "$g_there_is_no_avaliable_centers", 0),
             (call_script, "script_create_kingdom_hero_party", ":center_lord", ":center_no"),
             (assign, ":lords_party", "$pout_party"),
@@ -518,13 +518,13 @@ scripts = [
         # initial relations
         # todo: make this an N(N-1)/2 script instead of N^2
         (try_for_range, ":lord", original_kingdom_heroes_begin, active_npcs_end),
-            (troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
-            (troop_get_slot, ":lord_faction", ":lord", slot_troop_original_faction),
+            (troop_slot_eq, ":lord", "slot_troop_occupation", slto_kingdom_hero),
+            (troop_get_slot, ":lord_faction", ":lord", "slot_troop_original_faction"),
 
             (try_for_range, ":other_hero", original_kingdom_heroes_begin, active_npcs_end),
-                (this_or_next|troop_slot_eq, ":other_hero", slot_troop_occupation, slto_kingdom_hero),
-                (troop_slot_eq, ":other_hero", slot_troop_occupation, slto_inactive_pretender),
-                (troop_get_slot, ":other_hero_faction", ":other_hero", slot_troop_original_faction),
+                (this_or_next|troop_slot_eq, ":other_hero", "slot_troop_occupation", slto_kingdom_hero),
+                (troop_slot_eq, ":other_hero", "slot_troop_occupation", slto_inactive_pretender),
+                (troop_get_slot, ":other_hero_faction", ":other_hero", "slot_troop_original_faction"),
                 (eq, ":other_hero_faction", ":lord_faction"),
 
                 (call_script, "script_troop_get_family_relation_to_troop", ":lord", ":other_hero"),
@@ -547,7 +547,7 @@ scripts = [
 
         # assign love interests to unmarried male lords
         (try_for_range, ":cur_troop", lords_begin, lords_end),
-            (troop_slot_eq, ":cur_troop", slot_troop_spouse, -1),
+            (troop_slot_eq, ":cur_troop", "slot_troop_spouse", -1),
             (neg|is_between, ":cur_troop", kings_begin, kings_end),
             (neg|is_between, ":cur_troop", pretenders_begin, pretenders_end),
 
@@ -597,7 +597,7 @@ scripts = [
         # Place kingdom ladies
         (try_for_range, ":troop_id", kingdom_ladies_begin, kingdom_ladies_end),
             (call_script, "script_get_kingdom_lady_social_determinants", ":troop_id"),
-            (troop_set_slot, ":troop_id", slot_troop_cur_center, reg1),
+            (troop_set_slot, ":troop_id", "slot_troop_cur_center", reg1),
         (try_end),
 
         (try_for_range, ":faction_no", kingdoms_begin, kingdoms_end),

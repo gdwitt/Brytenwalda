@@ -441,19 +441,19 @@ simple_triggers = [
                         (try_end),
 
                         # give loot gold to raid leader
-                        (troop_get_slot, ":raid_leader_gold", ":raid_leader", slot_troop_wealth),
+                        (troop_get_slot, ":raid_leader_gold", ":raid_leader", "slot_troop_wealth"),
                         (party_get_slot, ":village_prosperity", ":village_no"),
                         (store_mul, ":value_of_loot", ":village_prosperity", 60), #average is 3000
                         (val_add, ":raid_leader_gold", ":value_of_loot"),
-                        (troop_set_slot, ":raid_leader", slot_troop_wealth, ":raid_leader_gold"),
+                        (troop_set_slot, ":raid_leader", "slot_troop_wealth", ":raid_leader_gold"),
 
                         # take loot gold from village lord
                         (try_begin),
                             (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
-                            (troop_get_slot, ":village_lord_gold", ":village_lord", slot_troop_wealth),
+                            (troop_get_slot, ":village_lord_gold", ":village_lord", "slot_troop_wealth"),
                             (val_sub, ":village_lord_gold", ":value_of_loot"),
                             (val_max, ":village_lord_gold", 0),
-                            (troop_set_slot, ":village_lord", slot_troop_wealth, ":village_lord_gold"),
+                            (troop_set_slot, ":village_lord", "slot_troop_wealth", ":village_lord_gold"),
                         (try_end),
 
                         # set it looted, init recover progress

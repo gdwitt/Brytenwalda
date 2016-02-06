@@ -117,7 +117,7 @@ simple_triggers = [
 
 dialogs = [
     [anyone ,"start", [
-        (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_lady),
+        (troop_slot_eq, "$g_talk_troop", "slot_troop_occupation", slto_kingdom_lady),
         (eq, "$g_talk_troop_met", 0),
         (gt, "$g_player_tournament_placement", 4),
         (str_clear, s8),
@@ -128,7 +128,7 @@ dialogs = [
      ],
 
     [anyone ,"start", [
-        (troop_slot_eq,"$g_talk_troop",slot_troop_occupation, slto_kingdom_lady),
+        (troop_slot_eq,"$g_talk_troop","slot_troop_occupation", slto_kingdom_lady),
         (eq, "$g_talk_troop_met", 0),
         (gt, "$g_player_tournament_placement", 4),
         (ge, "$g_talk_troop_relation", 0),
@@ -144,7 +144,7 @@ dialogs = [
          (val_mod, ":is_female", 2),	#gender fix chief moto
          (eq, ":is_female", 0),
          (gt, "$g_player_tournament_placement", 3),
-         (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin),
+         (neg|troop_slot_ge, "trp_player", "slot_troop_spouse", active_npcs_begin),
      ],
      "My lady, I would like to dedicate my successes in this recent tournament "
      "to you", "lady_tournament_dedication_reaction",
@@ -158,15 +158,15 @@ dialogs = [
          (try_end),
 
          (try_begin),
-             (troop_slot_eq, "$g_talk_troop", slot_lady_used_tournament, 1),
+             (troop_slot_eq, "$g_talk_troop", "slot_lady_used_tournament", 1),
              (val_div, "$g_player_tournament_placement", 3),
              (str_store_string, s9, "str_another_tournament_dedication_oh_i_suppose_it_is_always_flattering"),
          (else_try),
-             (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_conventional),
+             (troop_slot_eq, "$g_talk_troop", "slot_lord_reputation_type", lrep_conventional),
              (val_mul, "$g_player_tournament_placement", 2),
              (str_store_string, s9, "str_do_you_why_what_a_most_gallant_thing_to_say"),
          (else_try),
-             (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_moralist),
+             (troop_slot_eq, "$g_talk_troop", "slot_lord_reputation_type", lrep_moralist),
              (val_div, "$g_player_tournament_placement", 2),
              (str_store_string, s9, "str_hmm_i_cannot_say_that_i_altogether_approve_of_such_frivolity_but_i_must_confess_myself_a_bit_flattered"),
          (else_try),
@@ -175,7 +175,7 @@ dialogs = [
 
          (call_script, "script_troop_change_relation_with_troop", "$g_talk_troop", "trp_player", "$g_player_tournament_placement"),
          (assign, "$g_player_tournament_placement", 0),
-         (troop_set_slot, "$g_talk_troop", slot_lady_used_tournament, 1),
+         (troop_set_slot, "$g_talk_troop", "slot_lady_used_tournament", 1),
      ]
      ],
 

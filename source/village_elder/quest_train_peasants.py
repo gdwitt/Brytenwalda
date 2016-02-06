@@ -4,7 +4,7 @@ from source.header_common import *
 from source.header_dialogs import anyone, plyr
 
 from source.module_constants import villages_begin, villages_end, \
-    slot_troop_does_not_give_quest, slot_quest_target_center, slot_quest_target_amount
+    slot_quest_target_center, slot_quest_target_amount
 
 from source.statement import StatementBlock
 
@@ -63,6 +63,6 @@ dialogs = [
 
     [anyone, "village_elder_train_peasants_against_bandits_mission_reject", [],
      "Yes, of course {sir/madam}. Thank you for your counsel.", "close_window", [
-         (troop_set_slot, "$g_talk_troop", slot_troop_does_not_give_quest, 1)
+         (troop_set_slot, "$g_talk_troop", "slot_troop_does_not_give_quest", 1)
      ]],
 ]

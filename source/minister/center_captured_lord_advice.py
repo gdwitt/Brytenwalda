@@ -16,7 +16,7 @@ dialogs = [
 
     [anyone | plyr | repeat_for_troops, "center_captured_lord_advice", [
         (store_repeat_object, ":troop_no"),
-        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
         (neq, "$g_talk_troop", ":troop_no"),
         (neq, "trp_player", ":troop_no"),
         (store_troop_faction, ":faction_no", ":troop_no"),
@@ -25,7 +25,7 @@ dialogs = [
         (call_script, "script_print_troop_owned_centers_in_numbers_to_s0", ":troop_no"),
 
         (try_begin),
-            (troop_slot_eq, ":troop_no", slot_lord_recruitment_argument, argument_benefit),
+            (troop_slot_eq, ":troop_no", "slot_lord_recruitment_argument", argument_benefit),
             (str_store_string, s12, "str__promised_fief"),
         (else_try),
             (str_clear, s12),
@@ -109,7 +109,7 @@ dialogs = [
      "will be the new {reg3?lady:lord} of {s1}.", "close_window", [
         (assign, ":new_owner", "$temp"),
 
-        (troop_set_slot, ":new_owner", slot_lord_recruitment_argument, 0),
+        (troop_set_slot, ":new_owner", "slot_lord_recruitment_argument", 0),
 
         (call_script, "script_give_center_to_lord", "$g_center_taken_by_player_faction", ":new_owner", 0),
         (try_begin),

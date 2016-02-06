@@ -3,7 +3,7 @@ from source.header_common import *
 
 from source.header_dialogs import *
 
-from source.module_constants import slot_troop_occupation, slto_kingdom_hero, active_npcs_begin, kingdom_ladies_end
+from source.module_constants import slto_kingdom_hero, active_npcs_begin, kingdom_ladies_end
 
 
 dialog_option = \
@@ -21,7 +21,7 @@ dialogs = [
 
     [anyone | plyr | repeat_for_troops, "minister_indict_select", [
         (store_repeat_object, ":troop_no"),
-        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
         (store_faction_of_troop, ":faction", ":troop_no"),
         (eq, ":faction", "fac_player_supporters_faction"),
         (str_store_troop_name, s11, ":troop_no"),

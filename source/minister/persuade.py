@@ -64,17 +64,17 @@ dialogs = [
 
     [anyone | plyr | repeat_for_troops, "dplmc_minister_persuade_lord", [
         (store_repeat_object, ":troop_no"),
-        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
         (store_faction_of_troop, ":faction", ":troop_no"),
         (is_between, ":faction", npc_kingdoms_begin, npc_kingdoms_end),
         (faction_get_slot, ":faction_leader", ":faction", "slot_faction_leader"),
         (neq, ":faction_leader", ":troop_no"),
 
         (eq, ":faction", "$g_faction_selected"),
-        (troop_slot_eq, ":troop_no", slot_troop_met, 1),
+        (troop_slot_eq, ":troop_no", "slot_troop_met", 1),
 
         # target still wants to talk
-        (neg | troop_slot_ge, ":troop_no", slot_troop_intrigue_impatience, 100),
+        (neg | troop_slot_ge, ":troop_no", "slot_troop_intrigue_impatience", 100),
         (str_store_troop_name, s11, ":troop_no"),
         ], "{s11}", "dplmc_minister_persuasion_emissary", [
         (store_repeat_object, "$diplomacy_var"),

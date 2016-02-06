@@ -17,7 +17,7 @@ dialogs = [
         (assign, ":companion_found", 0),
         (try_for_range, ":emissary", companions_begin, companions_end),
             (main_party_has_troop, ":emissary"),
-            (troop_slot_eq, ":emissary", slot_troop_prisoner_of_party, -1),
+            (troop_slot_eq, ":emissary", "slot_troop_prisoner_of_party", -1),
             (assign, ":companion_found", 1),
         (try_end),
         (eq, ":companion_found", 1),
@@ -100,7 +100,7 @@ dialogs += [
         (store_repeat_object, ":emissary"),
         (main_party_has_troop, ":emissary"),
         (is_between, ":emissary", companions_begin, companions_end),
-        (troop_slot_eq, ":emissary", slot_troop_prisoner_of_party, -1),
+        (troop_slot_eq, ":emissary", "slot_troop_prisoner_of_party", -1),
         (call_script, "script_set_diplomatic_emissary_skill_level_string", ":emissary", "skl_persuasion", 0),
         ], "{s11}", "minister_emissary_dispatch", [
         (store_repeat_object, "$g_emissary_selected"),
@@ -133,15 +133,15 @@ dialogs += [
     ],
 
     [anyone | plyr, "minister_diplomatic_dispatch_confirm", [], "Yes, do that", "minister_pretalk", [
-        (troop_set_slot, "$g_emissary_selected", slot_troop_days_on_mission, 3),
-        (troop_set_slot, "$g_emissary_selected", slot_troop_current_mission, "$g_initiative_selected"),
-        (troop_set_slot, "$g_emissary_selected", slot_troop_mission_object, "$g_faction_selected"),
+        (troop_set_slot, "$g_emissary_selected", "slot_troop_days_on_mission", 3),
+        (troop_set_slot, "$g_emissary_selected", "slot_troop_current_mission", "$g_initiative_selected"),
+        (troop_set_slot, "$g_emissary_selected", "slot_troop_mission_object", "$g_faction_selected"),
         (try_begin),
             (eq, "$g_initiative_selected", dplmc_npc_mission_gift_horses_request),
             (call_script, "script_dplmc_withdraw_from_treasury", "$diplomacy_var"),
         (try_end),
-        (troop_set_slot, "$g_emissary_selected", slot_troop_mission_diplomacy, "$diplomacy_var"),
-        (troop_set_slot, "$g_emissary_selected", slot_troop_mission_diplomacy2, "$diplomacy_var2"),
+        (troop_set_slot, "$g_emissary_selected", "slot_troop_mission_diplomacy", "$diplomacy_var"),
+        (troop_set_slot, "$g_emissary_selected", "slot_troop_mission_diplomacy2", "$diplomacy_var2"),
 
         (remove_member_from_party, "$g_emissary_selected", "p_main_party"),
     ]],

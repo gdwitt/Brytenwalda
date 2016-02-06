@@ -170,7 +170,7 @@ dialogs = [
 
     # Appoint constable
     [anyone, "dplmc_talk_appoint_constable", [
-        (troop_slot_ge, "trp_dplmc_constable", slot_troop_met, 1),
+        (troop_slot_ge, "trp_dplmc_constable", "slot_troop_met", 1),
         ], "I assume you will want to rehire your former constable? "
            "His rate is still %d scillingas each week, and the appointment "
            "will cost us 20 scillingas." % WEEKLY_COST_OF_CONSTABLE,
@@ -201,20 +201,20 @@ dialogs = [
     ]],
 
     [anyone | plyr, "dplmc_talk_appoint_constable_confirm", [
-        (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+        (troop_get_slot, ":player_spouse", "trp_player", "slot_troop_spouse"),
         (eq, "$g_talk_troop", ":player_spouse"),
         ], "Maybe later.", "spouse_pretalk", []
     ],
 
     [anyone | plyr, "dplmc_talk_appoint_constable_confirm", [
         (eq, "$g_talk_troop", "$g_player_minister"),
-        (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+        (troop_get_slot, ":player_spouse", "trp_player", "slot_troop_spouse"),
         (neq, ":player_spouse", "$g_player_minister"),
         ], "Maybe later.", "minister_pretalk", []
     ],
 
     [anyone, "dplmc_talk_appoint_confirm_yes", [
-        (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+        (troop_get_slot, ":player_spouse", "trp_player", "slot_troop_spouse"),
         (eq, "$g_talk_troop", ":player_spouse"),
         ], "I will send him a letter he should arrive at the court soon.", "spouse_pretalk", []
     ],

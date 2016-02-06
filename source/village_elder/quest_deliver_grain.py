@@ -4,7 +4,7 @@ from source.header_common import *
 from source.header_dialogs import anyone, plyr
 from source.module_constants import villages_begin, villages_end, \
     slot_quest_target_center, slot_quest_target_amount, \
-    slot_troop_does_not_give_quest, logent_helped_peasants
+    logent_helped_peasants
 
 from source.statement import StatementBlock
 
@@ -77,7 +77,7 @@ dialogs = [
     [anyone, "village_elder_deliver_grain_mission_reject", [],
      "Yes {sir/madam}, of course. I am sorry if I have bothered you with our troubles.",
      "close_window", [
-         (troop_set_slot, "$g_talk_troop", slot_troop_does_not_give_quest, 1)
+         (troop_set_slot, "$g_talk_troop", "slot_troop_does_not_give_quest", 1)
      ]],
 
     [anyone | plyr, "village_elder_active_mission_2", [

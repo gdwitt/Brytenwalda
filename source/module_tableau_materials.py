@@ -2,9 +2,8 @@ from header_operations import *
 from header_common import pos1, pos5, pos8
 
 from module_constants import banner_scene_props_begin, \
-    slot_troop_custom_banner_positioning, banner_meshes_begin, kingdoms_end, \
-    banner_scene_props_end_minus_one, kingdoms_begin, slot_troop_banner_scene_prop, \
-    slot_troop_custom_banner_bg_type, arms_meshes_begin
+    banner_meshes_begin, kingdoms_end, \
+    banner_scene_props_end_minus_one, kingdoms_begin, arms_meshes_begin
 
 ####################################################################################################################
 #  Each tableau material contains the following fields:
@@ -606,7 +605,7 @@ tableaus = [
 ##       (party_get_slot, ":troop_no", ":center_no", slot_town_lord),
 ##       (try_begin),
 ##         (ge, ":troop_no", 0),
-##         (troop_get_slot, ":banner_spr", ":troop_no", slot_troop_banner_scene_prop),
+##         (troop_get_slot, ":banner_spr", ":troop_no", "slot_troop_banner_scene_prop"),
 ##         (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
 ##         (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
 ##         (val_sub, ":banner_spr", banner_scene_props_begin),
@@ -691,7 +690,7 @@ tableaus = [
      (try_begin),
        (faction_get_slot, ":leader_troop", ":faction_no", "slot_faction_leader"),
        (ge, ":leader_troop", 0),
-       (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
+       (troop_get_slot, ":banner_spr", ":leader_troop", "slot_troop_banner_scene_prop"),
        (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
        (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
        (val_sub, ":banner_spr", banner_scene_props_begin),
@@ -714,7 +713,7 @@ tableaus = [
      (try_begin),
        (faction_get_slot, ":leader_troop", ":faction_no", "slot_faction_leader"),
        (ge, ":leader_troop", 0),
-       (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
+       (troop_get_slot, ":banner_spr", ":leader_troop", "slot_troop_banner_scene_prop"),
        (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
        (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
        (val_sub, ":banner_spr", banner_scene_props_begin),
@@ -727,7 +726,7 @@ tableaus = [
      (try_begin),
        (faction_get_slot, ":leader_troop", ":faction_no_2", "slot_faction_leader"),
        (ge, ":leader_troop", 0),
-       (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
+       (troop_get_slot, ":banner_spr", ":leader_troop", "slot_troop_banner_scene_prop"),
        (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
        (is_between, ":banner_spr", banner_scene_props_begin, ":banner_scene_props_end"),
        (val_sub, ":banner_spr", banner_scene_props_begin),
@@ -810,12 +809,12 @@ tableaus = [
 ##     (store_script_param, ":troop_no", 1),
 ##
 ##     (set_fixed_point_multiplier, 100),
-##     (troop_get_slot, ":bg_type", ":troop_no", slot_troop_custom_banner_bg_type),
+##     (troop_get_slot, ":bg_type", ":troop_no", "slot_troop_custom_banner_bg_type"),
 ##     (val_add, ":bg_type", custom_banner_backgrounds_begin),
-##     (troop_get_slot, ":bg_color_1", ":troop_no", slot_troop_custom_banner_bg_color_1),
-##     (troop_get_slot, ":bg_color_2", ":troop_no", slot_troop_custom_banner_bg_color_2),
-##     (troop_get_slot, ":num_charges", ":troop_no", slot_troop_custom_banner_num_charges),
-##     (troop_get_slot, ":positioning", ":troop_no", slot_troop_custom_banner_positioning),
+##     (troop_get_slot, ":bg_color_1", ":troop_no", "slot_troop_custom_banner_bg_color_1"),
+##     (troop_get_slot, ":bg_color_2", ":troop_no", "slot_troop_custom_banner_bg_color_2"),
+##     (troop_get_slot, ":num_charges", ":troop_no", "slot_troop_custom_banner_num_charges"),
+##     (troop_get_slot, ":positioning", ":troop_no", "slot_troop_custom_banner_positioning"),
 ##     (call_script, "script_get_troop_custom_banner_num_positionings", ":troop_no"),
 ##     (assign, ":num_positionings", reg0),
 ##     (val_mod, ":positioning", ":num_positionings"),
@@ -854,23 +853,23 @@ tableaus = [
   ("background_selection", 0, "missiles", 512, 512, 0, 0, 100, 100,
    [
      (store_script_param, ":banner_bg", 1),
-     (troop_get_slot, ":old_bg", "trp_player", slot_troop_custom_banner_bg_type),
-     (troop_set_slot, "trp_player", slot_troop_custom_banner_bg_type, ":banner_bg"),
+     (troop_get_slot, ":old_bg", "trp_player", "slot_troop_custom_banner_bg_type"),
+     (troop_set_slot, "trp_player", "slot_troop_custom_banner_bg_type", ":banner_bg"),
      (set_fixed_point_multiplier, 100),
      (call_script, "script_draw_banner_to_region", "trp_player", 0, 0, 10000, 10000, 9800, 9800, 10000, 10000, 0),
      (cur_tableau_set_camera_parameters, 0, 100, 100, 0, 100000),
-     (troop_set_slot, "trp_player", slot_troop_custom_banner_bg_type, ":old_bg"),
+     (troop_set_slot, "trp_player", "slot_troop_custom_banner_bg_type", ":old_bg"),
      ]),
 
   ("positioning_selection", 0, "missiles", 512, 512, 0, 0, 100, 100,
    [
      (store_script_param, ":positioning", 1),
-     (troop_get_slot, ":old_positioning", "trp_player", slot_troop_custom_banner_positioning),
-     (troop_set_slot, "trp_player", slot_troop_custom_banner_positioning, ":positioning"),
+     (troop_get_slot, ":old_positioning", "trp_player", "slot_troop_custom_banner_positioning"),
+     (troop_set_slot, "trp_player", "slot_troop_custom_banner_positioning", ":positioning"),
      (set_fixed_point_multiplier, 100),
      (call_script, "script_draw_banner_to_region", "trp_player", 0, 0, 10000, 10000, 9800, 9800, 10000, 10000, 0),
      (cur_tableau_set_camera_parameters, 0, 100, 100, 0, 100000),
-     (troop_set_slot, "trp_player", slot_troop_custom_banner_positioning, ":old_positioning"),
+     (troop_set_slot, "trp_player", "slot_troop_custom_banner_positioning", ":old_positioning"),
      ]),
 
 ##  ("retirement_troop", 0, "troop_portrait", 1024, 1024, 0, 0, 600, 600,

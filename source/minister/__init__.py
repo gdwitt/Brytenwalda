@@ -38,7 +38,7 @@ court_visitor = StatementBlock(
     (try_begin),
         (eq, "$g_player_court", ":center_no"),
         (gt, "$g_player_minister", 0),
-        (neg | troop_slot_eq, "trp_player", slot_troop_spouse, "$g_player_minister"),
+        (neg | troop_slot_eq, "trp_player", "slot_troop_spouse", "$g_player_minister"),
         (set_visitor, ":cur_pos", "$g_player_minister"),
         (val_add, ":cur_pos", 1),
     (try_end),
@@ -50,7 +50,7 @@ dialogs = [
     [anyone, "start", [
         (gt, "$g_talk_troop", 0),
         (eq, "$g_talk_troop", "$g_player_minister"),
-        (neg | troop_slot_eq, "trp_player", slot_troop_spouse, "$g_talk_troop")],
+        (neg | troop_slot_eq, "trp_player", "slot_troop_spouse", "$g_talk_troop")],
      "I am at your service, {sire/my lady}", "minister_issues", []
     ],
 
@@ -212,7 +212,7 @@ dialogs = [
 
     [anyone | plyr, "minister_talk", [
         (is_between, "$g_player_minister", active_npcs_begin, active_npcs_end),
-        (neg | troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+        (neg | troop_slot_eq, "$g_talk_troop", "slot_troop_occupation", slto_kingdom_hero),
         ], "I wish you to rejoin my campaign party.", "minister_replace", []
     ],
 
@@ -272,12 +272,12 @@ def _appoint_options():
 
     spouse = \
         ("appoint_spouse", [
-            (troop_slot_ge, "trp_player", slot_troop_spouse, 1),
-            (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
-            (neg | troop_slot_eq, ":player_spouse", slot_troop_occupation, slto_kingdom_hero),
+            (troop_slot_ge, "trp_player", "slot_troop_spouse", 1),
+            (troop_get_slot, ":player_spouse", "trp_player", "slot_troop_spouse"),
+            (neg | troop_slot_eq, ":player_spouse", "slot_troop_occupation", slto_kingdom_hero),
             (str_store_troop_name, s10, ":player_spouse"),
             ], "Appoint your wife, {s10}...", [
-            (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+            (troop_get_slot, ":player_spouse", "trp_player", "slot_troop_spouse"),
             (assign, "$g_player_minister", ":player_spouse"),
             (jump_to_menu, "mnu_minister_confirm"),
         ])
@@ -344,9 +344,9 @@ menus = [
             (assign, "$g_player_court", ":walled_center"),
 
             (try_begin),
-                (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+                (troop_get_slot, ":spouse", "trp_player", "slot_troop_spouse"),
                 (is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-                (troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
+                (troop_set_slot, ":spouse", "slot_troop_cur_center", "$g_player_court"),
             (try_end),
 
             (str_store_party_name, s12, "$g_player_court"),

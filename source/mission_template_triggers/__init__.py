@@ -308,7 +308,7 @@ custom_commander_init_hero_begin_xp = (
       (agent_get_troop_id, ":troop_no", ":agent_no"),
       (troop_is_hero, ":troop_no"),
       (troop_get_xp, ":troop_xp", ":troop_no"),
-      (troop_set_slot, ":troop_no", slot_troop_extra_xp_limit, ":troop_xp"),
+      (troop_set_slot, ":troop_no", "slot_troop_extra_xp_limit", ":troop_xp"),
     (try_end),
    ])
 
@@ -321,7 +321,7 @@ custom_commander_give_hero_extra_xp = (
       (agent_get_troop_id, ":troop_no", ":agent_no"),
       (troop_is_hero, ":troop_no"),
       (troop_get_xp, ":troop_xp", ":troop_no"),
-      (troop_get_slot, ":troop_extra_xp_limit", ":troop_no", slot_troop_extra_xp_limit),
+      (troop_get_slot, ":troop_extra_xp_limit", ":troop_no", "slot_troop_extra_xp_limit"),
       (gt, ":troop_xp", ":troop_extra_xp_limit"),
       (store_sub, ":xp_dif", ":troop_xp", ":troop_extra_xp_limit"),
       (store_attribute_level, ":troop_int", ":troop_no", ca_intelligence),
@@ -339,13 +339,13 @@ custom_commander_give_hero_extra_xp = (
       #  (display_message, "@You got {reg1} extra experience because of your intelligence."), #puesto off chief para no tantos mensajes en batalla
       (try_end),
       (troop_get_xp, ":troop_final_xp", ":troop_no"),
-      (troop_set_slot, ":troop_no", slot_troop_extra_xp_limit, ":troop_final_xp"),
+      (troop_set_slot, ":troop_no", "slot_troop_extra_xp_limit", ":troop_final_xp"),
       ## add wpn points
-      (troop_get_slot, ":troop_cur_xp_for_wp", ":troop_no", slot_troop_cur_xp_for_wp),
-      (troop_get_slot, ":troop_xp_limit_for_wp", ":troop_no", slot_troop_xp_limit_for_wp),
+      (troop_get_slot, ":troop_cur_xp_for_wp", ":troop_no", "slot_troop_cur_xp_for_wp"),
+      (troop_get_slot, ":troop_xp_limit_for_wp", ":troop_no", "slot_troop_xp_limit_for_wp"),
       (store_sub, ":xp_added", ":troop_final_xp", ":troop_xp"),
       (val_add, ":troop_cur_xp_for_wp", ":xp_added"),
-      (troop_set_slot, ":troop_no", slot_troop_cur_xp_for_wp, ":troop_cur_xp_for_wp"),
+      (troop_set_slot, ":troop_no", "slot_troop_cur_xp_for_wp", ":troop_cur_xp_for_wp"),
       (gt, ":troop_cur_xp_for_wp", ":troop_xp_limit_for_wp"),
       (troop_add_proficiency_points, ":troop_no", 1),
       # increase limit
@@ -354,7 +354,7 @@ custom_commander_give_hero_extra_xp = (
       (val_add, ":skill_bonus", 10),
       (val_div, ":xp_limit_added", ":skill_bonus"),
       (val_add, ":troop_xp_limit_for_wp", ":xp_limit_added"),
-      (troop_set_slot, ":troop_no", slot_troop_xp_limit_for_wp, ":troop_xp_limit_for_wp"),
+      (troop_set_slot, ":troop_no", "slot_troop_xp_limit_for_wp", ":troop_xp_limit_for_wp"),
       (try_begin),
         (eq, ":agent_no", ":player_agent"),
         #(display_message, "@You got 1 weapon point.", 0xEEEE00),
@@ -466,7 +466,7 @@ custom_commander_hero_wounded =(
         (eq, ":killer_agent_no", ":player_agent"),
         (agent_is_human, ":wounded_agent_no"),
         (agent_get_troop_id, ":wounded_troop", ":wounded_agent_no"),
-         (troop_slot_eq, ":wounded_troop", slot_troop_occupation, slto_kingdom_hero),
+         (troop_slot_eq, ":wounded_troop", "slot_troop_occupation", slto_kingdom_hero),
         (try_begin),
           (troop_is_hero, ":wounded_troop"),
           (store_character_level, ":troop_level", ":wounded_troop"),

@@ -3,8 +3,6 @@ from source.header_troops import *
 from source.header_skills import *
 from source.header_game_menus import mnf_disable_all_keys, menu_text_color
 
-from source.module_constants import slot_troop_renown
-
 import introduction, tutorial, character_creation, quest_merchant
 import game_start_script
 import game_quick_start_script
@@ -50,7 +48,7 @@ start_menu_0 = \
               (troop_equip_items, "trp_player"),
 
               (add_xp_to_troop, 1000, "trp_player"),
-              (troop_set_slot, "trp_player", slot_troop_renown, 450),
+              (troop_set_slot, "trp_player", "slot_troop_renown", 450),
               (set_show_messages, 1),
 
               (change_screen_map),

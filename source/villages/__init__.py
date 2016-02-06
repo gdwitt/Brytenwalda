@@ -342,7 +342,7 @@ menus = [
 
             ], "Recruit Volunteers.", [
             (try_begin),
-                (troop_slot_ge, "trp_player", slot_troop_renown, 30),
+                (troop_slot_ge, "trp_player", "slot_troop_renown", 30),
                 (try_begin),
                    (call_script, "script_cf_enter_center_location_bandit_check"),
                 (else_try),
@@ -565,7 +565,7 @@ menus = [
 
             (display_message, "@ You start performing these hard peasantry basic work.", 0xFF0000),
             (try_begin),
-                (troop_slot_ge, "trp_player", slot_troop_renown, 40),
+                (troop_slot_ge, "trp_player", "slot_troop_renown", 40),
                 (display_message,"@ Like farmer, you lose renown and reputation.", 0xFF0000),
                 (call_script, "script_change_troop_renown", "trp_player", -2),
                 (call_script, "script_change_player_honor", -1),
@@ -704,7 +704,7 @@ scripts = [
             (val_sub, ":percent", 40),
         (try_end),
         (try_begin), #1%/3 renown
-            (troop_get_slot, ":player_renown", "trp_player", slot_troop_renown),
+            (troop_get_slot, ":player_renown", "trp_player", "slot_troop_renown"),
             (val_div, ":player_renown", 3),
             (val_add, ":percent", ":player_renown"),
         (try_end),

@@ -62,31 +62,31 @@ dialogs = [
             (faction_slot_eq, "$players_kingdom", "slot_faction_political_issue", "$fief_selected"),
 
             (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
-                (troop_set_slot, ":active_npc", slot_troop_temp_slot, 0),
+                (troop_set_slot, ":active_npc", "slot_troop_temp_slot", 0),
             (try_end),
 
             (assign, ":popular_favorite", -1),
             (assign, ":votes_for_popular_favorite", 0),
 
             (try_for_range, ":active_npc", heroes_begin, heroes_end),
-                (troop_set_slot, ":active_npc", slot_troop_temp_slot, 0),
+                (troop_set_slot, ":active_npc", "slot_troop_temp_slot", 0),
             (try_end),
 
             (assign, ":popular_favorite", -1),
             (assign, ":votes_for_popular_favorite", 0),
-            (troop_set_slot, "trp_player", slot_troop_temp_slot, 0),
+            (troop_set_slot, "trp_player", "slot_troop_temp_slot", 0),
 
             (try_for_range, ":active_npc", heroes_begin, heroes_end),
                 (this_or_next | is_between, ":active_npc", active_npcs_begin, active_npcs_end),
-                (troop_slot_eq, ":active_npc", slot_troop_occupation, slto_kingdom_hero),
+                (troop_slot_eq, ":active_npc", "slot_troop_occupation", slto_kingdom_hero),
                 (store_faction_of_troop, ":active_npc_faction", ":active_npc"),
                 (eq, ":active_npc_faction", "fac_player_supporters_faction"),
-                (troop_get_slot, ":selected_npc", ":active_npc", slot_troop_stance_on_faction_issue),
+                (troop_get_slot, ":selected_npc", ":active_npc", "slot_troop_stance_on_faction_issue"),
                 (ge, ":selected_npc", 0),
 
-                (troop_get_slot, ":votes_accumulated", ":selected_npc", slot_troop_temp_slot),
+                (troop_get_slot, ":votes_accumulated", ":selected_npc", "slot_troop_temp_slot"),
                 (val_add, ":votes_accumulated", 1),
-                (troop_set_slot, ":selected_npc", slot_troop_temp_slot, ":votes_accumulated"),
+                (troop_set_slot, ":selected_npc", "slot_troop_temp_slot", ":votes_accumulated"),
 
                 (gt, ":votes_accumulated", ":votes_for_popular_favorite"),
                 (assign, ":votes_for_popular_favorite", ":votes_accumulated"),
@@ -105,7 +105,7 @@ dialogs = [
 
     [anyone | plyr | repeat_for_troops, "minister_grant_fief_select_recipient_choice", [
         (store_repeat_object, ":troop_no"),
-        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
 
         (is_between, ":troop_no", heroes_begin, heroes_end),
         (store_faction_of_troop, ":troop_faction", ":troop_no"),
@@ -117,7 +117,7 @@ dialogs = [
         (call_script, "script_print_troop_owned_centers_in_numbers_to_s0", ":troop_no"),
 
         (try_begin),
-            (troop_slot_eq, "$g_talk_troop", slot_lord_recruitment_argument, argument_benefit),
+            (troop_slot_eq, "$g_talk_troop", "slot_lord_recruitment_argument", argument_benefit),
             (str_store_string, s12, "str__promised_fief"),
         (else_try),
             (str_clear, s12),

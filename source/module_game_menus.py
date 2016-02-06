@@ -121,11 +121,11 @@ REPORTS = [
         (try_for_range, ":npc", companions_begin, companions_end),
             (main_party_has_troop, ":npc"),
             (str_store_troop_name, 4, ":npc"),
-            (troop_get_slot, reg3, ":npc", slot_troop_morality_state),
-            (troop_get_slot, reg4, ":npc", slot_troop_2ary_morality_state),
-            (troop_get_slot, reg5, ":npc", slot_troop_personalityclash_state),
-            (troop_get_slot, reg6, ":npc", slot_troop_personalityclash2_state),
-            (troop_get_slot, reg7, ":npc", slot_troop_personalitymatch_state),
+            (troop_get_slot, reg3, ":npc", "slot_troop_morality_state"),
+            (troop_get_slot, reg4, ":npc", "slot_troop_2ary_morality_state"),
+            (troop_get_slot, reg5, ":npc", "slot_troop_personalityclash_state"),
+            (troop_get_slot, reg6, ":npc", "slot_troop_personalityclash2_state"),
+            (troop_get_slot, reg7, ":npc", "slot_troop_personalitymatch_state"),
             (display_message, "@{!}{s4}: M{reg3}, 2M{reg4}, PC{reg5}, 2PC{reg6}, PM{reg7}"),
         (try_end),
         ]
@@ -234,8 +234,8 @@ town_menu_options = [
              (display_message,"str_door_locked",0xFFFFAAAA),
            (else_try),
 		     (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
-		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 50),
-			 (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
+		     (neg|troop_slot_ge, "trp_player", "slot_troop_renown", 50),
+			 (neg|troop_slot_ge, "trp_player", "slot_troop_renown", 125),
 			 (neq, "$g_player_eligible_feast_center_no", "$current_town"),
 
 			 (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_state", sfai_feast),
@@ -244,7 +244,7 @@ town_menu_options = [
 			 (neg|check_quest_active, "qst_wed_betrothed"),
 			 (neg|check_quest_active, "qst_wed_betrothed_female"),
 
-			 (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin), #Married players always make the cut
+			 (neg|troop_slot_ge, "trp_player", "slot_troop_spouse", active_npcs_begin), #Married players always make the cut
 
 			 (jump_to_menu, "mnu_cannot_enter_court"),
 		   (else_try),
@@ -270,7 +270,7 @@ town_menu_options = [
        [
             (try_begin), #chief anadido
         (this_or_next|party_slot_eq, "$current_town", "slot_town_lord", "trp_player"), #chief anadido player es lord de la ciudad
-     (troop_slot_ge, "trp_player", slot_troop_renown, 30), #chief anadido
+     (troop_slot_ge, "trp_player", "slot_troop_renown", 30), #chief anadido
           # todo: fix this part of the code
           (try_begin),
              (this_or_next|eq, "$all_doors_locked", 1),
@@ -278,8 +278,8 @@ town_menu_options = [
              (display_message,"str_door_locked",0xFFFFAAAA),
            (else_try),
 		     (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
-		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 60),#Gdw50
-		     (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
+		     (neg|troop_slot_ge, "trp_player", "slot_troop_renown", 60),#Gdw50
+		     (neg|troop_slot_ge, "trp_player", "slot_troop_renown", 125),
 			 (neq, "$g_player_eligible_feast_center_no", "$current_town"),
 
 			 (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_state", sfai_feast),
@@ -288,7 +288,7 @@ town_menu_options = [
 			 (neg|check_quest_active, "qst_wed_betrothed"),
 			 (neg|check_quest_active, "qst_wed_betrothed_female"),
 
-			 (neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin), #Married players always make the cut
+			 (neg|troop_slot_ge, "trp_player", "slot_troop_spouse", active_npcs_begin), #Married players always make the cut
 
              (jump_to_menu, "mnu_cannot_enter_court"),
 			(else_try),
@@ -504,7 +504,7 @@ town_menu_options = [
              (assign, ":cur_entry", 17),
 
 			 #this is just a cheat right now
-             #(troop_set_slot, "trp_belligerent_drunk", slot_troop_cur_center, "$g_encountered_party"),
+             #(troop_set_slot, "trp_belligerent_drunk", "slot_troop_cur_center", "$g_encountered_party"),
 			 #(try_begin),gdw moved to be near bishop of alt clut
        #      (eq, ":cur_scene", "scn_town_7_tavern"),
         #     (assign, ":cur_entry", 24),
@@ -513,7 +513,7 @@ town_menu_options = [
 
 			 (try_begin),
 				(eq, "$cheat_mode", 1),
-				(troop_get_slot, ":drunk_location", "trp_belligerent_drunk", slot_troop_cur_center),
+				(troop_get_slot, ":drunk_location", "trp_belligerent_drunk", "slot_troop_cur_center"),
 				(try_begin),
 					(eq, "$cheat_mode", 0),
 				(else_try),
@@ -530,7 +530,7 @@ town_menu_options = [
              (set_visitor, 18, "trp_antler"),
         (try_end),
 
-			 (troop_get_slot, ":promoter_location", "trp_fight_promoter", slot_troop_cur_center),
+			 (troop_get_slot, ":promoter_location", "trp_fight_promoter", "slot_troop_cur_center"),
 				(try_begin),
 					(eq, "$cheat_mode", 0),
 				(else_try),
@@ -548,8 +548,8 @@ town_menu_options = [
 				(store_sub, ":hours_since_last_attempt", ":hours", "$g_last_assassination_attempt_time"),
 				(gt, ":hours_since_last_attempt", 168),
 				(try_for_range, ":lord", active_npcs_begin, active_npcs_end),
-					(troop_slot_eq, ":lord", slot_lord_reputation_type, lrep_debauched),
-					(troop_get_slot, ":led_party", ":lord", slot_troop_leaded_party),
+					(troop_slot_eq, ":lord", "slot_lord_reputation_type", lrep_debauched),
+					(troop_get_slot, ":led_party", ":lord", "slot_troop_leaded_party"),
 					(party_is_active, ":led_party"),
 					(party_get_attached_to, ":led_party_attached", ":led_party"),
 					(eq, ":led_party_attached", "$g_encountered_party"),
@@ -559,7 +559,7 @@ town_menu_options = [
 #					(assign, "$g_last_assassination_attempt_location", "$g_encountered_party"),
 #					(assign, "$g_last_assassination_attempt_perpetrator", ":lord"),
 
-					(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, "$g_encountered_party"),
+					(troop_set_slot, "trp_hired_assassin", "slot_troop_cur_center", "$g_encountered_party"),
 				(try_end),
 			 (try_end),
 
@@ -572,7 +572,7 @@ town_menu_options = [
 
 			 (try_begin),
 				(eq, 1, 0),
-				(troop_slot_eq, "trp_fight_promoter", slot_troop_cur_center, "$current_town"),
+				(troop_slot_eq, "trp_fight_promoter", "slot_troop_cur_center", "$current_town"),
                 (set_visitor, ":cur_entry", "trp_fight_promoter"),
 
                 (val_add, ":cur_entry", 1),
@@ -606,9 +606,9 @@ town_menu_options = [
 			 (try_end),
 
              (try_for_range, ":companion_candidate", companions_begin, companions_end),
-               (troop_slot_eq, ":companion_candidate", slot_troop_occupation, 0),
-               (troop_slot_eq, ":companion_candidate", slot_troop_cur_center, "$current_town"),
-			   (neg|troop_slot_ge, ":companion_candidate", slot_troop_prisoner_of_party, centers_begin),
+               (troop_slot_eq, ":companion_candidate", "slot_troop_occupation", 0),
+               (troop_slot_eq, ":companion_candidate", "slot_troop_cur_center", "$current_town"),
+			   (neg|troop_slot_ge, ":companion_candidate", "slot_troop_prisoner_of_party", centers_begin),
 
                (set_visitor, ":cur_entry", ":companion_candidate"),
 
@@ -992,7 +992,7 @@ town_menu_options = [
     ("visit_lady",
 	[
 
-	(neg|troop_slot_ge, "trp_player", slot_troop_spouse, kingdom_ladies_begin),
+	(neg|troop_slot_ge, "trp_player", "slot_troop_spouse", kingdom_ladies_begin),
 
 	(assign, "$love_interest_in_town", 0),
 	(assign, "$love_interest_in_town_2", 0),
@@ -1004,23 +1004,23 @@ town_menu_options = [
 	(assign, "$love_interest_in_town_8", 0),
 
 	(try_for_range, ":lady_no", kingdom_ladies_begin, kingdom_ladies_end),
-		(troop_slot_eq, ":lady_no", slot_troop_cur_center, "$current_town"),
+		(troop_slot_eq, ":lady_no", "slot_troop_cur_center", "$current_town"),
 		(call_script, "script_get_kingdom_lady_social_determinants", ":lady_no"),
 		(assign, ":lady_guardian", reg0),
 
-		(troop_slot_eq, ":lady_no", slot_troop_spouse, -1),
+		(troop_slot_eq, ":lady_no", "slot_troop_spouse", -1),
 		(ge, ":lady_guardian", 0), #not sure when this would not be the case
 
 
 		#must have spoken to either father or lady
-		(this_or_next|troop_slot_ge, ":lady_no", slot_troop_met, 2),
-			(troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
+		(this_or_next|troop_slot_ge, ":lady_no", "slot_troop_met", 2),
+			(troop_slot_eq, ":lady_guardian", "slot_lord_granted_courtship_permission", 1),
 
-		(neg|troop_slot_eq, ":lady_no", slot_troop_met, 4),
+		(neg|troop_slot_eq, ":lady_no", "slot_troop_met", 4),
 
 		#must have approached father
-#		(this_or_next|troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
-#			(troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, -1),
+#		(this_or_next|troop_slot_eq, ":lady_guardian", "slot_lord_granted_courtship_permission", 1),
+#			(troop_slot_eq, ":lady_guardian", "slot_lord_granted_courtship_permission", -1),
 
 
 		(try_begin),
@@ -1343,7 +1343,7 @@ town_menu_options = [
 		  (store_faction_of_party, ":castle_faction", "$g_encountered_party"),
 		  (eq, "$players_kingdom", ":castle_faction"),
 
-		  (troop_slot_eq, "trp_player", slot_troop_spouse, ":town_lord"),
+		  (troop_slot_eq, "trp_player", "slot_troop_spouse", ":town_lord"),
 
 		  (assign, ":player_can_draw_from_garrison", 1),
 		(try_end),
@@ -1364,7 +1364,7 @@ town_menu_options = [
         (str_clear, s1),
         (try_begin),
           (neg|party_slot_eq, "$current_town", "slot_town_lord", "trp_player"),
-		  (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
+		  (troop_get_slot, ":player_spouse", "trp_player", "slot_troop_spouse"),
           (neg|party_slot_eq, "$current_town", "slot_town_lord", ":player_spouse"),
 
           (party_slot_ge, "$current_town", "slot_town_lord", "trp_player"), #can rest for free in castles and towns with unassigned lords
@@ -1531,7 +1531,7 @@ town_menu_options = [
       #Can jump to guild master after meeting him once.
       (party_get_slot, ":guild_master_troop", "$current_town","slot_town_elder"),
       (ge, ":guild_master_troop", 1),
-      (neg|troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+      (neg|troop_slot_eq, ":guild_master_troop", "slot_troop_met", 0),
       (assign, ":can_meet_guild_master", 1),
     (else_try),
       #Always enable this in Praven for the sake of playability, since
@@ -1579,7 +1579,7 @@ town_menu_options = [
     (eq, "$cheat_mode", 0),
     (neq, "$g_starting_town", "$current_town"),
     (neq, "$current_town", "p_town_6"),
-    (troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+    (troop_slot_eq, ":guild_master_troop", "slot_troop_met", 0),
     (disable_menu_option),
     ],
        "You have not met the Guild Master yet.",
@@ -1701,7 +1701,7 @@ game_menus = game_start.first_menus + [
    "none",
    [(call_script, "script_game_get_party_companion_limit"),
     (assign, ":party_size_limit", reg0),
-    (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+    (troop_get_slot, ":renown", "trp_player", "slot_troop_renown"),
     (assign, reg5, ":renown"),
     (assign, reg6, "$player_honor"),
     (assign, reg7, ":party_size_limit"),
@@ -1714,7 +1714,7 @@ game_menus = game_start.first_menus + [
 	(str_clear,s1),
 	(str_clear,s18),
 	(try_for_range,":cur_lord",kingdom_heroes_begin,kingdom_heroes_end),
-		(troop_slot_ge,":cur_lord",slot_troop_poisoned,1),
+		(troop_slot_ge,":cur_lord","slot_troop_poisoned",1),
 		(str_store_troop_name_link,s1,":cur_lord"),
 		(str_store_string,s18,"@ {s18} {s1},"),
 		(val_add,":num_poisoned",1),
@@ -2366,7 +2366,7 @@ game_menus = game_start.first_menus + [
    "none",
    [(str_store_string, s1, "str_courtships_in_progress_"),
     (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
-		(troop_slot_eq, ":lady", slot_troop_met, 2),
+		(troop_slot_eq, ":lady", "slot_troop_met", 2),
 		(call_script, "script_troop_get_relation_with_troop", "trp_player", ":lady"),
 		(gt, reg0, 0),
 		(assign, reg3, reg0),
@@ -2374,7 +2374,7 @@ game_menus = game_start.first_menus + [
 		(str_store_troop_name, s2, ":lady"),
 		
 		(store_current_hours, ":hours_since_last_visit"),
-		(troop_get_slot, ":last_visit_hour", ":lady", slot_troop_last_talk_time),
+		(troop_get_slot, ":last_visit_hour", ":lady", "slot_troop_last_talk_time"),
 		(val_sub, ":hours_since_last_visit", ":last_visit_hour"),
 		(store_div, ":days_since_last_visit", ":hours_since_last_visit", 24),
 		(assign, reg4, ":days_since_last_visit"),
@@ -2419,7 +2419,7 @@ game_menus = game_start.first_menus + [
    "none",
    [
     (try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
-		(troop_set_slot, ":active_npc", slot_troop_temp_slot, 0),
+		(troop_set_slot, ":active_npc", "slot_troop_temp_slot", 0),
 	(try_end),
 	
 	(str_clear, s1),
@@ -2427,9 +2427,9 @@ game_menus = game_start.first_menus + [
 		(assign, ":score_to_beat", -100),
 		(assign, ":best_relation_remaining_npc", -1),
 		(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
-			(troop_slot_eq, ":active_npc", slot_troop_temp_slot, 0),
-			(troop_slot_eq, ":active_npc", slot_troop_occupation, slto_kingdom_hero),
-			(troop_slot_ge, ":active_npc", slot_troop_met, 1),
+			(troop_slot_eq, ":active_npc", "slot_troop_temp_slot", 0),
+			(troop_slot_eq, ":active_npc", "slot_troop_occupation", slto_kingdom_hero),
+			(troop_slot_ge, ":active_npc", "slot_troop_met", 1),
 	
 			(call_script, "script_troop_get_player_relation", ":active_npc"),
 			(assign, ":relation_with_player", reg0),
@@ -2443,7 +2443,7 @@ game_menus = game_start.first_menus + [
 		(str_store_troop_name_link, s4, ":best_relation_remaining_npc"),
 		(assign, reg4, ":score_to_beat"),
 		(str_store_string, s1, "@{!}{s1}^{s4}: {reg4}"),
-		(troop_set_slot, ":best_relation_remaining_npc", slot_troop_temp_slot, 1),
+		(troop_set_slot, ":best_relation_remaining_npc", "slot_troop_temp_slot", 1),
 	(try_end),
    
 	
@@ -2466,7 +2466,7 @@ game_menus = game_start.first_menus + [
    (str_store_string, s7, "str_no_companions_in_service"),
    
    (try_begin),
-	(troop_get_slot, ":spouse_or_betrothed", "trp_player", slot_troop_spouse),
+	(troop_get_slot, ":spouse_or_betrothed", "trp_player", "slot_troop_spouse"),
 	(try_begin),
 		(troop_get_type, ":is_female", "trp_player"),
    		(val_mod, ":is_female", 2),	#gender fix chief moto
@@ -2478,18 +2478,18 @@ game_menus = game_start.first_menus + [
 	
 	(try_begin),
 		(le, ":spouse_or_betrothed", 0),
-		(troop_get_slot, ":spouse_or_betrothed", "trp_player", slot_troop_betrothed),
+		(troop_get_slot, ":spouse_or_betrothed", "trp_player", "slot_troop_betrothed"),
 		(str_store_string, s8, "str_betrothed"),
 	(try_end),	
 	(gt, ":spouse_or_betrothed", 0),	
 		
 	(str_store_troop_name, s4, ":spouse_or_betrothed"),
-	(troop_get_slot, ":cur_center", ":spouse_or_betrothed", slot_troop_cur_center),
+	(troop_get_slot, ":cur_center", ":spouse_or_betrothed", "slot_troop_cur_center"),
 	(try_begin),
 		(is_between, ":cur_center", centers_begin, centers_end),
 		(str_store_party_name, s5, ":cur_center"),
 	(else_try),
-		(troop_slot_eq, ":spouse_or_betrothed", slot_troop_occupation, slto_kingdom_hero),
+		(troop_slot_eq, ":spouse_or_betrothed", "slot_troop_occupation", slto_kingdom_hero),
 		(str_store_string, s5, "str_leading_party"),
 	(else_try),	
 		(str_store_string, s5, "str_whereabouts_unknown"),
@@ -2514,15 +2514,15 @@ game_menus = game_start.first_menus + [
 		(str_clear, s3),
 
 		(try_begin),
-			(troop_get_slot, ":days_left", ":companion", slot_troop_days_on_mission),
+			(troop_get_slot, ":days_left", ":companion", "slot_troop_days_on_mission"),
 
-			(troop_slot_eq, ":companion", slot_troop_occupation, slto_player_companion),
+			(troop_slot_eq, ":companion", "slot_troop_occupation", slto_player_companion),
 
 				
 			(str_store_troop_name, s4, ":companion"),
 
 			(try_begin),
-				(troop_slot_eq, ":companion", slot_troop_current_mission, npc_mission_kingsupport),
+				(troop_slot_eq, ":companion", "slot_troop_current_mission", npc_mission_kingsupport),
 				(str_store_string, s8, "str_gathering_support"),
 				(try_begin),
 					(eq, ":days_left", 1),
@@ -2532,8 +2532,8 @@ game_menus = game_start.first_menus + [
 					(str_store_string, s5, "str_expected_back_in_approximately_reg3_days"),
 				(try_end),
 			(else_try),
-				(troop_slot_eq, ":companion", slot_troop_current_mission, npc_mission_gather_intel),
-				(troop_get_slot, ":town_with_contacts", ":companion", slot_troop_town_with_contacts),
+				(troop_slot_eq, ":companion", "slot_troop_current_mission", npc_mission_gather_intel),
+				(troop_get_slot, ":town_with_contacts", ":companion", "slot_troop_town_with_contacts"),
 				(str_store_party_name, s11, ":town_with_contacts"),
 				
 				(str_store_string, s8, "str_gathering_intelligence"),
@@ -2546,12 +2546,12 @@ game_menus = game_start.first_menus + [
 				(try_end),
 			(else_try),	#This covers most diplomatic missions
 				
-				(troop_slot_ge, ":companion", slot_troop_current_mission, npc_mission_peace_request),
+				(troop_slot_ge, ":companion", "slot_troop_current_mission", npc_mission_peace_request),
 				##diplomacy chief begin
-				(neg|troop_slot_eq, ":companion", slot_troop_current_mission, 8),
+				(neg|troop_slot_eq, ":companion", "slot_troop_current_mission", 8),
         		##diplomacy end
 
-				(troop_get_slot, ":faction", ":companion", slot_troop_mission_object),
+				(troop_get_slot, ":faction", ":companion", "slot_troop_mission_object"),
 				(str_store_faction_name, s9, ":faction"),
 				(str_store_string, s8, "str_diplomatic_embassy_to_s9"),
 				(try_begin),
@@ -2576,11 +2576,11 @@ game_menus = game_start.first_menus + [
 				(str_store_string, s8, "str_under_arms"),
 				(str_store_string, s5, "str_in_your_party"),
 			(else_try),	
-				(troop_slot_eq, ":companion", slot_troop_current_mission, npc_mission_rejoin_when_possible),
+				(troop_slot_eq, ":companion", "slot_troop_current_mission", npc_mission_rejoin_when_possible),
 				(str_store_string, s8, "str_attempting_to_rejoin_party"),
 				(str_store_string, s5, "str_whereabouts_unknown"),
 			(else_try),	#Companions who are in a center
-				(troop_slot_ge, ":companion", slot_troop_cur_center, 1),
+				(troop_slot_ge, ":companion", "slot_troop_cur_center", 1),
 
 				(str_store_string, s8, "str_separated_from_party"),
 				(str_store_string, s5, "str_whereabouts_unknown"),
@@ -2594,7 +2594,7 @@ game_menus = game_start.first_menus + [
                   (quest_slot_eq, "qst_lend_surgeon", slot_quest_target_troop, ":companion"),
                   (str_store_string, s8, "@On loan,"), 
                 (else_try),
-				  (troop_set_slot, ":companion", slot_troop_current_mission, npc_mission_rejoin_when_possible),
+				  (troop_set_slot, ":companion", "slot_troop_current_mission", npc_mission_rejoin_when_possible),
                   (str_store_string, s8, "str_attempting_to_rejoin_party"),                  
                 (try_end),
                 
@@ -2602,10 +2602,10 @@ game_menus = game_start.first_menus + [
 				(try_begin),
    
 					(ge, "$cheat_mode", 1),
-					(troop_get_slot, reg2, ":companion", slot_troop_current_mission),
-					(troop_get_slot, reg3, ":companion", slot_troop_days_on_mission),
-					(troop_get_slot, reg4, ":companion", slot_troop_prisoner_of_party),
-					(troop_get_slot, reg4, ":companion", slot_troop_playerparty_history),
+					(troop_get_slot, reg2, ":companion", "slot_troop_current_mission"),
+					(troop_get_slot, reg3, ":companion", "slot_troop_days_on_mission"),
+					(troop_get_slot, reg4, ":companion", "slot_troop_prisoner_of_party"),
+					(troop_get_slot, reg4, ":companion", "slot_troop_playerparty_history"),
 					
 					(display_message, "@{!}DEBUG: {s4} current mission: {reg2}, days on mission: {reg3}, prisoner: {reg4}, pphistory: {reg5}"),
 				(try_end),
@@ -2618,8 +2618,8 @@ game_menus = game_start.first_menus + [
 
 			(str_clear, s7), #"no companions in service"
 		(else_try),
-			(neg|troop_slot_eq, ":companion", slot_troop_occupation, slto_kingdom_hero),
-			(troop_slot_ge, ":companion", slot_troop_prisoner_of_party, centers_begin),
+			(neg|troop_slot_eq, ":companion", "slot_troop_occupation", slto_kingdom_hero),
+			(troop_slot_ge, ":companion", "slot_troop_prisoner_of_party", centers_begin),
 
 			(str_store_troop_name, s4, ":companion"),
 			(str_store_string, s8, "str_missing_after_battle"),
@@ -2749,7 +2749,7 @@ game_menus = game_start.first_menus + [
          (str_store_string, s12, "@No one"),
        (else_try),
          (str_store_troop_name, s12, ":faction_marshall"),
-		 (troop_get_slot, reg21, ":faction_marshall", slot_troop_controversy),
+		 (troop_get_slot, reg21, ":faction_marshall", "slot_troop_controversy"),
 		 (str_store_string, s12, "@{!}{s12} (controversy: {reg21})"),
        (try_end),
 
@@ -2851,7 +2851,7 @@ game_menus = game_start.first_menus + [
       ("faction_orders_political_collapse", [],"{!}CHEAT - Cause all lords in faction to fall out with their liege.",
        [
 	   (try_for_range, ":lord", active_npcs_begin, active_npcs_end),
-			(troop_slot_eq, ":lord", slot_troop_occupation, slto_kingdom_hero),
+			(troop_slot_eq, ":lord", "slot_troop_occupation", slto_kingdom_hero),
 			(store_faction_of_troop, ":troop_faction", ":lord"),
 			(eq, ":troop_faction", "$g_cheat_selected_faction"),
 			(faction_get_slot, ":faction_liege", ":troop_faction", "slot_faction_leader"),
@@ -2877,7 +2877,7 @@ game_menus = game_start.first_menus + [
 			(store_faction_of_party, ":location_faction", ":location"),
 			(eq, ":location_faction", "$g_cheat_selected_faction"),
 			(party_get_slot, ":location_lord", ":location", "slot_town_lord"),
-			(troop_get_slot, ":location_score", ":location_lord", slot_troop_renown),
+			(troop_get_slot, ":location_score", ":location_lord", "slot_troop_renown"),
 			(store_random_in_range, ":random", 0, 1000), #will probably be king or senior lord
 			(val_add, ":location_score", ":random"),
 			(gt, ":location_score", ":location_high_score"),
@@ -2983,11 +2983,11 @@ game_menus = game_start.first_menus + [
     (str_store_string, s6, "@none"),
     (str_store_string, s8, "@none"),
     (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-	  (this_or_next|troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-		(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_inactive_pretender),
+	  (this_or_next|troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
+		(troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_inactive_pretender),
 	  (call_script, "script_troop_get_player_relation", ":troop_no"),
       (assign, ":player_relation", reg0),
-      #(troop_get_slot, ":player_relation", ":troop_no", slot_troop_player_relation),
+      #(troop_get_slot, ":player_relation", ":troop_no", "slot_troop_player_relation"),
       (try_begin),
         (gt, ":player_relation", 20),
         (try_begin),
@@ -3047,7 +3047,7 @@ game_menus = game_start.first_menus + [
 	#lord recruitment changes begin
 	
     (assign, reg3, "$player_honor"),
-    (troop_get_slot, reg2, "trp_player", slot_troop_renown),
+    (troop_get_slot, reg2, "trp_player", "slot_troop_renown"),
 
 #chief entretenimiento skill bardo moto
     (assign, reg1, "$bardic_reputation"),
@@ -3124,9 +3124,9 @@ game_menus = game_start.first_menus + [
 
 	("continue",[(eq,"$cheat_mode",1)],"{!}CHEAT! - increase renown",
        [
-	   (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+	   (troop_get_slot, ":renown", "trp_player", "slot_troop_renown"),
 	   (val_add, ":renown", 50),
-	   (troop_set_slot, "trp_player", slot_troop_renown, ":renown"),
+	   (troop_set_slot, "trp_player", "slot_troop_renown", ":renown"),
 	   
 	   (jump_to_menu, "mnu_character_report"),
        ]
@@ -3162,7 +3162,7 @@ game_menus = game_start.first_menus + [
 ##    (val_mul, ":leadership", 5),
 ##    (store_attribute_level, ":charisma", "trp_player", ca_charisma),
 ##
-##    (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+##    (troop_get_slot, ":renown", "trp_player", "slot_troop_renown"),
 ##    (val_div, ":renown", 25),
 ##    (try_begin),
 ##      (gt, ":leadership", 0),
@@ -3496,7 +3496,7 @@ game_menus = game_start.first_menus + [
         
    #caba'drin custom name player party chief
          ("action_change_party_name",
-       [(troop_slot_ge, "trp_player", slot_troop_renown, 300)], #My opinion is that it should be renown-dependent...
+       [(troop_slot_ge, "trp_player", "slot_troop_renown", 300)], #My opinion is that it should be renown-dependent...
        "Thanks to your renown, you can change your party's name.",
        [(start_presentation, "prsnt_set_party_name")]
        ),
@@ -3507,7 +3507,7 @@ game_menus = game_start.first_menus + [
          (neq,":terrain",0),
           (neq,":terrain",7),
           (neq,":terrain",8),
-          (troop_slot_ge, "trp_player", slot_troop_renown, 80), #chief anadido
+          (troop_slot_ge, "trp_player", "slot_troop_renown", 80), #chief anadido
                                           ],"Your Lair.",
        [(jump_to_menu, "mnu_encontrar_guarida")]),
 	#-## Outposts end
@@ -3775,7 +3775,7 @@ game_menus = game_start.first_menus + [
       ("camp_cheat_cheat_0",[], "Heal yourself...",
        [
          # (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
-         #   (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
+         #   (troop_slot_eq, ":hero", "slot_troop_occupation", slto_kingdom_hero),
           # (store_agent_hit_points,reg0,"trp_player",1),
           # #(assign, reg0 ":hp"), 
           # (display_message,"You have {reg0} hitpoints",0x6495ed),
@@ -3810,7 +3810,7 @@ game_menus = game_start.first_menus + [
       ("camp_cheat_3",[],"{!}Update political notes.",
        [
          (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":hero", "slot_troop_occupation", slto_kingdom_hero),
            (call_script, "script_update_troop_political_notes", ":hero"),
          (try_end),
          
@@ -3823,7 +3823,7 @@ game_menus = game_start.first_menus + [
       ("camp_cheat_4",[],"{!}Update troop notes.",
        [
          (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":hero", "slot_troop_occupation", slto_kingdom_hero),
            (call_script, "script_update_troop_notes", ":hero"),
          (try_end),
          
@@ -4564,9 +4564,9 @@ game_menus = game_start.first_menus + [
    "none",
    [
  (str_clear, s2),  (str_clear, s3), (str_clear, s5), (str_clear, s6), (str_clear, s7),
-   (troop_get_slot, ":duel_wins", "$g_talk_troop", slot_troop_duel_won),
+   (troop_get_slot, ":duel_wins", "$g_talk_troop", "slot_troop_duel_won"),
    (assign, reg(6), ":duel_wins"),
-   (troop_get_slot, ":duel_losses", "$g_talk_troop", slot_troop_duel_lost),
+   (troop_get_slot, ":duel_losses", "$g_talk_troop", "slot_troop_duel_lost"),
    (assign, reg(7), ":duel_losses"),
    (store_add, ":duel_total", ":duel_wins", ":duel_losses"),
    (assign, reg(5), ":duel_total"),
@@ -4973,7 +4973,7 @@ game_menus = game_start.first_menus + [
           (eq, "$g_encountered_party_template", "pt_kingdom_hero_party"),
 		  (party_stack_get_troop_id, ":leader_troop", "$g_encountered_party", 0),
 		  (ge, ":leader_troop", 1),
-		  (troop_get_slot, ":leader_troop_faction", ":leader_troop", slot_troop_original_faction),
+		  (troop_get_slot, ":leader_troop_faction", ":leader_troop", "slot_troop_original_faction"),
 		  (try_begin),
 			(eq, ":leader_troop_faction", "fac_kingdom_1"),
             (set_background_mesh, "mesh_pic_sarranid_encounter1"),
@@ -6088,7 +6088,7 @@ game_menus = game_start.first_menus + [
                   (try_for_range, ":stack_no", 0, ":num_stacks"),
                     (party_stack_get_troop_id,   ":stack_troop","p_encountered_party_backup",":stack_no"),
                     (is_between, ":stack_troop", active_npcs_begin, active_npcs_end),
-					(troop_slot_eq, ":stack_troop", slot_troop_occupation, slto_kingdom_hero),
+					(troop_slot_eq, ":stack_troop", "slot_troop_occupation", slto_kingdom_hero),
                     (store_troop_faction, ":victorious_faction", ":stack_troop"),
 #					(store_relation, ":relation_with_stack_troop", ":victorious_faction", "fac_player_faction"),
 #					(lt, ":relation_with_stack_troop", 0),
@@ -6205,7 +6205,7 @@ game_menus = game_start.first_menus + [
           (try_for_range, ":stack_no", 0, ":num_stacks"),
               (party_stack_get_troop_id,   ":stack_troop","p_encountered_party_backup",":stack_no"),
               (is_between, ":stack_troop", active_npcs_begin, active_npcs_end),
-              (troop_slot_eq, ":stack_troop", slot_troop_occupation, slto_kingdom_hero),
+              (troop_slot_eq, ":stack_troop", "slot_troop_occupation", slto_kingdom_hero),
 
               (store_troop_faction, ":victorious_faction", ":stack_troop"),
               (call_script, "script_add_log_entry", logent_player_retreated_from_lord_cowardly, "trp_player",  -1, ":stack_troop", ":victorious_faction"),
@@ -6605,7 +6605,7 @@ game_menus = game_start.first_menus + [
         
 		(try_begin),
 			(gt, "$g_private_battle_with_troop", 0),
-			(troop_slot_eq, "$g_private_battle_with_troop", slot_troop_leaded_party, "$g_encountered_party"),
+			(troop_slot_eq, "$g_private_battle_with_troop", "slot_troop_leaded_party", "$g_encountered_party"),
 			(assign, "$g_private_battle_with_troop", 0),
 			(assign, "$g_disable_condescending_comments", 1),
 		(try_end),
@@ -6676,7 +6676,7 @@ game_menus = game_start.first_menus + [
 			(party_stack_get_troop_dna, ":ally_leader_dna", "$g_ally_party", 0),
 			(try_begin),
 				(troop_is_hero, ":ally_leader"),
-				(troop_get_slot, ":hero_relation", ":ally_leader", slot_troop_player_relation),
+				(troop_get_slot, ":hero_relation", ":ally_leader", "slot_troop_player_relation"),
 				(assign, ":rel_boost", "$g_relation_boost"),
 				(try_begin),
 					(lt, ":hero_relation", -5),
@@ -6717,7 +6717,7 @@ game_menus = game_start.first_menus + [
                 (try_begin),
 					(party_stack_get_troop_id, ":party_leader", "$g_encountered_party", 0),
 					(is_between, ":party_leader", active_npcs_begin, active_npcs_end),                
-					(troop_slot_eq, ":party_leader", slot_troop_occupation, slto_kingdom_hero),
+					(troop_slot_eq, ":party_leader", "slot_troop_occupation", slto_kingdom_hero),
 					(store_sub, ":kingdom_hero_id", ":party_leader", active_npcs_begin),
 					(get_achievement_stat, ":was_he_defeated_player_before", ACHIEVEMENT_BARON_GOT_BACK, ":kingdom_hero_id"),                
 					(eq, ":was_he_defeated_player_before", 1),
@@ -6727,7 +6727,7 @@ game_menus = game_start.first_menus + [
         
 				(store_add, "$last_defeated_hero", ":stack_no", 1),                    
 				(call_script, "script_remove_troop_from_prison", ":stack_troop"),
-				(troop_set_slot, ":stack_troop", slot_troop_leaded_party, -1),
+				(troop_set_slot, ":stack_troop", "slot_troop_leaded_party", -1),
 
 				(call_script, "script_cf_check_hero_can_escape_from_player", ":stack_troop"),
                             
@@ -6740,7 +6740,7 @@ game_menus = game_start.first_menus + [
 			(else_try),
 				(store_add, "$last_defeated_hero", ":stack_no", 1),                    
 				(call_script, "script_remove_troop_from_prison", ":stack_troop"),
-				(troop_set_slot, ":stack_troop", slot_troop_leaded_party, -1),
+				(troop_set_slot, ":stack_troop", "slot_troop_leaded_party", -1),
 
 				(assign, "$talk_context", tc_hero_defeated),
 			  
@@ -6968,7 +6968,7 @@ game_menus = game_start.first_menus + [
 
 					(party_stack_get_size, ":stack_size", "p_main_party", ":stack_no"),
 					(party_stack_get_num_wounded, ":num_wounded", "p_main_party", ":stack_no"),
-					(troop_get_slot, ":num_routed", "p_main_party", slot_troop_player_routed_agents),
+					(troop_get_slot, ":num_routed", "p_main_party", "slot_troop_player_routed_agents"),
                                     
 					(assign, ":continue", 0),                  
 					(try_begin),
@@ -6985,7 +6985,7 @@ game_menus = game_start.first_menus + [
 
 					(try_begin),
 						(troop_is_hero, ":stack_troop"),
-						(troop_get_slot, ":troop_renown", ":stack_troop", slot_troop_renown),
+						(troop_get_slot, ":troop_renown", ":stack_troop", "slot_troop_renown"),
 						(store_mul, ":troop_score", ":troop_renown", 100),
 						(val_add, ":troop_score", 1000),
 					(else_try),                  
@@ -7085,7 +7085,7 @@ game_menus = game_start.first_menus + [
           (try_for_range, ":stack_no", 0, ":num_stacks"),
             (party_stack_get_troop_id,   ":stack_troop","p_encountered_party_backup",":stack_no"),
             (is_between, ":stack_troop", active_npcs_begin, active_npcs_end),
-			(troop_slot_eq, ":stack_troop", slot_troop_occupation, slto_kingdom_hero),
+			(troop_slot_eq, ":stack_troop", "slot_troop_occupation", slto_kingdom_hero),
             (store_troop_faction, ":victorious_faction", ":stack_troop"),
             (call_script, "script_add_log_entry", logent_player_defeated_by_lord, "trp_player",  -1, ":stack_troop", ":victorious_faction"),
           (try_end),
@@ -9633,7 +9633,7 @@ game_menus = game_start.first_menus + [
         (else_try),
           (call_script, "script_troop_get_player_relation", ":castle_lord"),
           (assign, ":castle_lord_relation", reg0),
-          #(troop_get_slot, ":castle_lord_relation", ":castle_lord", slot_troop_player_relation),
+          #(troop_get_slot, ":castle_lord_relation", ":castle_lord", "slot_troop_player_relation"),
           (try_begin),
             (gt, ":castle_lord_relation", -15),
             (jump_to_menu, "mnu_castle_entry_granted"),
@@ -9651,7 +9651,7 @@ game_menus = game_start.first_menus + [
         (party_get_slot, ":town_lord", "$g_encountered_party", "slot_town_lord"),
         (gt, ":town_lord", 0),
         (is_between, ":town_lord", companions_begin, kingdom_heroes_end),
-        (troop_slot_eq, ":town_lord", slot_troop_occupation, slto_player_companion),
+        (troop_slot_eq, ":town_lord", "slot_troop_occupation", slto_player_companion),
         #(call_script, "script_cf_center_lord_is_player_or_companions", "$g_encountered_party", 0),
         (neq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
         (party_count_companions_of_type, ":party_has_troop", "p_collective_friends", ":town_lord"),
@@ -9722,7 +9722,7 @@ game_menus = game_start.first_menus + [
     [
         (assign, "$num_castle_meeting_troops", 0),
         (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-          (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+          (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
           (call_script, "script_get_troop_attached_party", ":troop_no"),
           (eq, "$g_encountered_party", reg0),
           (troop_set_slot, "trp_temp_array_a", "$num_castle_meeting_troops", ":troop_no"),
@@ -9863,12 +9863,12 @@ You tried to presure {s12} to surrender, but {s11} didn't cooperate with you.({r
         (assign, ":continue", 0),
       (try_end),
       # Player can use persure skill per a day.
-      (troop_get_slot, ":last_persuasion_time", ":town_lord", slot_troop_last_persuasion_time),
+      (troop_get_slot, ":last_persuasion_time", ":town_lord", "slot_troop_last_persuasion_time"),
       (store_current_hours, ":cur_hours"),
       (store_add, ":valid_time", ":last_persuasion_time", 24),
       (try_begin),
         (gt, ":cur_hours", ":valid_time"),
-        (troop_set_slot, ":town_lord", slot_troop_last_persuasion_time, ":cur_hours"),
+        (troop_set_slot, ":town_lord", "slot_troop_last_persuasion_time", ":cur_hours"),
       (else_try),
         (str_store_string, s20, "@You can use persuasion skill only once per a day."),
         (assign, ":continue", 0),
@@ -13343,15 +13343,15 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 			(faction_get_slot, ":faction_leader", "$players_kingdom", "slot_faction_leader"),
 			(ge, ":faction_leader", 0),
 			(this_or_next|eq, ":faction_leader", "trp_player"),
-			(this_or_next|troop_slot_eq, ":faction_leader", slot_troop_spouse, "trp_player"),
-				(troop_slot_eq, "trp_player", slot_troop_spouse, ":faction_leader"),
+			(this_or_next|troop_slot_eq, ":faction_leader", "slot_troop_spouse", "trp_player"),
+				(troop_slot_eq, "trp_player", "slot_troop_spouse", ":faction_leader"),
 			(assign, ":is_kingdom_leader", 1),
 		 (else_try),
 			(eq, "$players_kingdom", "fac_player_supporters_faction"),
 			(assign, ":is_kingdom_leader", 1),
 		 (try_end),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
 		   ##diplomacy start+
 		   (this_or_next|eq, "$players_kingdom", ":troop_faction_no"),
@@ -13378,18 +13378,18 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
 		  (faction_get_slot, ":faction_leader", "$players_kingdom", "slot_faction_leader"),
 		  (this_or_next|eq, ":faction_leader", "trp_player"),
-		  (this_or_next|troop_slot_eq, ":faction_leader", slot_troop_spouse, "trp_player"),
+		  (this_or_next|troop_slot_eq, ":faction_leader", "slot_troop_spouse", "trp_player"),
   		##nested diplomacy end+
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
          (assign, ":vassal_count", 0),       
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
 		   ##nested diplomacy start+
 		   (this_or_next|eq, "$players_kingdom", ":troop_faction_no"),
 		   ##nested diplomacy end+
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
-           (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+           (troop_get_slot, ":party_no", ":troop_no", "slot_troop_leaded_party"),
            (ge, ":party_no", 1),
            (store_distance_to_party_from_party, ":distance","p_main_party", ":party_no"),
            (le, ":distance", 25),
@@ -13400,11 +13400,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [  
          (assign, ":vassal_count", 1),       
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
 			(this_or_next|eq, "$players_kingdom", ":troop_faction_no"),#support for other faction arrangements
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
-           (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+           (troop_get_slot, ":party_no", ":troop_no", "slot_troop_leaded_party"),
            (ge, ":party_no", 1),
            (store_distance_to_party_from_party, ":distance","p_main_party", ":party_no"),
            (le, ":distance", 25),
@@ -13413,11 +13413,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		 (store_div, ":gold_per_lord", "$diplomacy_var", ":vassal_count"),
 		 #now loop through to add gold/relation
 		 (try_for_range, ":troop_no", heroes_begin, heroes_end),#promoted lady support
-			(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+			(troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
 			(store_troop_faction, ":troop_faction_no", ":troop_no"),
 			(this_or_next|eq, "$players_kingdom", ":troop_faction_no"),#support for other faction arrangements
 				(eq, "fac_player_supporters_faction", ":troop_faction_no"),
-			(troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+			(troop_get_slot, ":party_no", ":troop_no", "slot_troop_leaded_party"),
 			(ge, ":party_no", 1),
 			(store_distance_to_party_from_party, ":distance","p_main_party", ":party_no"),
 			(le, ":distance", 25),
@@ -13444,9 +13444,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 					(val_sub, ":relation_change", reg0),
 					(val_min, ":relation_change", 5),
 				(else_try),
-					(this_or_next|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_custodian),
-					(this_or_next|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_benefactor),
-						(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_moralist),
+					(this_or_next|troop_slot_eq, ":troop_no", "slot_lord_reputation_type", lrep_custodian),
+					(this_or_next|troop_slot_eq, ":troop_no", "slot_lord_reputation_type", lrep_benefactor),
+						(troop_slot_eq, ":troop_no", "slot_lord_reputation_type", lrep_moralist),
 					(val_sub, ":relation_change", 1),
 			    (try_end),
 			(try_end),
@@ -13472,14 +13472,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		  #Support for being co-ruler of an original kingdom
 		  (faction_get_slot, ":faction_leader", "$players_kingdom", "slot_faction_leader"),
 		  (this_or_next|eq, ":faction_leader", "trp_player"),
-		  (this_or_next|troop_slot_eq, ":faction_leader", slot_troop_spouse, "trp_player"),
+		  (this_or_next|troop_slot_eq, ":faction_leader", "slot_troop_spouse", "trp_player"),
 		  ##nested diplomacy end+
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
       ],"Plunder it and share the spoils equally between your vassals and yourself.",
        [         
          (assign, ":vassal_count", 1),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
 			(this_or_next|eq, ":troop_faction_no", "fac_player_supporters_faction"),
 				(eq, ":troop_faction_no", "$players_kingdom"),
@@ -13487,7 +13487,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (try_end),
 		 (store_div, ":gold_per_lord", "$diplomacy_var", ":vassal_count"),
 		 (try_for_range, ":troop_no", heroes_begin, heroes_end),
-			(troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+			(troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
 			(store_troop_faction, ":troop_faction_no", ":troop_no"),
 			(this_or_next|eq, ":troop_faction_no", "fac_player_supporters_faction"),
 				(eq, ":troop_faction_no", "$players_kingdom"),
@@ -13513,9 +13513,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 					(val_sub, ":relation_change", reg0),
 					(val_min, ":relation_change", 4),
 				(else_try),
-					(this_or_next|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_custodian),
-					(this_or_next|troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_benefactor),
-						(troop_slot_eq, ":troop_no", slot_lord_reputation_type, lrep_moralist),
+					(this_or_next|troop_slot_eq, ":troop_no", "slot_lord_reputation_type", lrep_custodian),
+					(this_or_next|troop_slot_eq, ":troop_no", "slot_lord_reputation_type", lrep_benefactor),
+						(troop_slot_eq, ":troop_no", "slot_lord_reputation_type", lrep_moralist),
 					(val_sub, ":relation_change", 1),
 			    (try_end),
 			(call_script, "script_change_player_relation_with_troop", ":troop_no", ":relation_change"),
@@ -13583,9 +13583,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         ]),
 
 		("castle_taken_claim_2",[
-		(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+		(troop_get_slot, ":spouse", "trp_player", "slot_troop_spouse"),
 		(is_between, ":spouse", active_npcs_begin, active_npcs_end),
-		(troop_slot_eq, ":spouse", slot_troop_occupation, slto_kingdom_hero),
+		(troop_slot_eq, ":spouse", "slot_troop_occupation", slto_kingdom_hero),
 		(store_faction_of_troop, ":spouse_faction", ":spouse"),
 		(eq, ":spouse_faction", "$players_kingdom"),
 		],
@@ -13593,7 +13593,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         [
         (party_set_slot, "$g_encountered_party", "slot_center_last_taken_by_troop", "trp_player"),
         (assign, "$g_castle_requested_by_player", "$current_town"),
-		(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+		(troop_get_slot, ":spouse", "trp_player", "slot_troop_spouse"),
 		(assign, "$g_castle_requested_for_troop", ":spouse"),
         (assign, "$auto_enter_town", "$g_encountered_party"),
         (change_screen_return),
@@ -13683,7 +13683,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [         
          (call_script, "script_change_center_prosperity", "$g_encountered_party", -30),  
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
            (call_script, "script_change_player_relation_with_troop", ":troop_no", -4),
@@ -13699,10 +13699,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (eq, "$players_kingdom", "fac_player_supporters_faction"),
          (assign, ":vassal_count", 0),       
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
-           (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+           (troop_get_slot, ":party_no", ":troop_no", "slot_troop_leaded_party"),
            (ge, ":party_no", 1),
            (store_distance_to_party_from_party, ":distance","p_main_party", ":party_no"),
            (le, ":distance", 25),
@@ -13713,10 +13713,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [  
          (assign, ":vassal_count", 1),       
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
-           (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+           (troop_get_slot, ":party_no", ":troop_no", "slot_troop_leaded_party"),
            (ge, ":party_no", 1),
            (store_distance_to_party_from_party, ":distance","p_main_party", ":party_no"),
            (le, ":distance", 25),
@@ -13740,7 +13740,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [         
          (assign, ":vassal_count", 1),
          (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+           (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
            (store_troop_faction, ":troop_faction_no", ":troop_no"),
            (eq, "fac_player_supporters_faction", ":troop_faction_no"),
            (val_add, ":vassal_count", 1),
@@ -13836,14 +13836,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     (val_mod, reg4, 2),
 #gender fix chief acaba	 
 	 
-		(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+		(troop_get_slot, ":spouse", "trp_player", "slot_troop_spouse"),
 		(str_store_troop_name, s11, ":spouse"), 
 		(str_store_string, s7, "str_to_your_husband_s11"),	 
     ],
     [
 		("continue",[],"Continue.",
 			[
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+			(troop_get_slot, ":spouse", "trp_player", "slot_troop_spouse"),
 			(call_script, "script_give_center_to_lord", "$g_center_to_give_to_player", ":spouse", 0),
 			],
 		),
@@ -14061,7 +14061,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##        (party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
 ##        (try_for_range, ":i_s", 1,":num_stacks"),
 ##          (party_stack_get_troop_id, ":companion","p_main_party", ":i_s"),
-##          (troop_slot_eq, ":companion", slot_troop_occupation, slto_player_companion),
+##          (troop_slot_eq, ":companion", "slot_troop_occupation", slto_player_companion),
 ##          (troop_set_slot, "trp_temp_troop", ":num_captains", ":companion"),
 ##        (try_end),
 ##    ],
@@ -14171,9 +14171,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 ##            (party_set_slot, "$g_enemy_party", "slot_party_retreat_flag", 1),
 ##
 ##            (try_for_range, ":troop_no", kingdom_heroes_begin, kingdom_heroes_end),
-##              (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-##              (troop_slot_eq, ":troop_no", slot_troop_is_prisoner, 0),
-##              (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+##              (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
+##              (troop_slot_eq, ":troop_no", "slot_troop_is_prisoner", 0),
+##              (troop_get_slot, ":party_no", ":troop_no", "slot_troop_leaded_party"),
 ##              (gt, ":party_no", 0),
 ##              (party_slot_eq, ":party_no", "slot_party_ai_state", spai_besieging_center),
 ##              (party_slot_eq, ":party_no", "slot_party_ai_object", "$g_encountered_party"),
@@ -14285,10 +14285,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
               (party_set_slot, "$g_enemy_party", "slot_party_retreat_flag", 1),
 
               (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
-                (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
-                #(troop_slot_eq, ":troop_no", slot_troop_is_prisoner, 0),
-                (neg|troop_slot_ge, ":troop_no", slot_troop_prisoner_of_party, 0),
-                (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
+                (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
+                #(troop_slot_eq, ":troop_no", "slot_troop_is_prisoner", 0),
+                (neg|troop_slot_ge, ":troop_no", "slot_troop_prisoner_of_party", 0),
+                (troop_get_slot, ":party_no", ":troop_no", "slot_troop_leaded_party"),
                 (gt, ":party_no", 0),
                 (party_slot_eq, ":party_no", "slot_party_ai_state", spai_besieging_center),
                 (party_slot_eq, ":party_no", "slot_party_ai_object", "$g_encountered_party"),
@@ -15023,7 +15023,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
             (str_store_string,s11,"@ Your own banner flies over the castle gate."),
 		  (else_try),
 			(gt, ":center_lord", -1),
-			(troop_slot_eq, ":center_lord", slot_troop_spouse, "trp_player"),
+			(troop_slot_eq, ":center_lord", "slot_troop_spouse", "trp_player"),
             (str_store_string,s11,"str__you_see_the_banner_of_your_wifehusband_s7_over_the_castle_gate"),
 		  (else_try),
             (ge, ":center_lord", 0),
@@ -15038,7 +15038,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
             (str_store_string,s11,"@ Your own banner flies over the town gates. {s15}"),
 		  (else_try),	
 			(gt, ":center_lord", -1),
-			(troop_slot_eq, ":center_lord", slot_troop_spouse, "trp_player"),
+			(troop_slot_eq, ":center_lord", "slot_troop_spouse", "trp_player"),
             (str_store_string,s11,"str__the_banner_of_your_wifehusband_s7_flies_over_the_town_gates"),
           (else_try),
             (ge, ":center_lord", 0),
@@ -15299,7 +15299,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       # [
        #    (party_slot_eq,"$current_town","slot_party_type", spt_town),
            #(party_get_slot, ":town_elder", "$current_town", "slot_town_elder"),
-           #(troop_slot_eq, ":town_elder", slot_troop_met, 1),
+           #(troop_slot_eq, ":town_elder", "slot_troop_met", 1),
      #   ],
       #   "Meet with the guild master.",
        #  [
@@ -17026,19 +17026,19 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(assign, ":end_cond", kingdom_ladies_end),
 	(try_for_range, ":prisoner", active_npcs_begin, ":end_cond"),
 	  (try_begin),
-		(troop_slot_eq, ":prisoner", slot_troop_mission_participation, mp_prison_break_escaped),
+		(troop_slot_eq, ":prisoner", "slot_troop_mission_participation", mp_prison_break_escaped),
         (assign, "$talk_context", tc_hero_freed),
         (assign, reg14, ":prisoner"),
         (call_script, "script_setup_troop_meeting", ":prisoner", -1),
-        (troop_set_slot, ":prisoner", slot_troop_mission_participation, -1),
+        (troop_set_slot, ":prisoner", "slot_troop_mission_participation", -1),
 
-        (troop_get_slot, ":prison_center", ":prisoner", slot_troop_prisoner_of_party),
+        (troop_get_slot, ":prison_center", ":prisoner", "slot_troop_prisoner_of_party"),
         (party_remove_prisoners, ":prison_center", ":prisoner", 1),          
-        (troop_set_slot, ":prisoner", slot_troop_prisoner_of_party, -1),
+        (troop_set_slot, ":prisoner", "slot_troop_prisoner_of_party", -1),
 
         (assign, ":end_cond", -1),
 	  (else_try),	
-		(troop_slot_eq, ":prisoner", slot_troop_mission_participation, mp_prison_break_caught),
+		(troop_slot_eq, ":prisoner", "slot_troop_mission_participation", mp_prison_break_caught),
 		(str_store_troop_name, s12, ":prisoner"),
 		(try_begin),
 			(eq, ":at_least_one_escaper_caught", 0),
@@ -17049,7 +17049,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(assign, ":at_least_one_escaper_caught", 1),
 	  (try_end),
 	  
-	  (troop_set_slot, ":prisoner", slot_troop_mission_participation, 0), #new
+	  (troop_set_slot, ":prisoner", "slot_troop_mission_participation", 0), #new
 	(try_end),
 	],
     [      
@@ -17088,7 +17088,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
         (try_end),
         ##diplomacy end
         (party_remove_prisoners, "$g_ransom_offer_party", "$g_ransom_offer_troop", 1),
-        #(troop_set_slot, "$g_ransom_offer_troop", slot_troop_is_prisoner, 0),
+        #(troop_set_slot, "$g_ransom_offer_troop", "slot_troop_is_prisoner", 0),
         (call_script, "script_remove_troop_from_prison", "$g_ransom_offer_troop"),
           (try_begin),
             (troop_get_type, ":is_female", "trp_player"),
@@ -17608,7 +17608,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        (try_begin),
          (party_stack_get_troop_id, ":party_leader", "$g_encountered_party", 0),
          (is_between, ":party_leader", active_npcs_begin, active_npcs_end),
-         (troop_slot_eq, ":party_leader", slot_troop_occupation, slto_kingdom_hero),
+         (troop_slot_eq, ":party_leader", "slot_troop_occupation", slto_kingdom_hero),
          (store_sub, ":kingdom_hero_id", ":party_leader", active_npcs_begin),
          (set_achievement_stat, ACHIEVEMENT_BARON_GOT_BACK, ":kingdom_hero_id", 1),
        (try_end),
@@ -17700,14 +17700,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          #  (store_random_in_range, ":rand", 0, 100),
          #  (lt, ":rand", 30),
          #  (remove_member_from_party, ":npc", "p_main_party"),
-         #  (troop_set_slot, ":npc", slot_troop_occupation, 0),
-         #  (troop_set_slot, ":npc", slot_troop_playerparty_history, pp_history_scattered),
+         #  (troop_set_slot, ":npc", "slot_troop_occupation", 0),
+         #  (troop_set_slot, ":npc", "slot_troop_playerparty_history", pp_history_scattered),
          #  (assign, "$last_lost_companion", ":npc"),
          #  (store_faction_of_party, ":victorious_faction", "$g_encountered_party"),
-         #  (troop_set_slot, ":npc", slot_troop_playerparty_history_string, ":victorious_faction"),
+         #  (troop_set_slot, ":npc", "slot_troop_playerparty_history_string", ":victorious_faction"),
          #  (troop_set_health, ":npc", 100),
          #  (store_random_in_range, ":rand_town", towns_begin, towns_end),
-         #  (troop_set_slot, ":npc", slot_troop_cur_center, ":rand_town"),
+         #  (troop_set_slot, ":npc", "slot_troop_cur_center", ":rand_town"),
          #  (assign, ":nearest_town_dist", 1000),
          #  (try_for_range, ":town_no", towns_begin, towns_end),
          #    (store_faction_of_party, ":town_fac", ":town_no"),
@@ -17716,7 +17716,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          #    (store_distance_to_party_from_party, ":dist", ":town_no", "p_main_party"),
          #    (lt, ":dist", ":nearest_town_dist"),
          #    (assign, ":nearest_town_dist", ":dist"),
-         #    (troop_set_slot, ":npc", slot_troop_cur_center, ":town_no"),
+         #    (troop_set_slot, ":npc", "slot_troop_cur_center", ":town_no"),
          #  (try_end),
          #(try_end),
 
@@ -18538,9 +18538,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		
 		(assign, "$g_player_court", ":walled_center"),
 		(try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+			(troop_get_slot, ":spouse", "trp_player", "slot_troop_spouse"),
 			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
+			(troop_set_slot, ":spouse", "slot_troop_cur_center", "$g_player_court"),
 			(str_store_party_name, s11, "$g_player_court"),
 		(try_end),
 		
@@ -18556,9 +18556,9 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(assign, "$g_player_court", ":walled_center"),
 		
 		(try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+			(troop_get_slot, ":spouse", "trp_player", "slot_troop_spouse"),
 			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
-			(troop_set_slot, ":spouse", slot_troop_cur_center, "$g_player_court"),
+			(troop_set_slot, ":spouse", "slot_troop_cur_center", "$g_player_court"),
 		(try_end),
 
 		(party_get_slot, ":town_lord", ":walled_center", "slot_town_lord"),
@@ -18978,11 +18978,11 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
        [
          (try_begin),
            (is_between, "$supported_pretender", pretenders_begin, pretenders_end),
-           (troop_slot_eq, "$supported_pretender", slot_troop_original_faction, "$g_notification_menu_var1"),
+           (troop_slot_eq, "$supported_pretender", "slot_troop_original_faction", "$g_notification_menu_var1"),
 		   
 		   #All rebels switch to kingdom
            (try_for_range, ":cur_troop", active_npcs_begin, active_npcs_end),
-		     (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+		     (troop_slot_eq, ":cur_troop", "slot_troop_occupation", slto_kingdom_hero),
              (store_troop_faction, ":cur_faction", ":cur_troop"),
              (eq, ":cur_faction", "fac_player_supporters_faction"),
              (troop_set_faction, ":cur_troop", "$g_notification_menu_var1"),
@@ -18993,7 +18993,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                (call_script, "script_check_concilio_calradi_achievement"),
              (try_end),
 		   (else_try), #all loyal lords gain a small bonus with the player	 
-		     (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
+		     (troop_slot_eq, ":cur_troop", "slot_troop_occupation", slto_kingdom_hero),
              (store_troop_faction, ":cur_faction", ":cur_troop"),
              (eq, ":cur_faction", "$g_notification_menu_var1"),
 			 (call_script, "script_troop_change_relation_with_troop", ":cur_troop", "trp_player", 5),
@@ -19007,7 +19007,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		   
            (assign, "$players_kingdom", "$g_notification_menu_var1"),
 		   (try_begin),
-			(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
+			(troop_get_slot, ":spouse", "trp_player", "slot_troop_spouse"),
 			(is_between, ":spouse", kingdom_ladies_begin, kingdom_ladies_end),
 			(troop_set_faction, ":spouse", "$g_notification_menu_var1"),
 		   (try_end),
@@ -19019,7 +19019,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (faction_set_slot, "fac_player_supporters_faction", "slot_faction_state", sfs_inactive),
 		   
            (faction_get_slot, ":old_leader", "$g_notification_menu_var1", "slot_faction_leader"),
-           (troop_set_slot, ":old_leader", slot_troop_change_to_faction, "fac_commoners"),
+           (troop_set_slot, ":old_leader", "slot_troop_change_to_faction", "fac_commoners"),
 		   
            (faction_set_slot, "$g_notification_menu_var1", "slot_faction_leader", "$supported_pretender"),
            (troop_set_faction, "$supported_pretender", "$g_notification_menu_var1"),
@@ -19027,7 +19027,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (faction_get_slot, ":old_marshall", "$g_notification_menu_var1", "slot_faction_marshall"),
            (try_begin),
              (ge, ":old_marshall", 0),
-			 (troop_get_slot, ":old_marshall_party", ":old_marshall", slot_troop_leaded_party),
+			 (troop_get_slot, ":old_marshall_party", ":old_marshall", "slot_troop_leaded_party"),
              (party_is_active, ":old_marshall_party"),
              (party_set_marshall, ":old_marshall_party", 0),
            (try_end),  
@@ -19035,8 +19035,8 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
            (faction_set_slot, "$g_notification_menu_var1", "slot_faction_marshall", "trp_player"),
            (faction_set_slot, "$g_notification_menu_var1", "slot_faction_ai_state", sfai_default),
            (faction_set_slot, "$g_notification_menu_var1", "slot_faction_ai_object", -1),
-           (troop_set_slot, "$supported_pretender", slot_troop_occupation, slto_kingdom_hero),
-		   (troop_set_slot, "$supported_pretender", slot_troop_renown, 1000),
+           (troop_set_slot, "$supported_pretender", "slot_troop_occupation", slto_kingdom_hero),
+		   (troop_set_slot, "$supported_pretender", "slot_troop_renown", 1000),
 		   
            (party_remove_members, "p_main_party", "$supported_pretender", 1),
            (call_script, "script_set_player_relation_with_faction", "$g_notification_menu_var1", 0),
@@ -19147,7 +19147,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       (str_store_party_name, s10, ":center_no"),
 	  
 	  (store_current_hours, ":hours_since_last_visit"),
-	  (troop_get_slot, ":last_visit_hours", ":lady_no", slot_troop_last_talk_time),
+	  (troop_get_slot, ":last_visit_hours", ":lady_no", "slot_troop_last_talk_time"),
 	  (val_sub, ":hours_since_last_visit", ":last_visit_hours"),
 	  
 	  (call_script, "script_get_kingdom_lady_social_determinants", ":lady_no"),
@@ -19160,7 +19160,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  (try_begin),
 	    (lt, ":hours_since_last_visit", 336),
 		(try_begin),
-			(troop_slot_eq, ":lady_no", slot_lord_reputation_type, lrep_otherworldly),
+			(troop_slot_eq, ":lady_no", "slot_lord_reputation_type", lrep_otherworldly),
 			(str_store_string, s14, "str_as_brief_as_our_separation_has_been_the_longing_in_my_heart_to_see_you_has_made_it_seem_as_many_years"),
 		(else_try),
 			(str_store_string, s14, "str_although_it_has_only_been_a_short_time_since_your_departure_but_i_would_be_most_pleased_to_see_you_again"),
@@ -19168,10 +19168,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  (else_try),
 	    (ge, ":hours_since_last_visit", 336),
 		(try_begin),
-			(troop_slot_eq, ":lady_no", slot_lord_reputation_type, lrep_ambitious),
+			(troop_slot_eq, ":lady_no", "slot_lord_reputation_type", lrep_ambitious),
 			(str_store_string, s14, "str_although_i_have_received_no_word_from_you_for_quite_some_time_i_am_sure_that_you_must_have_been_very_busy_and_that_your_failure_to_come_see_me_in_no_way_indicates_that_your_attentions_to_me_were_insincere_"),
 		(else_try),
-			(troop_slot_eq, ":lady_no", slot_lord_reputation_type, lrep_moralist),
+			(troop_slot_eq, ":lady_no", "slot_lord_reputation_type", lrep_moralist),
 			(str_store_string, s14, "str_i_trust_that_you_have_comported_yourself_in_a_manner_becoming_a_gentleman_during_our_long_separation_"),
 		(else_try),
 			(str_store_string, s14, "str_it_has_been_many_days_since_you_came_and_i_would_very_much_like_to_see_you_again"),
@@ -19182,14 +19182,14 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	  (str_clear, s12), 
 	  (str_clear, s18),
 	  (try_begin),
-	    (troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 0),
+	    (troop_slot_eq, ":lady_guardian", "slot_lord_granted_courtship_permission", 0),
 		(str_store_string, s12, "str__you_should_ask_my_s11_s16s_permission_but_i_have_no_reason_to_believe_that_he_will_prevent_you_from_coming_to_see_me"),
 		(str_store_string, s18, "str__you_should_first_ask_her_s11_s16s_permission"),
 	  (else_try),
-	    (troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, -1),
+	    (troop_slot_eq, ":lady_guardian", "slot_lord_granted_courtship_permission", -1),
 		(str_store_string, s12, "str__alas_as_we_know_my_s11_s16_will_not_permit_me_to_see_you_however_i_believe_that_i_can_arrange_away_for_you_to_enter_undetected"),
 	  (else_try),
-	    (troop_slot_eq, ":lady_guardian", slot_lord_granted_courtship_permission, 1),
+	    (troop_slot_eq, ":lady_guardian", "slot_lord_granted_courtship_permission", 1),
 		(str_store_string, s12, "str__as_my_s11_s16_has_already_granted_permission_for_you_to_see_me_i_shall_expect_your_imminent_arrival"),
 	  (try_end),
 
@@ -19220,7 +19220,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	
       ("continue_woman2",[],"Tell the woman to inform her mistress that you are indisposed",
        [
-	    (troop_set_slot, "$g_notification_menu_var1", slot_lady_no_messages, 1),
+	    (troop_set_slot, "$g_notification_menu_var1", "slot_lady_no_messages", 1),
 	    (change_screen_return),
         ]),
      ]
@@ -19241,12 +19241,12 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	(try_begin),
 		(call_script, "script_npc_decision_checklist_male_guardian_assess_suitor", ":guardian_lord", "trp_player"),
 		(lt, reg0, 0),
-		(troop_set_slot, ":guardian_lord", slot_lord_granted_courtship_permission, -1),
+		(troop_set_slot, ":guardian_lord", "slot_lord_granted_courtship_permission", -1),
 	(try_end),
 	
 	(assign, "$nurse_assists_entry", 0),
 	(try_begin),
-		(troop_slot_eq, ":guardian_lord", slot_lord_granted_courtship_permission, 1),
+		(troop_slot_eq, ":guardian_lord", "slot_lord_granted_courtship_permission", 1),
 		(str_store_string, s12, "str_the_guards_at_the_gate_have_been_ordered_to_allow_you_through_you_might_be_imagining_things_but_you_think_one_of_them_may_have_given_you_a_wink"),
 	(else_try), #the circumstances under which the lady arranges for a surreptitious entry
 		(call_script, "script_troop_get_relation_with_troop", "trp_player", "$love_interest_in_town"),
@@ -19273,7 +19273,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 
 		(try_begin),
 			(store_current_hours, ":hours_since_last_visit"),
-			(troop_get_slot, ":last_visit_time", "$love_interest_in_town", slot_troop_last_talk_time),
+			(troop_get_slot, ":last_visit_time", "$love_interest_in_town", "slot_troop_last_talk_time"),
 			(val_sub, ":hours_since_last_visit", ":last_visit_time"),
 			(this_or_next|ge, ":hours_since_last_visit", 96), #at least four days
 				(eq, ":player_completed_quest", 1),
@@ -19299,7 +19299,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 	("enter",
 	[
     (call_script, "script_get_kingdom_lady_social_determinants", "$love_interest_in_town"),
-	(troop_slot_eq, reg0, slot_lord_granted_courtship_permission, 1)
+	(troop_slot_eq, reg0, "slot_lord_granted_courtship_permission", 1)
 	], "Enter",
 	[
 	(jump_to_menu, "mnu_town"),
@@ -20405,7 +20405,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
 			(store_faction_of_troop, ":active_npc_faction", ":active_npc"),
 			(eq, ":active_npc_faction", "$players_kingdom"),
-			(troop_set_slot, ":active_npc", slot_troop_stance_on_faction_issue, -1),
+			(troop_set_slot, ":active_npc", "slot_troop_stance_on_faction_issue", -1),
 		(try_end),
         (change_screen_return),
         ]),	
@@ -20424,7 +20424,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(try_for_range, ":active_npc", active_npcs_begin, active_npcs_end),
 			(store_faction_of_troop, ":active_npc_faction", ":active_npc"),
 			(eq, ":active_npc_faction", "$players_kingdom"),
-			(troop_set_slot, ":active_npc", slot_troop_stance_on_faction_issue, -1),
+			(troop_set_slot, ":active_npc", "slot_troop_stance_on_faction_issue", -1),
 		(try_end),
         (change_screen_return),
         ]),			
@@ -20444,7 +20444,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 		(eq, ":type", "trp_hired_assassin"),
 		(str_store_string, s11, "str_lost_tavern_duel_assassin"),
 	(try_end),
-	(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, -1),
+	(troop_set_slot, "trp_hired_assassin", "slot_troop_cur_center", -1),
         ],
     [
       ("continue",[],"Continue...",
@@ -21263,7 +21263,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
     "none",
     [
 	 (set_background_mesh, "mesh_pic_nord"),
-	 (troop_get_slot, "$enlisted_party", "$enlisted_lord", slot_troop_leaded_party), #CABA - to refresh it? maybe not necessessary
+	 (troop_get_slot, "$enlisted_party", "$enlisted_lord", "slot_troop_leaded_party"), #CABA - to refresh it? maybe not necessessary
 	],
 	[
 		("join_commander_battle",[
@@ -21806,7 +21806,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
                (val_mul, reg0, 4),    #prevent div by 0##gdw
                (assign, "$entertainment_skill_required", 2),    #MOTO tweak entertainment###gdw was1
                # (assign, ":entertain_income_rate", 9),    MOTO you'd have to have entertainment skill 20 for this to happen (see script_entertain_income)
-               (troop_get_slot, ":entertain_income_rate", "trp_player", slot_troop_renown),
+               (troop_get_slot, ":entertain_income_rate", "trp_player", "slot_troop_renown"),
                (val_add, ":entertain_income_rate", reg0),
                (val_div, ":entertain_income_rate", 3),    #offset $entertainement_on
                #(assign, ":entertain_income_type", income_reputation),##reputation is not being used in scripts
@@ -21876,7 +21876,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (assign, ":found", 0),
          (try_for_range, ":hero_id", ":limit", additional_heroes_end),
             (eq, ":found", 0),
-            (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
+            (troop_get_slot, ":hero_ocu", ":hero_id", "slot_troop_occupation"),
             (gt, ":hero_ocu", 0),
             (neq, ":hero_ocu",slto_kingdom_hero),
             (neq, ":hero_ocu",slto_player_companion),
@@ -21889,7 +21889,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ],"stop to talk to {s1}",
        [
            (assign, ":hero_id", reg11),
-           (troop_get_slot, ":troop_id", ":hero_id", slot_troop_occupation),
+           (troop_get_slot, ":troop_id", ":hero_id", "slot_troop_occupation"),
            (assign, reg20, ":troop_id"),
            (assign, reg21, ":hero_id"),
            (assign, "$g_upgrade_talk", 1),
@@ -21904,7 +21904,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (assign, ":found", 0),         
          (try_for_range, ":hero_id", ":limit", additional_heroes_end),
             (eq, ":found", 0),
-            (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
+            (troop_get_slot, ":hero_ocu", ":hero_id", "slot_troop_occupation"),
             (gt, ":hero_ocu", 0),
             (neq, ":hero_ocu",slto_kingdom_hero),
             (neq, ":hero_ocu",slto_player_companion),
@@ -21917,7 +21917,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ],"stop to talk to {s1}",
        [
            (assign, ":hero_id", reg12),
-           (troop_get_slot, ":troop_id", ":hero_id", slot_troop_occupation),
+           (troop_get_slot, ":troop_id", ":hero_id", "slot_troop_occupation"),
            (assign, reg20, ":troop_id"),
            (assign, reg21, ":hero_id"),
            (assign, "$g_upgrade_talk", 1),
@@ -21932,7 +21932,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (assign, ":found", 0),         
          (try_for_range, ":hero_id", ":limit", additional_heroes_end),
             (eq, ":found", 0),
-            (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
+            (troop_get_slot, ":hero_ocu", ":hero_id", "slot_troop_occupation"),
             (gt, ":hero_ocu", 0),
             (neq, ":hero_ocu",slto_kingdom_hero),
             (neq, ":hero_ocu",slto_player_companion),
@@ -21945,7 +21945,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ],"stop to talk to {s1}",
        [
            (assign, ":hero_id", reg13),
-           (troop_get_slot, ":troop_id", ":hero_id", slot_troop_occupation),
+           (troop_get_slot, ":troop_id", ":hero_id", "slot_troop_occupation"),
            (assign, reg20, ":troop_id"),
            (assign, reg21, ":hero_id"),
            (assign, "$g_upgrade_talk", 1),
@@ -21960,7 +21960,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
          (assign, ":found", 0),         
          (try_for_range, ":hero_id", ":limit", additional_heroes_end),
             (eq, ":found", 0),         
-            (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
+            (troop_get_slot, ":hero_ocu", ":hero_id", "slot_troop_occupation"),
             (gt, ":hero_ocu", 0),
             (neq, ":hero_ocu",slto_kingdom_hero),
             (neq, ":hero_ocu",slto_player_companion),
@@ -21973,7 +21973,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
       ],"stop to talk to {s1}",
        [
            (assign, ":hero_id", reg14),
-           (troop_get_slot, ":troop_id", ":hero_id", slot_troop_occupation),
+           (troop_get_slot, ":troop_id", ":hero_id", "slot_troop_occupation"),
            (assign, reg20, ":troop_id"),
            (assign, reg21, ":hero_id"),
            (assign, "$g_upgrade_talk", 1),
@@ -21988,7 +21988,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (assign, ":found", 0),         
           (try_for_range_backwards, ":hero_id", ":limit", additional_heroes_begin),
              (lt, ":found", 4),         
-             (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
+             (troop_get_slot, ":hero_ocu", ":hero_id", "slot_troop_occupation"),
              (gt, ":hero_ocu", 0),
              (neq, ":hero_ocu",slto_kingdom_hero),
              (neq, ":hero_ocu",slto_player_companion),
@@ -22010,7 +22010,7 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
           (assign, ":found", 0),         
           (try_for_range, ":hero_id", ":limit", additional_heroes_end),
              (eq, ":found", 0),         
-             (troop_get_slot, ":hero_ocu", ":hero_id", slot_troop_occupation),
+             (troop_get_slot, ":hero_ocu", ":hero_id", "slot_troop_occupation"),
              (gt, ":hero_ocu", 0),
              (neq, ":hero_ocu",slto_kingdom_hero),
              (neq, ":hero_ocu",slto_player_companion),
@@ -23151,7 +23151,7 @@ You have won the duel.",
       "Recruit them ({reg6} scillingas).",
       [
       (try_begin),
-    (troop_slot_ge, "trp_player", slot_troop_renown, 400), #chief anadido
+    (troop_slot_ge, "trp_player", "slot_troop_renown", 400), #chief anadido
         (call_script, "script_town_recruit_nobles_recruit"),
      (assign, "$reclutar_puede", 1),                       
      (jump_to_menu, "mnu_town"),
@@ -23186,7 +23186,7 @@ You have won the duel.",
 ##
 ##      (faction_slot_ge, "$g_current_town_faction", "slot_faction_num_troops", x+1),#check faction allowed # of troop types
 ##      (faction_get_slot, ":recruit_troop", "$g_current_town_faction", x + "slot_faction_town_troop_1"),
-##      (troop_get_slot, ":troop_cost", ":recruit_troop", slot_troop_recruit_price),
+##      (troop_get_slot, ":troop_cost", ":recruit_troop", "slot_troop_recruit_price"),
 ##      (ge, reg15, ":troop_cost"),#player can afford
 ##      
 ##      (str_store_troop_name, s11, ":recruit_troop"),
@@ -23195,9 +23195,9 @@ You have won the duel.",
 ##      ], "{s11}",
 ##   [
 ##      (try_begin),
-##    (troop_slot_ge, "trp_player", slot_troop_renown, 400), #chief anadido
+##    (troop_slot_ge, "trp_player", "slot_troop_renown", 400), #chief anadido
 ##      (faction_get_slot, ":recruit_troop", "$g_current_town_faction", x + "slot_faction_town_troop_1"),
-##      (troop_get_slot, ":troop_cost", ":recruit_troop", slot_troop_recruit_price),
+##      (troop_get_slot, ":troop_cost", ":recruit_troop", "slot_troop_recruit_price"),
 ##      (party_add_members,"p_main_party",":recruit_troop",1),
 ##      (troop_remove_gold,"trp_player", ":troop_cost"),
 ##      (val_sub, reg11, 1),
@@ -23399,7 +23399,7 @@ You have won the duel.",
         "Rebellion!!!^^ People of the defeated kingdom of {s13} have taken up their weapons and {s14} gets a fief from {s12}, {s13} is restored! Long live the King!",
         "none",
         [
-          (troop_get_slot, ":original_faction", "$g_notification_menu_var1", slot_troop_original_faction),
+          (troop_get_slot, ":original_faction", "$g_notification_menu_var1", "slot_troop_original_faction"),
           (faction_get_slot, ":original_king", ":original_faction", "slot_faction_leader"),
           (str_store_troop_name, s11, "$g_notification_menu_var1"),
           (str_store_faction_name, s12, "$g_notification_menu_var2"),
@@ -23420,7 +23420,7 @@ You have won the duel.",
         [
           ("continue",[],"Continue...",
             [
-              (troop_get_slot, ":original_faction", "$g_notification_menu_var1", slot_troop_original_faction),
+              (troop_get_slot, ":original_faction", "$g_notification_menu_var1", "slot_troop_original_faction"),
               ## start peace
               (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
                 (neq, ":cur_kingdom", ":original_faction"),
@@ -23788,9 +23788,9 @@ You have won the duel.",
 			 (try_begin),
 					 (party_get_slot, ":castle_lord", "$demanded_castle", "slot_town_lord"),
 					 (ge, ":castle_lord", 1),
-					 (neg|troop_slot_ge, ":castle_lord", slot_troop_prisoner_of_party, 0),					 
+					 (neg|troop_slot_ge, ":castle_lord", "slot_troop_prisoner_of_party", 0),
 					 (try_begin),			
-								(troop_get_slot, ":castle_lord_original_faction", ":castle_lord", slot_troop_original_faction),
+								(troop_get_slot, ":castle_lord_original_faction", ":castle_lord", "slot_troop_original_faction"),
 								(party_slot_eq, "$demanded_castle", "slot_center_original_faction", ":castle_lord_original_faction"),
 								(store_random_in_range, ":random", 0, 12),
 								(assign, ":did_veto", 1),
@@ -23875,7 +23875,7 @@ You have won the duel.",
         (assign, "$new_encounter", 1),
         (try_begin),   
           (party_get_slot, ":town_lord","$g_encountered_party", "slot_town_lord"),
-          (troop_get_slot, ":cur_banner", ":town_lord", slot_troop_banner_scene_prop),
+          (troop_get_slot, ":cur_banner", ":town_lord", "slot_troop_banner_scene_prop"),
           (gt, ":cur_banner", 0),
           (val_sub, ":cur_banner", banner_scene_props_begin),
           (val_add, ":cur_banner", banner_map_icons_begin),
@@ -24073,7 +24073,7 @@ You have won the duel.",
       (try_for_range, ":lord", active_npcs_begin, active_npcs_end),
         (store_faction_of_troop, ":lord_faction", ":lord"),
         (eq, ":lord_faction", ":besieger_faction"),
-        (troop_get_slot, ":led_party", ":lord", slot_troop_leaded_party),
+        (troop_get_slot, ":led_party", ":lord", "slot_troop_leaded_party"),
         (party_is_active, ":led_party"),
         
         (party_slot_eq, ":led_party", "slot_party_ai_state", spai_accompanying_army),

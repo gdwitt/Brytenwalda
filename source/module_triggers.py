@@ -1719,21 +1719,21 @@ triggers = [
   (0, 0, 24 * 14,
    [
         (try_for_range, ":pretender", pretenders_begin, pretenders_end),
-          (troop_set_slot, ":pretender", slot_troop_cur_center, 0),
+          (troop_set_slot, ":pretender", "slot_troop_cur_center", 0),
           (neq, ":pretender", "$supported_pretender"),
-          (troop_get_slot, ":target_faction", ":pretender", slot_troop_original_faction),
+          (troop_get_slot, ":target_faction", ":pretender", "slot_troop_original_faction"),
           (faction_slot_eq, ":target_faction", "slot_faction_state", sfs_active),
           (faction_slot_eq, ":target_faction", "slot_faction_has_rebellion_chance", 1),
-          (neg|troop_slot_eq, ":pretender", slot_troop_occupation, slto_kingdom_hero),
+          (neg|troop_slot_eq, ":pretender", "slot_troop_occupation", slto_kingdom_hero),
 
           (try_for_range, ":unused", 0, 30),
-            (troop_slot_eq, ":pretender", slot_troop_cur_center, 0),
+            (troop_slot_eq, ":pretender", "slot_troop_cur_center", 0),
             (store_random_in_range, ":town", towns_begin, towns_end),
             (store_faction_of_party, ":town_faction", ":town"),
             (store_relation, ":relation", ":town_faction", ":target_faction"),
             (le, ":relation", 0), #fail if nothing qualifies
            
-            (troop_set_slot, ":pretender", slot_troop_cur_center, ":town"),
+            (troop_set_slot, ":pretender", "slot_troop_cur_center", ":town"),
             (try_begin),
               (eq, "$cheat_mode", 1),
               (str_store_troop_name, 4, ":pretender"),
@@ -1768,7 +1768,7 @@ triggers = [
        (val_mod, ":is_female", 2),    #gender fix chief moto
      (eq, ":is_female", 1),       
      (try_for_range, ":companion", companions_begin, companions_end),
-       (troop_slot_eq, ":companion", slot_troop_occupation, slto_player_companion),
+       (troop_slot_eq, ":companion", "slot_troop_occupation", slto_player_companion),
 
        (troop_get_inventory_capacity, ":inv_cap", ":companion"),
        (try_for_range, ":i_slot", 0, ":inv_cap"),
@@ -1930,17 +1930,17 @@ triggers = [
         (eq, "$freelancer_state", 2),
     ],
     [
-		(troop_get_slot, ":days_left", "trp_player", slot_troop_days_on_mission),
+		(troop_get_slot, ":days_left", "trp_player", "slot_troop_days_on_mission"),
 		(try_begin),
 		  (gt, ":days_left", 5),
 		  (val_sub, ":days_left", 1),
-		  (troop_set_slot, "trp_player", slot_troop_days_on_mission, ":days_left"),
+		  (troop_set_slot, "trp_player", "slot_troop_days_on_mission", ":days_left"),
 		(else_try),		  
 		  (is_between, ":days_left", 1, 5),
 		  (assign, reg0, ":days_left"),
 		  (display_message, "@You have {reg0} days left till you are declared as a deserter!"),
 		  (val_sub, ":days_left", 1),
-		  (troop_set_slot, "trp_player", slot_troop_days_on_mission, ":days_left"),
+		  (troop_set_slot, "trp_player", "slot_troop_days_on_mission", ":days_left"),
 		(else_try), #declare deserter
 		  (eq, ":days_left", 0),
 		  (call_script, "script_event_player_deserts"),

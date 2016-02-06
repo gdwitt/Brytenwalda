@@ -2149,7 +2149,7 @@ coop_scripts = [
 
       (agent_get_team, ":team_no", ":agent_no"),
       (agent_get_troop_id,":agent_troop", ":agent_no"),
-      (troop_get_slot, ":troop_class", ":agent_troop", slot_troop_current_rumor), #use to store class in MP (so we dont affect ai classes too)
+      (troop_get_slot, ":troop_class", ":agent_troop", "slot_troop_current_rumor"), #use to store class in MP (so we dont affect ai classes too)
       # (troop_get_class, ":troop_class", ":agent_troop"),
       (agent_get_class, ":agent_class", ":agent_no"),
       (agent_get_slot, ":agent_party_no",":agent_no", "slot_agent_coop_spawn_party"),# coop party
@@ -2441,9 +2441,9 @@ coop_scripts = [
         (neg|troop_is_hero,":killer_troop_id"),#only regular troops in main party
         (store_mul, ":xp_for_regulars", ":xp_gain", 71), #regular troops get 71% of heroes
         (val_div, ":xp_for_regulars", 100),
-        (troop_get_slot, ":temp_xp", ":killer_troop_id", slot_troop_temp_slot),
+        (troop_get_slot, ":temp_xp", ":killer_troop_id", "slot_troop_temp_slot"),
         (store_add, ":new_xp", ":temp_xp", ":xp_for_regulars"),
-        (troop_set_slot, ":killer_troop_id", slot_troop_temp_slot, ":new_xp"),
+        (troop_set_slot, ":killer_troop_id", "slot_troop_temp_slot", ":new_xp"),
       (try_end), 
 
       (party_add_members, ":casualties_party", ":dead_troop_id", 1),
@@ -2679,7 +2679,7 @@ coop_scripts = [
         (party_slot_eq, ":encountered_party", "slot_party_type", spt_castle),
         (party_get_slot, ":cur_leader", ":encountered_party", "slot_town_lord"),
         (ge, ":cur_leader", 0),
-        (troop_get_slot, ":lord_party", ":cur_leader", slot_troop_leaded_party),
+        (troop_get_slot, ":lord_party", ":cur_leader", "slot_troop_leaded_party"),
         (ge, ":lord_party", 0),
         (assign, ":garrison_lord_party", ":lord_party"),
       (try_end),
@@ -2779,12 +2779,12 @@ coop_scripts = [
         (dict_set_int, "$coop_dict", "@p_garrison", reg20), #store rank of garrison party
         (party_get_slot, ":cur_leader", ":party_no", "slot_town_lord"), #can't store index of leader party here because we don't know it yet
         (ge, ":cur_leader", 0),
-        (troop_get_slot, ":banner_spr", ":cur_leader", slot_troop_banner_scene_prop),
+        (troop_get_slot, ":banner_spr", ":cur_leader", "slot_troop_banner_scene_prop"),
         (dict_set_int, "$coop_dict", "@p_garrison_banner", ":banner_spr"),
       (else_try),
         (party_stack_get_troop_id, ":leader_troop", ":party_no", 0),
-        (troop_slot_eq, ":leader_troop", slot_troop_occupation, slto_kingdom_hero),
-        (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
+        (troop_slot_eq, ":leader_troop", "slot_troop_occupation", slto_kingdom_hero),
+        (troop_get_slot, ":banner_spr", ":leader_troop", "slot_troop_banner_scene_prop"),
       (try_end),
       (try_begin),
         (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
@@ -2871,12 +2871,12 @@ coop_scripts = [
         (dict_set_int, "$coop_dict", "@p_garrison", reg20), #store rank of garrison party
         (party_get_slot, ":cur_leader", ":party_no", "slot_town_lord"), #can't store index of leader party here because we don't know it yet
         (ge, ":cur_leader", 0),
-        (troop_get_slot, ":banner_spr", ":cur_leader", slot_troop_banner_scene_prop),
+        (troop_get_slot, ":banner_spr", ":cur_leader", "slot_troop_banner_scene_prop"),
         (dict_set_int, "$coop_dict", "@p_garrison_banner", ":banner_spr"),
       (else_try),
         (party_stack_get_troop_id, ":leader_troop", ":party_no", 0),
         (troop_is_hero, ":leader_troop"),
-        (troop_get_slot, ":banner_spr", ":leader_troop", slot_troop_banner_scene_prop),
+        (troop_get_slot, ":banner_spr", ":leader_troop", "slot_troop_banner_scene_prop"),
       (try_end),
       (try_begin),
         (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
@@ -3027,7 +3027,7 @@ coop_scripts = [
           (try_begin),
             (eq, reg20, 0), #main party
             (dict_get_int, ":troop_class", "$coop_dict", "@p_ally0_{reg21}_cls"),
-            (troop_set_slot, ":stack_troop", slot_troop_current_rumor, ":troop_class"), #store main party troop class in this slot
+            (troop_set_slot, ":stack_troop", "slot_troop_current_rumor", ":troop_class"), #store main party troop class in this slot
           (try_end),
           (try_begin),
             (troop_is_hero, ":stack_troop"),
@@ -3141,7 +3141,7 @@ coop_scripts = [
       (try_for_range, reg21, 0, ":num_stacks"),
         (dict_get_int, ":stack_troop", "$coop_dict", "@p_ally0_{reg21}_trp"),
         (neg|troop_is_hero, ":stack_troop"),
-        (troop_get_slot, ":stack_xp", ":stack_troop", slot_troop_temp_slot),
+        (troop_get_slot, ":stack_xp", ":stack_troop", "slot_troop_temp_slot"),
         (dict_set_int, "$coop_dict", "@p_ally0_{reg21}_stk_xp", ":stack_xp"),
       (try_end),
 

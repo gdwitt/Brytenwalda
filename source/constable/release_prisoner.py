@@ -4,8 +4,7 @@ from source.header_common import *
 from source.header_dialogs import *
 
 from source.module_constants import walled_centers_begin, walled_centers_end, \
-    slot_troop_occupation, slto_kingdom_hero, kings_begin, lords_end, \
-    slot_troop_prisoner_of_party
+    slto_kingdom_hero, kings_begin, lords_end
 
 
 dialog_option = \
@@ -23,9 +22,9 @@ dialogs = [
     # select prisoner
     [anyone | plyr | repeat_for_troops, "dplmc_constable_talk_prisoner_select", [
         (store_repeat_object, ":troop_no"),
-        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
+        (troop_slot_eq, ":troop_no", "slot_troop_occupation", slto_kingdom_hero),
         (is_between, ":troop_no", kings_begin, lords_end),
-        (troop_get_slot, ":party", ":troop_no", slot_troop_prisoner_of_party),
+        (troop_get_slot, ":party", ":troop_no", "slot_troop_prisoner_of_party"),
 
         (assign, ":can_release", 0),
         (try_begin),
@@ -60,7 +59,7 @@ dialogs = [
 
     [anyone | plyr, "dplmc_constable_exchange_prisoner_confirm", [],
      "Very well.", "dplmc_constable_pretalk", [
-        (troop_get_slot, ":party", "$diplomacy_var", slot_troop_prisoner_of_party),
+        (troop_get_slot, ":party", "$diplomacy_var", "slot_troop_prisoner_of_party"),
 
         (try_begin),
             (eq, "$cheat_mode", 1),

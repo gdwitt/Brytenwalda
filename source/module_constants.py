@@ -208,283 +208,33 @@ pos_ram_begin = 35
 ########################################################
 ##  TROOP SLOTS            #############################
 ########################################################
-# slot_troop_role         = 0  # 10=Kingdom Lord
 
-slot_troop_occupation = 2  # 0 = free, 1 = merchant	SEE troop occupations below
-# slot_troop_duty               = 3  # Kingdom duty, 0 = free
-# slot_troop_homage_type         = 45
-# homage_mercenary =             = 1 #Player is on a temporary contract
-# homage_official =              = 2 #Player has a royal appointment
-# homage_feudal   =              = 3 #
-
-
-# slot_troop_state               = 3
-slot_troop_last_talk_time = 4
-slot_troop_met = 5  # i also use this for the courtship state -- may become cumbersome
-slot_troop_courtship_state = 5  # 2 professed admiration, 3 agreed to seek a marriage, 4 ended relationship
-
-# slot_troop_party_template      = 6
-# slot_troop_kingdom_rank        = 7
-
-slot_troop_renown = 7
-
-##slot_troop_is_prisoner         = 8  # important for heroes only
-slot_troop_prisoner_of_party = 8  # important for heroes only
-# slot_troop_is_player_companion = 9  # important for heroes only:::USE  slot_troop_occupation = slto_player_companion
-
-slot_troop_present_at_event = 9
-
-slot_troop_leaded_party = 10  # important for kingdom heroes only
-slot_troop_wealth = 11  # important for kingdom heroes only
-slot_troop_cur_center = 12  # important for royal family members only (non-kingdom heroes)
-
-slot_troop_banner_scene_prop = 13  # important for kingdom heroes and player only
-
-slot_troop_original_faction = 14  # for pretenders
-slot_troop_original_faction2 = 15  # for pretenders en dialogo strings chief
-# slot_troop_loyalty              = 15 #deprecated - this is now derived from other figures
-# slot_troop_player_order_state   = 16 #Deprecated
-# slot_troop_player_order_object  = 17 #Deprecated
-
-# troop_player order state are all deprecated in favor of party_order_state. This has two reasons -- 1) to reset AI if the party is eliminated, and 2) to allow the player at a later date to give orders to leaderless parties, if we want that
-
-
-# Post 0907 changes begin
-slot_troop_age = 18
-slot_troop_age_appearance = 19
-
-# Post 0907 changes end
-
-slot_troop_does_not_give_quest = 20
-slot_troop_player_debt = 21
-slot_troop_player_relation = 22
-# slot_troop_player_favor        = 23
-# slot_troop_last_quest          = 24
-# slot_troop_last_quest_betrayed = 25
-slot_troop_last_persuasion_time = 26
-# slot_troop_last_comment_time   = 27
-slot_troop_spawned_before = 28
-
-# Post 0907 changes begin
-slot_troop_last_comment_slot = 29
-# Post 0907 changes end
-
-slot_troop_spouse = 30
-slot_troop_father = 31
-slot_troop_mother = 32
-slot_troop_guardian = 33  # Usually siblings are identified by a common parent.This is used for brothers if the father is not an active npc. At some point we might introduce geneologies
-slot_troop_betrothed = 34  # Obviously superseded once slot_troop_spouse is filled
-# other relations are derived from one's parents
-# slot_troop_daughter            = 33
-# slot_troop_son                 = 34
-# slot_troop_sibling             = 35
-##diplomacy start+#gdw florisNOTE TO MODDERS: There is code that depends on these slots appearing in the correct order and being continuous.
-# slot_troop_relatives_begin = slot_troop_spouse
-# slot_troop_relatives_end   = slot_troop_betrothed
-# slot_troop_relatives_including_betrothed_end = slot_troop_betrothed + 1
-##diplomacy end+
-slot_troop_love_interest_1 = 35  # each unmarried lord has three love interests
-slot_troop_love_interest_2 = 36
-slot_troop_love_interest_3 = 37
-slot_troop_love_interests_end = 38
-# ways to court -- discuss a book, commission/compose a poem, present a gift, recount your exploits, fulfil a specific quest, appear at a tournament
-# preferences for women - (conventional - father's friends)
-slot_lady_no_messages = 37
-slot_lady_last_suitor = 38
-slot_lord_granted_courtship_permission = 38
-
-slot_troop_betrothal_time = 39  # used in scheduling the wedding
-
-# slot_troop_trainer_met                       = 30
-# slot_troop_trainer_waiting_for_result        = 31
-# slot_troop_trainer_training_fight_won        = 32
-# slot_troop_trainer_num_opponents_to_beat     = 33
-# slot_troop_trainer_training_system_explained = 34
-# slot_troop_trainer_opponent_troop            = 35
-# slot_troop_trainer_training_difficulty       = 36
-# slot_troop_trainer_training_fight_won        = 37
-
-
-slot_lady_used_tournament = 40
-
-slot_troop_current_rumor = 45
-slot_troop_temp_slot = 46
-slot_troop_promised_fief = 47
-
-slot_troop_set_decision_seed = 48  # Does not change
-slot_troop_temp_decision_seed = 49  # Resets at recalculate_ai
-slot_troop_recruitment_random = 50  # used in a number of different places in the intrigue procedures to overcome intermediate hurdles, although not for the final calculation, might be replaced at some point by the global decision seed
-# Decision seeds can be used so that some randomness can be added to NPC decisions, without allowing the player to spam the NPC with suggestions
-# The temp decision seed is reset 24 to 48 hours after the NPC last spoke to the player, while the set seed only changes in special occasions
-# The single seed is used with varying modula to give high/low outcomes on different issues, without using a separate slot for each issue
-
-slot_troop_intrigue_impatience = 51
-# recruitment changes end
-
-# slot_troop_honorable          = 50
-# slot_troop_merciful          = 51
-slot_lord_reputation_type = 52
-slot_lord_recruitment_argument = 53  # the last argument proposed by the player to the lord
-slot_lord_recruitment_candidate = 54  # the last candidate proposed by the player to the lord
-
-slot_troop_change_to_faction = 55
-
-##gdw floris diplomacy start+ Use this slot to track owned center points (village = 1, castle = 2, town = 4)
-# The value should be one more than the actual number of center points, because it makes
-# it obvious when the slot has not been initialized.  (It also so happens that we often
-# add 1 to the value anyway to avoid division by 0, so this can be convenient.)
-# slot_troop_center_points_plus_one = 56
-##diplomacy end+
-# slot_troop_readiness_to_join_army     = 57 #possibly deprecate
-# slot_troop_readiness_to_follow_orders = 58 #possibly deprecate
-
-# NPC-related constants
-
-# NPC companion changes begin
-slot_troop_first_encountered = 59
-slot_troop_home = 60
-
-slot_troop_morality_state = 61
+# "slot_troop_morality_state"
+# "slot_troop_2ary_morality_state"
 tms_no_problem = 0
 tms_acknowledged = 1
 tms_dismissed = 2
 
-slot_troop_morality_type = 62
+# "slot_troop_morality_type"
+# "slot_troop_2ary_morality_type"
 tmt_aristocratic = 1
 tmt_egalitarian = 2
 tmt_humanitarian = 3
 tmt_honest = 4
 tmt_pious = 5
 
-slot_troop_morality_value = 63
-
-slot_troop_2ary_morality_type = 64
-slot_troop_2ary_morality_state = 65
-slot_troop_2ary_morality_value = 66
-
-slot_troop_town_with_contacts = 67
-# slot_troop_town_contact_type   = 68 #1 are nobles, 2 are commons
-
-slot_troop_morality_penalties = 69  ### accumulated grievances from morality conflicts
-
-slot_troop_personalityclash_object = 71
-# (0 - they have no problem, 1 - they have a problem)
-slot_troop_personalityclash_state = 72  # 1 = pclash_penalty_to_self, 2 = pclash_penalty_to_other, 3 = pclash_penalty_to_other,
+# "slot_troop_personalityclash_state"
 pclash_penalty_to_self = 1
 pclash_penalty_to_other = 2
 pclash_penalty_to_both = 3
-# (a string)
-slot_troop_personalityclash2_object = 73
-slot_troop_personalityclash2_state = 74
 
-slot_troop_personalitymatch_object = 75
-slot_troop_personalitymatch_state = 76
-
-slot_troop_personalityclash_penalties = 77  ### accumulated grievances from personality clash
-
-slot_troop_home_speech_delivered = 78  # only for companions
-slot_troop_discussed_rebellion = 78  # only for pretenders
-
-# courtship slots
-slot_lady_courtship_heroic_recited = 74
-slot_lady_courtship_allegoric_recited = 75
-slot_lady_courtship_comic_recited = 76
-slot_lady_courtship_mystic_recited = 77
-slot_lady_courtship_tragic_recited = 78
-
-# NPC history slots
-slot_troop_met_previously = 80
-slot_troop_turned_down_twice = 81
-slot_troop_playerparty_history = 82
-
+# "slot_troop_playerparty_history"
 pp_history_scattered = 1
 pp_history_dismissed = 2
 pp_history_quit = 3
 pp_history_indeterminate = 4
-##diplomacy start+ chief
-# dplmc_pp_history_appointed_office    = 5 #assigned an office (like Minister)
-# dplmc_pp_history_granted_fief        = 6 #was granted a fief, or (for pretenders) completed Pretender quest
-# gdw floris
-# dplmc_pp_history_lord_rejoined       = 7 #enfeoffed lord temporarily rejoined the party
-# dplmc_pp_history_nonplayer_entry     = 8 #became a lord without first being a companion of the player (normally this is assumed to be impossible)
-##diplomacy end+
-##diplomacy end+
 
-# slot_troop_playerparty_history_string   = 83
-slot_troop_return_renown = 84
-
-slot_troop_custom_banner_bg_color_1 = 85
-slot_troop_custom_banner_bg_color_2 = 86
-slot_troop_custom_banner_charge_color_1 = 87
-slot_troop_custom_banner_charge_color_2 = 88
-slot_troop_custom_banner_charge_color_3 = 89
-slot_troop_custom_banner_charge_color_4 = 90
-slot_troop_custom_banner_bg_type = 91
-slot_troop_custom_banner_charge_type_1 = 92
-slot_troop_custom_banner_charge_type_2 = 93
-slot_troop_custom_banner_charge_type_3 = 94
-slot_troop_custom_banner_charge_type_4 = 95
-slot_troop_custom_banner_flag_type = 96
-slot_troop_custom_banner_num_charges = 97
-slot_troop_custom_banner_positioning = 98
-slot_troop_custom_banner_map_flag_type = 99
-
-# conversation strings -- must be in this order!
-slot_troop_intro = 101
-slot_troop_intro_response_1 = 102
-slot_troop_intro_response_2 = 103
-slot_troop_backstory_a = 104
-slot_troop_backstory_b = 105
-slot_troop_backstory_c = 106
-slot_troop_backstory_delayed = 107
-slot_troop_backstory_response_1 = 108
-slot_troop_backstory_response_2 = 109
-slot_troop_signup = 110
-slot_troop_signup_2 = 111
-slot_troop_signup_response_1 = 112
-slot_troop_signup_response_2 = 113
-# slot_troop_mentions_payment 			= 114 #Not actually used
-# slot_troop_payment_response 			= 115 #Not actually used
-slot_troop_morality_speech = 116
-slot_troop_2ary_morality_speech = 117
-slot_troop_personalityclash_speech = 118
-slot_troop_personalityclash_speech_b = 119
-slot_troop_personalityclash2_speech = 120
-slot_troop_personalityclash2_speech_b = 121
-slot_troop_personalitymatch_speech = 122
-slot_troop_personalitymatch_speech_b = 123
-slot_troop_retirement_speech = 124
-slot_troop_rehire_speech = 125
-slot_troop_home_intro = 126
-slot_troop_home_description = 127
-slot_troop_home_description_2 = 128
-slot_troop_home_recap = 129
-slot_troop_honorific = 130
-# slot_troop_kingsupport_string_1			= 131
-# slot_troop_kingsupport_string_2			= 132
-# slot_troop_kingsupport_string_2a		= 133
-# slot_troop_kingsupport_string_2b		= 134
-# slot_troop_kingsupport_string_3			= 135
-# slot_troop_kingsupport_objection_string	= 136
-# slot_troop_intel_gathering_string	    = 137
-# slot_troop_fief_acceptance_string	    = 138
-slot_troop_woman_to_woman_string = 139
-# slot_troop_turn_against_string	        = 140
-
-slot_troop_strings_end = 141
-
-slot_troop_payment_request = 141
-
-# 141, support base removed, slot now available
-
-slot_troop_kingsupport_state = 142
-slot_troop_kingsupport_argument = 143
-slot_troop_kingsupport_opponent = 144
-slot_troop_kingsupport_objection_state = 145  # 0, default, 1, needs to voice, 2, has voiced
-
-slot_troop_days_on_mission = 146
-slot_troop_current_mission = 147
-slot_troop_mission_object = 148
+# "slot_troop_mission_object"
 npc_mission_kingsupport = 1
 npc_mission_gather_intel = 2
 npc_mission_peace_request = 3
@@ -493,84 +243,60 @@ npc_mission_seek_recognition = 5
 npc_mission_test_waters = 6
 npc_mission_non_aggression = 7
 npc_mission_rejoin_when_possible = 8
-# dplmc_npc_mission* 9-19 somebody patrullas chief
 npc_mission_on_patrol = 20
-# npc_mission_on_rental                   = 21
 
-# Number of routed agents after battle ends.
-slot_troop_player_routed_agents = 149
-slot_troop_ally_routed_agents = 150
-slot_troop_enemy_routed_agents = 151
-
-# Special quest slots
-slot_troop_mission_participation = 152
-# mp_unaware                              = 0
+# "slot_troop_mission_participation"
 mp_stay_out = 1
 mp_prison_break_fight = 2
 mp_prison_break_stand_back = 3
 mp_prison_break_escaped = 4
 mp_prison_break_caught = 5
 
-# Below are some constants to expand the political system a bit. The idea is to make quarrels less random, but instead make them serve a rational purpose -- as a disincentive to lords to seek
-
-slot_troop_controversy = 153  # Determines whether or not a troop is likely to receive fief or marshalship
-# slot_troop_recent_offense_type 	           = 154 #failure to join army, failure to support colleague
-# slot_troop_recent_offense_object           = 155 #to whom it happened
-# slot_troop_recent_offense_time             = 156
-slot_troop_stance_on_faction_issue = 157  # when it happened
-
-# tro_failed_to_join_army                    = 1
-# tro_failed_to_support_colleague            = 2
-
-# CONTROVERSY
-# This is used to create a more "rational choice" model of faction politics, in which lords pick fights with other lords for gain, rather than simply because of clashing personalities
-# It is intended to be a limiting factor for players and lords in their ability to intrigue against each other. It represents the embroilment of a lord in internal factional disputes. In contemporary media English, a lord with high "controversy" would be described as "embattled."
-# The main effect of high controversy is that it disqualifies a lord from receiving a fief or an appointment
-# It is a key political concept because it provides incentive for much of the political activity. For example, Lord Red Senior is worried that his rival, Lord Blue Senior, is going to get a fied which Lord Red wants. So, Lord Red turns to his protege, Lord Orange Junior, to attack Lord Blue in public. The fief goes to Lord Red instead of Lord Blue, and Lord Red helps Lord Orange at a later date.
-
-
-slot_troop_will_join_prison_break = 158
-
-# Duel Mod Troop Slots Chief##################
-
-slot_troop_duel_won = 159  # duel mod - how many duels player won against this troop
-slot_troop_duel_lost = 160  # duel mod - how many duels player lost against this troop
-slot_troop_duel_started = 161  # duel mod - if player started dueling with this troop
-
 # Duel mod constants
 king_renown_for_duel = 350  # Minimum renown needed to challenge a king to a friendly duel
 lord_renown_for_duel = 50  # Minimum renown needed to challenge a king to a friendly duel
-##chief acaba###############
-# Flirting chief companeros
-slot_troop_flirted_with = 162  # Flirting chief companeros
 
-# dplmc stuff 163-166 (see below)
-# Tempered troop slots 167-170 (see below)
-# troop genders 171-174 (see below)
-##CC Commander chief
-bandit_party_template_begin = "pt_steppe_bandits"
-bandit_party_template_end = "pt_deserters"
-slot_troop_cur_xp_for_wp = 175
-slot_troop_xp_limit_for_wp = 176
+# "slot_lord_reputation_type"
+lrep_none = 0
+lrep_martial = 1  # chivalrous but not terribly empathetic or introspective, - eg Richard Lionheart, your average 14th century French baron
+lrep_quarrelsome = 2  # spiteful, cynical, a bit paranoid, possibly hotheaded - eg Robert Graves' Tiberius, some of Charles VI's uncles
+lrep_selfrighteous = 3  # coldblooded, moralizing, often cruel - eg William the Conqueror, Timur, Octavian, Aurangzeb (although he is arguably upstanding instead, particularly after his accession)
+lrep_cunning = 4  # coldblooded, pragmatic, amoral - eg Louis XI, Guiscard, Akbar Khan, Abd al-Aziz Ibn Saud
+lrep_debauched = 5  # spiteful, amoral, sadistic - eg Caligula, Tuchman's Charles of Navarre
+lrep_goodnatured = 6  # chivalrous, benevolent, perhaps a little too decent to be a good warlord - eg Hussein ibn Ali. Few well-known historical examples maybe. because many lack the drive to rise to faction leadership. Ranjit Singh has aspects
+lrep_upstanding = 7  # moralizing, benevolent, pragmatic, - eg Bernard Cornwell's Alfred, Charlemagne, Salah al-Din, Sher Shah Suri
 
-slot_troop_kill_count = 177
-slot_troop_wound_count = 178
-# slot_troop_horse = 179	spear bracing kit (see above)
-slot_troop_extra_xp_limit = 180
-slot_prisoner_agreed = 181  # Hablar prisioneros chief
-slot_troop_default_type = 182  # dunde chief para diferentes alturas en campo de batalla.
+lrep_roguish = 8  # used for commons, specifically ex-companions. Tries to live life as a lord to the full
+lrep_benefactor = 9  # used for commons, specifically ex-companions. Tries to improve lot of folks on land
+lrep_custodian = 10  # used for commons, specifically ex-companions. Tries to maximize fief's earning potential
 
-# slot_troop_recruit_price = 199	(see above)
-troop_slots_reserved_for_relations_start = 200  # this is based on id_troops, and might change
-slot_troop_relations_begin = troop_slots_reserved_for_relations_start  # this creates an array for relations between troops
-# TML:Right now, lords start at 165 and run to around 290, including pretenders
+# lreps specific to dependent noblewomen
+lrep_conventional = 21  # Charlotte York in SATC seasons 1-2, probably most medieval aristocrats
+lrep_adventurous = 22  # Tomboyish. However, this basically means that she likes to travel and hunt, and perhaps yearn for wider adventures. However, medieval noblewomen who fight are rare, and those that attempt to live independently of a man are rarer still, and best represented by pre-scripted individuals like companions
+lrep_otherworldly = 23  # Prone to mysticism, romantic.
+lrep_ambitious = 24  # Lady Macbeth
+lrep_moralist = 25  # Equivalent of upstanding or benefactor -- takes nobless oblige, and her traditional role as repository of morality, very seriously. Based loosely on Christine de Pisa
 
-# TEMPERED TROOP SLOTS
-slot_troop_duel_challenger = 167  # indicates a lord that has challenged player to duel, stores time + 24 hours, indicating time player has to arrive at duel.
-slot_troop_duel_challenged = 168  # indicates a lord that was challenged by player to duel, stores time + 24 hours, indicating time player has to arrive at duel.
-slot_troop_poisoner = 169  # number of times the player has poisoned someone
-slot_troop_poisoned = 170  # indicates that the troop has been poisoned by the player previously, 1 for previously poisoned
-# tempered chief acaba
+# "slot_troop_occupation"
+slto_inactive = 0  # for companions at the beginning of the game
+
+slto_kingdom_hero = 2
+
+slto_player_companion = 5  # This is specifically for companions in the employ of the player -- ie, in the party, or on a mission
+slto_kingdom_lady = 6  # Usually inactive (Calradia is a traditional place). However, can be made potentially active if active_npcs are expanded to include ladies
+slto_kingdom_seneschal = 7
+slto_inactive_pretender = 9
+
+slto_retirement = 11
+
+slto_dead = 86
+
+dplmc_slto_exile = 14  # Set for newly exiled lords.  In saved games, this is retroactively applied (once only).
+
+# "slot_town_lord"
+stl_unassigned = -1
+stl_reserved_for_player = -2
+stl_rejected_by_player = -3
 
 ########################################################
 ##  PLAYER SLOTS           #############################
@@ -660,44 +386,6 @@ cb4_greed = 6
 # Encounter types
 enctype_fighting_against_village_raid = 1
 enctype_catched_during_village_raid = 2
-
-### Troop occupations slot_troop_occupation
-##slto_merchant           = 1
-slto_inactive = 0  # for companions at the beginning of the game
-
-slto_kingdom_hero = 2
-
-slto_player_companion = 5  # This is specifically for companions in the employ of the player -- ie, in the party, or on a mission
-slto_kingdom_lady = 6  # Usually inactive (Calradia is a traditional place). However, can be made potentially active if active_npcs are expanded to include ladies
-slto_kingdom_seneschal = 7
-# slto_robber_knight      = 8
-slto_inactive_pretender = 9
-
-stl_unassigned = -1
-stl_reserved_for_player = -2
-stl_rejected_by_player = -3
-
-# NPC changes begin
-slto_retirement = 11
-# slto_retirement_medium    = 12
-# slto_retirement_short     = 13
-# NPC changes end
-
-slto_dead = 86  # Hablar prisioneros chief
-##diplomacy start+gdw from floris
-
-# These constants are not (yet) used, but they are defined so that other mods can
-# extend diplomacy in a consistent way, and have confidence that base diplomacy
-# will correctly respect the flags they set.
-
-# Note that the existing code assumes that dplmc_slto_exile and dplmc_slto_dead are
-# greater than slto_retirement.  If you had to change this, look around for every instance
-# where diplomacy checks "troop_slot_ge" slto_retirement, and expand it to also check
-# dead, exiled, etc.
-
-dplmc_slto_exile = 14  # Set for newly exiled lords.  In saved games, this is retroactively applied (once only).
-# dplmc_slto_dead            = 15 #not normally set
-##diplomacy end+
 
 ########################################################
 ##  QUEST SLOTS            #############################
@@ -918,27 +606,6 @@ logent_war_declaration_types_end = 96
 # logent_lady_breaks_betrothal_with_lord      = 58
 # logent_lady_betrothal_broken_by_lord        = 59
 
-# lord reputation type, for commentaries
-# "Martial" will be twice as common as the other types
-lrep_none = 0
-lrep_martial = 1  # chivalrous but not terribly empathetic or introspective, - eg Richard Lionheart, your average 14th century French baron
-lrep_quarrelsome = 2  # spiteful, cynical, a bit paranoid, possibly hotheaded - eg Robert Graves' Tiberius, some of Charles VI's uncles
-lrep_selfrighteous = 3  # coldblooded, moralizing, often cruel - eg William the Conqueror, Timur, Octavian, Aurangzeb (although he is arguably upstanding instead, particularly after his accession)
-lrep_cunning = 4  # coldblooded, pragmatic, amoral - eg Louis XI, Guiscard, Akbar Khan, Abd al-Aziz Ibn Saud
-lrep_debauched = 5  # spiteful, amoral, sadistic - eg Caligula, Tuchman's Charles of Navarre
-lrep_goodnatured = 6  # chivalrous, benevolent, perhaps a little too decent to be a good warlord - eg Hussein ibn Ali. Few well-known historical examples maybe. because many lack the drive to rise to faction leadership. Ranjit Singh has aspects
-lrep_upstanding = 7  # moralizing, benevolent, pragmatic, - eg Bernard Cornwell's Alfred, Charlemagne, Salah al-Din, Sher Shah Suri
-
-lrep_roguish = 8  # used for commons, specifically ex-companions. Tries to live life as a lord to the full
-lrep_benefactor = 9  # used for commons, specifically ex-companions. Tries to improve lot of folks on land
-lrep_custodian = 10  # used for commons, specifically ex-companions. Tries to maximize fief's earning potential
-
-# lreps specific to dependent noblewomen
-lrep_conventional = 21  # Charlotte York in SATC seasons 1-2, probably most medieval aristocrats
-lrep_adventurous = 22  # Tomboyish. However, this basically means that she likes to travel and hunt, and perhaps yearn for wider adventures. However, medieval noblewomen who fight are rare, and those that attempt to live independently of a man are rarer still, and best represented by pre-scripted individuals like companions
-lrep_otherworldly = 23  # Prone to mysticism, romantic.
-lrep_ambitious = 24  # Lady Macbeth
-lrep_moralist = 25  # Equivalent of upstanding or benefactor -- takes nobless oblige, and her traditional role as repository of morality, very seriously. Based loosely on Christine de Pisa
 
 # a more complicated system of reputation could include the following...
 
@@ -1210,6 +877,9 @@ fugitives_end = "trp_fugitive2"
 bounties_begin = "qst_bounty_1"
 bounties_end = "qst_kill_local_merchant"
 
+bandit_party_template_begin = "pt_steppe_bandits"
+bandit_party_template_end = "pt_deserters"
+
 all_items_begin = 0
 all_items_end = "itm_items_end"
 
@@ -1454,17 +1124,6 @@ ctm_mounted = 3
 # # End Autoloot
 # ###################################################################################
 
-# slot_troop_kill_count         = 326
-# slot_troop_wound_count        = 327
-# #slot_troop_backup_hp          = 328 ## CC 1.322: disabled this line
-# slot_troop_extra_xp_limit     = 329
-
-# slot_troop_current_reading_book = 330
-
-# slot_troop_hero_pt_a            = 332
-# slot_troop_hero_pt_b            = 333
-# slot_troop_hero_pt_c            = 334
-
 # #slot_all_proficiency_limit        = 336
 # #slot_one_handed_proficiency_limit = 337
 # #slot_two_handed_proficiency_limit = 338
@@ -1497,18 +1156,7 @@ dplmc_npc_mission_defensive_request = 16
 dplmc_npc_mission_trade_request = 17
 dplmc_npc_mission_nonaggression_request = 18
 dplmc_npc_mission_persuasion = 19
-slot_troop_mission_diplomacy = 163
-slot_troop_mission_diplomacy2 = 164
-slot_troop_political_stance = 165  # dplmc+ deprecated, see note below
-##diplomacy start+
-# Though you may assume otherwise from the name,  slot_troop_political_stance is
-# actually used as a temporary slot (it's overwritten every time you start a conversation
-# with your chancellor about who supports whom, and in Diplomacy 3.3.2 it isn't used
-# elsewhere).
-#   I'm giving it a new name to reflect its use, to avoid confusion.
-# slot_troop_temp_slot                    = 165 #replaces slot_troop_political_stance
-##diplomacy end+
-slot_troop_affiliated = 166  ##notes: 0 is default, 1 is asked; on newer games 3 is affiliated and 4 is betrayed
+
 # gdw floris begin
 
 # For $g_dplmc_terrain_advantage
@@ -2066,10 +1714,6 @@ additional_heroes_end = "trp_town_1_seneschal"
 # freelancer_can_use_item  = "script_troop_can_use_item"
 # with Diplomacy: (also, disable dplmc in modmerger_options)
 freelancer_can_use_item = "script_dplmc_troop_can_use_item"
-
-# Troop Slots
-slot_troop_freelancer_start_xp = slot_troop_signup  # 110 -only used for player
-slot_troop_freelancer_start_date = slot_troop_signup_2  # 111 -only used for player
 
 plyr_mission_vacation = 1
 # +Freelancer end

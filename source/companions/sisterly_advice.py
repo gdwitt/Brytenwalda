@@ -3,8 +3,7 @@ from source.header_common import s5
 
 from source.header_dialogs import anyone, plyr
 
-from source.module_constants import slot_troop_woman_to_woman_string, \
-    companions_begin, companions_end
+from source.module_constants import companions_begin, companions_end
 
 from source.statement import StatementBlock
 
@@ -17,7 +16,7 @@ trigger_dialog_block = StatementBlock(
         (main_party_has_troop, "$npc_with_sisterly_advice"),
         (neq, "$g_player_is_captive", 1),
 
-        (assign, "$npc_map_talk_context", slot_troop_woman_to_woman_string),
+        (assign, "$npc_map_talk_context", "slot_troop_woman_to_woman_string"),
 
         (start_map_conversation, "$npc_with_sisterly_advice", -1),
     (else_try),
@@ -28,7 +27,7 @@ trigger_dialog_block = StatementBlock(
 
 dialogs = [
     [anyone, "event_triggered", [
-        (eq, "$npc_map_talk_context", slot_troop_woman_to_woman_string),
+        (eq, "$npc_map_talk_context", "slot_troop_woman_to_woman_string"),
         (store_conversation_troop, "$map_talk_troop"),
         (is_between, "$map_talk_troop", companions_begin, companions_end),
 
@@ -37,7 +36,7 @@ dialogs = [
         (str_store_string, s5, ":speech"),
     ],
      "{s5}", "companion_sisterly_advice", [
-         (troop_set_slot, "$map_talk_troop", slot_troop_woman_to_woman_string, -1),
+         (troop_set_slot, "$map_talk_troop", "slot_troop_woman_to_woman_string", -1),
          (assign, "$npc_with_sisterly_advice", 0),
      ]],
 

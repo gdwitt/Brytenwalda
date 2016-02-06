@@ -4,7 +4,7 @@ from source.header_presentations import tf_center_justify, tf_scrollable, tf_lef
 from source.header_triggers import ti_on_presentation_load, ti_on_presentation_event_state_change
 
 from source.module_constants import towns_begin, towns_end, \
-    centers_begin, centers_end, spt_town, slot_troop_renown
+    centers_begin, centers_end, spt_town
 
 # relevant slots: "slot_town_bank_deadline", "slot_town_bank_debt",
 # "slot_town_bank_assets", "slot_town_player_acres"
@@ -214,7 +214,7 @@ presentations = [
         (val_add, ":fief_count", 1),
     (try_end),
 
-    (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+    (troop_get_slot, ":renown", "trp_player", "slot_troop_renown"),
     (party_get_slot, ":prosperity", "$current_town", "slot_town_prosperity"),
 
     (store_mul, ":money", ":prosperity", 250),

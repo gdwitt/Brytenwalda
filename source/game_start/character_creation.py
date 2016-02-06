@@ -442,7 +442,7 @@ scripts = [
             (troop_raise_proficiency, "trp_player", wpt_polearm, 10),
 
             (troop_add_item, "trp_player", "itm_crude_shield", imod_battered),
-            (troop_set_slot, "trp_player", slot_troop_renown, 100),
+            (troop_set_slot, "trp_player", "slot_troop_renown", 100),
             (call_script, "script_change_player_honor", 3),
 
             (troop_add_gold, "trp_player", 100),
@@ -457,7 +457,7 @@ scripts = [
             (troop_raise_skill, "trp_player", skl_leadership, 1),
             (troop_raise_proficiency, "trp_player", wpt_one_handed_weapon, 20),
 
-            (troop_set_slot, "trp_player", slot_troop_renown, 50),
+            (troop_set_slot, "trp_player", "slot_troop_renown", 50),
             (troop_add_item, "trp_player", "itm_crude_shield", imod_battered),
 
             (troop_add_gold, "trp_player", 100),
@@ -471,7 +471,7 @@ scripts = [
             (troop_raise_skill, "trp_player", skl_inventory_management, 1),
             (troop_raise_proficiency, "trp_player", wpt_two_handed_weapon, 10),
             (troop_add_gold, "trp_player", 250),
-            (troop_set_slot, "trp_player", slot_troop_renown, 20),
+            (troop_set_slot, "trp_player", "slot_troop_renown", 20),
         (else_try),
             (eq, "$background_type", cb_guard),
             (troop_raise_attribute, "trp_player", ca_strength, 1),
@@ -488,7 +488,7 @@ scripts = [
             (troop_raise_proficiency, "trp_player", wpt_throwing, 10),
             (troop_add_item, "trp_player", "itm_cantabro_shield3", imod_battered),
             (troop_add_gold, "trp_player", 50),
-            (troop_set_slot, "trp_player", slot_troop_renown, 10),
+            (troop_set_slot, "trp_player", "slot_troop_renown", 10),
         (else_try),
             (eq, "$background_type", cb_forester),
             (troop_raise_attribute, "trp_player", ca_strength, 1),
@@ -516,7 +516,7 @@ scripts = [
             (troop_raise_proficiency, "trp_player", wpt_throwing, 10),
             (troop_add_item, "trp_player", "itm_shield_caledonian8", imod_battered),
             (troop_add_gold, "trp_player", 15),
-            (troop_set_slot, "trp_player", slot_troop_renown, 10),
+            (troop_set_slot, "trp_player", "slot_troop_renown", 10),
         (else_try),
             (eq, "$background_type", cb_nomad),
             (eq, "$character_gender", tf_female),

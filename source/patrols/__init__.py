@@ -9,7 +9,7 @@ from source.statement import StatementBlock
 from source.module_constants import spt_patrol, \
     centers_begin, centers_end, spai_patrolling_around_center, \
     spai_retreating_to_center, npc_kingdoms_begin, \
-    npc_kingdoms_end, towns_begin, towns_end, slot_troop_original_faction
+    npc_kingdoms_end, towns_begin, towns_end
 
 
 dialogs = [
@@ -316,7 +316,7 @@ scripts = [
             (else_try),
                 (party_get_slot, ":town_lord", ":start_party", "slot_town_lord"),
                 (gt, ":town_lord", 0),
-                (troop_get_slot, ":faction", ":town_lord", slot_troop_original_faction),
+                (troop_get_slot, ":faction", ":town_lord", "slot_troop_original_faction"),
             (try_end),
 
             (try_begin),

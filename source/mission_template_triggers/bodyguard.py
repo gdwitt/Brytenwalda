@@ -14,7 +14,7 @@ bodyguard_triggers = [
     #Get number of bodyguards
     (store_skill_level, ":leadership", skl_leadership, "trp_player"),
     (store_skill_level, ":persuasion", skl_persuasion, "trp_player"),
-    (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+    (troop_get_slot, ":renown", "trp_player", "slot_troop_renown"),
     #(store_attribute_level, ":char", ca_charisma, "trp_player"),
     (val_div, ":leadership", 4),#gdw4
     (val_div, ":persuasion", 4),#gdw4
@@ -42,7 +42,7 @@ bodyguard_triggers = [
         (try_begin), #For prison-breaks
             (this_or_next|eq, "$talk_context", tc_escape),
             (eq, "$talk_context", tc_prison_break),
-            (troop_set_slot, ":troop_id", slot_troop_will_join_prison_break, 1),
+            (troop_set_slot, ":troop_id", "slot_troop_will_join_prison_break", 1),
         (try_end),
 
         (assign, ":entry_point", 0),

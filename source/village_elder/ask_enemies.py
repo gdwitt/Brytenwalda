@@ -2,8 +2,7 @@ from source.header_operations import *
 from source.header_common import *
 from source.header_dialogs import anyone
 
-from source.module_constants import active_npcs_begin, active_npcs_end, slot_troop_occupation, \
-    slto_kingdom_hero, slot_troop_leaded_party
+from source.module_constants import active_npcs_begin, active_npcs_end, slto_kingdom_hero
 
 
 dialogs = [
@@ -38,8 +37,8 @@ dialogs = [
 
         (assign, ":found", 0),
         (try_for_range, ":cur_troop", ":start", active_npcs_end),
-            (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_hero),
-            (troop_get_slot, ":cur_party", ":cur_troop", slot_troop_leaded_party),
+            (troop_slot_eq, ":cur_troop", "slot_troop_occupation", slto_kingdom_hero),
+            (troop_get_slot, ":cur_party", ":cur_troop", "slot_troop_leaded_party"),
             (gt, ":cur_party", 0),
             (store_troop_faction, ":cur_faction", ":cur_troop"),
             (store_relation, ":reln", ":cur_faction", "fac_player_supporters_faction"),

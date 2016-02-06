@@ -50,7 +50,7 @@ dialogs = [
         (store_conversation_troop, "$map_talk_troop"),
         (is_between, "$map_talk_troop", companions_begin, companions_end),
         (eq, "$map_talk_troop", "$npc_is_quitting"),
-        (troop_get_slot, ":honorific", "$map_talk_troop", slot_troop_honorific),
+        (troop_get_slot, ":honorific", "$map_talk_troop", "slot_troop_honorific"),
         (str_store_string, s5, ":honorific")],
 
      "Excuse me {s5} -- there is something I need to tell you.",
@@ -62,7 +62,7 @@ dialogs = [
 
     [anyone, "companion_quitting", [
         (store_conversation_troop, "$map_talk_troop"),
-        (troop_get_slot, ":speech", "$map_talk_troop", slot_troop_retirement_speech),
+        (troop_get_slot, ":speech", "$map_talk_troop", "slot_troop_retirement_speech"),
         (str_store_string, s5, ":speech")],
      "{s5}", "companion_quitting_2", []
      ],
@@ -86,7 +86,7 @@ dialogs = [
 
     # Response in more formal diction.
     [anyone, "dplmc_companion_quitting_persuasion_start", [
-        (troop_get_slot, ":personality", "$map_talk_troop", slot_lord_reputation_type),
+        (troop_get_slot, ":personality", "$map_talk_troop", "slot_lord_reputation_type"),
         (assign, ":formal_response", 0), # accept or reject
         (try_begin),
             # Nobles and well-educated commoners answer this way.
@@ -199,13 +199,13 @@ dialogs = [
         (try_end),
 
         # Reduce penalties per a successful persuasion attempt
-        (troop_get_slot, ":morality_penalties", "$map_talk_troop", slot_troop_morality_penalties),
+        (troop_get_slot, ":morality_penalties", "$map_talk_troop", "slot_troop_morality_penalties"),
         (val_div, ":morality_penalties", 2),
-        (troop_set_slot, "$map_talk_troop", slot_troop_morality_penalties, ":morality_penalties"),
+        (troop_set_slot, "$map_talk_troop", "slot_troop_morality_penalties", ":morality_penalties"),
 
-        (troop_get_slot, ":personalityclash_penalties", "$map_talk_troop", slot_troop_personalityclash_penalties),
+        (troop_get_slot, ":personalityclash_penalties", "$map_talk_troop", "slot_troop_personalityclash_penalties"),
         (val_div, ":personalityclash_penalties", 2),
-        (troop_set_slot, "$map_talk_troop", slot_troop_personalityclash_penalties, ":personalityclash_penalties"),
+        (troop_set_slot, "$map_talk_troop", "slot_troop_personalityclash_penalties", ":personalityclash_penalties"),
      ]],
 
     # Player persuaded companion to stay
@@ -219,13 +219,13 @@ dialogs = [
      ], "Hm. When you put it like that, I suppose I can stay a while longer, see if "
        "things improve.", "close_window", [
         # Reduce penalties per a successful persuasion attempt
-        (troop_get_slot, ":morality_penalties", "$map_talk_troop", slot_troop_morality_penalties),
+        (troop_get_slot, ":morality_penalties", "$map_talk_troop", "slot_troop_morality_penalties"),
         (val_div, ":morality_penalties", 2),
-        (troop_set_slot, "$map_talk_troop", slot_troop_morality_penalties, ":morality_penalties"),
+        (troop_set_slot, "$map_talk_troop", "slot_troop_morality_penalties", ":morality_penalties"),
 
-        (troop_get_slot, ":personalityclash_penalties", "$map_talk_troop", slot_troop_personalityclash_penalties),
+        (troop_get_slot, ":personalityclash_penalties", "$map_talk_troop", "slot_troop_personalityclash_penalties"),
         (val_div, ":personalityclash_penalties", 2),
-        (troop_set_slot, "$map_talk_troop", slot_troop_personalityclash_penalties, ":personalityclash_penalties"),
+        (troop_set_slot, "$map_talk_troop", "slot_troop_personalityclash_penalties", ":personalityclash_penalties"),
      ]],
 
     # Player failed to persuade companion to stay => companion leaves
@@ -242,7 +242,7 @@ dialogs = [
 
     # Response to cheat.
     [anyone, "companion_quitting_no", [
-        (troop_get_slot, ":talk_troop_personality", "$g_talk_troop", slot_lord_reputation_type),
+        (troop_get_slot, ":talk_troop_personality", "$g_talk_troop", "slot_lord_reputation_type"),
         (this_or_next|eq, ":talk_troop_personality", lrep_martial),
         (this_or_next|eq, ":talk_troop_personality", lrep_selfrighteous),
         (eq, ":talk_troop_personality", lrep_quarrelsome),
@@ -296,7 +296,7 @@ dialogs = [
     # Companion leaves.
     [anyone, "companion_quitting_yes", [],
      "Then this is farewell. Perhaps I'll see you around, {playername}.", "close_window", [
-         (troop_set_slot, "$map_talk_troop", slot_troop_playerparty_history, pp_history_quit),
+         (troop_set_slot, "$map_talk_troop", "slot_troop_playerparty_history", pp_history_quit),
          (call_script, "script_retire_companion", "$map_talk_troop", 100),
      ]],
 

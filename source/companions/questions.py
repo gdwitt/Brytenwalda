@@ -30,10 +30,10 @@ dialogs = [
 
     [anyone | plyr, "member_question_2", [
         (is_between, "$g_talk_troop", companions_begin, companions_end),
-        (troop_slot_ge, "$g_talk_troop", slot_troop_home, 1),
-        (troop_slot_ge, "$g_talk_troop", slot_troop_home_recap, 1),
-        (troop_slot_ge, "$g_talk_troop", slot_troop_backstory_b, 1),
-        (troop_slot_eq, "$g_talk_troop", slot_troop_kingsupport_state, 0),
+        (troop_slot_ge, "$g_talk_troop", "slot_troop_home", 1),
+        (troop_slot_ge, "$g_talk_troop", "slot_troop_home_recap", 1),
+        (troop_slot_ge, "$g_talk_troop", "slot_troop_backstory_b", 1),
+        (troop_slot_eq, "$g_talk_troop", "slot_troop_kingsupport_state", 0),
     ], "I suppose you know that I aspire to be {king/queen} of this land?",
      "member_kingsupport_1", []],
 
@@ -53,7 +53,7 @@ dialogs = [
 gather_intel = [
 
     [anyone, "member_intelgathering_1", [
-        (troop_get_slot, ":town_with_contacts", "$g_talk_troop", slot_troop_town_with_contacts),
+        (troop_get_slot, ":town_with_contacts", "$g_talk_troop", "slot_troop_town_with_contacts"),
         (str_store_party_name, s17, ":town_with_contacts"),
         (store_faction_of_party, ":contact_town_faction", ":town_with_contacts"),
         (str_store_faction_name, s18, ":contact_town_faction"),
@@ -70,13 +70,13 @@ gather_intel = [
      "Actually, hold off for now.", "do_member_trade", []],
 
     [anyone, "member_intelgathering_4", [
-        (troop_set_slot, "$g_talk_troop", slot_troop_days_on_mission, 5),
-        (troop_set_slot, "$g_talk_troop", slot_troop_current_mission,
+        (troop_set_slot, "$g_talk_troop", "slot_troop_days_on_mission", 5),
+        (troop_set_slot, "$g_talk_troop", "slot_troop_current_mission",
          npc_mission_gather_intel),
 
         (remove_member_from_party, "$g_talk_troop", "p_main_party"),
 
-        (troop_get_slot, ":string", "$g_talk_troop", slot_troop_honorific),
+        (troop_get_slot, ":string", "$g_talk_troop", "slot_troop_honorific"),
         (str_store_string, s21, ":string"),
     ], "Good. I should be ready to report in about five days. Farewell then, "
        "{s21}, for a little while.", "close_window", []],
@@ -85,17 +85,17 @@ gather_intel = [
 background_dialogs = [
     [anyone, "member_background_recap", [
         (troop_get_slot, ":first_met", "$g_talk_troop",
-         slot_troop_first_encountered),
+         "slot_troop_first_encountered"),
         (str_store_party_name, 20, ":first_met"),
-        (troop_get_slot, ":home", "$g_talk_troop", slot_troop_home),
+        (troop_get_slot, ":home", "$g_talk_troop", "slot_troop_home"),
         (str_store_party_name, 21, ":home"),
-        (troop_get_slot, ":recap", "$g_talk_troop", slot_troop_home_recap),
+        (troop_get_slot, ":recap", "$g_talk_troop", "slot_troop_home_recap"),
         (str_store_string, 5, ":recap"),
     ], "{s5}", "member_background_recap_2", []],
 
     [anyone, "member_background_recap_2", [
         (str_clear, 19),
-        (troop_get_slot, ":background", "$g_talk_troop", slot_troop_backstory_b),
+        (troop_get_slot, ":background", "$g_talk_troop", "slot_troop_backstory_b"),
         (str_store_string, 5, ":background"),
     ], "{s5}", "member_background_recap_3", []],
 
@@ -107,7 +107,7 @@ king_support_dialogs = [
 
     # option 1: npc does not like enough the player
     [anyone, "member_kingsupport_1", [
-        (troop_get_slot, ":grievances", "$g_talk_troop", slot_troop_morality_penalties),
+        (troop_get_slot, ":grievances", "$g_talk_troop", "slot_troop_morality_penalties"),
         (gt, ":grievances", 10),
     ], "Um... Yes. I had heard.", "do_member_trade", []],
 
@@ -128,15 +128,15 @@ king_support_dialogs = [
     [anyone, "member_kingsupport_2", [
         (assign, ":companion_already_on_mission", -1),
         (try_for_range, ":companion", companions_begin, companions_end),
-            (troop_slot_eq, ":companion", slot_troop_occupation, slto_player_companion),
-            (troop_get_slot, ":days_on_mission", ":companion", slot_troop_days_on_mission),
+            (troop_slot_eq, ":companion", "slot_troop_occupation", slto_player_companion),
+            (troop_get_slot, ":days_on_mission", ":companion", "slot_troop_days_on_mission"),
             (gt, ":days_on_mission", 17),
             (neg | main_party_has_troop, ":companion"),
             (assign, ":companion_already_on_mission", ":companion"),
         (try_end),
 
         (gt, ":companion_already_on_mission", -1),
-        (troop_get_slot, ":honorific", "$g_talk_troop", slot_troop_honorific),
+        (troop_get_slot, ":honorific", "$g_talk_troop", "slot_troop_honorific"),
         (str_store_string, s21, ":honorific"),
         (str_store_troop_name, s22, ":companion_already_on_mission"),
     ],
@@ -184,12 +184,12 @@ king_support_dialogs = [
 
     # npc leaves party
     [anyone, "member_kingsupport_4", [
-        (troop_set_slot, "$g_talk_troop", slot_troop_days_on_mission, 21),
-        (troop_set_slot, "$g_talk_troop", slot_troop_current_mission, npc_mission_kingsupport),
+        (troop_set_slot, "$g_talk_troop", "slot_troop_days_on_mission", 21),
+        (troop_set_slot, "$g_talk_troop", "slot_troop_current_mission", npc_mission_kingsupport),
 
         (remove_member_from_party, "$g_talk_troop", "p_main_party"),
 
-        (troop_get_slot, ":string", "$g_talk_troop", slot_troop_honorific),
+        (troop_get_slot, ":string", "$g_talk_troop", "slot_troop_honorific"),
         (str_store_string, s21, ":string"),
 
     ], "Farewell then, {s21}, for a little while", "close_window", []],
@@ -230,14 +230,14 @@ grant_fief_dialogs = [
 
          # if companion is not a kindom_hero, make him one and give him a banner.
          (try_begin),
-            (neg | troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+            (neg | troop_slot_eq, "$g_talk_troop", "slot_troop_occupation", slto_kingdom_hero),
 
             (assign, ":companion_banner_offset", 0),
             (store_sub, ":companion_banner_offset", "$g_talk_troop", active_npcs_begin),
             (store_add, ":companion_banner_id", companion_banner_begin, ":companion_banner_offset"),
 
-            (troop_set_slot, "$g_talk_troop", slot_troop_banner_scene_prop, ":companion_banner_id"),
-            (troop_set_slot, "$g_talk_troop", slot_troop_occupation, slto_kingdom_hero),
+            (troop_set_slot, "$g_talk_troop", "slot_troop_banner_scene_prop", ":companion_banner_id"),
+            (troop_set_slot, "$g_talk_troop", "slot_troop_occupation", slto_kingdom_hero),
          (try_end),
 
          (troop_set_faction, "$g_talk_troop", "fac_player_supporters_faction"),
@@ -252,9 +252,9 @@ grant_fief_dialogs = [
 
          # If the npc did not have an original faction, set it up.
          (try_begin),
-            (troop_slot_eq, "$g_talk_troop", slot_troop_original_faction, 0),
+            (troop_slot_eq, "$g_talk_troop", "slot_troop_original_faction", 0),
             (party_get_slot, ":fief_culture", ":fief", "slot_center_original_faction"),
-            (troop_set_slot, "$g_talk_troop", slot_troop_original_faction, ":fief_culture"),
+            (troop_set_slot, "$g_talk_troop", "slot_troop_original_faction", ":fief_culture"),
          (try_end),
 
          # set character initial renown = 15*lvl
@@ -262,7 +262,7 @@ grant_fief_dialogs = [
          (val_mul, ":renown", 15),
          # todo: why cap renown at 200?
          (val_max, ":renown", 200),
-         (troop_set_slot, "$g_talk_troop", slot_troop_renown, ":renown"),
+         (troop_set_slot, "$g_talk_troop", "slot_troop_renown", ":renown"),
 
          # initial gold = 3600 * (1 + trade/10 + looting/10)
          # todo: gold is created out of no where.
@@ -274,7 +274,7 @@ grant_fief_dialogs = [
          (val_mul, ":initial_gold", ":modifier"),
          (val_add, ":initial_gold", 5),  # for rounding
          (val_div, ":initial_gold", 10),
-         (troop_set_slot, "$g_talk_troop", slot_troop_wealth, ":initial_gold"),
+         (troop_set_slot, "$g_talk_troop", "slot_troop_wealth", ":initial_gold"),
 
          # set troop name
          (str_store_troop_name_plural, s12, "$g_talk_troop"),

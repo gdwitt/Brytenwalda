@@ -64,8 +64,8 @@ menus = [
 
         (try_begin),
             (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
-            (neg|troop_slot_ge, "trp_player", slot_troop_renown, 70),
-            (neg|troop_slot_ge, "trp_player", slot_troop_renown, 145),
+            (neg|troop_slot_ge, "trp_player", "slot_troop_renown", 70),
+            (neg|troop_slot_ge, "trp_player", "slot_troop_renown", 145),
 
             (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_state", sfai_feast),
             (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_object", "$g_encountered_party"),
@@ -482,8 +482,8 @@ menus = [
         (str_clear, s8),
         (try_begin),
             (this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
-                (neg|troop_slot_ge, "trp_player", slot_troop_renown, 50),
-            (neg|troop_slot_ge, "trp_player", slot_troop_renown, 125),
+                (neg|troop_slot_ge, "trp_player", "slot_troop_renown", 50),
+            (neg|troop_slot_ge, "trp_player", "slot_troop_renown", 125),
             (gt, "$g_player_tournament_placement", 4),
             (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_state", sfai_feast),
             (faction_slot_eq, "$g_encountered_party_faction", "slot_faction_ai_object", "$g_encountered_party"),
