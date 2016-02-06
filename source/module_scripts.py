@@ -17780,10 +17780,13 @@ scripts = [
        (val_div, "$g_player_party_morale_modifier_debt", 3),    #target -33 effect for each week without ANY pay
        (val_sub, ":new_morale", "$g_player_party_morale_modifier_debt"),
    (try_end),
-   #(party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),#gdw
-   
    (party_get_slot, reg0, "p_main_party", "slot_party_unrested_morale_penalty"),
-   (display_message, "@slot_party_unrested_morale_penalty is {reg0}"),
+
+	(try_begin),
+		(ge, "$cheat_mode", 1),
+	 	(display_message, "@slot_party_unrested_morale_penalty is {reg0}"),
+	(try_end),
+
    #(assign, reg3,"$g_player_party_morale_modifier_weariness"),this has opcode errors
    (val_max, reg0,0),
    (val_sub, ":new_morale", reg0),
