@@ -307,4 +307,7 @@ slots = [
 
     # seafare of Duh chief
     ['town_has_ship', 1],
+
+    ["ship_center", 1],
+    ["ship_time", 1],
 ]

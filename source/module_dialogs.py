@@ -385,7 +385,7 @@ dialogs = [
 			(spawn_around_party, "$current_town", "pt_ship"),
 			(assign, ":new_ship", reg0),
 			(party_set_slot, ":new_ship", "slot_party_type", spt_ship),
-			(party_set_slot, ":new_ship", slot_ship_center, "$current_town"),
+			(party_set_slot, ":new_ship", "slot_ship_center", "$current_town"),
 			(assign, reg6, ":new_ship"),
 		(try_end),
 		(display_message,"@You now own a ship and can disembark from this town."),

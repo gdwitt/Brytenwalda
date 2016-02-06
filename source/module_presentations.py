@@ -5284,7 +5284,7 @@ presentations = [
       	    (assign, reg20, 0),
 		(try_for_parties, ":party_no"),
 			(eq, reg20, 0),
-			(party_slot_ge,":party_no", slot_ship_center, 1), #Ships are identified by 4 states, towns/player/wilderness/wilderness w/o guard
+			(party_slot_ge,":party_no", "slot_ship_center", 1), #Ships are identified by 4 states, towns/player/wilderness/wilderness w/o guard
 			(assign, reg20, 1),
 			(val_add, ":num_lines", 1),
 		(try_end),
@@ -5600,7 +5600,7 @@ presentations = [
 		(assign, ":crew_wage", 0),
 		(assign, reg20, 0),
 		(try_for_parties, ":party_no"),
-			(party_slot_ge,":party_no", slot_ship_center, 1), #Ships are identified by 4 states, towns/player/wilderness/wilderness w/o guard
+			(party_slot_ge,":party_no", "slot_ship_center", 1), #Ships are identified by 4 states, towns/player/wilderness/wilderness w/o guard
 			(party_get_num_companion_stacks, ":num_stacks", ":party_no"), #Calculating Wages
 			(try_for_range, ":i_stack", 0, ":num_stacks"),
 				(party_stack_get_troop_id, ":stack_troop", ":party_no", ":i_stack"),
@@ -6186,7 +6186,7 @@ The attackers attempted to sweep the decks free of the enemy without damaging th
 		
 		(assign, ":slot", 0),
 		(try_for_parties, ":ship_no"),
-			(party_slot_eq, ":ship_no", slot_ship_center, "$current_town"),
+			(party_slot_eq, ":ship_no", "slot_ship_center", "$current_town"),
 			(str_store_party_name, s1, ":ship_no"),
 			(overlay_add_item, "$g_presentation_obj_11", s1),
 			(overlay_set_val, "$g_presentation_obj_11", reg6),
@@ -6305,7 +6305,7 @@ The attackers attempted to sweep the decks free of the enemy without damaging th
 				(party_get_slot, ":num_ships_current", "$current_town", "slot_town_has_ship"),
 				(ge, ":num_ships_current", 1),	
 				(troop_get_slot, ":ship_no", "trp_temp_array_a", reg6),
-				(party_get_slot, ":loc_no", ":ship_no", slot_ship_center),
+				(party_get_slot, ":loc_no", ":ship_no", "slot_ship_center"),
 				(eq, ":loc_no", "$current_town"),
 				(assign, "$ship", ":ship_no"),
 				(assign, "$crew_screen_state", 1),
@@ -6339,7 +6339,7 @@ The attackers attempted to sweep the decks free of the enemy without damaging th
 				(val_sub, ":num_ships_current", 1),
 				(party_set_slot, "$current_town", "slot_town_has_ship", ":num_ships_current"),
 				(party_set_slot, ":town_no", "slot_town_has_ship", ":num_ships_target"),
-				(party_set_slot, ":ship_no", slot_ship_center, ":town_no"),
+				(party_set_slot, ":ship_no", "slot_ship_center", ":town_no"),
 				(str_store_party_name, s15, ":ship_no"),
 				(str_store_party_name, s16, ":town_no"),
 				(start_presentation, "prsnt_manage_ships"),

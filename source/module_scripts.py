@@ -42430,7 +42430,7 @@ scripts = [
     [
         (try_for_agents,":agent_id"),
             (agent_is_alive,":agent_id"),
-            (store_agent_hit_points,":current_hp",":agent_id",absolute),
+            (store_agent_hit_points,":current_hp",":agent_id", 1),
             (agent_get_slot,":old_hp",":agent_id","slot_agent_hp"),
             (try_begin),
                 (gt,":old_hp",":current_hp"),   # Damage taken
@@ -42480,7 +42480,7 @@ scripts = [
             (store_div,":hp_loss",":blood",blood_per_hp),
             (try_begin),
                 (gt,":hp_loss",0), # the agent has lost enough blood to lose hitpoints
-                (store_agent_hit_points,":hp",":agent_id",absolute),
+                (store_agent_hit_points,":hp",":agent_id", 1),
                 (val_sub,":hp",":hp_loss"),
                
 ##                #debug start
@@ -42511,7 +42511,7 @@ scripts = [
                 (try_end),
                 # (try_begin),
                     # (gt,":hp",0),
-                    (agent_set_hit_points,":agent_id",":hp",absolute),
+                    (agent_set_hit_points,":agent_id",":hp", 1),
                     (agent_set_slot,":agent_id","slot_agent_hp",":hp"),
                     (store_mul,":tmp",":hp_loss",blood_per_hp),
                     (val_sub,":blood",":tmp"),
@@ -42753,11 +42753,11 @@ scripts = [
       (this_or_next|eq, ":center_faction", "fac_player_supporters_faction"),
       (eq, ":center_faction", "$players_kingdom"),
       (try_begin),
-        (neq, ":negation", negation),
+        (neq, ":negation", 1),
         (this_or_next|eq, ":town_lord", "trp_player"),
         (troop_slot_eq, ":town_lord", "slot_troop_occupation", slto_player_companion),
       (else_try),
-        (eq, ":negation", negation),
+        (eq, ":negation", 1),
         (neq, ":town_lord", "trp_player"),
         (neg|troop_slot_eq, ":town_lord", "slot_troop_occupation", slto_player_companion),
       (else_try),

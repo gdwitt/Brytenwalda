@@ -6,14 +6,14 @@ from header_triggers import key_z, key_t, key_o, key_f7, key_n
 # just define it here rather than copying it across each file, so
 # that it will be easy to change it if you need to.
 
-################## Agent constants ##################
+###################### Agent constants ######################
+#############################################################
 
-# chief ordenes caba'drin
+# order types and respective keys
 ranged = 0
 onehand = 1
 bothhands = 2
 shield = 3
-# polearms  = 4
 clear = -1
 
 key_for_onehand = key_z
@@ -26,9 +26,8 @@ blood_per_hp = 600
 dmg_threshold = 3
 dmg_low_range = 6
 dmg_hi_range = 12
-##
 
-###bardo chief entretenimiento
+# bard
 instruments_begin = "itm_lyre"
 instruments_end = "itm_instruments_end"
 income_denars = 1
@@ -42,11 +41,9 @@ entertainment_complex = 2
 entertainment_lordly = 3
 entertainment_royal = 4
 entertainment_speech = 5
-###bardo chief entretenimiento acabo
 
-########################################################
-##  FACTION SLOTS          #############################
-########################################################
+##################### Faction constants #####################
+#############################################################
 
 # "slot_faction_state" values
 sfs_active = 0
@@ -109,87 +106,61 @@ dplmc_treaty_trade_days_half_done = (dplmc_treaty_trade_days_initial + dplmc_tre
 dplmc_treaty_defense_days_half_done = (dplmc_treaty_defense_days_initial + dplmc_treaty_defense_days_expire) // 2
 # dplmc_treaty_alliance_days_half_done = (dplmc_treaty_alliance_days_initial + dplmc_treaty_alliance_days_expire) // 2
 
-########################################################
-##  PARTY SLOTS            #############################
-########################################################
 
-# argument_none         = 0
+###################### Party constants ######################
+#############################################################
+
+# "slot_lord_recruitement_argument"
 argument_claim = 1
-# argument_legal        = 1
-
+# todo: remove one of the two following arguments
 argument_ruler = 2  # deprecate for commons
 argument_commons = 2
-
-argument_benefit = 3  # deprecate for reward
-# argument_reward       = 3
-
+argument_benefit = 3
 argument_victory = 4
 argument_lords = 5
-# argument_rivalries    = 6 #new - needs to be added
 
 # slot_party_type values
-##spt_caravan            = 1
 spt_castle = 2
 spt_town = 3
 spt_village = 4
-# spt_forager            = 5
-spt_merchant_caravan = 5  # Seatrader activado aqui chief
-##spt_war_party          = 6
-spt_patrol = 7  # chief diplomacy patrols
-spt_messenger = 8  # tempered chief activado
-spt_companion_raider = 9  #### somebody patrullas chief
-##spt_raider             = 9
-spt_scout = 10  # chief puesto on para diplomacy scouts
+spt_merchant_caravan = 5  # sea trader
+spt_patrol = 7
+spt_messenger = 8
+spt_companion_raider = 9
+spt_scout = 10
 spt_kingdom_caravan = 11
-##spt_prisoner_train     = 12
 dplmc_spt_recruiter = 12
-# spt_recruiter = 12 #reclutador recruiter chief
 spt_kingdom_hero_party = 13
-# spt_reinforcement_party = 14 #refuerzos ciudades chief
-##spt_merchant_caravan   = 14
 spt_village_farmer = 15
 spt_ship = 16
-spt_cattle_herd1 = 17  # gdw was sptcattleherd
+spt_cattle_herd1 = 17
 spt_bandit_lair = 18
-# spt_deserter           = 20  #19 is dplmc_spouse
-spt_player_loot_wagon = 210  # TEMPERED chief  ADDED FOR PLAYER LOOT WAGON before 21, #210 now para prevenir errores con caravanas de regalos F123 - 1.41 -> Submod
-# spt_escaped_companion  = 22 #TEMPERED chief ADDED FOR DEFEATED COMPANIONS
-spt_entrenchment = 23  # TEMPERED chief ADDED FOR ENTRENCHMENT PARTIES
-
 dplmc_spt_spouse = 19
-# dplmc_spt_gift_caravan                        = 21
-dplmc_spt_gift_caravan = 116  # tmlF123 - 1.41 -> Submod
+spt_entrenchment = 23
+dplmc_spt_gift_caravan = 116
+spt_player_loot_wagon = 210
 
-
-# Rebellion system changes begin
-# sfai_nascent_rebellion          = 7
-# Rebellion system changes end
-
-# slot_party_ai_state values
+# "slot_party_ai_state"
 spai_undefined = -1
 spai_besieging_center = 1
 spai_patrolling_around_center = 4
 spai_raiding_around_center = 5
-##spai_raiding_village            = 6
 spai_holding_center = 7
-##spai_helping_town_against_siege = 9
 spai_engaging_army = 10
 spai_accompanying_army = 11
 spai_screening_army = 12
 spai_trading_with_town = 13
 spai_retreating_to_center = 14
-##spai_trading_within_kingdom     = 15
-spai_visiting_village = 16  # same thing, I think. Recruiting differs from holding because NPC parties don't actually enter villages
+spai_visiting_village = 16
 
-# slot_village_state values
+# "slot_village_state"
 svs_normal = 0
 svs_being_raided = 1
 svs_looted = 2
-# svs_recovering                  = 3
 svs_deserted = 4
 svs_under_siege = 5
 
-# $g_player_icon_state values
+# "$g_player_icon_state"
 pis_normal = 0
 pis_camping = 1
 pis_ship = 2
@@ -199,9 +170,13 @@ num_party_loot_slots = 5
 # initial position of the ram
 pos_ram_begin = 35
 
-########################################################
-##  TROOP SLOTS            #############################
-########################################################
+# "slot_ship_center"
+ship_wild_no_guard = 100
+ship_wild_guarded = 150
+ship_player_sailing = 200
+
+###################### Troop constants ######################
+#############################################################
 
 # "slot_troop_morality_state"
 # "slot_troop_2ary_morality_state"
@@ -246,7 +221,7 @@ mp_prison_break_stand_back = 3
 mp_prison_break_escaped = 4
 mp_prison_break_caught = 5
 
-# Duel mod constants
+# duel constants
 king_renown_for_duel = 350  # Minimum renown needed to challenge a king to a friendly duel
 lord_renown_for_duel = 50  # Minimum renown needed to challenge a king to a friendly duel
 
@@ -264,7 +239,6 @@ lrep_roguish = 8  # used for commons, specifically ex-companions. Tries to live 
 lrep_benefactor = 9  # used for commons, specifically ex-companions. Tries to improve lot of folks on land
 lrep_custodian = 10  # used for commons, specifically ex-companions. Tries to maximize fief's earning potential
 
-# lreps specific to dependent noblewomen
 lrep_conventional = 21  # Charlotte York in SATC seasons 1-2, probably most medieval aristocrats
 lrep_adventurous = 22  # Tomboyish. However, this basically means that she likes to travel and hunt, and perhaps yearn for wider adventures. However, medieval noblewomen who fight are rare, and those that attempt to live independently of a man are rarer still, and best represented by pre-scripted individuals like companions
 lrep_otherworldly = 23  # Prone to mysticism, romantic.
@@ -273,66 +247,87 @@ lrep_moralist = 25  # Equivalent of upstanding or benefactor -- takes nobless ob
 
 # "slot_troop_occupation"
 slto_inactive = 0  # for companions at the beginning of the game
-
 slto_kingdom_hero = 2
-
 slto_player_companion = 5  # This is specifically for companions in the employ of the player -- ie, in the party, or on a mission
 slto_kingdom_lady = 6  # Usually inactive (Calradia is a traditional place). However, can be made potentially active if active_npcs are expanded to include ladies
 slto_kingdom_seneschal = 7
 slto_inactive_pretender = 9
-
 slto_retirement = 11
-
-slto_dead = 86
-
 dplmc_slto_exile = 14  # Set for newly exiled lords.  In saved games, this is retroactively applied (once only).
+slto_dead = 86
 
 # "slot_town_lord"
 stl_unassigned = -1
 stl_reserved_for_player = -2
 stl_rejected_by_player = -3
 
-########################################################
-##  TEAM SLOTS             #############################
-########################################################
+# "slot_troop_current_mission"
+plyr_mission_vacation = 1
+dplmc_npc_mission_war_request = 9
+dplmc_npc_mission_alliance_request = 10
+dplmc_npc_mission_spy_request = 11
+dplmc_npc_mission_gift_fief_request = 12
+dplmc_npc_mission_gift_horses_request = 13
+dplmc_npc_mission_threaten_request = 14
+dplmc_npc_mission_prisoner_exchange = 15
+dplmc_npc_mission_defensive_request = 16
+dplmc_npc_mission_trade_request = 17
+dplmc_npc_mission_nonaggression_request = 18
+dplmc_npc_mission_persuasion = 19
 
-# Rebellion changes end
-# character backgrounds
-cb_noble = 1
-cb_merchant = 2
-cb_guard = 3
-cb_forester = 4
-cb_nomad = 5
-cb_thief = 6
-# cb_priest = 7
+####################### Team contexts #######################
+#############################################################
 
-cb2_page = 0
-cb2_apprentice = 1
-cb2_urchin = 2
-cb2_steppe_child = 3
-cb2_merchants_helper = 4
+# "slot_team_d0_formation"
+formation_none = 0
+formation_default = 1
+formation_ranks = 2
+formation_shield = 3
+formation_wedge = 4
+formation_square = 5
 
-cb3_poacher = 3
-cb3_craftsman = 4
-cb3_peddler = 5
-cb3_troubadour = 7
-cb3_squire = 8
-cb3_lady_in_waiting = 9
-cb3_student = 10
+# Formation tweaks
+formation_minimum_spacing = 42  # chief cambiado # TML less spacing (down to 30 from 47). I assume this variable is used, didn't check but it sounds good and between it and the one below they're closer together now so I'm happy. F123 - Submod -> 1.41
+# gdw I disagree with this issue but will comp halfway. Too easy to flank naro form
+formation_minimum_spacing_horse_length = 300
+formation_minimum_spacing_horse_width = 200
+formation_start_spread_out = 1
+formation_min_foot_troops = 9
+formation_min_cavalry_troops = 4
+formation_native_ai_use_formation = 1
+formation_reequip = 1  # TO DO: One-time-on-form option when formation slots integrated
+formation_reform_interval = 2  # seconds
+formation_rethink_for_formations_only = 0
 
-cb4_revenge = 1
-cb4_loss = 2
-cb4_wanderlust = 3
-cb4_disown = 5
-cb4_greed = 6
+# Other constants (not tweaks)
+Third_Max_Weapon_Length = 250 / 3
+Km_Per_Hour_To_Cm = formation_reform_interval * 100000 / 3600
+Reform_Trigger_Modulus = formation_reform_interval * 2  # trigger is half-second
+Top_Speed = 13
+Far_Away = 1000000
 
-# NPC system changes end
-# Encounter types
-enctype_fighting_against_village_raid = 1
-enctype_catched_during_village_raid = 2
+# positions used through formations and AI triggers
+Current_Pos = 34  # pos34
+Speed_Pos = 36  # pos36
+Target_Pos = 37  # pos37
+Enemy_Team_Pos = 38  # pos38
+Temp_Pos = 39  # pos39
 
-########################################################
-# Talk contexts
+scratch_team = 7
+
+# "slot_team_d0_type"
+sdt_infantry = 0
+sdt_archer = 1
+sdt_cavalry = 2
+sdt_polearm = 3
+sdt_skirmisher = 4
+sdt_harcher = 5
+sdt_support = 6
+sdt_bodyguard = 7
+sdt_unknown = -1
+
+####################### Talk contexts #######################
+#############################################################
 
 tc_town_talk = 0
 tc_court_talk = 1
@@ -357,13 +352,19 @@ tc_prison_break = 18
 tc_escape = 19
 tc_give_center_to_fief = 20
 tc_merchants_house = 21
-# tc_camp                       = 22 #Tempered chief added for camp talk with npc's and troops
 tc_roman_dungeon = 23
 tc_odin_cave = 24
-# gdw for new quest dialogs
-# Troop Commentaries begin
-# Log entry types
-# civilian
+
+###################### Encounter types ######################
+#############################################################
+
+enctype_fighting_against_village_raid = 1
+enctype_catched_during_village_raid = 2
+
+
+###################### Log entry types ######################
+#############################################################
+
 logent_village_raided = 1
 logent_village_extorted = 2
 logent_caravan_accosted = 3  # in caravan accosted, center and troop object are -1, and the defender's faction is the object
@@ -395,9 +396,6 @@ logent_player_claims_throne_2 = 25
 
 logent_troop_feels_cheated_by_troop_over_land = 26
 logent_ruler_intervenes_in_quarrel = 27
-# logent_lords_quarrel_over_land                         = 28
-# logent_lords_quarrel_over_insult                       = 29
-# logent_marshal_vs_lord_quarrel                  	   = 30
 logent_lords_quarrel_over_woman = 31
 
 logent_lord_protests_marshall_appointment = 32
@@ -408,22 +406,8 @@ logent_player_suggestion_failed = 36
 
 logent_liege_promises_fief_to_vassal = 37
 
-# logent_lord_insults_lord_for_cowardice                 = 38
-# logent_lord_insults_lord_for_rashness                  = 39
-# logent_lord_insults_lord_for_abandonment               = 40
-# logent_lord_insults_lord_for_indecision                = 41
-# logent_lord_insults_lord_for_cruelty                   = 42
-# logent_lord_insults_lord_for_dishonor                  = 43
-
-
-
-
 logent_game_start = 45
-# logent_poem_composed                        = 46 ##Not added
-# logent_tournament_distinguished             = 47 ##Not added
-# logent_tournament_won                       = 48 ##Not added
 
-# logent courtship - lady is always actor, suitor is always troop object
 logent_lady_favors_suitor = 51  # basically for gossip
 logent_lady_betrothed_to_suitor_by_choice = 52
 logent_lady_betrothed_to_suitor_by_family = 53
@@ -434,12 +418,7 @@ logent_lady_elopes_with_lord = 57
 logent_lady_rejected_by_suitor = 58
 logent_lady_betrothed_to_suitor_by_pressure = 59  # mostly for gossip
 
-# logent_lady_and_suitor_break_engagement		= 60
 logent_lady_marries_suitor = 61
-
-# logent_lord_holds_lady_hostages             = 62
-# logent_challenger_defeats_lord_in_duel      = 63
-# logent_challenger_loses_to_lord_in_duel     = 64
 
 logent_player_stole_cattles_from_village = 66
 
@@ -450,7 +429,8 @@ logent_border_incident_bride_abducted = 73  # possibly add this to rumors for no
 logent_border_incident_villagers_killed = 74  # possibly add this to rumors for non-player faction
 logent_border_incident_subjects_mistreated = 75  # possibly add this to rumors for non-player faction
 
-# These supplement caravans accosted and villages burnt, in that they create a provocation. So far, they only refer to the player
+# These supplement caravans accosted and villages burnt, in that they create a provocation.
+# So far, they only refer to the player
 logent_border_incident_troop_attacks_neutral = 76
 logent_border_incident_troop_breaks_truce = 77
 logent_border_incident_troop_suborns_lord = 78
@@ -460,8 +440,6 @@ logent_policy_ruler_ignores_provocation = 81  # possibly add this to rumors for 
 logent_policy_ruler_makes_peace_too_soon = 82
 logent_policy_ruler_declares_war_with_justification = 83
 logent_policy_ruler_breaks_truce = 84
-# logent_policy_ruler_issues_indictment_just                  = 85 #possibly add this to rumors for non-player faction
-# logent_policy_ruler_issues_indictment_questionable          = 86 #possibly add this to rumors for non-player faction
 
 logent_player_faction_declares_war = 90  # this doubles for declare war to extend power
 logent_faction_declares_war_out_of_personal_enmity = 91
@@ -471,46 +449,45 @@ logent_faction_declares_war_to_respond_to_provocation = 94
 logent_faction_declares_war_to_fulfil_pact = 95
 logent_war_declaration_types_end = 96
 
-# logent_lady_breaks_betrothal_with_lord      = 58
-# logent_lady_betrothal_broken_by_lord        = 59
 
+###################### Other constants ######################
+#############################################################
 
-# a more complicated system of reputation could include the following...
+# Rebellion changes end
+# character backgrounds
+cb_noble = 1
+cb_merchant = 2
+cb_guard = 3
+cb_forester = 4
+cb_nomad = 5
+cb_thief = 6
 
-# successful vs unlucky -- basic gauge of success
-# daring vs cautious -- maybe not necessary
-# honorable/pious/ideological vs unscrupulous -- character's adherance to an external code of conduct. Fails to capture complexity of people like Aurangzeb, maybe, but good for NPCs
-# (visionary/altruist and orthodox/unorthodox could be a subset of the above, or the specific external code could be another tag)
-# generous/loyal vs manipulative/exploitative -- character's sense of duty to specific individuals, based on their relationship. Affects loyalty of troops, etc
-# merciful vs cruel/ruthless/sociopathic -- character's general sense of compassion. Sher Shah is example of unscrupulous and merciful (the latter to a degree).
-# dignified vs unconventional -- character's adherance to social conventions. Very important, given the times
+cb2_page = 0
+cb2_apprentice = 1
+cb2_urchin = 2
+cb2_steppe_child = 3
+cb2_merchants_helper = 4
 
-##diplomacy start+
-# Define these for clarity and convenience elsewhere#gdw floris
-# dplmc_lrep_ladies_begin = lrep_conventional
-# dplmc_lrep_ladies_end = lrep_moralist + 1
+cb3_poacher = 3
+cb3_craftsman = 4
+cb3_peddler = 5
+cb3_troubadour = 7
+cb3_squire = 8
+cb3_lady_in_waiting = 9
+cb3_student = 10
 
-# dplmc_lrep_commoners_begin = lrep_roguish
-# dplmc_lrep_commoners_end = dplmc_lrep_ladies_begin
+cb4_revenge = 1
+cb4_loss = 2
+cb4_wanderlust = 3
+cb4_disown = 5
+cb4_greed = 6
 
-# dplmc_lrep_nobles_including_liege_begin = lrep_none
-# dplmc_lrep_nobles_begin = lrep_martial
-# dplmc_lrep_nobles_end = dplmc_lrep_commoners_begin
-##diplomacy end+
-
+# different poems
 courtship_poem_tragic = 1  # Emphasizes longing, Laila and Majnoon
 courtship_poem_heroic = 2  # Norse sagas with female heroines
 courtship_poem_comic = 3  # Emphasis on witty repartee -- Contrasto (Sicilian school satire)
 courtship_poem_mystic = 4  # Sufi poetry. Song of Songs
 courtship_poem_allegoric = 5  # Idealizes woman as a civilizing force -- the Romance of the Rose, Siege of the Castle of Love
-
-# courtship gifts currently deprecated
-
-
-
-
-
-
 
 # Troop Commentaries end
 
@@ -531,7 +508,7 @@ reinforcement_cost_hard = 300
 
 merchant_toll_duration = 72  # Tolls are valid for 72 hours
 
-hero_escape_after_defeat_chance = 39  # TEMPERED chief CHANGED FROM 80 nativ TO 40
+hero_escape_after_defeat_chance = 39
 
 raid_distance = 4
 
@@ -540,17 +517,12 @@ surnames_end = "str_surnames_end"
 names_begin = "str_name_1"
 names_end = surnames_begin
 countersigns_begin = "str_countersign_1"
-# countersigns_end = names_begin
+
 secret_signs_begin = "str_secret_sign_1"
 secret_signs_end = countersigns_begin
 
 kingdom_titles_male_begin = "str_faction_title_male_player"
 kingdom_titles_female_begin = "str_faction_title_female_player"
-
-##diplomacy start+ chief
-# cultures_begin = "fac_culture_1"
-# cultures_end   = "fac_player_faction"
-##diplomacy end+
 
 kingdoms_begin = "fac_player_supporters_faction"
 kingdoms_end = "fac_kingdoms_end"
@@ -559,7 +531,7 @@ npc_kingdoms_begin = "fac_kingdom_1"
 npc_kingdoms_end = kingdoms_end
 
 bandits_begin = "trp_looter"
-bandits_end = "trp_manhunter"  # chief cambia
+bandits_end = "trp_manhunter"
 
 kingdom_ladies_begin = "trp_knight_1_1_wife"
 kingdom_ladies_end = "trp_heroes_end"
@@ -595,15 +567,8 @@ heroes_end = kingdom_ladies_end
 soldiers_begin = "trp_farmer"
 soldiers_end = "trp_town_walker_1"
 
-kingdom_heroes_begin2 = "trp_kingdom_1_lord"  # anadido chief para viejo kingdom heroes
-kingdom_heroes_end2 = kingdom_ladies_begin  # anadido chief para viejo kingdom heroes
-
-## CC chief
-# commom_kingdoms_begin = "fac_kingdom_1"
-# commom_kingdoms_end = "fac_kingdoms_end"
-
-# kingdom_troops_begin = "trp_jute_recruit"
-# kingdom_troops_end = "trp_looter"
+kingdom_heroes_begin2 = "trp_kingdom_1_lord"
+kingdom_heroes_end2 = kingdom_ladies_begin
 
 outlaws_troops_begin = "trp_looter"
 outlaws_troops_end = "trp_caravan_master"
@@ -616,9 +581,6 @@ sacerdote_end = "trp_quastuosa_1"
 
 quastuosa_begin = "trp_quastuosa_1"
 quastuosa_end = "trp_especiales_1"
-
-# especiales_begin = "trp_especiales_1"
-# especiales_end   = "trp_kingdom_heroes_including_player_begin"
 
 tavern_minstrels_begin = "trp_tavern_minstrel_1"
 tavern_minstrels_end = bardo_begin
@@ -708,15 +670,6 @@ lady_quests_end_2 = "qst_blank_quest_16"
 army_quests_begin = "qst_deliver_cattle_to_army"
 army_quests_end = lady_quests_begin
 
-# army_quests_begin_2 = "qst_blank_quest_21"
-# army_quests_end_2   = "qst_blank_quest_21"
-
-# player_realm_quests_begin = "qst_resolve_dispute"
-# player_realm_quests_end = "qst_blank_quest_1"
-
-# player_realm_quests_begin_2 = "qst_blank_quest_26"
-# player_realm_quests_end_2 = "qst_blank_quest_26"
-
 # bounty quest chief
 outlaws_begin = "trp_bounty5"
 outlaws_end = "trp_bounty6"
@@ -754,7 +707,6 @@ all_items_end = "itm_items_end"
 all_quests_begin = 0
 all_quests_end = "qst_quests_end"
 
-# taverns_begin = "p_four_ways_inn" #anadido chief para taberna especial
 towns_begin = "p_town_1"
 castles_begin = "p_castle_1"
 villages_begin = "p_village_1"
@@ -762,7 +714,6 @@ villages_begin = "p_village_1"
 towns_end = castles_begin
 castles_end = villages_begin
 villages_end = "p_salt_mine"
-# taverns_end = towns_end #anadidos chief para taberna especial
 
 walled_centers_begin = towns_begin
 walled_centers_end = castles_end
@@ -771,22 +722,13 @@ centers_begin = towns_begin
 centers_end = villages_end
 
 training_grounds_begin = "p_training_ground_1"
-training_grounds_end = "p_monasterio1"  # chief cambia
-
-# scenes_begin = "scn_town_1_center"
-# scenes_end = "scn_castle_1_exterior"
+training_grounds_end = "p_monasterio1"
 
 spawn_points_begin = "p_zendar"
 spawn_points_end = "p_spawn_points_end"
 
 regular_troops_begin = "trp_novice_fighter"
 regular_troops_end = "trp_tournament_master"
-
-# swadian_merc_parties_begin = "p_town_1_mercs"
-# swadian_merc_parties_end   = "p_town_8_mercs"
-
-# vaegir_merc_parties_begin  = "p_town_8_mercs"
-# vaegir_merc_parties_end    = "p_zendar"
 
 arena_masters_begin = "trp_town_1_arena_master"
 arena_masters_end = "trp_town_1_armorer"
@@ -796,9 +738,6 @@ training_gound_trainers_end = "trp_ransom_broker_1"
 
 town_walkers_begin = "trp_town_walker_1"
 # town_walkers_end = "trp_village_walker_1"
-
-# village_walkers_begin = "trp_village_walker_1"
-# village_walkers_end   = "trp_spy_walker_1"
 
 # spy_walkers_begin = "trp_spy_walker_1"
 spy_walkers_end = "trp_tournament_master"
@@ -830,11 +769,6 @@ mayors_end = "trp_village_1_elder"
 village_elders_begin = "trp_village_1_elder"
 village_elders_end = "trp_merchants_end"
 
-# startup_merchants_begin = "trp_briton_merchant"
-# startup_merchants_end = "trp_startup_merchants_end"
-# merchants_begin = armor_merchants_begin
-# merchants_end = village_elders_end
-
 average_price_factor = 1000
 minimum_price_factor = 100
 maximum_price_factor = 10000
@@ -845,8 +779,8 @@ trade_goods_end = "itm_siege_supply"
 food_begin = "itm_smoked_fish"
 food_end = "itm_siege_supply"
 
-bebidas_begin = "itm_wine"  # chief anade para bebidas consumibles
-bebidas_end = "itm_smoked_fish"  # chief anade para bebidas consumibles
+bebidas_begin = "itm_wine"
+bebidas_end = "itm_smoked_fish"
 
 reference_books_begin = "itm_book_wound_treatment_reference"
 reference_books_end = "itm_relic1"
@@ -875,9 +809,6 @@ shields_end = ranged_weapons_begin
 estandartes_begin = "itm_wessexbanner1"
 estandartes_end = "itm_cheap_buckler"
 
-# cuerno_begin = "itm_horn_of_arthur"
-# cuerno_end = "itm_horn1"
-
 banner_meshes_begin = "mesh_banner_a01"
 banner_meshes_end_minus_one = "mesh_banner_k21"
 
@@ -896,9 +827,6 @@ custom_banner_flag_types_end = custom_banner_backgrounds_begin
 custom_banner_flag_map_types_begin = "mesh_custom_map_banner_01"
 custom_banner_flag_map_types_end = custom_banner_flag_types_begin
 
-# custom_banner_flag_scene_props_begin = "spr_custom_banner_01"
-# custom_banner_flag_scene_props_end = "spr_banner_a"
-
 custom_banner_map_icons_begin = "icon_custom_banner_01"
 # custom_banner_map_icons_end = "icon_banner_01"
 
@@ -908,33 +836,20 @@ banner_map_icons_end_minus_one = "icon_banner_198"
 banner_scene_props_begin = "spr_banner_a"
 banner_scene_props_end_minus_one = "spr_banner_k21"
 
-# khergit_banners_begin_offset = 63
-# khergit_banners_end_offset = 66
-
-# sarranid_banners_begin_offset = 105
-# sarranid_banners_end_offset = 107
-
 companion_banner_begin = "spr_banner_a"
 
-# banners_end_offset = 197 #chief cambiado de aqui para arriba
-
-# Some constants for merchant invenotries
+# Some constants for merchant inventories
 merchant_inventory_space = 30
 num_merchandise_goods = 40
 
-num_forest_bandit_spawn_points = 4  ##cambiado chief
-num_mountain_bandit_spawn_points = 6  ##cambiado chief
+num_forest_bandit_spawn_points = 4
+num_mountain_bandit_spawn_points = 6
 num_steppe_bandit_spawn_points = 1
 num_taiga_bandit_spawn_points = 1
 num_desert_bandit_spawn_points = 1
-# num_black_khergit_spawn_points = 1
 num_sea_raider_spawn_points = 3
-num_new_sp = 4  # new spawn chief
-num_sea_pirate_spawn_points = 3  # puesto chief
-
-# peak_prisoner_trains = 4
-# peak_kingdom_caravans = 12
-# peak_kingdom_messengers = 3
+num_new_sp = 4
+num_sea_pirate_spawn_points = 3
 
 # battle tactics
 btactic_hold = 1
@@ -946,6 +861,7 @@ btactic_follow_leader = 2
 cmenu_move = -7
 cmenu_follow = -6
 
+# "$g_mt_mode"
 # Town center modes - resets in game menus during the options
 tcm_default = 0
 tcm_disguised = 1
@@ -953,7 +869,6 @@ tcm_disguised = 1
 tcm_escape = 3
 
 # Arena battle modes
-# abm_fight = 0
 abm_training = 1
 abm_visit = 2
 abm_tournament = 3
@@ -962,22 +877,6 @@ abm_tournament = 3
 ctm_melee = 1
 ctm_ranged = 2
 ctm_mounted = 3
-# ctm_training = 4
-
-# recruiter kit end
-dplmc_npc_mission_war_request = 9
-dplmc_npc_mission_alliance_request = 10
-dplmc_npc_mission_spy_request = 11
-dplmc_npc_mission_gift_fief_request = 12
-dplmc_npc_mission_gift_horses_request = 13
-dplmc_npc_mission_threaten_request = 14
-dplmc_npc_mission_prisoner_exchange = 15
-dplmc_npc_mission_defensive_request = 16
-dplmc_npc_mission_trade_request = 17
-dplmc_npc_mission_nonaggression_request = 18
-dplmc_npc_mission_persuasion = 19
-
-# gdw floris begin
 
 # For $g_dplmc_terrain_advantage
 # DPLMC_TERRAIN_ADVANTAGE_DISABLE     =  -1
@@ -1087,24 +986,20 @@ DPLMC_VIRTUAL_RELATIVE_MULTIPLIER = -4
 DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET = -1  # e.g. father for x = (DPLMC_VIRTUAL_RELATIVE_MULTIPLIER * x) + DPLMC_VIRTUAL_RELATIVE_FATHER_OFFSET
 # DPLMC_VIRTUAL_RELATIVE_MOTHER_OFFSET = -2
 # DPLMC_VIRTUAL_RELATIVE_SPOUSE_OFFSET = -3
-##diplomacy chief end 
 
 # Village bandits attack modes
 vba_normal = 1
 vba_after_training = 2
 
-arena_tier1_opponents_to_beat = 3  # TML upped the melee fight prizes x5. F123 - Submod -> 1.41#it is already a bit too eassy
-arena_tier1_prize = 15  # gdw5
+arena_tier1_opponents_to_beat = 3
+arena_tier1_prize = 15
 arena_tier2_opponents_to_beat = 6
-arena_tier2_prize = 35  # gdw10
+arena_tier2_prize = 35
 arena_tier3_opponents_to_beat = 10
-arena_tier3_prize = 90  # gdw25
+arena_tier3_prize = 90
 arena_tier4_opponents_to_beat = 20
-arena_tier4_prize = 250  # gdw120
-arena_grand_prize = 700  # gdw250
-
-# Additions
-# price_adjustment = 25 #the percent by which a trade at a center alters price
+arena_tier4_prize = 250
+arena_grand_prize = 700
 
 fire_duration = 4  # fires takes 4 hours
 
@@ -1286,55 +1181,6 @@ coop_event_return_disable_inventory = 48
 coop_event_return_reduce_damage = 49
 ############################################################### COOP acaba chief
 
-# formations motomataru chief
-# Formation modes
-formation_none = 0
-formation_default = 1
-formation_ranks = 2
-formation_shield = 3
-formation_wedge = 4
-formation_square = 5
-
-# Formation tweaks
-formation_minimum_spacing = 42  # chief cambiado # TML less spacing (down to 30 from 47). I assume this variable is used, didn't check but it sounds good and between it and the one below they're closer together now so I'm happy. F123 - Submod -> 1.41
-# gdw I disagree with this issue but will comp halfway. Too easy to flank naro form
-formation_minimum_spacing_horse_length = 300
-formation_minimum_spacing_horse_width = 200
-formation_start_spread_out = 1  # TML Closer at start formations. F123 - Submod -> 1.41
-formation_min_foot_troops = 9  # gdw was 12 and 5b
-formation_min_cavalry_troops = 4
-formation_native_ai_use_formation = 1
-formation_reequip = 1  # TO DO: One-time-on-form option when formation slots integrated
-formation_reform_interval = 2  # seconds Motomataru chief
-formation_rethink_for_formations_only = 0
-
-# Other constants (not tweaks)
-Third_Max_Weapon_Length = 250 / 3
-Km_Per_Hour_To_Cm = formation_reform_interval * 100000 / 3600
-Reform_Trigger_Modulus = formation_reform_interval * 2  # trigger is half-second
-Top_Speed = 13
-Far_Away = 1000000
-
-# positions used through formations and AI triggers
-Current_Pos = 34  # pos34
-Speed_Pos = 36  # pos36
-Target_Pos = 37  # pos37
-Enemy_Team_Pos = 38  # pos38
-Temp_Pos = 39  # pos39
-
-scratch_team = 7
-
-# "slot_team_d0_type"
-sdt_infantry = 0
-sdt_archer = 1
-sdt_cavalry = 2
-sdt_polearm = 3
-sdt_skirmisher = 4
-sdt_harcher = 5
-sdt_support = 6
-sdt_bodyguard = 7
-sdt_unknown = -1
-
 # motomataru chief IA Improved
 # AI variables
 AI_long_range = 8000  # do not put over 130m if you want archers to always fire
@@ -1420,20 +1266,16 @@ skirmish_max_distance = 2500  # Max distance to maintain, in cm. Where agent wil
 key_for_skirmish = key_f7
 # chief skirmish order acaba
 
-########################################################
-##  COLOR chief CODES             ############################
-########################################################
-# HC - Add in color codes
-# color_great_news = 0xCCFFCC
-color_good_news = 0xCCFFCC  # 0x33ff33
-color_terrible_news = 0xFFCCCC  # 0xFF2222
-color_bad_news = 0xff3333  # 0xFFCCCC
+# COLORS
+color_good_news = 0xCCFFCC
+color_terrible_news = 0xFFCCCC
+color_bad_news = 0xff3333
 # color_neutral_news = 0xFFFFFF
 color_quest_and_faction_news = 0xCCCCFF
 color_hero_news = 0xFFFF99
+
 #  Percent modifier of days between prisoner escapes (bigger number = less likely escapes)
 prisoners_escape_chance_modifier = 50
-# garnier chief acaba
 
 # dungeon chief
 dungeon_prisoners_begin = "trp_refugeeromanruins"
@@ -1441,58 +1283,26 @@ dungeon_prisoners_end = "trp_refugeedruid"
 stone_refugee_begin = "trp_refugeedruid"
 stone_refugee_end = "trp_prisonerdruid"
 
-# rumores
 rumor_found_chance = 70
-###fire arrow chief
-# gravity = -6.3
-# common = 7
-# hostile = 6
+
+# these are only changed to `trp_global_values`
+# todo: why aren't these global variables?
 slot_gloval_show_fire_arrow_particle = 1
 slot_gloval_fire_arrow_key = 2
 slot_gloval_max_fire_arrow = 3
 slot_gloval_max_flame_slot = 4
-negation = 1
-## CC chief commander acaba
-###otros
-# slot_monk_monasterio = 13	MOTO not used
-# Various constants
-absolute = 1
-# true     = 1
-# false    = 0
-player = 0
-# LAZERAS MODIFIED  {Top Tier Troops Recruit}
+
 additional_heroes_begin = "trp_hero1"
 additional_heroes_end = "trp_town_1_seneschal"
-# LAZERAS MODIFIED  {Top Tier Troops Recruit}
-##
-# freelancer chief
-# +FREELANCER start
-# freelancer_version = 13
-# Floris or no Diplomacy:
-# freelancer_can_use_item  = "script_troop_can_use_item"
-# with Diplomacy: (also, disable dplmc in modmerger_options)
+
 freelancer_can_use_item = "script_dplmc_troop_can_use_item"
 
-plyr_mission_vacation = 1
-# +Freelancer end
-# outpost of lumos and player lair chief
 mount_patrol_max_speed = 15
 mount_patrol_min_speed = 5
 mount_patrol_closing_dist = 6000
 
-slot_ship_center = 491
-
-# slot_ship_choice = 492
-
-slot_ship_time = 493
-
-ship_wild_no_guard = 100
-ship_wild_guarded = 150
-ship_player_sailing = 200
-# seafare acaba
-
-## HEALTH REGENERATION (1.0) begin - Windyplains chief
-#  Rates listed below are per kill, not based on duration.  They are also % of health, not exact values.
+# Health regeneration
+# Rates listed below are per kill, not based on duration.  They are also % of health, not exact values.
 wp_hr_player_rate = 1
 wp_hr_strength_factor = 4  # This is the value STR is divided by.  So 4 = .25% per point of Strength.
 wp_hr_leadership_factor = 2  # This is the value Leadership is divided by.  Only non-heroes gain this.
@@ -1505,34 +1315,3 @@ wp_hr_factor_difficulty = 1  # This turns ON (1) or OFF (0) any code changes bas
 wp_hr_diff_enemy_bonus = 4  # Amount the health regeneration of enemies is boosted by per difficulty rank.
 wp_hr_diff_ally_penalty = -3  # Amount the health regeneration of allies is reduced by per difficulty rank.
 wp_hr_debug = 0  # This turns ON (1) or OFF (0) all of the debug messages.
-
-
-## HEALTH REGENERATION end
-
-# Perform a check to make sure constants are defined in a reasonable way. chief de diplomacy
-def _validate_constants(verbose=False):
-    """Makes sure begin/end pairs have length of at least zero."""
-    d = globals()
-    for from_key in d:
-        if not from_key.endswith("_begin"):
-            continue
-        to_key = from_key[:-len("_begin")] + "_end"
-        if not to_key in d:
-            if verbose:
-                print "%s has no matching %s" % (from_key, to_key)
-            continue
-        from_value = d[from_key]
-        to_value = d[to_key]
-        if not type(from_value) in (int, float, long):
-            continue
-        if not from_value <= to_value:
-            raise Exception("ERROR, condition %s <= %s failed [not true that %s <= %s]" % (
-            from_key, to_key, str(from_value), str(to_value)))
-        elif verbose:
-            print "%s <= %s [%s <= %s]" % (from_key, to_key, str(from_value), str(to_value))
-
-
-# Automatically run this on module import, so errors are detected
-# during building.
-_validate_constants(verbose=(__name__ == "__main__"))
-##diplomacy end+
