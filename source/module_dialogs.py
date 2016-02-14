@@ -3,9 +3,10 @@ from header_common import *
 from header_dialogs import *
 from header_parties import *
 from header_troops import *
+#from header_game_menus import *
 from header_skills import *
 from header_item_modifiers import imod_cracked
-
+#from header_triggers import *
 from module_constants import *
 
 from .lazy_flag import LazyFlag
@@ -58,7 +59,6 @@ _start_dialogs = [
         (store_troop_faction, "$g_talk_troop_faction", "$g_talk_troop"),
         (call_script, "script_troop_get_player_relation", "$g_talk_troop"),
         (assign, "$g_talk_troop_relation", reg0),
-
         # This may be different way to handle persuasion, which might be a
         # little more transparent to the player in its effects
         # Persuasion will affect the player's relation with the other
@@ -79,7 +79,7 @@ _start_dialogs = [
         (try_end),
         (val_clamp, "$g_talk_troop_effective_relation", -100, 101),
         (try_begin),
-            (eq, "$cheat_mode", 1),
+            (ge, "$cheat_mode", 1),
             (assign, reg3, "$g_talk_troop_effective_relation"),
             (display_message, "str_test_effective_relation_=_reg3"),
         (try_end),
@@ -1564,14 +1564,14 @@ but before burial, you must allow the crows to descend on their breasts and rele
         # (party_get_position, pos1, ":new_ai_object"),
         (quest_set_slot,"qst_mod_trouble","slot_quest_current_state",4),
         #(quest_get_slot, "p_village_34", "qst_mod_trouble", "slot_quest_target_center"),
-        #(party_set_ai_behavior, ":qst_neko_party", ai_bhvr_travel_to_party),
+        #(party_set_ai_behavior, ":qst_mod_trouble", ai_bhvr_travel_to_party),
                 # (map_get_random_position_around_position, pos2, pos1, 2),
                 (party_get_position, pos0, "p_village_34"),
-                (party_set_ai_target_position, ":qst_neko_party", pos0),
-                (party_set_ai_behavior, ":qst_neko_party", ai_bhvr_hold),#gdw
+                (party_set_ai_target_position, ":qst_mod_trouble", pos0),
+                (party_set_ai_behavior, ":qst_mod_trouble", ai_bhvr_hold),#gdw
       #gdw??(party_set_flags, ":quest_target_party", pf_default_behavior, 0),#gdw
       #(party_set_ai_patrol_radius, "pt_arrians", 1),
-                (party_set_ai_patrol_radius, ":qst_neko_party", 1),]],
+                (party_set_ai_patrol_radius, ":qst_mod_trouble", 1),]],
                 # (party_set_ai_object, ":party_no", ":new_ai_object"),
                 # (party_set_flags, ":party_no", pf_default_behavior, 0),
                 # (party_set_slot, ":party_no", "slot_party_follow_me", 1),
@@ -1610,16 +1610,16 @@ but before burial, you must allow the crows to descend on their breasts and rele
   #(str_store_party_name, s4, ":quest_target_center"),
   (set_spawn_radius, 1),  
   (spawn_around_party,"p_village_34","pt_neko"),
-  (assign, ":qst_neko_party", reg0),
-  (quest_set_slot, "qst_mod_trouble", "slot_quest_target_party", ":qst_neko_party"),
+  (assign, ":qst_mod_trouble", reg0),
+  (quest_set_slot, "qst_mod_trouble", "slot_quest_target_party", ":qst_mod_trouble"),
   #(quest_set_slot, "qst_mod_trouble", "slot_quest_xp_reward", 1000),
-  (party_set_ai_behavior, ":qst_neko_party", ai_bhvr_hold),
-  (party_set_ai_object, ":qst_neko_party", "p_main_party"),
-  (party_set_flags, ":qst_neko_party", pf_default_behavior, 0),
+  (party_set_ai_behavior, ":qst_mod_trouble", ai_bhvr_hold),
+  (party_set_ai_object, ":qst_mod_trouble", "p_main_party"),
+  (party_set_flags, ":qst_mod_trouble", pf_default_behavior, 0),
   (quest_set_slot, "qst_mod_trouble", "slot_quest_expiration_days", 40),
-  (party_set_ai_object, ":qst_neko_party", "p_main_party"),
+  (party_set_ai_object, ":qst_mod_trouble", "p_main_party"),
   #(party_get_position, pos0, "p_town_34"), 
-  (party_set_ai_patrol_radius, ":qst_neko_party", 1),
+  (party_set_ai_patrol_radius, ":qst_mod_trouble", 1),
   
   (str_store_troop_name, s9,  "trp_hareck",),
   (setup_quest_giver, "trp_hareck",s9),  
@@ -1642,7 +1642,7 @@ but before burial, you must allow the crows to descend on their breasts and rele
 
   ['trp_npcneko',"start", [(this_or_next|quest_slot_eq,"qst_mod_trouble","slot_quest_current_state",3),(this_or_next|quest_slot_eq,"qst_mod_trouble","slot_quest_current_state",4),(quest_slot_eq,"qst_mod_trouble","slot_quest_current_state",2)],
   "You have come to meet your doom, {knave/wench}...","geoffrey_duelling",[]],
-  [LazyFlag('trp_npcneko')|plyr,"geoffrey_duelling", [(party_set_ai_behavior, ":qst_neko_party", ai_bhvr_travel_to_point), (party_set_ai_object, ":qst_neko_party", "p_village_34")], "Let's get this over with...",
+  [LazyFlag('trp_npcneko')|plyr,"geoffrey_duelling", [(party_set_ai_behavior, ":qst_mod_trouble", ai_bhvr_travel_to_point), (party_set_ai_object, ":qst_mod_trouble", "p_village_34")], "Let's get this over with...",
   "close_window",
   [        (quest_set_slot,"qst_mod_trouble","slot_quest_current_state",4),
     #(call_script, "script_change_player_relation_with_faction", "$g_encountered_party_faction", -99), #la q designemos
@@ -29701,7 +29701,7 @@ Farewell.", "close_window",[(fail_quest,"qst_espada_beowulf"),(call_script, "scr
   #      (remove_party, "pt_eadfrith"),
   #      (add_troop_to_site, "trp_especiales_3","scn_town_5_castle",1),
   # (map_get_random_position_around_position, pos2, pos1, 2),
-                #(party_set_ai_target_position, ":qst_neko_party", "p_village_88"),
+                #(party_set_ai_target_position, ":qst_mod_trouble", "p_village_88"),
                 (party_set_ai_object,"$qst_eadfrith_party","p_village_156"),(party_set_ai_behavior, "$qst_eadfrith_party", ai_bhvr_travel_to_party),]],
 
    #(start_quest,"qst_beowulf_p2"),

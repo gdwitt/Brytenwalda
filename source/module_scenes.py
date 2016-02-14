@@ -1882,6 +1882,7 @@ scenes = [
     ("test3",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000000b00511d98004b12e0000039f00004e6300005c7d",
     [],[],"outer_terrain_plain"),
 
+#multiplayer and coop scenes were here
   ("wedding",sf_indoors, "castle_h_interior_a", "bo_castle_h_interior_a", (-100,-100),(100,100),-100,"0", [],[]),
   ("lair_steppe_bandits",sf_generate,"none", "none", (0,0),(100,100),-100,"0x00000000200c69ac80043d0d0000556b0000768400003ea9",
     [],[],"outer_terrain_plain"), #a box canyon with a spring? -tents...

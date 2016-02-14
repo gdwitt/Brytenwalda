@@ -20094,10 +20094,10 @@ Controlling the mouth of the Clyde was where king Riderch Hael fought the Bernic
 #cambiadas facciones abajo chief	      
 	      (try_begin),
 	        (eq, ":starting_town_faction", "fac_kingdom_18"), #player selected swadian city as starting town.
-	        (assign, ":scene_to_use", "scn_lair_forest_bandits"),	    
+	        (assign, ":scene_to_use", "scn_lair_taiga_bandits"),	    
 	      (else_try),
 	        (eq, ":starting_town_faction", "fac_kingdom_4"), #player selected Vaegir city as starting town.
-	        (assign, ":scene_to_use", "scn_lair_taiga_bandits"),	    
+	        (assign, ":scene_to_use", "scn_lair_forest_bandits"),	    
 	      (else_try),
 	        (eq, ":starting_town_faction", "fac_kingdom_23"), #player selected Khergit city as starting town.
 	        (assign, ":scene_to_use", "scn_lair_steppe_bandits"),	    

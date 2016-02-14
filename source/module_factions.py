@@ -27,6 +27,7 @@ default_kingdom_relations = [
 ]
 
 factions = [
+    ("arthurian","art Faction", 0, 0.9, [], []),
     ("no_faction", "No Faction", 0, 0.9, [], []),
     ("commoners", "Commoners", 0, 0.1, [
         ("player_faction", 0.1)

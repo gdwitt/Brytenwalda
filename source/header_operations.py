@@ -2464,13 +2464,14 @@ item_get_shield_width = 3812 #(item_get_shield_width, <destination>, <item_kind_
 # item_has_capability = 3825 #(item_has_capability, <item_kind_no>, <capability>), #Fails if <item_kind_no> doesn't have <capability>
 # item_has_modifier = 3826 #(item_has_modifier, <item_kind_no>, <item_modifier_no>), #Fails if <item_modifier_no> is not a valid modifier for <item_kind_no>
 # item_has_faction = 3827 #(item_has_faction, <item_kind_no>, <faction_no>), #Fails if <item_kind_no> doesn't have <faction_no> in its faction list
-item_set_thrust_damage = 3828 #(item_set_thrust_damage, <item_kind_no>, <value>), #Sets <item_kind_no>'s thrust damage to <value>
-item_set_thrust_damage_type = 3829 #(item_set_thrust_damage_type, <item_kind_no>, <value>), #Sets <item_kind_no>'s thrust damage type to <value>
-item_set_swing_damage = 3830 #(item_set_swing_damage, <item_kind_no>, <value>), #Sets <item_kind_no>'s thrust damage to <value>
-item_set_swing_damage_type = 3831 #(item_set_swing_damage_type, <item_kind_no>, <value>), #Sets <item_kind_no>'s thrust damage type to <value>
-item_set_head_armor = 3832 #(item_set_head_armor, <item_kind_no>, <value>), #Sets <item_kind_no>'s head armor to <value>
-item_set_body_armor = 3833 #(item_set_body_armor, <item_kind_no>, <value>), #Sets <item_kind_no>'s body armor to <value>
-item_set_leg_armor = 3834 #(item_set_leg_armor, <item_kind_no>, <value>), #Sets <item_kind_no>'s leg armor to <value>
+#BELow are duplicated causing errors
+# item_set_thrust_damage = 3828 #(item_set_thrust_damage, <item_kind_no>, <value>), #Sets <item_kind_no>'s thrust damage to <value>
+# item_set_thrust_damage_type = 3829 #(item_set_thrust_damage_type, <item_kind_no>, <value>), #Sets <item_kind_no>'s thrust damage type to <value>
+# item_set_swing_damage = 3830 #(item_set_swing_damage, <item_kind_no>, <value>), #Sets <item_kind_no>'s thrust damage to <value>
+# item_set_swing_damage_type = 3831 #(item_set_swing_damage_type, <item_kind_no>, <value>), #Sets <item_kind_no>'s thrust damage type to <value>
+# item_set_head_armor = 3832 #(item_set_head_armor, <item_kind_no>, <value>), #Sets <item_kind_no>'s head armor to <value>
+# item_set_body_armor = 3833 #(item_set_body_armor, <item_kind_no>, <value>), #Sets <item_kind_no>'s body armor to <value>
+# item_set_leg_armor = 3834 #(item_set_leg_armor, <item_kind_no>, <value>), #Sets <item_kind_no>'s leg armor to <value>
 ##gdwe from top
 # item_get_weight                       = 2700 # (item_get_weight, <destination_fixed_point>, <item_kind_no>), #Stores <item_kind_no>'s weight into <destination_fixed_point>
 # item_get_value                        = 2701 # (item_get_value, <destination>, <item_kind_no>), #Stores <item_kind_no>'s value into <destination>

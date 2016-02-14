@@ -4,7 +4,8 @@ from header_common import *
 from header_triggers import ti_once, key_left_mouse_button
 from header_parties import ai_bhvr_attack_party, ai_bhvr_travel_to_party, \
     pf_default_behavior, ai_bhvr_escort_party, ai_bhvr_hold
-
+#from header_items import *
+#from header_skills import *
 from module_constants import *
 
 import companions, caravans
@@ -33,6 +34,8 @@ triggers = [
    (store_time_of_day, ":cur_hour"),
    (this_or_next|ge, ":cur_hour", 20),
      (le, ":cur_hour", 1),
+     (assign,  reg9,":cur_hour",)
+		
   ],
   [
     (call_script, "script_find_neighbors"),
@@ -86,7 +89,11 @@ triggers = [
       (try_end), # try_for_range, ":faction_2"
 
       (call_script, "script_update_faction_notes", ":faction_1"),
-    (try_end), # try_for_range, ":faction_1"
+  	  (try_begin),
+          (eq, "$cheat_mode", 2),
+    		  (display_message, "@{!}DEBUG -- DEBUG calling startwarpeacenew {reg9}"),
+      (try_end),
+    (try_end), 
   ]),
 
 #  (1.0, 0, ti_once, [(map_free,0)], [(start_map_conversation, "trp_guide1", -1)]),
@@ -2395,5 +2402,6 @@ triggers = [
 # ]),
 ] \
 + companions.triggers \
-+ caravans.triggers \
-    + constable.triggers \
++ constable.triggers \
++ caravans.interactions.triggers \
+

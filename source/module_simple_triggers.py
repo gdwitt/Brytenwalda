@@ -2137,8 +2137,10 @@ simple_triggers = [
 	
     #Individual lord political calculations
     #Check for lords without fiefs, auto-defections, etc
-    (0.5,	
-     [
+    (24,	##this was at 0.5
+     [(store_time_of_day, ":cur_hour"),
+		(assign, reg1, ":cur_hour",),
+		(display_message, "@{!}DEBUG fief penalties at {reg1}",0xFF0000),
         (val_add, "$g_lord_long_term_count", 1),
         (try_begin),
           (neg|is_between, "$g_lord_long_term_count", "trp_kingdom_heroes_including_player_begin", active_npcs_end),
@@ -2153,7 +2155,7 @@ simple_triggers = [
 		(try_end),
 		
 	    (try_begin),
-	      (eq, "$cheat_mode", 1),
+	      (eq, "$cheat_mode", 2),
 		  (store_time_of_day, ":cur_hour"),
           (assign, reg9, ":cur_hour"),
           (str_store_troop_name, s9, ":troop_no"),
@@ -3515,6 +3517,7 @@ simple_triggers = [
        (try_end),
     ]),
 
+#caravans and spawn farmer triggers moved
  #Increase castle food stores #TEMPERED chief CHANGED FROM 2 HOURS TO 24 HOURS
   (24,
    [
@@ -5757,6 +5760,7 @@ simple_triggers = [
       (try_end),
     (try_end),
     ]),
+##recruiter trigger moved
 
  #process gift_carvans
  (0.5,
@@ -6158,6 +6162,7 @@ simple_triggers = [
     (try_end),
   (try_end),
  ]),
+##constable training moved
 
       # Policy
    (30 * 24,

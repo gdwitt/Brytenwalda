@@ -52,10 +52,10 @@ party_templates = [
   ("desert_bandits","Bandits Gang",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_outlaws",bandit_personality,[("trp_looter_leader2",1,2),("trp_desert_bandit",8,58)]),
   ("forest_bandits","Unrights Gang",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_forest_bandits",bandit_personality,[("trp_looter_leader2",1,2),("trp_forest_bandit",4,52),("trp_brigand",8,40)]),
   ("mountain_bandits","Band of Thieves and Murderers",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_outlaws",bandit_personality,[("trp_looter_leader2",1,2),("trp_mountain_bandit",4,60)]),
-  ("sea_raiders","Frankish Raiders",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_sea_raider_leader2",1,2),("trp_sea_raider",15,70)]),
-  ("sea_raiders2","Dena Raiders",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_sea_raider_leader2",1,2),("trp_dena_pirate",14,70)]),
+  ("sea_raiders","Frankish Raiders",LazyFlag("icon_sea_warrior")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_sea_raider_leader2",1,2),("trp_sea_raider",15,70)]),
+  ("sea_raiders2","Dena Raiders",LazyFlag("icon_sea_warrior")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_sea_raider_leader2",1,2),("trp_dena_pirate",14,70)]),
 #new party chief
-  ("sea_band","Warrior Band",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_looter_leader2",1,2),("trp_sea_raider",8,40),("trp_looter",8,40),("trp_mountain_bandit",5,30)]),
+  ("sea_band","Warrior Band",LazyFlag("icon_sea_warrior")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_looter_leader2",1,2),("trp_sea_raider",8,40),("trp_looter",8,40),("trp_mountain_bandit",5,30)]),
 #chief acaba
   ("deserters","Masterless Men",LazyFlag("icon_axeman")|carries_goods(3),0,"fac_deserters",bandit_personality,[]),
   
@@ -81,6 +81,7 @@ party_templates = [
 ##  ("noble_refugees", "Noble Refugees", LazyFlag("icon_gray_knight")|carries_goods(12)|pf_quest_party,0,"fac_noble_refugees",merchant_personality,[("trp_noble_refugee",3,5),("trp_noble_refugee_woman",5,7)]),
 
   ("forager_party","Foraging Party",LazyFlag("icon_gray_knight")|carries_goods(5)|pf_show_faction,0,"fac_commoners",merchant_personality,[]),
+#scout_party iy in constable folder
   ##  NEW PATROLS somebody chief patrullas
   ("patrol_party","Patrol",LazyFlag("icon_gray_knight")|carries_goods(2)|pf_show_faction,0,"fac_commoners",soldier_personality,[]),
   ("patrols_end","Patrol",LazyFlag("icon_gray_knight"),0,"fac_player_faction",aggressiveness_0|courage_15,[]),
@@ -289,6 +290,7 @@ party_templates = [
   ("dplmc_spouse","Your spouse",LazyFlag("icon_woman")|pf_civilian|pf_show_faction,0,"fac_neutral",merchant_personality,[]),
 
   ("dplmc_gift_caravan","Your Caravan",LazyFlag("icon_mule")|carries_goods(45)|pf_show_faction,0,"fac_commoners",escorted_merchant_personality,[("trp_caravan_master",1,1),("trp_merc_infantryt3",5,25)]),
+#recruiter in constable folder
    ##diplomacy chief  end
 #tempered chief
   ("skirmish_party","Skirmishers",LazyFlag("icon_khergit")|carries_goods(1)|pf_always_visible|pf_limit_members,0,"fac_commoners",aggressiveness_0 | courage_15,[]), #Tempered chief skirmish party
@@ -328,7 +330,7 @@ party_templates = [
   ("ambushers1","slotAmbushers",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_forest_bandits",aggressiveness_15 | courage_15,[("trp_forest_bandit",5,80)]),
   ("ambushers2","slotAmbushers",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_forest_bandits",aggressiveness_15 | courage_15,[("trp_forest_bandit",5,80)]),
   ("ambushers3","slotAmbushers",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_forest_bandits",aggressiveness_15 | courage_15,[("trp_forest_bandit",5,80)]),
-  
+#  ("slot","slotpt",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_forest_bandits",aggressiveness_15 | courage_15,[("trp_forest_bandit",5,80)]),
 
   ##  ("followers","Camp Followers",LazyFlag("icon_mule")|carries_goods(25)|pf_show_faction,0,"fac_commoners",merchant_personality,[("trp_caravan_master",1,3),("trp_merc_infantryt3",4,6),("trp_farmer",3,14),("trp_follower_woman",15,60),("trp_fighter_woman",12,40)]),
 ##  ("followersplayer","Camp Followers",LazyFlag("icon_mule")|carries_goods(25)|pf_show_faction,0,"fac_commoners",merchant_personality,[("trp_caravan_master",1,3),("trp_merc_infantryt3",4,6),("trp_farmer",3,14),("trp_follower_woman",15,60),("trp_fighter_woman",12,40)]),
