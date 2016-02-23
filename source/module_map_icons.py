@@ -33,9 +33,8 @@ map_icons = [
   ("khergit",0,"pict_footmant2", avatar_scale,"snd_gallop", 0.15, 0.173, 0),
   ("pict_footmant2_b",0,"pict_footmant2_b", avatar_scale,"snd_gallop", 0.15, 0.173, 0),
   ("axeman",0,"bandit_a", avatar_scale,"snd_footstep_grass", 0.15, 0.173, 0),
-  ("sea_warrior",0,"sea_warrior", avatar_scale,"snd_footstep_grass", 0.15, 0.173, 0),
   ("woman",0,"woman_a", avatar_scale,"snd_footstep_grass", 0.15, 0.173, 0),
-  ("woman_b",0,"woman_b", avatar_scale,"snd_footstep_grass", 0.15, 0.173, 0),
+  ("woman_b",0,"sea_warrior", avatar_scale,"snd_footstep_grass", 0.15, 0.173, 0),
   ("town",mcn_no_shadow,"map_vikingcastle", 0.75,0), #cambiado para capitales chief
   ("town_steppe",mcn_no_shadow,"monastery", 0.45,0), #icono monastery chief, para lugares de culto y ruinas
   ("town_tradingport",mcn_no_shadow,"map_tradeport", 0.25,0), #ciudad con puerto chief

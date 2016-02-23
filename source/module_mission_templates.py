@@ -6,7 +6,7 @@ from header_mission_types import charge
 #from header_items import *
 #from module_constants import *
 
-
+from header_items import *
 import game_start
 from game_start import quest_merchant
 import multiplayer
@@ -1686,8 +1686,9 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
 
+    ]+ AI_triggers + heridas_chel + dplmc_battle_mode_triggers + formations_triggers + order_volley_triggers + rider_damage + warcry_chel + flail_triggers + common_wpn_swapping,
 
-    ]+ AI_triggers + heridas_chel + dplmc_battle_mode_triggers + formations_triggers + order_volley_triggers + rider_damage + warcry_chel,
+
   ),
 #chief diplomacy anadido encima
 
@@ -1972,7 +1973,8 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
 
-    ]+ AI_triggers + dplmc_battle_mode_triggers + formations_triggers + order_volley_triggers + rider_damage + warcry_chel + heridas_chel+ flail_triggers + common_wpn_swapping,
+    ]+ AI_triggers + heridas_chel + dplmc_battle_mode_triggers + formations_triggers + order_volley_triggers + rider_damage + warcry_chel + flail_triggers + common_wpn_swapping,
+
   ),
 
 
@@ -2261,7 +2263,8 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
 
-    ]+ AI_triggers + dplmc_battle_mode_triggers + formations_triggers + order_volley_triggers + rider_damage + warcry_chel + heridas_chel+ flail_triggers + common_wpn_swapping,
+    ]+ AI_triggers + heridas_chel + dplmc_battle_mode_triggers + formations_triggers + order_volley_triggers + rider_damage + warcry_chel + flail_triggers + common_wpn_swapping,
+
   ),
 ####emboscada chief acaba
 

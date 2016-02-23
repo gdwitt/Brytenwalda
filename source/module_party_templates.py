@@ -52,10 +52,10 @@ party_templates = [
   ("desert_bandits","Bandits Gang",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_outlaws",bandit_personality,[("trp_looter_leader2",1,2),("trp_desert_bandit",8,58)]),
   ("forest_bandits","Unrights Gang",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_forest_bandits",bandit_personality,[("trp_looter_leader2",1,2),("trp_forest_bandit",4,52),("trp_brigand",8,40)]),
   ("mountain_bandits","Band of Thieves and Murderers",LazyFlag("icon_axeman")|carries_goods(2),0,"fac_outlaws",bandit_personality,[("trp_looter_leader2",1,2),("trp_mountain_bandit",4,60)]),
-  ("sea_raiders","Frankish Raiders",LazyFlag("icon_sea_warrior")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_sea_raider_leader2",1,2),("trp_sea_raider",15,70)]),
-  ("sea_raiders2","Dena Raiders",LazyFlag("icon_sea_warrior")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_sea_raider_leader2",1,2),("trp_dena_pirate",14,70)]),
+  ("sea_raiders","Frankish Raiders",LazyFlag("icon_woman_b")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_sea_raider_leader2",1,2),("trp_sea_raider",15,70)]),
+  ("sea_raiders2","Dena Raiders",LazyFlag("icon_woman_b")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_sea_raider_leader2",1,2),("trp_dena_pirate",14,70)]),
 #new party chief
-  ("sea_band","Warrior Band",LazyFlag("icon_sea_warrior")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_looter_leader2",1,2),("trp_sea_raider",8,40),("trp_looter",8,40),("trp_mountain_bandit",5,30)]),
+  ("sea_band","Warrior Band",LazyFlag("icon_woman_b")|carries_goods(2),0,"fac_mountain_bandits",bandit_personality,[("trp_looter_leader2",1,2),("trp_sea_raider",8,40),("trp_looter",8,40),("trp_mountain_bandit",5,30)]),
 #chief acaba
   ("deserters","Masterless Men",LazyFlag("icon_axeman")|carries_goods(3),0,"fac_deserters",bandit_personality,[]),
   

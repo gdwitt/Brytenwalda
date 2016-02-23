@@ -239,7 +239,7 @@ _end_dialogs = [
    []],
 
   [anyone,"start", [], "Surrender or die. Make your choice", "battle_reason_stated",[]],
-  [anyone|plyr,"battle_reason_stated", [], "I am not afraid of you. I will fight.", "close_window",[[encounter_attack]]],
+  [anyone|plyr,"battle_reason_stated", [], "Whoa! This must be a debug.", "close_window",[[encounter_attack]]],
 
   [anyone,"start", [], "Hello. What can I do for you?", "free",[]],
   [anyone|plyr,"free", [[neg|in_meta_mission]], "Tell me about yourself", "view_char_requested",[]],
@@ -19739,7 +19739,7 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
     (try_end),
     (ge, ":num_enemies", 1),
     (store_current_hours, ":cur_hours"),
-    (store_add,  ":week_past_last_offer_time", ":last_offer_time", 7 * 24),
+    (store_add,  ":week_past_last_offer_time", ":last_offer_time", 24),  # 7 * 24 gdw test to increase 22016
     (val_add,  ":last_offer_time", 24),
     (ge, ":cur_hours", ":last_offer_time"),
     (store_random_in_range, ":rand", 0, 100),
@@ -19747,11 +19747,12 @@ Hand over my {reg19} scillingas, if you please, and end our business together.",
 		(ge, ":cur_hours", ":week_past_last_offer_time"),
 		
 		
-	(troop_get_type, ":type", "trp_player"),
-    (val_mod, ":type", 2),	#gender fix chief moto
-	(this_or_next|eq, ":type", 0),
+	# (troop_get_type, ":type", "trp_player"),## gdw https://forums.taleworlds.com/index.php?topic=347063.msg8307942#msg8307942
+ #    (val_mod, ":type", 2),	# gender fix chief moto  
+	#(this_or_next|eq, ":type", 0),
 	(this_or_next|troop_slot_eq, "$g_talk_troop", "slot_lord_reputation_type", lrep_cunning),
-		(troop_slot_eq, "$g_talk_troop", "slot_lord_reputation_type", lrep_goodnatured),
+		(this_or_next|troop_slot_eq, "$g_talk_troop", "slot_lord_reputation_type", lrep_goodnatured),
+    (troop_slot_eq, "$g_talk_troop", "slot_lord_reputation_type", lrep_martial),##gdw new lrep type this might cause a bug test it
     ],
    "{!}Warning: This line should never display.", "lord_propose_mercenary",[(store_current_hours, ":cur_hours"),
                                   (faction_set_slot, "$g_talk_troop_faction", "slot_faction_last_mercenary_offer_time",  ":cur_hours")]],
@@ -28484,7 +28485,7 @@ I suppose there are plenty of bountyhunters around to get the job done . . .", "
 
   [anyone, "mercenary_after_recruited_2", [], "Yes {sir/madam}. We'll be ready when you tell us to leave.", "close_window", []],
 
-  [anyone|plyr, "mercenary_tavern_talk", [(try_begin),     #More Mercaneries Tavern
+  [anyone|plyr, "mercenary_tavern_talk", [(try_begin),     #More Mercaneries Tavern script from forge gdw
                                           (party_get_slot, ":mercenary_troop", "$g_encountered_party", "slot_center_mercenary_troop_type"),
                                           (eq, "$g_talk_troop", ":mercenary_troop"),                     
                                           (party_get_slot, ":mercenary_amount", "$g_encountered_party", "slot_center_mercenary_troop_amount"),
